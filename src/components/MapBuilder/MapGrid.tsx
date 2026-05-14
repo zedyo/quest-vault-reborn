@@ -56,7 +56,10 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
         : '1px solid rgba(255,255,255,0.2)',
     borderRadius: 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
-    overflow: 'hidden',
+    // No overflow:hidden — CSS clips layout box before transforms, which would
+    // crop the image for non-square tiles rotated 90°/270°.
+    // Visual overflow after rotation stays within bounds; absolute siblings are unaffected.
+    overflow: 'visible',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.75 : 1,
