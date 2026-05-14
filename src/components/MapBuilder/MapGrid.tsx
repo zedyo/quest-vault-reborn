@@ -1,9 +1,22 @@
-import { useRef, CSSProperties } from 'react'
+import { useRef, CSSProperties, useState } from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
+
+const EXPANSION_IMG_PATH: Record<string, string> = {
+  'base': 'base-game',
+  'lair-of-the-wyrm': 'lair-of-the-wyrm',
+  'labyrinth-of-ruin': 'labyrinth-of-ruin',
+  'the-trollfens': 'the-trollfens',
+  'shadow-of-nerekhall': 'shadow-of-nerekhall',
+}
+
+function tileImageUrl(tileId: string, expansionId: string): string {
+  const expPath = EXPANSION_IMG_PATH[expansionId] ?? expansionId
+  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/map-tiles/d2e/${expPath}/bg-${tileId}.png`
+}
 
 export function effectiveDims(tile: PlacedMapTile) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
@@ -22,6 +35,7 @@ interface DraggableTileProps {
 function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTileProps) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
   const { cols, rows } = effectiveDims(tile)
+  const [imgError, setImgError] = useState(false)
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: tile.instanceId,
@@ -34,7 +48,7 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     top: tile.row * CELL_SIZE,
     width: cols * CELL_SIZE,
     height: rows * CELL_SIZE,
-    backgroundColor: def?.color ?? '#374151',
+    backgroundColor: imgError || !def ? (def?.color ?? '#374151') : 'transparent',
     border: isSelected
       ? '2px solid #f59e0b'
       : isDragging
@@ -51,9 +65,15 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     opacity: isDragging ? 0.75 : 1,
     userSelect: 'none',
     touchAction: 'none',
-    boxShadow: isDragging ? '0 8px 24px rgba(0,0,0,0.6)' : undefined,
+    boxShadow: isDragging
+      ? '0 8px 24px rgba(0,0,0,0.6)'
+      : isSelected
+        ? '0 0 0 1px rgba(245,158,11,0.3)'
+        : undefined,
   }
 
+  const imgUrl = def ? tileImageUrl(tile.tileId, def.expansionId) : null
+  const rotationDeg = tile.rotation
   const fontSize = Math.min(cols, rows) >= 3 ? 11 : 9
 
   return (
@@ -69,21 +89,38 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
       }}
       title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
     >
-      <span
-        style={{
-          fontSize,
-          color: 'rgba(255,255,255,0.75)',
-          textAlign: 'center',
-          lineHeight: 1.3,
-          padding: 2,
-          pointerEvents: 'none',
-        }}
-      >
-        {def?.label}
-        {tile.rotation !== 0 && (
-          <span style={{ display: 'block', fontSize: 8, opacity: 0.55 }}>{tile.rotation}°</span>
-        )}
-      </span>
+      {imgUrl && !imgError ? (
+        <img
+          src={imgUrl}
+          alt={def?.label}
+          onError={() => setImgError(true)}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transform: `rotate(${rotationDeg}deg)`,
+            transformOrigin: 'center',
+            pointerEvents: 'none',
+            display: 'block',
+          }}
+        />
+      ) : (
+        <span
+          style={{
+            fontSize,
+            color: 'rgba(255,255,255,0.75)',
+            textAlign: 'center',
+            lineHeight: 1.3,
+            padding: 2,
+            pointerEvents: 'none',
+          }}
+        >
+          {def?.label}
+          {tile.rotation !== 0 && (
+            <span style={{ display: 'block', fontSize: 8, opacity: 0.55 }}>{tile.rotation}°</span>
+          )}
+        </span>
+      )}
     </div>
   )
 }
