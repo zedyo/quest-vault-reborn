@@ -71,30 +71,28 @@ function formatAbility(text: string): string {
 
 function MovementIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="8" cy="8" r="8" fill="#15803d" />
-      {/* Side-profile boot: ankle shaft top-left, foot extends right */}
-      <path d="M6.5,3.5 L6.5,8.5 L4.5,8.5 L4.5,11.5 L11.5,11.5 L11.5,9 L9,9 L9,3.5 Z" fill="white" />
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#15803d" />
+      {/* Boot side-profile: wider shaft (7-14) gives better proportions at small sizes */}
+      <path d="M7,3 L7,14 L4.5,14 L4.5,20.5 L19.5,20.5 L19.5,15.5 L14,15.5 L14,3 Z" fill="white" />
     </svg>
   )
 }
 
 function HealthIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="8" cy="8" r="8" fill="#b91c1c" />
-      {/* Classic heart shape */}
-      <path d="M8,12 L3,7 C3,4.5 5,4 6.5,5 Q7.5,5.5 8,6.5 Q8.5,5.5 9.5,5 C11,4 13,4.5 13,7 Z" fill="white" />
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#b91c1c" />
+      <path d="M12,19 L4.5,11 C4.5,7 8,6 10,8.5 Q11,9.5 12,11 Q13,9.5 14,8.5 C16,6 19.5,7 19.5,11 Z" fill="white" />
     </svg>
   )
 }
 
 function DefenseIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="8" cy="8" r="8" fill="#6b7280" />
-      {/* Pentagon shield pointing downward */}
-      <path d="M8,12.5 L3,9 L3,3.5 L13,3.5 L13,9 Z" fill="white" />
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#6b7280" />
+      <path d="M12,20.5 L4.5,15.5 L4.5,5.5 L19.5,5.5 L19.5,15.5 Z" fill="white" />
     </svg>
   )
 }
@@ -110,43 +108,41 @@ interface StatBlockProps {
 }
 
 function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
-  const rowTextCls = compact ? 'text-xs' : 'text-sm'
-  const labelTextCls = compact ? 'text-xs' : 'text-sm'
+  const textCls = compact ? 'text-xs' : 'text-sm'
   const sectionHeaderCls = compact ? 'text-[10px]' : 'text-xs'
   const sectionTextCls = compact ? 'text-[10px]' : 'text-xs'
   const iconSize = compact ? 14 : 16
 
   return (
     <div className={`rounded p-2 flex-1 min-w-0 ${isElite ? 'bg-yellow-950/40 border border-yellow-800/30' : 'bg-dungeon-800/50'}`}>
-      <div className={`${labelTextCls} font-semibold mb-1.5 ${isElite ? 'text-gold-400' : 'text-gray-400'}`}>
+      <div className={`${textCls} font-semibold mb-1.5 ${isElite ? 'text-gold-400' : 'text-gray-400'}`}>
         {label}
       </div>
-      <div className="space-y-1">
-        <div className="flex items-center gap-1.5">
-          <span className={`text-gray-500 ${rowTextCls} w-14 shrink-0 flex items-center gap-1`}>
-            Bewegung <MovementIcon size={iconSize} />
-          </span>
-          <span className={`text-gray-200 font-medium ${rowTextCls}`}>{stats.speed}</span>
+      {/* CSS grid: label column auto-sizes to widest label so all word labels align */}
+      <div className="grid gap-y-1 items-center" style={{ gridTemplateColumns: 'auto 1fr', columnGap: 6 }}>
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <MovementIcon size={iconSize} />Bewegung
+        </span>
+        <span className={`text-gray-200 font-medium ${textCls}`}>{stats.speed}</span>
+
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <HealthIcon size={iconSize} />Leben
+        </span>
+        <span className={`text-gray-200 font-medium ${textCls}`}>{stats.health}</span>
+
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <DefenseIcon size={iconSize} />Verteid.
+        </span>
+        <div className="flex gap-0.5">
+          {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className={`text-gray-500 ${rowTextCls} w-14 shrink-0 flex items-center gap-1`}>
-            Leben <HealthIcon size={iconSize} />
-          </span>
-          <span className={`text-gray-200 font-medium ${rowTextCls}`}>{stats.health}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <span className={`text-gray-500 ${rowTextCls} w-14 shrink-0 flex items-center gap-1`}>
-            Verteid. <DefenseIcon size={iconSize} />
-          </span>
-          <div className="flex gap-0.5">
-            {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          <span className={`text-gray-500 ${rowTextCls} w-14 shrink-0`}>Angriff</span>
-          <div className="flex gap-0.5">
-            {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
-          </div>
+
+        {/* Invisible spacer aligns "Angriff" word with the labeled rows above */}
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <span style={{ width: iconSize, height: iconSize, display: 'inline-block', flexShrink: 0 }} />Angriff
+        </span>
+        <div className="flex gap-0.5">
+          {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
       </div>
 
