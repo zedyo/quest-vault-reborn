@@ -48,17 +48,14 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     top: tile.row * CELL_SIZE,
     width: cols * CELL_SIZE,
     height: rows * CELL_SIZE,
-    backgroundColor: imgError || !def ? (def?.color ?? '#374151') : 'transparent',
+    backgroundColor: imgError ? (def?.color ?? '#374151') : 'transparent',
     border: isSelected
       ? '2px solid #f59e0b'
       : isDragging
         ? '2px solid #60a5fa'
-        : '1px solid rgba(255,255,255,0.15)',
+        : '1px solid rgba(255,255,255,0.2)',
     borderRadius: 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     overflow: 'hidden',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
     transform: CSS.Translate.toString(transform),
@@ -68,12 +65,14 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     boxShadow: isDragging
       ? '0 8px 24px rgba(0,0,0,0.6)'
       : isSelected
-        ? '0 0 0 1px rgba(245,158,11,0.3)'
+        ? '0 0 0 2px rgba(245,158,11,0.5)'
         : undefined,
   }
 
   const imgUrl = def ? tileImageUrl(tile.tileId, def.expansionId) : null
-  const rotationDeg = tile.rotation
+  // Natural (unrotated) tile dimensions in pixels
+  const natW = (def?.cols ?? cols) * CELL_SIZE
+  const natH = (def?.rows ?? rows) * CELL_SIZE
   const fontSize = Math.min(cols, rows) >= 3 ? 11 : 9
 
   return (
@@ -90,36 +89,55 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
       title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
     >
       {imgUrl && !imgError ? (
+        /*
+         * Image rotation: the outer div has the EFFECTIVE (possibly swapped) dimensions.
+         * The image has its NATURAL dimensions and is rotated via CSS transform.
+         * translateX/Y(-50%) centers the natural image in the container,
+         * then rotate() spins it — the visual result fills the container exactly.
+         */
         <img
           src={imgUrl}
           alt={def?.label}
           onError={() => setImgError(true)}
           style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transform: `rotate(${rotationDeg}deg)`,
-            transformOrigin: 'center',
-            pointerEvents: 'none',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: natW,
+            height: natH,
+            transform: `translateX(-50%) translateY(-50%) rotate(${tile.rotation}deg)`,
+            objectFit: 'fill',
             display: 'block',
+            pointerEvents: 'none',
           }}
         />
       ) : (
-        <span
+        <div
           style={{
-            fontSize,
-            color: 'rgba(255,255,255,0.75)',
-            textAlign: 'center',
-            lineHeight: 1.3,
-            padding: 2,
-            pointerEvents: 'none',
+            width: '100%',
+            height: '100%',
+            backgroundColor: def?.color ?? '#374151',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          {def?.label}
-          {tile.rotation !== 0 && (
-            <span style={{ display: 'block', fontSize: 8, opacity: 0.55 }}>{tile.rotation}°</span>
-          )}
-        </span>
+          <span
+            style={{
+              fontSize,
+              color: 'rgba(255,255,255,0.75)',
+              textAlign: 'center',
+              lineHeight: 1.3,
+              padding: 2,
+              pointerEvents: 'none',
+            }}
+          >
+            {def?.label}
+            {tile.rotation !== 0 && (
+              <span style={{ display: 'block', fontSize: 8, opacity: 0.55 }}>{tile.rotation}°</span>
+            )}
+          </span>
+        </div>
       )}
     </div>
   )

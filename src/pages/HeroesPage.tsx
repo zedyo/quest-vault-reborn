@@ -6,10 +6,10 @@ import { DicePip } from '../components/DiceDisplay'
 import type { Hero } from '../types/game'
 
 const ARCHETYPE_IMG_FOLDER: Record<Hero['archetype'], string> = {
-  krieger: 'warrior',
-  heiler: 'healer',
-  magier: 'mage',
-  spaeher: 'scout',
+  krieger: 'warriors',
+  heiler: 'healers',
+  magier: 'mages',
+  spaeher: 'scouts',
 }
 
 const EXPANSION_IMG_PATH: Record<string, string> = {

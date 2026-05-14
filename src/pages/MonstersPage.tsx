@@ -3,7 +3,7 @@ import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import type { MonsterStats } from '../types/game'
+import type { Monster, MonsterStats } from '../types/game'
 
 const EXPANSION_IMG_PATH: Record<string, string> = {
   'base': 'base-game',
@@ -33,13 +33,13 @@ function monsterImageUrl(monsterId: string, expansionId: string): string {
 interface StatBlockProps {
   stats: MonsterStats
   label: string
-  isMaster?: boolean
+  isElite?: boolean
 }
 
-function StatBlock({ stats, label, isMaster }: StatBlockProps) {
+function StatBlock({ stats, label, isElite }: StatBlockProps) {
   return (
-    <div className={`rounded p-2 flex-1 min-w-0 ${isMaster ? 'bg-yellow-950/40 border border-yellow-800/30' : 'bg-dungeon-800/50'}`}>
-      <div className={`text-xs font-semibold mb-1.5 ${isMaster ? 'text-gold-400' : 'text-gray-400'}`}>
+    <div className={`rounded p-2 flex-1 min-w-0 ${isElite ? 'bg-yellow-950/40 border border-yellow-800/30' : 'bg-dungeon-800/50'}`}>
+      <div className={`text-xs font-semibold mb-1.5 ${isElite ? 'text-gold-400' : 'text-gray-400'}`}>
         {label}
       </div>
       <div className="space-y-1">
@@ -84,11 +84,83 @@ function StatBlock({ stats, label, isMaster }: StatBlockProps) {
   )
 }
 
+interface LightboxProps {
+  monster: Monster
+  imgUrl: string
+  onClose: () => void
+}
+
+function MonsterLightbox({ monster, imgUrl, onClose }: LightboxProps) {
+  const [imgError, setImgError] = useState(false)
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-dungeon-900 border border-dungeon-600 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between p-4 border-b border-dungeon-700">
+          <div>
+            <h3 className="text-lg font-bold text-gray-100">{monster.nameDe}</h3>
+            <p className="text-gray-500 text-sm">{monster.nameEn}</p>
+            {monster.traits && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {monster.traits.map((t) => (
+                  <span key={t} className="text-xs bg-dungeon-700 text-gray-400 px-1.5 py-0.5 rounded">{t}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-200 text-xl leading-none ml-4 shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-4 flex flex-col sm:flex-row gap-4">
+          {/* Large image */}
+          <div className="sm:w-48 shrink-0">
+            {!imgError ? (
+              <img
+                src={imgUrl}
+                alt={monster.nameEn}
+                className="w-full rounded border border-dungeon-700"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="w-full aspect-[2/3] bg-dungeon-800 rounded border border-dungeon-700 flex items-center justify-center text-5xl opacity-30">
+                👹
+              </div>
+            )}
+          </div>
+
+          {/* Stats */}
+          <div className="flex-1 space-y-3">
+            {monster.normal && (
+              <StatBlock stats={monster.normal} label="Normal" />
+            )}
+            {monster.master && (
+              <StatBlock stats={monster.master} label="Elite" isElite />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function MonstersPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set())
+  const [lightboxMonster, setLightboxMonster] = useState<Monster | null>(null)
 
   const expansionMap = useMemo(
     () => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])),
@@ -122,6 +194,14 @@ export default function MonstersPage() {
 
   return (
     <div className="space-y-6">
+      {lightboxMonster && (
+        <MonsterLightbox
+          monster={lightboxMonster}
+          imgUrl={monsterImageUrl(lightboxMonster.id, lightboxMonster.expansionId)}
+          onClose={() => setLightboxMonster(null)}
+        />
+      )}
+
       <div>
         <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Monster</h2>
         <p className="text-gray-400 text-sm">
@@ -168,8 +248,12 @@ export default function MonstersPage() {
                     return (
                       <div key={m.id} className="card hover:border-gold-700 transition-colors">
                         <div className="flex gap-3">
-                          {/* Image */}
-                          <div className="shrink-0 w-20 h-28 rounded overflow-hidden bg-dungeon-800 flex items-center justify-center">
+                          {/* Clickable image */}
+                          <button
+                            className="shrink-0 w-20 h-28 rounded overflow-hidden bg-dungeon-800 flex items-center justify-center hover:ring-2 hover:ring-gold-500 transition-all cursor-zoom-in"
+                            onClick={() => setLightboxMonster(m)}
+                            title="Karte vergrößern"
+                          >
                             {hasImg ? (
                               <img
                                 src={imgUrl}
@@ -181,15 +265,13 @@ export default function MonstersPage() {
                             ) : (
                               <span className="text-3xl opacity-30">👹</span>
                             )}
-                          </div>
+                          </button>
 
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between gap-2 mb-1">
-                              <div>
-                                <p className="text-gray-100 font-semibold text-sm leading-tight">{m.nameDe}</p>
-                                <p className="text-gray-500 text-xs">{m.nameEn}</p>
-                              </div>
+                            <div className="mb-1">
+                              <p className="text-gray-100 font-semibold text-sm leading-tight">{m.nameDe}</p>
+                              <p className="text-gray-500 text-xs">{m.nameEn}</p>
                             </div>
                             {m.traits && m.traits.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-2">
@@ -202,7 +284,7 @@ export default function MonstersPage() {
                             )}
                             <div className="flex gap-2">
                               {m.normal && <StatBlock stats={m.normal} label="Normal" />}
-                              {m.master && <StatBlock stats={m.master} label="Meister" isMaster />}
+                              {m.master && <StatBlock stats={m.master} label="Elite" isElite />}
                             </div>
                           </div>
                         </div>

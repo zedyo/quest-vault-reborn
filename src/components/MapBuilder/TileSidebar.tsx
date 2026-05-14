@@ -3,6 +3,56 @@ import { MAP_TILES } from '../../data/mapTiles'
 import { EXPANSIONS } from '../../data/expansions'
 import { useGameStore } from '../../store/useGameStore'
 
+const EXPANSION_IMG_PATH: Record<string, string> = {
+  'base': 'base-game',
+  'lair-of-the-wyrm': 'lair-of-the-wyrm',
+  'labyrinth-of-ruin': 'labyrinth-of-ruin',
+  'the-trollfens': 'the-trollfens',
+  'shadow-of-nerekhall': 'shadow-of-nerekhall',
+}
+
+function tileImageUrl(tileId: string, expansionId: string): string {
+  const expPath = EXPANSION_IMG_PATH[expansionId] ?? expansionId
+  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/map-tiles/d2e/${expPath}/bg-${tileId}.png`
+}
+
+interface TileThumbProps {
+  tileId: string
+  expansionId: string
+  color: string
+  cols: number
+  rows: number
+}
+
+function TileThumb({ tileId, expansionId, color, cols, rows }: TileThumbProps) {
+  const [imgError, setImgError] = useState(false)
+  const imgUrl = tileImageUrl(tileId, expansionId)
+
+  // Scale the tile proportionally to fit the thumbnail area (max 56px wide, up to 48px tall)
+  const maxW = 56
+  const maxH = 48
+  const scale = Math.min(maxW / cols, maxH / rows)
+  const thumbW = Math.round(cols * scale)
+  const thumbH = Math.round(rows * scale)
+
+  return (
+    <div
+      className="rounded overflow-hidden flex items-center justify-center mx-auto"
+      style={{ width: thumbW, height: thumbH, backgroundColor: color }}
+    >
+      {!imgError && (
+        <img
+          src={imgUrl}
+          alt={tileId}
+          onError={() => setImgError(true)}
+          style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block' }}
+          loading="lazy"
+        />
+      )}
+    </div>
+  )
+}
+
 interface Props {
   selectedTileId: string | null
   onSelect: (id: string) => void
@@ -45,7 +95,7 @@ export default function TileSidebar({ selectedTileId, onSelect }: Props) {
                 <span className="text-gray-500 text-xs">{open ? '▲' : '▼'}</span>
               </button>
               {open && (
-                <div className="px-2 pb-2 grid grid-cols-2 gap-1">
+                <div className="px-2 pb-2 grid grid-cols-2 gap-1.5">
                   {tiles.map((tile) => {
                     const isSelected = selectedTileId === tile.id
                     return (
@@ -53,21 +103,22 @@ export default function TileSidebar({ selectedTileId, onSelect }: Props) {
                         key={tile.id}
                         onClick={() => onSelect(tile.id)}
                         title={`${tile.label} (${tile.cols}×${tile.rows})`}
-                        className={`rounded text-xs p-1 transition-all border ${
+                        className={`rounded text-xs p-1.5 transition-all border flex flex-col items-center gap-1 ${
                           isSelected
-                            ? 'border-gold-400 bg-dungeon-700 text-gold-300'
-                            : 'border-dungeon-600 bg-dungeon-800 text-gray-400 hover:border-gold-600 hover:text-gray-200'
+                            ? 'border-gold-400 bg-dungeon-700 ring-1 ring-gold-400/50'
+                            : 'border-dungeon-600 bg-dungeon-800 hover:border-gold-700 hover:bg-dungeon-700'
                         }`}
                       >
-                        <div
-                          className="w-full rounded mb-1"
-                          style={{
-                            backgroundColor: tile.color,
-                            height: `${Math.min(tile.rows * 6, 36)}px`,
-                            opacity: 0.8,
-                          }}
+                        <TileThumb
+                          tileId={tile.id}
+                          expansionId={tile.expansionId}
+                          color={tile.color}
+                          cols={tile.cols}
+                          rows={tile.rows}
                         />
-                        <span className="truncate block">{tile.label}</span>
+                        <span className={`truncate block w-full text-center ${isSelected ? 'text-gold-300' : 'text-gray-400'}`}>
+                          {tile.label}
+                        </span>
                         <span className="text-gray-600 block">{tile.cols}×{tile.rows}</span>
                       </button>
                     )

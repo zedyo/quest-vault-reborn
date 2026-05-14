@@ -2,14 +2,54 @@ import type { Hero } from '../types/game'
 
 export const HEROES: Hero[] = [
   // Grundspiel
-  { id: 'avric-albright', name: 'Avric Albright', archetype: 'heiler', expansionId: 'base' },
-  { id: 'ashrian', name: 'Ashrian', archetype: 'heiler', expansionId: 'base' },
-  { id: 'leoric-of-the-book', name: 'Leoric of the Book', archetype: 'magier', expansionId: 'base' },
-  { id: 'widow-tarha', name: 'Widow Tarha', archetype: 'magier', expansionId: 'base' },
-  { id: 'jain-fairwood', name: 'Jain Fairwood', archetype: 'spaeher', expansionId: 'base' },
-  { id: 'tomble-burrowell', name: 'Tomble Burrowell', archetype: 'spaeher', expansionId: 'base' },
-  { id: 'grisban-the-thirsty', name: 'Grisban the Thirsty', archetype: 'krieger', expansionId: 'base' },
-  { id: 'syndrael', name: 'Syndrael', archetype: 'krieger', expansionId: 'base' },
+  {
+    id: 'avric-albright', name: 'Avric Albright', archetype: 'heiler', expansionId: 'base',
+    speed: 4, health: 12, stamina: 4, defense: ['gray'],
+    heroAbility: 'Jeder Held bis Reichweite 3 (einschließlich dir) erhält: „Schub: 1 Herz zurückgewinnen" bei allen Angriffswürfen.',
+    heroicFeat: 'Aktion: Würfle 2 rote Kraftwürfel. Jeder Held bis Reichweite 3 kann Herzen in Höhe der gewürfelten Herzen zurückgewinnen.',
+  },
+  {
+    id: 'ashrian', name: 'Ashrian', archetype: 'heiler', expansionId: 'base',
+    speed: 5, health: 10, stamina: 4, defense: ['gray'],
+    heroAbility: 'Wenn ein normales Monster zu Beginn seiner Aktivierung an dich angrenzt, wird es betäubt.',
+    heroicFeat: 'Aktion: Wähle ein Monster bis Reichweite 3. Jedes Monster dieser Monstergruppe wird betäubt.',
+  },
+  {
+    id: 'leoric-of-the-book', name: 'Leoric of the Book', archetype: 'magier', expansionId: 'base',
+    speed: 4, health: 8, stamina: 5, defense: ['gray'],
+    heroAbility: 'Jedes Monster bis Reichweite 3 erhält -1 Herz auf alle Angriffswürfe (Minimum 1).',
+    heroicFeat: 'Aktion: Führe einen Angriff mit einer Magie-Waffe durch. Ignoriert Reichweite; trifft alle angrenzenden Figuren. 1 Wurf, jede Figur verteidigt separat.',
+  },
+  {
+    id: 'widow-tarha', name: 'Widow Tarha', archetype: 'magier', expansionId: 'base',
+    speed: 4, health: 10, stamina: 4, defense: ['gray'],
+    heroAbility: 'Einmal pro Runde nach dem Würfeln für einen Angriff darfst du 1 Angriffs- oder Kraftwürfel neu würfeln. Das neue Ergebnis muss behalten werden.',
+    heroicFeat: 'Aktion: Führe einen Angriff gegen 2 verschiedene Monster in Sichtlinie durch. 1 Wurf, jedes Monster verteidigt separat.',
+  },
+  {
+    id: 'jain-fairwood', name: 'Jain Fairwood', archetype: 'spaeher', expansionId: 'base',
+    speed: 5, health: 8, stamina: 5, defense: ['gray'],
+    heroAbility: 'Wenn du durch einen Angriff Herzen erleidest, darfst du einige oder alle als Erschöpfung erleiden (max. deine Ausdauer).',
+    heroicFeat: 'Aktion: Bewege die doppelte Bewegungsweite und führe einen Angriff durch (vor, während oder nach der Bewegung).',
+  },
+  {
+    id: 'tomble-burrowell', name: 'Tomble Burrowell', archetype: 'spaeher', expansionId: 'base',
+    speed: 4, health: 8, stamina: 5, defense: ['gray'],
+    heroAbility: 'Wenn du angegriffen wirst und an mindestens einem anderen Helden angrenzt, darfst du dessen Verteidigungswürfelpool deinem eigenen hinzufügen.',
+    heroicFeat: 'Aktion: Entferne deine Figur und platziere einen Heldenmarker. Zu Beginn deines nächsten Zuges erscheinst du auf einem freien Feld bis Reichweite 4 des Markers.',
+  },
+  {
+    id: 'grisban-the-thirsty', name: 'Grisban the Thirsty', archetype: 'krieger', expansionId: 'base',
+    speed: 3, health: 14, stamina: 4, defense: ['gray'],
+    heroAbility: 'Jedes Mal, wenn du Erschöpfung durch eine Rastenaktion zurückgewinnst, darfst du auch 1 Zustandskarte von dir ablegen.',
+    heroicFeat: 'Verwende während deines Zuges: Führe 1 zusätzliche Angriffsaktion durch (zusätzlich zu den normalen 2 Aktionen).',
+  },
+  {
+    id: 'syndrael', name: 'Syndrael', archetype: 'krieger', expansionId: 'base',
+    speed: 4, health: 12, stamina: 4, defense: ['gray'],
+    heroAbility: 'Wenn du dich in diesem Zug nicht bewegt hast, gewinne am Ende deines Zuges 2 Erschöpfung zurück.',
+    heroicFeat: 'Verwende während deines Zuges: Wähle einen Helden bis Reichweite 3. Du und dieser Held führen sofort je eine Bewegungsaktion durch (zusätzlich zu den normalen 2 Aktionen).',
+  },
   // Die Höhle des Lindwurms
   { id: 'high-mage-quellen', name: 'High Mage Quellen', archetype: 'magier', expansionId: 'lair-of-the-wyrm' },
   { id: 'reynhart-the-worthy', name: 'Reynhart the Worthy', archetype: 'krieger', expansionId: 'lair-of-the-wyrm' },
