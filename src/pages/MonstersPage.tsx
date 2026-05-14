@@ -97,6 +97,167 @@ function DefenseIcon({ size = 16 }: { size?: number }) {
   )
 }
 
+// ── TraitIcon ─────────────────────────────────────────────────────────────────
+
+const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> = {
+  'Böse': {
+    bg: '#991b1b',
+    content: (
+      <>
+        <line x1="5" y1="5" x2="19" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+        <line x1="19" y1="5" x2="5" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+      </>
+    ),
+  },
+  'Tier': {
+    bg: '#92400e',
+    content: (
+      <>
+        <circle cx="12" cy="15.5" r="5" fill="white"/>
+        <circle cx="6.5" cy="9.5" r="2.5" fill="white"/>
+        <circle cx="12" cy="7.5" r="2.5" fill="white"/>
+        <circle cx="17.5" cy="9.5" r="2.5" fill="white"/>
+      </>
+    ),
+  },
+  'Elementar': {
+    bg: '#1d4ed8',
+    content: (
+      <path d="M12,3 L14,10 L21,12 L14,14 L12,21 L10,14 L3,12 L10,10 Z" fill="white"/>
+    ),
+  },
+  'Riese': {
+    bg: '#4b5563',
+    content: (
+      <>
+        <rect x="7" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
+        <rect x="13.5" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
+        <rect x="6" y="7" width="12" height="14" rx="1" fill="white"/>
+        <rect x="10" y="14" width="4" height="7" fill="#4b5563"/>
+      </>
+    ),
+  },
+  'Totenbeschwörer': {
+    bg: '#5b21b6',
+    content: (
+      <path d="M12,3 L13.5,9 L19,5 L15,10.5 L21,12 L15,13.5 L19,19 L13.5,15 L12,21 L10.5,15 L5,19 L9,13.5 L3,12 L9,10.5 L5,5 L10.5,9 Z" fill="white"/>
+    ),
+  },
+  'Goblin': {
+    bg: '#166534',
+    content: (
+      <path d="M8.5,3 L8.5,17 L12,22 L15.5,17 L15.5,3 Z" fill="white"/>
+    ),
+  },
+  'Wasser': {
+    bg: '#0369a1',
+    content: (
+      <path d="M12,3 L19.5,14 Q19.5,21 12,21 Q4.5,21 4.5,14 Z" fill="white"/>
+    ),
+  },
+  'Drache': {
+    bg: '#b45309',
+    content: (
+      <>
+        <path d="M12,14 L3,3 Q2,13 8,17 Z" fill="white"/>
+        <path d="M12,14 L21,3 Q22,13 16,17 Z" fill="white"/>
+        <ellipse cx="12" cy="19" rx="3" ry="4" fill="white"/>
+      </>
+    ),
+  },
+  'Untot': {
+    bg: '#374151',
+    content: (
+      <>
+        <path d="M12,4 Q19,4 19,11 Q19,17 12,17 Q5,17 5,11 Q5,4 12,4 Z" fill="white"/>
+        <circle cx="9.5" cy="11" r="2" fill="#374151"/>
+        <circle cx="14.5" cy="11" r="2" fill="#374151"/>
+        <rect x="9.5" y="16" width="2.5" height="4" fill="#374151"/>
+        <rect x="13" y="16" width="2.5" height="4" fill="#374151"/>
+      </>
+    ),
+  },
+  'Mensch': {
+    bg: '#b45309',
+    content: (
+      <>
+        <circle cx="12" cy="7.5" r="4.5" fill="white"/>
+        <path d="M4.5,22 L12,12 L19.5,22" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      </>
+    ),
+  },
+  'Konstrukt': {
+    bg: '#64748b',
+    content: (
+      <>
+        <circle cx="12" cy="12" r="6" fill="white"/>
+        <circle cx="12" cy="12" r="3" fill="#64748b"/>
+        <rect x="10.5" y="2" width="3" height="4" rx="1.5" fill="white"/>
+        <rect x="10.5" y="18" width="3" height="4" rx="1.5" fill="white"/>
+        <rect x="2" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
+        <rect x="18" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
+      </>
+    ),
+  },
+  'Dämon': {
+    bg: '#7f1d1d',
+    content: (
+      <path d="M5,21 Q3,12 8,5 Q10,9 12,12 Q14,9 16,5 Q21,12 19,21" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round"/>
+    ),
+  },
+  'Dunkel': {
+    bg: '#1e1b4b',
+    content: (
+      <>
+        <circle cx="12" cy="12" r="9" fill="white"/>
+        <circle cx="16" cy="9" r="8" fill="#1e1b4b"/>
+      </>
+    ),
+  },
+  'Feuer': {
+    bg: '#c2410c',
+    content: (
+      <>
+        <path d="M12,3 Q18.5,8 17.5,14 Q16.5,19.5 12,21 Q7.5,19.5 6.5,14 Q5.5,8 12,3 Z" fill="white"/>
+        <path d="M12,11 Q15,13 14.5,16 Q14,19 12,20 Q10,19 9.5,16 Q9,13 12,11 Z" fill="#c2410c"/>
+      </>
+    ),
+  },
+  'Kalt': {
+    bg: '#0284c7',
+    content: (
+      <>
+        <line x1="12" y1="3" x2="12" y2="21" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="3" y1="7.5" x2="21" y2="16.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="3" y1="16.5" x2="21" y2="7.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="2.5" fill="white"/>
+      </>
+    ),
+  },
+  'Chaos': {
+    bg: '#7c3aed',
+    content: (
+      <path d="M12,12 Q16,8 13,5 Q9,4 6,8 Q4,13 8,17 Q12,21 17,18 Q21,14 19,9 Q16,4 11,4" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    ),
+  },
+}
+
+function TraitIcon({ trait, size = 14 }: { trait: string; size?: number }) {
+  const data = TRAIT_ICON_DATA[trait]
+  if (!data) return null
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0, borderRadius: '50%' }}
+    >
+      <circle cx="12" cy="12" r="12" fill={data.bg} />
+      {data.content}
+    </svg>
+  )
+}
+
 // ── StatBlock ────────────────────────────────────────────────────────────────
 
 interface StatBlockProps {
@@ -251,22 +412,46 @@ export default function MonstersPage() {
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set())
   const [lightboxMonster, setLightboxMonster] = useState<Monster | null>(null)
+  const [selectedTraits, setSelectedTraits] = useState<Set<string>>(new Set())
 
   const expansionMap = useMemo(
     () => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])),
     [],
   )
 
-  const filtered = useMemo(() => {
+  // Owned-filtered pool (before trait filter) — used to derive available trait chips
+  const ownedFiltered = useMemo(() => {
     return MONSTERS.filter((m) => {
       if (onlyOwned && !ownedIds.includes(m.expansionId)) return false
+      return true
+    })
+  }, [onlyOwned, ownedIds])
+
+  // All traits that appear in the owned pool, sorted
+  const availableTraits = useMemo(() => {
+    const traitSet = new Set<string>()
+    for (const m of ownedFiltered) {
+      if (m.traits) {
+        for (const t of m.traits) {
+          traitSet.add(t)
+        }
+      }
+    }
+    return Array.from(traitSet).sort()
+  }, [ownedFiltered])
+
+  const filtered = useMemo(() => {
+    return ownedFiltered.filter((m) => {
       if (search) {
         const q = search.toLowerCase()
-        return m.nameDe.toLowerCase().includes(q) || m.nameEn.toLowerCase().includes(q)
+        if (!m.nameDe.toLowerCase().includes(q) && !m.nameEn.toLowerCase().includes(q)) return false
+      }
+      if (selectedTraits.size > 0) {
+        if (!m.traits || !m.traits.some((t) => selectedTraits.has(t))) return false
       }
       return true
     })
-  }, [search, onlyOwned, ownedIds])
+  }, [ownedFiltered, search, selectedTraits])
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof filtered>()
@@ -280,6 +465,18 @@ export default function MonstersPage() {
 
   const handleImgError = (id: string) => {
     setImgErrors((prev) => new Set(prev).add(id))
+  }
+
+  const toggleTrait = (trait: string) => {
+    setSelectedTraits((prev) => {
+      const next = new Set(prev)
+      if (next.has(trait)) {
+        next.delete(trait)
+      } else {
+        next.add(trait)
+      }
+      return next
+    })
   }
 
   return (
@@ -317,6 +514,41 @@ export default function MonstersPage() {
           Nur meine Sammlung
         </label>
       </div>
+
+      {availableTraits.length > 0 && (
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Typ-Filter</span>
+            {selectedTraits.size > 0 && (
+              <button
+                onClick={() => setSelectedTraits(new Set())}
+                className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                ✕ Alle
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {availableTraits.map((trait) => {
+              const isSelected = selectedTraits.has(trait)
+              return (
+                <button
+                  key={trait}
+                  onClick={() => toggleTrait(trait)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded text-xs transition-colors ${
+                    isSelected
+                      ? 'bg-dungeon-700 border border-yellow-500'
+                      : 'bg-dungeon-800 border border-dungeon-600 hover:border-dungeon-500'
+                  }`}
+                >
+                  <span className="text-gray-300 text-xs">{trait}</span>
+                  <TraitIcon trait={trait} size={14} />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {grouped.size === 0 ? (
         <div className="card text-center text-gray-500 py-12">
