@@ -62,8 +62,8 @@ Format: `feat|fix|docs|research: kurze Beschreibung`
 
 | Phase | Status | Beschreibung |
 |-------|--------|--------------|
-| 0 – Setup | ✅ In Arbeit | Repo-Struktur, CLAUDE.md, README |
-| 1 – Recherche | 🔄 In Arbeit | Quest Vault Features, Spielinhalte |
+| 0 – Setup | ✅ Abgeschlossen | Repo-Struktur, CLAUDE.md, README |
+| 1 – Recherche | ✅ Abgeschlossen | Quest Vault Features, Spielinhalte, Alternativ-Tools |
 | 2 – Planung | ⏳ Ausstehend | Architektur, Tech-Stack |
 | 3 – Grundgerüst | ⏳ Ausstehend | Webapp-Skeleton |
 | 4 – Kerndaten | ⏳ Ausstehend | Spielinhalt als Datenbasis |
@@ -104,8 +104,30 @@ Format: `feat|fix|docs|research: kurze Beschreibung`
 
 ## Bekannte Offene Fragen
 
-- [ ] Welche Features hatte das Original Quest Vault exakt?
-- [ ] Gibt es Community-Datensätze mit allen Spielinhalten?
-- [ ] Welche Assets stehen unter freier Lizenz zur Verfügung?
+- [x] Welche Features hatte das Original Quest Vault exakt? → docs/research/quest-vault-original.md
+- [x] Gibt es Community-Datensätze mit allen Spielinhalten? → any2cards/d2e (JSON+PNG), D2eMap
+- [x] Welche Assets stehen unter freier Lizenz zur Verfügung? → docs/research/digital-assets.md (Fazit: Grauzone)
 - [ ] Soll die App offline-fähig sein (PWA)?
-- [ ] Hosting: GitHub Pages, Netlify oder ähnliches?
+- [x] Hosting: GitHub Pages (bereits in README geplant)
+- [ ] Tech-Stack festlegen (React/Vue/Svelte + Vite?)
+- [ ] Umgang mit FFG IP-Rechten klären (eigene Grafiken oder Grauzone)
+
+## Recherche-Ergebnisse (Kurzfassung)
+
+### Original Quest Vault
+- **Betreiber:** Fantasy Flight Games (offiziell!)
+- **URL:** tools.fantasyflightgames.com/descent/
+- **Zeitraum:** Jan 2013 – Jan 2020 (~7 Jahre)
+- **Shutdown:** 21. Januar 2020
+- **Kern-Features:** Quest-Editor, Map Builder (Tiles/Drag-Drop), Encounter-Editor, PDF-Export, Community-Bibliothek, Bewertungssystem, Versions-Archiv, Kampagnen-Verknüpfung
+- **Schwäche:** Keine Updates für Erweiterungen ab 2015; dauerhaft "Open Beta"
+
+### Community-Alternativen
+- **descent-quest-builder** (Lorenzo Balducci): Electron/Web, PDF-Export, kein Sharing – EINZIGER ernst zu nehmender Nachbau
+- **D2eMap** (Sadgit-HL): Karten-Visualisierung, alle Monster/Tokens – KEIN vollständiger Quest-Editor
+- **any2cards/d2e**: Beste strukturierte Datenbasis (JSON + PNG aller Karten/Tiles)
+- **d2etracker.com**: Kampagnen-Tracking, kein Quest-Editor
+- **Road to Legend App** (FFG): Offizieller Companion, kein Quest-Editor
+
+### Wichtige Erkenntnis
+Es gibt KEINEN vollständigen, modernen Ersatz für den Quest Vault. Das ist die Marktlücke dieses Projekts.
