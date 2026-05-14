@@ -1,22 +1,9 @@
 import { useRef, CSSProperties, useState } from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { MAP_TILES } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
-
-const EXPANSION_IMG_PATH: Record<string, string> = {
-  'base': 'base-game',
-  'lair-of-the-wyrm': 'lair-of-the-wyrm',
-  'labyrinth-of-ruin': 'labyrinth-of-ruin',
-  'the-trollfens': 'the-trollfens',
-  'shadow-of-nerekhall': 'shadow-of-nerekhall',
-}
-
-function tileImageUrl(tileId: string, expansionId: string): string {
-  const expPath = EXPANSION_IMG_PATH[expansionId] ?? expansionId
-  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/map-tiles/d2e/${expPath}/bg-${tileId}.png`
-}
 
 export function effectiveDims(tile: PlacedMapTile) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
@@ -72,7 +59,7 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
         : undefined,
   }
 
-  const imgUrl = def ? tileImageUrl(tile.tileId, def.expansionId) : null
+  const imgUrl = def ? tileImageUrl(def) : null
   // Natural (unrotated) tile dimensions in pixels
   const natW = (def?.cols ?? cols) * CELL_SIZE
   const natH = (def?.rows ?? rows) * CELL_SIZE

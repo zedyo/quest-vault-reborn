@@ -1,32 +1,19 @@
 import { useState } from 'react'
-import { MAP_TILES } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import { EXPANSIONS } from '../../data/expansions'
 import { useGameStore } from '../../store/useGameStore'
 
-const EXPANSION_IMG_PATH: Record<string, string> = {
-  'base': 'base-game',
-  'lair-of-the-wyrm': 'lair-of-the-wyrm',
-  'labyrinth-of-ruin': 'labyrinth-of-ruin',
-  'the-trollfens': 'the-trollfens',
-  'shadow-of-nerekhall': 'shadow-of-nerekhall',
-}
-
-function tileImageUrl(tileId: string, expansionId: string): string {
-  const expPath = EXPANSION_IMG_PATH[expansionId] ?? expansionId
-  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/map-tiles/d2e/${expPath}/bg-${tileId}.png`
-}
-
 interface TileThumbProps {
   tileId: string
-  expansionId: string
   color: string
   cols: number
   rows: number
 }
 
-function TileThumb({ tileId, expansionId, color, cols, rows }: TileThumbProps) {
+function TileThumb({ tileId, color, cols, rows }: TileThumbProps) {
   const [imgError, setImgError] = useState(false)
-  const imgUrl = tileImageUrl(tileId, expansionId)
+  const tileDef = MAP_TILES.find((t) => t.id === tileId)
+  const imgUrl = tileDef ? tileImageUrl(tileDef) : ''
 
   // Scale the tile proportionally to fit the thumbnail area (max 56px wide, up to 48px tall)
   const maxW = 56
@@ -111,7 +98,6 @@ export default function TileSidebar({ selectedTileId, onSelect }: Props) {
                       >
                         <TileThumb
                           tileId={tile.id}
-                          expansionId={tile.expansionId}
                           color={tile.color}
                           cols={tile.cols}
                           rows={tile.rows}
