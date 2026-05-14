@@ -4,62 +4,61 @@ Dieses Dokument hält alle wesentlichen technischen Entscheidungen fest.
 
 ---
 
-## ADR-001: Tech-Stack (Status: Offen – Recherche läuft)
+## ADR-001: Tech-Stack (Status: Entschieden)
 
-**Optionen unter Bewertung:**
+**Entscheidung:** React 18 + Vite + TypeScript + Tailwind CSS
 
-| Option | Vorteile | Nachteile |
-|--------|----------|-----------|
-| React + Vite | Weit verbreitet, gute Drag&Drop-Libs | Komplexer als nötig? |
-| SvelteKit | Leichtgewichtig, schnell | Kleinere Community |
-| Vue 3 + Vite | Gute Balance | - |
-| Vanilla JS + HTML | Keine Dependencies | Wartungsaufwand hoch |
-
-**Tendenz:** React + Vite + TypeScript (wegen Ecosystem für Drag&Drop, Canvas-Libs)
+**Begründung:**
+- Beste Bibliotheken für Drag&Drop (dnd-kit) und Canvas
+- GitHub Pages funktioniert direkt mit dem Vite-Build
+- `any2cards/d2e` JSON-Daten können direkt importiert werden
+- Tailwind CSS für schnelles UI-Styling
 
 ---
 
-## ADR-002: Datenspeicherung (Status: Vorläufig entschieden)
+## ADR-002: Datenspeicherung (Status: Entschieden)
 
-**Entscheidung:** Lokaler Browserspeicher (localStorage / IndexedDB)
+**Entscheidung:** localStorage via Zustand persist middleware
 
 **Begründung:**
 - Kein Backend-Server nötig
-- Funktioniert offline
+- Funktioniert offline (PWA)
 - Kein Account-System nötig
-
-**Alternative:** Supabase oder Firebase für Cloud-Sync (spätere Phase)
-
----
-
-## ADR-003: Hosting (Status: Offen)
-
-**Optionen:**
-- GitHub Pages (kostenlos, automatisch bei Push)
-- Netlify (kostenlos, einfacher CI/CD)
-- Vercel (kostenlos, gut für React)
-
-**Tendenz:** GitHub Pages für Einfachheit
+- Zustand macht Persistenz trivial
 
 ---
 
-## ADR-004: Spieldaten-Format (Status: Offen)
+## ADR-003: Hosting (Status: Entschieden)
 
-**Optionen:**
-- JSON-Dateien im Repository
-- JavaScript-Module
-- SQLite (über WASM)
+**Entscheidung:** GitHub Pages (Branch `gh-pages`)
 
-**Tendenz:** JSON-Dateien, importiert als TypeScript-Module
+**Deployment:** GitHub Actions baut bei Push auf `claude/descent-quest-vault-DCYTY` und deployt nach `gh-pages`.  
+**URL:** https://zedyo.github.io/quest-vault-reborn/
 
 ---
 
-## ADR-005: Karteneditor-Technologie (Status: Offen)
+## ADR-004: Spieldaten-Format (Status: Entschieden)
 
-**Optionen:**
-- HTML Canvas + eigene Rendering-Logik
-- SVG-basiert
-- React-Konva (Canvas via React)
-- Fabric.js
+**Entscheidung:** TypeScript-Module (Daten als `const` Arrays/Objects)
 
-**Tendenz:** Noch offen, hängt von Asset-Format ab (SVG bevorzugt)
+**Datenbasis:** `any2cards/d2e` (GitHub) als Referenz; Assets in Grauzone genutzt (nicht-kommerziell, FFG-Copyright-Hinweis).
+
+---
+
+## ADR-005: Karteneditor-Technologie (Status: Entschieden)
+
+**Entscheidung:** dnd-kit für Drag&Drop + CSS Grid für Map-Raster
+
+**Begründung:** PNG-Tiles aus `any2cards/d2e` werden direkt als `<img>` gerendert; Rotation via CSS `transform`. Kein Canvas nötig für Phase 5.
+
+## ADR-006: Offline-Fähigkeit (Status: Entschieden)
+
+**Entscheidung:** PWA via `vite-plugin-pwa`
+
+**Begründung:** Benutzer soll das Tool offline nutzen können. Service Worker cacht alle Assets.
+
+## ADR-007: Asset-Strategie (Status: Entschieden)
+
+**Entscheidung:** Assets aus `any2cards/d2e` (nicht-kommerziell, Grauzone)
+
+**Hinweis:** FFG-Copyright-Hinweis wird in der App angezeigt. Keine kommerzielle Nutzung.
