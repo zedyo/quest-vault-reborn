@@ -1,10 +1,92 @@
-import { useRef } from 'react'
+import { useRef, CSSProperties } from 'react'
+import { useDraggable } from '@dnd-kit/core'
+import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
+import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
-const CELL_SIZE = 48
-const GRID_COLS = 28
-const GRID_ROWS = 20
+export function effectiveDims(tile: PlacedMapTile) {
+  const def = MAP_TILES.find((t) => t.id === tile.tileId)
+  if (!def) return { cols: 1, rows: 1 }
+  const rotated = tile.rotation === 90 || tile.rotation === 270
+  return rotated ? { cols: def.rows, rows: def.cols } : { cols: def.cols, rows: def.rows }
+}
+
+interface DraggableTileProps {
+  tile: PlacedMapTile
+  isSelected: boolean
+  placingMode: boolean
+  onSelect: (id: string) => void
+}
+
+function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTileProps) {
+  const def = MAP_TILES.find((t) => t.id === tile.tileId)
+  const { cols, rows } = effectiveDims(tile)
+
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: tile.instanceId,
+    disabled: placingMode,
+  })
+
+  const style: CSSProperties = {
+    position: 'absolute',
+    left: tile.col * CELL_SIZE,
+    top: tile.row * CELL_SIZE,
+    width: cols * CELL_SIZE,
+    height: rows * CELL_SIZE,
+    backgroundColor: def?.color ?? '#374151',
+    border: isSelected
+      ? '2px solid #f59e0b'
+      : isDragging
+        ? '2px solid #60a5fa'
+        : '1px solid rgba(255,255,255,0.15)',
+    borderRadius: 3,
+    cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    zIndex: isDragging ? 100 : isSelected ? 10 : 1,
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.75 : 1,
+    userSelect: 'none',
+    touchAction: 'none',
+    boxShadow: isDragging ? '0 8px 24px rgba(0,0,0,0.6)' : undefined,
+  }
+
+  const fontSize = Math.min(cols, rows) >= 3 ? 11 : 9
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      onClick={(e) => {
+        if (placingMode) return
+        e.stopPropagation()
+        onSelect(tile.instanceId)
+      }}
+      title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
+    >
+      <span
+        style={{
+          fontSize,
+          color: 'rgba(255,255,255,0.75)',
+          textAlign: 'center',
+          lineHeight: 1.3,
+          padding: 2,
+          pointerEvents: 'none',
+        }}
+      >
+        {def?.label}
+        {tile.rotation !== 0 && (
+          <span style={{ display: 'block', fontSize: 8, opacity: 0.55 }}>{tile.rotation}°</span>
+        )}
+      </span>
+    </div>
+  )
+}
 
 interface Props {
   tiles: PlacedMapTile[]
@@ -12,15 +94,6 @@ interface Props {
   selectedTileId: string | null
   onPlaceTile: (col: number, row: number) => void
   onSelectInstance: (id: string | null) => void
-}
-
-function effectiveDims(tile: PlacedMapTile) {
-  const def = MAP_TILES.find((t) => t.id === tile.tileId)
-  if (!def) return { cols: 1, rows: 1 }
-  const rotated = tile.rotation === 90 || tile.rotation === 270
-  return rotated
-    ? { cols: def.rows, rows: def.cols }
-    : { cols: def.cols, rows: def.rows }
 }
 
 export default function MapGrid({
@@ -33,7 +106,10 @@ export default function MapGrid({
   const gridRef = useRef<HTMLDivElement>(null)
 
   const handleGridClick = (e: React.MouseEvent) => {
-    if (!selectedTileId) return
+    if (!selectedTileId) {
+      onSelectInstance(null)
+      return
+    }
     const rect = gridRef.current?.getBoundingClientRect()
     if (!rect) return
     const col = Math.floor((e.clientX - rect.left) / CELL_SIZE)
@@ -48,8 +124,8 @@ export default function MapGrid({
       <div
         ref={gridRef}
         onClick={handleGridClick}
-        className="relative select-none"
         style={{
+          position: 'relative',
           width: GRID_COLS * CELL_SIZE,
           height: GRID_ROWS * CELL_SIZE,
           backgroundImage: `
@@ -60,60 +136,16 @@ export default function MapGrid({
           cursor: selectedTileId ? 'crosshair' : 'default',
         }}
       >
-        {tiles.map((tile) => {
-          const def = MAP_TILES.find((t) => t.id === tile.tileId)
-          if (!def) return null
-          const { cols, rows } = effectiveDims(tile)
-          const isSelected = tile.instanceId === selectedInstanceId
-
-          return (
-            <div
-              key={tile.instanceId}
-              onClick={(e) => {
-                e.stopPropagation()
-                if (!selectedTileId) onSelectInstance(tile.instanceId)
-              }}
-              title={`${def.label} (${def.cols}×${def.rows}) – Klicken zum Auswählen`}
-              style={{
-                position: 'absolute',
-                left: tile.col * CELL_SIZE,
-                top: tile.row * CELL_SIZE,
-                width: cols * CELL_SIZE,
-                height: rows * CELL_SIZE,
-                backgroundColor: def.color,
-                border: isSelected ? '2px solid #f59e0b' : '1px solid rgba(255,255,255,0.15)',
-                borderRadius: 3,
-                cursor: selectedTileId ? 'crosshair' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                zIndex: isSelected ? 10 : 1,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: Math.min(cols, rows) >= 3 ? 11 : 9,
-                  color: 'rgba(255,255,255,0.7)',
-                  textAlign: 'center',
-                  lineHeight: 1.2,
-                  padding: 2,
-                  transform: tile.rotation !== 0 ? `rotate(${tile.rotation}deg)` : undefined,
-                }}
-              >
-                {def.label}
-                {tile.rotation !== 0 && (
-                  <span style={{ display: 'block', fontSize: 8, opacity: 0.6 }}>
-                    {tile.rotation}°
-                  </span>
-                )}
-              </span>
-            </div>
-          )
-        })}
+        {tiles.map((tile) => (
+          <DraggableTile
+            key={tile.instanceId}
+            tile={tile}
+            isSelected={tile.instanceId === selectedInstanceId}
+            placingMode={selectedTileId !== null}
+            onSelect={onSelectInstance}
+          />
+        ))}
       </div>
     </div>
   )
 }
-
-export { CELL_SIZE, GRID_COLS, GRID_ROWS }
