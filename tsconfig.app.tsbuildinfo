@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/components/ExpansionSelector.tsx","./src/components/Layout.tsx","./src/data/expansions.ts","./src/pages/CollectionPage.tsx","./src/pages/HomePage.tsx","./src/pages/MapBuilderPage.tsx","./src/pages/QuestEditorPage.tsx","./src/store/useGameStore.ts","./src/types/game.ts"],"version":"5.9.3"}
