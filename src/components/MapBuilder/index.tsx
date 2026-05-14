@@ -2,6 +2,8 @@ import { useState, useCallback, useMemo } from 'react'
 import {
   DndContext,
   DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
   PointerSensor,
   TouchSensor,
   useSensor,
@@ -10,7 +12,7 @@ import {
 import TileSidebar from './TileSidebar'
 import MapGrid, { effectiveDims } from './MapGrid'
 import type { PlacedMapTile, Rotation } from './types'
-import { MAP_TILES, getTilePartner } from '../../data/mapTiles'
+import { MAP_TILES, getTilePartner, tileImageUrl } from '../../data/mapTiles'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 function nextRotation(r: Rotation): Rotation {
@@ -21,11 +23,43 @@ function nextRotation(r: Rotation): Rotation {
 let counter = 0
 const newId = () => `tile-${++counter}-${Date.now()}`
 
+/** Floating tile preview shown during drag-from-sidebar */
+function TileDragPreview({ tileId }: { tileId: string }) {
+  const def = MAP_TILES.find((t) => t.id === tileId)
+  const [imgError, setImgError] = useState(false)
+  if (!def) return null
+  return (
+    <div
+      style={{
+        width: def.cols * CELL_SIZE,
+        height: def.rows * CELL_SIZE,
+        border: '2px solid #f59e0b',
+        borderRadius: 3,
+        overflow: 'hidden',
+        opacity: 0.8,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+        pointerEvents: 'none',
+      }}
+    >
+      {!imgError ? (
+        <img
+          src={tileImageUrl(def)}
+          onError={() => setImgError(true)}
+          style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block' }}
+        />
+      ) : (
+        <div style={{ width: '100%', height: '100%', backgroundColor: def.color }} />
+      )}
+    </div>
+  )
+}
+
 export default function MapBuilder() {
   const [placedTiles, setPlacedTiles] = useState<PlacedMapTile[]>([])
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
   const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
+  const [activePaletteId, setActivePaletteId] = useState<string | null>(null)
 
   const placedTileIds = useMemo(
     () => new Set(placedTiles.map((t) => t.tileId)),
@@ -37,11 +71,42 @@ export default function MapBuilder() {
     useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
   )
 
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    const id = event.active.id as string
+    if (id.startsWith('palette-')) {
+      setActivePaletteId(id.slice('palette-'.length))
+      setSelectedTileId(null)
+      setSelectedInstanceId(null)
+    }
+  }, [])
+
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, delta } = event
-    if (!delta.x && !delta.y) return
-    const instanceId = active.id as string
+    const activeId = active.id as string
 
+    if (activeId.startsWith('palette-')) {
+      setActivePaletteId(null)
+      // Only place if dropped over the grid droppable
+      if (event.over?.id !== 'map-grid') return
+      const tileId = activeId.slice('palette-'.length)
+      const def = MAP_TILES.find((t) => t.id === tileId)
+      if (!def) return
+      const gridRect = event.over.rect
+      const startEvt = event.activatorEvent as PointerEvent
+      const finalX = startEvt.clientX + delta.x
+      const finalY = startEvt.clientY + delta.y
+      const col = Math.max(0, Math.min(GRID_COLS - def.cols, Math.floor((finalX - gridRect.left) / CELL_SIZE)))
+      const row = Math.max(0, Math.min(GRID_ROWS - def.rows, Math.floor((finalY - gridRect.top) / CELL_SIZE)))
+      setPlacedTiles((prev) => [
+        ...prev,
+        { instanceId: newId(), tileId, col, row, rotation: 0 },
+      ])
+      return
+    }
+
+    // Move an existing placed tile
+    if (!delta.x && !delta.y) return
+    const instanceId = activeId
     setPlacedTiles((prev) =>
       prev.map((t) => {
         if (t.instanceId !== instanceId) return t
@@ -75,6 +140,9 @@ export default function MapBuilder() {
         ...prev,
         { instanceId: newId(), tileId: selectedTileId, col: newCol, row: newRow, rotation: 0 },
       ])
+      // Auto-deselect after placing so the tile can immediately be moved
+      setSelectedTileId(null)
+      setPartnerWarningId(null)
     },
     [selectedTileId],
   )
@@ -102,12 +170,14 @@ export default function MapBuilder() {
   const cancelPlace = () => {
     setSelectedTileId(null)
     setSelectedInstanceId(null)
+    setPartnerWarningId(null)
   }
 
   const clearAll = () => {
     setPlacedTiles([])
     setSelectedTileId(null)
     setSelectedInstanceId(null)
+    setPartnerWarningId(null)
   }
 
   const selectedDef = selectedTileId ? MAP_TILES.find((t) => t.id === selectedTileId) : null
@@ -116,7 +186,7 @@ export default function MapBuilder() {
     : null
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="flex flex-col h-full gap-0">
         {/* Toolbar */}
         <div className="flex items-center gap-2 px-3 py-2 bg-dungeon-900 border-b border-dungeon-700 flex-wrap min-h-[44px]">
@@ -138,7 +208,7 @@ export default function MapBuilder() {
             </span>
           ) : (
             <span className="text-gray-500 text-sm">
-              Links Plättchen auswählen → platzieren; Ziehen → verschieben
+              Links Plättchen auswählen oder ziehen → platzieren; Ziehen → verschieben
             </span>
           )}
           {partnerWarningId && (
@@ -182,7 +252,11 @@ export default function MapBuilder() {
           className="flex flex-1 min-h-0 overflow-hidden"
           style={{ height: 'calc(100vh - 180px)' }}
         >
-          <TileSidebar selectedTileId={selectedTileId} placedTileIds={placedTileIds} onSelect={handleSelectPalette} />
+          <TileSidebar
+            selectedTileId={selectedTileId}
+            placedTileIds={placedTileIds}
+            onSelect={handleSelectPalette}
+          />
           <MapGrid
             tiles={placedTiles}
             selectedInstanceId={selectedInstanceId}
@@ -192,6 +266,11 @@ export default function MapBuilder() {
           />
         </div>
       </div>
+
+      {/* Floating tile preview when dragging from sidebar */}
+      <DragOverlay dropAnimation={null}>
+        {activePaletteId ? <TileDragPreview tileId={activePaletteId} /> : null}
+      </DragOverlay>
     </DndContext>
   )
 }

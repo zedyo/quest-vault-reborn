@@ -1,5 +1,5 @@
 import { useRef, CSSProperties, useState } from 'react'
-import { useDraggable } from '@dnd-kit/core'
+import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
@@ -31,41 +31,38 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
 
   const effW = cols * CELL_SIZE
   const effH = rows * CELL_SIZE
+  // Natural (unrotated) dimensions
+  const natW = (def?.cols ?? cols) * CELL_SIZE
+  const natH = (def?.rows ?? rows) * CELL_SIZE
 
   const style: CSSProperties = {
     position: 'absolute',
-    left: tile.col * CELL_SIZE,
-    top: tile.row * CELL_SIZE,
-    width: effW,
-    height: effH,
-    backgroundColor: imgError ? (def?.color ?? '#374151') : 'transparent',
-    border: isSelected
-      ? '2px solid #f59e0b'
-      : isDragging
-        ? '2px solid #60a5fa'
-        : '1px solid rgba(255,255,255,0.2)',
+    // Offset so the natural-size div's center, after rotation, sits at the grid cell's center
+    left: tile.col * CELL_SIZE + (effW - natW) / 2,
+    top: tile.row * CELL_SIZE + (effH - natH) / 2,
+    width: natW,
+    height: natH,
+    overflow: 'hidden',
     borderRadius: 3,
-    // clip-path clips post-transform content (unlike overflow:hidden which clips
-    // the layout box before transforms — causing cropping on rotated non-square tiles).
-    clipPath: 'inset(0 round 3px)',
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
-    transform: CSS.Translate.toString(transform),
+    // Combine dnd-kit screen-space translation with tile rotation on the outer div.
+    // translate comes first in the string so it operates in screen/parent space,
+    // then rotate spins the already-positioned div around its center.
+    transform: `${CSS.Translate.toString(transform)} rotate(${tile.rotation}deg)`,
+    transformOrigin: 'center',
     opacity: isDragging ? 0.75 : 1,
     userSelect: 'none',
     touchAction: 'none',
-    boxShadow: isDragging
-      ? '0 8px 24px rgba(0,0,0,0.6)'
-      : isSelected
-        ? '0 0 0 2px rgba(245,158,11,0.5)'
-        : undefined,
+    boxShadow: isSelected
+      ? '0 0 0 2px #f59e0b, 0 0 0 4px rgba(245,158,11,0.35)'
+      : isDragging
+        ? '0 0 0 2px #60a5fa, 0 8px 24px rgba(0,0,0,0.6)'
+        : '0 0 0 1px rgba(255,255,255,0.18)',
   }
 
   const imgUrl = def ? tileImageUrl(def) : null
-  // Natural (unrotated) tile dimensions in pixels
-  const natW = (def?.cols ?? cols) * CELL_SIZE
-  const natH = (def?.rows ?? rows) * CELL_SIZE
-  const fontSize = Math.min(cols, rows) >= 3 ? 11 : 9
+  const fontSize = Math.min(natW, natH) >= 3 * CELL_SIZE ? 11 : 9
 
   return (
     <div
@@ -81,28 +78,11 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
       title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
     >
       {imgUrl && !imgError ? (
-        /*
-         * Image rotation: the outer div has the EFFECTIVE (possibly swapped) dimensions.
-         * The image has its NATURAL dimensions and is rotated via CSS transform.
-         * translateX/Y(-50%) centers the natural image in the container,
-         * then rotate() spins it — the visual result fills the container exactly.
-         */
         <img
           src={imgUrl}
           alt={def?.label}
           onError={() => setImgError(true)}
-          style={{
-            position: 'absolute',
-            left: (effW - natW) / 2,
-            top: (effH - natH) / 2,
-            width: natW,
-            height: natH,
-            transform: `rotate(${tile.rotation}deg)`,
-            transformOrigin: 'center',
-            objectFit: 'fill',
-            display: 'block',
-            pointerEvents: 'none',
-          }}
+          style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block', pointerEvents: 'none' }}
         />
       ) : (
         <div
@@ -152,6 +132,7 @@ export default function MapGrid({
   onSelectInstance,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
+  const { setNodeRef: setDropRef } = useDroppable({ id: 'map-grid' })
 
   const handleGridClick = (e: React.MouseEvent) => {
     if (!selectedTileId) {
@@ -170,7 +151,10 @@ export default function MapGrid({
   return (
     <div className="flex-1 overflow-auto bg-dungeon-950 p-4">
       <div
-        ref={gridRef}
+        ref={(node) => {
+          (gridRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+          setDropRef(node)
+        }}
         onClick={handleGridClick}
         style={{
           position: 'relative',
