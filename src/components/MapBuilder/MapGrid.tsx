@@ -29,12 +29,15 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     disabled: placingMode,
   })
 
+  const effW = cols * CELL_SIZE
+  const effH = rows * CELL_SIZE
+
   const style: CSSProperties = {
     position: 'absolute',
     left: tile.col * CELL_SIZE,
     top: tile.row * CELL_SIZE,
-    width: cols * CELL_SIZE,
-    height: rows * CELL_SIZE,
+    width: effW,
+    height: effH,
     backgroundColor: imgError ? (def?.color ?? '#374151') : 'transparent',
     border: isSelected
       ? '2px solid #f59e0b'
@@ -42,11 +45,10 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
         ? '2px solid #60a5fa'
         : '1px solid rgba(255,255,255,0.2)',
     borderRadius: 3,
+    // clip-path clips post-transform content (unlike overflow:hidden which clips
+    // the layout box before transforms — causing cropping on rotated non-square tiles).
+    clipPath: 'inset(0 round 3px)',
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
-    // No overflow:hidden — CSS clips layout box before transforms, which would
-    // crop the image for non-square tiles rotated 90°/270°.
-    // Visual overflow after rotation stays within bounds; absolute siblings are unaffected.
-    overflow: 'visible',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.75 : 1,
@@ -91,11 +93,12 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
           onError={() => setImgError(true)}
           style={{
             position: 'absolute',
-            top: '50%',
-            left: '50%',
+            left: (effW - natW) / 2,
+            top: (effH - natH) / 2,
             width: natW,
             height: natH,
-            transform: `translateX(-50%) translateY(-50%) rotate(${tile.rotation}deg)`,
+            transform: `rotate(${tile.rotation}deg)`,
+            transformOrigin: 'center',
             objectFit: 'fill',
             display: 'block',
             pointerEvents: 'none',

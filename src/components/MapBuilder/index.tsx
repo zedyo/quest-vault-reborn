@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import {
   DndContext,
   DragEndEvent,
@@ -10,7 +10,7 @@ import {
 import TileSidebar from './TileSidebar'
 import MapGrid, { effectiveDims } from './MapGrid'
 import type { PlacedMapTile, Rotation } from './types'
-import { MAP_TILES } from '../../data/mapTiles'
+import { MAP_TILES, getTilePartner } from '../../data/mapTiles'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 function nextRotation(r: Rotation): Rotation {
@@ -25,6 +25,12 @@ export default function MapBuilder() {
   const [placedTiles, setPlacedTiles] = useState<PlacedMapTile[]>([])
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
+  const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
+
+  const placedTileIds = useMemo(
+    () => new Set(placedTiles.map((t) => t.tileId)),
+    [placedTiles],
+  )
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -48,9 +54,15 @@ export default function MapBuilder() {
   }, [])
 
   const handleSelectPalette = useCallback((id: string) => {
+    const partner = getTilePartner(id)
+    if (partner && placedTileIds.has(partner)) {
+      setPartnerWarningId(id)
+    } else {
+      setPartnerWarningId(null)
+    }
     setSelectedTileId((prev) => (prev === id ? null : id))
     setSelectedInstanceId(null)
-  }, [])
+  }, [placedTileIds])
 
   const handlePlaceTile = useCallback(
     (col: number, row: number) => {
@@ -129,6 +141,12 @@ export default function MapBuilder() {
               Links Plättchen auswählen → platzieren; Ziehen → verschieben
             </span>
           )}
+          {partnerWarningId && (
+            <span className="flex items-center gap-1.5 text-amber-400 text-xs bg-amber-950 border border-amber-800 px-2 py-1 rounded ml-2">
+              ⚠ {partnerWarningId} kann wahrscheinlich nicht verwendet werden – die andere Seite ({getTilePartner(partnerWarningId)}) ist bereits platziert.
+              <button onClick={() => setPartnerWarningId(null)} className="text-amber-600 hover:text-amber-400 ml-1">✕</button>
+            </span>
+          )}
 
           <div className="flex gap-2 ml-auto">
             <button
@@ -164,7 +182,7 @@ export default function MapBuilder() {
           className="flex flex-1 min-h-0 overflow-hidden"
           style={{ height: 'calc(100vh - 180px)' }}
         >
-          <TileSidebar selectedTileId={selectedTileId} onSelect={handleSelectPalette} />
+          <TileSidebar selectedTileId={selectedTileId} placedTileIds={placedTileIds} onSelect={handleSelectPalette} />
           <MapGrid
             tiles={placedTiles}
             selectedInstanceId={selectedInstanceId}

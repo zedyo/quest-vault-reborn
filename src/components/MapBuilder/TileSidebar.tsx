@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl, getTilePartner } from '../../data/mapTiles'
 import { EXPANSIONS } from '../../data/expansions'
 import { useGameStore } from '../../store/useGameStore'
 
@@ -42,10 +42,11 @@ function TileThumb({ tileId, color, cols, rows }: TileThumbProps) {
 
 interface Props {
   selectedTileId: string | null
+  placedTileIds: Set<string>
   onSelect: (id: string) => void
 }
 
-export default function TileSidebar({ selectedTileId, onSelect }: Props) {
+export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }: Props) {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [openExpansions, setOpenExpansions] = useState<Set<string>>(new Set(['base']))
 
@@ -85,15 +86,23 @@ export default function TileSidebar({ selectedTileId, onSelect }: Props) {
                 <div className="px-2 pb-2 grid grid-cols-2 gap-1.5">
                   {tiles.map((tile) => {
                     const isSelected = selectedTileId === tile.id
+                    const partner = getTilePartner(tile.id)
+                    const partnerPlaced = partner ? placedTileIds.has(partner) : false
                     return (
                       <button
                         key={tile.id}
                         onClick={() => onSelect(tile.id)}
-                        title={`${tile.label} (${tile.cols}×${tile.rows})`}
+                        title={
+                          partnerPlaced
+                            ? `${tile.label} – Achtung: Seite ${partner} ist bereits platziert!`
+                            : `${tile.label} (${tile.cols}×${tile.rows})`
+                        }
                         className={`rounded text-xs p-1.5 transition-all border flex flex-col items-center gap-1 ${
                           isSelected
                             ? 'border-gold-400 bg-dungeon-700 ring-1 ring-gold-400/50'
-                            : 'border-dungeon-600 bg-dungeon-800 hover:border-gold-700 hover:bg-dungeon-700'
+                            : partnerPlaced
+                              ? 'border-dungeon-700 bg-dungeon-900 opacity-40 hover:opacity-60'
+                              : 'border-dungeon-600 bg-dungeon-800 hover:border-gold-700 hover:bg-dungeon-700'
                         }`}
                       >
                         <TileThumb
@@ -102,10 +111,10 @@ export default function TileSidebar({ selectedTileId, onSelect }: Props) {
                           cols={tile.cols}
                           rows={tile.rows}
                         />
-                        <span className={`truncate block w-full text-center ${isSelected ? 'text-gold-300' : 'text-gray-400'}`}>
+                        <span className={`truncate block w-full text-center ${isSelected ? 'text-gold-300' : partnerPlaced ? 'text-gray-600' : 'text-gray-400'}`}>
                           {tile.label}
                         </span>
-                        <span className="text-gray-600 block">{tile.cols}×{tile.rows}</span>
+                        <span className={`block ${partnerPlaced ? 'text-gray-700' : 'text-gray-600'}`}>{tile.cols}×{tile.rows}</span>
                       </button>
                     )
                   })}
