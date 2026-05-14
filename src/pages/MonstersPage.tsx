@@ -1,0 +1,622 @@
+import { useState, useMemo } from 'react'
+import { MONSTERS } from '../data/monsters'
+import { EXPANSIONS } from '../data/expansions'
+import { useGameStore } from '../store/useGameStore'
+import { DicePip } from '../components/DiceDisplay'
+import type { Monster, MonsterStats } from '../types/game'
+
+// Per-expansion filename prefix (any2cards/d2e naming convention)
+const EXPANSION_PREFIX: Record<string, string> = {
+  'base':                    'bg',
+  'lair-of-the-wyrm':        'lw',
+  'labyrinth-of-ruin':       'lr',
+  'the-trollfens':           'tf',
+  'shadow-of-nerekhall':     'sn',
+  'manor-of-ravens':         'mr',
+  'oath-of-the-outcast':     'oo',
+  'crown-of-destiny':        'cd',
+  'crusade-of-the-forgotten':'cf',
+  'guardians-of-deephall':   'gd',
+  'visions-of-dawn':         'vd',
+  'bonds-of-the-wild':       'bw',
+  'treaty-of-champions':     'tc',
+  'stewards-of-the-secret':  'ss',
+  'shards-of-everdark':      'se',
+  'mists-of-bilehall':       'mb',
+  'the-chains-that-rust':    'cr',
+}
+
+const EXPANSION_PATH: Record<string, string> = {
+  'base':                    'base-game',
+  'lair-of-the-wyrm':        'lair-of-the-wyrm',
+  'labyrinth-of-ruin':       'labyrinth-of-ruin',
+  'the-trollfens':           'the-trollfens',
+  'shadow-of-nerekhall':     'shadow-of-nerekhall',
+  'manor-of-ravens':         'manor-of-ravens',
+  'oath-of-the-outcast':     'oath-of-the-outcast',
+  'crown-of-destiny':        'crown-of-destiny',
+  'crusade-of-the-forgotten':'crusade-of-the-forgotten',
+  'guardians-of-deephall':   'guardians-of-deephall',
+  'visions-of-dawn':         'visions-of-dawn',
+  'bonds-of-the-wild':       'bonds-of-the-wild',
+  'treaty-of-champions':     'treaty-of-champions',
+  'stewards-of-the-secret':  'stewards-of-the-secret',
+  'shards-of-everdark':      'shards-of-everdark',
+  'mists-of-bilehall':       'mists-of-bilehall',
+  'the-chains-that-rust':    'the-chains-that-rust',
+}
+
+function monsterImageUrl(monsterId: string, expansionId: string): string {
+  const prefix = EXPANSION_PREFIX[expansionId] ?? 'bg'
+  const expPath = EXPANSION_PATH[expansionId] ?? expansionId
+  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/act1/${prefix}-${monsterId}-front.png`
+}
+
+/** Replace "Herz"/"Herzen" words with ❤ symbol */
+function withHeartSymbol(text: string): string {
+  return text.replace(/\bHerzen\b/g, '❤').replace(/\bHerz\b/g, '❤')
+}
+
+/** Format a surge entry: remove "Schub: " prefix (lightning shown separately) and replace heart words */
+function formatSurge(text: string): string {
+  return withHeartSymbol(text.replace(/^Schub:\s*/i, ''))
+}
+
+/** Format an ability entry: replace heart words */
+function formatAbility(text: string): string {
+  return withHeartSymbol(text)
+}
+
+// ── Stat icons (faithful to the Descent 2e card style) ───────────────────────
+
+function MovementIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#15803d" />
+      {/* Boot side-profile: wider shaft (7-14) gives better proportions at small sizes */}
+      <path d="M7,3 L7,14 L4.5,14 L4.5,20.5 L19.5,20.5 L19.5,15.5 L14,15.5 L14,3 Z" fill="white" />
+    </svg>
+  )
+}
+
+function HealthIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#b91c1c" />
+      <path d="M12,19 L4.5,11 C4.5,7 8,6 10,8.5 Q11,9.5 12,11 Q13,9.5 14,8.5 C16,6 19.5,7 19.5,11 Z" fill="white" />
+    </svg>
+  )
+}
+
+function DefenseIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#6b7280" />
+      <path d="M12,20.5 L4.5,15.5 L4.5,5.5 L19.5,5.5 L19.5,15.5 Z" fill="white" />
+    </svg>
+  )
+}
+
+// ── TraitIcon ─────────────────────────────────────────────────────────────────
+
+const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> = {
+  'Böse': {
+    bg: '#991b1b',
+    content: (
+      <>
+        <line x1="5" y1="5" x2="19" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+        <line x1="19" y1="5" x2="5" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+      </>
+    ),
+  },
+  'Tier': {
+    bg: '#92400e',
+    content: (
+      <>
+        <circle cx="12" cy="15.5" r="5" fill="white"/>
+        <circle cx="6.5" cy="9.5" r="2.5" fill="white"/>
+        <circle cx="12" cy="7.5" r="2.5" fill="white"/>
+        <circle cx="17.5" cy="9.5" r="2.5" fill="white"/>
+      </>
+    ),
+  },
+  'Elementar': {
+    bg: '#1d4ed8',
+    content: (
+      <path d="M12,3 L14,10 L21,12 L14,14 L12,21 L10,14 L3,12 L10,10 Z" fill="white"/>
+    ),
+  },
+  'Riese': {
+    bg: '#4b5563',
+    content: (
+      <>
+        <rect x="7" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
+        <rect x="13.5" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
+        <rect x="6" y="7" width="12" height="14" rx="1" fill="white"/>
+        <rect x="10" y="14" width="4" height="7" fill="#4b5563"/>
+      </>
+    ),
+  },
+  'Totenbeschwörer': {
+    bg: '#5b21b6',
+    content: (
+      <path d="M12,3 L13.5,9 L19,5 L15,10.5 L21,12 L15,13.5 L19,19 L13.5,15 L12,21 L10.5,15 L5,19 L9,13.5 L3,12 L9,10.5 L5,5 L10.5,9 Z" fill="white"/>
+    ),
+  },
+  'Goblin': {
+    bg: '#166534',
+    content: (
+      <path d="M8.5,3 L8.5,17 L12,22 L15.5,17 L15.5,3 Z" fill="white"/>
+    ),
+  },
+  'Wasser': {
+    bg: '#0369a1',
+    content: (
+      <path d="M12,3 L19.5,14 Q19.5,21 12,21 Q4.5,21 4.5,14 Z" fill="white"/>
+    ),
+  },
+  'Drache': {
+    bg: '#b45309',
+    content: (
+      <>
+        <path d="M12,14 L3,3 Q2,13 8,17 Z" fill="white"/>
+        <path d="M12,14 L21,3 Q22,13 16,17 Z" fill="white"/>
+        <ellipse cx="12" cy="19" rx="3" ry="4" fill="white"/>
+      </>
+    ),
+  },
+  'Untot': {
+    bg: '#374151',
+    content: (
+      <>
+        <path d="M12,4 Q19,4 19,11 Q19,17 12,17 Q5,17 5,11 Q5,4 12,4 Z" fill="white"/>
+        <circle cx="9.5" cy="11" r="2" fill="#374151"/>
+        <circle cx="14.5" cy="11" r="2" fill="#374151"/>
+        <rect x="9.5" y="16" width="2.5" height="4" fill="#374151"/>
+        <rect x="13" y="16" width="2.5" height="4" fill="#374151"/>
+      </>
+    ),
+  },
+  'Mensch': {
+    bg: '#b45309',
+    content: (
+      <>
+        <circle cx="12" cy="7.5" r="4.5" fill="white"/>
+        <path d="M4.5,22 L12,12 L19.5,22" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      </>
+    ),
+  },
+  'Konstrukt': {
+    bg: '#64748b',
+    content: (
+      <>
+        <circle cx="12" cy="12" r="6" fill="white"/>
+        <circle cx="12" cy="12" r="3" fill="#64748b"/>
+        <rect x="10.5" y="2" width="3" height="4" rx="1.5" fill="white"/>
+        <rect x="10.5" y="18" width="3" height="4" rx="1.5" fill="white"/>
+        <rect x="2" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
+        <rect x="18" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
+      </>
+    ),
+  },
+  'Dämon': {
+    bg: '#7f1d1d',
+    content: (
+      <path d="M5,21 Q3,12 8,5 Q10,9 12,12 Q14,9 16,5 Q21,12 19,21" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round"/>
+    ),
+  },
+  'Dunkel': {
+    bg: '#1e1b4b',
+    content: (
+      <>
+        <circle cx="12" cy="12" r="9" fill="white"/>
+        <circle cx="16" cy="9" r="8" fill="#1e1b4b"/>
+      </>
+    ),
+  },
+  'Feuer': {
+    bg: '#c2410c',
+    content: (
+      <>
+        <path d="M12,3 Q18.5,8 17.5,14 Q16.5,19.5 12,21 Q7.5,19.5 6.5,14 Q5.5,8 12,3 Z" fill="white"/>
+        <path d="M12,11 Q15,13 14.5,16 Q14,19 12,20 Q10,19 9.5,16 Q9,13 12,11 Z" fill="#c2410c"/>
+      </>
+    ),
+  },
+  'Kalt': {
+    bg: '#0284c7',
+    content: (
+      <>
+        <line x1="12" y1="3" x2="12" y2="21" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="3" y1="7.5" x2="21" y2="16.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="3" y1="16.5" x2="21" y2="7.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="12" cy="12" r="2.5" fill="white"/>
+      </>
+    ),
+  },
+  'Chaos': {
+    bg: '#7c3aed',
+    content: (
+      <path d="M12,12 Q16,8 13,5 Q9,4 6,8 Q4,13 8,17 Q12,21 17,18 Q21,14 19,9 Q16,4 11,4" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    ),
+  },
+}
+
+function TraitIcon({ trait, size = 14 }: { trait: string; size?: number }) {
+  const data = TRAIT_ICON_DATA[trait]
+  if (!data) return null
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0, borderRadius: '50%' }}
+    >
+      <circle cx="12" cy="12" r="12" fill={data.bg} />
+      {data.content}
+    </svg>
+  )
+}
+
+// ── StatBlock ────────────────────────────────────────────────────────────────
+
+interface StatBlockProps {
+  stats: MonsterStats
+  label: string
+  isElite?: boolean
+  /** compact=true uses smaller sizes (for grid cards); false uses lightbox sizes */
+  compact?: boolean
+}
+
+function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
+  const textCls = compact ? 'text-xs' : 'text-sm'
+  const sectionHeaderCls = compact ? 'text-[10px]' : 'text-xs'
+  const sectionTextCls = compact ? 'text-[10px]' : 'text-xs'
+  const iconSize = compact ? 14 : 16
+
+  return (
+    <div className={`rounded p-2 flex-1 min-w-0 ${isElite ? 'bg-yellow-950/40 border border-yellow-800/30' : 'bg-dungeon-800/50'}`}>
+      <div className={`${textCls} font-semibold mb-1.5 ${isElite ? 'text-gold-400' : 'text-gray-400'}`}>
+        {label}
+      </div>
+      {/* CSS grid: label column auto-sizes to widest label so all word labels align */}
+      <div className="grid gap-y-1 items-center" style={{ gridTemplateColumns: 'auto 1fr', columnGap: 6 }}>
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <MovementIcon size={iconSize} />Bewegung
+        </span>
+        <span className={`text-gray-200 font-medium ${textCls}`}>{stats.speed}</span>
+
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <HealthIcon size={iconSize} />Leben
+        </span>
+        <span className={`text-gray-200 font-medium ${textCls}`}>{stats.health}</span>
+
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <DefenseIcon size={iconSize} />Verteid.
+        </span>
+        <div className="flex gap-0.5">
+          {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
+        </div>
+
+        {/* Invisible spacer aligns "Angriff" word with the labeled rows above */}
+        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
+          <span style={{ width: iconSize, height: iconSize, display: 'inline-block', flexShrink: 0 }} />Angriff
+        </span>
+        <div className="flex gap-0.5">
+          {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
+        </div>
+      </div>
+
+      {stats.surges && stats.surges.length > 0 && (
+        <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">
+          <div className={`${sectionHeaderCls} text-purple-400 font-semibold mb-0.5`}>Energie</div>
+          {stats.surges.map((s, i) => (
+            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
+              ⚡ {formatSurge(s)}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {stats.abilities && stats.abilities.length > 0 && (
+        <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">
+          <div className={`${sectionHeaderCls} text-blue-400 font-semibold mb-0.5`}>Fähigkeiten</div>
+          {stats.abilities.map((a, i) => (
+            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
+              {formatAbility(a)}
+            </p>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Lightbox ─────────────────────────────────────────────────────────────────
+
+interface LightboxProps {
+  monster: Monster
+  imgUrl: string
+  onClose: () => void
+}
+
+function MonsterLightbox({ monster, imgUrl, onClose }: LightboxProps) {
+  const [imgError, setImgError] = useState(false)
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+      onClick={onClose}
+    >
+      {/* 10% bigger than original max-w-2xl (672px → 740px) */}
+      <div
+        className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        style={{ maxWidth: 740 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between p-4 border-b border-dungeon-700">
+          <div>
+            <h3 className="text-xl font-bold text-gray-100">{monster.nameDe}</h3>
+            <p className="text-base text-gray-500">{monster.nameEn}</p>
+            {monster.traits && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {monster.traits.map((t) => (
+                  <span key={t} className="text-sm bg-dungeon-700 text-gray-400 px-1.5 py-0.5 rounded">{t}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-200 text-xl leading-none ml-4 shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-4 flex flex-col sm:flex-row gap-4">
+          <div className="sm:w-52 shrink-0">
+            {!imgError ? (
+              <img
+                src={imgUrl}
+                alt={monster.nameEn}
+                className="w-full rounded border border-dungeon-700"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="w-full aspect-[2/3] bg-dungeon-800 rounded border border-dungeon-700 flex items-center justify-center text-5xl opacity-30">
+                👹
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 space-y-3">
+            {monster.normal && (
+              <StatBlock stats={monster.normal} label="Normal" compact={false} />
+            )}
+            {monster.master && (
+              <StatBlock stats={monster.master} label="Elite" isElite compact={false} />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
+
+export default function MonstersPage() {
+  const ownedIds = useGameStore((s) => s.ownedExpansionIds)
+  const [search, setSearch] = useState('')
+  const [onlyOwned, setOnlyOwned] = useState(true)
+  const [imgErrors, setImgErrors] = useState<Set<string>>(new Set())
+  const [lightboxMonster, setLightboxMonster] = useState<Monster | null>(null)
+  const [selectedTraits, setSelectedTraits] = useState<Set<string>>(new Set())
+
+  const expansionMap = useMemo(
+    () => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])),
+    [],
+  )
+
+  // Owned-filtered pool (before trait filter) — used to derive available trait chips
+  const ownedFiltered = useMemo(() => {
+    return MONSTERS.filter((m) => {
+      if (onlyOwned && !ownedIds.includes(m.expansionId)) return false
+      return true
+    })
+  }, [onlyOwned, ownedIds])
+
+  // All traits that appear in the owned pool, sorted
+  const availableTraits = useMemo(() => {
+    const traitSet = new Set<string>()
+    for (const m of ownedFiltered) {
+      if (m.traits) {
+        for (const t of m.traits) {
+          traitSet.add(t)
+        }
+      }
+    }
+    return Array.from(traitSet).sort()
+  }, [ownedFiltered])
+
+  const filtered = useMemo(() => {
+    return ownedFiltered.filter((m) => {
+      if (search) {
+        const q = search.toLowerCase()
+        if (!m.nameDe.toLowerCase().includes(q) && !m.nameEn.toLowerCase().includes(q)) return false
+      }
+      if (selectedTraits.size > 0) {
+        if (!m.traits || !m.traits.some((t) => selectedTraits.has(t))) return false
+      }
+      return true
+    })
+  }, [ownedFiltered, search, selectedTraits])
+
+  const grouped = useMemo(() => {
+    const map = new Map<string, typeof filtered>()
+    for (const m of filtered) {
+      const existing = map.get(m.expansionId) ?? []
+      existing.push(m)
+      map.set(m.expansionId, existing)
+    }
+    return map
+  }, [filtered])
+
+  const handleImgError = (id: string) => {
+    setImgErrors((prev) => new Set(prev).add(id))
+  }
+
+  const toggleTrait = (trait: string) => {
+    setSelectedTraits((prev) => {
+      const next = new Set(prev)
+      if (next.has(trait)) {
+        next.delete(trait)
+      } else {
+        next.add(trait)
+      }
+      return next
+    })
+  }
+
+  return (
+    <div className="space-y-6">
+      {lightboxMonster && (
+        <MonsterLightbox
+          monster={lightboxMonster}
+          imgUrl={monsterImageUrl(lightboxMonster.id, lightboxMonster.expansionId)}
+          onClose={() => setLightboxMonster(null)}
+        />
+      )}
+
+      <div>
+        <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Monster</h2>
+        <p className="text-gray-400 text-sm">
+          {filtered.length} Monstergruppen {onlyOwned ? 'in deiner Sammlung' : 'insgesamt'}
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <input
+          type="search"
+          placeholder="Suche nach Name…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="bg-dungeon-800 border border-dungeon-700 text-gray-100 rounded px-3 py-2 text-sm w-64 focus:outline-none focus:border-gold-500"
+        />
+        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={onlyOwned}
+            onChange={(e) => setOnlyOwned(e.target.checked)}
+            className="accent-gold-500"
+          />
+          Nur meine Sammlung
+        </label>
+      </div>
+
+      {availableTraits.length > 0 && (
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Typ-Filter</span>
+            {selectedTraits.size > 0 && (
+              <button
+                onClick={() => setSelectedTraits(new Set())}
+                className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                ✕ Alle
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {availableTraits.map((trait) => {
+              const isSelected = selectedTraits.has(trait)
+              return (
+                <button
+                  key={trait}
+                  onClick={() => toggleTrait(trait)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded text-xs transition-colors ${
+                    isSelected
+                      ? 'bg-dungeon-700 border border-yellow-500'
+                      : 'bg-dungeon-800 border border-dungeon-600 hover:border-dungeon-500'
+                  }`}
+                >
+                  <span className="text-gray-300 text-xs">{trait}</span>
+                  <TraitIcon trait={trait} size={14} />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {grouped.size === 0 ? (
+        <div className="card text-center text-gray-500 py-12">
+          Keine Monster gefunden. Passe deine Suche oder Sammlung an.
+        </div>
+      ) : (
+        <div className="space-y-8">
+          {Array.from(grouped.entries()).map(([expId, monsters]) => {
+            const exp = expansionMap[expId]
+            return (
+              <div key={expId}>
+                <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
+                  {exp?.nameDe ?? expId}
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                  {monsters.map((m) => {
+                    const imgUrl = monsterImageUrl(m.id, m.expansionId)
+                    const hasImg = !imgErrors.has(m.id)
+                    return (
+                      <div key={m.id} className="card hover:border-gold-700 transition-colors">
+                        <div className="flex gap-3">
+                          <button
+                            className="shrink-0 w-20 h-28 rounded overflow-hidden bg-dungeon-800 flex items-center justify-center hover:ring-2 hover:ring-gold-500 transition-all cursor-zoom-in"
+                            onClick={() => setLightboxMonster(m)}
+                            title="Karte vergrößern"
+                          >
+                            {hasImg ? (
+                              <img
+                                src={imgUrl}
+                                alt={m.nameEn}
+                                className="w-full h-full object-cover object-top"
+                                onError={() => handleImgError(m.id)}
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-3xl opacity-30">👹</span>
+                            )}
+                          </button>
+
+                          <div className="flex-1 min-w-0">
+                            <div className="mb-1">
+                              <p className="text-gray-100 font-semibold text-sm leading-tight">{m.nameDe}</p>
+                              <p className="text-gray-500 text-xs">{m.nameEn}</p>
+                            </div>
+                            {m.traits && m.traits.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mb-2">
+                                {m.traits.map((t) => (
+                                  <span key={t} className="text-[10px] bg-dungeon-700 text-gray-400 px-1.5 py-0.5 rounded">
+                                    {t}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                            <div className="flex gap-2">
+                              {m.normal && <StatBlock stats={m.normal} label="Normal" compact />}
+                              {m.master && <StatBlock stats={m.master} label="Elite" isElite compact />}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}

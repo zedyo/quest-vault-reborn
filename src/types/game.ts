@@ -18,11 +18,16 @@ export interface Expansion {
   code?: string
 }
 
-export interface Hero {
-  id: string
-  name: string
-  archetype: 'krieger' | 'heiler' | 'magier' | 'spaeher'
-  expansionId: string
+// Würfelfarben in Descent 2e
+export type DieColor = 'blue' | 'red' | 'yellow' | 'white' | 'gray' | 'brown' | 'black' | 'silver'
+
+export interface MonsterStats {
+  speed: number
+  health: number
+  defense: DieColor[]
+  attack: DieColor[]
+  surges?: string[]
+  abilities?: string[]
 }
 
 export interface Monster {
@@ -30,6 +35,24 @@ export interface Monster {
   nameDe: string
   nameEn: string
   expansionId: string
+  traits?: string[]
+  normal?: MonsterStats
+  master?: MonsterStats
+  imageUrl?: string
+}
+
+export interface Hero {
+  id: string
+  name: string
+  archetype: 'krieger' | 'heiler' | 'magier' | 'spaeher'
+  expansionId: string
+  speed?: number
+  health?: number
+  stamina?: number
+  defense?: DieColor[]
+  heroAbility?: string
+  heroicFeat?: string
+  imageUrl?: string
 }
 
 export interface Quest {
