@@ -40,16 +40,81 @@
 
 ---
 
+## Grundspiel-Kacheln: Verifizierte Rastermaße
+
+**Quellen:** any2cards/d2e (PNG-Pixelmaße @ 75px/Feld) + D2eMap constants.js (@ 32px/Feld)  
+**Verifiziert:** 2026-05-14 (beide Quellen stimmen überein, außer bei Kachel 15 und 27)
+
+| Kachel | Spalten (cols) | Zeilen (rows) | Pixel (any2cards) | Hinweis |
+|--------|---------------|--------------|-------------------|---------|
+| 01a/01b | 8 | 6 | 600×450 | Größte Grundspiel-Kachel |
+| 02a/02b | 6 | 6 | 450×450 | |
+| 03a/03b | 6 | 4 | 450×300 | |
+| 04a/04b | 6 | 6 | 450×450 | |
+| 05a/05b | 6 | 4 | 450×300 | |
+| 06a/06b | 6 | 4 | 450×300 | |
+| 07a/07b | 6 | 4 | 450×300 | |
+| 08a/08b | 4 | 4 | 300×300 | |
+| 09a/09b | 4 | 4 | 300×300 | |
+| 10a/10b | 4 | 4 | 300×300 | |
+| 11a/11b | 4 | 4 | 300×300 | |
+| 12a/12b | 5 | 5 | 375×375 | Diagonale Kachel? |
+| 13a/13b | 6 | 6 | 450×450 | |
+| 14a/14b | 4 | 4 | 300×300 | |
+| 15a/15b | 4 | 4 | 300×300 | D2eMap hat 5×4 – Abweichung! |
+| 16a/16b | 4 | 4 | 300×300 | |
+| 17a/17b | 4 | 4 | 300×300 | |
+| 18a/18b | 4 | 4 | 300×300 | |
+| 19a/19b | 6 | 3 | 450×225 | Flacher Raum |
+| 20a/20b | 8 | 3 | 600×225 | Breiter Flachraum |
+| 21a/21b | 6 | 3 | 450×225 | |
+| 22a/22b | 6 | 2 | 450×150 | Korridor |
+| 23a/23b | 6 | 2 | 450×150 | Korridor |
+| 24a/24b | 6 | 2 | 450×150 | Korridor |
+| 25a/25b | 6 | 2 | 450×150 | Korridor |
+| 26a/26b | 4 | 3 | 300×225 | |
+| 27a/27b | 2 | 4 | 150×300 | D2eMap hat 4×2 (andere Rotation) |
+| 28a/28b | 4 | 2 | 300×150 | Korridor |
+| 29a/29b | 4 | 2 | 300×150 | Korridor |
+| 30a/30b | 4 | 2 | 300×150 | Korridor |
+
+> **Hinweis Maßstab:** any2cards verwendet exakt 75px pro Spielfeld. Alle Pixelwerte sind ganzzahlig teilbar.  
+> **Kachel 27:** In any2cards als Hochformat gespeichert (2×4), D2eMap hat Querformat (4×2) – es ist die gleiche Kachel, nur anders gedreht abgelegt.  
+> **Kachel 15:** any2cards zeigt 300×300px (4×4), D2eMap constants.js hat 5×4. Physische Überprüfung empfohlen.
+
+---
+
+## Frühere (falsche) Maßwerte
+
+Die folgenden Werte waren in der ursprünglichen Planung eingetragen und sind **FALSCH**:
+
+| Kachel | Falsch | Richtig |
+|--------|--------|---------|
+| 01a/01b | 2×3 | **8×6** |
+| 02a/02b | 2×4 | **6×6** |
+| 03a/03b | 3×3 | **6×4** |
+| 04a/04b | 2×3 | **6×6** |
+| 05a/05b | 3×4 | **6×4** |
+| 06a/06b | 4×4 | **6×4** |
+| 07a/07b | 2×5 | **6×4** |
+| 08a/08b | 3×5 | **4×4** |
+| 09a/09b | 4×5 | **4×4** |
+| 10a/10b | 4×6 | **4×4** |
+| 11a/11b | 2×6 | **4×4** |
+| 12a/12b | 3×6 | **5×5** |
+
+---
+
 ## Kachel-Kategorien
 
 ### Raumkacheln (Room Tiles)
 - Rechteckige oder unregelmäßige größere Flächen
 - Haben meist offene Ränder (Verbindungspunkte)
-- Unterschiedliche Größen: 2×3, 3×4, 4×5, 4×6 Felder (etc.)
+- Größen im Grundspiel: 4×4, 5×5, 6×4, 6×6, 8×6 Felder
 
 ### Gangkacheln (Corridor Tiles)
 - Schmale, lange Verbindungsstücke
-- 1×4, 1×6, 2×4 Felder (etc.)
+- Grundspiel: 4×2, 6×2, 4×3, 6×3, 2×4 Felder
 
 ### Eingangskacheln (Entry Tiles)
 - Spezielle Kacheln für den Startbereich der Helden
