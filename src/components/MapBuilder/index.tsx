@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useRef } from 'react'
 import {
   DndContext,
   DragEndEvent,
@@ -54,12 +54,51 @@ function TileDragPreview({ tileId }: { tileId: string }) {
   )
 }
 
+/** Vertical zoom lever — drag up to zoom in, drag down to zoom out */
+function ZoomLever({ zoom, onChange }: { zoom: number; onChange: (z: number) => void }) {
+  return (
+    <div
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, marginLeft: 6 }}
+      title={`Zoom: ${Math.round(zoom * 100)}%`}
+    >
+      <span style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1, userSelect: 'none' }}>+</span>
+      <input
+        type="range"
+        min={25}
+        max={200}
+        step={5}
+        value={Math.round(zoom * 100)}
+        onChange={(e) => onChange(parseInt(e.target.value) / 100)}
+        style={{
+          writingMode: 'vertical-lr' as React.CSSProperties['writingMode'],
+          direction: 'rtl' as React.CSSProperties['direction'],
+          height: 52,
+          width: 18,
+          cursor: 'ns-resize',
+          accentColor: '#d97706',
+          padding: 0,
+          margin: 0,
+        }}
+      />
+      <span style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1, userSelect: 'none' }}>–</span>
+      <span style={{ fontSize: 9, color: '#6b7280', marginTop: 1, userSelect: 'none' }}>
+        {Math.round(zoom * 100)}%
+      </span>
+    </div>
+  )
+}
+
 export default function MapBuilder() {
   const [placedTiles, setPlacedTiles] = useState<PlacedMapTile[]>([])
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
   const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
   const [activePaletteId, setActivePaletteId] = useState<string | null>(null)
+  const [zoom, setZoom] = useState(1.0)
+
+  // Stable ref so handleDragEnd (empty deps) always reads current zoom
+  const zoomRef = useRef(zoom)
+  zoomRef.current = zoom
 
   const placedTileIds = useMemo(
     () => new Set(placedTiles.map((t) => t.tileId)),
@@ -83,10 +122,10 @@ export default function MapBuilder() {
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, delta } = event
     const activeId = active.id as string
+    const currentZoom = zoomRef.current
 
     if (activeId.startsWith('palette-')) {
       setActivePaletteId(null)
-      // Only place if dropped over the grid droppable
       if (event.over?.id !== 'map-grid') return
       const tileId = activeId.slice('palette-'.length)
       const def = MAP_TILES.find((t) => t.id === tileId)
@@ -95,8 +134,9 @@ export default function MapBuilder() {
       const startEvt = event.activatorEvent as PointerEvent
       const finalX = startEvt.clientX + delta.x
       const finalY = startEvt.clientY + delta.y
-      const col = Math.max(0, Math.min(GRID_COLS - def.cols, Math.floor((finalX - gridRect.left) / CELL_SIZE)))
-      const row = Math.max(0, Math.min(GRID_ROWS - def.rows, Math.floor((finalY - gridRect.top) / CELL_SIZE)))
+      // gridRect is the scaled bounding rect of the grid canvas, so divide by CELL_SIZE * zoom
+      const col = Math.max(0, Math.min(GRID_COLS - def.cols, Math.floor((finalX - gridRect.left) / (CELL_SIZE * currentZoom))))
+      const row = Math.max(0, Math.min(GRID_ROWS - def.rows, Math.floor((finalY - gridRect.top) / (CELL_SIZE * currentZoom))))
       setPlacedTiles((prev) => [
         ...prev,
         { instanceId: newId(), tileId, col, row, rotation: 0 },
@@ -111,12 +151,13 @@ export default function MapBuilder() {
       prev.map((t) => {
         if (t.instanceId !== instanceId) return t
         const { cols, rows } = effectiveDims(t)
-        const newCol = Math.max(0, Math.min(GRID_COLS - cols, t.col + Math.round(delta.x / CELL_SIZE)))
-        const newRow = Math.max(0, Math.min(GRID_ROWS - rows, t.row + Math.round(delta.y / CELL_SIZE)))
+        // delta is in screen pixels; one grid cell is CELL_SIZE * zoom screen pixels
+        const newCol = Math.max(0, Math.min(GRID_COLS - cols, t.col + Math.round(delta.x / (CELL_SIZE * currentZoom))))
+        const newRow = Math.max(0, Math.min(GRID_ROWS - rows, t.row + Math.round(delta.y / (CELL_SIZE * currentZoom))))
         return { ...t, col: newCol, row: newRow }
       }),
     )
-  }, [])
+  }, []) // empty deps — reads zoom via zoomRef
 
   const handleSelectPalette = useCallback((id: string) => {
     const partner = getTilePartner(id)
@@ -140,7 +181,6 @@ export default function MapBuilder() {
         ...prev,
         { instanceId: newId(), tileId: selectedTileId, col: newCol, row: newRow, rotation: 0 },
       ])
-      // Auto-deselect after placing so the tile can immediately be moved
       setSelectedTileId(null)
       setPartnerWarningId(null)
     },
@@ -218,7 +258,7 @@ export default function MapBuilder() {
             </span>
           )}
 
-          <div className="flex gap-2 ml-auto">
+          <div className="flex gap-2 ml-auto items-center">
             <button
               onClick={rotateSelected}
               disabled={!selectedInstanceId}
@@ -244,6 +284,7 @@ export default function MapBuilder() {
             <span className="text-gray-600 text-xs self-center pl-1">
               {placedTiles.length} Plättchen
             </span>
+            <ZoomLever zoom={zoom} onChange={setZoom} />
           </div>
         </div>
 
@@ -263,6 +304,8 @@ export default function MapBuilder() {
             selectedTileId={selectedTileId}
             onPlaceTile={handlePlaceTile}
             onSelectInstance={handleSelectInstance}
+            zoom={zoom}
+            isDraggingFromPalette={activePaletteId !== null}
           />
         </div>
       </div>

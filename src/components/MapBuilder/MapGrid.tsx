@@ -1,4 +1,4 @@
-import { useRef, CSSProperties, useState } from 'react'
+import { useRef, CSSProperties, useState, useCallback } from 'react'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
@@ -17,9 +17,10 @@ interface DraggableTileProps {
   isSelected: boolean
   placingMode: boolean
   onSelect: (id: string) => void
+  zoom: number
 }
 
-function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTileProps) {
+function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: DraggableTileProps) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
   const { cols, rows } = effectiveDims(tile)
   const [imgError, setImgError] = useState(false)
@@ -31,13 +32,18 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
 
   const effW = cols * CELL_SIZE
   const effH = rows * CELL_SIZE
-  // Natural (unrotated) dimensions
   const natW = (def?.cols ?? cols) * CELL_SIZE
   const natH = (def?.rows ?? rows) * CELL_SIZE
 
+  // dnd-kit's transform is in screen pixels. The parent grid has transform:scale(zoom),
+  // so a local-space translate of N gets rendered as N*zoom screen pixels.
+  // Compensate by dividing so the tile tracks the cursor 1:1.
+  const adjTransform = transform
+    ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
+    : null
+
   const style: CSSProperties = {
     position: 'absolute',
-    // Offset so the natural-size div's center, after rotation, sits at the grid cell's center
     left: tile.col * CELL_SIZE + (effW - natW) / 2,
     top: tile.row * CELL_SIZE + (effH - natH) / 2,
     width: natW,
@@ -46,12 +52,8 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     borderRadius: 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
-    // Combine dnd-kit screen-space translation with tile rotation.
-    // CSS.Translate.toString(null) returns 'none', and 'none rotate(Xdeg)' is
-    // invalid CSS (browser drops the whole property, losing the rotation).
-    // So only prepend the translate when dnd-kit is actually dragging.
-    transform: transform
-      ? `${CSS.Translate.toString(transform)} rotate(${tile.rotation}deg)`
+    transform: adjTransform
+      ? `${CSS.Translate.toString(adjTransform)} rotate(${tile.rotation}deg)`
       : `rotate(${tile.rotation}deg)`,
     transformOrigin: 'center',
     opacity: isDragging ? 0.75 : 1,
@@ -125,6 +127,8 @@ interface Props {
   selectedTileId: string | null
   onPlaceTile: (col: number, row: number) => void
   onSelectInstance: (id: string | null) => void
+  zoom: number
+  isDraggingFromPalette: boolean
 }
 
 export default function MapGrid({
@@ -133,9 +137,32 @@ export default function MapGrid({
   selectedTileId,
   onPlaceTile,
   onSelectInstance,
+  zoom,
+  isDraggingFromPalette,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const topBarRef = useRef<HTMLDivElement>(null)
+  const syncingScroll = useRef(false)
+
   const { setNodeRef: setDropRef } = useDroppable({ id: 'map-grid' })
+
+  const scaledW = GRID_COLS * CELL_SIZE * zoom
+  const scaledH = GRID_ROWS * CELL_SIZE * zoom
+
+  const handleMainScroll = useCallback(() => {
+    if (syncingScroll.current || !topBarRef.current || !scrollRef.current) return
+    syncingScroll.current = true
+    topBarRef.current.scrollLeft = scrollRef.current.scrollLeft
+    syncingScroll.current = false
+  }, [])
+
+  const handleTopScroll = useCallback(() => {
+    if (syncingScroll.current || !topBarRef.current || !scrollRef.current) return
+    syncingScroll.current = true
+    scrollRef.current.scrollLeft = topBarRef.current.scrollLeft
+    syncingScroll.current = false
+  }, [])
 
   const handleGridClick = (e: React.MouseEvent) => {
     if (!selectedTileId) {
@@ -144,42 +171,81 @@ export default function MapGrid({
     }
     const rect = gridRef.current?.getBoundingClientRect()
     if (!rect) return
-    const col = Math.floor((e.clientX - rect.left) / CELL_SIZE)
-    const row = Math.floor((e.clientY - rect.top) / CELL_SIZE)
+    // getBoundingClientRect returns scaled screen dimensions, so divide by scaled cell size
+    const col = Math.floor((e.clientX - rect.left) / (CELL_SIZE * zoom))
+    const row = Math.floor((e.clientY - rect.top) / (CELL_SIZE * zoom))
     if (col >= 0 && col < GRID_COLS && row >= 0 && row < GRID_ROWS) {
       onPlaceTile(col, row)
     }
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-dungeon-950 p-4">
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden bg-dungeon-950">
+      {/* Top horizontal scrollbar mirror — keeps horizontal scroll accessible without scrolling down */}
       <div
-        ref={(node) => {
-          (gridRef as React.MutableRefObject<HTMLDivElement | null>).current = node
-          setDropRef(node)
-        }}
-        onClick={handleGridClick}
+        ref={topBarRef}
+        onScroll={handleTopScroll}
         style={{
-          position: 'relative',
-          width: GRID_COLS * CELL_SIZE,
-          height: GRID_ROWS * CELL_SIZE,
-          backgroundImage: `
-            linear-gradient(to right, #2a2a3a 1px, transparent 1px),
-            linear-gradient(to bottom, #2a2a3a 1px, transparent 1px)
-          `,
-          backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
-          cursor: selectedTileId ? 'crosshair' : 'default',
+          overflowX: isDraggingFromPalette ? 'hidden' : 'scroll',
+          overflowY: 'hidden',
+          height: 14,
+          flexShrink: 0,
+          backgroundColor: '#0f0f1a',
         }}
       >
-        {tiles.map((tile) => (
-          <DraggableTile
-            key={tile.instanceId}
-            tile={tile}
-            isSelected={tile.instanceId === selectedInstanceId}
-            placingMode={selectedTileId !== null}
-            onSelect={onSelectInstance}
-          />
-        ))}
+        <div style={{ width: scaledW + 32, height: 1 }} />
+      </div>
+
+      {/* Main scroll area */}
+      <div
+        ref={scrollRef}
+        onScroll={handleMainScroll}
+        style={{
+          flex: 1,
+          minHeight: 0,
+          overflowX: isDraggingFromPalette ? 'hidden' : 'scroll',
+          overflowY: 'scroll',
+          padding: 16,
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* Wrapper sized to the scaled grid dimensions so scrollable area is correct.
+            CSS transform:scale does not affect layout, so we need explicit dimensions here. */}
+        <div style={{ width: scaledW, height: scaledH, position: 'relative', flexShrink: 0 }}>
+          <div
+            ref={(node) => {
+              (gridRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+              setDropRef(node)
+            }}
+            onClick={handleGridClick}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: GRID_COLS * CELL_SIZE,
+              height: GRID_ROWS * CELL_SIZE,
+              transformOrigin: 'top left',
+              transform: `scale(${zoom})`,
+              backgroundImage: `
+                linear-gradient(to right, #2a2a3a 1px, transparent 1px),
+                linear-gradient(to bottom, #2a2a3a 1px, transparent 1px)
+              `,
+              backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
+              cursor: selectedTileId ? 'crosshair' : 'default',
+            }}
+          >
+            {tiles.map((tile) => (
+              <DraggableTile
+                key={tile.instanceId}
+                tile={tile}
+                isSelected={tile.instanceId === selectedInstanceId}
+                placingMode={selectedTileId !== null}
+                onSelect={onSelectInstance}
+                zoom={zoom}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
