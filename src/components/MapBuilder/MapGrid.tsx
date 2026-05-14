@@ -46,10 +46,13 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect }: DraggableTil
     borderRadius: 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
-    // Combine dnd-kit screen-space translation with tile rotation on the outer div.
-    // translate comes first in the string so it operates in screen/parent space,
-    // then rotate spins the already-positioned div around its center.
-    transform: `${CSS.Translate.toString(transform)} rotate(${tile.rotation}deg)`,
+    // Combine dnd-kit screen-space translation with tile rotation.
+    // CSS.Translate.toString(null) returns 'none', and 'none rotate(Xdeg)' is
+    // invalid CSS (browser drops the whole property, losing the rotation).
+    // So only prepend the translate when dnd-kit is actually dragging.
+    transform: transform
+      ? `${CSS.Translate.toString(transform)} rotate(${tile.rotation}deg)`
+      : `rotate(${tile.rotation}deg)`,
     transformOrigin: 'center',
     opacity: isDragging ? 0.75 : 1,
     userSelect: 'none',
