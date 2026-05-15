@@ -116,12 +116,28 @@ function HealthIcon({ size = 16 }: { size?: number }) {
 function DefenseIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#847974" />
+      <circle cx="12" cy="12" r="12" fill="#1f6fb2" />
       {/* Heater shield: flat top with rounded corners, straight sides, pointed bottom */}
       <path
         d="M12,21.5 L4.5,15.5 L4.5,7.5 Q4.5,5 7,5 L17,5 Q19.5,5 19.5,7.5 L19.5,15.5 Z"
         fill="white"
       />
+    </svg>
+  )
+}
+
+function AttackIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#847974" />
+      {/* Sword pointing diagonally from bottom-left to top-right */}
+      <g stroke="white" strokeLinecap="round">
+        <line x1="9.7" y1="14.3" x2="20" y2="4" strokeWidth="2.6" />
+        <line x1="7.6" y1="12.2" x2="11.8" y2="16.4" strokeWidth="2" />
+        <line x1="9.7" y1="14.3" x2="6.7" y2="17.3" strokeWidth="2" />
+      </g>
+      <polygon points="21.9,2.1 20.9,4.9 19.1,3.1" fill="white" />
+      <circle cx="6" cy="18" r="1.7" fill="white" />
     </svg>
   )
 }
@@ -327,9 +343,8 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
           {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
 
-        {/* Invisible spacer aligns "Angriff" word with the labeled rows above */}
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <span style={{ width: iconSize, height: iconSize, display: 'inline-block', flexShrink: 0 }} />Angriff
+          <AttackIcon size={iconSize} />Angriff
         </span>
         <div className="flex gap-0.5">
           {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
