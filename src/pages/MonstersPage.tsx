@@ -213,144 +213,113 @@ function SurgeSymbol({ size = 12 }: { size?: number }) {
 // ── TraitIcon ─────────────────────────────────────────────────────────────────
 
 const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> = {
-  'Böse': {
-    bg: '#991b1b',
+  'Bäume': {
+    bg: '#14532d',
     content: (
       <>
-        <line x1="5" y1="5" x2="19" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
-        <line x1="19" y1="5" x2="5" y2="19" stroke="white" strokeWidth="3.5" strokeLinecap="round"/>
+        {/* Round deciduous tree: cloud canopy + trunk */}
+        <ellipse cx="12" cy="10" rx="7.5" ry="6.5" fill="white"/>
+        <rect x="10.5" y="15" width="3" height="6" fill="white"/>
       </>
     ),
   },
-  'Tier': {
-    bg: '#92400e',
+  'Mond': {
+    bg: '#1e3a5f',
     content: (
-      <>
-        <circle cx="12" cy="15.5" r="5" fill="white"/>
-        <circle cx="6.5" cy="9.5" r="2.5" fill="white"/>
-        <circle cx="12" cy="7.5" r="2.5" fill="white"/>
-        <circle cx="17.5" cy="9.5" r="2.5" fill="white"/>
-      </>
+      /* Waxing crescent: outer arc around left, concave cutout on right */
+      <path
+        d="M 14 3 C 8 3 3 7.1 3 12 C 3 16.9 8 21 14 21 C 10 19 8 15.8 8 12 C 8 8.2 10 5 14 3 Z"
+        fill="white"
+      />
     ),
   },
-  'Elementar': {
-    bg: '#1d4ed8',
-    content: (
-      <path d="M12,3 L14,10 L21,12 L14,14 L12,21 L10,14 L3,12 L10,10 Z" fill="white"/>
-    ),
-  },
-  'Riese': {
-    bg: '#4b5563',
-    content: (
-      <>
-        <rect x="7" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
-        <rect x="13.5" y="3" width="3.5" height="4.5" rx="0.5" fill="white"/>
-        <rect x="6" y="7" width="12" height="14" rx="1" fill="white"/>
-        <rect x="10" y="14" width="4" height="7" fill="#4b5563"/>
-      </>
-    ),
-  },
-  'Totenbeschwörer': {
-    bg: '#5b21b6',
-    content: (
-      <path d="M12,3 L13.5,9 L19,5 L15,10.5 L21,12 L15,13.5 L19,19 L13.5,15 L12,21 L10.5,15 L5,19 L9,13.5 L3,12 L9,10.5 L5,5 L10.5,9 Z" fill="white"/>
-    ),
-  },
-  'Goblin': {
-    bg: '#166534',
-    content: (
-      <path d="M8.5,3 L8.5,17 L12,22 L15.5,17 L15.5,3 Z" fill="white"/>
-    ),
-  },
-  'Wasser': {
-    bg: '#0369a1',
-    content: (
-      <path d="M12,3 L19.5,14 Q19.5,21 12,21 Q4.5,21 4.5,14 Z" fill="white"/>
-    ),
-  },
-  'Drache': {
-    bg: '#b45309',
-    content: (
-      <>
-        <path d="M12,14 L3,3 Q2,13 8,17 Z" fill="white"/>
-        <path d="M12,14 L21,3 Q22,13 16,17 Z" fill="white"/>
-        <ellipse cx="12" cy="19" rx="3" ry="4" fill="white"/>
-      </>
-    ),
-  },
-  'Untot': {
+  'Totenkopf': {
     bg: '#374151',
     content: (
       <>
-        <path d="M12,4 Q19,4 19,11 Q19,17 12,17 Q5,17 5,11 Q5,4 12,4 Z" fill="white"/>
-        <circle cx="9.5" cy="11" r="2" fill="#374151"/>
-        <circle cx="14.5" cy="11" r="2" fill="#374151"/>
-        <rect x="9.5" y="16" width="2.5" height="4" fill="#374151"/>
-        <rect x="13" y="16" width="2.5" height="4" fill="#374151"/>
+        {/* Cranium oval */}
+        <ellipse cx="12" cy="10.5" rx="7.5" ry="7" fill="white"/>
+        {/* Eye sockets */}
+        <circle cx="9" cy="10" r="2.5" fill="#374151"/>
+        <circle cx="15" cy="10" r="2.5" fill="#374151"/>
+        {/* Jaw bar + tooth gaps */}
+        <rect x="7.5" y="16" width="9" height="4.5" rx="1" fill="white"/>
+        <rect x="10" y="16" width="1.5" height="4.5" fill="#374151"/>
+        <rect x="12.5" y="16" width="1.5" height="4.5" fill="#374151"/>
       </>
     ),
   },
-  'Mensch': {
-    bg: '#b45309',
+  'Berge': {
+    bg: '#4b5563',
     content: (
-      <>
-        <circle cx="12" cy="7.5" r="4.5" fill="white"/>
-        <path d="M4.5,22 L12,12 L19.5,22" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      </>
-    ),
-  },
-  'Konstrukt': {
-    bg: '#64748b',
-    content: (
-      <>
-        <circle cx="12" cy="12" r="6" fill="white"/>
-        <circle cx="12" cy="12" r="3" fill="#64748b"/>
-        <rect x="10.5" y="2" width="3" height="4" rx="1.5" fill="white"/>
-        <rect x="10.5" y="18" width="3" height="4" rx="1.5" fill="white"/>
-        <rect x="2" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
-        <rect x="18" y="10.5" width="4" height="3" rx="1.5" fill="white"/>
-      </>
-    ),
-  },
-  'Dämon': {
-    bg: '#7f1d1d',
-    content: (
-      <path d="M5,21 Q3,12 8,5 Q10,9 12,12 Q14,9 16,5 Q21,12 19,21" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round"/>
-    ),
-  },
-  'Dunkel': {
-    bg: '#1e1b4b',
-    content: (
-      <>
-        <circle cx="12" cy="12" r="9" fill="white"/>
-        <circle cx="16" cy="9" r="8" fill="#1e1b4b"/>
-      </>
+      /* Two mountain peaks with snow cap on the larger one */
+      <path d="M 2 20 L 9 7 L 12.5 13 L 17 9 L 22 20 Z" fill="white"/>
     ),
   },
   'Feuer': {
     bg: '#c2410c',
     content: (
       <>
-        <path d="M12,3 Q18.5,8 17.5,14 Q16.5,19.5 12,21 Q7.5,19.5 6.5,14 Q5.5,8 12,3 Z" fill="white"/>
-        <path d="M12,11 Q15,13 14.5,16 Q14,19 12,20 Q10,19 9.5,16 Q9,13 12,11 Z" fill="#c2410c"/>
+        {/* Outer flame */}
+        <path d="M 12 2 C 16.5 5 18.5 9 17.5 13 C 16.5 17.5 14 20 12 21 C 10 20 7.5 17.5 6.5 13 C 5.5 9 7.5 5 12 2 Z" fill="white"/>
+        {/* Inner flame (darker cutout gives depth) */}
+        <path d="M 12 10 C 14 12 14 15 13 17 C 12.5 18.5 12 20 12 21 C 11 20 10 18.5 9.5 17 C 9 15 9 12 12 10 Z" fill="#c2410c"/>
       </>
     ),
   },
-  'Kalt': {
-    bg: '#0284c7',
+  'Spinne': {
+    bg: '#111827',
     content: (
       <>
-        <line x1="12" y1="3" x2="12" y2="21" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-        <line x1="3" y1="7.5" x2="21" y2="16.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-        <line x1="3" y1="16.5" x2="21" y2="7.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-        <circle cx="12" cy="12" r="2.5" fill="white"/>
+        {/* 8 radial spokes */}
+        <line x1="12" y1="12" x2="12" y2="2" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="19.1" y2="4.9" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="22" y2="12" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="19.1" y2="19.1" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="12" y2="22" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="4.9" y2="19.1" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="2" y2="12" stroke="white" strokeWidth="1.5"/>
+        <line x1="12" y1="12" x2="4.9" y2="4.9" stroke="white" strokeWidth="1.5"/>
+        {/* 2 concentric web rings */}
+        <circle cx="12" cy="12" r="4" fill="none" stroke="white" strokeWidth="1.5"/>
+        <circle cx="12" cy="12" r="8" fill="none" stroke="white" strokeWidth="1.5"/>
       </>
     ),
   },
-  'Chaos': {
-    bg: '#7c3aed',
+  'Stern': {
+    bg: '#4c1d95',
     content: (
-      <path d="M12,12 Q16,8 13,5 Q9,4 6,8 Q4,13 8,17 Q12,21 17,18 Q21,14 19,9 Q16,4 11,4" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      /* 8-pointed starburst (two overlapping squares rotated 45°) */
+      <polygon
+        points="12,2 13.7,7.9 19.1,4.9 16.1,10.3 22,12 16.1,13.7 19.1,19.1 13.7,16.2 12,22 10.3,16.2 4.9,19.1 7.9,13.7 2,12 7.9,10.3 4.9,4.9 10.3,7.9"
+        fill="white"
+      />
+    ),
+  },
+  'Wasser': {
+    bg: '#075985',
+    content: (
+      <>
+        {/* Two wave curves */}
+        <path d="M 2 11 C 5 8 8 8 11 11 C 14 14 17 14 20 11" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M 2 16 C 5 13 8 13 11 16 C 14 19 17 19 20 16" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      </>
+    ),
+  },
+  'Eis': {
+    bg: '#155e75',
+    content: (
+      <>
+        {/* Snowflake: 3 crossing axes */}
+        <line x1="12" y1="2.5" x2="12" y2="21.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="3" y1="7.5" x2="21" y2="16.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        <line x1="21" y1="7.5" x2="3" y2="16.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+        {/* Branch tips on vertical arm */}
+        <line x1="9.5" y1="6" x2="12" y2="8.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="14.5" y1="6" x2="12" y2="8.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="9.5" y1="18" x2="12" y2="15.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="14.5" y1="18" x2="12" y2="15.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </>
     ),
   },
 }
