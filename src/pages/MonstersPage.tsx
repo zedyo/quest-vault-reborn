@@ -132,12 +132,12 @@ function AttackIcon({ size = 16 }: { size?: number }) {
       <circle cx="12" cy="12" r="12" fill="#847974" />
       {/* Sword pointing diagonally from bottom-left to top-right */}
       <g stroke="white" strokeLinecap="round">
-        <line x1="9.7" y1="14.3" x2="20" y2="4" strokeWidth="2.6" />
-        <line x1="7.6" y1="12.2" x2="11.8" y2="16.4" strokeWidth="2" />
-        <line x1="9.7" y1="14.3" x2="6.7" y2="17.3" strokeWidth="2" />
+        <line x1="11.3" y1="12.7" x2="17" y2="7" strokeWidth="2.4" />
+        <line x1="9.2" y1="10.6" x2="13.4" y2="14.8" strokeWidth="2" />
+        <line x1="11.3" y1="12.7" x2="7.4" y2="16.6" strokeWidth="2" />
       </g>
-      <polygon points="21.9,2.1 20.9,4.9 19.1,3.1" fill="white" />
-      <circle cx="6" cy="18" r="1.7" fill="white" />
+      <polygon points="18.7,5.3 17.7,8.0 15.9,6.2" fill="white" />
+      <circle cx="6.8" cy="17.2" r="1.6" fill="white" />
     </svg>
   )
 }
