@@ -72,6 +72,7 @@ export interface Quest {
   createdAt: string
   updatedAt: string
   encounters: Encounter[]
+  heroIds?: string[]
 }
 
 export interface Encounter {

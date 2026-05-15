@@ -4,6 +4,7 @@ import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster } from '../ty
 import type { PlacedMapTile } from '../components/MapBuilder/types'
 import MapBuilder from '../components/MapBuilder'
 import { MONSTERS } from '../data/monsters'
+import { HEROES, ARCHETYPE_COLORS } from '../data/heroes'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 
 const uid = () =>
@@ -39,6 +40,7 @@ function newQuest(): Quest {
     description: '',
     createdAt: now,
     updatedAt: now,
+    heroIds: [],
     encounters: [newEncounter(1)],
   }
 }
@@ -85,6 +87,80 @@ function TextField({ label, value, onChange, rows = 3, placeholder }: TextFieldP
   )
 }
 
+function HeroPicker({
+  selectedIds,
+  availableHeroIds,
+  onToggle,
+}: {
+  selectedIds: string[]
+  availableHeroIds: string[]
+  onToggle: (id: string) => void
+}) {
+  const heroes = HEROES.filter((h) => availableHeroIds.includes(h.id))
+  const MAX = 4
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-semibold text-gold-400">Helden</span>
+        <span className="text-xs text-gray-500">
+          {selectedIds.length}/{MAX} gewählt
+        </span>
+        {selectedIds.length > MAX && (
+          <span className="text-xs text-amber-400">⚠ Mehr als {MAX} Helden</span>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {heroes.map((hero) => {
+          const selected = selectedIds.includes(hero.id)
+          const colorClass = ARCHETYPE_COLORS[hero.archetype]
+          return (
+            <button
+              key={hero.id}
+              onClick={() => onToggle(hero.id)}
+              title={hero.name}
+              className={`relative w-16 rounded-md overflow-hidden border-2 transition-all focus:outline-none ${
+                selected
+                  ? 'border-gold-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]'
+                  : 'border-dungeon-600 opacity-60 hover:opacity-90 hover:border-dungeon-500'
+              }`}
+            >
+              {/* Portrait: crop character from left of landscape card */}
+              <div className="aspect-[3/4] overflow-hidden bg-dungeon-900">
+                {hero.imageUrl ? (
+                  <img
+                    src={hero.imageUrl}
+                    alt={hero.name}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'left center' }}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg">
+                    ⚔
+                  </div>
+                )}
+              </div>
+              {/* Archetype color bar + name */}
+              <div className={`px-1 py-0.5 text-center ${colorClass}`}>
+                <span className="block text-[9px] font-semibold leading-tight truncate">
+                  {hero.name.split(' ')[0]}
+                </span>
+              </div>
+              {/* Selected checkmark overlay */}
+              {selected && (
+                <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-gold-400 flex items-center justify-center">
+                  <span className="text-dungeon-950 text-[9px] font-black leading-none">✓</span>
+                </div>
+              )}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default function QuestEditorPage() {
   const quests = useGameStore((s) => s.quests)
   const addQuest = useGameStore((s) => s.addQuest)
@@ -94,6 +170,11 @@ export default function QuestEditorPage() {
 
   const availableMonsters = useMemo(
     () => MONSTERS.filter((m) => ownedExpansionIds.includes(m.expansionId)),
+    [ownedExpansionIds],
+  )
+
+  const availableHeroIds = useMemo(
+    () => HEROES.filter((h) => ownedExpansionIds.includes(h.expansionId)).map((h) => h.id),
     [ownedExpansionIds],
   )
 
@@ -115,9 +196,18 @@ export default function QuestEditorPage() {
     setActiveEncounterId(q.encounters[0].id)
   }
 
-  function patchQuest(patch: Partial<Pick<Quest, 'title' | 'description'>>) {
+  function patchQuest(patch: Partial<Pick<Quest, 'title' | 'description' | 'heroIds'>>) {
     if (!quest) return
     persist({ ...quest, ...patch })
+  }
+
+  function toggleHero(heroId: string) {
+    if (!quest) return
+    const current = quest.heroIds ?? []
+    const next = current.includes(heroId)
+      ? current.filter((id) => id !== heroId)
+      : [...current, heroId]
+    patchQuest({ heroIds: next })
   }
 
   function patchEncounter(patch: Partial<Encounter>) {
@@ -206,9 +296,37 @@ export default function QuestEditorPage() {
                 <p className="text-gray-500 text-sm line-clamp-2 min-h-[2.5rem]">
                   {q.description || 'Keine Beschreibung'}
                 </p>
-                <span className="text-gray-600 text-xs mt-auto">
-                  {q.encounters.length} Begegnung{q.encounters.length === 1 ? '' : 'en'}
-                </span>
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="text-gray-600 text-xs">
+                    {q.encounters.length} Begegnung{q.encounters.length === 1 ? '' : 'en'}
+                  </span>
+                  {(q.heroIds?.length ?? 0) > 0 && (
+                    <div className="flex -space-x-1.5">
+                      {(q.heroIds ?? []).slice(0, 4).map((hid) => {
+                        const h = HEROES.find((x) => x.id === hid)
+                        if (!h) return null
+                        return (
+                          <div
+                            key={hid}
+                            title={h.name}
+                            className={`w-7 h-7 rounded-full overflow-hidden border-2 ${ARCHETYPE_COLORS[h.archetype].split(' ')[2] ?? 'border-dungeon-600'}`}
+                          >
+                            {h.imageUrl ? (
+                              <img
+                                src={h.imageUrl}
+                                alt={h.name}
+                                className="w-full h-full object-cover"
+                                style={{ objectPosition: 'left center' }}
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-dungeon-700" />
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -256,6 +374,15 @@ export default function QuestEditorPage() {
           onChange={(v) => patchQuest({ description: v })}
           rows={2}
           placeholder="Worum geht es in dieser Quest?"
+        />
+      </div>
+
+      {/* Heldenauswahl */}
+      <div className="card">
+        <HeroPicker
+          selectedIds={quest.heroIds ?? []}
+          availableHeroIds={availableHeroIds}
+          onToggle={toggleHero}
         />
       </div>
 
