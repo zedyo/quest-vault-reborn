@@ -92,10 +92,12 @@ function MovementIcon({ size = 16 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
       <circle cx="12" cy="12" r="12" fill="#15552c" />
       {/* Slim fantasy leather boot: tapered shaft, curved instep, defined heel */}
-      <path
-        d="M9,4 C8.4,4 8.4,5 8.6,6.5 C8.9,9 8.6,11.5 8.6,13.5 C8.5,15.8 7.9,17.6 7.9,19 C7.9,20.4 8.2,21 9,21 L17.4,21 C19,21 20.1,20.4 20.1,19 C20.1,17.7 19,17 17.4,16.8 L14,16.3 C13,16.1 12.6,15.1 12.6,13.5 C12.6,10 12.8,7 12.6,5 C12.5,4.2 12,4 11.4,4 Z"
-        fill="white"
-      />
+      <g transform="translate(12 12) scale(0.7941) translate(-14 -12.5)">
+        <path
+          d="M9,4 C8.4,4 8.4,5 8.6,6.5 C8.9,9 8.6,11.5 8.6,13.5 C8.5,15.8 7.9,17.6 7.9,19 C7.9,20.4 8.2,21 9,21 L17.4,21 C19,21 20.1,20.4 20.1,19 C20.1,17.7 19,17 17.4,16.8 L14,16.3 C13,16.1 12.6,15.1 12.6,13.5 C12.6,10 12.8,7 12.6,5 C12.5,4.2 12,4 11.4,4 Z"
+          fill="white"
+        />
+      </g>
     </svg>
   )
 }
@@ -105,10 +107,12 @@ function HealthIcon({ size = 16 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
       <circle cx="12" cy="12" r="12" fill="#b52524" />
       {/* Classic symmetric heart with cubic bezier lobes */}
-      <path
-        d="M12,21 L4.5,13.5 C3,11.5 3,7.5 6,5.5 C9,3.5 11.5,6.5 12,9 C12.5,6.5 15,3.5 18,5.5 C21,7.5 21,11.5 19.5,13.5 Z"
-        fill="white"
-      />
+      <g transform="translate(12 12) scale(0.7951) translate(-12 -12.92)">
+        <path
+          d="M12,21 L4.5,13.5 C3,11.5 3,7.5 6,5.5 C9,3.5 11.5,6.5 12,9 C12.5,6.5 15,3.5 18,5.5 C21,7.5 21,11.5 19.5,13.5 Z"
+          fill="white"
+        />
+      </g>
     </svg>
   )
 }
@@ -118,10 +122,12 @@ function DefenseIcon({ size = 16 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
       <circle cx="12" cy="12" r="12" fill="#1f6fb2" />
       {/* Heater shield: flat top with rounded corners, straight sides, pointed bottom */}
-      <path
-        d="M12,21.5 L4.5,15.5 L4.5,7.5 Q4.5,5 7,5 L17,5 Q19.5,5 19.5,7.5 L19.5,15.5 Z"
-        fill="white"
-      />
+      <g transform="translate(12 12) scale(0.8182) translate(-12 -13.25)">
+        <path
+          d="M12,21.5 L4.5,15.5 L4.5,7.5 Q4.5,5 7,5 L17,5 Q19.5,5 19.5,7.5 L19.5,15.5 Z"
+          fill="white"
+        />
+      </g>
     </svg>
   )
 }
