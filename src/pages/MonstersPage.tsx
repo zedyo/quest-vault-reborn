@@ -46,10 +46,28 @@ const EXPANSION_PATH: Record<string, string> = {
   'the-chains-that-rust':    'the-chains-that-rust',
 }
 
-function monsterImageUrl(monsterId: string, expansionId: string): string {
+/**
+ * Returns merged stats for the requested act:
+ * act2 numeric stats override act1, but surges/abilities fall back to act1 when omitted.
+ * This mirrors the real cards where act2 changes stats but keeps identical text.
+ */
+function getActStats(
+  m: Monster,
+  act: 1 | 2,
+  type: 'normal' | 'master',
+): MonsterStats | undefined {
+  const act1 = type === 'normal' ? m.normal : m.master
+  const act2 = type === 'normal' ? m.act2Normal : m.act2Master
+  if (act === 1 || !act2) return act1
+  return { ...act1, ...act2, surges: act2.surges ?? act1?.surges, abilities: act2.abilities ?? act1?.abilities }
+}
+
+function monsterImageUrl(monsterId: string, expansionId: string, act: 1 | 2 = 1): string {
   const prefix = EXPANSION_PREFIX[expansionId] ?? 'bg'
   const expPath = EXPANSION_PATH[expansionId] ?? expansionId
-  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/act1/${prefix}-${monsterId}-front.png`
+  // Base game act2 images are not available in the source repo — fall back to act1
+  const actPath = act === 2 && expansionId !== 'base' ? 'act2' : 'act1'
+  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/${actPath}/${prefix}-${monsterId}-front.png`
 }
 
 /** Replace "Herz"/"Herzen" words with ❤ symbol */
@@ -337,18 +355,21 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
 interface LightboxProps {
   monster: Monster
   imgUrl: string
+  act: 1 | 2
   onClose: () => void
 }
 
-function MonsterLightbox({ monster, imgUrl, onClose }: LightboxProps) {
+function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
   const [imgError, setImgError] = useState(false)
+  const normalStats = getActStats(monster, act, 'normal')
+  const masterStats = getActStats(monster, act, 'master')
+  const noAct2Data = act === 2 && !monster.act2Normal && !monster.act2Master
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
       onClick={onClose}
     >
-      {/* 10% bigger than original max-w-2xl (672px → 740px) */}
       <div
         className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
         style={{ maxWidth: 740 }}
@@ -374,6 +395,12 @@ function MonsterLightbox({ monster, imgUrl, onClose }: LightboxProps) {
           </button>
         </div>
 
+        {noAct2Data && (
+          <div className="mx-4 mt-3 px-3 py-2 bg-dungeon-800 border border-dungeon-600 rounded text-xs text-gray-500">
+            Akt-2-Werte für dieses Monster noch nicht erfasst.
+          </div>
+        )}
+
         <div className="p-4 flex flex-col sm:flex-row gap-4">
           <div className="sm:w-52 shrink-0">
             {!imgError ? (
@@ -391,11 +418,11 @@ function MonsterLightbox({ monster, imgUrl, onClose }: LightboxProps) {
           </div>
 
           <div className="flex-1 space-y-3">
-            {monster.normal && (
-              <StatBlock stats={monster.normal} label="Normal" compact={false} />
+            {normalStats && (
+              <StatBlock stats={normalStats} label="Normal" compact={false} />
             )}
-            {monster.master && (
-              <StatBlock stats={monster.master} label="Elite" isElite compact={false} />
+            {masterStats && (
+              <StatBlock stats={masterStats} label="Elite" isElite compact={false} />
             )}
           </div>
         </div>
@@ -410,6 +437,7 @@ export default function MonstersPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
+  const [act, setAct] = useState<1 | 2>(1)
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set())
   const [lightboxMonster, setLightboxMonster] = useState<Monster | null>(null)
   const [selectedTraits, setSelectedTraits] = useState<Set<string>>(new Set())
@@ -467,6 +495,11 @@ export default function MonstersPage() {
     setImgErrors((prev) => new Set(prev).add(id))
   }
 
+  const handleActChange = (newAct: 1 | 2) => {
+    setAct(newAct)
+    setImgErrors(new Set())
+  }
+
   const toggleTrait = (trait: string) => {
     setSelectedTraits((prev) => {
       const next = new Set(prev)
@@ -484,7 +517,8 @@ export default function MonstersPage() {
       {lightboxMonster && (
         <MonsterLightbox
           monster={lightboxMonster}
-          imgUrl={monsterImageUrl(lightboxMonster.id, lightboxMonster.expansionId)}
+          imgUrl={monsterImageUrl(lightboxMonster.id, lightboxMonster.expansionId, act)}
+          act={act}
           onClose={() => setLightboxMonster(null)}
         />
       )}
@@ -513,6 +547,30 @@ export default function MonstersPage() {
           />
           Nur meine Sammlung
         </label>
+
+        {/* Act toggle */}
+        <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600 ml-auto sm:ml-0">
+          <button
+            onClick={() => handleActChange(1)}
+            className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+              act === 1
+                ? 'bg-gold-700 text-gray-900'
+                : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
+            }`}
+          >
+            Akt 1
+          </button>
+          <button
+            onClick={() => handleActChange(2)}
+            className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+              act === 2
+                ? 'bg-gold-700 text-gray-900'
+                : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
+            }`}
+          >
+            Akt 2
+          </button>
+        </div>
       </div>
 
       {availableTraits.length > 0 && (
@@ -565,10 +623,13 @@ export default function MonstersPage() {
                 </h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                   {monsters.map((m) => {
-                    const imgUrl = monsterImageUrl(m.id, m.expansionId)
+                    const imgUrl = monsterImageUrl(m.id, m.expansionId, act)
                     const hasImg = !imgErrors.has(m.id)
+                    const normalStats = getActStats(m, act, 'normal')
+                    const masterStats = getActStats(m, act, 'master')
+                    const missingAct2 = act === 2 && !m.act2Normal && !m.act2Master
                     return (
-                      <div key={m.id} className="card hover:border-gold-700 transition-colors">
+                      <div key={m.id} className={`card hover:border-gold-700 transition-colors ${missingAct2 ? 'opacity-60' : ''}`}>
                         <div className="flex gap-3">
                           <button
                             className="shrink-0 w-20 h-28 rounded overflow-hidden bg-dungeon-800 flex items-center justify-center hover:ring-2 hover:ring-gold-500 transition-all cursor-zoom-in"
@@ -589,9 +650,14 @@ export default function MonstersPage() {
                           </button>
 
                           <div className="flex-1 min-w-0">
-                            <div className="mb-1">
-                              <p className="text-gray-100 font-semibold text-sm leading-tight">{m.nameDe}</p>
-                              <p className="text-gray-500 text-xs">{m.nameEn}</p>
+                            <div className="mb-1 flex items-start justify-between gap-1">
+                              <div>
+                                <p className="text-gray-100 font-semibold text-sm leading-tight">{m.nameDe}</p>
+                                <p className="text-gray-500 text-xs">{m.nameEn}</p>
+                              </div>
+                              {missingAct2 && (
+                                <span className="text-[10px] text-gray-600 border border-dungeon-600 rounded px-1 py-0.5 shrink-0">Akt 2 folgt</span>
+                              )}
                             </div>
                             {m.traits && m.traits.length > 0 && (
                               <div className="flex flex-wrap gap-1 mb-2">
@@ -603,8 +669,8 @@ export default function MonstersPage() {
                               </div>
                             )}
                             <div className="flex gap-2">
-                              {m.normal && <StatBlock stats={m.normal} label="Normal" compact />}
-                              {m.master && <StatBlock stats={m.master} label="Elite" isElite compact />}
+                              {normalStats && <StatBlock stats={normalStats} label="Normal" compact />}
+                              {masterStats && <StatBlock stats={masterStats} label="Elite" isElite compact />}
                             </div>
                           </div>
                         </div>

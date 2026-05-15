@@ -38,6 +38,8 @@ export interface Monster {
   traits?: string[]
   normal?: MonsterStats
   master?: MonsterStats
+  act2Normal?: MonsterStats
+  act2Master?: MonsterStats
   imageUrl?: string
 }
 
