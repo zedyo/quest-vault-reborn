@@ -213,8 +213,8 @@ function SurgeSymbol({ size = 12 }: { size?: number }) {
 // ── TraitIcon ─────────────────────────────────────────────────────────────────
 
 const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> = {
-  // Wald (Wilderness) — pine tree
-  'Wald': {
+  // Wildnis (Wilderness) — pine tree
+  'Wildnis': {
     bg: '#14532d',
     content: (
       <>
@@ -223,8 +223,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Mond (Dark) — waxing crescent
-  'Mond': {
+  // Dunkel (Dark) — waxing crescent
+  'Dunkel': {
     bg: '#1e3a5f',
     content: (
       <path
@@ -243,8 +243,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Feuer (Hot) — flame
-  'Feuer': {
+  // Heiß (Hot) — flame
+  'Heiß': {
     bg: '#c2410c',
     content: (
       <>
@@ -253,8 +253,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Eis (Cold) — six-point snowflake
-  'Eis': {
+  // Kalt (Cold) — six-point snowflake
+  'Kalt': {
     bg: '#155e75',
     content: (
       <>
@@ -268,8 +268,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Berg (Mountain) — twin rocky peaks with snow caps
-  'Berg': {
+  // Gebirge (Mountain) — twin rocky peaks with snow caps
+  'Gebirge': {
     bg: '#4b5563',
     content: (
       <>
@@ -279,8 +279,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Schädel (Cursed) — skull
-  'Schädel': {
+  // Verflucht (Cursed) — skull
+  'Verflucht': {
     bg: '#374151',
     content: (
       <>
@@ -294,8 +294,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Tempel (Civilized) — classical temple
-  'Tempel': {
+  // Zivilisiert (Civilized) — classical temple
+  'Zivilisiert': {
     bg: '#57534e',
     content: (
       <>
@@ -309,8 +309,8 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  // Ruine (Building) — crumbling tower wall
-  'Ruine': {
+  // Gebäude (Building) — crumbling tower wall
+  'Gebäude': {
     bg: '#78716c',
     content: (
       <>

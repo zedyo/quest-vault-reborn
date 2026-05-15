@@ -18,7 +18,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Barghest',
     nameEn: 'Barghest',
     expansionId: 'base',
-    traits: ['Wald', 'Mond'],
+    traits: ['Wildnis', 'Dunkel'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -38,7 +38,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höhlenspinne',
     nameEn: 'Cave Spider',
     expansionId: 'base',
-    traits: ['Wald', 'Höhle'],
+    traits: ['Wildnis', 'Höhle'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Vergiften: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel vergiftet.', '+1 Herz'],
@@ -56,7 +56,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Elementar',
     nameEn: 'Elemental',
     expansionId: 'base',
-    traits: ['Eis', 'Feuer'],
+    traits: ['Kalt', 'Heiß'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       actions: [
@@ -83,7 +83,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ettin',
     nameEn: 'Ettin',
     expansionId: 'base',
-    traits: ['Berg', 'Höhle'],
+    traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 3, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['+2 Herzen'],
@@ -103,7 +103,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Fleischformer',
     nameEn: 'Flesh Moulder',
     expansionId: 'base',
-    traits: ['Schädel', 'Tempel'],
+    traits: ['Verflucht', 'Zivilisiert'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Flicken 1: Dieses Monster heilt 1 Herz.'],
@@ -121,7 +121,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Bogenschütze',
     nameEn: 'Goblin Archer',
     expansionId: 'base',
-    traits: ['Ruine', 'Höhle'],
+    traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 5, health: 2, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['+1 Reichweite', '+1 Herz'],
@@ -143,7 +143,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Merriod',
     nameEn: 'Merriod',
     expansionId: 'base',
-    traits: ['Wald', 'Wasser'],
+    traits: ['Wildnis', 'Wasser'],
     normal: {
       speed: 3, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['Immobilisieren: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel bewegungsunfähig.', '+1 Herz'],
@@ -165,7 +165,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schattendrache',
     nameEn: 'Shadow Dragon',
     expansionId: 'base',
-    traits: ['Mond', 'Höhle'],
+    traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -185,7 +185,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Zombie',
     nameEn: 'Zombie',
     expansionId: 'base',
-    traits: ['Schädel', 'Ruine'],
+    traits: ['Verflucht', 'Gebäude'],
     normal: {
       speed: 3, health: 3, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['Verseuchen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verseucht.', '+1 Herz'],
@@ -206,7 +206,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Feuerimps',
     nameEn: 'Fire Imps',
     expansionId: 'lair-of-the-wyrm',
-    traits: ['Feuer', 'Schädel'],
+    traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 5, health: 2, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Verbrennen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), brennt das Ziel.', '+1 Reichweite'],
@@ -228,7 +228,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Hybridwächter',
     nameEn: 'Hybrid Sentinel',
     expansionId: 'lair-of-the-wyrm',
-    traits: ['Berg', 'Höhle'],
+    traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -255,7 +255,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Arachyura',
     nameEn: 'Arachyura',
     expansionId: 'labyrinth-of-ruin',
-    traits: ['Wald', 'Schädel'],
+    traits: ['Wildnis', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'],
       surges: ['Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.'],
@@ -275,7 +275,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Aasdrake',
     nameEn: 'Carrion Drake',
     expansionId: 'labyrinth-of-ruin',
-    traits: ['Wasser', 'Mond'],
+    traits: ['Wasser', 'Dunkel'],
     normal: {
       speed: 5, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Verseuchen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verseucht.', '+1 Herz'],
@@ -297,7 +297,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Hexer',
     nameEn: 'Goblin Witcher',
     expansionId: 'labyrinth-of-ruin',
-    traits: ['Ruine', 'Schädel'],
+    traits: ['Gebäude', 'Verflucht'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Verfluchen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verflucht.', '+1 Reichweite'],
@@ -315,7 +315,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Volucrix-Räuber',
     nameEn: 'Volucrix Reaver',
     expansionId: 'labyrinth-of-ruin',
-    traits: ['Ruine', 'Berg'],
+    traits: ['Gebäude', 'Gebirge'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.'],
@@ -336,7 +336,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Harpyie',
     nameEn: 'Harpy',
     expansionId: 'the-trollfens',
-    traits: ['Wald', 'Berg'],
+    traits: ['Wildnis', 'Gebirge'],
     normal: {
       speed: 5, health: 3, defense: ['gray'], attack: ['blue', 'green'],
       surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere Monster, das an das Ziel angrenzt.'],
@@ -377,7 +377,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Bandit',
     nameEn: 'Bandit',
     expansionId: 'manor-of-ravens',
-    traits: ['Wald', 'Ruine'],
+    traits: ['Wildnis', 'Gebäude'],
     normal: {
       speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'],
       surges: ['Vergiften: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel vergiftet.', '+1 Herz'],
@@ -396,7 +396,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wraith',
     nameEn: 'Wraith',
     expansionId: 'manor-of-ravens',
-    traits: ['Tempel', 'Schädel'],
+    traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt.', '+1 Herz'],
@@ -417,7 +417,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wechselbalg',
     nameEn: 'Changeling',
     expansionId: 'shadow-of-nerekhall',
-    traits: ['Tempel', 'Schädel'],
+    traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'],
       surges: [
@@ -443,7 +443,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eisengebundener',
     nameEn: 'Ironbound',
     expansionId: 'shadow-of-nerekhall',
-    traits: ['Tempel', 'Ruine'],
+    traits: ['Zivilisiert', 'Gebäude'],
     normal: {
       speed: 2, health: 8, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+2 Herzen'],
@@ -470,7 +470,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Rattenschwarm',
     nameEn: 'Rat Swarm',
     expansionId: 'shadow-of-nerekhall',
-    traits: ['Ruine', 'Mond'],
+    traits: ['Gebäude', 'Dunkel'],
     normal: {
       speed: 3, health: 4, defense: ['brown'], attack: ['green'],
       surges: ['Festmahl: Dieser Angriff erhält +X Herz, wobei X der verbleibenden Lebenspunkte dieses Monsters entspricht.'],
@@ -496,7 +496,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ynfernael-Koloss',
     nameEn: 'Ynfernael Hulk',
     expansionId: 'shadow-of-nerekhall',
-    traits: ['Schädel', 'Feuer'],
+    traits: ['Verflucht', 'Heiß'],
     normal: {
       speed: 3, health: 8, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.'],
@@ -519,7 +519,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Fluchspinne',
     nameEn: 'Bane Spider',
     expansionId: 'oath-of-the-outcast',
-    traits: ['Mond', 'Höhle'],
+    traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 4, health: 4, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: [
@@ -543,7 +543,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiermensch',
     nameEn: 'Beastman',
     expansionId: 'oath-of-the-outcast',
-    traits: ['Berg', 'Wald'],
+    traits: ['Gebirge', 'Wildnis'],
     normal: {
       speed: 4, health: 4, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       abilities: ['Wüten: Beide Aktionen dieses Monsters in einem Zug dürfen Angriffsaktionen sein.'],
@@ -563,7 +563,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Klingenschwinge',
     nameEn: 'Razorwing',
     expansionId: 'oath-of-the-outcast',
-    traits: ['Wald', 'Höhle'],
+    traits: ['Wildnis', 'Höhle'],
     normal: {
       speed: 5, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
@@ -586,7 +586,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Chaosbiest',
     nameEn: 'Chaos Beast',
     expansionId: 'crown-of-destiny',
-    traits: ['Mond', 'Schädel'],
+    traits: ['Dunkel', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray'], attack: [],
       surges: ['+1 Herz'],
@@ -605,7 +605,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Riese',
     nameEn: 'Giant',
     expansionId: 'crown-of-destiny',
-    traits: ['Berg', 'Wald'],
+    traits: ['Gebirge', 'Wildnis'],
     normal: {
       speed: 3, health: 10, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['Betäuben: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel betäubt.'],
@@ -625,7 +625,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Lavakäfer',
     nameEn: 'Lava Beetle',
     expansionId: 'crown-of-destiny',
-    traits: ['Feuer', 'Höhle'],
+    traits: ['Heiß', 'Höhle'],
     normal: {
       speed: 3, health: 3, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['Druckwelle: Dieser Angriff betrifft alle Figuren, die zum Zielfeld benachbart sind.', '+1 Herz'],
@@ -643,7 +643,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Golem',
     nameEn: 'Golem',
     expansionId: 'crusade-of-the-forgotten',
-    traits: ['Berg', 'Ruine'],
+    traits: ['Gebirge', 'Gebäude'],
     normal: {
       speed: 3, health: 8, defense: ['gray', 'black'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -665,7 +665,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Medusa',
     nameEn: 'Medusa',
     expansionId: 'crusade-of-the-forgotten',
-    traits: ['Schädel', 'Ruine'],
+    traits: ['Verflucht', 'Gebäude'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: [
@@ -689,7 +689,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Zauberer',
     nameEn: 'Sorcerer',
     expansionId: 'crusade-of-the-forgotten',
-    traits: ['Tempel', 'Ruine'],
+    traits: ['Zivilisiert', 'Gebäude'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.'],
@@ -710,7 +710,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Kryptendrache',
     nameEn: 'Crypt Dragon',
     expansionId: 'guardians-of-deephall',
-    traits: ['Mond', 'Schädel'],
+    traits: ['Dunkel', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Druckwelle: Dieser Angriff betrifft alle Figuren, die zum Zielfeld benachbart sind.', '+2 Herzen'],
@@ -737,7 +737,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dunkelpriester',
     nameEn: 'Dark Priest',
     expansionId: 'guardians-of-deephall',
-    traits: ['Tempel', 'Schädel'],
+    traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
@@ -767,7 +767,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wendigo',
     nameEn: 'Wendigo',
     expansionId: 'guardians-of-deephall',
-    traits: ['Eis', 'Höhle'],
+    traits: ['Kalt', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -794,7 +794,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Manticore',
     nameEn: 'Manticore',
     expansionId: 'visions-of-dawn',
-    traits: ['Wald', 'Mond'],
+    traits: ['Wildnis', 'Dunkel'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.', '+1 Reichweite'],
@@ -817,7 +817,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Oger',
     nameEn: 'Ogre',
     expansionId: 'visions-of-dawn',
-    traits: ['Ruine', 'Höhle'],
+    traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.', '+3 Lebenspunkte'],
@@ -835,7 +835,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Troll',
     nameEn: 'Troll',
     expansionId: 'visions-of-dawn',
-    traits: ['Berg', 'Höhle'],
+    traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 3, health: 8, defense: ['gray'], attack: ['blue', 'red'],
       abilities: [
@@ -860,7 +860,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiefelfe',
     nameEn: 'Deep Elf',
     expansionId: 'bonds-of-the-wild',
-    traits: ['Mond', 'Höhle'],
+    traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 5, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.', '+1 Lebenspunkt'],
@@ -882,7 +882,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höllenhund',
     nameEn: 'Hellhound',
     expansionId: 'bonds-of-the-wild',
-    traits: ['Feuer', 'Schädel'],
+    traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
@@ -906,7 +906,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Kobold',
     nameEn: 'Kobold',
     expansionId: 'bonds-of-the-wild',
-    traits: ['Ruine', 'Höhle'],
+    traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 2, defense: ['brown'], attack: ['blue'],
       surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere benachbarte Monster zum Ziel.'],
@@ -932,7 +932,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Krähenhexe',
     nameEn: 'Crow Hag',
     expansionId: 'treaty-of-champions',
-    traits: ['Mond', 'Tempel'],
+    traits: ['Dunkel', 'Zivilisiert'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['+1 Lebenspunkt'],
@@ -957,7 +957,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dämonenfürst',
     nameEn: 'Demon Lord',
     expansionId: 'treaty-of-champions',
-    traits: ['Feuer', 'Schädel'],
+    traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['Verdorren: Das Ziel erleidet 1 Erschöpfung.'],
@@ -979,7 +979,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Skelett-Bogenschütze',
     nameEn: 'Skeleton Archer',
     expansionId: 'treaty-of-champions',
-    traits: ['Schädel', 'Tempel'],
+    traits: ['Verflucht', 'Zivilisiert'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.', '+1 Reichweite'],
@@ -999,7 +999,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Blutaffe',
     nameEn: 'Blood Ape',
     expansionId: 'stewards-of-the-secret',
-    traits: ['Höhle', 'Feuer'],
+    traits: ['Höhle', 'Heiß'],
     normal: {
       speed: 4, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -1064,7 +1064,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dunkelminotaurus',
     nameEn: 'Dark Minotaur',
     expansionId: 'shards-of-everdark',
-    traits: ['Tempel', 'Mond'],
+    traits: ['Zivilisiert', 'Dunkel'],
     normal: {
       speed: 4, health: 8, defense: ['gray'], attack: ['blue'],
       surges: ['Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.'],
@@ -1091,7 +1091,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eiswurm',
     nameEn: 'Ice Wyrm',
     expansionId: 'shards-of-everdark',
-    traits: ['Eis', 'Höhle'],
+    traits: ['Kalt', 'Höhle'],
     normal: {
       speed: 4, health: 7, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       abilities: [
@@ -1115,7 +1115,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schatten',
     nameEn: 'Shade',
     expansionId: 'shards-of-everdark',
-    traits: ['Schädel', 'Mond'],
+    traits: ['Verflucht', 'Dunkel'],
     normal: {
       speed: 4, health: 2, defense: ['gray', 'black'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.'],
@@ -1137,7 +1137,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Knochenschrecken',
     nameEn: 'Bone Horror',
     expansionId: 'mists-of-bilehall',
-    traits: ['Höhle', 'Schädel'],
+    traits: ['Höhle', 'Verflucht'],
     normal: {
       speed: 5, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.'],
@@ -1165,7 +1165,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Brutläufer',
     nameEn: 'Broodwalker',
     expansionId: 'mists-of-bilehall',
-    traits: ['Mond', 'Ruine'],
+    traits: ['Dunkel', 'Gebäude'],
     normal: {
       speed: 2, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
       surges: ['Verängstigen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel verängstigt.', '+1 Herz'],
@@ -1187,7 +1187,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wiederbelebter',
     nameEn: 'Reanimate',
     expansionId: 'mists-of-bilehall',
-    traits: ['Tempel', 'Schädel'],
+    traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 3, health: 3, defense: ['gray', 'black'], attack: ['blue'],
       surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes zum Ziel benachbarte Minion-Monster.'],
@@ -1214,7 +1214,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Markpriester',
     nameEn: 'Marrow Priest',
     expansionId: 'the-chains-that-rust',
-    traits: ['Mond', 'Ruine'],
+    traits: ['Dunkel', 'Gebäude'],
     normal: {
       speed: 5, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
       surges: ['Sterbliche Bindung: Das Ziel legt eine Wissen-Probe ab. Misslingt sie, lege seinen Heldenmarker auf diese Karte. Ein Held, dessen Marker auf dieser Karte liegt, kann keine Herzen heilen. Wird ein Monster dieser Gruppe besiegt oder ein Held kampfunfähig, lege alle Heldenmarker von dieser Karte ab.', '+1 Herz'],
@@ -1233,7 +1233,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Taumelnder Koloss',
     nameEn: 'Shambling Colossus',
     expansionId: 'the-chains-that-rust',
-    traits: ['Wald', 'Schädel'],
+    traits: ['Wildnis', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
@@ -1255,7 +1255,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Die Besitzlosen',
     nameEn: 'The Dispossessed',
     expansionId: 'the-chains-that-rust',
-    traits: ['Tempel', 'Schädel'],
+    traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 2, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
