@@ -252,7 +252,7 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
   'Berge': {
     bg: '#4b5563',
     content: (
-      /* Two mountain peaks with snow cap on the larger one */
+      /* Jagged rocky peaks */
       <path d="M 2 20 L 9 7 L 12.5 13 L 17 9 L 22 20 Z" fill="white"/>
     ),
   },
@@ -267,46 +267,53 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
       </>
     ),
   },
-  'Spinne': {
-    bg: '#111827',
+  'Sonne': {
+    bg: '#b45309',
     content: (
       <>
-        {/* 8 radial spokes */}
-        <line x1="12" y1="12" x2="12" y2="2" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="19.1" y2="4.9" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="22" y2="12" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="19.1" y2="19.1" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="12" y2="22" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="4.9" y2="19.1" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="2" y2="12" stroke="white" strokeWidth="1.5"/>
-        <line x1="12" y1="12" x2="4.9" y2="4.9" stroke="white" strokeWidth="1.5"/>
-        {/* 2 concentric web rings */}
-        <circle cx="12" cy="12" r="4" fill="none" stroke="white" strokeWidth="1.5"/>
-        <circle cx="12" cy="12" r="8" fill="none" stroke="white" strokeWidth="1.5"/>
+        <circle cx="12" cy="12" r="5" fill="white"/>
+        {/* 8 rays */}
+        <line x1="12" y1="2" x2="12" y2="5" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="2" y1="12" x2="5" y2="12" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="19" y1="12" x2="22" y2="12" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="4.9" y1="4.9" x2="7" y2="7" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="17" y1="17" x2="19.1" y2="19.1" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="4.9" y1="19.1" x2="7" y2="17" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="17" y1="7" x2="19.1" y2="4.9" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
       </>
     ),
   },
-  'Stern': {
-    bg: '#4c1d95',
-    content: (
-      /* 8-pointed starburst (two overlapping squares rotated 45°) */
-      <polygon
-        points="12,2 13.7,7.9 19.1,4.9 16.1,10.3 22,12 16.1,13.7 19.1,19.1 13.7,16.2 12,22 10.3,16.2 4.9,19.1 7.9,13.7 2,12 7.9,10.3 4.9,4.9 10.3,7.9"
-        fill="white"
-      />
-    ),
-  },
-  'Wasser': {
-    bg: '#075985',
+  'Glocke': {
+    bg: '#92400e',
     content: (
       <>
-        {/* Two wave curves */}
-        <path d="M 2 11 C 5 8 8 8 11 11 C 14 14 17 14 20 11" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round"/>
-        <path d="M 2 16 C 5 13 8 13 11 16 C 14 19 17 19 20 16" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+        {/* Bell body: rounded crown, flared skirt */}
+        <path d="M 12 3.5 C 12.7 3.5 13.2 4 13.2 4.7 C 16 5.7 17.5 8.3 17.5 12 C 17.5 15 18 16.5 19 18 L 5 18 C 6 16.5 6.5 15 6.5 12 C 6.5 8.3 8 5.7 10.8 4.7 C 10.8 4 11.3 3.5 12 3.5 Z" fill="white"/>
+        {/* Clapper */}
+        <circle cx="12" cy="19.8" r="1.9" fill="white"/>
       </>
     ),
   },
-  'Eis': {
+  'Tempel': {
+    bg: '#57534e',
+    content: (
+      <>
+        {/* Triangular pediment */}
+        <polygon points="12,3 21.5,9 2.5,9" fill="white"/>
+        {/* Architrave */}
+        <rect x="4" y="9.5" width="16" height="2" fill="white"/>
+        {/* Four columns */}
+        <rect x="5" y="11.8" width="2.1" height="7" fill="white"/>
+        <rect x="8.8" y="11.8" width="2.1" height="7" fill="white"/>
+        <rect x="13.1" y="11.8" width="2.1" height="7" fill="white"/>
+        <rect x="16.9" y="11.8" width="2.1" height="7" fill="white"/>
+        {/* Stylobate base */}
+        <rect x="3" y="18.8" width="18" height="2.4" fill="white"/>
+      </>
+    ),
+  },
+  'Schneeflocke': {
     bg: '#155e75',
     content: (
       <>
@@ -319,6 +326,17 @@ const TRAIT_ICON_DATA: Record<string, { bg: string; content: React.ReactNode }> 
         <line x1="14.5" y1="6" x2="12" y2="8.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
         <line x1="9.5" y1="18" x2="12" y2="15.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
         <line x1="14.5" y1="18" x2="12" y2="15.5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </>
+    ),
+  },
+  'Blatt': {
+    bg: '#4d7c0f',
+    content: (
+      <>
+        {/* Pointed leaf */}
+        <path d="M 12 2.5 C 18.5 6 19.5 14.5 12 21.5 C 4.5 14.5 5.5 6 12 2.5 Z" fill="white"/>
+        {/* Midrib */}
+        <line x1="12" y1="5" x2="12" y2="20" stroke="#4d7c0f" strokeWidth="1.3"/>
       </>
     ),
   },
