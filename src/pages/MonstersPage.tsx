@@ -81,14 +81,19 @@ function withHeartSymbol(text: string): string {
   return text.replace(/\bHerzen\b/g, '❤').replace(/\bHerz\b/g, '❤')
 }
 
-/** Format a surge entry: remove "Schub: " prefix (lightning shown separately) and replace heart words */
-function formatSurge(text: string): string {
-  return withHeartSymbol(text.replace(/^Schub:\s*/i, ''))
-}
-
-/** Format an ability entry: replace heart words */
-function formatAbility(text: string): string {
-  return withHeartSymbol(text)
+/**
+ * Format an ability/surge/action entry:
+ * - Optionally strip a leading "Schub: " prefix (for surge entries)
+ * - If text contains "Name: description", render Name: in bold
+ * - Replace Herz/Herzen with ❤
+ */
+function formatEntry(text: string, stripSchub = false): React.ReactNode {
+  let s = stripSchub ? text.replace(/^Schub:\s*/i, '') : text
+  const colonIdx = s.indexOf(':')
+  if (colonIdx === -1) return withHeartSymbol(s)
+  const name = s.slice(0, colonIdx + 1)
+  const rest = withHeartSymbol(s.slice(colonIdx + 1))
+  return <><strong className="text-gray-300 font-semibold">{name}</strong>{rest}</>
 }
 
 // ── Stat icons — faithful to the Descent 2e card art ────────────────────────
@@ -150,6 +155,57 @@ function AttackIcon({ size = 16 }: { size?: number }) {
       </g>
       <polygon points="18.7,5.3 17.7,8.0 15.9,6.2" fill="white" />
       <circle cx="6.8" cy="17.2" r="1.6" fill="white" />
+    </svg>
+  )
+}
+
+/** Curved action arrow — matches the ↻ symbol on Descent 2e monster cards */
+function ActionSymbol({ size = 12 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    >
+      {/* Arc: ~300° counterclockwise arc, starting top-right, ending bottom-right */}
+      <path
+        d="M 18.5 10 A 7 7 0 1 0 17.5 16.5"
+        stroke="#6ee7b7"
+        strokeWidth="3"
+        fill="none"
+        strokeLinecap="round"
+      />
+      {/* Arrowhead at the end of the arc */}
+      <polyline
+        points="14.5,20 17.5,16.5 21,18.5"
+        stroke="#6ee7b7"
+        strokeWidth="2.8"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+/** Lightning bolt — matches the ⚡ surge symbol on Descent 2e monster cards */
+function SurgeSymbol({ size = 12 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    >
+      {/* Classic lightning bolt: wide upper body, narrow lower spike */}
+      <polygon
+        points="14,2 6,14 11.5,14 10,22 18,10 12.5,10"
+        fill="#c084fc"
+        stroke="#a855f7"
+        strokeWidth="0.5"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }
@@ -367,8 +423,9 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
         <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">
           <div className={`${sectionHeaderCls} text-emerald-400 font-semibold mb-0.5`}>Aktion</div>
           {stats.actions.map((a, i) => (
-            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
-              ↻ {formatAbility(a)}
+            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5 flex items-start gap-1`}>
+              <ActionSymbol size={compact ? 11 : 13} />
+              <span>{formatEntry(a)}</span>
             </p>
           ))}
         </div>
@@ -378,8 +435,9 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
         <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">
           <div className={`${sectionHeaderCls} text-purple-400 font-semibold mb-0.5`}>Energie</div>
           {stats.surges.map((s, i) => (
-            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
-              ⚡ {formatSurge(s)}
+            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5 flex items-start gap-1`}>
+              <SurgeSymbol size={compact ? 11 : 13} />
+              <span>{formatEntry(s, true)}</span>
             </p>
           ))}
         </div>
@@ -390,7 +448,7 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
           <div className={`${sectionHeaderCls} text-blue-400 font-semibold mb-0.5`}>Fähigkeiten</div>
           {stats.abilities.map((a, i) => (
             <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
-              {formatAbility(a)}
+              {formatEntry(a)}
             </p>
           ))}
         </div>
