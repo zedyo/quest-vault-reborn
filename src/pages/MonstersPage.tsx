@@ -71,8 +71,7 @@ function getActStats(
 function monsterImageUrl(monsterId: string, expansionId: string, act: 1 | 2 = 1): string {
   const prefix = EXPANSION_PREFIX[expansionId] ?? 'bg'
   const expPath = EXPANSION_PATH[expansionId] ?? expansionId
-  // Base game act2 images are not available in the source repo — fall back to act1
-  const actPath = act === 2 && expansionId !== 'base' ? 'act2' : 'act1'
+  const actPath = act === 2 ? 'act2' : 'act1'
   return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/${actPath}/${prefix}-${monsterId}-front.png`
 }
 
