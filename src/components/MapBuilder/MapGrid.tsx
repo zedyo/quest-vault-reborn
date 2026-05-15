@@ -3,6 +3,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
+import type { PlacedMonster } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 export function effectiveDims(tile: PlacedMapTile) {
@@ -121,6 +122,70 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
   )
 }
 
+function MonsterToken({
+  monster,
+  label,
+  onRemove,
+}: {
+  monster: PlacedMonster
+  label: string
+  onRemove: (id: string) => void
+}) {
+  const abbr = label.slice(0, 2).toUpperCase()
+  const bgColor = monster.isMaster ? '#450a0a' : '#0c1a2e'
+  const borderColor = monster.isMaster ? '#dc2626' : '#2563eb'
+  const textColor = monster.isMaster ? '#fca5a5' : '#93c5fd'
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: monster.x * CELL_SIZE + 5,
+        top: monster.y * CELL_SIZE + 5,
+        width: CELL_SIZE - 10,
+        height: CELL_SIZE - 10,
+        borderRadius: '50%',
+        backgroundColor: bgColor,
+        border: `2px solid ${borderColor}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 25,
+        cursor: 'default',
+        userSelect: 'none',
+      }}
+      title={`${label} (${monster.isMaster ? 'Anführer' : 'Normal'}) – ✕ entfernen`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <span style={{ fontSize: 12, fontWeight: 'bold', color: textColor, lineHeight: 1 }}>
+        {abbr}
+      </span>
+      <button
+        onClick={(e) => { e.stopPropagation(); onRemove(monster.id) }}
+        style={{
+          position: 'absolute',
+          top: -5,
+          right: -5,
+          width: 14,
+          height: 14,
+          borderRadius: '50%',
+          backgroundColor: '#1f2937',
+          border: '1px solid #4b5563',
+          color: '#9ca3af',
+          fontSize: 9,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          lineHeight: 1,
+          padding: 0,
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  )
+}
+
 interface Props {
   tiles: PlacedMapTile[]
   selectedInstanceId: string | null
@@ -129,6 +194,11 @@ interface Props {
   onSelectInstance: (id: string | null) => void
   zoom: number
   isDraggingFromPalette: boolean
+  monsters?: PlacedMonster[]
+  monsterNamesMap?: Record<string, string>
+  monsterPlaceMode?: boolean
+  onPlaceMonster?: (col: number, row: number) => void
+  onRemoveMonster?: (id: string) => void
 }
 
 export default function MapGrid({
@@ -139,6 +209,11 @@ export default function MapGrid({
   onSelectInstance,
   zoom,
   isDraggingFromPalette,
+  monsters,
+  monsterNamesMap,
+  monsterPlaceMode,
+  onPlaceMonster,
+  onRemoveMonster,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -165,15 +240,20 @@ export default function MapGrid({
   }, [])
 
   const handleGridClick = (e: React.MouseEvent) => {
+    const rect = gridRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const col = Math.floor((e.clientX - rect.left) / (CELL_SIZE * zoom))
+    const row = Math.floor((e.clientY - rect.top) / (CELL_SIZE * zoom))
+    if (monsterPlaceMode && onPlaceMonster) {
+      if (col >= 0 && col < GRID_COLS && row >= 0 && row < GRID_ROWS) {
+        onPlaceMonster(col, row)
+      }
+      return
+    }
     if (!selectedTileId) {
       onSelectInstance(null)
       return
     }
-    const rect = gridRef.current?.getBoundingClientRect()
-    if (!rect) return
-    // getBoundingClientRect returns scaled screen dimensions, so divide by scaled cell size
-    const col = Math.floor((e.clientX - rect.left) / (CELL_SIZE * zoom))
-    const row = Math.floor((e.clientY - rect.top) / (CELL_SIZE * zoom))
     if (col >= 0 && col < GRID_COLS && row >= 0 && row < GRID_ROWS) {
       onPlaceTile(col, row)
     }
@@ -231,7 +311,7 @@ export default function MapGrid({
                 linear-gradient(to bottom, #2a2a3a 1px, transparent 1px)
               `,
               backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
-              cursor: selectedTileId ? 'crosshair' : 'default',
+              cursor: (selectedTileId || monsterPlaceMode) ? 'crosshair' : 'default',
             }}
           >
             {tiles.map((tile) => (
@@ -239,9 +319,17 @@ export default function MapGrid({
                 key={tile.instanceId}
                 tile={tile}
                 isSelected={tile.instanceId === selectedInstanceId}
-                placingMode={selectedTileId !== null}
+                placingMode={selectedTileId !== null || !!monsterPlaceMode}
                 onSelect={onSelectInstance}
                 zoom={zoom}
+              />
+            ))}
+            {(monsters ?? []).map((m) => (
+              <MonsterToken
+                key={m.id}
+                monster={m}
+                label={monsterNamesMap?.[m.monsterId] ?? m.monsterId}
+                onRemove={onRemoveMonster ?? (() => {})}
               />
             ))}
           </div>

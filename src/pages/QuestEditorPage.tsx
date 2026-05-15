@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useGameStore } from '../store/useGameStore'
-import type { Quest, Encounter, MapData, PlacedTile } from '../types/game'
+import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster } from '../types/game'
 import type { PlacedMapTile } from '../components/MapBuilder/types'
 import MapBuilder from '../components/MapBuilder'
+import { MONSTERS } from '../data/monsters'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 
 const uid = () =>
@@ -89,6 +90,12 @@ export default function QuestEditorPage() {
   const addQuest = useGameStore((s) => s.addQuest)
   const updateQuest = useGameStore((s) => s.updateQuest)
   const deleteQuest = useGameStore((s) => s.deleteQuest)
+  const ownedExpansionIds = useGameStore((s) => s.ownedExpansionIds)
+
+  const availableMonsters = useMemo(
+    () => MONSTERS.filter((m) => ownedExpansionIds.includes(m.expansionId)),
+    [ownedExpansionIds],
+  )
 
   const [selectedQuestId, setSelectedQuestId] = useState<string | null>(null)
   const [activeEncounterId, setActiveEncounterId] = useState<string | null>(null)
@@ -356,6 +363,9 @@ export default function QuestEditorPage() {
                   mapData: { ...encounter.mapData, tiles: toDomainTiles(t) },
                 })
               }
+              monsters={encounter.monsters}
+              onMonstersChange={(m: PlacedMonster[]) => patchEncounter({ monsters: m })}
+              availableMonsters={availableMonsters}
               mapHeight="520px"
             />
           </div>

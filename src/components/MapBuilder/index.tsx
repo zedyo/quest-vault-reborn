@@ -13,6 +13,7 @@ import TileSidebar from './TileSidebar'
 import MapGrid, { effectiveDims } from './MapGrid'
 import type { PlacedMapTile, Rotation } from './types'
 import { MAP_TILES, getTilePartner, tileImageUrl } from '../../data/mapTiles'
+import type { Monster, PlacedMonster } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 function nextRotation(r: Rotation): Rotation {
@@ -92,11 +93,23 @@ interface MapBuilderProps {
   /** Controlled tile list. When provided, the builder is controlled via onTilesChange. */
   tiles?: PlacedMapTile[]
   onTilesChange?: (tiles: PlacedMapTile[]) => void
+  /** Monster tokens on the map (controlled). */
+  monsters?: PlacedMonster[]
+  onMonstersChange?: (monsters: PlacedMonster[]) => void
+  /** When provided, enables the monster-placement toolbar section. */
+  availableMonsters?: Monster[]
   /** CSS height for the builder area. Defaults to the full-page height. */
   mapHeight?: string
 }
 
-export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapHeight }: MapBuilderProps = {}) {
+export default function MapBuilder({
+  tiles: controlledTiles,
+  onTilesChange,
+  monsters,
+  onMonstersChange,
+  availableMonsters,
+  mapHeight,
+}: MapBuilderProps = {}) {
   const isControlled = controlledTiles !== undefined
   const [internalTiles, setInternalTiles] = useState<PlacedMapTile[]>([])
   const placedTiles = isControlled ? (controlledTiles as PlacedMapTile[]) : internalTiles
@@ -122,6 +135,41 @@ export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapH
     },
     [],
   )
+
+  // Monster placement state
+  const [selectedMonsterToPlace, setSelectedMonsterToPlace] = useState<{
+    monsterId: string
+    isMaster: boolean
+  } | null>(null)
+
+  const monstersRef = useRef(monsters)
+  monstersRef.current = monsters
+  const onMonstersChangeRef = useRef(onMonstersChange)
+  onMonstersChangeRef.current = onMonstersChange
+
+  const handlePlaceMonsterOnGrid = useCallback((col: number, row: number) => {
+    const sel = monsterToPlaceRef.current
+    if (!sel) return
+    const newMonster: PlacedMonster = {
+      id: newId(),
+      monsterId: sel.monsterId,
+      isMaster: sel.isMaster,
+      x: col,
+      y: row,
+    }
+    onMonstersChangeRef.current?.([...(monstersRef.current ?? []), newMonster])
+  }, [])
+
+  const handleRemoveMonster = useCallback((id: string) => {
+    onMonstersChangeRef.current?.((monstersRef.current ?? []).filter((m) => m.id !== id))
+  }, [])
+
+  const monsterNamesMap = availableMonsters
+    ? Object.fromEntries(availableMonsters.map((m) => [m.id, m.nameDe]))
+    : undefined
+
+  const monsterToPlaceRef = useRef(selectedMonsterToPlace)
+  monsterToPlaceRef.current = selectedMonsterToPlace
 
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
@@ -201,6 +249,7 @@ export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapH
     }
     setSelectedTileId((prev) => (prev === id ? null : id))
     setSelectedInstanceId(null)
+    setSelectedMonsterToPlace(null)
   }, [placedTileIds])
 
   const handlePlaceTile = useCallback(
@@ -244,6 +293,7 @@ export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapH
     setSelectedTileId(null)
     setSelectedInstanceId(null)
     setPartnerWarningId(null)
+    setSelectedMonsterToPlace(null)
   }
 
   const clearAll = () => {
@@ -289,6 +339,53 @@ export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapH
               ⚠ {partnerWarningId} kann wahrscheinlich nicht verwendet werden – die andere Seite ({getTilePartner(partnerWarningId)}) ist bereits platziert.
               <button onClick={() => setPartnerWarningId(null)} className="text-amber-600 hover:text-amber-400 ml-1">✕</button>
             </span>
+          )}
+
+          {/* Monster-placement section */}
+          {availableMonsters && availableMonsters.length > 0 && (
+            <>
+              <div className="w-px h-5 bg-dungeon-600 self-center mx-1 shrink-0" />
+              {selectedMonsterToPlace ? (
+                <span className="flex items-center gap-1.5 text-sm text-green-400 shrink-0">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ background: selectedMonsterToPlace.isMaster ? '#dc2626' : '#2563eb' }}
+                  />
+                  <span className="text-xs">{monsterNamesMap?.[selectedMonsterToPlace.monsterId] ?? '?'}</span>
+                  <button
+                    onClick={() => setSelectedMonsterToPlace((p) => p ? { ...p, isMaster: false } : p)}
+                    className={`text-xs px-2 py-0.5 rounded-l border ${!selectedMonsterToPlace.isMaster ? 'bg-blue-900 text-blue-300 border-blue-700' : 'bg-dungeon-700 text-gray-400 border-dungeon-600 hover:border-gray-500'}`}
+                  >Normal</button>
+                  <button
+                    onClick={() => setSelectedMonsterToPlace((p) => p ? { ...p, isMaster: true } : p)}
+                    className={`text-xs px-2 py-0.5 rounded-r border-t border-b border-r ${selectedMonsterToPlace.isMaster ? 'bg-red-900 text-red-300 border-red-700' : 'bg-dungeon-700 text-gray-400 border-dungeon-600 hover:border-gray-500'}`}
+                  >Anführer</button>
+                  <span className="text-gray-500 text-xs">– auf Karte klicken</span>
+                  <button onClick={() => setSelectedMonsterToPlace(null)} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 shrink-0">
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      if (!e.target.value) return
+                      setSelectedTileId(null)
+                      setSelectedInstanceId(null)
+                      setSelectedMonsterToPlace({ monsterId: e.target.value, isMaster: false })
+                    }}
+                    className="bg-dungeon-800 text-gray-300 border border-dungeon-600 rounded text-xs px-2 py-1 max-w-40"
+                  >
+                    <option value="">+ Monster setzen</option>
+                    {availableMonsters.map((m) => (
+                      <option key={m.id} value={m.id}>{m.nameDe}</option>
+                    ))}
+                  </select>
+                  {(monsters?.length ?? 0) > 0 && (
+                    <span className="text-gray-600 text-xs">{monsters!.length} Monster</span>
+                  )}
+                </span>
+              )}
+            </>
           )}
 
           <div className="flex gap-2 ml-auto items-center">
@@ -339,6 +436,11 @@ export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapH
             onSelectInstance={handleSelectInstance}
             zoom={zoom}
             isDraggingFromPalette={activePaletteId !== null}
+            monsters={monsters}
+            monsterNamesMap={monsterNamesMap}
+            monsterPlaceMode={!!selectedMonsterToPlace}
+            onPlaceMonster={handlePlaceMonsterOnGrid}
+            onRemoveMonster={handleRemoveMonster}
           />
         </div>
       </div>
