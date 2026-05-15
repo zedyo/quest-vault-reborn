@@ -59,7 +59,13 @@ function getActStats(
   const act1 = type === 'normal' ? m.normal : m.master
   const act2 = type === 'normal' ? m.act2Normal : m.act2Master
   if (act === 1 || !act2) return act1
-  return { ...act1, ...act2, surges: act2.surges ?? act1?.surges, abilities: act2.abilities ?? act1?.abilities }
+  return {
+    ...act1,
+    ...act2,
+    surges: act2.surges ?? act1?.surges,
+    abilities: act2.abilities ?? act1?.abilities,
+    actions: act2.actions ?? act1?.actions,
+  }
 }
 
 function monsterImageUrl(monsterId: string, expansionId: string, act: 1 | 2 = 1): string {
@@ -356,6 +362,17 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
           {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
       </div>
+
+      {stats.actions && stats.actions.length > 0 && (
+        <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">
+          <div className={`${sectionHeaderCls} text-emerald-400 font-semibold mb-0.5`}>Aktion</div>
+          {stats.actions.map((a, i) => (
+            <p key={i} className={`${sectionTextCls} text-gray-400 leading-tight mb-0.5`}>
+              ↻ {formatAbility(a)}
+            </p>
+          ))}
+        </div>
+      )}
 
       {stats.surges && stats.surges.length > 0 && (
         <div className="mt-1.5 pt-1.5 border-t border-dungeon-700">

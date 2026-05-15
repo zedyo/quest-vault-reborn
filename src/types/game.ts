@@ -19,15 +19,19 @@ export interface Expansion {
 }
 
 // Würfelfarben in Descent 2e
-export type DieColor = 'blue' | 'red' | 'yellow' | 'white' | 'gray' | 'brown' | 'black' | 'silver'
+export type DieColor = 'blue' | 'red' | 'yellow' | 'green' | 'white' | 'gray' | 'brown' | 'black' | 'silver'
 
 export interface MonsterStats {
   speed: number
   health: number
   defense: DieColor[]
   attack: DieColor[]
+  /** Energie: durch Blitz/Schub (⚡) ausgelöste Fähigkeiten */
   surges?: string[]
+  /** Fähigkeiten: passiv geltende Fähigkeiten (kein Auslöser) */
   abilities?: string[]
+  /** Aktion: durch den gebogenen Pfeil (↻) ausgelöste Aktionen */
+  actions?: string[]
 }
 
 export interface Monster {
