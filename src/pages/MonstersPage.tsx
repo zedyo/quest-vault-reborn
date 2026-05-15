@@ -85,14 +85,17 @@ function formatAbility(text: string): string {
   return withHeartSymbol(text)
 }
 
-// ── Stat icons (faithful to the Descent 2e card style) ───────────────────────
+// ── Stat icons — faithful to the Descent 2e card art ────────────────────────
 
 function MovementIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#15803d" />
-      {/* Boot side-profile: wider shaft (7-14) gives better proportions at small sizes */}
-      <path d="M7,3 L7,14 L4.5,14 L4.5,20.5 L19.5,20.5 L19.5,15.5 L14,15.5 L14,3 Z" fill="white" />
+      <circle cx="12" cy="12" r="12" fill="#15552c" />
+      {/* Boot profile facing right: shaft + heel step + rounded toe via two Q curves */}
+      <path
+        d="M7.5,3.5 L7.5,15 L5,15 L5,21 L18,21 Q21,21 21,18.5 Q21,16 18,16 L14,16 L14,3.5 Z"
+        fill="white"
+      />
     </svg>
   )
 }
@@ -100,8 +103,12 @@ function MovementIcon({ size = 16 }: { size?: number }) {
 function HealthIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#b91c1c" />
-      <path d="M12,19 L4.5,11 C4.5,7 8,6 10,8.5 Q11,9.5 12,11 Q13,9.5 14,8.5 C16,6 19.5,7 19.5,11 Z" fill="white" />
+      <circle cx="12" cy="12" r="12" fill="#b52524" />
+      {/* Classic symmetric heart with cubic bezier lobes */}
+      <path
+        d="M12,21 L4.5,13.5 C3,11.5 3,7.5 6,5.5 C9,3.5 11.5,6.5 12,9 C12.5,6.5 15,3.5 18,5.5 C21,7.5 21,11.5 19.5,13.5 Z"
+        fill="white"
+      />
     </svg>
   )
 }
@@ -109,8 +116,12 @@ function HealthIcon({ size = 16 }: { size?: number }) {
 function DefenseIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#6b7280" />
-      <path d="M12,20.5 L4.5,15.5 L4.5,5.5 L19.5,5.5 L19.5,15.5 Z" fill="white" />
+      <circle cx="12" cy="12" r="12" fill="#847974" />
+      {/* Heater shield: flat top with rounded corners, straight sides, pointed bottom */}
+      <path
+        d="M12,21.5 L4.5,15.5 L4.5,7.5 Q4.5,5 7,5 L17,5 Q19.5,5 19.5,7.5 L19.5,15.5 Z"
+        fill="white"
+      />
     </svg>
   )
 }
