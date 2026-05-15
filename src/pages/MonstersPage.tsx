@@ -91,9 +91,9 @@ function MovementIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
       <circle cx="12" cy="12" r="12" fill="#15552c" />
-      {/* Boot profile facing right: shaft + heel step + rounded toe via two Q curves */}
+      {/* Slim fantasy leather boot: tapered shaft, curved instep, defined heel */}
       <path
-        d="M7.5,3.5 L7.5,15 L5,15 L5,21 L18,21 Q21,21 21,18.5 Q21,16 18,16 L14,16 L14,3.5 Z"
+        d="M9,4 C8.4,4 8.4,5 8.6,6.5 C8.9,9 8.6,11.5 8.6,13.5 C8.5,15.8 7.9,17.6 7.9,19 C7.9,20.4 8.2,21 9,21 L17.4,21 C19,21 20.1,20.4 20.1,19 C20.1,17.7 19,17 17.4,16.8 L14,16.3 C13,16.1 12.6,15.1 12.6,13.5 C12.6,10 12.8,7 12.6,5 C12.5,4.2 12,4 11.4,4 Z"
         fill="white"
       />
     </svg>
