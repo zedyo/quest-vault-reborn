@@ -12,6 +12,130 @@ const uid = () =>
     ? crypto.randomUUID()
     : `id-${Date.now()}-${Math.random().toString(36).slice(2)}`
 
+// ── JSON export/import ────────────────────────────────────────────────────────
+
+function exportQuestAsJSON(quest: Quest) {
+  const blob = new Blob([JSON.stringify(quest, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${quest.title.replace(/\s+/g, '-').toLowerCase()}.json`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function parseImportedQuest(raw: unknown): Quest | null {
+  try {
+    const q = raw as Quest
+    if (!q.title || !Array.isArray(q.encounters)) return null
+    return { ...q, id: uid(), createdAt: new Date().toISOString() }
+  } catch {
+    return null
+  }
+}
+
+// ── Print helpers ─────────────────────────────────────────────────────────────
+
+function groupMonsters(monsters: PlacedMonster[]) {
+  const map = new Map<string, { nameDe: string; isMaster: boolean; count: number }>()
+  for (const m of monsters) {
+    const key = `${m.monsterId}-${String(m.isMaster)}`
+    const nameDe = MONSTERS.find((x) => x.id === m.monsterId)?.nameDe ?? m.monsterId
+    const entry = map.get(key)
+    if (entry) entry.count++
+    else map.set(key, { nameDe, isMaster: m.isMaster, count: 1 })
+  }
+  return [...map.values()]
+}
+
+function QuestPrintView({ quest }: { quest: Quest }) {
+  const heroNames = (quest.heroIds ?? [])
+    .map((id) => {
+      const h = HEROES.find((x) => x.id === id)
+      return h ? h.name : null
+    })
+    .filter(Boolean) as string[]
+
+  const s = (val: string | undefined, fallback = '') => val || fallback
+
+  return (
+    <div className="quest-print-view">
+      {/* Header */}
+      <div style={{ borderBottom: '2px solid #000', paddingBottom: 8, marginBottom: 14 }}>
+        <div style={{ fontSize: 22, fontWeight: 'bold', margin: 0 }}>{quest.title}</div>
+        {quest.description && (
+          <div style={{ marginTop: 4, fontSize: 13, color: '#333' }}>{quest.description}</div>
+        )}
+      </div>
+
+      {/* Heroes */}
+      {heroNames.length > 0 && (
+        <div style={{ marginBottom: 12, fontSize: 12 }}>
+          <strong>Helden: </strong>{heroNames.join(' · ')}
+        </div>
+      )}
+
+      {/* Encounters */}
+      {quest.encounters.map((enc, i) => (
+        <div key={enc.id} style={{ marginBottom: 20, pageBreakInside: 'avoid' }}>
+          <div style={{ fontSize: 15, fontWeight: 'bold', borderBottom: '1px solid #aaa', paddingBottom: 3, marginBottom: 8 }}>
+            {i + 1}. Begegnung – {enc.title}
+          </div>
+
+          {enc.flavourText && (
+            <div style={{ fontStyle: 'italic', fontSize: 12, marginBottom: 8, color: '#444', borderLeft: '3px solid #ccc', paddingLeft: 8 }}>
+              {enc.flavourText}
+            </div>
+          )}
+
+          {/* 2-column grid for text fields */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px', marginBottom: 8 }}>
+            {[
+              { label: 'Aufbau', value: s(enc.setup) },
+              { label: 'Sonderregeln', value: s(enc.specialRules) },
+              { label: 'Verstärkungen', value: s(enc.reinforcements) },
+              { label: 'Siegbedingungen', value: s(enc.victoryConditions) },
+              { label: 'Belohnungen', value: s(enc.rewards) },
+            ]
+              .filter((f) => f.value)
+              .map(({ label, value }) => (
+                <div key={label}>
+                  <div style={{ fontSize: 10, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#555' }}>{label}</div>
+                  <div style={{ fontSize: 12, marginTop: 2, whiteSpace: 'pre-wrap' }}>{value}</div>
+                </div>
+              ))}
+
+            {enc.monsters.length > 0 && (
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#555' }}>Monster</div>
+                <ul style={{ margin: '2px 0 0 14px', padding: 0, fontSize: 12 }}>
+                  {groupMonsters(enc.monsters).map(({ nameDe, isMaster, count }) => (
+                    <li key={nameDe + String(isMaster)}>
+                      {nameDe} ({isMaster ? 'Anführer' : 'Normal'}){count > 1 ? ` ×${count}` : ''}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {enc.story && (
+            <div style={{ fontSize: 12, fontStyle: 'italic', color: '#444', marginTop: 4 }}>
+              <strong style={{ fontStyle: 'normal', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Geschichte</strong>
+              <div style={{ marginTop: 2 }}>{enc.story}</div>
+            </div>
+          )}
+        </div>
+      ))}
+
+      {/* Footer */}
+      <div style={{ borderTop: '1px solid #ccc', paddingTop: 6, fontSize: 9, color: '#999', textAlign: 'center' }}>
+        Quest Vault Reborn · {new Date().toLocaleDateString('de-DE')}
+      </div>
+    </div>
+  )
+}
+
 function emptyMapData(): MapData {
   return { tiles: [], overlays: [], width: GRID_COLS, height: GRID_ROWS }
 }
@@ -196,6 +320,25 @@ export default function QuestEditorPage() {
     setActiveEncounterId(q.encounters[0].id)
   }
 
+  function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const q = parseImportedQuest(JSON.parse(ev.target?.result as string))
+        if (!q) { alert('Ungültige Quest-Datei.'); return }
+        addQuest(q)
+        setSelectedQuestId(q.id)
+        setActiveEncounterId(q.encounters[0]?.id ?? null)
+      } catch {
+        alert('Datei konnte nicht gelesen werden.')
+      }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
+
   function patchQuest(patch: Partial<Pick<Quest, 'title' | 'description' | 'heroIds'>>) {
     if (!quest) return
     persist({ ...quest, ...patch })
@@ -253,9 +396,15 @@ export default function QuestEditorPage() {
               Eigene Quests mit mehreren Begegnungen, Karten und Erzähltext erstellen.
             </p>
           </div>
-          <button onClick={handleCreate} className="btn-primary text-sm whitespace-nowrap">
-            + Neue Quest
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            <label className="btn-secondary text-sm cursor-pointer whitespace-nowrap">
+              📁 Importieren
+              <input type="file" accept=".json" className="hidden" onChange={handleImport} />
+            </label>
+            <button onClick={handleCreate} className="btn-primary text-sm whitespace-nowrap">
+              + Neue Quest
+            </button>
+          </div>
         </div>
 
         {quests.length === 0 ? (
@@ -349,14 +498,30 @@ export default function QuestEditorPage() {
           ← Übersicht
         </button>
         <span className="text-gray-600 text-xs">
-          Änderungen werden automatisch gespeichert.
+          Automatisch gespeichert.
         </span>
-        <button
-          onClick={() => removeQuest(quest.id)}
-          className="ml-auto text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
-        >
-          🗑 Quest löschen
-        </button>
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={() => exportQuestAsJSON(quest)}
+            className="text-xs px-3 py-1.5 rounded bg-dungeon-700 text-gray-300 border border-dungeon-600 hover:bg-dungeon-600 transition-colors"
+            title="Als JSON-Datei herunterladen"
+          >
+            ⬇ JSON
+          </button>
+          <button
+            onClick={() => window.print()}
+            className="text-xs px-3 py-1.5 rounded bg-dungeon-700 text-gray-300 border border-dungeon-600 hover:bg-dungeon-600 transition-colors"
+            title="Als PDF drucken / speichern"
+          >
+            🖨 PDF
+          </button>
+          <button
+            onClick={() => removeQuest(quest.id)}
+            className="text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
+          >
+            🗑 Löschen
+          </button>
+        </div>
       </div>
 
       <div className="card space-y-3">
@@ -498,6 +663,9 @@ export default function QuestEditorPage() {
           </div>
         </div>
       )}
+
+      {/* Print view — invisible on screen, appears when window.print() is called */}
+      <QuestPrintView quest={quest} />
     </div>
   )
 }
