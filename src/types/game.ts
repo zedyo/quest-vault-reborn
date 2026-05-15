@@ -56,6 +56,10 @@ export interface Hero {
   health?: number
   stamina?: number
   defense?: DieColor[]
+  might?: number        // Stärke
+  knowledge?: number    // Wissen
+  willpower?: number    // Willenskraft
+  awareness?: number    // Gespür
   heroAbility?: string
   heroicFeat?: string
   imageUrl?: string
