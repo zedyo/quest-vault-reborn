@@ -88,8 +88,41 @@ function ZoomLever({ zoom, onChange }: { zoom: number; onChange: (z: number) => 
   )
 }
 
-export default function MapBuilder() {
-  const [placedTiles, setPlacedTiles] = useState<PlacedMapTile[]>([])
+interface MapBuilderProps {
+  /** Controlled tile list. When provided, the builder is controlled via onTilesChange. */
+  tiles?: PlacedMapTile[]
+  onTilesChange?: (tiles: PlacedMapTile[]) => void
+  /** CSS height for the builder area. Defaults to the full-page height. */
+  mapHeight?: string
+}
+
+export default function MapBuilder({ tiles: controlledTiles, onTilesChange, mapHeight }: MapBuilderProps = {}) {
+  const isControlled = controlledTiles !== undefined
+  const [internalTiles, setInternalTiles] = useState<PlacedMapTile[]>([])
+  const placedTiles = isControlled ? (controlledTiles as PlacedMapTile[]) : internalTiles
+
+  const tilesRef = useRef(placedTiles)
+  tilesRef.current = placedTiles
+  const onChangeRef = useRef(onTilesChange)
+  onChangeRef.current = onTilesChange
+  const isControlledRef = useRef(isControlled)
+  isControlledRef.current = isControlled
+
+  const setPlacedTiles = useCallback(
+    (updater: PlacedMapTile[] | ((prev: PlacedMapTile[]) => PlacedMapTile[])) => {
+      const next =
+        typeof updater === 'function'
+          ? (updater as (prev: PlacedMapTile[]) => PlacedMapTile[])(tilesRef.current)
+          : updater
+      if (isControlledRef.current) {
+        onChangeRef.current?.(next)
+      } else {
+        setInternalTiles(next)
+      }
+    },
+    [],
+  )
+
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
   const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
@@ -291,7 +324,7 @@ export default function MapBuilder() {
         {/* Builder */}
         <div
           className="flex flex-1 min-h-0 overflow-hidden"
-          style={{ height: 'calc(100vh - 180px)' }}
+          style={{ height: mapHeight ?? 'calc(100vh - 180px)' }}
         >
           <TileSidebar
             selectedTileId={selectedTileId}

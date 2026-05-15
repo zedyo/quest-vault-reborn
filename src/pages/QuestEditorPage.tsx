@@ -1,29 +1,366 @@
-export default function QuestEditorPage() {
+import { useState } from 'react'
+import { useGameStore } from '../store/useGameStore'
+import type { Quest, Encounter, MapData, PlacedTile } from '../types/game'
+import type { PlacedMapTile } from '../components/MapBuilder/types'
+import MapBuilder from '../components/MapBuilder'
+import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
+
+const uid = () =>
+  typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `id-${Date.now()}-${Math.random().toString(36).slice(2)}`
+
+function emptyMapData(): MapData {
+  return { tiles: [], overlays: [], width: GRID_COLS, height: GRID_ROWS }
+}
+
+function newEncounter(index: number): Encounter {
+  return {
+    id: uid(),
+    title: `Begegnung ${index}`,
+    mapData: emptyMapData(),
+    flavourText: '',
+    monsters: [],
+    setup: '',
+    specialRules: '',
+    reinforcements: '',
+    victoryConditions: '',
+    rewards: '',
+    story: '',
+  }
+}
+
+function newQuest(): Quest {
+  const now = new Date().toISOString()
+  return {
+    id: uid(),
+    title: 'Neue Quest',
+    description: '',
+    createdAt: now,
+    updatedAt: now,
+    encounters: [newEncounter(1)],
+  }
+}
+
+// Map between the domain tile shape and the builder's native shape.
+const toBuilderTiles = (tiles: PlacedTile[]): PlacedMapTile[] =>
+  tiles.map((t) => ({
+    instanceId: t.id,
+    tileId: t.tileId,
+    col: t.x,
+    row: t.y,
+    rotation: t.rotation,
+  }))
+
+const toDomainTiles = (tiles: PlacedMapTile[]): PlacedTile[] =>
+  tiles.map((t) => ({
+    id: t.instanceId,
+    tileId: t.tileId,
+    x: t.col,
+    y: t.row,
+    rotation: t.rotation,
+  }))
+
+interface TextFieldProps {
+  label: string
+  value: string
+  onChange: (v: string) => void
+  rows?: number
+  placeholder?: string
+}
+
+function TextField({ label, value, onChange, rows = 3, placeholder }: TextFieldProps) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Quest-Editor</h2>
-        <p className="text-gray-400 text-sm">
-          Vollständige Quests mit Begegnungen, Siegbedingungen, Monstern und Erzähltext erstellen.
-        </p>
+    <label className="block">
+      <span className="block text-xs font-semibold text-gold-400 mb-1">{label}</span>
+      <textarea
+        value={value}
+        rows={rows}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500 resize-y"
+      />
+    </label>
+  )
+}
+
+export default function QuestEditorPage() {
+  const quests = useGameStore((s) => s.quests)
+  const addQuest = useGameStore((s) => s.addQuest)
+  const updateQuest = useGameStore((s) => s.updateQuest)
+  const deleteQuest = useGameStore((s) => s.deleteQuest)
+
+  const [selectedQuestId, setSelectedQuestId] = useState<string | null>(null)
+  const [activeEncounterId, setActiveEncounterId] = useState<string | null>(null)
+
+  const quest = quests.find((q) => q.id === selectedQuestId) ?? null
+  const encounter =
+    quest?.encounters.find((e) => e.id === activeEncounterId) ?? quest?.encounters[0] ?? null
+
+  function persist(next: Quest) {
+    updateQuest({ ...next, updatedAt: new Date().toISOString() })
+  }
+
+  function handleCreate() {
+    const q = newQuest()
+    addQuest(q)
+    setSelectedQuestId(q.id)
+    setActiveEncounterId(q.encounters[0].id)
+  }
+
+  function patchQuest(patch: Partial<Pick<Quest, 'title' | 'description'>>) {
+    if (!quest) return
+    persist({ ...quest, ...patch })
+  }
+
+  function patchEncounter(patch: Partial<Encounter>) {
+    if (!quest || !encounter) return
+    persist({
+      ...quest,
+      encounters: quest.encounters.map((e) =>
+        e.id === encounter.id ? { ...e, ...patch } : e,
+      ),
+    })
+  }
+
+  function addEncounter() {
+    if (!quest) return
+    const enc = newEncounter(quest.encounters.length + 1)
+    persist({ ...quest, encounters: [...quest.encounters, enc] })
+    setActiveEncounterId(enc.id)
+  }
+
+  function removeEncounter(id: string) {
+    if (!quest || quest.encounters.length <= 1) return
+    const remaining = quest.encounters.filter((e) => e.id !== id)
+    persist({ ...quest, encounters: remaining })
+    if (activeEncounterId === id) setActiveEncounterId(remaining[0].id)
+  }
+
+  function removeQuest(id: string) {
+    deleteQuest(id)
+    if (selectedQuestId === id) {
+      setSelectedQuestId(null)
+      setActiveEncounterId(null)
+    }
+  }
+
+  // ─── Quest-Liste ────────────────────────────────────────────────────
+  if (!quest) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Quest-Editor</h2>
+            <p className="text-gray-400 text-sm">
+              Eigene Quests mit mehreren Begegnungen, Karten und Erzähltext erstellen.
+            </p>
+          </div>
+          <button onClick={handleCreate} className="btn-primary text-sm whitespace-nowrap">
+            + Neue Quest
+          </button>
+        </div>
+
+        {quests.length === 0 ? (
+          <div className="card flex flex-col items-center justify-center py-20 gap-3 border-dashed border-dungeon-600">
+            <span className="text-5xl opacity-40">📜</span>
+            <h3 className="font-display text-xl text-gray-500">Noch keine Quests</h3>
+            <p className="text-gray-600 text-sm text-center max-w-md">
+              Lege deine erste Quest an. Quests werden lokal in deinem Browser gespeichert.
+            </p>
+            <button onClick={handleCreate} className="btn-secondary text-sm mt-2">
+              Erste Quest erstellen
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {quests.map((q) => (
+              <div
+                key={q.id}
+                className="card hover:border-gold-500 transition-colors cursor-pointer flex flex-col gap-2"
+                onClick={() => {
+                  setSelectedQuestId(q.id)
+                  setActiveEncounterId(q.encounters[0]?.id ?? null)
+                }}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-display text-lg text-gold-300 font-bold">{q.title}</h3>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      removeQuest(q.id)
+                    }}
+                    className="text-xs text-gray-600 hover:text-red-400 shrink-0"
+                    title="Quest löschen"
+                  >
+                    🗑
+                  </button>
+                </div>
+                <p className="text-gray-500 text-sm line-clamp-2 min-h-[2.5rem]">
+                  {q.description || 'Keine Beschreibung'}
+                </p>
+                <span className="text-gray-600 text-xs mt-auto">
+                  {q.encounters.length} Begegnung{q.encounters.length === 1 ? '' : 'en'}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // ─── Quest-Detail ───────────────────────────────────────────────────
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => {
+            setSelectedQuestId(null)
+            setActiveEncounterId(null)
+          }}
+          className="btn-secondary text-sm"
+        >
+          ← Übersicht
+        </button>
+        <span className="text-gray-600 text-xs">
+          Änderungen werden automatisch gespeichert.
+        </span>
+        <button
+          onClick={() => removeQuest(quest.id)}
+          className="ml-auto text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
+        >
+          🗑 Quest löschen
+        </button>
       </div>
 
-      <div className="card flex flex-col items-center justify-center py-20 gap-4 border-dashed border-dungeon-600">
-        <span className="text-5xl opacity-40">📜</span>
-        <h3 className="font-display text-xl text-gray-500">In Entwicklung</h3>
-        <p className="text-gray-600 text-sm text-center max-w-md">
-          Der Quest-Editor wird in Phase 6 implementiert und orientiert sich am
-          Original Quest Vault von Fantasy Flight Games.
-        </p>
-        <ul className="text-gray-600 text-sm space-y-1 text-left mt-2">
-          <li>• Mehrere Begegnungen pro Quest</li>
-          <li>• Visueller Karteneditor je Begegnung</li>
-          <li>• Monster, Siegbedingungen, Belohnungen</li>
-          <li>• Erzähltext und Sonderregeln</li>
-          <li>• Export als PDF (wie Original)</li>
-          <li>• Lokal speichern und laden</li>
-        </ul>
+      <div className="card space-y-3">
+        <label className="block">
+          <span className="block text-xs font-semibold text-gold-400 mb-1">Titel</span>
+          <input
+            value={quest.title}
+            onChange={(e) => patchQuest({ title: e.target.value })}
+            className="w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-base text-gray-100 font-display focus:outline-none focus:border-gold-500"
+          />
+        </label>
+        <TextField
+          label="Beschreibung"
+          value={quest.description}
+          onChange={(v) => patchQuest({ description: v })}
+          rows={2}
+          placeholder="Worum geht es in dieser Quest?"
+        />
       </div>
+
+      {/* Begegnungs-Reiter */}
+      <div className="flex items-center gap-2 flex-wrap">
+        {quest.encounters.map((e, i) => (
+          <button
+            key={e.id}
+            onClick={() => setActiveEncounterId(e.id)}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
+              e.id === encounter?.id
+                ? 'bg-gold-500 text-dungeon-950 border-gold-500'
+                : 'bg-dungeon-700 text-gray-300 border-dungeon-600 hover:border-gold-500'
+            }`}
+          >
+            {i + 1}. {e.title}
+          </button>
+        ))}
+        <button
+          onClick={addEncounter}
+          className="px-3 py-1.5 rounded-full text-sm font-medium bg-dungeon-800 text-gray-400 border border-dashed border-dungeon-600 hover:text-gold-400 hover:border-gold-500 transition-all"
+        >
+          + Begegnung
+        </button>
+      </div>
+
+      {encounter && (
+        <div className="space-y-4">
+          <div className="card space-y-3">
+            <div className="flex items-center gap-3">
+              <label className="flex-1">
+                <span className="block text-xs font-semibold text-gold-400 mb-1">
+                  Titel der Begegnung
+                </span>
+                <input
+                  value={encounter.title}
+                  onChange={(e) => patchEncounter({ title: e.target.value })}
+                  className="w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500"
+                />
+              </label>
+              {quest.encounters.length > 1 && (
+                <button
+                  onClick={() => removeEncounter(encounter.id)}
+                  className="self-end text-xs px-3 py-2 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
+                >
+                  🗑 Entfernen
+                </button>
+              )}
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              <TextField
+                label="Erzähltext"
+                value={encounter.flavourText}
+                onChange={(v) => patchEncounter({ flavourText: v })}
+                placeholder="Atmosphärischer Einstiegstext…"
+              />
+              <TextField
+                label="Aufbau"
+                value={encounter.setup}
+                onChange={(v) => patchEncounter({ setup: v })}
+                placeholder="Plättchen, Marker, Startaufstellung…"
+              />
+              <TextField
+                label="Sonderregeln"
+                value={encounter.specialRules}
+                onChange={(v) => patchEncounter({ specialRules: v })}
+              />
+              <TextField
+                label="Verstärkungen"
+                value={encounter.reinforcements}
+                onChange={(v) => patchEncounter({ reinforcements: v })}
+              />
+              <TextField
+                label="Siegbedingungen"
+                value={encounter.victoryConditions}
+                onChange={(v) => patchEncounter({ victoryConditions: v })}
+              />
+              <TextField
+                label="Belohnungen"
+                value={encounter.rewards}
+                onChange={(v) => patchEncounter({ rewards: v })}
+              />
+            </div>
+            <TextField
+              label="Geschichte / Abschluss"
+              value={encounter.story}
+              onChange={(v) => patchEncounter({ story: v })}
+              rows={2}
+            />
+          </div>
+
+          <div className="card p-0 overflow-hidden">
+            <div className="px-4 py-2 border-b border-dungeon-700">
+              <h3 className="font-display text-sm text-gold-400 font-bold">Karte</h3>
+              <p className="text-gray-500 text-xs">
+                Plättchen platzieren, drehen und verschieben – wird mit der Begegnung gespeichert.
+              </p>
+            </div>
+            <MapBuilder
+              key={encounter.id}
+              tiles={toBuilderTiles(encounter.mapData.tiles)}
+              onTilesChange={(t) =>
+                patchEncounter({
+                  mapData: { ...encounter.mapData, tiles: toDomainTiles(t) },
+                })
+              }
+              mapHeight="520px"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
