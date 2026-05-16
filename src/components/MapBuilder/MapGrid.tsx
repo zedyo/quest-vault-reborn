@@ -1,7 +1,7 @@
 import { useRef, CSSProperties, useState, useCallback } from 'react'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { MAP_TILES, tileImageUrl, CONNECTOR_OVERHANG_FRAC, rotateConnectors } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import type { PlacedMonster } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
@@ -43,24 +43,18 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
-  // The tile PNG is exactly cols*75 × rows*75 px. Puzzle tabs/notches are baked
-  // into the image's alpha channel: a tab reaches the canvas edge, a notch is
-  // cut ~34 px inward, a plain wall sits ~17 px in. The image is drawn at exact
-  // natural scale (no distortion). To make adjacent tiles interlock, a tile is
-  // shifted toward its top/left connector neighbour by the connector depth, so
-  // its notch overlaps that neighbour's protruding tab (the neighbour's
-  // right/bottom tab reaches its own canvas edge and sinks into this notch).
-  // Logical grid coords are unchanged — only the visual position shifts.
+  // The PNG is exactly cols*75 × rows*75 px with a 75 px/square printed grid
+  // starting at the canvas origin and NO outer margin (verified: 450/6, 300/4,
+  // 450/300 all give a 75 px square, 0 margin). The puzzle tab/notch shaping is
+  // baked into the alpha within the edge squares. Drawing the image at exact
+  // natural scale (75 px → CELL_SIZE) with the tile pinned to a whole cell makes
+  // the in-tile grid line up 1:1 with the board grid. No fractional offset.
   const conn = def?.connectors
-  const screenConn = conn ? rotateConnectors(conn, tile.rotation) : undefined
-  const OV = CONNECTOR_OVERHANG_FRAC * CELL_SIZE
-  const offX = screenConn?.left ? -OV : 0
-  const offY = screenConn?.top ? -OV : 0
 
   const style: CSSProperties = {
     position: 'absolute',
-    left: tile.col * CELL_SIZE + (effW - natW) / 2 + offX,
-    top: tile.row * CELL_SIZE + (effH - natH) / 2 + offY,
+    left: tile.col * CELL_SIZE + (effW - natW) / 2,
+    top: tile.row * CELL_SIZE + (effH - natH) / 2,
     width: natW,
     height: natH,
     overflow: conn ? 'visible' : 'hidden',

@@ -16,12 +16,6 @@ export interface MapTileDefinition {
   connectors?: TileConnectors
 }
 
-/** Connector overhang as a fraction of one game square. The puzzle tab reaches
- *  the PNG canvas edge while the body wall sits ~17/75 in and the notch ~34/75
- *  in; tiles interlock by overlapping a neighbour on shared connector edges by
- *  roughly this depth. Tunable for visual calibration. */
-export const CONNECTOR_OVERHANG_FRAC = 0.34
-
 /** Rotate a connector map clockwise by the given tile rotation. */
 export function rotateConnectors(
   c: TileConnectors,
