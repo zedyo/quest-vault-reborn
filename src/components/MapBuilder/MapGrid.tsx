@@ -1,7 +1,7 @@
 import { useRef, CSSProperties, useState, useCallback } from 'react'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl, CONNECTOR_OVERHANG_FRAC } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import type { PlacedMonster } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
@@ -43,14 +43,25 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
+  // Connector overhang: the puzzle tab on a connector edge protrudes past the
+  // nominal grid rectangle into the neighbour cell (where the neighbour has a
+  // transparent notch), so the tiles visually interlock. Connectors are stored
+  // in natural orientation; the whole element is CSS-rotated, so they carry over.
+  const conn = def?.connectors
+  const OV = CONNECTOR_OVERHANG_FRAC * CELL_SIZE
+  const ovL = conn?.left ? OV : 0
+  const ovT = conn?.top ? OV : 0
+  const ovR = conn?.right ? OV : 0
+  const ovB = conn?.bottom ? OV : 0
+
   const style: CSSProperties = {
     position: 'absolute',
     left: tile.col * CELL_SIZE + (effW - natW) / 2,
     top: tile.row * CELL_SIZE + (effH - natH) / 2,
     width: natW,
     height: natH,
-    overflow: 'hidden',
-    borderRadius: 3,
+    overflow: conn ? 'visible' : 'hidden',
+    borderRadius: conn ? 0 : 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
     transform: adjTransform
@@ -64,8 +75,23 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
       ? '0 0 0 2px #f59e0b, 0 0 0 4px rgba(245,158,11,0.35)'
       : isDragging
         ? '0 0 0 2px #60a5fa, 0 8px 24px rgba(0,0,0,0.6)'
-        : '0 0 0 1px rgba(255,255,255,0.18)',
+        : conn
+          ? 'none'
+          : '0 0 0 1px rgba(255,255,255,0.18)',
   }
+
+  const imgStyle: CSSProperties = conn
+    ? {
+        position: 'absolute',
+        left: -ovL,
+        top: -ovT,
+        width: natW + ovL + ovR,
+        height: natH + ovT + ovB,
+        objectFit: 'fill',
+        display: 'block',
+        pointerEvents: 'none',
+      }
+    : { width: '100%', height: '100%', objectFit: 'fill', display: 'block', pointerEvents: 'none' }
 
   const imgUrl = def ? tileImageUrl(def) : null
   const fontSize = Math.min(natW, natH) >= 3 * CELL_SIZE ? 11 : 9
@@ -88,7 +114,7 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
           src={imgUrl}
           alt={def?.label}
           onError={() => setImgError(true)}
-          style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block', pointerEvents: 'none' }}
+          style={imgStyle}
         />
       ) : (
         <div

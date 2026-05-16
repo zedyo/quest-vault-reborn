@@ -1,3 +1,10 @@
+export interface TileConnectors {
+  top: boolean
+  right: boolean
+  bottom: boolean
+  left: boolean
+}
+
 export interface MapTileDefinition {
   id: string
   label: string
@@ -5,6 +12,24 @@ export interface MapTileDefinition {
   cols: number
   rows: number
   color: string
+  /** Edges with a puzzle connector (tab/notch). Undefined = plain rectangle. */
+  connectors?: TileConnectors
+}
+
+/** Connector depth as a fraction of one game square (≈34 px / 75 px). */
+export const CONNECTOR_OVERHANG_FRAC = 0.453
+
+/** Rotate a connector map clockwise by the given tile rotation. */
+export function rotateConnectors(
+  c: TileConnectors,
+  rotation: 0 | 90 | 180 | 270,
+): TileConnectors {
+  switch (rotation) {
+    case 90: return { top: c.left, right: c.top, bottom: c.right, left: c.bottom }
+    case 180: return { top: c.bottom, right: c.left, bottom: c.top, left: c.right }
+    case 270: return { top: c.right, right: c.bottom, bottom: c.left, left: c.top }
+    default: return c
+  }
 }
 
 // URL helper — base game uses prefix "bg-"; expansions embed their prefix in the tile id.
@@ -35,21 +60,21 @@ export function getTilePartner(id: string): string | null {
 // B-sides always match A-side dimensions (same physical tile, different face).
 export const MAP_TILES: MapTileDefinition[] = [
   // ─── Grundspiel (01–30) ──────────────────────────────────────────────────
-  { id: '01a', label: '01a', expansionId: 'base', cols: 8, rows: 6, color: '#374151' },
+  { id: '01a', label: '01a', expansionId: 'base', cols: 8, rows: 6, color: '#374151', connectors: { top: false, right: true, bottom: false, left: false } },
   { id: '01b', label: '01b', expansionId: 'base', cols: 8, rows: 6, color: '#374151' },
-  { id: '02a', label: '02a', expansionId: 'base', cols: 6, rows: 6, color: '#374151' },
+  { id: '02a', label: '02a', expansionId: 'base', cols: 6, rows: 6, color: '#374151', connectors: { top: true, right: false, bottom: true, left: false } },
   { id: '02b', label: '02b', expansionId: 'base', cols: 6, rows: 6, color: '#374151' },
   { id: '03a', label: '03a', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '03b', label: '03b', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '04a', label: '04a', expansionId: 'base', cols: 6, rows: 6, color: '#374151' },
   { id: '04b', label: '04b', expansionId: 'base', cols: 6, rows: 6, color: '#374151' },
-  { id: '05a', label: '05a', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
+  { id: '05a', label: '05a', expansionId: 'base', cols: 6, rows: 4, color: '#374151', connectors: { top: false, right: true, bottom: true, left: true } },
   { id: '05b', label: '05b', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '06a', label: '06a', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '06b', label: '06b', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '07a', label: '07a', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
   { id: '07b', label: '07b', expansionId: 'base', cols: 6, rows: 4, color: '#374151' },
-  { id: '08a', label: '08a', expansionId: 'base', cols: 4, rows: 4, color: '#374151' },
+  { id: '08a', label: '08a', expansionId: 'base', cols: 4, rows: 4, color: '#374151', connectors: { top: true, right: true, bottom: false, left: false } },
   { id: '08b', label: '08b', expansionId: 'base', cols: 4, rows: 4, color: '#374151' },
   { id: '09a', label: '09a', expansionId: 'base', cols: 4, rows: 4, color: '#374151' },
   { id: '09b', label: '09b', expansionId: 'base', cols: 4, rows: 4, color: '#374151' },
