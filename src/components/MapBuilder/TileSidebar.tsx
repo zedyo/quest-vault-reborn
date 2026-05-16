@@ -40,6 +40,60 @@ function TileThumb({ tileId, color, cols, rows }: TileThumbProps) {
   )
 }
 
+interface HoverPreview {
+  tileId: string
+  label: string
+  cols: number
+  rows: number
+  color: string
+  anchorY: number
+}
+
+function TilePreview({ preview }: { preview: HoverPreview }) {
+  const [imgError, setImgError] = useState(false)
+  const { tileId, label, cols, rows, color, anchorY } = preview
+  const tileDef = MAP_TILES.find((t) => t.id === tileId)
+  const imgUrl = tileDef ? tileImageUrl(tileDef) : ''
+
+  // At least 4× the thumbnail. Thumbnail caps at 56×48 px; here we scale the
+  // tile so its larger side reaches ~320 px while keeping the cols:rows ratio.
+  const maxDim = 320
+  const scale = maxDim / Math.max(cols, rows)
+  const w = Math.round(cols * scale)
+  const h = Math.round(rows * scale)
+
+  // Keep the popup inside the viewport vertically.
+  const margin = 12
+  const top = Math.min(
+    Math.max(margin, anchorY - h / 2),
+    window.innerHeight - h - margin - 40,
+  )
+
+  return (
+    <div
+      className="fixed z-50 pointer-events-none rounded-lg border border-gold-600 bg-dungeon-900 shadow-2xl p-2"
+      style={{ left: 212, top: Math.max(margin, top) }}
+    >
+      <div
+        className="rounded overflow-hidden flex items-center justify-center"
+        style={{ width: w, height: h, backgroundColor: color }}
+      >
+        {!imgError && (
+          <img
+            src={imgUrl}
+            alt={label}
+            onError={() => setImgError(true)}
+            style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block', maxWidth: 'none', maxHeight: 'none' }}
+          />
+        )}
+      </div>
+      <div className="mt-1 text-center text-xs text-gold-300">
+        {label} <span className="text-gray-500">({cols}×{rows})</span>
+      </div>
+    </div>
+  )
+}
+
 interface SidebarTileProps {
   tileId: string
   label: string
@@ -50,9 +104,10 @@ interface SidebarTileProps {
   partnerPlaced: boolean
   partner: string | null
   onSelect: (id: string) => void
+  onHover: (preview: HoverPreview | null) => void
 }
 
-function SidebarTile({ tileId, label, cols, rows, color, isSelected, partnerPlaced, partner, onSelect }: SidebarTileProps) {
+function SidebarTile({ tileId, label, cols, rows, color, isSelected, partnerPlaced, partner, onSelect, onHover }: SidebarTileProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `palette-${tileId}`,
     data: { tileId },
@@ -64,6 +119,11 @@ function SidebarTile({ tileId, label, cols, rows, color, isSelected, partnerPlac
       {...listeners}
       {...attributes}
       onClick={() => onSelect(tileId)}
+      onMouseEnter={(e) => {
+        const r = e.currentTarget.getBoundingClientRect()
+        onHover({ tileId, label, cols, rows, color, anchorY: r.top + r.height / 2 })
+      }}
+      onMouseLeave={() => onHover(null)}
       title={
         partnerPlaced
           ? `${label} – Achtung: Seite ${partner} ist bereits platziert!`
@@ -96,6 +156,7 @@ interface Props {
 export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }: Props) {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [openExpansions, setOpenExpansions] = useState<Set<string>>(new Set(['base']))
+  const [hoverPreview, setHoverPreview] = useState<HoverPreview | null>(null)
 
   const ownedExpansions = EXPANSIONS.filter(
     (e) => ownedIds.includes(e.id) && MAP_TILES.some((t) => t.expansionId === e.id),
@@ -146,6 +207,7 @@ export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }:
                         partnerPlaced={partnerPlaced}
                         partner={partner}
                         onSelect={onSelect}
+                        onHover={setHoverPreview}
                       />
                     )
                   })}
@@ -159,6 +221,8 @@ export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }:
       <div className="px-3 py-2 border-t border-dungeon-700 text-xs text-gray-600">
         {MAP_TILES.filter((t) => ownedIds.includes(t.expansionId)).length} Plättchen verfügbar
       </div>
+
+      {hoverPreview && <TilePreview preview={hoverPreview} />}
     </aside>
   )
 }
