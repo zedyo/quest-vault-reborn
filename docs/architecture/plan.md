@@ -1,7 +1,7 @@
 # Implementierungsplan
 
-**Stand:** Phase 0-1 (Setup & Recherche)  
-**Zuletzt aktualisiert:** 2026-05-14
+**Stand:** Phase 5 (Kern-Features – größtenteils umgesetzt)  
+**Zuletzt aktualisiert:** 2026-05-16
 
 ---
 
@@ -12,53 +12,53 @@
 - [x] CLAUDE.md anlegen
 - [x] README.md mit Deployment-Anleitung
 - [x] Dokumentationsstruktur anlegen
-- [ ] Git-Workflow konfigurieren (Auto-Commits)
+- [x] Git-Workflow (Branch + Push pro Arbeitseinheit)
 
-### Phase 1 – Recherche 🔄
-- [x] Recherche-Agenten gestartet
-- [ ] Quest Vault Original dokumentiert
-- [ ] Spielinhalte vollständig erfasst
-- [ ] Deutsche Begriffe-Glossar erstellt
-- [ ] Digitale Assets identifiziert
+### Phase 1 – Recherche ✅
+- [x] Quest Vault Original dokumentiert
+- [x] Spielinhalte erfasst (Erweiterungen/Monster/Helden/Tiles)
+- [x] Community-Alternativen recherchiert
+- [x] Digitale Assets identifiziert (any2cards/d2e)
 
-### Phase 2 – Konzept & Architektur ⏳
-- [ ] Tech-Stack festlegen (ADR-001)
-- [ ] Feature-Liste priorisieren (MVP definieren)
-- [ ] Datenmodell entwerfen
-- [ ] UI/UX-Skizze
+### Phase 2 – Konzept & Architektur ✅
+- [x] Tech-Stack festgelegt (React + Vite + TypeScript + Tailwind + zustand)
+- [x] MVP definiert
+- [x] Datenmodell (`src/types/game.ts`)
+- [x] UI-Layout (Dark-Dungeon-Theme)
 
-### Phase 3 – Grundgerüst ⏳
-- [ ] Projekt-Setup (Vite + React + TypeScript)
+### Phase 3 – Grundgerüst ✅
+- [x] Projekt-Setup (Vite + React + TypeScript)
+- [x] Basis-Routing (react-router)
+- [x] Grundlegendes UI-Layout (DE)
+- [x] Erweiterungs-Auswahl (Sammlung)
 - [ ] GitHub Actions für Auto-Deploy auf GitHub Pages
-- [ ] Basis-Routing
-- [ ] Grundlegendes UI-Layout (DE)
-- [ ] Erweiterungs-Auswahl (welche Packs besitzt der User)
 
-### Phase 4 – Spielinhalt-Datenbasis ⏳
-- [ ] JSON-Daten: Alle Erweiterungen
-- [ ] JSON-Daten: Alle Monster mit Werten
-- [ ] JSON-Daten: Alle Helden
-- [ ] JSON-Daten: Alle Spielplan-Tiles
-- [ ] JSON-Daten: Alle Overlays
+### Phase 4 – Spielinhalt-Datenbasis ✅ (Überprüfung offen)
+- [x] Daten: Alle Erweiterungen (`expansions.ts`)
+- [x] Daten: Monster (`monsters.ts`) – Werte-Vollständigkeit prüfen
+- [x] Daten: Helden (`heroes.ts`) – Vollständigkeit prüfen
+- [x] Daten: Alle Spielplan-Tiles inkl. Connectoren (`mapTiles.ts`, 208 Tiles)
+- [ ] Daten: Overlays
 
-### Phase 5 – Kern-Features ⏳
-- [ ] Spielplan-Builder (Tiles platzieren, drehen)
-- [ ] Quest-Editor (Quests anlegen, Ziele definieren)
-- [ ] Monster-Tracker (HP, Statuswerte während Spiel)
-- [ ] Helden-Verwaltung
-- [ ] Quest speichern/laden (localStorage)
+### Phase 5 – Kern-Features ✅ (weitgehend)
+- [x] Spielplan-Builder (Tiles platzieren, drehen, Connectoren, Hover-Vorschau)
+- [x] Quest-Editor (Quests/Begegnungen/Ziele, freigeschaltet)
+- [x] Helden-Verwaltung (Anzeige/Filter)
+- [x] Quest speichern/laden (zustand persist → localStorage)
+- [ ] Monster-Tracker (HP/Status während Spiel) – nur Platzierung, kein Live-Tracking
 
-### Phase 6 – Erweiterte Features ⏳
-- [ ] Quest exportieren/importieren (JSON)
+### Phase 6 – Erweiterte Features 🔄
+- [x] Quest exportieren/importieren (JSON)
+- [x] Printable Quest-Karten (Druckansicht)
 - [ ] Kampagnen-Verwaltung
 - [ ] Overlord-Karten-Tracker
-- [ ] Printable Quest-Karten
 - [ ] Mobile-Responsive UI
 
 ### Phase 7 – Polish & Release ⏳
-- [ ] Deutsche UI vollständig lokalisiert
+- [ ] Deutsche UI vollständig lokalisiert (Feinschliff)
 - [ ] Accessibility-Check
 - [ ] Performance-Optimierung
+- [ ] B-Seiten-Connectoren visuell verifizieren
 - [ ] Dokumentation vervollständigen
 - [ ] Community-Feedback einarbeiten
 
@@ -76,6 +76,15 @@ Das MVP soll folgendes können:
 
 ## Offene Entscheidungen
 
-- Tech-Stack (React vs. Svelte vs. Vue)
-- Asset-Strategie (eigene SVGs vs. Community-Assets)
-- Hosting-Plattform
+- ~~Tech-Stack~~ → entschieden: React + Vite + TypeScript + Tailwind + zustand
+- ~~Hosting-Plattform~~ → GitHub Pages (Auto-Deploy noch einzurichten)
+- Asset-Strategie / FFG-IP-Rechte: aktuell Community-Assets (any2cards/d2e,
+  Grauzone) – langfristig eigene Grafiken prüfen
+
+## Nächste konkrete Schritte
+
+- GitHub Actions: Auto-Deploy auf GitHub Pages einrichten
+- Monster-Tracker: Live-HP/Status während des Spiels
+- B-Seiten-Connectoren visuell verifizieren
+- Overlays als Datenbasis ergänzen
+- Monster-/Helden-Datenvollständigkeit prüfen

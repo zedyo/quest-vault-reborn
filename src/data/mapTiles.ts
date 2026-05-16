@@ -270,6 +270,8 @@ export const MAP_TILES: MapTileDefinition[] = [
   { id: 'cr-96b', label: 'RK 96b', expansionId: 'the-chains-that-rust', cols: 3, rows: 4, color: '#3a1a00', connectors: { top: true, right: true, bottom: false, left: true } },
   { id: 'cr-97a', label: 'RK 97a', expansionId: 'the-chains-that-rust', cols: 2, rows: 4, color: '#3a1a00', connectors: { top: false, right: true, bottom: true, left: false } },
   { id: 'cr-97b', label: 'RK 97b', expansionId: 'the-chains-that-rust', cols: 2, rows: 4, color: '#3a1a00', connectors: { top: false, right: false, bottom: true, left: true } },
+  // cr-98: any2cards PNG is 112×300 px (≈1.49×4) instead of the clean 2×4 (150×300).
+  // cols/rows kept at the game-correct 2×4 footprint; the image is stretched to fit.
   { id: 'cr-98a', label: 'RK 98a', expansionId: 'the-chains-that-rust', cols: 2, rows: 4, color: '#3a1a00', connectors: { top: false, right: true, bottom: false, left: true } },
   { id: 'cr-98b', label: 'RK 98b', expansionId: 'the-chains-that-rust', cols: 2, rows: 4, color: '#3a1a00', connectors: { top: false, right: true, bottom: false, left: true } },
 ]
