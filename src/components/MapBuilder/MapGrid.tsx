@@ -13,15 +13,23 @@ export function effectiveDims(tile: PlacedMapTile) {
   return rotated ? { cols: def.rows, rows: def.cols } : { cols: def.cols, rows: def.rows }
 }
 
+export interface TileCalib {
+  /** Playable-grid inset from the canvas on a connector edge, in squares. */
+  inset: number
+  /** Fine sub-cell phase nudge applied to both axes, in cells. */
+  phase: number
+}
+
 interface DraggableTileProps {
   tile: PlacedMapTile
   isSelected: boolean
   placingMode: boolean
   onSelect: (id: string) => void
   zoom: number
+  calib: TileCalib
 }
 
-function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: DraggableTileProps) {
+function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom, calib }: DraggableTileProps) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
   const { cols, rows } = effectiveDims(tile)
   const [imgError, setImgError] = useState(false)
@@ -43,20 +51,38 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
-  // The PNG is exactly cols*75 × rows*75 px with a 75 px/square printed grid
-  // starting at the canvas origin and NO outer margin (verified: 450/6, 300/4,
-  // 450/300 all give a 75 px square, 0 margin). The puzzle tab/notch shaping is
-  // baked into the alpha within the edge squares. Drawing the image at exact
-  // natural scale (75 px → CELL_SIZE) with the tile pinned to a whole cell makes
-  // the in-tile grid line up 1:1 with the board grid. No fractional offset.
+  // The connector tab/notch zone occupies a margin inside the PNG canvas, so the
+  // PLAYABLE grid is the canvas minus that margin on connector edges. We scale
+  // the image so its inner playable rectangle maps exactly onto the cols×rows
+  // footprint (board cells), letting the connector margin overflow outside the
+  // footprint. `calib.inset` (squares) and `calib.phase` (cells) are live-tuned.
   const conn = def?.connectors
+  const dCols = def?.cols ?? cols
+  const dRows = def?.rows ?? rows
+  const f = conn ? calib.inset : 0
+  const iL = conn?.left ? f : 0
+  const iR = conn?.right ? f : 0
+  const iT = conn?.top ? f : 0
+  const iB = conn?.bottom ? f : 0
+
+  // footprint = playable grid in board pixels (natural orientation)
+  const footW = dCols * CELL_SIZE
+  const footH = dRows * CELL_SIZE
+  // scale up so (cols - insets) source-squares fill the full footprint
+  const sx = dCols / Math.max(0.5, dCols - iL - iR)
+  const sy = dRows / Math.max(0.5, dRows - iT - iB)
+  const imgW = footW * sx
+  const imgH = footH * sy
+  const phasePx = conn ? calib.phase * CELL_SIZE : 0
+  const imgLeft = -(iL * CELL_SIZE) * sx + phasePx
+  const imgTop = -(iT * CELL_SIZE) * sy + phasePx
 
   const style: CSSProperties = {
     position: 'absolute',
-    left: tile.col * CELL_SIZE + (effW - natW) / 2,
-    top: tile.row * CELL_SIZE + (effH - natH) / 2,
-    width: natW,
-    height: natH,
+    left: tile.col * CELL_SIZE + (effW - footW) / 2,
+    top: tile.row * CELL_SIZE + (effH - footH) / 2,
+    width: footW,
+    height: footH,
     overflow: conn ? 'visible' : 'hidden',
     borderRadius: conn ? 0 : 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
@@ -78,8 +104,11 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
   }
 
   const imgStyle: CSSProperties = {
-    width: '100%',
-    height: '100%',
+    position: 'absolute',
+    left: imgLeft,
+    top: imgTop,
+    width: imgW,
+    height: imgH,
     objectFit: 'fill',
     display: 'block',
     pointerEvents: 'none',
@@ -240,6 +269,8 @@ export default function MapGrid({
 
   const { setNodeRef: setDropRef } = useDroppable({ id: 'map-grid' })
 
+  const [calib, setCalib] = useState<TileCalib>({ inset: 0.227, phase: 0 })
+
   const scaledW = GRID_COLS * CELL_SIZE * zoom
   const scaledH = GRID_ROWS * CELL_SIZE * zoom
 
@@ -279,6 +310,60 @@ export default function MapGrid({
 
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden bg-dungeon-950">
+      {/* Connector calibration — temporary tuning panel */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          padding: '6px 12px',
+          backgroundColor: '#15151f',
+          borderBottom: '1px solid #2a2a3a',
+          fontSize: 11,
+          color: '#9ca3af',
+          flexShrink: 0,
+        }}
+      >
+        <span style={{ fontWeight: 600, color: '#f59e0b' }}>Connector-Kalibrierung</span>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          Inset: {calib.inset.toFixed(3)} Felder
+          <input
+            type="range"
+            min={0}
+            max={0.6}
+            step={0.001}
+            value={calib.inset}
+            onChange={(e) => setCalib((c) => ({ ...c, inset: parseFloat(e.target.value) }))}
+            style={{ width: 220 }}
+          />
+        </label>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          Phase: {calib.phase.toFixed(3)} Felder
+          <input
+            type="range"
+            min={-0.5}
+            max={0.5}
+            step={0.001}
+            value={calib.phase}
+            onChange={(e) => setCalib((c) => ({ ...c, phase: parseFloat(e.target.value) }))}
+            style={{ width: 180 }}
+          />
+        </label>
+        <button
+          onClick={() => setCalib({ inset: 0.227, phase: 0 })}
+          style={{
+            fontSize: 11,
+            padding: '2px 8px',
+            borderRadius: 4,
+            backgroundColor: '#1f2937',
+            color: '#9ca3af',
+            border: '1px solid #374151',
+            cursor: 'pointer',
+          }}
+        >
+          Reset
+        </button>
+      </div>
       {/* Top horizontal scrollbar mirror — keeps horizontal scroll accessible without scrolling down */}
       <div
         ref={topBarRef}
@@ -340,6 +425,7 @@ export default function MapGrid({
                 placingMode={selectedTileId !== null || !!monsterPlaceMode}
                 onSelect={onSelectInstance}
                 zoom={zoom}
+                calib={calib}
               />
             ))}
             {(monsters ?? []).map((m) => (
