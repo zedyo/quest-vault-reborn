@@ -101,6 +101,11 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     top: imgTop,
     width: imgW,
     height: imgH,
+    // Override Tailwind preflight's `img { max-width: 100%; height: auto }`,
+    // which otherwise clamps a horizontally-stretched connector image back to
+    // the wrapper width and discards the right-side overflow.
+    maxWidth: 'none',
+    maxHeight: 'none',
     objectFit: 'fill',
     display: 'block',
     pointerEvents: 'none',
