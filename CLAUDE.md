@@ -102,6 +102,46 @@ Format: `feat|fix|docs|research: kurze Beschreibung`
 
 ---
 
+## Map-Tile Connector-Rendering (GELÖST – nicht erneut umbauen!)
+
+**Problem:** Descent-2e-Tile-PNGs (any2cards/d2e) müssen so dargestellt werden,
+dass benachbarte Tiles über ihre Puzzle-Connector (Tab/Notch) ineinandergreifen
+und das interne Tile-Raster deckungsgleich mit dem Board-Raster bleibt.
+
+**Funktionierende Lösung (Stand: erste 8 Tiles perfekt):**
+
+1. **PNG-Geometrie:** Canvas ist exakt `cols×75 × rows×75 px` (75px = 1 Feld).
+   Auf Connector-Kanten liegt die Body-Wall ~18px innen, Tab ragt bis zur
+   Canvas-Kante (~1px), Notch schneidet bis ~35px ein. Flache Kanten: Inhalt
+   direkt an der Canvas-Kante (~1px).
+
+2. **Connector-Erkennung (Python/PIL):** Pro Kante von der Canvas-Kante nach
+   innen scannen bis erstes opakes Pixel (alpha>128). 45px an beiden Enden
+   abschneiden (Rundecken). Median-Tiefe des Kerns: **≈1px = flach**,
+   **≈18px = Connector**. Schwelle: `baseline >= 8` → Connector. Gegen 4
+   pixel-verifizierte Tiles (01a/02a/05a/08a) validiert: 4/4.
+
+3. **Streckungs-Modell (`MapGrid.tsx` `DraggableTile`):** `CONNECTOR_INSET_FRAC
+   = 0.269` (visuell kalibriert via 01a/02a). Pro Seite NUR strecken, wenn
+   dort ein Connector ist: `iL/iR/iT/iB = conn[seite] ? 0.269 : 0`.
+   `sx = dCols/(dCols−iL−iR)`, `sy = dRows/(dRows−iT−iB)`,
+   `imgW = footW·sx`, `imgH = footH·sy`,
+   `imgLeft = −(iL·CELL_SIZE)·sx`, `imgTop = −(iT·CELL_SIZE)·sy`.
+   Wrapper = Footprint (`dCols·CELL_SIZE × dRows·CELL_SIZE`),
+   `overflow: visible` bei Connector-Tiles, damit der Rand herausragt.
+
+4. **KRITISCHER FIX:** Tailwind-Preflight setzt global
+   `img { max-width: 100%; height: auto }`. Das stauchte horizontal
+   gestreckte Bilder auf die Wrapper-Breite zurück → rechte Streckung wirkte
+   nie. **Lösung:** `maxWidth: 'none'` UND `maxHeight: 'none'` im img-Style.
+   Ohne diesen Fix ist die rechte Connector-Seite immer falsch.
+
+**Connector-Daten:** stehen pro Tile in `src/data/mapTiles.ts` als
+`connectors: { top, right, bottom, left: boolean }`. Nur Kanten mit echtem
+Connector auf `true`. B-Seiten haben eigene Muster (andere Tile-Rückseite).
+
+---
+
 ## Bekannte Offene Fragen
 
 - [x] Welche Features hatte das Original Quest Vault exakt? → docs/research/quest-vault-original.md
