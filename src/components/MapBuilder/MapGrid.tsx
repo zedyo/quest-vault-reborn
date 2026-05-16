@@ -1,7 +1,7 @@
 import { useRef, CSSProperties, useState, useCallback } from 'react'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { MAP_TILES, tileImageUrl, CONNECTOR_OVERHANG_FRAC } from '../../data/mapTiles'
+import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import type { PlacedMonster } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
@@ -43,15 +43,13 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
-  // Connector tabs: each connector edge's tab pixels protrude past the nominal
-  // grid rectangle. We render the main image at natural scale (no distortion),
-  // then overlay a small background-image div on each connector side that clips
-  // and shows just that edge's OV pixels, positioned outside the wrapper.
-  // The parent wrapper has overflow:visible so children can extend past it.
-  // CSS rotation on the wrapper carries children along, so natural-orientation
-  // connectors stay correct after tile rotation.
+  // The tile PNG is exactly cols*75 × rows*75 px. Puzzle tabs/notches are baked
+  // into the image's alpha channel within that rectangle: a tab reaches the
+  // canvas edge, a notch is cut ~34 px inward, a plain wall sits ~17 px in.
+  // So the correct rendering is simply the image at natural scale with no
+  // rectangular outline squaring off the silhouette — nothing protrudes past
+  // the canvas. `conn` only drives whether we suppress the rectangle chrome.
   const conn = def?.connectors
-  const OV = CONNECTOR_OVERHANG_FRAC * CELL_SIZE
 
   const style: CSSProperties = {
     position: 'absolute',
@@ -90,16 +88,6 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
   const imgUrl = def ? tileImageUrl(def) : null
   const fontSize = Math.min(natW, natH) >= 3 * CELL_SIZE ? 11 : 9
 
-  // Shared style for protrusion slivers — each clips its background to the OV strip.
-  const bgBase = {
-    position: 'absolute' as const,
-    overflow: 'hidden',
-    backgroundImage: imgUrl ? `url(${imgUrl})` : 'none',
-    backgroundSize: `${natW}px ${natH}px`,
-    backgroundRepeat: 'no-repeat',
-    pointerEvents: 'none' as const,
-  }
-
   return (
     <div
       ref={setNodeRef}
@@ -114,26 +102,12 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
       title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
     >
       {imgUrl && !imgError ? (
-        <>
-          <img
-            src={imgUrl}
-            alt={def?.label}
-            onError={() => setImgError(true)}
-            style={imgStyle}
-          />
-          {conn?.top && (
-            <div style={{ ...bgBase, left: 0, top: -OV, width: natW, height: OV, backgroundPosition: '0 0' }} />
-          )}
-          {conn?.right && (
-            <div style={{ ...bgBase, left: natW, top: 0, width: OV, height: natH, backgroundPosition: `${-(natW - OV)}px 0` }} />
-          )}
-          {conn?.bottom && (
-            <div style={{ ...bgBase, left: 0, top: natH, width: natW, height: OV, backgroundPosition: `0 ${-(natH - OV)}px` }} />
-          )}
-          {conn?.left && (
-            <div style={{ ...bgBase, left: -OV, top: 0, width: OV, height: natH, backgroundPosition: '0 0' }} />
-          )}
-        </>
+        <img
+          src={imgUrl}
+          alt={def?.label}
+          onError={() => setImgError(true)}
+          style={imgStyle}
+        />
       ) : (
         <div
           style={{
