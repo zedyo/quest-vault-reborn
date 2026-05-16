@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import type { PlacedMapTile } from './types'
 import type { PlacedMonster } from '../../types/game'
-import { CELL_SIZE, GRID_COLS, GRID_ROWS, CONNECTOR_INSET_FRAC } from './constants'
+import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 export function effectiveDims(tile: PlacedMapTile) {
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
@@ -43,29 +43,15 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
-  // The connector tab/notch zone occupies a margin inside the PNG canvas, so the
-  // PLAYABLE grid is the canvas minus that margin on connector edges. We scale
-  // the image so its inner playable rectangle maps exactly onto the cols×rows
-  // footprint (board cells), letting the connector margin overflow outside.
-  const conn = def?.connectors
+  // The PNG canvas is exactly def.cols×75 × def.rows×75 px. Rendering at
+  // natural scale (def.cols×CELL_SIZE × def.rows×CELL_SIZE) means each source
+  // 75 px square maps to exactly one CELL_SIZE board cell. Connector tabs and
+  // notches are already part of the tile shape in the PNG — no scaling or
+  // offset needed; adjacent tiles interlock visually by their die-cut shapes.
   const dCols = def?.cols ?? cols
   const dRows = def?.rows ?? rows
-  const f = conn ? CONNECTOR_INSET_FRAC : 0
-  const iL = conn?.left ? f : 0
-  const iR = conn?.right ? f : 0
-  const iT = conn?.top ? f : 0
-  const iB = conn?.bottom ? f : 0
-
-  // footprint = playable grid in board pixels (natural orientation)
   const footW = dCols * CELL_SIZE
   const footH = dRows * CELL_SIZE
-  // scale up so (cols - insets) source-squares fill the full footprint
-  const sx = dCols / Math.max(0.5, dCols - iL - iR)
-  const sy = dRows / Math.max(0.5, dRows - iT - iB)
-  const imgW = footW * sx
-  const imgH = footH * sy
-  const imgLeft = -(iL * CELL_SIZE) * sx
-  const imgTop = -(iT * CELL_SIZE) * sy
 
   const style: CSSProperties = {
     position: 'absolute',
@@ -73,8 +59,8 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     top: tile.row * CELL_SIZE + (effH - footH) / 2,
     width: footW,
     height: footH,
-    overflow: conn ? 'visible' : 'hidden',
-    borderRadius: conn ? 0 : 3,
+    overflow: 'hidden',
+    borderRadius: 3,
     cursor: placingMode ? 'crosshair' : isDragging ? 'grabbing' : 'grab',
     zIndex: isDragging ? 100 : isSelected ? 10 : 1,
     transform: adjTransform
@@ -88,18 +74,15 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
       ? '0 0 0 2px #f59e0b, 0 0 0 4px rgba(245,158,11,0.35)'
       : isDragging
         ? '0 0 0 2px #60a5fa, 0 8px 24px rgba(0,0,0,0.6)'
-        : conn
-          ? 'none'
-          : '0 0 0 1px rgba(255,255,255,0.18)',
+        : '0 0 0 1px rgba(255,255,255,0.18)',
   }
 
   const imgStyle: CSSProperties = {
     position: 'absolute',
-    left: imgLeft,
-    top: imgTop,
-    width: imgW,
-    height: imgH,
-    objectFit: 'fill',
+    left: 0,
+    top: 0,
+    width: footW,
+    height: footH,
     display: 'block',
     pointerEvents: 'none',
   }
