@@ -60,7 +60,7 @@ export function getTilePartner(id: string): string | null {
 // B-sides always match A-side dimensions (same physical tile, different face).
 export const MAP_TILES: MapTileDefinition[] = [
   // ─── Grundspiel (01–30) ──────────────────────────────────────────────────
-  { id: '01a', label: '01a', expansionId: 'base', cols: 8, rows: 6, color: '#374151', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: '01a', label: '01a', expansionId: 'base', cols: 8, rows: 6, color: '#374151', connectors: { top: true, right: true, bottom: true, left: false } },
   { id: '01b', label: '01b', expansionId: 'base', cols: 8, rows: 6, color: '#374151' },
   { id: '02a', label: '02a', expansionId: 'base', cols: 6, rows: 6, color: '#374151', connectors: { top: true, right: false, bottom: true, left: false } },
   { id: '02b', label: '02b', expansionId: 'base', cols: 6, rows: 6, color: '#374151' },

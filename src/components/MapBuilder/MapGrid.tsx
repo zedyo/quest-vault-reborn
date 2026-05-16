@@ -43,16 +43,15 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
     ? { ...transform, x: transform.x / zoom, y: transform.y / zoom }
     : null
 
-  // Connector overhang: the puzzle tab on a connector edge protrudes past the
-  // nominal grid rectangle into the neighbour cell (where the neighbour has a
-  // transparent notch), so the tiles visually interlock. Connectors are stored
-  // in natural orientation; the whole element is CSS-rotated, so they carry over.
+  // Connector tabs: each connector edge's tab pixels protrude past the nominal
+  // grid rectangle. We render the main image at natural scale (no distortion),
+  // then overlay a small background-image div on each connector side that clips
+  // and shows just that edge's OV pixels, positioned outside the wrapper.
+  // The parent wrapper has overflow:visible so children can extend past it.
+  // CSS rotation on the wrapper carries children along, so natural-orientation
+  // connectors stay correct after tile rotation.
   const conn = def?.connectors
   const OV = CONNECTOR_OVERHANG_FRAC * CELL_SIZE
-  const ovL = conn?.left ? OV : 0
-  const ovT = conn?.top ? OV : 0
-  const ovR = conn?.right ? OV : 0
-  const ovB = conn?.bottom ? OV : 0
 
   const style: CSSProperties = {
     position: 'absolute',
@@ -80,21 +79,26 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
           : '0 0 0 1px rgba(255,255,255,0.18)',
   }
 
-  const imgStyle: CSSProperties = conn
-    ? {
-        position: 'absolute',
-        left: -ovL,
-        top: -ovT,
-        width: natW + ovL + ovR,
-        height: natH + ovT + ovB,
-        objectFit: 'fill',
-        display: 'block',
-        pointerEvents: 'none',
-      }
-    : { width: '100%', height: '100%', objectFit: 'fill', display: 'block', pointerEvents: 'none' }
+  const imgStyle: CSSProperties = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'fill',
+    display: 'block',
+    pointerEvents: 'none',
+  }
 
   const imgUrl = def ? tileImageUrl(def) : null
   const fontSize = Math.min(natW, natH) >= 3 * CELL_SIZE ? 11 : 9
+
+  // Shared style for protrusion slivers — each clips its background to the OV strip.
+  const bgBase = {
+    position: 'absolute' as const,
+    overflow: 'hidden',
+    backgroundImage: imgUrl ? `url(${imgUrl})` : 'none',
+    backgroundSize: `${natW}px ${natH}px`,
+    backgroundRepeat: 'no-repeat',
+    pointerEvents: 'none' as const,
+  }
 
   return (
     <div
@@ -110,12 +114,26 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
       title={`${def?.label} (${def?.cols}×${def?.rows}) – Ziehen zum Verschieben`}
     >
       {imgUrl && !imgError ? (
-        <img
-          src={imgUrl}
-          alt={def?.label}
-          onError={() => setImgError(true)}
-          style={imgStyle}
-        />
+        <>
+          <img
+            src={imgUrl}
+            alt={def?.label}
+            onError={() => setImgError(true)}
+            style={imgStyle}
+          />
+          {conn?.top && (
+            <div style={{ ...bgBase, left: 0, top: -OV, width: natW, height: OV, backgroundPosition: '0 0' }} />
+          )}
+          {conn?.right && (
+            <div style={{ ...bgBase, left: natW, top: 0, width: OV, height: natH, backgroundPosition: `${-(natW - OV)}px 0` }} />
+          )}
+          {conn?.bottom && (
+            <div style={{ ...bgBase, left: 0, top: natH, width: natW, height: OV, backgroundPosition: `0 ${-(natH - OV)}px` }} />
+          )}
+          {conn?.left && (
+            <div style={{ ...bgBase, left: -OV, top: 0, width: OV, height: natH, backgroundPosition: '0 0' }} />
+          )}
+        </>
       ) : (
         <div
           style={{
