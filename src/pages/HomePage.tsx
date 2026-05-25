@@ -107,9 +107,10 @@ export default function HomePage() {
         <div className="bg-dungeon-700 px-4 py-3 flex items-center gap-2 border-b border-dungeon-600">
           <span className="text-lg">🛠️</span>
           <div>
-            <p className="text-amber-400 font-semibold text-sm">Dieses Projekt ist in aktiver Entwicklung</p>
+            <p className="text-amber-400 font-semibold text-sm">Hobbyprojekt in aktiver Entwicklung</p>
             <p className="text-gray-500 text-xs mt-0.5">
-              Quest Vault Reborn wird laufend erweitert – viele Features sind bereits nutzbar, weitere folgen.
+              Quest Vault Reborn wird von einer einzelnen Person in der Freizeit entwickelt und laufend erweitert.
+              Kein kommerzielles Produkt – sondern Leidenschaft für Descent.
             </p>
           </div>
         </div>
