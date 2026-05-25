@@ -1,13 +1,12 @@
 # Descent 2. Edition – Alle Helden
 
-**Status:** Recherche abgeschlossen (Mai 2026)  
-**Quelle:** github.com/any2cards/d2e, BGG, Asmodee DE  
-**Zuletzt aktualisiert:** 2026-05-14
+**Status:** Vollständige Spielwerte dokumentiert (Mai 2026)  
+**Quelle:** github.com/any2cards/d2e, src/data/heroes.ts  
+**Zuletzt aktualisiert:** 2026-05-25
 
 ---
 
-**Hinweis:** Heldennamen sind Eigennamen und wurden von FFG/Asmodee auf Deutsch NICHT übersetzt.
-Die Archetypen wurden jedoch auf Deutsch lokalisiert.
+**Hinweis:** Heldennamen sind Eigennamen und wurden von FFG/Asmodee auf Deutsch NICHT übersetzt. Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ## Archetypen
 
@@ -35,12 +34,142 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Ashrian
+
+**Archetyp:** Heiler | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 2 | 2 | 3 | 4 |
+
+**Heldenfähigkeit:** Wenn ein normales Monster zu Beginn seiner Aktivierung an dich angrenzt, wird es betäubt.  
+**Heldentat:** Aktion: Wähle ein Monster bis Reichweite 3. Jedes Monster dieser Monstergruppe wird betäubt.
+
+---
+
+## Avric Albright
+
+**Archetyp:** Heiler | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 2 | 3 | 4 | 2 |
+
+**Heldenfähigkeit:** Jeder Held bis Reichweite 3 (einschließlich dir) erhält: „Schub: 1 Herz zurückgewinnen" bei allen Angriffswürfen.  
+**Heldentat:** Aktion: Würfle 2 rote Kraftwürfel. Jeder Held bis Reichweite 3 kann Herzen in Höhe der gewürfelten Herzen zurückgewinnen.
+
+---
+
+## Leoric vom Buch
+
+**Archetyp:** Magier | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 5 | Grau | 1 | 5 | 2 | 3 |
+
+**Heldenfähigkeit:** Jedes Monster bis Reichweite 3 erhält -1 Herz auf alle Angriffswürfe (Minimum 1).  
+**Heldentat:** Aktion: Führe einen Angriff mit einer Magie-Waffe durch. Ignoriert Reichweite; trifft alle angrenzenden Figuren. 1 Wurf, jede Figur verteidigt separat.
+
+---
+
+## Witwe Tarha
+
+**Archetyp:** Magier | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 4 | 3 | 2 |
+
+**Heldenfähigkeit:** Einmal pro Runde nach dem Würfeln für einen Angriff darfst du 1 Angriffs- oder Kraftwürfel neu würfeln. Das neue Ergebnis muss behalten werden.  
+**Heldentat:** Aktion: Führe einen Angriff gegen 2 verschiedene Monster in Sichtlinie durch. 1 Wurf, jedes Monster verteidigt separat.
+
+---
+
+## Jain Fairwood
+
+**Archetyp:** Späher | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 5 | Grau | 2 | 3 | 2 | 4 |
+
+**Heldenfähigkeit:** Wenn du durch einen Angriff Herzen erleidest, darfst du einige oder alle als Erschöpfung erleiden (max. deine Ausdauer).  
+**Heldentat:** Aktion: Bewege die doppelte Bewegungsweite und führe einen Angriff durch (vor, während oder nach der Bewegung).
+
+---
+
+## Tomble Burrowell
+
+**Archetyp:** Späher | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 5 | Grau | 1 | 2 | 3 | 5 |
+
+**Heldenfähigkeit:** Wenn du angegriffen wirst und an mindestens einem anderen Helden angrenzt, darfst du dessen Verteidigungswürfelpool deinem eigenen hinzufügen.  
+**Heldentat:** Aktion: Entferne deine Figur und platziere einen Heldenmarker. Zu Beginn deines nächsten Zuges erscheinst du auf einem freien Feld bis Reichweite 4 des Markers.
+
+---
+
+## Grisban der Durstige
+
+**Archetyp:** Krieger | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 14 | 4 | Grau | 5 | 2 | 3 | 1 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du Erschöpfung durch eine Rastenaktion zurückgewinnst, darfst du auch 1 Zustandskarte von dir ablegen.  
+**Heldentat:** Verwende während deines Zuges: Führe 1 zusätzliche Angriffsaktion durch (zusätzlich zu den normalen 2 Aktionen).
+
+---
+
+## Syndrael
+
+**Archetyp:** Krieger | **Erweiterung:** Grundspiel
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 4 | 3 | 2 | 2 |
+
+**Heldenfähigkeit:** Wenn du dich in diesem Zug nicht bewegt hast, gewinne am Ende deines Zuges 2 Erschöpfung zurück.  
+**Heldentat:** Verwende während deines Zuges: Wähle einen Helden bis Reichweite 3. Du und dieser Held führen sofort je eine Bewegungsaktion durch (zusätzlich zu den normalen 2 Aktionen).
+
+---
+
 ## Die Höhle des Lindwurms / Lair of the Wyrm (2 Helden)
 
 | Held | Archetyp (DE) |
 |------|--------------|
 | High Mage Quellen | Magier |
 | Reynhart the Worthy | Krieger |
+
+---
+
+## Hochmagier Quellen
+
+**Archetyp:** Magier | **Erweiterung:** Die Höhle des Lindwurms
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 1 | 5 | 3 | 2 |
+
+**Heldenfähigkeit:** Zu Beginn deines Zuges darfst du einen anderen Helden bis Reichweite 3 wählen. Hat der gewählte Held mindestens 1 Erschöpfungsmarker auf seinem Heldenbogen, gewinnst du 1 Erschöpfung zurück. Hat er Erschöpfungsmarker in Höhe seiner Ausdauer, gewinnst du 2 Erschöpfung zurück.  
+**Heldentat:** Verwende zu Beginn deines Zuges, um deine Ausdauer für den Rest dieses Zuges um 4 zu erhöhen. Am Ende deines Zuges gewinnst du alle Erschöpfung zurück.
+
+---
+
+## Reynhart der Würdige
+
+**Archetyp:** Krieger | **Erweiterung:** Die Höhle des Lindwurms
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 3 | 1 | 4 | 3 |
+
+**Heldenfähigkeit:** Wenn du beim Angriffswurf ein X würfelst, darfst du 1 Erschöpfung erleiden, um 1 Angriffswürfel neu zu würfeln. Höchstens einmal pro Angriff.  
+**Heldentat:** Verwende nach dem Würfeln eines X beim Angriffswurf, um alle Erschöpfung zurückzugewinnen und beliebige oder alle Würfel deines Angriffspools neu zu würfeln.
 
 ---
 
@@ -57,12 +186,116 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Serena
+
+**Archetyp:** Heiler | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 8 | 6 | Braun | 1 | 3 | 5 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du von einem Angriff als Ziel gewählt wirst, darf ein an dich angrenzender Held 1 Erschöpfung erleiden, um sich selbst als Ziel des Angriffs zu deklarieren. Reichweite und Sichtlinie werden weiterhin zu deinem Feld gemessen.  
+**Heldentat:** Aktion: Teste Willenskraft und Wissen. Für jeden bestandenen Test gewinnt jeder Held bis Reichweite 3 von dir 3 Herzen und 1 Erschöpfung zurück.
+
+---
+
+## Ulma Grimstone
+
+**Archetyp:** Heiler | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 5 | Grau | 2 | 4 | 3 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein Held bis Reichweite 3 von dir (einschließlich dir selbst) eine Suchkarte ziehen würde, darf er stattdessen Suchkarten aufdecken, bis er einen Trank findet. Er darf diese Karte nehmen und den Rest zurück ins Deck mischen.  
+**Heldentat:** Verwende während deines Zuges, um eine deiner verdeckten Trank-Suchkarten offen umzudrehen. Außerdem darf jeder an dich angrenzende Held ebenfalls eine seiner verdeckten Trank-Suchkarten offen umzudrehen.
+
+---
+
+## Dezra die Grausame
+
+**Archetyp:** Magier | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 4 | Grau | 2 | 4 | 2 | 3 |
+
+**Heldenfähigkeit:** Zu Beginn deines Zuges darfst du für jede an dich angrenzende Monsterfigur 1 Herz oder 1 Erschöpfung zurückgewinnen.  
+**Heldentat:** Verwende, wenn der Overlord eine an dich angrenzende Monsterfigur zur Aktivierung auswählt, bevor er Aktionen ausführt. Alle an dich angrenzenden Monster werden bewegungsunfähig gemacht.
+
+---
+
+## Logan Lashley
+
+**Archetyp:** Späher | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 3 | 2 | 2 | 4 |
+
+**Heldenfähigkeit:** Du kannst nicht bewegungsunfähig gemacht werden. Außerdem darfst du dich unmittelbar nach einem Angriff mit einer Exotischen Waffe 1 Feld bewegen.  
+**Heldentat:** Verwende, nachdem einer deiner Angriffe mindestens 1 Herz verursacht hat (nach dem Würfeln der Verteidigungswürfel). Du darfst dich bis zu deiner Bewegungsweite bewegen und einen Angriff durchführen. Dies erfordert keine Aktion; der Angriff darf vor, nach oder während dieser Bewegung durchgeführt werden.
+
+---
+
+## Raythen
+
+**Archetyp:** Späher | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 14 | 4 | Braun | 3 | 2 | 1 | 5 |
+
+**Heldenfähigkeit:** Einmal pro Zug darfst du 1 Erschöpfung erleiden, damit 1 Held auf dem gleichen Kartenplättchen wie du einen Eigenschaftstest neu würfeln darf. Er darf für den erneuten Wurf deinen Eigenschaftswert verwenden.  
+**Heldentat:** Verwende während deines Zuges, um einen Suchmarker zu durchsuchen, der an einen anderen Helden angrenzt. Dies ist zusätzlich zu deinen 2 Aktionen.
+
+---
+
+## Pfadfinder Durik
+
+**Archetyp:** Krieger | **Erweiterung:** Labyrinth des Verderbens
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 3 | 2 | 2 | 4 |
+
+**Heldenfähigkeit:** Während jeder deiner Bewegungsaktionen darfst du durch Felder mit Monstern ziehen, indem du 1 zusätzlichen Bewegungspunkt für jedes belegte Feld ausgibst.  
+**Heldentat:** Verwende, wenn du ein Feld mit einem Monster verlässt, um sofort einen Angriff durchzuführen, der dieses Monster als Ziel hat. Dieser Angriff erfordert keine Aktion und erhält: Schub: Durchdringen 3
+
+---
+
 ## Die Trollsümpfe / The Trollfens (2 Helden)
 
 | Held | Archetyp (DE) |
 |------|--------------|
 | Augur Grisom | Heiler |
 | Roganna the Shade | Späher |
+
+---
+
+## Augur Grisom
+
+**Archetyp:** Heiler | **Erweiterung:** Die Trollsümpfe
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 12 | 5 | Grau | 4 | 2 | 3 | 2 |
+
+**Heldenfähigkeit:** Jeder andere Held bis Reichweite 3 von dir erhält: Jedes Mal, wenn ein Monster bei einem Angriff, der dich als Ziel hat, verfehlt oder keinen Herzschaden verursacht, gewinnst du 1 Herz zurück.  
+**Heldentat:** Verwende während deines Zuges. Jeder Held in deiner Sichtlinie gewinnt 2 Herzen und 2 Erschöpfung zurück.
+
+---
+
+## Roganna der Schatten
+
+**Archetyp:** Späher | **Erweiterung:** Die Trollsümpfe
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 2 | 2 | 4 | 3 |
+
+**Heldenfähigkeit:** Jeder deiner Angriffe, der ein Monster trifft, das an keinem anderen Helden angrenzt, erhält +1 Herz.  
+**Heldentat:** Verwende am Ende deines Zuges. Bis zum Beginn deines nächsten Zuges darf jeder Held bis Reichweite 3 von dir nur dann von einem Angriff als Ziel gewählt werden, wenn das angreifende Monster an den Zielhelden angrenzt.
 
 ---
 
@@ -77,12 +310,90 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Rendiel
+
+**Archetyp:** Heiler | **Erweiterung:** Schatten von Nerekhall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 2 | 3 | 5 | 1 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Helden wiederbelebst, gewinnst du 2 Herzen und 2 Erschöpfung zurück.  
+**Heldentat:** Aktion: Belebe einen angrenzenden, kampfunfähigen Helden wieder. Anstatt 2 rote Kraftwürfel zu würfeln, gewinnt dieser Held alle Herzen und Erschöpfung zurück.
+
+---
+
+## Ravaella Leichtfuß
+
+**Archetyp:** Magier | **Erweiterung:** Schatten von Nerekhall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 5 | Schwarz | 1 | 4 | 2 | 4 |
+
+**Heldenfähigkeit:** Wenn du beim Würfeln der Verteidigungswürfel 1 oder mehr Leerfelder würfelst, füge 1 Schild zu deinen Verteidigungsergebnissen hinzu.  
+**Heldentat:** Verwende, wenn du angegriffen wirst, nachdem du Verteidigungswürfel geworfen hast, um Wissen und Gespür zu testen. Für jeden bestandenen Test füge 3 Schilde zu deinen Verteidigungsergebnissen hinzu.
+
+---
+
+## Tinashi die Wanderin
+
+**Archetyp:** Späher | **Erweiterung:** Schatten von Nerekhall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 3 | 2 | 3 | 3 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du ein Monster besiegst, gewinnst du 1 Erschöpfung zurück.  
+**Heldentat:** Verwende während deines Zuges, um ein leeres Feld bis Reichweite 3 deiner Figur zu wählen. Entferne deine Figur vom Spielfeld und platziere sie auf dem gewählten Feld.
+
+---
+
+## Orkell der Flinke
+
+**Archetyp:** Krieger | **Erweiterung:** Schatten von Nerekhall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 5 | Braun | 4 | 1 | 2 | 4 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du von einem Monster angegriffen wirst und mindestens 1 Herz erleidest, darfst du dich nach dem Angriff 1 Feld bewegen.  
+**Heldentat:** Verwende während deines Zuges, während du kampfunfähig bist, um eine Aufstehenaktion durchzuführen. Dann darfst du entweder alle Herzen zurückgewinnen oder jedes an deine Figur angrenzende Monster 1 Feld bewegen. Du kannst in diesem Zug trotzdem 2 Aktionen durchführen.
+
+---
+
 ## Schloss Rabenfels / Manor of Ravens (2 Helden)
 
 | Held | Archetyp (DE) |
 |------|--------------|
 | Thaiden Mistpeak | Späher |
 | Alys Raine | Krieger |
+
+---
+
+## Thaiden Nebelgipfel
+
+**Archetyp:** Späher | **Erweiterung:** Schloss Rabenfels
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 5 | Grau | 3 | 1 | 2 | 5 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff deklarierst, darfst du nach dem Würfeln der Würfel den Angriff abbrechen und sofort einen angrenzenden Suchmarker durchsuchen.  
+**Heldentat:** Verwende, wenn ein Monster ein leeres, an dich angrenzendes Feld betritt. Dieses Monster wird bewegungsunfähig gemacht, und du bewegst dich sofort bis zu 3 Felder.
+
+---
+
+## Alys Raine
+
+**Archetyp:** Krieger | **Erweiterung:** Schloss Rabenfels
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 3 | 4 | 3 | 1 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein an dich angrenzender Held durch einen Angriff 1 oder mehr Herzen erleidet, gewinnst du 1 Erschöpfung zurück.  
+**Heldentat:** Verwende während des Zuges eines Spielers, um alle erschöpften Karten in deinem Spielbereich aufzufrischen und 2 Erschöpfung zurückzugewinnen.
 
 ---
 
@@ -97,6 +408,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Ältester Mok
+
+**Archetyp:** Heiler | **Erweiterung:** Schwur der Verbannten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 3 | 4 | 2 |
+
+**Heldenfähigkeit:** Einmal pro Zug, wenn ein anderer Held bis Reichweite 3 von dir 1 oder mehr Herzen oder Erschöpfung zurückgewinnt, darfst du 1 Herz oder 1 Erschöpfung zurückgewinnen.  
+**Heldentat:** Verwende zu Beginn deines Zuges, um die Handkarten des Overlords anzusehen. Der Overlord wirft eine Karte deiner Wahl ab.
+
+---
+
+## Shiver
+
+**Archetyp:** Magier | **Erweiterung:** Schwur der Verbannten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Monster müssen 1 zusätzlichen Bewegungspunkt aufwenden, um ein an dich angrenzendes Feld zu betreten.  
+**Heldentat:** Aktion: Jede an dich angrenzende Figur wird bewegungsunfähig gemacht.
+
+---
+
+## Laurel von Blutholz
+
+**Archetyp:** Späher | **Erweiterung:** Schwur der Verbannten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 5 | Grau | 2 | 3 | 2 | 4 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Fernkampfangriff durchführst und das Gesamtreichweitenergebnis die Entfernung zum Ziel überschreitet, erhält dieser Angriff +1 Herz.  
+**Heldentat:** Aktion: Führe einen Angriff mit einer Fernkampfwaffe durch. Wenn du ein X würfelst, behandle es als Leerfeld. Dieser Angriff erhält +10 Reichweite und fügt 1 Schub zu den Ergebnissen hinzu.
+
+---
+
+## Trenloe der Starke
+
+**Archetyp:** Krieger | **Erweiterung:** Schwur der Verbannten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 12 | 3 | Grau | 4 | 1 | 4 | 2 |
+
+**Heldenfähigkeit:** Jeder deiner Angriffe erhält +1 Herz. Jedes Mal, wenn du von einem Angriff betroffen wirst, füge 1 Schild zu deinen Verteidigungsergebnissen hinzu.  
+**Heldentat:** Verwende, wenn du einen Angriff durchführst, bevor Würfel geworfen werden. Wähle und entferne 1 Verteidigungswürfel aus dem Verteidigungspool deines Ziels.
+
+---
+
 ## Krone des Schicksals / Crown of Destiny (4 Helden)
 
 | Held | Archetyp (DE) |
@@ -105,6 +468,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 | Jaes the Exile | Magier |
 | Lindel | Späher |
 | Corbin | Krieger |
+
+---
+
+## Bruder Gherinn
+
+**Archetyp:** Heiler | **Erweiterung:** Krone des Schicksals
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 12 | 4 | Grau | 1 | 4 | 4 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, darfst du nach dem Würfeln der Würfel 1 Herz erleiden, um +1 Herz zu den Ergebnissen hinzuzufügen. Höchstens einmal pro Angriff.  
+**Heldentat:** Verwende, nachdem du ein Monster besiegt hast. Würfle 2 rote Kraftwürfel. Du und jeder Held bis Reichweite 3 von dir dürfen Herzen in Höhe der gewürfelten Herzen zurückgewinnen.
+
+---
+
+## Jaes der Verbannte
+
+**Archetyp:** Magier | **Erweiterung:** Krone des Schicksals
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 3 | Grau | 3 | 4 | 2 | 2 |
+
+**Heldenfähigkeit:** Deine Rüstung verliert alle Texte, die dich vom Ausrüsten von Runen abhalten. Erhöhe deine Ausdauer um 1 für jede ausgerüstete Rune.  
+**Heldentat:** Aktion: Führe 1 Angriff mit einer Magiewaffe durch. Dieser Angriff erhält Durchdringen 3. Wenn du diesen Angriff mit einer Runenwaffe durchführst, füge 1 Schub zu den Ergebnissen hinzu.
+
+---
+
+## Lindel
+
+**Archetyp:** Späher | **Erweiterung:** Krone des Schicksals
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 5 | Grau | 3 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Eigenschaftstest durchführst, würfle 2 graue Verteidigungswürfel anstatt 1 grauen und 1 schwarzen Verteidigungswürfel.  
+**Heldentat:** Aktion: Führe einen Angriff durch. Nachdem du die Angriffswürfel geworfen hast, darfst du einen Angriffswürfel auf ein anderes Ergebnis deiner Wahl ändern.
+
+---
+
+## Corbin
+
+**Archetyp:** Krieger | **Erweiterung:** Krone des Schicksals
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 12 | 5 | Grau | 5 | 2 | 2 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du 2 oder mehr Herzen erleidest, verringere die erlittenen Herzen um 1.  
+**Heldentat:** Verwende, wenn du angegriffen wirst, bevor du Verteidigungswürfel wirfst. Nachdem du Verteidigungswürfel geworfen hast, darfst du jeden Verteidigungswürfel auf ein anderes Ergebnis deiner Wahl ändern.
 
 ---
 
@@ -119,6 +534,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Andira Runenhand
+
+**Archetyp:** Heiler | **Erweiterung:** Kreuzzug der Vergessenen
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 2 | 3 | 4 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein Held bis Reichweite 3 von dir 1 oder mehr Herzen von einem Angriff erleidet, erleidet die Figur, die den Angriff durchgeführt hat, 1 Herz.  
+**Heldentat:** Aktion: Wähle 1 Helden bis Reichweite 3 von dir. Führe dann einen Angriff durch, der ein Monster bis Reichweite 3 von dir als Ziel hat. Der gewählte Held gewinnt Herzen in Höhe des Doppelten der Herzen zurück, die das Zielmonster durch diesen Angriff erleidet.
+
+---
+
+## Astarra
+
+**Archetyp:** Magier | **Erweiterung:** Kreuzzug der Vergessenen
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 5 | Grau | 1 | 4 | 4 | 2 |
+
+**Heldenfähigkeit:** Einmal pro Runde darfst du 1 Bewegungspunkt ausgeben, um deine Figur vom Spielfeld zu entfernen und sie auf einem leeren Feld neben einem Helden zu platzieren, der bis Reichweite 3 von dir ist.  
+**Heldentat:** Verwende zu Beginn deines Zuges, um jede andere Figur bis Reichweite 3 von dir 1 Feld zu bewegen.
+
+---
+
+## Tetherys
+
+**Archetyp:** Späher | **Erweiterung:** Kreuzzug der Vergessenen
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 3 | 2 | 1 | 5 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, darfst du deine Angriffswürfel würfeln, bevor du das Ziel deklarierst. Wenn nach der Deklaration des Ziels Angriffswürfel hinzugefügt werden, würfle diese Würfel im Schritt „Würfel werfen".  
+**Heldentat:** Verwende nach dem Würfeln der Angriffswürfel, um 2 weitere gültige Ziele für diesen Angriff zu wählen. Jedes Ziel würfelt seine Verteidigungswürfel separat.
+
+---
+
+## Tahlia
+
+**Archetyp:** Krieger | **Erweiterung:** Kreuzzug der Vergessenen
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 14 | 4 | Grau | 3 | 2 | 3 | 3 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du ein Monster besiegst, erhältst du 2 Bewegungspunkte.  
+**Heldentat:** Verwende, wenn ein Monster seine Aktivierung beginnt oder sich auf ein an deine Figur angrenzendes Feld bewegt. Führe sofort einen Angriff durch, der dieses Monster als Ziel hat. Nachdem der Angriff aufgelöst ist, wird die Aktivierung des Monsters fortgesetzt.
+
+---
+
 ## Wächter von Deephall / Guardians of Deephall (4 Helden)
 
 | Held | Archetyp (DE) |
@@ -127,6 +594,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 | Silhouette | Späher |
 | Lord Hawthorne | Krieger |
 | Mordrog | Krieger |
+
+---
+
+## Sahla
+
+**Archetyp:** Heiler | **Erweiterung:** Wächter von Deephall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Zu Beginn deines Zuges darfst du Willenskraft testen. Wenn du bestehst, lege 1 Zustand von 1 Figur bis Reichweite 3 von dir ab. Wähle dann 1 Figur bis Reichweite 3 von dir, die diesen Zustand erhält.  
+**Heldentat:** Verwende zu Beginn deines Zuges und wähle 1 Helden in deiner Sichtlinie. Bis zum Ende deines Zuges darfst du 1 der Fähigkeiten dieses Helden so verwenden, als wäre es deine eigene.
+
+---
+
+## Silhouette
+
+**Archetyp:** Späher | **Erweiterung:** Wächter von Deephall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 3 | 2 | 1 | 5 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst und ein X würfelst, wähle 1 an dich angrenzendes Monster. Dieses Monster erleidet Herzen in Höhe von 1 plus der Anzahl deiner ausgerüsteten Waffen.  
+**Heldentat:** Aktion: Du darfst dich mit der doppelten Bewegungsweite bewegen. Jedes Mal, wenn du während dieser Bewegung ein Feld mit einem Suchmarker betrittst, darfst du 1 Erschöpfung erleiden, um diesen Suchmarker zu durchsuchen.
+
+---
+
+## Lord Hawthorne
+
+**Archetyp:** Krieger | **Erweiterung:** Wächter von Deephall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 3 | Grau | 4 | 3 | 2 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff mit einer Nahkampfwaffe durchführst, erhält dieser Angriff Reichweite.  
+**Heldentat:** Aktion: Führe einen Angriff durch. Dann darfst du dich bis zu 2 Felder bewegen und einen weiteren Angriff gegen ein anderes Ziel durchführen.
+
+---
+
+## Mordrog
+
+**Archetyp:** Krieger | **Erweiterung:** Wächter von Deephall
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 14 | 4 | Grau | 5 | 1 | 3 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du 1 oder mehr Herzen erleidest, darfst du 1 Erschöpfung zurückgewinnen.  
+**Heldentat:** Verwende, nachdem du einen Angriff durchgeführt hast, der das Ziel nicht besiegt. Führe einen zusätzlichen Angriff durch, verwende dasselbe Ziel. Dieser Angriff fügt 1 Schub zu den Ergebnissen hinzu.
 
 ---
 
@@ -141,6 +660,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Ispher
+
+**Archetyp:** Heiler | **Erweiterung:** Prophezeiung eines neuen Anfangs
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Du kannst nicht vergiftet werden. Zu Beginn deines Zuges gewinnst du 2 Herzen zurück.  
+**Heldentat:** Aktion: Wähle dich selbst oder einen angrenzenden Helden. Dieser Held gewinnt 8 Herzen zurück und legt alle Zustände ab.
+
+---
+
+## Meister Thorn
+
+**Archetyp:** Magier | **Erweiterung:** Prophezeiung eines neuen Anfangs
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 4 | Grau | 1 | 5 | 3 | 2 |
+
+**Heldenfähigkeit:** Jeder deiner Angriffe erhält: Schub: Nachdem dieser Angriff aufgelöst wurde, darfst du ein leeres Feld bis Reichweite 2 von dir wählen und deine Figur auf das gewählte Feld platzieren.  
+**Heldentat:** Verwende, wenn du von einem Angriff betroffen wirst und 1 oder mehr Herzen erleidest. Verringere die erlittenen Herzen um bis zu 5 und erhalte eine gleiche Anzahl Bewegungspunkte.
+
+---
+
+## Nara die Reißzahn
+
+**Archetyp:** Krieger | **Erweiterung:** Prophezeiung eines neuen Anfangs
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 10 | 4 | Grau | 4 | 1 | 2 | 4 |
+
+**Heldenfähigkeit:** Einmal pro Runde, nachdem du ein Monster mit einer Nahkampfwaffe besiegt hast, bevor seine Figur vom Spielfeld entfernt wird, darfst du deine Figur auf einem beliebigen leeren Feld neben diesem Monster platzieren.  
+**Heldentat:** Aktion: Wähle ein beliebiges leeres Feld bis Reichweite 3 deiner Figur. Entferne deine Figur vom Spielfeld und platziere sie auf dem gewählten Feld. Führe dann einen Angriff durch. Dieser Angriff erhält Durchdringen 2.
+
+---
+
+## Sir Valadir
+
+**Archetyp:** Krieger | **Erweiterung:** Prophezeiung eines neuen Anfangs
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 3 | 3 | 4 | 1 |
+
+**Heldenfähigkeit:** Einmal pro Zug darfst du nach dem Würfeln der Würfel 1 Erschöpfung erleiden, um 1 Schub zu deinem Angriffswurf hinzuzufügen.  
+**Heldentat:** Aktion: Gewinne Erschöpfung bis zur Höhe deiner Ausdauer zurück. Führe dann einen Angriff durch. Dieser Angriff erhält: Schub: +3 Herzen
+
+---
+
 ## Erwachen der Wildnis / Bonds of the Wild (4 Helden)
 
 | Held | Archetyp (DE) |
@@ -149,6 +720,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 | Lyssa | Magier |
 | Ronan of the Wild | Späher |
 | Vyrah the Falconer | Späher |
+
+---
+
+## Challara
+
+**Archetyp:** Magier | **Erweiterung:** Erwachen der Wildnis
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 10 | 4 | Grau | 3 | 4 | 3 | 1 |
+
+**Heldenfähigkeit:** Du hast den Vertrauten Hellflamme. Zu Beginn jeder Begegnung platziere Hellflamme auf dem nächsten leeren Feld zu dir.  
+**Heldentat:** Aktion: Wenn Hellflamme nicht auf dem Spielfeld ist, platziere Hellflamme auf einem leeren Feld neben dir. Aktiviere Hellflamme dann sofort. Hellflamme wird in diesem Zug außerdem wie normal aktiviert.
+
+---
+
+## Lyssa
+
+**Archetyp:** Magier | **Erweiterung:** Erwachen der Wildnis
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 5 | Grau | 2 | 3 | 2 | 4 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, der eine an dich angrenzende Figur als Ziel hat, darfst du vor dem Würfeln der Würfel 1 deiner Kraftwürfel durch 1 roten Kraftwürfel ersetzen.  
+**Heldentat:** Verwende, nachdem du einen Angriff aufgelöst hast. Führe einen zusätzlichen Angriff durch, der eine an dich angrenzende Figur als Ziel hat. Ersetze 1 blauen Angriffswürfel durch 1 Kraftwürfel deiner Wahl, bevor die Würfel geworfen werden. Dieser Angriff ignoriert die Reichweite.
+
+---
+
+## Ronan von der Wildnis
+
+**Archetyp:** Späher | **Erweiterung:** Erwachen der Wildnis
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 5 | Grau | 3 | 1 | 4 | 3 |
+
+**Heldenfähigkeit:** Du hast den Vertrauten Pico. Beginne jede Begegnung mit dem Pico-Marker auf deinem Heldenbogen. Während deines Zuges darfst du 1 Suchmarker bis Reichweite 3 von dir wählen und Pico auf dessen Feld platzieren.  
+**Heldentat:** Verwende zu Beginn des Zuges eines Helden, wenn sich der Pico-Marker auf deinem Heldenbogen befindet. Wähle 1 anderen Helden. Du und dieser Held dürfen sofort beliebige Laden-Gegenstandskarten, Reliquienkarten und Suchkarten tauschen.
+
+---
+
+## Vyrah der Falkner
+
+**Archetyp:** Späher | **Erweiterung:** Erwachen der Wildnis
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 3 | 2 | 2 | 4 |
+
+**Heldenfähigkeit:** Du hast den Vertrauten Skye. Zu Beginn deines Zuges, wenn Skye nicht auf dem Spielfeld ist, platziere ihn auf deinem Feld.  
+**Heldentat:** Aktion: Skye führt einen Nahkampfangriff mit einem blauen, roten und gelben Würfel durch. Dieser Angriff erhält: Schub: Betäubung
 
 ---
 
@@ -163,6 +786,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Jonas der Gütige
+
+**Archetyp:** Heiler | **Erweiterung:** Kontrakt der Unbesiegten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 3 | 4 | 2 |
+
+**Heldenfähigkeit:** Jeder Held bis Reichweite 3 von dir, der in dieser Runde keinen Angriff durchgeführt hat, fügt 1 Schild zu jedem seiner Verteidigungswürfe hinzu.  
+**Heldentat:** Aktion: Teste Willenskraft für jedes normale Monster bis Reichweite 3 von dir. Jedes Mal, wenn du bestehst, führe einen Angriff mit diesem Monster durch, der es selbst als Ziel hat.
+
+---
+
+## Zyla
+
+**Archetyp:** Magier | **Erweiterung:** Kontrakt der Unbesiegten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 8 | 5 | Grau | 1 | 4 | 3 | 3 |
+
+**Heldenfähigkeit:** Du darfst versperrte Felder betreten und ignorierst die Effekte von Gelände beim Bewegen. Du kannst deine Bewegung nicht auf einem versperrten Feld beenden.  
+**Heldentat:** Verwende, wenn ein Monster aktiviert wird. Entferne deine Figur vom Spielfeld und platziere einen Heldenmarker auf deinem Feld. Zu Beginn deines nächsten Zuges ersetze diesen Heldenmarker durch deine Figur.
+
+---
+
+## Grey Ker
+
+**Archetyp:** Späher | **Erweiterung:** Kontrakt der Unbesiegten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 5 | Grau | 3 | 2 | 3 | 4 |
+
+**Heldenfähigkeit:** Nachdem du deine erste Aktion in jeder Runde durchgeführt hast, darfst du deinen Zug unterbrechen. Wenn du dies tust, setzt du deinen Zug fort, nachdem ein anderer Held seinen Zug in dieser Runde beendet hat.  
+**Heldentat:** Verwende zu Beginn deines Zuges, um in diesem Zug 1 zusätzliche Aktion zu erhalten.
+
+---
+
+## Krutzbeck
+
+**Archetyp:** Krieger | **Erweiterung:** Kontrakt der Unbesiegten
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 12 | 4 | Grau | 4 | 2 | 3 | 2 |
+
+**Heldenfähigkeit:** Solange du oder ein an dich angrenzender Held 6 oder mehr Schadensmarker auf seinem Heldenbogen hat, erhalten alle deine Angriffe +2 Herzen.  
+**Heldentat:** Verwende, wenn du einen Angriff durchführst, nach dem Würfeln der Würfel. Erleide 3 Herzen. Würfle dann 3 rote Kraftwürfel und ersetze die Ergebnisse deines Angriffswurfs durch die Ergebnisse der roten Kraftwürfel.
+
+---
+
 ## Hüter des Geheimnisses / Stewards of the Secret (4 Helden)
 
 | Held | Archetyp (DE) |
@@ -174,6 +849,58 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 
 ---
 
+## Okaluk und Rakash
+
+**Archetyp:** Heiler | **Erweiterung:** Hüter des Geheimnisses
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 2 | 8 | 3 | Grau | 3 | 2 | 3 | 3 |
+
+**Heldenfähigkeit:** Zu Beginn deines Zuges erhältst du 4 Bewegungspunkte.  
+**Heldentat:** Verwende während deines Zuges, auch wenn du kampfunfähig bist. Würfle 2 rote Kraftwürfel. Du und jeder kampfunfähige Held bis Reichweite 3 von dir gewinnt Herzen in Höhe der gewürfelten Herzen zurück.
+
+---
+
+## Seher Kel
+
+**Archetyp:** Magier | **Erweiterung:** Hüter des Geheimnisses
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 1 | 4 | 2 | 4 |
+
+**Heldenfähigkeit:** Figuren und Hindernisse blockieren deine Sichtlinie nicht. Türen blockieren deine Sichtlinie weiterhin wie normal.  
+**Heldentat:** Verwende während deines Zuges, um dir die obersten 5 Karten des Overlord-Decks anzusehen. Lege 1 dieser Karten unter das Deck und mische die restlichen Karten zurück auf die oberste Position des Decks.
+
+---
+
+## Tatianna
+
+**Archetyp:** Späher | **Erweiterung:** Hüter des Geheimnisses
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 5 | 12 | 4 | Grau | 2 | 2 | 2 | 5 |
+
+**Heldenfähigkeit:** Jeder deiner Angriffe erhält +1 Reichweite. Jeder Fernkampfangriff, der dich als Ziel hat, benötigt 1 zusätzliche Reichweite.  
+**Heldentat:** Verwende, wenn du einen Angriff durchführst, nach dem Würfeln der Würfel. Wähle 1 Verteidigungswürfel deines Ziels und ändere das Ergebnis dieses Würfels auf ein anderes Ergebnis deiner Wahl.
+
+---
+
+## Nanok der Klinge
+
+**Archetyp:** Krieger | **Erweiterung:** Hüter des Geheimnisses
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Schwarz | 4 | 2 | 2 | 3 |
+
+**Heldenfähigkeit:** Du kannst keine leichte oder schwere Rüstung ausrüsten. Einmal pro Zug darfst du 1 nicht-großes Monster neben dir wählen. Erleide 1 Herz und bewege dieses Monster 1 Feld.  
+**Heldentat:** Verwende, nachdem ein anderer Held einen Angriff durchgeführt hat. Führe sofort einen Angriff mit einer Nahkampfwaffe durch, der 1 der gleichen Monster als Ziel hat. Dann darf dieser Held einen Angriff durchführen, der dasselbe Monster als Ziel hat.
+
+---
+
 ## Scherben von Everdark / Shards of Everdark (4 Helden)
 
 | Held | Archetyp (DE) |
@@ -182,6 +909,184 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 | Karnon | Krieger |
 | One Fist | Krieger |
 | Steelhorns | Krieger |
+
+---
+
+## Arvel Weltenwanderer
+
+**Archetyp:** Späher | **Erweiterung:** Scherben von Everdark
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 3 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Eigenschaftstest nicht bestehst, darfst du 1 Erschöpfung zurückgewinnen. Einmal pro Runde, wenn du einen Eigenschaftstest nicht bestehst, darfst du diesen Test anstatt 1 Erschöpfung zurückzugewinnen neu würfeln.  
+**Heldentat:** Verwende während deines Zuges. Lege bis zu 2 deiner Klassenkarten in dein Klassendeck zurück. Nimm dann beliebige Klassenkarten aus deinem Klassendeck im gleichen Erfahrungspunktwert.
+
+---
+
+## Karnon
+
+**Archetyp:** Krieger | **Erweiterung:** Scherben von Everdark
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 14 | 3 | Grau | 6 | 1 | 2 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein an dich angrenzendes Monster besiegt wird, gewinnst du 1 Erschöpfung zurück.  
+**Heldentat:** Verwende, wenn du einen Angriff mit einer Nahkampfwaffe durchführst, der ein normales Monster als Ziel hat, nach dem Würfeln der Würfel. Du darfst das Ergebnis jedes Angriffs- und Kraftwürfels auf ein anderes Ergebnis deiner Wahl ändern.
+
+---
+
+## Eine Faust
+
+**Archetyp:** Krieger | **Erweiterung:** Scherben von Everdark
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 3 | 2 | 3 | 3 |
+
+**Heldenfähigkeit:** Wenn 1 deiner Hände leer ist, füge jedem deiner Nahkampfangriffe 1 gelben Kraftwürfel hinzu.  
+**Heldentat:** Verwende, wenn du besiegt wirst, um 1 Nahkampfangriff durchzuführen. Für jedes Monster, das du durch diese Heldentat besiegst, darfst du 1 weiteren Nahkampfangriff durchführen. Dann wirst du kampfunfähig.
+
+---
+
+## Stahlhörner
+
+**Archetyp:** Krieger | **Erweiterung:** Scherben von Everdark
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 14 | 3 | Grau | 5 | 1 | 3 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, der eine Figur als Ziel hat, die zu Beginn deines Zuges an dich angrenzt, erhält dieser Angriff +1 Herz.  
+**Heldentat:** Verwende während deines Zuges. Würfle 1 Kraftwürfel deiner Wahl. Du und jede an dich angrenzende Figur erleiden Herzen in Höhe der gewürfelten Herzen. Wenn du mindestens 1 Schub würfelst, darfst du jede betroffene Figur bis zu 1 Feld bewegen.
+
+---
+
+## Maze of the Drakon (5 Helden)
+
+| Held | Archetyp (DE) |
+|------|--------------|
+| Gaia | Heiler |
+| Gristtun der Fröhliche | Heiler |
+| Lymina die Entschlossene | Heiler |
+| Aurora | Magier |
+| Ravvis der Waldläufer | Späher |
+| Ocvist der Drachentöter | Krieger |
+
+---
+
+## Gaia
+
+**Archetyp:** Heiler | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 9 | 5 | Braun, Braun | 2 | 2 | 5 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein anderer Held bis Reichweite 3 von dir angegriffen wird, darfst du nach dem Würfeln der Würfel einmalig 1 Herz erleiden, um 1 Schild zu den Ergebnissen hinzuzufügen.  
+**Heldentat:** Aktion: Platziere entweder Lebensquelle oder Wurzeln des Schutzes auf einem Feld bis Reichweite 3 von dir.
+
+---
+
+## Gristtun der Fröhliche
+
+**Archetyp:** Heiler | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 3 | 10 | 4 | Grau | 4 | 4 | 2 | 1 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff deklarierst, darfst du mit einer ausgerüsteten Waffe eines an dich angrenzenden Helden angreifen.  
+**Heldentat:** Verwende, wenn du oder ein an dich angrenzender Held angegriffen wird, nach dem Würfeln der Würfel. Würfle 1 schwarzen Verteidigungswürfel und füge die gewürfelten Schilde zu den Verteidigungsergebnissen hinzu. Bevor dieser Angriff aufgelöst wird, gewinnt dieser Held Herzen in Höhe aller in diesem Angriff gewürfelten Schilde zurück.
+
+---
+
+## Lymina die Entschlossene
+
+**Archetyp:** Heiler | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 4 | Schwarz | 3 | 3 | 3 | 3 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn ein an dich angrenzendes Monster besiegt wird, darf ein Held bis Reichweite 3 von dir 1 Herz zurückgewinnen.  
+**Heldentat:** Verwende, wenn ein Held bis Reichweite 3 von dir einen Eigenschaftstest nicht besteht. Dieser Held besteht den Test stattdessen und gewinnt Herzen in Höhe der in diesem Test gewürfelten Schilde zurück.
+
+---
+
+## Aurora
+
+**Archetyp:** Magier | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 8 | 5 | Grau | 1 | 4 | 4 | 2 |
+
+**Heldenfähigkeit:** Wenn du in diesem Zug eine Rastenaktion durchgeführt hast, platziere deinen Heldenmarker hier am Ende deines Zuges. Jedes Mal, wenn du einen Angriff durchführst, darfst du nach dem Würfeln der Würfel 1 Schub zu den Ergebnissen hinzufügen für jeden Heldenmarker, den du ablegst.  
+**Heldentat:** Aktion: Markiere bis zu 4 Felder bis Reichweite 3 von dir. Jede Figur auf einem markierten Feld erleidet 1 Herz. Bis zum Beginn deines nächsten Zuges werden diese Felder als Lava-Felder behandelt.
+
+---
+
+## Ravvis der Waldläufer
+
+**Archetyp:** Späher | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 6 | 8 | 3 | Braun | 2 | 2 | 3 | 4 |
+
+**Heldenfähigkeit:** Jeder Angriff, der dich als Ziel hat, muss 3 zusätzliche Reichweite über die normalerweise erforderliche Menge würfeln, sonst verfehlt der Angriff. Wenn du an einem anderen Helden angrenzt, ersetze deinen braunen Verteidigungswürfel durch einen grauen Verteidigungswürfel.  
+**Heldentat:** Verwende, wenn du von einem Angriff als Ziel gewählt wirst, bevor Würfel geworfen werden, um dich bis zu 3 Felder zu bewegen. Wenn du nach der Bewegung nicht als Ziel des Angriffs deklariert werden kannst, verfehlt dieser Angriff.
+
+---
+
+## Ocvist der Drachentöter
+
+**Archetyp:** Krieger | **Erweiterung:** Maze of the Drakon
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 12 | 4 | Grau | 5 | 2 | 3 | 1 |
+
+**Heldenfähigkeit:** Du hast die Drachen-Karte. Jedes Mal, wenn du angegriffen wirst und kein Herz erleidest, gewinnst du 1 Erschöpfung zurück.  
+**Heldentat:** Verwende am Ende deines Zuges, wenn möglich, um die Drachen-Figur auf deinem Feld zu platzieren. Bis zum Ende deines nächsten Zuges ersetze deine Figur durch die Drachen-Figur.
+
+---
+
+## Sands of the Past (2 Helden)
+
+| Held | Archetyp (DE) |
+|------|--------------|
+| Elga die Pilgerin | Heiler |
+| Runemaker Tara | Magier |
+
+---
+
+## Elga die Pilgerin
+
+**Archetyp:** Heiler | **Erweiterung:** Sands of the Past
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 4 | 3 | 2 |
+
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, der kein Verfehlen ist, darf du oder ein an dich angrenzender Held 1 Herz zurückgewinnen.  
+**Heldentat:** Verwende, wenn ein Held bis Reichweite 1 von dir Herzen in Höhe seiner Gesundheit von einem Angriff erleiden würde, bevor er kampfunfähig wird. Dieser Held erleidet keine Herzen von diesem Angriff.
+
+---
+
+## Runenmeisterin Tara
+
+**Archetyp:** Magier | **Erweiterung:** Sands of the Past
+
+| Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
+|----------|----|----------|-------------|--------|--------|-------------|--------|
+| 4 | 10 | 4 | Grau | 2 | 4 | 3 | 2 |
+
+**Heldenfähigkeit:** Wenn du einen Angriff durchführst, darfst du vor dem Würfeln X Erschöpfung ausgeben, um für diesen Angriff Zauberei X zu erhalten (du kannst nach dem Würfeln bis zu X Reichweite in Herzen umwandeln oder bis zu X Herzen in Reichweite).  
+**Heldentat:** Aktion: Führe einen Angriff mit einer Runenwaffe durch. Wenn dieser Angriff kein Verfehlen ist, verfolge einen Pfad von 4 Feldern in beliebiger Richtung, beginnend mit dem Zielfeld. Alle Figuren auf diesem Pfad erleiden 1 Herz und werden geblendet.
 
 ---
 
@@ -201,11 +1106,24 @@ Die Archetypen wurden jedoch auf Deutsch lokalisiert.
 | Quelle | Helden |
 |--------|--------|
 | Grundspiel | 8 |
-| Kleine + Große Erweiterungen | ~18 |
-| Helden- und Monster-Sets (9×4) | 36 |
-| Conversion Kit (1. Edition) | 48 |
-| **Gesamt (ohne Conversion Kit)** | **~62** |
-| **Gesamt (mit Conversion Kit)** | **~110** |
+| Die Höhle des Lindwurms | 2 |
+| Labyrinth des Verderbens | 6 |
+| Die Trollsümpfe | 2 |
+| Schatten von Nerekhall | 4 |
+| Schloss Rabenfels | 2 |
+| Schwur der Verbannten | 4 |
+| Krone des Schicksals | 4 |
+| Kreuzzug der Vergessenen | 4 |
+| Wächter von Deephall | 4 |
+| Prophezeiung eines neuen Anfangs | 4 |
+| Erwachen der Wildnis | 4 |
+| Kontrakt der Unbesiegten | 4 |
+| Hüter des Geheimnisses | 4 |
+| Scherben von Everdark | 4 |
+| Maze of the Drakon | 6 |
+| Sands of the Past | 2 |
+| **Gesamt (ohne Conversion Kit)** | **68** |
+| **Gesamt (mit Conversion Kit)** | **~116** |
 
 ---
 
