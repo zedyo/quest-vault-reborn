@@ -51,24 +51,33 @@ Bei Kontextverlust (Sitzungsende, Komprimierung) gilt folgende Priorität beim W
 2. **docs/architecture/plan.md** – Aktueller Implementierungsplan und Stand
 3. **docs/research/quest-vault-original.md** – Was das Original konnte
 4. **docs/translations/de-en-glossary.md** – Deutsche Begriffe
-5. **docs/game-data/** – Spielinhalte
+5. **docs/game-data/** – Spielinhalte (vollständige Werte-Dokumentation)
 
-**Regel:** Nach jeder abgeschlossenen Arbeitseinheit einen Git-Commit erstellen.
-Format: `feat|fix|docs|research: kurze Beschreibung`
+**Regeln:**
+- Nach jeder abgeschlossenen Arbeitseinheit einen Git-Commit erstellen.
+  Format: `feat|fix|docs|research: kurze Beschreibung`
+- **Dokumentation synchron halten:** Jede Korrektur oder Ergänzung von Spieldaten
+  (Monsterwerte, Heldenwerte, Tile-Maße, Connector-Daten etc.) muss SOWOHL im
+  TypeScript-Code als AUCH in der entsprechenden `.md`-Datei unter `docs/game-data/`
+  aktualisiert werden. Die `.md`-Dateien sind die langfristige Wissensbasis — der
+  TypeScript-Code allein reicht nicht aus, wenn der Kontext verloren geht.
 
 ---
 
 ## Aktueller Projektstatus
 
+**Stand: Phase 5 (Kern-Features) weitgehend abgeschlossen** — 2026-05-25
+
 | Phase | Status | Beschreibung |
 |-------|--------|--------------|
 | 0 – Setup | ✅ Abgeschlossen | Repo-Struktur, CLAUDE.md, README |
 | 1 – Recherche | ✅ Abgeschlossen | Quest Vault Features, Spielinhalte, Alternativ-Tools |
-| 2 – Planung | ⏳ Ausstehend | Architektur, Tech-Stack |
-| 3 – Grundgerüst | ⏳ Ausstehend | Webapp-Skeleton |
-| 4 – Kerndaten | ⏳ Ausstehend | Spielinhalt als Datenbasis |
-| 5 – Features | ⏳ Ausstehend | Feature-by-Feature Implementierung |
-| 6 – Polish | ⏳ Ausstehend | UI, DE-Lokalisierung |
+| 2 – Planung | ✅ Abgeschlossen | Tech-Stack: React+Vite+TS+Tailwind+zustand, MVP definiert |
+| 3 – Grundgerüst | ✅ Abgeschlossen | Vite-App, Routing, DE-UI, Erweiterungs-Auswahl |
+| 4 – Kerndaten | ✅ Abgeschlossen | Erweiterungen, Monster (60), Helden (68), Tiles (208) |
+| 5 – Features | 🔄 Weitgehend | Map-Builder, Quest-Editor, Helden, Speichern/Laden, Export/Print |
+| 6 – Erweitert | 🔄 Laufend | Monster-Tracker, Kampagnen, Mobile UI |
+| 7 – Polish | ⏳ Ausstehend | DE-Lokalisierung feinschliff, Accessibility, Performance |
 
 ---
 
@@ -93,12 +102,14 @@ Format: `feat|fix|docs|research: kurze Beschreibung`
 
 ---
 
-## Wichtige Designentscheidungen (werden in docs/architecture/decisions.md ausgeführt)
+## Wichtige Designentscheidungen (Details in docs/architecture/decisions.md)
 
-- Tech-Stack: TBD (Recherche läuft)
-- Datenspeicherung: Lokal im Browser (localStorage/IndexedDB) bevorzugt
-- Assets: Eigene SVG-Grafiken oder Community-Assets (Rechte prüfen!)
-- Mehrsprachigkeit: Deutsch primär, Englisch optional
+- **Tech-Stack:** React 18 + Vite 5 + TypeScript + Tailwind CSS + zustand (persist)
+- **Datenspeicherung:** localStorage via zustand persist middleware
+- **Assets:** any2cards/d2e PNG-Tiles (Community, Grauzone FFG-IP)
+- **Mehrsprachigkeit:** Deutsch primär, Englisch optional
+- **Hosting:** GitHub Pages, Auto-Deploy via GitHub Actions (`.github/workflows/deploy.yml`)
+- **Routing:** react-router-dom, HashRouter für GitHub Pages Kompatibilität
 
 ---
 
@@ -147,10 +158,15 @@ Connector auf `true`. B-Seiten haben eigene Muster (andere Tile-Rückseite).
 - [x] Welche Features hatte das Original Quest Vault exakt? → docs/research/quest-vault-original.md
 - [x] Gibt es Community-Datensätze mit allen Spielinhalten? → any2cards/d2e (JSON+PNG), D2eMap
 - [x] Welche Assets stehen unter freier Lizenz zur Verfügung? → docs/research/digital-assets.md (Fazit: Grauzone)
-- [ ] Soll die App offline-fähig sein (PWA)?
-- [x] Hosting: GitHub Pages (bereits in README geplant)
-- [ ] Tech-Stack festlegen (React/Vue/Svelte + Vite?)
-- [ ] Umgang mit FFG IP-Rechten klären (eigene Grafiken oder Grauzone)
+- [x] Hosting: GitHub Pages mit Auto-Deploy via GitHub Actions
+- [x] Tech-Stack: React + Vite + TypeScript + Tailwind + zustand
+- [x] App offline-fähig: PWA via vite-plugin-pwa (sw.js + manifest)
+- [ ] Umgang mit FFG IP-Rechten langfristig klären (Community-Grauzone aktuell)
+- [ ] B-Seiten-Connectoren visuell in der App verifizieren
+- [ ] Overlays als vollständige Datenbasis (src/data/overlays.ts fehlt noch)
+- [ ] Monster-Tracker: Live-HP/Status während Spielsitzung
+- [ ] Kampagnen-Verwaltung
+- [ ] Mobile-Responsive UI
 
 ## Recherche-Ergebnisse (Kurzfassung)
 
