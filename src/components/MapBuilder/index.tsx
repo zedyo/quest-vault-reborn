@@ -1,0 +1,454 @@
+import { useState, useCallback, useMemo, useRef } from 'react'
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import TileSidebar from './TileSidebar'
+import MapGrid, { effectiveDims } from './MapGrid'
+import type { PlacedMapTile, Rotation } from './types'
+import { MAP_TILES, getTilePartner, tileImageUrl } from '../../data/mapTiles'
+import type { Monster, PlacedMonster } from '../../types/game'
+import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
+
+function nextRotation(r: Rotation): Rotation {
+  const map: Record<Rotation, Rotation> = { 0: 90, 90: 180, 180: 270, 270: 0 }
+  return map[r]
+}
+
+let counter = 0
+const newId = () => `tile-${++counter}-${Date.now()}`
+
+/** Floating tile preview shown during drag-from-sidebar */
+function TileDragPreview({ tileId }: { tileId: string }) {
+  const def = MAP_TILES.find((t) => t.id === tileId)
+  const [imgError, setImgError] = useState(false)
+  if (!def) return null
+  return (
+    <div
+      style={{
+        width: def.cols * CELL_SIZE,
+        height: def.rows * CELL_SIZE,
+        border: '2px solid #f59e0b',
+        borderRadius: 3,
+        overflow: 'hidden',
+        opacity: 0.8,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+        pointerEvents: 'none',
+      }}
+    >
+      {!imgError ? (
+        <img
+          src={tileImageUrl(def)}
+          onError={() => setImgError(true)}
+          style={{ width: '100%', height: '100%', objectFit: 'fill', display: 'block' }}
+        />
+      ) : (
+        <div style={{ width: '100%', height: '100%', backgroundColor: def.color }} />
+      )}
+    </div>
+  )
+}
+
+/** Vertical zoom lever — drag up to zoom in, drag down to zoom out */
+function ZoomLever({ zoom, onChange }: { zoom: number; onChange: (z: number) => void }) {
+  return (
+    <div
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, marginLeft: 6 }}
+      title={`Zoom: ${Math.round(zoom * 100)}%`}
+    >
+      <span style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1, userSelect: 'none' }}>+</span>
+      <input
+        type="range"
+        min={25}
+        max={200}
+        step={5}
+        value={Math.round(zoom * 100)}
+        onChange={(e) => onChange(parseInt(e.target.value) / 100)}
+        style={{
+          writingMode: 'vertical-lr' as React.CSSProperties['writingMode'],
+          direction: 'rtl' as React.CSSProperties['direction'],
+          height: 52,
+          width: 18,
+          cursor: 'ns-resize',
+          accentColor: '#d97706',
+          padding: 0,
+          margin: 0,
+        }}
+      />
+      <span style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1, userSelect: 'none' }}>–</span>
+      <span style={{ fontSize: 9, color: '#6b7280', marginTop: 1, userSelect: 'none' }}>
+        {Math.round(zoom * 100)}%
+      </span>
+    </div>
+  )
+}
+
+interface MapBuilderProps {
+  /** Controlled tile list. When provided, the builder is controlled via onTilesChange. */
+  tiles?: PlacedMapTile[]
+  onTilesChange?: (tiles: PlacedMapTile[]) => void
+  /** Monster tokens on the map (controlled). */
+  monsters?: PlacedMonster[]
+  onMonstersChange?: (monsters: PlacedMonster[]) => void
+  /** When provided, enables the monster-placement toolbar section. */
+  availableMonsters?: Monster[]
+  /** CSS height for the builder area. Defaults to the full-page height. */
+  mapHeight?: string
+}
+
+export default function MapBuilder({
+  tiles: controlledTiles,
+  onTilesChange,
+  monsters,
+  onMonstersChange,
+  availableMonsters,
+  mapHeight,
+}: MapBuilderProps = {}) {
+  const isControlled = controlledTiles !== undefined
+  const [internalTiles, setInternalTiles] = useState<PlacedMapTile[]>([])
+  const placedTiles = isControlled ? (controlledTiles as PlacedMapTile[]) : internalTiles
+
+  const tilesRef = useRef(placedTiles)
+  tilesRef.current = placedTiles
+  const onChangeRef = useRef(onTilesChange)
+  onChangeRef.current = onTilesChange
+  const isControlledRef = useRef(isControlled)
+  isControlledRef.current = isControlled
+
+  const setPlacedTiles = useCallback(
+    (updater: PlacedMapTile[] | ((prev: PlacedMapTile[]) => PlacedMapTile[])) => {
+      const next =
+        typeof updater === 'function'
+          ? (updater as (prev: PlacedMapTile[]) => PlacedMapTile[])(tilesRef.current)
+          : updater
+      if (isControlledRef.current) {
+        onChangeRef.current?.(next)
+      } else {
+        setInternalTiles(next)
+      }
+    },
+    [],
+  )
+
+  // Monster placement state
+  const [selectedMonsterToPlace, setSelectedMonsterToPlace] = useState<{
+    monsterId: string
+    isMaster: boolean
+  } | null>(null)
+
+  const monstersRef = useRef(monsters)
+  monstersRef.current = monsters
+  const onMonstersChangeRef = useRef(onMonstersChange)
+  onMonstersChangeRef.current = onMonstersChange
+
+  const handlePlaceMonsterOnGrid = useCallback((col: number, row: number) => {
+    const sel = monsterToPlaceRef.current
+    if (!sel) return
+    const newMonster: PlacedMonster = {
+      id: newId(),
+      monsterId: sel.monsterId,
+      isMaster: sel.isMaster,
+      x: col,
+      y: row,
+    }
+    onMonstersChangeRef.current?.([...(monstersRef.current ?? []), newMonster])
+  }, [])
+
+  const handleRemoveMonster = useCallback((id: string) => {
+    onMonstersChangeRef.current?.((monstersRef.current ?? []).filter((m) => m.id !== id))
+  }, [])
+
+  const monsterNamesMap = availableMonsters
+    ? Object.fromEntries(availableMonsters.map((m) => [m.id, m.nameDe]))
+    : undefined
+
+  const monsterToPlaceRef = useRef(selectedMonsterToPlace)
+  monsterToPlaceRef.current = selectedMonsterToPlace
+
+  const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
+  const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
+  const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
+  const [activePaletteId, setActivePaletteId] = useState<string | null>(null)
+  const [zoom, setZoom] = useState(1.0)
+
+  // Stable ref so handleDragEnd (empty deps) always reads current zoom
+  const zoomRef = useRef(zoom)
+  zoomRef.current = zoom
+
+  const placedTileIds = useMemo(
+    () => new Set(placedTiles.map((t) => t.tileId)),
+    [placedTiles],
+  )
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
+  )
+
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    const id = event.active.id as string
+    if (id.startsWith('palette-')) {
+      setActivePaletteId(id.slice('palette-'.length))
+      setSelectedTileId(null)
+      setSelectedInstanceId(null)
+    }
+  }, [])
+
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
+    const { active, delta } = event
+    const activeId = active.id as string
+    const currentZoom = zoomRef.current
+
+    if (activeId.startsWith('palette-')) {
+      setActivePaletteId(null)
+      if (event.over?.id !== 'map-grid') return
+      const tileId = activeId.slice('palette-'.length)
+      const def = MAP_TILES.find((t) => t.id === tileId)
+      if (!def) return
+      const gridRect = event.over.rect
+      const startEvt = event.activatorEvent as PointerEvent
+      const finalX = startEvt.clientX + delta.x
+      const finalY = startEvt.clientY + delta.y
+      // gridRect is the scaled bounding rect of the grid canvas, so divide by CELL_SIZE * zoom
+      const col = Math.max(0, Math.min(GRID_COLS - def.cols, Math.floor((finalX - gridRect.left) / (CELL_SIZE * currentZoom))))
+      const row = Math.max(0, Math.min(GRID_ROWS - def.rows, Math.floor((finalY - gridRect.top) / (CELL_SIZE * currentZoom))))
+      setPlacedTiles((prev) => [
+        ...prev,
+        { instanceId: newId(), tileId, col, row, rotation: 0 },
+      ])
+      return
+    }
+
+    // Move an existing placed tile
+    if (!delta.x && !delta.y) return
+    const instanceId = activeId
+    setPlacedTiles((prev) =>
+      prev.map((t) => {
+        if (t.instanceId !== instanceId) return t
+        const { cols, rows } = effectiveDims(t)
+        // delta is in screen pixels; one grid cell is CELL_SIZE * zoom screen pixels
+        const newCol = Math.max(0, Math.min(GRID_COLS - cols, t.col + Math.round(delta.x / (CELL_SIZE * currentZoom))))
+        const newRow = Math.max(0, Math.min(GRID_ROWS - rows, t.row + Math.round(delta.y / (CELL_SIZE * currentZoom))))
+        return { ...t, col: newCol, row: newRow }
+      }),
+    )
+  }, []) // empty deps — reads zoom via zoomRef
+
+  const handleSelectPalette = useCallback((id: string) => {
+    const partner = getTilePartner(id)
+    if (partner && placedTileIds.has(partner)) {
+      setPartnerWarningId(id)
+    } else {
+      setPartnerWarningId(null)
+    }
+    setSelectedTileId((prev) => (prev === id ? null : id))
+    setSelectedInstanceId(null)
+    setSelectedMonsterToPlace(null)
+  }, [placedTileIds])
+
+  const handlePlaceTile = useCallback(
+    (col: number, row: number) => {
+      if (!selectedTileId) return
+      const def = MAP_TILES.find((t) => t.id === selectedTileId)
+      if (!def) return
+      const newCol = Math.min(col, GRID_COLS - def.cols)
+      const newRow = Math.min(row, GRID_ROWS - def.rows)
+      setPlacedTiles((prev) => [
+        ...prev,
+        { instanceId: newId(), tileId: selectedTileId, col: newCol, row: newRow, rotation: 0 },
+      ])
+      setSelectedTileId(null)
+      setPartnerWarningId(null)
+    },
+    [selectedTileId],
+  )
+
+  const handleSelectInstance = useCallback((id: string | null) => {
+    setSelectedInstanceId(id)
+    setSelectedTileId(null)
+  }, [])
+
+  const rotateSelected = () => {
+    if (!selectedInstanceId) return
+    setPlacedTiles((prev) =>
+      prev.map((t) =>
+        t.instanceId === selectedInstanceId ? { ...t, rotation: nextRotation(t.rotation) } : t,
+      ),
+    )
+  }
+
+  const deleteSelected = () => {
+    if (!selectedInstanceId) return
+    setPlacedTiles((prev) => prev.filter((t) => t.instanceId !== selectedInstanceId))
+    setSelectedInstanceId(null)
+  }
+
+  const cancelPlace = () => {
+    setSelectedTileId(null)
+    setSelectedInstanceId(null)
+    setPartnerWarningId(null)
+    setSelectedMonsterToPlace(null)
+  }
+
+  const clearAll = () => {
+    setPlacedTiles([])
+    setSelectedTileId(null)
+    setSelectedInstanceId(null)
+    setPartnerWarningId(null)
+  }
+
+  const selectedDef = selectedTileId ? MAP_TILES.find((t) => t.id === selectedTileId) : null
+  const selectedInst = selectedInstanceId
+    ? placedTiles.find((t) => t.instanceId === selectedInstanceId)
+    : null
+
+  return (
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div className="flex flex-col h-full gap-0">
+        {/* Toolbar */}
+        <div className="flex items-center gap-2 px-3 py-2 bg-dungeon-900 border-b border-dungeon-700 flex-wrap min-h-[44px]">
+          {selectedDef ? (
+            <span className="text-gold-400 text-sm font-semibold flex items-center gap-2">
+              <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: selectedDef.color }} />
+              {selectedDef.label}
+              <span className="text-gray-500 text-xs font-normal">
+                {selectedDef.cols}×{selectedDef.rows} – Auf Karte klicken zum Platzieren
+              </span>
+              <button onClick={cancelPlace} className="text-xs text-gray-500 hover:text-gray-300 ml-1">
+                ✕ Abbrechen
+              </button>
+            </span>
+          ) : selectedInst ? (
+            <span className="text-blue-400 text-sm flex items-center gap-2">
+              Plättchen ausgewählt
+              <span className="text-gray-500 text-xs">{selectedInst.rotation}° – Ziehen zum Verschieben</span>
+            </span>
+          ) : (
+            <span className="text-gray-500 text-sm">
+              Links Plättchen auswählen oder ziehen → platzieren; Ziehen → verschieben
+            </span>
+          )}
+          {partnerWarningId && (
+            <span className="flex items-center gap-1.5 text-amber-400 text-xs bg-amber-950 border border-amber-800 px-2 py-1 rounded ml-2">
+              ⚠ {partnerWarningId} kann wahrscheinlich nicht verwendet werden – die andere Seite ({getTilePartner(partnerWarningId)}) ist bereits platziert.
+              <button onClick={() => setPartnerWarningId(null)} className="text-amber-600 hover:text-amber-400 ml-1">✕</button>
+            </span>
+          )}
+
+          {/* Monster-placement section */}
+          {availableMonsters && availableMonsters.length > 0 && (
+            <>
+              <div className="w-px h-5 bg-dungeon-600 self-center mx-1 shrink-0" />
+              {selectedMonsterToPlace ? (
+                <span className="flex items-center gap-1.5 text-sm text-green-400 shrink-0">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ background: selectedMonsterToPlace.isMaster ? '#dc2626' : '#2563eb' }}
+                  />
+                  <span className="text-xs">{monsterNamesMap?.[selectedMonsterToPlace.monsterId] ?? '?'}</span>
+                  <button
+                    onClick={() => setSelectedMonsterToPlace((p) => p ? { ...p, isMaster: false } : p)}
+                    className={`text-xs px-2 py-0.5 rounded-l border ${!selectedMonsterToPlace.isMaster ? 'bg-blue-900 text-blue-300 border-blue-700' : 'bg-dungeon-700 text-gray-400 border-dungeon-600 hover:border-gray-500'}`}
+                  >Normal</button>
+                  <button
+                    onClick={() => setSelectedMonsterToPlace((p) => p ? { ...p, isMaster: true } : p)}
+                    className={`text-xs px-2 py-0.5 rounded-r border-t border-b border-r ${selectedMonsterToPlace.isMaster ? 'bg-red-900 text-red-300 border-red-700' : 'bg-dungeon-700 text-gray-400 border-dungeon-600 hover:border-gray-500'}`}
+                  >Anführer</button>
+                  <span className="text-gray-500 text-xs">– auf Karte klicken</span>
+                  <button onClick={() => setSelectedMonsterToPlace(null)} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 shrink-0">
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      if (!e.target.value) return
+                      setSelectedTileId(null)
+                      setSelectedInstanceId(null)
+                      setSelectedMonsterToPlace({ monsterId: e.target.value, isMaster: false })
+                    }}
+                    className="bg-dungeon-800 text-gray-300 border border-dungeon-600 rounded text-xs px-2 py-1 max-w-40"
+                  >
+                    <option value="">+ Monster setzen</option>
+                    {availableMonsters.map((m) => (
+                      <option key={m.id} value={m.id}>{m.nameDe}</option>
+                    ))}
+                  </select>
+                  {(monsters?.length ?? 0) > 0 && (
+                    <span className="text-gray-600 text-xs">{monsters!.length} Monster</span>
+                  )}
+                </span>
+              )}
+            </>
+          )}
+
+          <div className="flex gap-2 ml-auto items-center">
+            <button
+              onClick={rotateSelected}
+              disabled={!selectedInstanceId}
+              className="btn-secondary text-xs px-3 py-1.5 disabled:opacity-30"
+              title="Drehen (R)"
+            >
+              ↻ Drehen
+            </button>
+            <button
+              onClick={deleteSelected}
+              disabled={!selectedInstanceId}
+              className="text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 disabled:opacity-30 transition-colors"
+            >
+              🗑 Entfernen
+            </button>
+            <button
+              onClick={clearAll}
+              disabled={placedTiles.length === 0}
+              className="text-xs px-3 py-1.5 rounded bg-dungeon-700 text-gray-400 border border-dungeon-600 hover:bg-dungeon-600 disabled:opacity-30 transition-colors"
+            >
+              Alle löschen
+            </button>
+            <span className="text-gray-600 text-xs self-center pl-1">
+              {placedTiles.length} Plättchen
+            </span>
+            <ZoomLever zoom={zoom} onChange={setZoom} />
+          </div>
+        </div>
+
+        {/* Builder */}
+        <div
+          className="flex flex-1 min-h-0 overflow-hidden"
+          style={{ height: mapHeight ?? 'calc(100vh - 180px)' }}
+        >
+          <TileSidebar
+            selectedTileId={selectedTileId}
+            placedTileIds={placedTileIds}
+            onSelect={handleSelectPalette}
+          />
+          <MapGrid
+            tiles={placedTiles}
+            selectedInstanceId={selectedInstanceId}
+            selectedTileId={selectedTileId}
+            onPlaceTile={handlePlaceTile}
+            onSelectInstance={handleSelectInstance}
+            zoom={zoom}
+            isDraggingFromPalette={activePaletteId !== null}
+            monsters={monsters}
+            monsterNamesMap={monsterNamesMap}
+            monsterPlaceMode={!!selectedMonsterToPlace}
+            onPlaceMonster={handlePlaceMonsterOnGrid}
+            onRemoveMonster={handleRemoveMonster}
+          />
+        </div>
+      </div>
+
+      {/* Floating tile preview when dragging from sidebar */}
+      <DragOverlay dropAnimation={null}>
+        {activePaletteId ? <TileDragPreview tileId={activePaletteId} /> : null}
+      </DragOverlay>
+    </DndContext>
+  )
+}
