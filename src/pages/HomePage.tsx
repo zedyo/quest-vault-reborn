@@ -16,7 +16,7 @@ const FEATURES = [
     title: 'Quest-Editor',
     description: 'Quests mit Begegnungen, Siegbedingungen, Monstern und Erzähltext.',
     href: '/quest',
-    available: false,
+    available: true,
   },
   {
     icon: '👹',
