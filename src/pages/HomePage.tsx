@@ -101,6 +101,79 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* Projekt-Status für Fans */}
+      <div className="rounded-lg border border-dungeon-600 overflow-hidden">
+        <div className="bg-dungeon-700 px-4 py-3 flex items-center gap-2 border-b border-dungeon-600">
+          <span className="text-lg">🛠️</span>
+          <div>
+            <p className="text-amber-400 font-semibold text-sm">Dieses Projekt ist in aktiver Entwicklung</p>
+            <p className="text-gray-500 text-xs mt-0.5">
+              Quest Vault Reborn wird laufend erweitert – viele Features sind bereits nutzbar, weitere folgen.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-4 grid sm:grid-cols-2 gap-6">
+          <div>
+            <h4 className="font-display text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
+              <span className="text-green-500">✓</span> Bereits verfügbar
+            </h4>
+            <ul className="space-y-2">
+              {[
+                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen aus deiner Sammlung platzieren und drehen' },
+                { icon: '📜', text: 'Quest-Editor – eigene Abenteuer erstellen, speichern und exportieren' },
+                { icon: '👹', text: 'Über 60 Monstergruppen mit allen Spielwerten (Akt 1 & Akt 2)' },
+                { icon: '🧙', text: 'Über 68 Helden mit Fähigkeiten aus allen Erweiterungen' },
+                { icon: '👜', text: 'Erweiterungs-Filter – die App passt sich deiner Sammlung an' },
+                { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
+              ].map((item) => (
+                <li key={item.text} className="flex gap-2 text-sm text-gray-400">
+                  <span className="shrink-0 text-base leading-5">{item.icon}</span>
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-display text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
+              <span className="text-amber-500">◎</span> Geplant & in Arbeit
+            </h4>
+            <ul className="space-y-2">
+              {[
+                { icon: '❤️', text: 'Monster-Lebenspunkte live tracken – kein Plättchen-Chaos mehr auf dem Tisch' },
+                { icon: '📖', text: 'Komplette Kampagne speichern – Spielstand pausieren und Wochen später weitermachen' },
+                { icon: '⚔️', text: 'Overlord-Zentrale – eigenes Deck verwalten, Leutnanten steuern, Helden im Blick behalten' },
+                { icon: '🛡️', text: 'Spieler-Ansicht – jeder Held hat seine eigene Übersicht am Tisch' },
+                { icon: '🎨', text: 'Neues Design – düsterer, mystischer, mehr Dungeon-Atmosphäre' },
+                { icon: '🔄', text: 'Geräte-Synchronisation – Overlord und Spieler teilen sich denselben Spielstand' },
+              ].map((item) => (
+                <li key={item.text} className="flex gap-2 text-sm text-gray-500">
+                  <span className="shrink-0 text-base leading-5">{item.icon}</span>
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="px-4 py-3 border-t border-dungeon-700 bg-dungeon-900/50 space-y-1.5">
+          <p className="text-xs text-gray-500 text-center">
+            Da sich das Projekt noch in aktiver Entwicklung befindet, können vereinzelt Fehler auftreten.
+            Gemeldete Fehler werden schnellstmöglich behoben.
+          </p>
+          <p className="text-xs text-gray-600 text-center">
+            Fehler gefunden oder einen Feature-Wunsch?{' '}
+            <a
+              href="mailto:ze.d@me.com"
+              className="text-gold-600 hover:text-gold-400 transition-colors"
+            >
+              ze.d@me.com
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
