@@ -158,16 +158,18 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="px-4 py-3 border-t border-dungeon-700 bg-dungeon-900/50">
+        <div className="px-4 py-3 border-t border-dungeon-700 bg-dungeon-900/50 space-y-1.5">
+          <p className="text-xs text-gray-500 text-center">
+            Da sich das Projekt noch in aktiver Entwicklung befindet, können vereinzelt Fehler auftreten.
+            Gemeldete Fehler werden schnellstmöglich behoben.
+          </p>
           <p className="text-xs text-gray-600 text-center">
-            Ideen, Fehler oder Feedback? Dieses Projekt lebt von der Community. ·{' '}
+            Fehler gefunden oder einen Feature-Wunsch?{' '}
             <a
-              href="https://github.com/zedyo/quest-vault-reborn"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:ze.d@me.com"
               className="text-gold-600 hover:text-gold-400 transition-colors"
             >
-              GitHub
+              ze.d@me.com
             </a>
           </p>
         </div>
