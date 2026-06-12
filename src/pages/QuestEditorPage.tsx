@@ -6,6 +6,7 @@ import MapBuilder from '../components/MapBuilder'
 import { MONSTERS } from '../data/monsters'
 import { HEROES, ARCHETYPE_COLORS } from '../data/heroes'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
+import { parseImportedQuest, MAX_IMPORT_BYTES } from '../utils/questImport'
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -24,15 +25,6 @@ function exportQuestAsJSON(quest: Quest) {
   URL.revokeObjectURL(url)
 }
 
-function parseImportedQuest(raw: unknown): Quest | null {
-  try {
-    const q = raw as Quest
-    if (!q.title || !Array.isArray(q.encounters)) return null
-    return { ...q, id: uid(), createdAt: new Date().toISOString() }
-  } catch {
-    return null
-  }
-}
 
 // ── Print helpers ─────────────────────────────────────────────────────────────
 
@@ -323,6 +315,11 @@ export default function QuestEditorPage() {
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
+    if (file.size > MAX_IMPORT_BYTES) {
+      alert('Datei zu groß (max. 2 MB).')
+      e.target.value = ''
+      return
+    }
     const reader = new FileReader()
     reader.onload = (ev) => {
       try {
