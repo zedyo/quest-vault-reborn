@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.0.1 (2026-06-12)
+## Aktuelle Version: 1.0.2 (2026-06-12)
 
 ### Versionierungsregeln
 
@@ -41,6 +41,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.6.0 | ⏳ Geplant | Helden-Spieleransicht |
 | v2.0.0 | ⏳ Zukunft | Backend-Migration + Sync (Major, User-Zustimmung nötig) |
 | v2.1.0 | ⏳ Zukunft | Englische Lokalisierung |
+| v2.2.0 | ⏳ Zukunft | Benutzerkonten, Cloud-Speicherung, Kampagnen-Sharing (User-Wunsch 2026-06-12) |
 
 ---
 
@@ -111,11 +112,33 @@ in Descent 2e nicht. Sie wurden aus `heroes.ts` und `heroes.md` entfernt.
    gegenprüfen (BGG, Fandom Wiki, any2cards-Repo-Struktur).
 4. Bei Datenänderungen den Subagenten `daten-pruefer` laufen lassen.
 
-### Offener Datenbefund: Reanimate (Wiederbelebter)
+### Kartenbild-Validierung (ETABLIERTES VERFAHREN seit 2026-06-12)
 
-Phalanx-Text widerspricht dem Verteidigungs-Array (braun referenziert, grau/schwarz
-erfasst); act2Normal-Angriff ohne blauen Würfel. Gegen Kartenscan validieren —
-TODO-Kommentar in `monsters.ts` und Warnhinweis in `monsters.md` vorhanden.
+Spielwerte lassen sich **direkt aus den any2cards-Kartenbildern validieren** —
+die Werte stehen pro Kartentyp immer an derselben Position:
+
+1. Karte herunterladen (URLs: Helden in `heroes.ts` als `imageUrl`; Monster per
+   Muster `images/monsters/d2e/<erweiterung>/<act1|act2>/<prefix>-<id>-front.png`,
+   siehe `EXPANSION_PREFIX`/`EXPANSION_PATH` in `MonstersPage.tsx`. `-back.png`
+   enthält Fähigkeitstexte UND Gruppengrößen pro Spielerzahl!)
+2. Mit Python/PIL relevante Bereiche zuschneiden und 4–6× hochskalieren
+   (LANCZOS), dann per Read-Tool visuell ablesen. Monsterkarte (385×600):
+   Minion-Stats oben (y 0–60), Meister-Stats unten (y 540–600), Verteidigungs-
+   würfel jeweils rechts (x 230–385); Angriffswürfel Minion ~y 155–200,
+   Meister ~y 405–450. Heldenkarte (600×483): Stats-Spalte x 230–420.
+3. Akt 1 vs. Akt 2 beachten (getrennte Karten in `act1/`- und `act2/`-Ordnern).
+
+**Damit gefundene & behobene Fehler (alle 2026-06-12, kartenscan-validiert):**
+- Ravaella Leichtfuß: Bewegung 5→4 (vom User gemeldet, per Bild bestätigt)
+- Reanimate: Verteidigung in allen 4 Varianten Braun (statt Grau+Schwarz);
+  act2Master-Angriff Blau+Gelb+Gelb (3. Würfel fehlte); Schwarm gilt für
+  „jedes andere Monster", nicht nur Minions. act2Normal nur Gelb = korrekt.
+- Rat Swarm: Akt-1-Meister-Verteidigung Braun (statt Grau); Gefräßig gibt
+  +1 Energie (nicht +1 Herz).
+
+→ Der frühere „Offene Datenbefund Reanimate" ist damit GELÖST.
+→ Offen: vollständiger Validierungspass über alle 56 Monstergruppen + 60 Helden
+  mit diesem Verfahren (v1.1). Dabei Gruppengrößen von den `-back`-Karten ablesen.
 
 ---
 
@@ -130,6 +153,8 @@ TODO-Kommentar in `monsters.ts` und Warnhinweis in `monsters.md` vorhanden.
 - [ ] Kampagnen (campaigns.md ist Stub, src/data/campaigns.ts fehlt)
 - [ ] Overlay-Datenbasis (src/data/overlays.ts fehlt)
 - [ ] Daten-Validierungspass: alle Werte gegen Karten-Scans prüfen
+      (Verfahren etabliert — siehe „Kartenbild-Validierung" oben; Gruppengrößen
+      stehen auf den `-back`-Karten)
 - [ ] B-Seiten-Connectoren visuell verifizieren
 
 ---

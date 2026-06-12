@@ -329,7 +329,10 @@
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
-| 5 | 8 | 5 | Schwarz | 1 | 4 | 2 | 4 |
+| 4 | 8 | 5 | Schwarz | 1 | 4 | 2 | 4 |
+
+> ✅ **Kartenscan-validiert 2026-06-12:** Bewegung war fälschlich als 5 erfasst,
+> das Kartenbild zeigt eindeutig 4 (vom User gemeldet, per Bildanalyse bestätigt).
 
 **Heldenfähigkeit:** Wenn du beim Würfeln der Verteidigungswürfel 1 oder mehr Leerfelder würfelst, füge 1 Schild zu deinen Verteidigungsergebnissen hinzu.  
 **Heldentat:** Verwende, wenn du angegriffen wirst, nachdem du Verteidigungswürfel geworfen hast, um Wissen und Gespür zu testen. Für jeden bestandenen Test füge 3 Schilde zu deinen Verteidigungsergebnissen hinzu.
