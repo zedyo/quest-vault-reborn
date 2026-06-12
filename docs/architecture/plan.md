@@ -167,6 +167,36 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 
 ---
 
+### v2.2.0 – Benutzerkonten, Cloud-Speicherung & Kampagnen-Sharing 👥
+
+**Vom User gewünscht (2026-06-12), explizit als späteres ToDo eingeplant.
+Baut auf der v2.0-Backend-Infrastruktur auf.**
+
+**Grobkonzept:**
+- Registrierung + Login (E-Mail/Passwort, optional OAuth z.B. Google/Apple)
+- Cloudbasierte Speicherung von Kampagnen, Quests und Sammlungen
+  (datenbankgestützt, geräteübergreifend — localStorage bleibt als Offline-Fallback)
+- **Kampagnen-Sharing:** Andere registrierte User können zu einer Kampagne
+  eingeladen/hinzugefügt werden
+- Geteilte Kampagnen und Features sind für eingeladene User direkt nutzbar
+  (z.B. Helden-Spieleransicht aus v1.6 mit dem eigenen Konto verknüpft)
+- Rollen innerhalb einer Kampagne: Besitzer (Overlord) / Mitspieler (Held)
+
+**Aufgaben (grob, Planungssession vor Umsetzung nötig):**
+- [ ] Auth-Konzept festlegen (Anbieter, Datenschutz/DSGVO, Passwort-Reset)
+- [ ] Datenmodell: User ↔ Kampagne ↔ Mitglieder (n:m mit Rollen)
+- [ ] Einladungs-Flow (Link oder Benutzername-Suche)
+- [ ] Berechtigungen: Wer sieht/ändert was in einer geteilten Kampagne
+- [ ] Migration bestehender localStorage-Daten ins Konto (Import beim ersten Login)
+- [ ] Konto-Löschung inkl. aller Daten (DSGVO)
+
+**Rechtlicher Hinweis:** Konten/Sync sind als Dienstleistung von den FFG-Spieldaten
+trennbar (siehe „Interne Projektstrategie" in CLAUDE.md) — Premium-Eignung dort evaluieren.
+
+**Akzeptanzkriterien → nach Planungssession ergänzen**
+
+---
+
 ### v2.1.0 – Englische Lokalisierung 🌐
 
 **Aufgaben:**
@@ -204,8 +234,8 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 - [x] SessionStart-Hook + Projekt-Subagenten (sicherheits-pruefer, daten-pruefer)
 
 ### Offen — Mittel (v1.1–v1.2 einplanen)
-- [ ] Reanimate-Werte gegen Kartenscan validieren (Phalanx/Defense-Widerspruch, s. monsters.ts TODO)
-- [ ] Rat-Swarm attack ['green'] gegen Scan verifizieren
+- [x] Reanimate-Werte gegen Kartenscan validiert (v1.0.2: Defense überall Braun, act2Master-Angriff 3 Würfel, Schwarm-Text korrigiert)
+- [x] Rat-Swarm gegen Scan verifiziert (v1.0.2: Akt-1-Meister-Defense Braun, Gefräßig gibt Energie statt Herz; attack ['green'] bestätigt)
 - [ ] Store-Aufteilung VOR v1.3 entscheiden: Session-/Tracker-State getrennt von Quest-Definitionen
 - [ ] Duplikate extrahieren: StatIcons, Lightbox, FilterBar (bevor Items/Klassen-Seiten sie kopieren)
 - [ ] Zentrales Asset-URL-Modul (aktuell 3 verschiedene Strategien)
@@ -231,7 +261,9 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 ## Nächste konkrete Schritte (jetzt)
 
 1. **v1.1 starten:** Monster-Gruppengrößen in monsters.ts + monsters.md dokumentieren
+   (Quelle: `-back.png`-Kartenbilder enthalten die Gruppengrößen pro Spielerzahl!)
 2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
-3. Reanimate + Rat-Swarm gegen Kartenscans validieren
-4. Daten-Validierungspass (alle Monsterwerte gegen Karten-Scans prüfen)
-5. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten
+3. Daten-Validierungspass: alle 56 Monstergruppen + 60 Helden per
+   Kartenbild-Analyse prüfen (Verfahren etabliert, siehe CLAUDE.md
+   „Kartenbild-Validierung" — fand bereits 3 Fehler in 2 Stichproben)
+4. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten

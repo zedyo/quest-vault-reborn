@@ -160,7 +160,8 @@ export const HEROES: Hero[] = [
   },
   {
     id: 'ravaella-lightfoot', name: 'Ravaella Leichtfuß', archetype: 'magier', expansionId: 'shadow-of-nerekhall',
-    speed: 5, health: 8, stamina: 5, defense: ['black'],
+    // Kartenscan-validiert 2026-06-12: Bewegung 4 (war fälschlich 5)
+    speed: 4, health: 8, stamina: 5, defense: ['black'],
     might: 1, knowledge: 4, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/shadow-of-nerekhall/mages/sn-ravaella-lightfoot.png',
     heroAbility: 'Wenn du beim Würfeln der Verteidigungswürfel 1 oder mehr Leerfelder würfelst, füge 1 Schild zu deinen Verteidigungsergebnissen hinzu.',
@@ -506,8 +507,8 @@ export const ARCHETYPE_LABELS: Record<Hero['archetype'], string> = {
 }
 
 export const ARCHETYPE_COLORS: Record<Hero['archetype'], string> = {
-  krieger: 'text-red-400 bg-red-950/60 border-red-800',
-  heiler: 'text-blue-400 bg-blue-950/60 border-blue-800',
-  magier: 'text-yellow-400 bg-yellow-950/60 border-yellow-800',
-  spaeher: 'text-green-400 bg-green-950/60 border-green-800',
+  krieger: 'text-red-200 bg-red-950/95 border-red-700',
+  heiler: 'text-blue-200 bg-blue-950/95 border-blue-700',
+  magier: 'text-yellow-200 bg-yellow-950/95 border-yellow-700',
+  spaeher: 'text-green-200 bg-green-950/95 border-green-700',
 }
