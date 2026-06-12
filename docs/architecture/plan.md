@@ -1,8 +1,8 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.0.0  
-**Letztes Update:** 2026-05-25  
-**Status:** v1.0 ausgeliefert, v1.1 in Vorbereitung
+**Aktuelle Version:** 1.0.1  
+**Letztes Update:** 2026-06-12  
+**Status:** v1.0 ausgeliefert, Qualitäts-Patch v1.0.1 (Audit-Fixes), v1.1 in Vorbereitung
 
 ---
 
@@ -188,10 +188,50 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 
 ---
 
+## Audit-Backlog (Projektprüfung 2026-06-12)
+
+Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session.
+
+### Bereits behoben (v1.0.1)
+- [x] 8 fabrizierte Helden entfernt (Maze of the Drakon / Sands of the Past existieren nicht)
+- [x] Datenintegritäts-Testsuite (18 Tests) + CI-Gate vor Deploy
+- [x] Quest-Import-Validierung (Whitelist-Sanitizer, Größenlimits) — vorher persistenter Crash-DoS möglich
+- [x] zustand persist: version + migrate + validierendes merge — vorher Datenverlust-Risiko bei Schema-Änderungen
+- [x] ErrorBoundary mit Backup-Download statt weißer Seite
+- [x] 404.html-SPA-Fallback (Deep-Links auf GitHub Pages funktionieren jetzt)
+- [x] PWA-Icons generiert (waren 404, Installation defekt)
+- [x] Workflow-Permissions job-scoped
+- [x] SessionStart-Hook + Projekt-Subagenten (sicherheits-pruefer, daten-pruefer)
+
+### Offen — Mittel (v1.1–v1.2 einplanen)
+- [ ] Reanimate-Werte gegen Kartenscan validieren (Phalanx/Defense-Widerspruch, s. monsters.ts TODO)
+- [ ] Rat-Swarm attack ['green'] gegen Scan verifizieren
+- [ ] Store-Aufteilung VOR v1.3 entscheiden: Session-/Tracker-State getrennt von Quest-Definitionen
+- [ ] Duplikate extrahieren: StatIcons, Lightbox, FilterBar (bevor Items/Klassen-Seiten sie kopieren)
+- [ ] Zentrales Asset-URL-Modul (aktuell 3 verschiedene Strategien)
+- [ ] Quest-Löschen ohne Rückfrage (Touch-Mistap = Datenverlust) → Bestätigung/Undo
+- [ ] Standalone-Kartenbauer (/karte) speichert nicht → persistieren oder warnen
+- [ ] Touch-Targets ≥44px (Monster-Token-X ist 14px), Hover-Vorschau braucht Touch-Alternative
+- [ ] localforage entfernen oder als IndexedDB-Adapter nutzen (tote Dependency)
+- [ ] react-router-dom auf ≥6.30.4 (Open-Redirect-Advisory, praktisch kaum ausnutzbar)
+- [ ] navItems umgruppieren wenn v1.3+ kommt: Spielen / Erstellen / Kompendium / Sammlung
+
+### Offen — Niedrig
+- [ ] Route-basiertes Code-Splitting (React.lazy) sobald Items/Overlord-Daten da sind
+- [ ] *_BY_ID-Maps statt Array.find in Render-Pfaden
+- [ ] Gesamt-Export/-Import (Backup) vor v1.4
+- [ ] Actions per Commit-SHA pinnen
+- [ ] CSP-Meta-Tag (img-src 'self' raw.githubusercontent.com)
+- [ ] Lightbox: Escape-Close + Fokus-Management
+- [ ] Asset-Hotlinking-Risiko (any2cards) in decisions.md dokumentieren; Vendoring evaluieren
+- [ ] vitest 4.x Update (Critical-Advisory betrifft nur Dev-Umgebung)
+
+---
+
 ## Nächste konkrete Schritte (jetzt)
 
 1. **v1.1 starten:** Monster-Gruppengrößen in monsters.ts + monsters.md dokumentieren
-2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur anlegen und füllen
-3. **v1.1 starten:** Items, Overlord-Klassen, Leutnants als Daten-Stub anlegen
+2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
+3. Reanimate + Rat-Swarm gegen Kartenscans validieren
 4. Daten-Validierungspass (alle Monsterwerte gegen Karten-Scans prüfen)
-5. Akzeptanzkriterien für v1.2–v1.5 im Detail ausarbeiten
+5. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten

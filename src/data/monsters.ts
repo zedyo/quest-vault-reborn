@@ -1183,6 +1183,11 @@ export const MONSTERS: Monster[] = [
     act2Master: { speed: 2, health: 12, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'] },
   },
   {
+    // TODO VALIDIERUNG (Audit 2026-06-12): Widerspruch im Datensatz –
+    // Phalanx-Text referenziert einen BRAUNEN Verteidigungswürfel, defense ist
+    // aber ['gray','black'] (für ein Akt-1-Minion unplausibel stark). Zudem
+    // act2Normal.attack ['yellow'] ohne blauen Würfel (unüblich). Gegen
+    // Mists-of-Bilehall-Kartenscan prüfen, dann hier + monsters.md korrigieren.
     id: 'reanimate',
     nameDe: 'Wiederbelebter',
     nameEn: 'Reanimate',

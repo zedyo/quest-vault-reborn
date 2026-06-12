@@ -1685,6 +1685,12 @@
 
 **Erweiterung:** Nebel von Bilehall | **Merkmale:** Zivilisiert, Verflucht
 
+> ⚠️ **VALIDIERUNG AUSSTEHEND (Audit 2026-06-12):** Der Phalanx-Text referenziert
+> einen braunen Verteidigungswürfel, die Verteidigung ist aber als Grau+Schwarz
+> erfasst (für ein Akt-1-Minion unplausibel). Akt-2-Normal-Angriff Gelb ohne Blau
+> ist ebenfalls unüblich. Werte gegen den Kartenscan prüfen, dann hier und in
+> `src/data/monsters.ts` korrigieren.
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |

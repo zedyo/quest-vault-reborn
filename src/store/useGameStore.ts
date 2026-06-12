@@ -13,6 +13,27 @@ interface GameStore {
   deleteQuest: (id: string) => void
 }
 
+// Persist-Schema-Version. Bei JEDER Änderung an der Struktur der persistierten
+// Felder (ownedExpansionIds, quests) hochzählen und in migrate() einen
+// Migrationsschritt ergänzen — sonst verwirft zustand die Nutzerdaten.
+const PERSIST_VERSION = 1
+
+/** Stellt sicher, dass persistierter State die erwarteten Grundtypen hat.
+ *  Schützt vor manipuliertem/korruptem localStorage (Crash beim Rendern). */
+function sanitizePersisted(persisted: unknown): Partial<GameStore> {
+  const p = (typeof persisted === 'object' && persisted !== null ? persisted : {}) as Record<string, unknown>
+  return {
+    ownedExpansionIds: Array.isArray(p.ownedExpansionIds)
+      ? p.ownedExpansionIds.filter((id): id is string => typeof id === 'string')
+      : ['base'],
+    quests: Array.isArray(p.quests)
+      ? (p.quests.filter(
+          (q) => typeof q === 'object' && q !== null && typeof (q as Quest).title === 'string' && Array.isArray((q as Quest).encounters),
+        ) as Quest[])
+      : [],
+  }
+}
+
 export const useGameStore = create<GameStore>()(
   persist(
     (set) => ({
@@ -43,6 +64,16 @@ export const useGameStore = create<GameStore>()(
     }),
     {
       name: 'quest-vault-reborn',
+      version: PERSIST_VERSION,
+      migrate: (persisted, _version) => {
+        // v0 → v1: keine Strukturänderung, nur Validierung nachgerüstet.
+        // Künftige Migrationen hier als Kette ergänzen (if (version < 2) {...}).
+        return sanitizePersisted(persisted)
+      },
+      merge: (persisted, current) => ({
+        ...current,
+        ...sanitizePersisted(persisted),
+      }),
     },
   ),
 )
