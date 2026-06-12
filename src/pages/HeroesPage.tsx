@@ -286,7 +286,7 @@ export default function HeroesPage() {
                       {h.archetype === 'heiler' ? '✚' : h.archetype === 'magier' ? '✦' : h.archetype === 'spaeher' ? '🏹' : '⚔️'}
                     </div>
                   )}
-                  <span className={`absolute bottom-1 left-1 text-[9px] px-1.5 py-0.5 rounded-full border font-medium ${ARCHETYPE_COLORS[h.archetype]}`}>
+                  <span className={`absolute bottom-1 right-1 text-[9px] px-1.5 py-0.5 rounded-full border font-medium ${ARCHETYPE_COLORS[h.archetype]}`}>
                     {ARCHETYPE_LABELS[h.archetype]}
                   </span>
                 </div>

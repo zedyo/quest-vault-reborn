@@ -1,8 +1,8 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.0.0  
-**Letztes Update:** 2026-05-25  
-**Status:** v1.0 ausgeliefert, v1.1 in Vorbereitung
+**Aktuelle Version:** 1.0.1  
+**Letztes Update:** 2026-06-12  
+**Status:** v1.0 ausgeliefert, Qualitäts-Patch v1.0.1 (Audit-Fixes), v1.1 in Vorbereitung
 
 ---
 
@@ -167,6 +167,36 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 
 ---
 
+### v2.2.0 – Benutzerkonten, Cloud-Speicherung & Kampagnen-Sharing 👥
+
+**Vom User gewünscht (2026-06-12), explizit als späteres ToDo eingeplant.
+Baut auf der v2.0-Backend-Infrastruktur auf.**
+
+**Grobkonzept:**
+- Registrierung + Login (E-Mail/Passwort, optional OAuth z.B. Google/Apple)
+- Cloudbasierte Speicherung von Kampagnen, Quests und Sammlungen
+  (datenbankgestützt, geräteübergreifend — localStorage bleibt als Offline-Fallback)
+- **Kampagnen-Sharing:** Andere registrierte User können zu einer Kampagne
+  eingeladen/hinzugefügt werden
+- Geteilte Kampagnen und Features sind für eingeladene User direkt nutzbar
+  (z.B. Helden-Spieleransicht aus v1.6 mit dem eigenen Konto verknüpft)
+- Rollen innerhalb einer Kampagne: Besitzer (Overlord) / Mitspieler (Held)
+
+**Aufgaben (grob, Planungssession vor Umsetzung nötig):**
+- [ ] Auth-Konzept festlegen (Anbieter, Datenschutz/DSGVO, Passwort-Reset)
+- [ ] Datenmodell: User ↔ Kampagne ↔ Mitglieder (n:m mit Rollen)
+- [ ] Einladungs-Flow (Link oder Benutzername-Suche)
+- [ ] Berechtigungen: Wer sieht/ändert was in einer geteilten Kampagne
+- [ ] Migration bestehender localStorage-Daten ins Konto (Import beim ersten Login)
+- [ ] Konto-Löschung inkl. aller Daten (DSGVO)
+
+**Rechtlicher Hinweis:** Konten/Sync sind als Dienstleistung von den FFG-Spieldaten
+trennbar (siehe „Interne Projektstrategie" in CLAUDE.md) — Premium-Eignung dort evaluieren.
+
+**Akzeptanzkriterien → nach Planungssession ergänzen**
+
+---
+
 ### v2.1.0 – Englische Lokalisierung 🌐
 
 **Aufgaben:**
@@ -188,10 +218,52 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 
 ---
 
+## Audit-Backlog (Projektprüfung 2026-06-12)
+
+Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session.
+
+### Bereits behoben (v1.0.1)
+- [x] 8 fabrizierte Helden entfernt (Maze of the Drakon / Sands of the Past existieren nicht)
+- [x] Datenintegritäts-Testsuite (18 Tests) + CI-Gate vor Deploy
+- [x] Quest-Import-Validierung (Whitelist-Sanitizer, Größenlimits) — vorher persistenter Crash-DoS möglich
+- [x] zustand persist: version + migrate + validierendes merge — vorher Datenverlust-Risiko bei Schema-Änderungen
+- [x] ErrorBoundary mit Backup-Download statt weißer Seite
+- [x] 404.html-SPA-Fallback (Deep-Links auf GitHub Pages funktionieren jetzt)
+- [x] PWA-Icons generiert (waren 404, Installation defekt)
+- [x] Workflow-Permissions job-scoped
+- [x] SessionStart-Hook + Projekt-Subagenten (sicherheits-pruefer, daten-pruefer)
+
+### Offen — Mittel (v1.1–v1.2 einplanen)
+- [x] Reanimate-Werte gegen Kartenscan validiert (v1.0.2: Defense überall Braun, act2Master-Angriff 3 Würfel, Schwarm-Text korrigiert)
+- [x] Rat-Swarm gegen Scan verifiziert (v1.0.2: Akt-1-Meister-Defense Braun, Gefräßig gibt Energie statt Herz; attack ['green'] bestätigt)
+- [ ] Store-Aufteilung VOR v1.3 entscheiden: Session-/Tracker-State getrennt von Quest-Definitionen
+- [ ] Duplikate extrahieren: StatIcons, Lightbox, FilterBar (bevor Items/Klassen-Seiten sie kopieren)
+- [ ] Zentrales Asset-URL-Modul (aktuell 3 verschiedene Strategien)
+- [ ] Quest-Löschen ohne Rückfrage (Touch-Mistap = Datenverlust) → Bestätigung/Undo
+- [ ] Standalone-Kartenbauer (/karte) speichert nicht → persistieren oder warnen
+- [ ] Touch-Targets ≥44px (Monster-Token-X ist 14px), Hover-Vorschau braucht Touch-Alternative
+- [ ] localforage entfernen oder als IndexedDB-Adapter nutzen (tote Dependency)
+- [ ] react-router-dom auf ≥6.30.4 (Open-Redirect-Advisory, praktisch kaum ausnutzbar)
+- [ ] navItems umgruppieren wenn v1.3+ kommt: Spielen / Erstellen / Kompendium / Sammlung
+
+### Offen — Niedrig
+- [ ] Route-basiertes Code-Splitting (React.lazy) sobald Items/Overlord-Daten da sind
+- [ ] *_BY_ID-Maps statt Array.find in Render-Pfaden
+- [ ] Gesamt-Export/-Import (Backup) vor v1.4
+- [ ] Actions per Commit-SHA pinnen
+- [ ] CSP-Meta-Tag (img-src 'self' raw.githubusercontent.com)
+- [ ] Lightbox: Escape-Close + Fokus-Management
+- [ ] Asset-Hotlinking-Risiko (any2cards) in decisions.md dokumentieren; Vendoring evaluieren
+- [ ] vitest 4.x Update (Critical-Advisory betrifft nur Dev-Umgebung)
+
+---
+
 ## Nächste konkrete Schritte (jetzt)
 
 1. **v1.1 starten:** Monster-Gruppengrößen in monsters.ts + monsters.md dokumentieren
-2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur anlegen und füllen
-3. **v1.1 starten:** Items, Overlord-Klassen, Leutnants als Daten-Stub anlegen
-4. Daten-Validierungspass (alle Monsterwerte gegen Karten-Scans prüfen)
-5. Akzeptanzkriterien für v1.2–v1.5 im Detail ausarbeiten
+   (Quelle: `-back.png`-Kartenbilder enthalten die Gruppengrößen pro Spielerzahl!)
+2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
+3. Daten-Validierungspass: alle 56 Monstergruppen + 60 Helden per
+   Kartenbild-Analyse prüfen (Verfahren etabliert, siehe CLAUDE.md
+   „Kartenbild-Validierung" — fand bereits 3 Fehler in 2 Stichproben)
+4. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten

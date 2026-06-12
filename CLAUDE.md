@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.0.0 (2026-05-25)
+## Aktuelle Version: 1.0.2 (2026-06-12)
 
 ### Versionierungsregeln
 
@@ -41,6 +41,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.6.0 | ⏳ Geplant | Helden-Spieleransicht |
 | v2.0.0 | ⏳ Zukunft | Backend-Migration + Sync (Major, User-Zustimmung nötig) |
 | v2.1.0 | ⏳ Zukunft | Englische Lokalisierung |
+| v2.2.0 | ⏳ Zukunft | Benutzerkonten, Cloud-Speicherung, Kampagnen-Sharing (User-Wunsch 2026-06-12) |
 
 ---
 
@@ -55,7 +56,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 - **Export/Import:** JSON, Druckansicht
 - **GitHub Actions Auto-Deploy:** Push → automatisch auf GitHub Pages
 - **PWA:** App ist offline-fähig (Service Worker, Manifest)
-- **Datenbasis:** 208 Tiles (Connectoren pixelverifiziert), ~60 Monster (Akt 1+2 vollständig), ~68 Helden
+- **Datenbasis:** 208 Tiles (Connectoren pixelverifiziert), 56 Monstergruppen (Akt 1+2 vollständig), 60 Helden
 
 ---
 
@@ -94,6 +95,51 @@ mit dem Board-Raster bleibt.
 **Connector-Daten:** In `src/data/mapTiles.ts` als `connectors: { top, right, bottom, left: boolean }`.
 B-Seiten haben eigene Muster. Vollständige Connector-Tabelle in `docs/game-data/map-tiles.md`.
 
+### DATEN-VORFALL 2026-06-12: Fabrizierte Helden (BEHOBEN – Lehre beachten!)
+
+In `heroes.ts` wurden **8 frei erfundene Helden** mit zwei **nicht existierenden
+Erweiterungen** („Maze of the Drakon", „Sands of the Past") gefunden — vermutlich
+in einer früheren Session halluziniert. Namen wie Gaia, Aurora, Gristtun existieren
+in Descent 2e nicht. Sie wurden aus `heroes.ts` und `heroes.md` entfernt.
+**Korrekte Zahlen: 60 Helden, 56 Monstergruppen, 208 Tiles, 23 Erweiterungen.**
+
+**Lehren / Regeln daraus:**
+1. `src/data/expansions.ts` ist die **verbindliche Produktliste**. Jeder Datensatz
+   mit einer expansionId außerhalb dieser Liste ist halluzinationsverdächtig.
+2. Die Datenintegritäts-Tests (`src/data/__tests__/dataIntegrity.test.ts`) prüfen
+   das automatisch — `npm test` hätte den Fehler sofort gefunden. Tests nie umgehen.
+3. Vor dem Eintragen neuer Spieldaten: Existenz in der echten Produktwelt
+   gegenprüfen (BGG, Fandom Wiki, any2cards-Repo-Struktur).
+4. Bei Datenänderungen den Subagenten `daten-pruefer` laufen lassen.
+
+### Kartenbild-Validierung (ETABLIERTES VERFAHREN seit 2026-06-12)
+
+Spielwerte lassen sich **direkt aus den any2cards-Kartenbildern validieren** —
+die Werte stehen pro Kartentyp immer an derselben Position:
+
+1. Karte herunterladen (URLs: Helden in `heroes.ts` als `imageUrl`; Monster per
+   Muster `images/monsters/d2e/<erweiterung>/<act1|act2>/<prefix>-<id>-front.png`,
+   siehe `EXPANSION_PREFIX`/`EXPANSION_PATH` in `MonstersPage.tsx`. `-back.png`
+   enthält Fähigkeitstexte UND Gruppengrößen pro Spielerzahl!)
+2. Mit Python/PIL relevante Bereiche zuschneiden und 4–6× hochskalieren
+   (LANCZOS), dann per Read-Tool visuell ablesen. Monsterkarte (385×600):
+   Minion-Stats oben (y 0–60), Meister-Stats unten (y 540–600), Verteidigungs-
+   würfel jeweils rechts (x 230–385); Angriffswürfel Minion ~y 155–200,
+   Meister ~y 405–450. Heldenkarte (600×483): Stats-Spalte x 230–420.
+3. Akt 1 vs. Akt 2 beachten (getrennte Karten in `act1/`- und `act2/`-Ordnern).
+
+**Damit gefundene & behobene Fehler (alle 2026-06-12, kartenscan-validiert):**
+- Ravaella Leichtfuß: Bewegung 5→4 (vom User gemeldet, per Bild bestätigt)
+- Reanimate: Verteidigung in allen 4 Varianten Braun (statt Grau+Schwarz);
+  act2Master-Angriff Blau+Gelb+Gelb (3. Würfel fehlte); Schwarm gilt für
+  „jedes andere Monster", nicht nur Minions. act2Normal nur Gelb = korrekt.
+- Rat Swarm: Akt-1-Meister-Verteidigung Braun (statt Grau); Gefräßig gibt
+  +1 Energie (nicht +1 Herz).
+
+→ Der frühere „Offene Datenbefund Reanimate" ist damit GELÖST.
+→ Offen: vollständiger Validierungspass über alle 56 Monstergruppen + 60 Helden
+  mit diesem Verfahren (v1.1). Dabei Gruppengrößen von den `-back`-Karten ablesen.
+
 ---
 
 ## Was noch fehlt (offene Arbeit v1.1)
@@ -107,6 +153,8 @@ B-Seiten haben eigene Muster. Vollständige Connector-Tabelle in `docs/game-data
 - [ ] Kampagnen (campaigns.md ist Stub, src/data/campaigns.ts fehlt)
 - [ ] Overlay-Datenbasis (src/data/overlays.ts fehlt)
 - [ ] Daten-Validierungspass: alle Werte gegen Karten-Scans prüfen
+      (Verfahren etabliert — siehe „Kartenbild-Validierung" oben; Gruppengrößen
+      stehen auf den `-back`-Karten)
 - [ ] B-Seiten-Connectoren visuell verifizieren
 
 ---
@@ -178,10 +226,59 @@ Bei Sitzungsstart oder nach Komprimierung: folgende Reihenfolge lesen:
 3. **docs/architecture/acceptance-criteria.md** — Akzeptanzkriterien pro Feature
 4. **docs/game-data/[relevante Datei]** — Spieldaten bei Korrekturen
 
+Ein **SessionStart-Hook** (`.claude/session-start.sh`) liefert jedem neuen Session
+automatisch Version, letzte Commits und offene Aufgaben — manuelles Antriggern
+ist nicht nötig.
+
 **Dokumentations-Pflicht:** Jede Korrektur oder Ergänzung von Spieldaten MUSS sowohl
 in der TypeScript-Quelldatei als AUCH in der entsprechenden `.md`-Datei unter
 `docs/game-data/` festgehalten werden. Die `.md`-Dateien sind die langfristige
 Wissensbasis. TypeScript-Code allein reicht nicht aus.
+
+---
+
+## AI-Arbeitsregeln (verbindlich für jede Session)
+
+### Definition of Done — vor JEDEM Commit
+
+1. `npm test` — alle Tests grün (Datenintegrität + Unit-Tests)
+2. `npm run build` — fehlerfrei (inkl. TypeScript-Check)
+3. Spieldaten-Änderung? → `.md`-Doku unter `docs/game-data/` synchron aktualisiert
+4. Feature fertig? → Abgleich mit `docs/architecture/acceptance-criteria.md`;
+   Haken in `plan.md` nur setzen, wenn ALLE Kriterien erfüllt sind
+5. Statusänderung? → CLAUDE.md-Statustabelle und „Was noch fehlt" aktualisieren
+
+### Selbstaktualisierung (Pflicht am Ende jeder Arbeitseinheit)
+
+Diese Datei (CLAUDE.md) ist das Gedächtnis des Projekts. Nach jeder Arbeitseinheit:
+- Neue Erkenntnisse, gelöste Probleme, verworfene Ansätze HIER dokumentieren
+- Probleme die Zeit gekostet haben → unter „Bekannte Probleme" eintragen
+- Die Statustabelle aktuell halten — eine neue Session muss ohne Rückfragen
+  weiterarbeiten können
+
+### Projekt-Subagenten (in .claude/agents/)
+
+| Agent | Wann einsetzen |
+|---|---|
+| `sicherheits-pruefer` | Vor jedem Push mit src/-Änderungen (außer reine Datendateien). Liefert FREIGABE/BLOCKIERT. |
+| `daten-pruefer` | Nach jeder Änderung an `src/data/*.ts`, vor dem Commit. Prüft auf Halluzinationen + Doku-Sync. |
+
+Bei BLOCKIERT: Befund beheben, erneut prüfen lassen. Niemals blockierte Änderungen pushen.
+
+### CI als Sicherheitsnetz
+
+- `.github/workflows/ci.yml`: Tests + Build auf jedem Feature-Branch-Push und PR
+- `.github/workflows/deploy.yml`: Tests laufen VOR dem Deploy — rote Tests = kein Deploy
+- Tests niemals löschen/skippen um CI grün zu bekommen; Ursache beheben
+
+### Schutzregeln
+
+- **Niemals** `CONNECTOR_INSET_FRAC` oder den maxWidth/maxHeight-Fix anfassen (s. unten)
+- **Niemals** Spieldaten erfinden — nur belegt aus Karten-Scans/any2cards/BGG übernehmen;
+  im Zweifel als „Validierung ausstehend" markieren statt raten
+- **Niemals** Persist-Schema ändern ohne `version`-Erhöhung + `migrate`-Schritt
+  in `src/store/useGameStore.ts` (sonst Datenverlust bei Bestandsnutzern)
+- Importierte Fremddaten (JSON-Import) laufen IMMER durch `src/utils/questImport.ts`
 
 ---
 
@@ -229,7 +326,8 @@ Wissensbasis. TypeScript-Code allein reicht nicht aus.
 - **Datenspeicherung:** localStorage via zustand persist (bis v2.0)
 - **Assets:** any2cards/d2e PNG-Tiles (Community, FFG IP Grauzone)
 - **Hosting:** GitHub Pages (deploy.yml vorhanden)
-- **Routing:** HashRouter (für GitHub Pages Pfad-Kompatibilität)
+- **Routing:** BrowserRouter mit `basename="/quest-vault-reborn"` + `404.html`-SPA-Fallback
+  (postbuild kopiert index.html → 404.html für GitHub-Pages-Deep-Links)
 - **iPad primär:** Ab v1.2 alle Features auf iPad Portrait/Landscape verifizieren
 
 ---

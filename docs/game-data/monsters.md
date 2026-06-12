@@ -660,12 +660,17 @@
 
 **Erweiterung:** Schatten von Nerekhall | **Merkmale:** Gebäude, Dunkel
 
+> ✅ **Kartenscan-validiert 2026-06-12** (any2cards `sn-rat-swarm`, Akt 1+2,
+> Vorder- und Rückseite): Akt-1-Meister-Verteidigung ist **Braun** (vorher
+> fälschlich Grau). Gefräßig gibt laut Karte **+1 Energie** zum Angriffsergebnis,
+> nicht +1 Herz. Alle übrigen Werte bestätigt.
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 3 | 4 | Braun | Grün |
-| Meister | 3 | 5 | Grau | Grün |
+| Meister | 3 | 5 | Braun | Grün |
 
 **Normal – Energie:** Festmahl: Dieser Angriff erhält +X Herz, wobei X der verbleibenden Lebenspunkte dieses Monsters entspricht.  
 **Normal – Aktionen:**
@@ -673,7 +678,7 @@
 - Zerfleischen: Wähle einen zu diesem Monster benachbarten Helden, der eine Stärke-Probe ablegt. Misslingt sie, blutet er.
 
 **Meister – Energie:** Festmahl (wie Normal)  
-**Meister – Fähigkeit:** Gefräßig: Greift dieses Monster einen blutenden Helden an, fügt es seinem Angriffsergebnis 1 Herz hinzu.  
+**Meister – Fähigkeit:** Gefräßig: Greift dieses Monster einen blutenden Helden an, fügt es seinen Angriffsergebnissen 1 Energie hinzu.  
 **Meister – Aktionen:** Verschmelzen / Zerfleischen (wie Normal)
 
 ### Akt 2
@@ -1685,14 +1690,21 @@
 
 **Erweiterung:** Nebel von Bilehall | **Merkmale:** Zivilisiert, Verflucht
 
+> ✅ **Kartenscan-validiert 2026-06-12** (any2cards `mb-reanimate`, Akt 1+2,
+> Vorder- und Rückseite): Verteidigung ist in allen vier Varianten **1× Braun**
+> (vorher fälschlich Grau+Schwarz) — konsistent mit dem Phalanx-Text.
+> Akt-2-Normal-Angriff nur 1× Gelb ist laut Karte korrekt. Akt-2-Meister-Angriff
+> hat **3 Würfel** (Blau, Gelb, Gelb — vorher fehlte 1 Gelber). Schwarm wirkt laut
+> Karte für „jedes andere benachbarte Monster", nicht nur Minions.
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 3 | Grau, Schwarz | Blau |
-| Meister | 3 | 5 | Grau, Schwarz | Blau, Rot |
+| Normal | 3 | 3 | Braun | Blau |
+| Meister | 3 | 5 | Braun | Blau, Rot |
 
-**Normal – Energie:** Schwarm: Dieses Monster verursacht +1 Herz für jedes zum Ziel benachbarte Minion-Monster.  
+**Normal – Energie:** Schwarm: Dieses Monster verursacht +1 Herz für jedes andere zum Ziel benachbarte Monster.  
 **Normal – Fähigkeiten:**
 - Phalanx: Ist dieses Monster zu einer Figur seiner Monstergruppe benachbart, ersetze seinen braunen Verteidigungswürfel durch 1 grauen Verteidigungswürfel.
 - Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.
@@ -1705,8 +1717,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau, Schwarz | Gelb |
-| Meister | 3 | 8 | Grau, Schwarz | Blau, Gelb |
+| Normal | 3 | 5 | Braun | Gelb |
+| Meister | 3 | 8 | Braun | Blau, Gelb, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
