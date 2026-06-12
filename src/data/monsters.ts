@@ -480,9 +480,11 @@ export const MONSTERS: Monster[] = [
       ],
     },
     master: {
-      speed: 3, health: 5, defense: ['gray'], attack: ['green'],
+      // Kartenscan-validiert 2026-06-12: Master-Verteidigung in Akt 1 ist braun
+      // (vorher fälschlich grau); Gefräßig gibt 1 Energie, nicht 1 Herz.
+      speed: 3, health: 5, defense: ['brown'], attack: ['green'],
       surges: ['Festmahl: Dieser Angriff erhält +X Herz, wobei X der verbleibenden Lebenspunkte dieses Monsters entspricht.'],
-      abilities: ['Gefräßig: Greift dieses Monster einen blutenden Helden an, fügt es seinem Angriffsergebnis 1 Herz hinzu.'],
+      abilities: ['Gefräßig: Greift dieses Monster einen blutenden Helden an, fügt es seinen Angriffsergebnissen 1 Energie hinzu.'],
       actions: [
         'Verschmelzen: Wähle 1 zu diesem Monster benachbartes Monster derselben Gruppe. Dieses Monster erleidet Herzen in Höhe seiner verbleibenden Lebenspunkte, das gewählte Monster heilt eine entsprechende Anzahl Herzen.',
         'Zerfleischen: Wähle einen zu diesem Monster benachbarten Helden, der eine Stärke-Probe ablegt. Misslingt sie, blutet er.',
@@ -1183,30 +1185,34 @@ export const MONSTERS: Monster[] = [
     act2Master: { speed: 2, health: 12, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'] },
   },
   {
+    // Kartenscan-validiert 2026-06-12 (any2cards mb-reanimate Akt 1+2, Vorder-/Rückseite):
+    // Verteidigung ist in ALLEN vier Varianten 1× braun (vorher fälschlich grau+schwarz) –
+    // passt zum Phalanx-Text. act2Normal-Angriff nur 1× gelb ist laut Karte KORREKT.
+    // act2Master-Angriff hat 3 Würfel: blau+gelb+gelb (vorher fehlte 1 gelber).
     id: 'reanimate',
     nameDe: 'Wiederbelebter',
     nameEn: 'Reanimate',
     expansionId: 'mists-of-bilehall',
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
-      speed: 3, health: 3, defense: ['gray', 'black'], attack: ['blue'],
-      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes zum Ziel benachbarte Minion-Monster.'],
+      speed: 3, health: 3, defense: ['brown'], attack: ['blue'],
+      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere zum Ziel benachbarte Monster.'],
       abilities: [
         'Phalanx: Ist dieses Monster zu einer Figur seiner Monstergruppe benachbart, ersetze seinen braunen Verteidigungswürfel durch 1 grauen Verteidigungswürfel.',
         'Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.',
       ],
     },
     master: {
-      speed: 3, health: 5, defense: ['gray', 'black'], attack: ['blue', 'red'],
-      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes zum Ziel benachbarte Minion-Monster.'],
+      speed: 3, health: 5, defense: ['brown'], attack: ['blue', 'red'],
+      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere zum Ziel benachbarte Monster.'],
       abilities: [
         'Phalanx: Ist dieses Monster zu einer Figur seiner Monstergruppe benachbart, ersetze seinen braunen Verteidigungswürfel durch 1 grauen Verteidigungswürfel.',
         'Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.',
       ],
       actions: ['Manövrieren: Wähle 1 zu diesem Monster benachbartes Minion-Monster. Dieses Monster erhält 2 Bewegungspunkte.'],
     },
-    act2Normal: { speed: 3, health: 5, defense: ['gray', 'black'], attack: ['yellow'] },
-    act2Master: { speed: 3, health: 8, defense: ['gray', 'black'], attack: ['blue', 'yellow'] },
+    act2Normal: { speed: 3, health: 5, defense: ['brown'], attack: ['yellow'] },
+    act2Master: { speed: 3, health: 8, defense: ['brown'], attack: ['blue', 'yellow', 'yellow'] },
   },
   // ─── Rostende Ketten ──────────────────────────────────────────────────────
   {
