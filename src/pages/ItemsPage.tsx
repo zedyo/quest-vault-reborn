@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
@@ -28,64 +28,131 @@ function DiceRow({ dice }: { dice: DieColor[] }) {
   return (
     <div className="flex gap-1 items-center flex-wrap">
       {dice.map((d, i) => (
-        <span key={i} className={`inline-block w-3.5 h-3.5 rounded-sm ${DIE_COLOR[d]}`} title={d} />
+        <span key={i} className={`inline-block w-3.5 h-3.5 rounded-sm ${DIE_COLOR[d] ?? 'bg-gray-500'}`} title={d} />
       ))}
     </div>
   )
 }
 
-function ShopCard({ item }: { item: ShopItem }) {
+// ── Lightbox ──────────────────────────────────────────────────────────────────
+
+interface LightboxState { imageUrl: string; name: string }
+
+function ItemLightbox({ imageUrl, name, onClose }: LightboxState & { onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+      onClick={onClose}
+    >
+      <div className="relative max-w-xs w-full" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={onClose}
+          className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm"
+        >
+          ✕ Schließen
+        </button>
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+        />
+      </div>
+    </div>
+  )
+}
+
+// ── Item-Karten ───────────────────────────────────────────────────────────────
+
+function ItemThumbnail({ imageUrl, name, onOpen }: { imageUrl?: string; name: string; onOpen: () => void }) {
+  const [imgError, setImgError] = useState(false)
+  if (!imageUrl || imgError) return null
+  return (
+    <button
+      className="shrink-0 w-14 self-stretch flex items-start rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 transition-colors focus:outline-none focus:border-gold-400"
+      onClick={(e) => { e.stopPropagation(); onOpen() }}
+      title="Karte vergrößern"
+    >
+      <img
+        src={imageUrl}
+        alt={name}
+        className="w-full h-auto"
+        onError={() => setImgError(true)}
+        loading="lazy"
+      />
+    </button>
+  )
+}
+
+function ShopCard({ item, onImageOpen }: { item: ShopItem; onImageOpen: () => void }) {
   return (
     <div className="card text-xs space-y-1.5">
-      <div className="flex items-start gap-2">
+      <div className="flex items-stretch gap-2">
+        <ItemThumbnail imageUrl={item.imageUrl} name={item.nameEn} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
-          <div className="text-gray-100 font-semibold leading-snug">{item.nameEn}</div>
-          <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
+          <div className="flex items-start justify-between gap-1">
+            <div className="flex-1 min-w-0">
+              <div className="text-gray-100 font-semibold leading-snug">{item.nameEn}</div>
+              <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
+            </div>
+            <div className="shrink-0 text-right space-y-0.5">
+              <div className="text-gold-400 font-semibold">{item.cost}G</div>
+              <div className="text-[10px] text-gray-500">Akt {item.act}</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 mt-1">
+            <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
+            {item.attack && (
+              <span className="text-[10px] text-gray-500">
+                {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
+              </span>
+            )}
+            <DiceRow dice={item.dice} />
+          </div>
         </div>
-        <div className="shrink-0 text-right space-y-0.5">
-          <div className="text-gold-400 font-semibold">{item.cost}G</div>
-          <div className="text-[10px] text-gray-500">Akt {item.act}</div>
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
-        {item.attack && (
-          <span className="text-[10px] text-gray-500">
-            {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
-          </span>
-        )}
-        <DiceRow dice={item.dice} />
       </div>
       <p className="text-gray-400 leading-snug">{item.rulesEn}</p>
     </div>
   )
 }
 
-function RelicCard({ item }: { item: Relic }) {
+function RelicCard({ item, onImageOpen }: { item: Relic; onImageOpen: () => void }) {
   return (
     <div className="card text-xs space-y-1.5 border-purple-900/30">
-      <div className="flex items-start gap-2">
+      <div className="flex items-stretch gap-2">
+        <ItemThumbnail imageUrl={item.imageUrl} name={item.nameEn} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
-          <div className="text-purple-300 font-semibold leading-snug">{item.nameEn}</div>
-          <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
+          <div className="flex items-start justify-between gap-1">
+            <div className="flex-1 min-w-0">
+              <div className="text-purple-300 font-semibold leading-snug">{item.nameEn}</div>
+              <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
+            </div>
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-purple-400 bg-purple-900/40 px-1.5 py-0.5 rounded">
+              Relikt
+            </span>
+          </div>
+          <div className="flex items-center gap-3 mt-1">
+            <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
+            {item.attack && (
+              <span className="text-[10px] text-gray-500">
+                {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
+              </span>
+            )}
+            <DiceRow dice={item.dice} />
+          </div>
         </div>
-        <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-purple-400 bg-purple-900/40 px-1.5 py-0.5 rounded">
-          Relikt
-        </span>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
-        {item.attack && (
-          <span className="text-[10px] text-gray-500">
-            {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
-          </span>
-        )}
-        <DiceRow dice={item.dice} />
       </div>
       <p className="text-gray-400 leading-snug">{item.rulesEn}</p>
     </div>
   )
 }
+
+// ── Hauptseite ────────────────────────────────────────────────────────────────
 
 type TabType = 'shop' | 'relics'
 type ActFilter = 'all' | '1' | '2'
@@ -96,6 +163,7 @@ export default function ItemsPage() {
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [search, setSearch] = useState('')
   const [actFilter, setActFilter] = useState<ActFilter>('all')
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
   const expansionMap = useMemo(
     () => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])),
@@ -125,7 +193,6 @@ export default function ItemsPage() {
     })
   }, [onlyOwned, ownedIds, search])
 
-  // Group shop items by expansion
   const shopByExpansion = useMemo(() => {
     const map = new Map<string, ShopItem[]>()
     for (const item of filteredShop) {
@@ -150,6 +217,14 @@ export default function ItemsPage() {
 
   return (
     <div className="space-y-6">
+      {lightbox && (
+        <ItemLightbox
+          imageUrl={lightbox.imageUrl}
+          name={lightbox.name}
+          onClose={() => setLightbox(null)}
+        />
+      )}
+
       <div>
         <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Ausrüstung</h2>
         <p className="text-gray-400 text-sm">
@@ -217,6 +292,7 @@ export default function ItemsPage() {
 
       <p className="text-[11px] text-gray-600 -mt-3">
         Kartentexte auf Englisch – offizielle deutsche Bezeichnungen der FFG-Edition noch nicht erfasst.
+        Kartenbilder: Klick auf das Vorschaubild vergrößert die Karte.
       </p>
 
       {/* Content */}
@@ -240,7 +316,13 @@ export default function ItemsPage() {
                     <>
                       <p className="text-xs text-gray-600 mb-2">Akt 1</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-4">
-                        {act1.map((item) => <ShopCard key={item.id} item={item} />)}
+                        {act1.map((item) => (
+                          <ShopCard
+                            key={item.id}
+                            item={item}
+                            onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
+                          />
+                        ))}
                       </div>
                     </>
                   )}
@@ -248,7 +330,13 @@ export default function ItemsPage() {
                     <>
                       <p className="text-xs text-gray-600 mb-2">Akt 2</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                        {act2.map((item) => <ShopCard key={item.id} item={item} />)}
+                        {act2.map((item) => (
+                          <ShopCard
+                            key={item.id}
+                            item={item}
+                            onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
+                          />
+                        ))}
                       </div>
                     </>
                   )}
@@ -274,7 +362,13 @@ export default function ItemsPage() {
                     {exp?.nameDe ?? expId}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {items.map((item) => <RelicCard key={item.id} item={item} />)}
+                    {items.map((item) => (
+                      <RelicCard
+                        key={item.id}
+                        item={item}
+                        onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
+                      />
+                    ))}
                   </div>
                 </div>
               )
