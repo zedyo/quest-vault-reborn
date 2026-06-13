@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
@@ -32,6 +32,13 @@ jobs:
 
       - name: Produktions-Build erstellen
         run: npm run build
+
+      - name: gh-pages-Branch synchronisieren
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
 
       - name: GitHub Pages konfigurieren
         uses: actions/configure-pages@v4

@@ -20,6 +20,14 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.6',
+    date: '2026-06-13',
+    title: 'Kompatibilitätsfix: Kartentexte auf allen Browsern',
+    highlights: [
+      'Kartentexte (Symbole und Zeilenumbrüche) funktionieren jetzt auch auf älteren Safari-Versionen (iOS 15 und früher).',
+    ],
+  },
+  {
     version: '1.1.5',
     date: '2026-06-13',
     title: 'Kartensymbole auf der Ausrüstungsseite',

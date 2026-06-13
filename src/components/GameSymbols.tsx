@@ -102,8 +102,8 @@ function renderInline(text: string, symbolSize: number): ReactNode[] {
  */
 export function renderGameText(text: string, symbolSize = 13): ReactNode {
   if (!text) return null
-  // An Satzgrenzen trennen (Leerraum nach einem Punkt), Punkt bleibt am Satz.
-  const sentences = text.split(/(?<=\.)\s+/).filter((s) => s.trim().length > 0)
+  // Split at ". " boundaries; re-append period stripped by split (no lookbehind — Safari compat)
+  const sentences = text.split(/\.\s+/).map((s, i, arr) => i < arr.length - 1 ? s + '.' : s).filter((s) => s.trim().length > 0)
   return (
     <>
       {sentences.map((sentence, i) => (
