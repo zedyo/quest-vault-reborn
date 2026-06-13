@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.4 (2026-06-13)
+## Aktuelle Version: 1.1.5 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -401,6 +401,11 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
 ## Wichtige Designentscheidungen
 
 - **Tile-Connector-Rendering:** CONNECTOR_INSET_FRAC=0.269, maxWidth:none (siehe oben)
+- **Kartensymbole:** `src/components/GameSymbols.tsx` bündelt die Descent-Symbole
+  (`SurgeSymbol` ⚡, `ActionSymbol` ↻, `HeartSymbol` ❤, `FatigueSymbol` 💧) und die
+  Helfer-Funktion `renderGameText()` (ersetzt Herz/Schub/Erschöpfung durch Symbole und
+  setzt jeden Satz in eine eigene Zeile). Monster- und Item-Karten nutzen dieselben
+  Symbole (1.1.5). Für künftige Kartentexte (Overlord, Klassen) wiederverwenden.
 - **Datenspeicherung:** localStorage via zustand persist (bis v2.0)
 - **Assets:** any2cards/d2e PNG-Tiles (Community, FFG IP Grauzone)
 - **Hosting:** GitHub Pages (deploy.yml vorhanden)
