@@ -3,6 +3,7 @@ import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
+import { SurgeSymbol, ActionSymbol } from '../components/GameSymbols'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
 // Per-expansion filename prefix (any2cards/d2e naming convention)
@@ -158,56 +159,8 @@ function AttackIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-/** Curved action arrow — matches the ↻ symbol on Descent 2e monster cards */
-function ActionSymbol({ size = 12 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
-    >
-      {/* Arc: ~300° counterclockwise arc, starting top-right, ending bottom-right */}
-      <path
-        d="M 18.5 10 A 7 7 0 1 0 17.5 16.5"
-        stroke="#6ee7b7"
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {/* Arrowhead at the end of the arc */}
-      <polyline
-        points="14.5,20 17.5,16.5 21,18.5"
-        stroke="#6ee7b7"
-        strokeWidth="2.8"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-/** Lightning bolt — matches the ⚡ surge symbol on Descent 2e monster cards */
-function SurgeSymbol({ size = 12 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
-    >
-      {/* Classic lightning bolt: wide upper body, narrow lower spike */}
-      <polygon
-        points="14,2 6,14 11.5,14 10,22 18,10 12.5,10"
-        fill="#c084fc"
-        stroke="#a855f7"
-        strokeWidth="0.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+// SurgeSymbol & ActionSymbol stammen aus ../components/GameSymbols (identisch
+// auf Monster- und Item-Karten verwendet).
 
 // ── TraitIcon ─────────────────────────────────────────────────────────────────
 
