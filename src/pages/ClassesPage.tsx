@@ -13,11 +13,18 @@ const ARCHETYPE_DE: Record<HeroArchetype, string> = {
 
 const ARCHETYPE_ORDER: HeroArchetype[] = ['krieger', 'heiler', 'magier', 'spaeher']
 
-function XpBadge({ xp }: { xp: number }) {
+function XpBadge({ xp }: { xp: number | 'elemental' }) {
   if (xp === 0) {
     return (
       <span className="text-[10px] font-semibold uppercase tracking-wide bg-emerald-900/60 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">
         Start
+      </span>
+    )
+  }
+  if (xp === 'elemental') {
+    return (
+      <span className="text-[10px] font-semibold bg-blue-900/50 text-blue-300 px-1.5 py-0.5 rounded shrink-0">
+        Elemental
       </span>
     )
   }
@@ -66,10 +73,12 @@ function FamiliarBlock({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
 }
 
 function ClassCard({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
-  const skills = useMemo(
-    () => [...cls.skills].sort((a, b) => a.xpCost - b.xpCost || a.nameDe.localeCompare(b.nameDe)),
-    [cls.skills],
-  )
+  const skills = useMemo(() => {
+    const xpVal = (x: number | 'elemental') => (x === 'elemental' ? 99 : x)
+    return [...cls.skills].sort(
+      (a, b) => xpVal(a.xpCost) - xpVal(b.xpCost) || a.nameDe.localeCompare(b.nameDe),
+    )
+  }, [cls.skills])
   return (
     <div className="card">
       <div className="mb-2">
