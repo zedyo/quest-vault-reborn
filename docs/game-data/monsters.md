@@ -3,11 +3,19 @@
 **Status:** Vollständige Spielwerte dokumentiert (Juni 2026)  
 **Quelle:** github.com/any2cards/d2e, src/data/monsters.ts  
 **Zuletzt aktualisiert:** 2026-06-13  
-✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass, 70+ Korrekturen)
+✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass, 70+ Korrekturen)  
+✅ Gruppengrößen 2026-06-13 von den Kartenrückseiten (`-back.png`) erfasst — alle 56 Gruppen
 
 ---
 
 **Hinweis:** Monsterfiguren existieren in zwei Typen: Normal (helle Spielfigur) und Meister (dunkle Spielfigur mit verstärkten Werten). Würfelfarben: Grau, Schwarz, Braun, Weiß, Blau, Rot, Gelb, Grün.
+
+**Gruppengrößen:** Jede Monstergruppe gibt an, wie viele Figuren je nach Spieleranzahl
+(2 / 3 / 4 Helden) auf das Spielfeld kommen — angegeben als **Diener + Meister**
+(normale + Meister-Figuren). Die Werte stehen auf der Kartenrückseite und wurden
+am 2026-06-13 direkt aus den any2cards-`-back.png`-Bildern abgelesen. Beispiel:
+„2 Sp. 1+1" = bei 2 Helden 1 Diener und 1 Meister. Große Monster (z. B. Elementar,
+Ettin, Riese) haben kleinere Gruppen, Schwärme (z. B. Kobold) deutlich größere.
 
 ---
 
@@ -30,6 +38,8 @@
 ## Barghest (Barghest)
 
 **Erweiterung:** Grundspiel | **Merkmale:** Wildnis, Dunkel
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
 
 ### Akt 1
 
@@ -59,6 +69,8 @@
 ## Elementar (Elemental)
 
 **Erweiterung:** Grundspiel | **Merkmale:** Kalt, Heiß
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -90,6 +102,8 @@
 
 **Erweiterung:** Grundspiel | **Merkmale:** Gebirge, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -119,6 +133,8 @@
 
 **Erweiterung:** Grundspiel | **Merkmale:** Verflucht, Zivilisiert
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -145,6 +161,8 @@
 ## Goblin-Bogenschütze (Goblin Archer)
 
 **Erweiterung:** Grundspiel | **Merkmale:** Gebäude, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
 
 ### Akt 1
 
@@ -177,6 +195,8 @@
 
 **Erweiterung:** Grundspiel | **Merkmale:** Wildnis, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -203,6 +223,8 @@
 ## Merriod (Merriod)
 
 **Erweiterung:** Grundspiel | **Merkmale:** Wildnis, Wasser
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -234,6 +256,8 @@
 
 **Erweiterung:** Grundspiel | **Merkmale:** Dunkel, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -261,6 +285,8 @@
 ## Zombie (Zombie)
 
 **Erweiterung:** Grundspiel | **Merkmale:** Verflucht, Gebäude
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
 
 ### Akt 1
 
@@ -300,6 +326,8 @@
 
 **Erweiterung:** Die Höhle des Lindwurms | **Merkmale:** Heiß, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 3+2
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -328,6 +356,8 @@
 ## Hybridwächter (Hybrid Sentinel)
 
 **Erweiterung:** Die Höhle des Lindwurms | **Merkmale:** Gebirge, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -371,6 +401,8 @@
 
 **Erweiterung:** Labyrinth des Verderbens | **Merkmale:** Wasser, Dunkel
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -399,6 +431,8 @@
 ## Arachyura (Arachyura)
 
 **Erweiterung:** Labyrinth des Verderbens | **Merkmale:** Wildnis, Verflucht
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -429,6 +463,8 @@
 
 **Erweiterung:** Labyrinth des Verderbens | **Merkmale:** Gebäude, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -455,6 +491,8 @@
 ## Volucrix-Räuber (Volucrix Reaver)
 
 **Erweiterung:** Labyrinth des Verderbens | **Merkmale:** Gebäude, Gebirge
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+0 · 3 Sp. 2+1 · 4 Sp. 3+1
 
 ### Akt 1
 
@@ -494,6 +532,8 @@
 
 **Erweiterung:** Die Trollsümpfe | **Merkmale:** Wildnis, Gebirge
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -521,6 +561,8 @@
 ## Seuchenwurm (Plague Worm)
 
 **Erweiterung:** Die Trollsümpfe | **Merkmale:** Wasser, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -560,6 +602,8 @@
 
 **Erweiterung:** Schloss Rabenfels | **Merkmale:** Wildnis, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -587,6 +631,8 @@
 ## Wraith (Wraith)
 
 **Erweiterung:** Schloss Rabenfels | **Merkmale:** Zivilisiert, Verflucht
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -628,6 +674,8 @@
 
 **Erweiterung:** Schatten von Nerekhall | **Merkmale:** Zivilisiert, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -658,6 +706,8 @@
 ## Rattenschwarm (Rat Swarm)
 
 **Erweiterung:** Schatten von Nerekhall | **Merkmale:** Gebäude, Dunkel
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+0 · 3 Sp. 2+1 · 4 Sp. 3+1
 
 > ✅ **Kartenscan-validiert 2026-06-12** (any2cards `sn-rat-swarm`, Akt 1+2,
 > Vorder- und Rückseite): Akt-1-Meister-Verteidigung ist **Braun** (vorher
@@ -695,6 +745,8 @@
 
 **Erweiterung:** Schatten von Nerekhall | **Merkmale:** Zivilisiert, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -722,6 +774,8 @@
 ## Ynfernael-Koloss (Ynfernael Hulk)
 
 **Erweiterung:** Schatten von Nerekhall | **Merkmale:** Verflucht, Heiß
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -760,6 +814,8 @@
 
 **Erweiterung:** Schwur der Verbannten | **Merkmale:** Dunkel, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -787,6 +843,8 @@
 
 **Erweiterung:** Schwur der Verbannten | **Merkmale:** Wildnis, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -813,6 +871,8 @@
 ## Tiermensch (Beastman)
 
 **Erweiterung:** Schwur der Verbannten | **Merkmale:** Gebirge, Wildnis
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
 
 ### Akt 1
 
@@ -856,6 +916,8 @@
 
 **Erweiterung:** Krone des Schicksals | **Merkmale:** Dunkel, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -889,6 +951,8 @@
 
 **Erweiterung:** Krone des Schicksals | **Merkmale:** Heiß, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -916,6 +980,8 @@
 ## Riese (Giant)
 
 **Erweiterung:** Krone des Schicksals | **Merkmale:** Gebirge, Wildnis
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -955,6 +1021,8 @@
 
 **Erweiterung:** Kreuzzug der Vergessenen | **Merkmale:** Gebirge, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -984,6 +1052,8 @@
 
 **Erweiterung:** Kreuzzug der Vergessenen | **Merkmale:** Verflucht, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+0 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1008,6 +1078,8 @@
 ## Zauberer (Sorcerer)
 
 **Erweiterung:** Kreuzzug der Vergessenen | **Merkmale:** Zivilisiert, Gebäude
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
 
 ### Akt 1
 
@@ -1049,6 +1121,8 @@
 
 **Erweiterung:** Wächter von Deephall | **Merkmale:** Zivilisiert, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1080,6 +1154,8 @@
 
 **Erweiterung:** Wächter von Deephall | **Merkmale:** Dunkel, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1109,6 +1185,8 @@
 ## Wendigo (Wendigo)
 
 **Erweiterung:** Wächter von Deephall | **Merkmale:** Kalt, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -1153,6 +1231,8 @@
 
 **Erweiterung:** Prophezeiung eines neuen Anfangs | **Merkmale:** Wildnis, Dunkel
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1181,6 +1261,8 @@
 
 **Erweiterung:** Prophezeiung eines neuen Anfangs | **Merkmale:** Gebäude, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1206,6 +1288,8 @@
 ## Troll (Troll)
 
 **Erweiterung:** Prophezeiung eines neuen Anfangs | **Merkmale:** Gebirge, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -1246,6 +1330,8 @@
 
 **Erweiterung:** Erwachen der Wildnis | **Merkmale:** Heiß, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1271,6 +1357,8 @@
 ## Kobold (Kobold)
 
 **Erweiterung:** Erwachen der Wildnis | **Merkmale:** Gebäude, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 4+2 · 3 Sp. 8+2 · 4 Sp. 9+3
 
 ### Akt 1
 
@@ -1303,6 +1391,8 @@
 ## Tiefelfe (Deep Elf)
 
 **Erweiterung:** Erwachen der Wildnis | **Merkmale:** Dunkel, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
 
 ### Akt 1
 
@@ -1356,6 +1446,8 @@
 
 **Erweiterung:** Kontrakt der Unbesiegten | **Merkmale:** Heiß, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1384,6 +1476,8 @@
 ## Krähenhexe (Crow Hag)
 
 **Erweiterung:** Kontrakt der Unbesiegten | **Merkmale:** Dunkel, Zivilisiert
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -1415,6 +1509,8 @@
 ## Skelett-Bogenschütze (Skeleton Archer)
 
 **Erweiterung:** Kontrakt der Unbesiegten | **Merkmale:** Verflucht, Zivilisiert
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
 
 ### Akt 1
 
@@ -1466,6 +1562,8 @@
 
 **Erweiterung:** Hüter des Geheimnisses | **Merkmale:** Höhle, Heiß
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1495,6 +1593,8 @@
 
 **Erweiterung:** Hüter des Geheimnisses | **Merkmale:** Höhle, Wasser
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+1 · 3 Sp. 2+1 · 4 Sp. 3+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1521,6 +1621,8 @@
 ## Naga (Naga)
 
 **Erweiterung:** Hüter des Geheimnisses | **Merkmale:** Wasser, Höhle
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -1563,6 +1665,8 @@
 
 **Erweiterung:** Scherben von Everdark | **Merkmale:** Zivilisiert, Dunkel
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1595,6 +1699,8 @@
 
 **Erweiterung:** Scherben von Everdark | **Merkmale:** Kalt, Höhle
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1624,6 +1730,8 @@
 ## Schatten (Shade)
 
 **Erweiterung:** Scherben von Everdark | **Merkmale:** Verflucht, Kalt
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+1 · 3 Sp. 3+1 · 4 Sp. 4+1
 
 ### Akt 1
 
@@ -1667,6 +1775,8 @@
 
 **Erweiterung:** Nebel von Bilehall | **Merkmale:** Dunkel, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1695,6 +1805,8 @@
 ## Knochenschrecken (Bone Horror)
 
 **Erweiterung:** Nebel von Bilehall | **Merkmale:** Höhle, Verflucht
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
@@ -1726,6 +1838,8 @@
 ## Wiederbelebter (Reanimate)
 
 **Erweiterung:** Nebel von Bilehall | **Merkmale:** Zivilisiert, Verflucht
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 3+1 · 3 Sp. 3+2 · 4 Sp. 4+2
 
 > ✅ **Kartenscan-validiert 2026-06-12** (any2cards `mb-reanimate`, Akt 1+2,
 > Vorder- und Rückseite): Verteidigung ist in allen vier Varianten **1× Braun**
@@ -1775,6 +1889,8 @@
 
 **Erweiterung:** Rostende Ketten | **Merkmale:** Zivilisiert, Verflucht
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 2+0 · 3 Sp. 1+1 · 4 Sp. 2+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1806,6 +1922,8 @@
 
 **Erweiterung:** Rostende Ketten | **Merkmale:** Dunkel, Gebäude
 
+**Gruppengröße (Diener + Meister):** 2 Sp. 1+0 · 3 Sp. 0+1 · 4 Sp. 1+1
+
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
@@ -1832,6 +1950,8 @@
 ## Taumelnder Koloss (Shambling Colossus)
 
 **Erweiterung:** Rostende Ketten | **Merkmale:** Wildnis, Verflucht
+
+**Gruppengröße (Diener + Meister):** 2 Sp. 0+1 · 3 Sp. 1+1 · 4 Sp. 2+1
 
 ### Akt 1
 
