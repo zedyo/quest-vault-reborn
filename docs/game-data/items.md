@@ -1,118 +1,55 @@
 # Descent 2. Edition – Item-Shop-Karten & Relikte
 
-**Status:** Struktur angelegt, Daten ausstehend (v1.1)  
-**Quelle:** any2cards/d2e, offizielle Karten-Scans  
-**Zuletzt aktualisiert:** 2026-05-25
+**Status:** Vollständig erfasst – 122 Shop-Karten + 27 Relikte (2026-06-13) ✅
+**Quelle:** any2cards/d2e `shop-items.js` + `relics.js` (EN-Original)  
+**Deutsche Namen:** noch nicht erfasst (EN als Platzhalter)  
+**Leutnants-Relikte:** ausgelassen (Road to Legend App, nicht für Helden)
+**Zuletzt aktualisiert:** 2026-06-13
 
 ---
 
-## Übersicht
+## Shop-Karten (122 gesamt)
 
-Descent 2. Edition hat zwei Arten von Ausrüstungskarten:
-- **Shop-Karten:** Im Shop kaufbar, Kosten in Gold, nach Akt 1 und Akt 2 getrennt
-- **Relikte:** Besondere Gegenstände, werden nicht im Shop gekauft (Missionsziel oder spezielle Quellen)
+### Grundspiel (32 Karten)
+**Akt 2** (32): chainmail, crossbow, elm greatbow, heavy cloak, immolation, iron battleaxe, iron shield, iron spear, leather armor, light hammer, lucky charm, magic staff, mana weave, ring of power, scorpion helm, sling, steel broadsword, sunburst, demonhide leather, dragontooth hammer, dwarven firebomb, elven cloak, grinding axe, heavy steel shield, ice storm, iron-bound ring, latari longbow, lightning strike, mace of kellos, platemail, steel greatsword, tival crystal
 
-Shop-Karten sind in folgende Typen unterteilt:
-- **Waffe** (Weapon): Angriffswürfel, Reichweite, Surge-Fähigkeiten
-- **Rüstung** (Armor): Verteidigungswürfel
-- **Anderes** (Other): Tränke, Werkzeuge, Zubehör
+### Labyrinth of Ruin (21 Karten)
+**Akt 2** (21): bearded axe, bow of bone, elven boots, jinn's lamp, mace of aver, poisoned blowgun, rune plate, serpent dagger, shield of light, teleportation rune, thief's vest, black iron helm, bow of the eclipse, cloak of deception, iron claws, obsidian greataxe, obsidian scalemail, rage blade, rune of misery, shroud of dusk, staff of the wild
 
----
+### Lair of the Wyrm (9 Karten)
+**Akt 2** (9): flash powder, halberd, handbow, magma blast, bow of the sky, inscribed robes, merciful boots, scalemail, staff of kellos
 
-## Grundspiel – Akt 1 Shop
+### The Trollfens (13 Karten)
+**Akt 2** (13): belt of alchemy, belt of waterwalking, deflecting shield, dire flail, guardian axe, lifedrain scepter, mapstone, trident, belt of strength, blasting rune, boomerang, glaive, stone armor
 
-| Name (DE) | Name (EN) | Typ | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|--------|-------------|-----------|
-| *(Daten ausstehend – validierungspflichtig)* | | | | | |
+### Shadow of Nerekhall (21 Karten)
+**Akt 2** (21): archaic scroll, baron's cloak, bloody dagger, bone blade, boots of iron, city guard's bow, cloak of mists, incendiary arrows, ironbound rune, jeweled mace, phoenix pendant, golden mask, ironbound glaive, ironbound shield, nerekhall plate, rat-tooth dagger, repeating crossbow, rune of blades, shadow tome, star of kellos, vestments of kellos
 
-## Grundspiel – Akt 2 Shop
+### Manor of Ravens (9 Karten)
+**Akt 2** (9): blessed shield, shadow bracers, staff of greyhaven, undying skull, white wolf cloak, hammer of doom, heart seeker, rune of fate, winged blade
 
-| Name (DE) | Name (EN) | Typ | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|--------|-------------|-----------|
-| *(Daten ausstehend – validierungspflichtig)* | | | | | |
+### Mists of Bilehall (8 Karten)
+**Akt 2** (8): battle tome, bloodscript ring, corpsebug brooch, marsh cloak, mistbane, soulbound sword, soulstone, witch hazel bow
 
-## Grundspiel – Relikte
-
-| Name (DE) | Name (EN) | Effekt (DE) | Validiert |
-|-----------|-----------|-------------|-----------|
-| *(Daten ausstehend – validierungspflichtig)* | | | |
+### The Chains That Rust (9 Karten)
+**Akt 2** (9): blessed armor, bloodthirsty bracers, bone wand, fists of iron, horned shield, lightning javelin, mask of horrors, rune-touched leather, sash of the slayer
 
 ---
 
-## Die Höhle des Lindwurms / Lair of the Wyrm
+## Relikte (27 gesamt, nur Helden-Relikte)
 
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
+### Grundspiel (6): dawnblade, fortuna's dice, shield of the dark god, staff of light, the shadow rune, trueshot
 
----
+### Labyrinth of Ruin (3): gauntlets of power, living heart, sun stone
 
-## Labyrinth des Verderbens / Labyrinth of Ruin
+### Lair of the Wyrm (2): aurium mail, valyndra's bane
 
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
+### The Trollfens (3): immunity elixir, mending talisman, workman's ring
 
----
+### Shadow of Nerekhall (3): shadow plotter, spirited scythe, ynfernael rune
 
-## Die Trollsümpfe / The Trollfens
+### Manor of Ravens (4): book of stars, shards of ithyndrus, the manor's heart, wanderer's stone
 
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
+### Mists of Bilehall (3): fear eater, the white crown, undertaker's coat
 
----
-
-## Schloss Rabenfels / Manor of Ravens
-
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
-
----
-
-## Schatten von Nerekhall / Shadow of Nerekhall
-
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
-
----
-
-## Nebel von Bilehall / Mists of Bilehall
-
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
-
----
-
-## Rostende Ketten / The Chains That Rust
-
-| Name (DE) | Name (EN) | Typ | Akt | Kosten | Effekt (DE) | Validiert |
-|-----------|-----------|-----|-----|--------|-------------|-----------|
-| *(Daten ausstehend)* | | | | | | |
-
----
-
-*Weitere Erweiterungen: analog zu ergänzen*
-
----
-
-## Datenmodell (für spätere src/data/items.ts)
-
-```typescript
-interface Item {
-  id: string
-  nameDe: string
-  nameEn: string
-  expansionId: string
-  type: 'weapon' | 'armor' | 'other' | 'relic'
-  act: 1 | 2 | null  // null = Relikt
-  cost: number | null  // null = nicht kaufbar
-  attackDice?: string[]  // z.B. ['blue', 'yellow']
-  surges?: string[]
-  abilities?: string[]
-  traits?: string[]
-}
-```
+### The Chains That Rust (3): boneborn bow, forewarned ring, robes of the last

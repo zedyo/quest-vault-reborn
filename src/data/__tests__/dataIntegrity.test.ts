@@ -4,6 +4,7 @@ import { HEROES } from '../heroes'
 import { HERO_CLASSES } from '../heroClasses'
 import { MAP_TILES, getTilePartner } from '../mapTiles'
 import { EXPANSIONS } from '../expansions'
+import { SHOP_ITEMS, RELICS } from '../items'
 import type { DieColor, MonsterStats } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -248,6 +249,61 @@ describe('Map-Tile-Datenintegrität', () => {
         expect(typeof t.connectors[side], `${t.id}: connectors.${side}`).toBe('boolean')
       }
     }
+  })
+})
+
+describe('Item-Datenintegrität', () => {
+  const VALID_EQUIP = new Set(['one-hand', 'two-hands', 'armor', 'other'])
+  const VALID_ATTACK = new Set(['melee', 'range'])
+  const ALL_DICE: DieColor[] = ['blue', 'red', 'yellow', 'green', 'white', 'gray', 'brown', 'black', 'silver']
+
+  it('Shop-Items: keine doppelten IDs', () => {
+    const ids = SHOP_ITEMS.map((i) => i.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('Relikte: keine doppelten IDs', () => {
+    const ids = RELICS.map((i) => i.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('alle expansionIds existieren', () => {
+    const errors: string[] = []
+    for (const item of [...SHOP_ITEMS, ...RELICS]) {
+      if (!EXPANSION_IDS.has(item.expansionId))
+        errors.push(`${item.id}: unbekannte expansionId '${item.expansionId}'`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('Shop-Items: Pflichtfelder + Plausibilität', () => {
+    const errors: string[] = []
+    for (const item of SHOP_ITEMS) {
+      if (!item.id) errors.push(`Item ohne ID`)
+      if (!item.nameEn) errors.push(`${item.id}: nameEn fehlt`)
+      if (item.act !== 1 && item.act !== 2) errors.push(`${item.id}: act ${item.act} ungültig`)
+      if (item.cost < 0 || item.cost > 5000) errors.push(`${item.id}: cost ${item.cost} unplausibel`)
+      if (!VALID_EQUIP.has(item.equip)) errors.push(`${item.id}: equip '${item.equip}' ungültig`)
+      if (item.attack && !VALID_ATTACK.has(item.attack)) errors.push(`${item.id}: attack '${item.attack}' ungültig`)
+      for (const d of item.dice) {
+        if (!ALL_DICE.includes(d)) errors.push(`${item.id}: Würfelfarbe '${d}' unbekannt`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('Relikte: Pflichtfelder + Plausibilität', () => {
+    const errors: string[] = []
+    for (const item of RELICS) {
+      if (!item.id) errors.push(`Relikt ohne ID`)
+      if (!item.nameEn) errors.push(`${item.id}: nameEn fehlt`)
+      if (!VALID_EQUIP.has(item.equip)) errors.push(`${item.id}: equip '${item.equip}' ungültig`)
+      if (item.attack && !VALID_ATTACK.has(item.attack)) errors.push(`${item.id}: attack '${item.attack}' ungültig`)
+      for (const d of item.dice) {
+        if (!ALL_DICE.includes(d)) errors.push(`${item.id}: Würfelfarbe '${d}' unbekannt`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
   })
 })
 
