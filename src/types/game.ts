@@ -71,8 +71,8 @@ export interface ClassSkill {
   id: string
   nameEn: string
   nameDe: string
-  /** XP-Kosten (0 = kostenlose Startfähigkeit) */
-  xpCost: number
+  /** XP-Kosten (0 = kostenlose Startfähigkeit, 'elemental' = Elementalkarte ohne XP-Kosten) */
+  xpCost: number | 'elemental'
   /** Ausdauer-Kosten zum Auslösen ('X' = variabel) */
   fatigueCost: number | 'X'
   rulesEn: string

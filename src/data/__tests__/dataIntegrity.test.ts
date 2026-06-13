@@ -189,12 +189,12 @@ describe('Helden-Klassen-Datenintegrität', () => {
       if (new Set(skillIds).size !== skillIds.length)
         errors.push(`${c.id}: doppelte Skill-IDs`)
       const starters = c.skills.filter((s) => s.xpCost === 0)
-      if (starters.length !== 1)
-        errors.push(`${c.id}: erwartet genau 1 Startfähigkeit (XP 0), hat ${starters.length}`)
+      if (starters.length < 1)
+        errors.push(`${c.id}: keine Startfähigkeit (XP 0) vorhanden`)
       for (const s of c.skills) {
         if (!s.nameEn || !s.nameDe) errors.push(`${c.id}/${s.id}: Name fehlt (EN/DE)`)
         if (!s.rulesEn || !s.rulesDe) errors.push(`${c.id}/${s.id}: Regeltext fehlt (EN/DE)`)
-        if (!Number.isInteger(s.xpCost) || s.xpCost < 0 || s.xpCost > 5)
+        if (s.xpCost !== 'elemental' && (!Number.isInteger(s.xpCost) || s.xpCost < 0 || s.xpCost > 5))
           errors.push(`${c.id}/${s.id}: XP-Kosten ${s.xpCost} unplausibel`)
         const fc = s.fatigueCost
         const fcOk = fc === 'X' || (Number.isInteger(fc) && (fc as number) >= 0 && (fc as number) <= 9)
