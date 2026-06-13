@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.3 (2026-06-13)
+## Aktuelle Version: 1.1.4 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), **122 Shop-Karten + 27 Relikte (1.1.3)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), **DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -193,7 +193,10 @@ Totenbeschwörer-Begleiter heißt „Reanimate", nicht „Skelett" — beides vi
       Fähigkeitskarten, zweisprachig EN+DE aus any2cards-Strukturdaten; 3 Begleiter:
       Wolf/Beastmaster, Gerufener Stein/Geomant, Schattengeist/Shadow Walker.
       Elementalist mit 'elemental'-XP-Typ; Seelenernter mit 2 Startkarten).
-- [x] Items (1.1.3 – 122 Shop-Karten + 27 Relikte aus any2cards; items.ts + ItemsPage.tsx; items.md aktualisiert)
+- [x] Items (1.1.3 – 122 Shop-Karten + 27 Relikte aus any2cards; items.ts + ItemsPage.tsx; items.md aktualisiert;
+      1.1.4 – DE-Übersetzungen aller Item-/Reliktnamen + Regeltexte (Community-Übersetzung, EN/DE-Schalter),
+      Relikte nun doppelseitig erfasst: 27 Helden-Seiten + 27 Overlord-Seiten mit `side`-Feld, getrennt
+      dargestellt; Akt-Zuordnung der Shop-Karten korrigiert. `RelicSide`-Typ + Datenintegritäts-Tests ergänzt)
 - [ ] Overlord-Klassen + Karten (overlord-classes.md ist Stub, src/data/overlordClasses.ts fehlt)
 - [ ] Leutnants (lieutenants.md ist Stub, src/data/lieutenants.ts fehlt)
 - [ ] Reisekarten + Nebenszenarien (travel-cards.md ist Stub)

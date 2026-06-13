@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
-import type { ShopItem, Relic, DieColor, ItemEquip } from '../types/game'
+import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide } from '../types/game'
 
 const DIE_COLOR: Record<DieColor, string> = {
   blue:   'bg-blue-600',
@@ -22,6 +22,13 @@ const EQUIP_DE: Record<ItemEquip, string> = {
   'armor':     'Rüstung',
   'other':     'Zubehör',
 }
+
+const SIDE_LABEL: Record<RelicSide, string> = {
+  hero:     'Helden-Seite',
+  overlord: 'Overlord-Seite',
+}
+
+type Lang = 'de' | 'en'
 
 function DiceRow({ dice }: { dice: DieColor[] }) {
   if (!dice.length) return null
@@ -89,7 +96,10 @@ function ItemThumbnail({ imageUrl, name, onOpen }: { imageUrl?: string; name: st
   )
 }
 
-function ShopCard({ item, onImageOpen }: { item: ShopItem; onImageOpen: () => void }) {
+function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onImageOpen: () => void }) {
+  const name = lang === 'de' ? item.nameDe : item.nameEn
+  const subName = lang === 'de' ? item.nameEn : item.nameDe
+  const rules = lang === 'de' ? item.rulesDe : item.rulesEn
   return (
     <div className="card text-xs space-y-1.5">
       <div className="flex items-stretch gap-2">
@@ -97,7 +107,8 @@ function ShopCard({ item, onImageOpen }: { item: ShopItem; onImageOpen: () => vo
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
-              <div className="text-gray-100 font-semibold leading-snug">{item.nameEn}</div>
+              <div className="text-gray-100 font-semibold leading-snug">{name}</div>
+              <div className="text-gray-600 text-[10px] italic leading-tight">{subName}</div>
               <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
             </div>
             <div className="shrink-0 text-right space-y-0.5">
@@ -116,24 +127,35 @@ function ShopCard({ item, onImageOpen }: { item: ShopItem; onImageOpen: () => vo
           </div>
         </div>
       </div>
-      <p className="text-gray-400 leading-snug">{item.rulesEn}</p>
+      <p className="text-gray-400 leading-snug">{rules}</p>
     </div>
   )
 }
 
-function RelicCard({ item, onImageOpen }: { item: Relic; onImageOpen: () => void }) {
+function RelicCard({ item, lang, onImageOpen }: { item: Relic; lang: Lang; onImageOpen: () => void }) {
+  const name = lang === 'de' ? item.nameDe : item.nameEn
+  const subName = lang === 'de' ? item.nameEn : item.nameDe
+  const rules = lang === 'de' ? item.rulesDe : item.rulesEn
+  const isHero = item.side === 'hero'
   return (
-    <div className="card text-xs space-y-1.5 border-purple-900/30">
+    <div className={`card text-xs space-y-1.5 ${isHero ? 'border-purple-900/30' : 'border-red-900/30'}`}>
       <div className="flex items-stretch gap-2">
         <ItemThumbnail imageUrl={item.imageUrl} name={item.nameEn} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
-              <div className="text-purple-300 font-semibold leading-snug">{item.nameEn}</div>
+              <div className={`font-semibold leading-snug ${isHero ? 'text-purple-300' : 'text-red-300'}`}>{name}</div>
+              <div className="text-gray-600 text-[10px] italic leading-tight">{subName}</div>
               <div className="text-gray-500 text-[10px]">{item.traits.join(', ')}</div>
             </div>
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-purple-400 bg-purple-900/40 px-1.5 py-0.5 rounded">
-              Relikt
+            <span
+              className={`shrink-0 text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded ${
+                isHero
+                  ? 'text-purple-300 bg-purple-900/40'
+                  : 'text-red-300 bg-red-900/40'
+              }`}
+            >
+              {SIDE_LABEL[item.side]}
             </span>
           </div>
           <div className="flex items-center gap-3 mt-1">
@@ -147,7 +169,7 @@ function RelicCard({ item, onImageOpen }: { item: Relic; onImageOpen: () => void
           </div>
         </div>
       </div>
-      <p className="text-gray-400 leading-snug">{item.rulesEn}</p>
+      <p className="text-gray-400 leading-snug">{rules}</p>
     </div>
   )
 }
@@ -163,6 +185,7 @@ export default function ItemsPage() {
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [search, setSearch] = useState('')
   const [actFilter, setActFilter] = useState<ActFilter>('all')
+  const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
   const expansionMap = useMemo(
@@ -170,26 +193,28 @@ export default function ItemsPage() {
     [],
   )
 
+  const matchesSearch = (nameEn: string, nameDe: string, traits: string[]) => {
+    if (!search) return true
+    const q = search.toLowerCase()
+    return (
+      nameEn.toLowerCase().includes(q) ||
+      nameDe.toLowerCase().includes(q) ||
+      traits.join(' ').toLowerCase().includes(q)
+    )
+  }
+
   const filteredShop = useMemo(() => {
     return SHOP_ITEMS.filter((item) => {
       if (onlyOwned && !ownedIds.includes(item.expansionId)) return false
       if (actFilter !== 'all' && item.act !== Number(actFilter)) return false
-      if (search) {
-        const q = search.toLowerCase()
-        if (!item.nameEn.toLowerCase().includes(q) && !item.traits.join(' ').toLowerCase().includes(q)) return false
-      }
-      return true
+      return matchesSearch(item.nameEn, item.nameDe, item.traits)
     })
   }, [onlyOwned, ownedIds, search, actFilter])
 
   const filteredRelics = useMemo(() => {
     return RELICS.filter((item) => {
       if (onlyOwned && !ownedIds.includes(item.expansionId)) return false
-      if (search) {
-        const q = search.toLowerCase()
-        if (!item.nameEn.toLowerCase().includes(q) && !item.traits.join(' ').toLowerCase().includes(q)) return false
-      }
-      return true
+      return matchesSearch(item.nameEn, item.nameDe, item.traits)
     })
   }, [onlyOwned, ownedIds, search])
 
@@ -215,6 +240,10 @@ export default function ItemsPage() {
 
   const totalVisible = tab === 'shop' ? filteredShop.length : filteredRelics.length
 
+  const openLightbox = (imageUrl: string | undefined, name: string) => {
+    if (imageUrl) setLightbox({ imageUrl, name })
+  }
+
   return (
     <div className="space-y-6">
       {lightbox && (
@@ -228,7 +257,7 @@ export default function ItemsPage() {
       <div>
         <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Ausrüstung</h2>
         <p className="text-gray-400 text-sm">
-          {totalVisible} {tab === 'shop' ? 'Shop-Karten' : 'Relikte'}{' '}
+          {totalVisible} {tab === 'shop' ? 'Shop-Karten' : 'Relikt-Seiten'}{' '}
           {onlyOwned ? 'in deiner Sammlung' : 'insgesamt'}
           {tab === 'shop' && actFilter !== 'all' && ` · Akt ${actFilter}`}
         </p>
@@ -279,7 +308,24 @@ export default function ItemsPage() {
           </div>
         )}
 
-        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none ml-auto">
+        {/* Sprach-Umschalter */}
+        <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600 ml-auto">
+          {(['de', 'en'] as const).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+                lang === l
+                  ? 'bg-gold-700 text-gray-900'
+                  : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
+              }`}
+            >
+              {l === 'de' ? 'Deutsch' : 'English'}
+            </button>
+          ))}
+        </div>
+
+        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
           <input
             type="checkbox"
             checked={onlyOwned}
@@ -291,7 +337,9 @@ export default function ItemsPage() {
       </div>
 
       <p className="text-[11px] text-gray-600 -mt-3">
-        Kartentexte auf Englisch – offizielle deutsche Bezeichnungen der FFG-Edition noch nicht erfasst.
+        {lang === 'de'
+          ? 'Deutsche Kartentexte sind Community-Übersetzungen (nicht zwingend offizieller FFG-Wortlaut). Original via „English". '
+          : 'Originale englische Kartentexte. '}
         Kartenbilder: Klick auf das Vorschaubild vergrößert die Karte.
       </p>
 
@@ -320,7 +368,8 @@ export default function ItemsPage() {
                           <ShopCard
                             key={item.id}
                             item={item}
-                            onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
+                            lang={lang}
+                            onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
                           />
                         ))}
                       </div>
@@ -334,7 +383,8 @@ export default function ItemsPage() {
                           <ShopCard
                             key={item.id}
                             item={item}
-                            onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
+                            lang={lang}
+                            onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
                           />
                         ))}
                       </div>
@@ -348,33 +398,64 @@ export default function ItemsPage() {
       )}
 
       {tab === 'relics' && (
-        relicsByExpansion.size === 0 ? (
-          <div className="card text-center text-gray-500 py-12">
-            Keine Relikte gefunden. Passe deine Suche oder Sammlung an.
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {Array.from(relicsByExpansion.entries()).map(([expId, items]) => {
-              const exp = expansionMap[expId]
-              return (
-                <div key={expId}>
-                  <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
-                    {exp?.nameDe ?? expId}
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {items.map((item) => (
-                      <RelicCard
-                        key={item.id}
-                        item={item}
-                        onImageOpen={() => item.imageUrl && setLightbox({ imageUrl: item.imageUrl, name: item.nameEn })}
-                      />
-                    ))}
+        <>
+          <p className="text-[11px] text-gray-500 -mt-3 bg-dungeon-800/60 border border-dungeon-700 rounded px-3 py-2">
+            💎 Relikte sind <span className="text-gray-300">doppelseitige Karten</span>: Die
+            <span className="text-purple-300"> Helden-Seite</span> nutzt ein Held, der das Relikt erbeutet, die
+            <span className="text-red-300"> Overlord-Seite</span> nutzt der Overlord, solange ein Leutnant es trägt.
+          </p>
+
+          {relicsByExpansion.size === 0 ? (
+            <div className="card text-center text-gray-500 py-12">
+              Keine Relikte gefunden. Passe deine Suche oder Sammlung an.
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {Array.from(relicsByExpansion.entries()).map(([expId, items]) => {
+                const exp = expansionMap[expId]
+                const heroRelics = items.filter((i) => i.side === 'hero')
+                const overlordRelics = items.filter((i) => i.side === 'overlord')
+                return (
+                  <div key={expId}>
+                    <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
+                      {exp?.nameDe ?? expId}
+                    </h3>
+                    {heroRelics.length > 0 && (
+                      <>
+                        <p className="text-xs text-purple-300/80 mb-2">Helden-Seite</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-4">
+                          {heroRelics.map((item) => (
+                            <RelicCard
+                              key={item.id}
+                              item={item}
+                              lang={lang}
+                              onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                    {overlordRelics.length > 0 && (
+                      <>
+                        <p className="text-xs text-red-300/80 mb-2">Overlord-Seite</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                          {overlordRelics.map((item) => (
+                            <RelicCard
+                              key={item.id}
+                              item={item}
+                              lang={lang}
+                              onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
-                </div>
-              )
-            })}
-          </div>
-        )
+                )
+              })}
+            </div>
+          )}
+        </>
       )}
     </div>
   )
