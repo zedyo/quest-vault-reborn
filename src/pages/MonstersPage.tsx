@@ -3,7 +3,7 @@ import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import type { Monster, MonsterStats } from '../types/game'
+import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
 // Per-expansion filename prefix (any2cards/d2e naming convention)
 const EXPANSION_PREFIX: Record<string, string> = {
@@ -436,6 +436,44 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
   )
 }
 
+// ── GroupSizeBlock ───────────────────────────────────────────────────────────
+
+/**
+ * Zeigt die Gruppenzusammensetzung pro Spielerzahl (2/3/4 Helden) als
+ * Diener + Meister. Werte stammen von den offiziellen Kartenrückseiten.
+ */
+function GroupSizeBlock({ groupSizes, compact = true }: { groupSizes: MonsterGroupSizes; compact?: boolean }) {
+  const headerCls = compact ? 'text-[10px]' : 'text-xs'
+  const valueCls = compact ? 'text-xs' : 'text-sm'
+  const cols: { label: string; comp: GroupComposition }[] = [
+    { label: '2', comp: groupSizes.p2 },
+    { label: '3', comp: groupSizes.p3 },
+    { label: '4', comp: groupSizes.p4 },
+  ]
+  return (
+    <div className="mt-2 rounded bg-dungeon-800/50 p-2">
+      <div className={`${headerCls} font-semibold text-gray-400 mb-1`}>
+        Gruppengröße <span className="text-gray-600 font-normal">· Figuren je Spielerzahl</span>
+      </div>
+      <div className="flex gap-1.5">
+        {cols.map(({ label, comp }) => (
+          <div key={label} className="flex-1 rounded bg-dungeon-900/60 px-1.5 py-1 text-center">
+            <div className={`${headerCls} text-gray-500`}>{label} Sp.</div>
+            <div className={`${valueCls} font-medium`}>
+              <span className="text-gray-200" title="Diener">{comp[0]}</span>
+              <span className="text-gray-600"> + </span>
+              <span className="text-gold-400" title="Meister">{comp[1]}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className={`${headerCls} text-gray-600 mt-1`}>
+        <span className="text-gray-300">Diener</span> + <span className="text-gold-500">Meister</span>
+      </div>
+    </div>
+  )
+}
+
 // ── Lightbox ─────────────────────────────────────────────────────────────────
 
 interface LightboxProps {
@@ -509,6 +547,9 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
             )}
             {masterStats && (
               <StatBlock stats={masterStats} label="Elite" isElite compact={false} />
+            )}
+            {monster.groupSizes && (
+              <GroupSizeBlock groupSizes={monster.groupSizes} compact={false} />
             )}
           </div>
         </div>
@@ -758,6 +799,7 @@ export default function MonstersPage() {
                               {normalStats && <StatBlock stats={normalStats} label="Normal" compact />}
                               {masterStats && <StatBlock stats={masterStats} label="Elite" isElite compact />}
                             </div>
+                            {m.groupSizes && <GroupSizeBlock groupSizes={m.groupSizes} />}
                           </div>
                         </div>
                       </div>
