@@ -1,8 +1,8 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.0.1  
-**Letztes Update:** 2026-06-12  
-**Status:** v1.0 ausgeliefert, Qualitäts-Patch v1.0.1 (Audit-Fixes), v1.1 in Vorbereitung
+**Aktuelle Version:** 1.0.3  
+**Letztes Update:** 2026-06-13  
+**Status:** v1.0 ausgeliefert, Qualitäts-Patches v1.0.1–v1.0.3 (Audit-Fixes + vollständiger Daten-Validierungspass), v1.1 in Vorbereitung
 
 ---
 
@@ -54,7 +54,7 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 - [ ] Overlord-Hauptmänner/Leutnants (alle mit Werten, Fähigkeitskarten)
 - [ ] Reisekarten + Nebenszenarien (alle Reisekarten, ausgelöste Ereignisse)
 - [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
-- [ ] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen
+- [x] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen (v1.0.3: 70+ Korrekturen, alle 56 Monstergruppen + 60 Helden kartenscan-validiert)
 - [ ] Overlay-Datenbasis (`src/data/overlays.ts`)
 
 **Akzeptanzkriterien → siehe `docs/architecture/acceptance-criteria.md` Abschnitt v1.1**

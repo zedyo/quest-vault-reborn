@@ -1,8 +1,8 @@
 # Descent 2. Edition – Alle Helden
 
-**Status:** Vollständige Spielwerte dokumentiert (Mai 2026)  
+**Status:** Vollständige Spielwerte dokumentiert – ✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass)  
 **Quelle:** github.com/any2cards/d2e, src/data/heroes.ts  
-**Zuletzt aktualisiert:** 2026-05-25
+**Zuletzt aktualisiert:** 2026-06-13
 
 ---
 
@@ -95,7 +95,7 @@
 | 5 | 8 | 5 | Grau | 2 | 3 | 2 | 4 |
 
 **Heldenfähigkeit:** Wenn du durch einen Angriff Herzen erleidest, darfst du einige oder alle als Erschöpfung erleiden (max. deine Ausdauer).  
-**Heldentat:** Aktion: Bewege die doppelte Bewegungsweite und führe einen Angriff durch (vor, während oder nach der Bewegung).
+**Heldentat:** Aktion: Bewege die doppelte Bewegungsweite und führe dann einen Angriff durch.
 
 ---
 
@@ -962,7 +962,7 @@
 |----------|----|----------|-------------|--------|--------|-------------|--------|
 | 4 | 14 | 3 | Grau | 5 | 1 | 3 | 2 |
 
-**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, der eine Figur als Ziel hat, die zu Beginn deines Zuges an dich angrenzt, erhält dieser Angriff +1 Herz.  
+**Heldenfähigkeit:** Jedes Mal, wenn du einen Angriff durchführst, der eine Figur als Ziel hat, die zu Beginn deines Zuges NICHT an dich angrenzte, erhält dieser Angriff +1 Herz.  
 **Heldentat:** Verwende während deines Zuges. Würfle 1 Kraftwürfel deiner Wahl. Du und jede an dich angrenzende Figur erleiden Herzen in Höhe der gewürfelten Herzen. Wenn du mindestens 1 Schub würfelst, darfst du jede betroffene Figur bis zu 1 Feld bewegen.
 
 ---

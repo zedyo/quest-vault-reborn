@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.0.2 (2026-06-12)
+## Aktuelle Version: 1.0.3 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -33,6 +33,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | Phase/Version | Status | Beschreibung |
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
+| v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
 | v1.1.0 | 🔄 In Vorbereitung | Datenvollständigkeit: Gruppengrößen, Klassen, Items, Overlord, Leutnants, Kampagnen |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
@@ -128,17 +129,28 @@ die Werte stehen pro Kartentyp immer an derselben Position:
    Meister ~y 405–450. Heldenkarte (600×483): Stats-Spalte x 230–420.
 3. Akt 1 vs. Akt 2 beachten (getrennte Karten in `act1/`- und `act2/`-Ordnern).
 
-**Damit gefundene & behobene Fehler (alle 2026-06-12, kartenscan-validiert):**
-- Ravaella Leichtfuß: Bewegung 5→4 (vom User gemeldet, per Bild bestätigt)
-- Reanimate: Verteidigung in allen 4 Varianten Braun (statt Grau+Schwarz);
-  act2Master-Angriff Blau+Gelb+Gelb (3. Würfel fehlte); Schwarm gilt für
-  „jedes andere Monster", nicht nur Minions. act2Normal nur Gelb = korrekt.
-- Rat Swarm: Akt-1-Meister-Verteidigung Braun (statt Grau); Gefräßig gibt
-  +1 Energie (nicht +1 Herz).
+**Damit gefundene & behobene Fehler (alle 2026-06-12/13, kartenscan-validiert):**
+- Ravaella Leichtfuß: Bewegung 5→4 (v1.0.2)
+- Reanimate: Verteidigung Braun (alle 4), act2Master +1 gelber Würfel (v1.0.2)
+- Rat Swarm: Meister-Verteidigung Braun, Gefräßig gibt Energie nicht Herz (v1.0.2)
+- **v1.0.3 – Vollständiger Audit (70+ Korrekturen an allen 56 Monstergruppen):**
+  - Verteidigungswürfelfarben bei ~35 Monstern korrigiert (systematische Fehler)
+  - Angriffswürfel: Arachyura alle grün (nicht gelb); Giant/Golem act2 rot+rot;
+    Blood-Ape/Ynfernael-Hulk/Marrow-Priest act2 Würfel ergänzt
+  - Textfehler: Elemental (Erde→Gespür, Wasser→Willenskraft); Wraith/Plague-Worm
+    (Wissen/Ausdauer→Willenskraft); Ironbound Beschützen (Erschöpfung→Herz);
+    Bane-Spider Einspinnen (Stärke→Gespür); Shadow-Dragon Schatten (Erschöpfung→Schub);
+    Ferrox Extrahieren (Herzen→Erschöpfung); Dark-Minotaur Eiterbeulen (Herzen→Erschöpfung);
+    Ice-Wyrm Eisig (Herz→Erschöpfung); Marrow-Priest (Herz→Schub, 3→5 Bewegung);
+    Shade Seelenfessel (Herzen→Erschöpfung) + Flackern (Gespür-Test ergänzt)
+  - Fähigkeitstypen: Feueratem (Shadow-Dragon/Hybrid-Sentinel) action→surge;
+    Zauberei (Sorcerer/Chaos-Beast) surge→ability; Druckwelle (Lava-Käfer Master) surge→ability;
+    Durchbohren (Skeleton-Archer/Deep-Elf) surge→ability; Ätherischer Griff action→ability
+  - Shade Trait: Dunkel→Kalt; Steelhorns heroAbility Bedingung invertiert;
+    Jain-Fairwood heroicFeat Klausel entfernt; Lebenspunkte→Herzen (Ogre, Crow-Hag,
+    Skeleton-Archer, Deep-Elf); Beastman Schübe ergänzt; Flesh-Moulder Schübe ergänzt
 
-→ Der frühere „Offene Datenbefund Reanimate" ist damit GELÖST.
-→ Offen: vollständiger Validierungspass über alle 56 Monstergruppen + 60 Helden
-  mit diesem Verfahren (v1.1). Dabei Gruppengrößen von den `-back`-Karten ablesen.
+→ Vollständiger Validierungspass aller 56 Monstergruppen + 2 Helden: ✅ ABGESCHLOSSEN
 
 ---
 

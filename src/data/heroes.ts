@@ -40,7 +40,7 @@ export const HEROES: Hero[] = [
     might: 2, knowledge: 3, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/base-game/scouts/bg-jain-fairwood.png',
     heroAbility: 'Wenn du durch einen Angriff Herzen erleidest, darfst du einige oder alle als Erschöpfung erleiden (max. deine Ausdauer).',
-    heroicFeat: 'Aktion: Bewege die doppelte Bewegungsweite und führe einen Angriff durch (vor, während oder nach der Bewegung).',
+    heroicFeat: 'Aktion: Bewege die doppelte Bewegungsweite und führe dann einen Angriff durch.',
   },
   {
     id: 'tomble-burrowell', name: 'Tomble Burrowell', archetype: 'spaeher', expansionId: 'base',
@@ -494,7 +494,7 @@ export const HEROES: Hero[] = [
     speed: 4, health: 14, stamina: 3, defense: ['gray'],
     might: 5, knowledge: 1, willpower: 3, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/shards-of-everdark/warriors/se-steelhorns.png',
-    heroAbility: 'Jedes Mal, wenn du einen Angriff durchführst, der eine Figur als Ziel hat, die zu Beginn deines Zuges an dich angrenzt, erhält dieser Angriff +1 Herz.',
+    heroAbility: 'Jedes Mal, wenn du einen Angriff durchführst, der eine Figur als Ziel hat, die zu Beginn deines Zuges NICHT an dich angrenzte, erhält dieser Angriff +1 Herz.',
     heroicFeat: 'Verwende während deines Zuges. Würfle 1 Kraftwürfel deiner Wahl. Du und jede an dich angrenzende Figur erleiden Herzen in Höhe der gewürfelten Herzen. Wenn du mindestens 1 Schub würfelst, darfst du jede betroffene Figur bis zu 1 Feld bewegen.',
   },
 ]
