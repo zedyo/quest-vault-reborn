@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.5',
+    date: '2026-06-13',
+    title: 'Kartensymbole auf der Ausrüstungsseite',
+    highlights: [
+      'Item- und Reliktkarten zeigen jetzt die Original-Symbole statt Wörter: Herz ❤, Energie/Schub ⚡ und Erschöpfung 💧.',
+      'Kartentexte sind wie auf den echten Karten gegliedert – jede Fähigkeit steht in einer eigenen Zeile.',
+    ],
+  },
+  {
     version: '1.1.4',
     date: '2026-06-13',
     title: 'Ausrüstung: Deutsche Texte & doppelseitige Relikte',

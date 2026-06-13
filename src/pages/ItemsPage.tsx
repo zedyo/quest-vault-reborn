@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
+import { renderGameText } from '../components/GameSymbols'
 import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide } from '../types/game'
 
 const DIE_COLOR: Record<DieColor, string> = {
@@ -127,7 +128,7 @@ function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onI
           </div>
         </div>
       </div>
-      <p className="text-gray-400 leading-snug">{rules}</p>
+      <div className="text-gray-400 leading-snug space-y-0.5">{renderGameText(rules)}</div>
     </div>
   )
 }
@@ -169,7 +170,7 @@ function RelicCard({ item, lang, onImageOpen }: { item: Relic; lang: Lang; onIma
           </div>
         </div>
       </div>
-      <p className="text-gray-400 leading-snug">{rules}</p>
+      <div className="text-gray-400 leading-snug space-y-0.5">{renderGameText(rules)}</div>
     </div>
   )
 }
