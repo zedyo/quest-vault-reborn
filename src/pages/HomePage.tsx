@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { HEROES } from '../data/heroes'
 import { MONSTERS } from '../data/monsters'
+import ReleaseNotesModal from '../components/ReleaseNotesModal'
 
 const FEATURES = [
   {
@@ -44,12 +46,15 @@ const FEATURES = [
 export default function HomePage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const questCount = useGameStore((s) => s.quests.length)
+  const [showReleaseNotes, setShowReleaseNotes] = useState(false)
 
   const ownedMonsters = MONSTERS.filter((m) => ownedIds.includes(m.expansionId)).length
   const ownedHeroes = HEROES.filter((h) => ownedIds.includes(h.expansionId)).length
 
   return (
     <div className="space-y-10">
+      {showReleaseNotes && <ReleaseNotesModal onClose={() => setShowReleaseNotes(false)} />}
+
       <div className="text-center py-6 space-y-3">
         <h2 className="font-display text-4xl text-gold-400 font-bold">Quest Vault Reborn</h2>
         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -174,7 +179,14 @@ export default function HomePage() {
             </a>
           </p>
           <p className="text-[11px] text-gray-700 text-center pt-1">
-            Quest Vault Reborn · Version {__APP_VERSION__}
+            Quest Vault Reborn ·{' '}
+            <button
+              onClick={() => setShowReleaseNotes(true)}
+              className="text-gray-600 hover:text-gold-500 underline decoration-dotted underline-offset-2 transition-colors"
+              title="Was ist neu? Versionsverlauf anzeigen"
+            >
+              Version {__APP_VERSION__}
+            </button>
           </p>
         </div>
       </div>
