@@ -21,6 +21,39 @@ export interface Expansion {
 // Würfelfarben in Descent 2e
 export type DieColor = 'blue' | 'red' | 'yellow' | 'green' | 'white' | 'gray' | 'brown' | 'black' | 'silver'
 
+export type ItemEquip = 'one-hand' | 'two-hands' | 'armor' | 'other'
+export type AttackType = 'melee' | 'range'
+
+export interface ShopItem {
+  id: string
+  nameEn: string
+  /** DE-Name: vorläufig = nameEn (offizielle FFG-DE-Namen noch nicht erfasst) */
+  nameDe: string
+  expansionId: string
+  act: 1 | 2
+  cost: number
+  traits: string[]
+  attack?: AttackType
+  equip: ItemEquip
+  dice: DieColor[]
+  rulesEn: string
+  imageUrl?: string
+}
+
+export interface Relic {
+  id: string
+  nameEn: string
+  /** DE-Name: vorläufig = nameEn (offizielle FFG-DE-Namen noch nicht erfasst) */
+  nameDe: string
+  expansionId: string
+  traits: string[]
+  attack?: AttackType
+  equip: ItemEquip
+  dice: DieColor[]
+  rulesEn: string
+  imageUrl?: string
+}
+
 export interface MonsterStats {
   speed: number
   health: number

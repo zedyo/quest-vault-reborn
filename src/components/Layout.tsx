@@ -9,6 +9,7 @@ const navItems = [
   { to: '/monster', label: '👹 Monster', end: false },
   { to: '/helden', label: '🧙 Helden', end: false },
   { to: '/klassen', label: '⚔️ Klassen', end: false },
+  { to: '/items', label: '🛒 Items', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 

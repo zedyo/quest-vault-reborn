@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.3',
+    date: '2026-06-13',
+    title: 'Ausrüstung: Shop-Karten & Relikte',
+    highlights: [
+      'Neu: 122 Shop-Karten (Akt 1 + Akt 2) aus allen Erweiterungen – Waffen, Rüstungen, Zubehör.',
+      'Neu: 27 Relikte aus Basis und Erweiterungen – besondere Gegenstände mit einzigartigen Fähigkeiten.',
+      'Filtermöglichkeiten: Suche, Akt 1/2, eigene Sammlung. Aufgeteilt in Shop-Karten- und Relikt-Tab.',
+    ],
+  },
+  {
     version: '1.1.2',
     date: '2026-06-13',
     title: 'Helden-Klassen (Erweiterungen)',
