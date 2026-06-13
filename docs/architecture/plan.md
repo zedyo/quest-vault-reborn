@@ -45,7 +45,8 @@
 Bevor Features auf Daten basieren, müssen diese korrekt sein.
 
 **Aufgaben:**
-- [ ] Monster-Gruppengrößen pro Spieleranzahl (2/3/4) — alle ~60 Gruppen
+- [x] Monster-Gruppengrößen pro Spieleranzahl (2/3/4) — alle 56 Gruppen (2026-06-13,
+      von `-back.png`-Karten validiert; Feld `groupSizes`, UI-Anzeige, Integritäts-Test)
 - [ ] Helden-Klassen vollständig (alle Klassen aller Erweiterungen, Fähigkeitskarten, Kosten in XP)
 - [ ] Beschwörungs-Begleiter (Companion-Karten mit eigenen Werten)
 - [ ] Item-Shop-Karten (alle Gegenstände, Typen, Kosten, Fähigkeiten, pro Erweiterung)
@@ -260,10 +261,10 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 
 ## Nächste konkrete Schritte (jetzt)
 
-1. **v1.1 starten:** Monster-Gruppengrößen in monsters.ts + monsters.md dokumentieren
-   (Quelle: `-back.png`-Kartenbilder enthalten die Gruppengrößen pro Spielerzahl!)
-2. **v1.1 starten:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
-3. Daten-Validierungspass: alle 56 Monstergruppen + 60 Helden per
-   Kartenbild-Analyse prüfen (Verfahren etabliert, siehe CLAUDE.md
-   „Kartenbild-Validierung" — fand bereits 3 Fehler in 2 Stichproben)
-4. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten
+1. ✅ **erledigt (2026-06-13):** Monster-Gruppengrößen in monsters.ts + monsters.md
+   (alle 56 Gruppen aus `-back.png`-Karten abgelesen, UI + Test ergänzt)
+2. ✅ **erledigt (2026-06-13):** Daten-Validierungspass aller 56 Monstergruppen + 60 Helden
+   per Kartenbild-Analyse (v1.0.3, 70+ Korrekturen)
+3. **v1.1 weiter:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
+4. **v1.1 weiter:** Items / Overlord-Klassen / Leutnants / Kampagnen erfassen
+5. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten

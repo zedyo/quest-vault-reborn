@@ -129,6 +129,14 @@ die Werte stehen pro Kartentyp immer an derselben Position:
    Meister ~y 405–450. Heldenkarte (600×483): Stats-Spalte x 230–420.
 3. Akt 1 vs. Akt 2 beachten (getrennte Karten in `act1/`- und `act2/`-Ordnern).
 
+**Gruppengrößen ablesen (Verfahren etabliert 2026-06-13):** Auf der `-back.png`-Karte
+(385×600) liegt unten ein Streifen (y ~548–600) mit drei Segmenten für 2 / 3 / 4 Spieler
+(von links nach rechts). Jedes Segment zeigt links die **Diener**-Zahl (goldene Figur) und
+rechts die **Meister**-Zahl (rote Figur). Effizient: alle `-back.png` laden, den Streifen
+ausschneiden, 4–5× hochskalieren und mehrere als beschriftete Montage stapeln (Streifen
+breit + niedrig ⇒ im Read-Tool gut lesbar). Große Monster haben das Muster 1+0 / 0+1 / 1+1;
+Schwärme (Kobold) deutlich größere Zahlen. Im Code: `groupSizes` als `[Diener, Meister]`.
+
 **Damit gefundene & behobene Fehler (alle 2026-06-12/13, kartenscan-validiert):**
 - Ravaella Leichtfuß: Bewegung 5→4 (v1.0.2)
 - Reanimate: Verteidigung Braun (alle 4), act2Master +1 gelber Würfel (v1.0.2)
@@ -156,7 +164,10 @@ die Werte stehen pro Kartentyp immer an derselben Position:
 
 ## Was noch fehlt (offene Arbeit v1.1)
 
-- [ ] Monster-Gruppengrößen pro Spielerzahl (2/3/4) — in monsters.ts + monsters.md
+- [x] Monster-Gruppengrößen pro Spielerzahl (2/3/4) — in monsters.ts + monsters.md
+      (2026-06-13: alle 56 Gruppen aus den `-back.png`-Karten abgelesen; neues Feld
+      `groupSizes: { p2/p3/p4: [Diener, Meister] }` im `Monster`-Typ; Anzeige in
+      MonstersPage; Datenintegritäts-Test ergänzt — 19 Tests grün)
 - [ ] Helden-Klassen vollständig (hero-classes.md ist Stub, Daten ausstehend)
 - [ ] Items (items.md ist Stub, src/data/items.ts fehlt)
 - [ ] Overlord-Klassen + Karten (overlord-classes.md ist Stub, src/data/overlordClasses.ts fehlt)

@@ -18,6 +18,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Barghest',
     nameEn: 'Barghest',
     expansionId: 'base',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Wildnis', 'Dunkel'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
@@ -38,6 +39,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höhlenspinne',
     nameEn: 'Cave Spider',
     expansionId: 'base',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Höhle'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -56,6 +58,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Elementar',
     nameEn: 'Elemental',
     expansionId: 'base',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Kalt', 'Heiß'],
     normal: {
       speed: 4, health: 4, defense: ['black'], attack: ['blue', 'red'],
@@ -83,6 +86,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ettin',
     nameEn: 'Ettin',
     expansionId: 'base',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'red'],
@@ -103,6 +107,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Fleischformer',
     nameEn: 'Flesh Moulder',
     expansionId: 'base',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Verflucht', 'Zivilisiert'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -121,6 +126,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Bogenschütze',
     nameEn: 'Goblin Archer',
     expansionId: 'base',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 5, health: 2, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -143,6 +149,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Merriod',
     nameEn: 'Merriod',
     expansionId: 'base',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Wasser'],
     normal: {
       speed: 3, health: 5, defense: ['black'], attack: ['blue', 'red'],
@@ -165,6 +172,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schattendrache',
     nameEn: 'Shadow Dragon',
     expansionId: 'base',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'red'],
@@ -184,6 +192,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Zombie',
     nameEn: 'Zombie',
     expansionId: 'base',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Gebäude'],
     normal: {
       speed: 3, health: 3, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -205,6 +214,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Feuerimps',
     nameEn: 'Fire Imps',
     expansionId: 'lair-of-the-wyrm',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [3, 2] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 5, health: 2, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -227,6 +237,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Hybridwächter',
     nameEn: 'Hybrid Sentinel',
     expansionId: 'lair-of-the-wyrm',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['black'], attack: ['blue', 'red'],
@@ -253,6 +264,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Arachyura',
     nameEn: 'Arachyura',
     expansionId: 'labyrinth-of-ruin',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red', 'green'],
@@ -273,6 +285,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Aasdrake',
     nameEn: 'Carrion Drake',
     expansionId: 'labyrinth-of-ruin',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Dunkel'],
     normal: {
       speed: 5, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -295,6 +308,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Hexer',
     nameEn: 'Goblin Witcher',
     expansionId: 'labyrinth-of-ruin',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Verflucht'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -313,6 +327,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Volucrix-Räuber',
     nameEn: 'Volucrix Reaver',
     expansionId: 'labyrinth-of-ruin',
+    groupSizes: { p2: [2, 0], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Gebirge'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -334,6 +349,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Harpyie',
     nameEn: 'Harpy',
     expansionId: 'the-trollfens',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Wildnis', 'Gebirge'],
     normal: {
       speed: 5, health: 3, defense: ['gray'], attack: ['blue', 'green'],
@@ -354,6 +370,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Seuchenwurm',
     nameEn: 'Plague Worm',
     expansionId: 'the-trollfens',
+    groupSizes: { p2: [1, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Höhle'],
     normal: {
       speed: 2, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red'],
@@ -375,6 +392,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Bandit',
     nameEn: 'Bandit',
     expansionId: 'manor-of-ravens',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Gebäude'],
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'red'],
@@ -394,6 +412,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wraith',
     nameEn: 'Wraith',
     expansionId: 'manor-of-ravens',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -415,6 +434,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wechselbalg',
     nameEn: 'Changeling',
     expansionId: 'shadow-of-nerekhall',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'],
@@ -441,6 +461,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eisengebundener',
     nameEn: 'Ironbound',
     expansionId: 'shadow-of-nerekhall',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Zivilisiert', 'Gebäude'],
     normal: {
       speed: 2, health: 8, defense: ['gray', 'gray'], attack: ['blue', 'red'],
@@ -468,6 +489,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Rattenschwarm',
     nameEn: 'Rat Swarm',
     expansionId: 'shadow-of-nerekhall',
+    groupSizes: { p2: [2, 0], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Dunkel'],
     normal: {
       speed: 3, health: 4, defense: ['brown'], attack: ['green'],
@@ -496,6 +518,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ynfernael-Koloss',
     nameEn: 'Ynfernael Hulk',
     expansionId: 'shadow-of-nerekhall',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Verflucht', 'Heiß'],
     normal: {
       speed: 3, health: 8, defense: ['gray'], attack: ['blue', 'red'],
@@ -519,6 +542,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Fluchspinne',
     nameEn: 'Bane Spider',
     expansionId: 'oath-of-the-outcast',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
@@ -543,6 +567,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiermensch',
     nameEn: 'Beastman',
     expansionId: 'oath-of-the-outcast',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebirge', 'Wildnis'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -565,6 +590,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Klingenschwinge',
     nameEn: 'Razorwing',
     expansionId: 'oath-of-the-outcast',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Höhle'],
     normal: {
       speed: 5, health: 4, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -588,6 +614,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Chaosbiest',
     nameEn: 'Chaos Beast',
     expansionId: 'crown-of-destiny',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray'], attack: [],
@@ -610,6 +637,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Riese',
     nameEn: 'Giant',
     expansionId: 'crown-of-destiny',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Wildnis'],
     normal: {
       speed: 3, health: 10, defense: ['black'], attack: ['blue', 'red'],
@@ -630,6 +658,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Lavakäfer',
     nameEn: 'Lava Beetle',
     expansionId: 'crown-of-destiny',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Heiß', 'Höhle'],
     normal: {
       speed: 3, health: 3, defense: ['gray'], attack: ['blue', 'red'],
@@ -649,6 +678,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Golem',
     nameEn: 'Golem',
     expansionId: 'crusade-of-the-forgotten',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Gebäude'],
     normal: {
       speed: 3, health: 8, defense: ['black'], attack: ['blue', 'red'],
@@ -671,6 +701,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Medusa',
     nameEn: 'Medusa',
     expansionId: 'crusade-of-the-forgotten',
+    groupSizes: { p2: [2, 0], p3: [1, 1], p4: [2, 1] },
     traits: ['Verflucht', 'Gebäude'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -695,6 +726,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Zauberer',
     nameEn: 'Sorcerer',
     expansionId: 'crusade-of-the-forgotten',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Gebäude'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -718,6 +750,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Kryptendrache',
     nameEn: 'Crypt Dragon',
     expansionId: 'guardians-of-deephall',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
@@ -745,6 +778,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dunkelpriester',
     nameEn: 'Dark Priest',
     expansionId: 'guardians-of-deephall',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -775,6 +809,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wendigo',
     nameEn: 'Wendigo',
     expansionId: 'guardians-of-deephall',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Kalt', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'],
@@ -802,6 +837,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Manticore',
     nameEn: 'Manticore',
     expansionId: 'visions-of-dawn',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Dunkel'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -825,6 +861,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Oger',
     nameEn: 'Ogre',
     expansionId: 'visions-of-dawn',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -843,6 +880,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Troll',
     nameEn: 'Troll',
     expansionId: 'visions-of-dawn',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
       speed: 3, health: 8, defense: ['gray'], attack: ['blue', 'red'],
@@ -868,6 +906,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiefelfe',
     nameEn: 'Deep Elf',
     expansionId: 'bonds-of-the-wild',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
       speed: 5, health: 7, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -894,6 +933,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höllenhund',
     nameEn: 'Hellhound',
     expansionId: 'bonds-of-the-wild',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
@@ -918,6 +958,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Kobold',
     nameEn: 'Kobold',
     expansionId: 'bonds-of-the-wild',
+    groupSizes: { p2: [4, 2], p3: [8, 2], p4: [9, 3] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 2, defense: ['brown'], attack: ['blue'],
@@ -944,6 +985,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Krähenhexe',
     nameEn: 'Crow Hag',
     expansionId: 'treaty-of-champions',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Zivilisiert'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -969,6 +1011,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dämonenfürst',
     nameEn: 'Demon Lord',
     expansionId: 'treaty-of-champions',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
@@ -991,6 +1034,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Skelett-Bogenschütze',
     nameEn: 'Skeleton Archer',
     expansionId: 'treaty-of-champions',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Zivilisiert'],
     normal: {
       speed: 4, health: 3, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -1017,6 +1061,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Blutaffe',
     nameEn: 'Blood Ape',
     expansionId: 'stewards-of-the-secret',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Höhle', 'Heiß'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'],
@@ -1037,6 +1082,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ferrox',
     nameEn: 'Ferrox',
     expansionId: 'stewards-of-the-secret',
+    groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Höhle', 'Wasser'],
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
@@ -1061,6 +1107,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Naga',
     nameEn: 'Naga',
     expansionId: 'stewards-of-the-secret',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['black'], attack: ['blue', 'red'],
@@ -1082,6 +1129,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dunkelminotaurus',
     nameEn: 'Dark Minotaur',
     expansionId: 'shards-of-everdark',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Zivilisiert', 'Dunkel'],
     normal: {
       speed: 4, health: 8, defense: ['brown'], attack: ['blue'],
@@ -1109,6 +1157,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eiswurm',
     nameEn: 'Ice Wyrm',
     expansionId: 'shards-of-everdark',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Kalt', 'Höhle'],
     normal: {
       speed: 4, health: 7, defense: ['gray', 'gray'], attack: ['blue', 'red'],
@@ -1133,6 +1182,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schatten',
     nameEn: 'Shade',
     expansionId: 'shards-of-everdark',
+    groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Kalt'],
     normal: {
       speed: 4, health: 2, defense: ['black'], attack: ['blue', 'yellow'],
@@ -1155,6 +1205,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Knochenschrecken',
     nameEn: 'Bone Horror',
     expansionId: 'mists-of-bilehall',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Höhle', 'Verflucht'],
     normal: {
       speed: 5, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
@@ -1183,6 +1234,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Brutläufer',
     nameEn: 'Broodwalker',
     expansionId: 'mists-of-bilehall',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Gebäude'],
     normal: {
       speed: 2, health: 7, defense: ['brown'], attack: ['blue', 'yellow'],
@@ -1209,6 +1261,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wiederbelebter',
     nameEn: 'Reanimate',
     expansionId: 'mists-of-bilehall',
+    groupSizes: { p2: [3, 1], p3: [3, 2], p4: [4, 2] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 3, health: 3, defense: ['brown'], attack: ['blue'],
@@ -1236,6 +1289,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Markpriester',
     nameEn: 'Marrow Priest',
     expansionId: 'the-chains-that-rust',
+    groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Gebäude'],
     normal: {
       speed: 5, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
@@ -1255,6 +1309,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Taumelnder Koloss',
     nameEn: 'Shambling Colossus',
     expansionId: 'the-chains-that-rust',
+    groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wildnis', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['black'], attack: ['blue', 'red'],
@@ -1277,6 +1332,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Die Besitzlosen',
     nameEn: 'The Dispossessed',
     expansionId: 'the-chains-that-rust',
+    groupSizes: { p2: [2, 0], p3: [1, 1], p4: [2, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 2, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
