@@ -1,8 +1,9 @@
 # Descent 2. Edition – Alle Monstergruppen
 
-**Status:** Vollständige Spielwerte dokumentiert (Mai 2026)  
+**Status:** Vollständige Spielwerte dokumentiert (Juni 2026)  
 **Quelle:** github.com/any2cards/d2e, src/data/monsters.ts  
-**Zuletzt aktualisiert:** 2026-05-25
+**Zuletzt aktualisiert:** 2026-06-13  
+✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass, 70+ Korrekturen)
 
 ---
 
@@ -47,8 +48,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau | Blau, Rot |
-| Meister | 4 | 8 | Grau | Blau, Rot, Gelb |
+| Normal | 4 | 6 | Schwarz | Blau, Rot |
+| Meister | 4 | 8 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** +2 Herzen  
 **Meister – Energie:** +2 Herzen
@@ -63,13 +64,13 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau | Blau, Rot |
-| Meister | 4 | 6 | Grau | Blau, Rot |
+| Normal | 4 | 4 | Schwarz | Blau, Rot |
+| Meister | 4 | 6 | Schwarz | Blau, Rot |
 
 **Normal – Aktionen:**
 - Feuer: Führe einen Angriff aus, der alle zu diesem Monster benachbarten Figuren als Ziel hat. Jede Figur würfelt ihre Verteidigung separat.
-- Erde: Jeder zu diesem Monster benachbarte Held legt eine Stärke-Probe ab. Jeder Held, dessen Probe misslingt, ist bewegungsunfähig.
-- Wasser: Jeder zu diesem Monster benachbarte Held legt eine Gespür-Probe ab. Jeder Held, dessen Probe misslingt, erleidet 2 Erschöpfung.
+- Erde: Jeder zu diesem Monster benachbarte Held legt eine Gespür-Probe ab. Jeder Held, dessen Probe misslingt, ist bewegungsunfähig.
+- Wasser: Jeder zu diesem Monster benachbarte Held legt eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, erleidet 2 Erschöpfung.
 - Luft: Bis zum Beginn deines nächsten Zuges kann dieses Monster nur von Angriffen benachbarter Figuren betroffen werden.
 
 **Meister – Aktionen:** (wie Normal)
@@ -78,8 +79,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 8 | Grau, Schwarz | Blau, Rot, Gelb |
-| Meister | 4 | 10 | Grau, Schwarz | Blau, Rot, Gelb |
+| Normal | 4 | 8 | Schwarz, Braun | Blau, Rot, Gelb |
+| Meister | 4 | 10 | Schwarz, Braun | Blau, Rot, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -93,8 +94,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau | Blau, Rot |
-| Meister | 3 | 8 | Grau | Blau, Rot |
+| Normal | 3 | 5 | Grau, Grau | Blau, Rot |
+| Meister | 3 | 8 | Grau, Grau | Blau, Rot |
 
 **Normal – Energie:** +2 Herzen  
 **Normal – Fähigkeit:** Reichweite: Dieses Monster darf Ziele in bis zu 2 Feldern Entfernung angreifen.  
@@ -107,7 +108,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 3 | 7 | Grau, Schwarz | Blau, Rot, Rot |
-| Meister | 3 | 9 | Grau | Blau, Rot, Rot |
+| Meister | 3 | 9 | Grau, Schwarz | Blau, Rot, Rot |
 
 **Normal – Energie:** +1 Herz  
 **Meister – Energie:** +2 Herzen
@@ -125,19 +126,19 @@
 | Normal | 4 | 4 | Grau | Blau, Gelb |
 | Meister | 4 | 5 | Grau | Blau, Gelb |
 
-**Normal – Energie:** Flicken 1: Dieses Monster heilt 1 Herz.  
-**Meister – Energie:** Flicken 2: Dieses Monster heilt 2 Herzen.  
+**Normal – Energie:** Flicken 1: Dieses Monster heilt 1 Herz. / +1 Herz  
+**Meister – Energie:** Flicken 2: Dieses Monster heilt 2 Herzen. / +1 Herz  
 **Meister – Aktion:** Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und würfle 1 roten Machtwürfel. Das gewählte Monster heilt Herzen in Höhe der gewürfelten Herzen.
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 5 | Grau, Schwarz | Blau, Gelb |
-| Meister | 4 | 7 | Grau | Blau, Gelb, Gelb |
+| Normal | 4 | 5 | Grau, Braun | Blau, Gelb |
+| Meister | 4 | 7 | Grau, Braun | Blau, Gelb, Gelb |
 
-**Normal – Energie:** Flicken 2: Dieses Monster heilt 2 Herzen.  
-**Meister – Energie:** Flicken 3: Dieses Monster heilt 3 Herzen.
+**Normal – Energie:** Flicken 2: Dieses Monster heilt 2 Herzen. / +1 Herz  
+**Meister – Energie:** Flicken 3: Dieses Monster heilt 3 Herzen. / +2 Herzen
 
 ---
 
@@ -207,8 +208,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau | Blau, Rot |
-| Meister | 3 | 7 | Grau | Blau, Rot |
+| Normal | 3 | 5 | Schwarz | Blau, Rot |
+| Meister | 3 | 7 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** Immobilisieren: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel bewegungsunfähig. / +1 Herz  
 **Normal – Fähigkeit:** Reichweite: Dieses Monster darf Ziele in bis zu 2 Feldern Entfernung angreifen.  
@@ -241,10 +242,9 @@
 | Meister | 3 | 9 | Grau, Grau | Blau, Rot |
 
 **Normal – Energie:** +1 Herz  
-**Normal – Fähigkeit:** Schatten: Ein zu diesem Monster benachbarter Held, der einen Angriff ansagt, muss 1 Erschöpfung ausgeben, sonst gilt der Angriff als Fehlschlag.  
-**Meister – Energie:** +2 Herzen  
-**Meister – Fähigkeit:** Schatten (wie Normal)  
-**Meister – Aktion:** Feueratem: Beginnend mit dem Zielfeld ziehe einen Pfad aus 4 Feldern in eine beliebige Richtung. Alle Figuren auf diesem Pfad sind von diesem Angriff betroffen. Jede Figur würfelt ihre Verteidigung separat.
+**Normal – Fähigkeit:** Schatten: Ein zu diesem Monster benachbarter Held, der einen Angriff ansagt, muss 1 Schub ausgeben, sonst gilt der Angriff als Fehlschlag.  
+**Meister – Energie:** +2 Herzen / Feueratem: Beginnend mit dem Zielfeld ziehe einen Pfad aus 4 Feldern in eine beliebige Richtung. Alle Figuren auf diesem Pfad sind von diesem Angriff betroffen. Jede Figur würfelt ihre Verteidigung separat.  
+**Meister – Fähigkeit:** Schatten (wie Normal)
 
 ### Akt 2
 
@@ -311,7 +311,7 @@
 **Normal – Fähigkeit:** Flammenwesen: Dieses Monster ignoriert alle Effekte von Lava. Beendet es seinen Zug auf einem Lavafeld, heilt es 1 Herz. Außerdem brennt dieses Monster nie.  
 **Meister – Energie:** Verbrennen / +1 Herz  
 **Meister – Fähigkeiten:**
-- Flammenwesen (wie Normal)
+- Flammenwesen: Dieses Monster ignoriert alle Effekte von Lava. Beendet es seinen Zug auf einem Lavafeld, heilt es 1 Herz. Außerdem erleidet dieses Monster nie Herzen durch Brennen.
 - Brennbar: Wird dieses Monster besiegt, erleidet jeder zu ihm benachbarte Held 1 Herz.
 
 ### Akt 2
@@ -333,24 +333,23 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 5 | Grau | Blau, Rot |
-| Meister | 4 | 8 | Grau | Blau, Rot |
+| Normal | 4 | 5 | Schwarz | Blau, Rot |
+| Meister | 4 | 8 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeiten:**
 - Fliegen: Dieses Monster darf beim Bewegen feindliche Figuren und Geländeeffekte ignorieren. Es muss seine Bewegung regelkonform auf einem leeren Feld beenden.
-- Schwächejäger: Jeder Angriff dieses Monsters auf einen Helden mit 2 oder weniger Erschöpfung erhält +1 Herz.
+- Schwächejäger: Jeder Angriff dieses Monsters auf einen Helden mit einem Stärke-Wert von 2 oder weniger erhält +1 Herz.
 
-**Meister – Energie:** +1 Herz  
-**Meister – Fähigkeiten:** Fliegen / Schwächejäger (wie Normal)  
-**Meister – Aktion:** Feueratem: Beginnend mit dem Zielfeld ziehe einen Pfad aus 4 Feldern in eine beliebige Richtung. Alle Figuren auf diesem Pfad sind von diesem Angriff betroffen. Jede Figur würfelt ihre Verteidigung separat.
+**Meister – Energie:** +1 Herz / Feueratem: Beginnend mit dem Zielfeld ziehe einen Pfad aus 4 Feldern in eine beliebige Richtung. Alle Figuren auf diesem Pfad sind von diesem Angriff betroffen. Jede Figur würfelt ihre Verteidigung separat.  
+**Meister – Fähigkeiten:** Fliegen / Schwächejäger (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau, Schwarz | Blau, Rot |
-| Meister | 4 | 9 | Grau | Blau, Rot, Gelb |
+| Normal | 4 | 6 | Schwarz, Braun | Blau, Rot |
+| Meister | 4 | 9 | Grau, Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** +1 Herz / +1 Herz  
 **Meister – Energie:** +2 Herzen
@@ -390,8 +389,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 7 | Grau | Blau, Gelb, Gelb |
-| Meister | 5 | 10 | Grau | Blau, Gelb, Gelb |
+| Normal | 5 | 7 | Grau, Braun | Blau, Gelb, Gelb |
+| Meister | 5 | 10 | Grau, Grau | Blau, Gelb, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -405,21 +404,21 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau, Braun | Blau, Rot, Gelb |
-| Meister | 3 | 7 | Grau | Blau, Rot, Gelb |
+| Normal | 3 | 5 | Grau, Braun | Blau, Rot, Grün |
+| Meister | 3 | 7 | Grau, Braun | Blau, Rot, Grün |
 
 **Normal – Energie:** Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.  
 **Normal – Aktion:** Zangenangriff: Führe einen Angriff auf bis zu 2 zu diesem Monster benachbarte Helden aus. Es wird 1 Angriffswurf gemacht, jeder Held würfelt seine Verteidigung separat. Jedes Ziel, das mindestens 1 Herz erleidet (nach dem Verteidigungswurf), ist bewegungsunfähig.  
 **Meister – Energie:** Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.  
-**Meister – Fähigkeit:** Nachhallender Fluch: Wird dieses Monster besiegt, legt jeder benachbarte Held eine Wissen-Probe ab. Jeder Held, dessen Probe misslingt, ist verflucht.  
+**Meister – Fähigkeit:** Nachhallender Fluch: Wird dieses Monster besiegt, legt jeder benachbarte Held eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, ist verflucht.  
 **Meister – Aktion:** Zangenangriff (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 7 | Grau | Blau, Rot, Gelb |
-| Meister | 3 | 9 | Grau | Blau, Rot, Gelb |
+| Normal | 3 | 7 | Schwarz | Blau, Rot, Grün |
+| Meister | 3 | 9 | Schwarz | Blau, Rot, Grün |
 
 **Normal – Energie:** Durchbohren 2  
 **Meister – Energie:** Durchbohren 3: Dieser Angriff ignoriert 3 Schild im Verteidigungswurf.
@@ -475,7 +474,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 4 | Grau, Braun | Blau, Rot |
-| Meister | 4 | 6 | Grau | Blau, Rot |
+| Meister | 4 | 6 | Grau, Braun | Blau, Rot |
 
 **Normal – Energie:** Durchbohren 2  
 **Meister – Energie:** Durchbohren 3 / +2 Herzen
@@ -527,21 +526,21 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 2 | 5 | Grau, Schwarz | Blau, Rot |
-| Meister | 2 | 7 | Grau | Blau, Rot |
+| Normal | 2 | 5 | Grau, Braun | Blau, Rot |
+| Meister | 2 | 7 | Grau, Braun | Blau, Rot |
 
 **Normal – Energie:** Schwächen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel geschwächt. / +1 Herz  
-**Normal – Aktion:** Graben: Entferne diese Figur von der Karte und platziere sie auf einem leeren oder unbesetzten Feld bis zu 3 Felder entfernt. Jede Figur auf dem Zielfeld wird auf das nächstgelegene leere Feld deiner Wahl bewegt und erleidet 1 Herz. Höchstens 1× pro Monster pro Zug.  
+**Normal – Aktion:** Graben: Entferne diese Figur von der Karte und platziere sie auf einem besetzten Feld bis zu 3 Felder entfernt. Jede Figur auf dem Zielfeld wird auf das nächstgelegene leere Feld deiner Wahl bewegt und erleidet 1 Erschöpfung. Höchstens 1× pro Monster pro Zug.  
 **Meister – Energie:** Schwächen / +2 Herzen  
-**Meister – Fähigkeit:** Pestilenz: Jeder zu diesem Monster benachbarte Held legt zu Beginn seines Zuges eine Ausdauer-Probe ab. Jeder Held, dessen Probe misslingt, ist verseucht.  
+**Meister – Fähigkeit:** Pestilenz: Jeder zu diesem Monster benachbarte Held legt zu Beginn seines Zuges eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, ist verseucht.  
 **Meister – Aktion:** Graben (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 2 | 6 | Grau | Blau, Rot, Grün |
-| Meister | 2 | 9 | Grau | Blau, Rot, Grün |
+| Normal | 2 | 6 | Grau, Grau | Blau, Rot, Grün |
+| Meister | 2 | 9 | Grau, Grau | Blau, Rot, Grün |
 
 **Normal – Energie:** Schwächen / +2 Herzen  
 **Meister – Energie:** Schwächen / +3 Herzen
@@ -565,20 +564,20 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau, Braun | Blau, Rot |
-| Meister | 4 | 5 | Grau, Grau | Blau, Gelb |
+| Normal | 4 | 4 | Braun | Blau, Rot |
+| Meister | 4 | 5 | Grau | Blau, Gelb |
 
 **Normal – Energie:** Vergiften / +1 Herz  
 **Normal – Aktion:** Plündern: Führe einen Angriff auf einen benachbarten Helden aus. Wird dieser Held durch den Angriff kampfunfähig, wähle 1 seiner Suchkarten und mische sie in den Suchstapel.  
-**Meister – Energie:** Schwarzes Gift: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt und vergiftet. / +1 Herz  
+**Meister – Energie:** Schwarzes Gift: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt und vergiftet. / +2 Herzen  
 **Meister – Aktion:** Plündern (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau, Grau | Blau, Rot |
-| Meister | 4 | 7 | Grau, Grau | Blau, Gelb, Gelb |
+| Normal | 4 | 6 | Grau | Blau, Rot |
+| Meister | 4 | 7 | Schwarz | Blau, Gelb, Gelb |
 
 **Normal – Energie:** Vergiften / +2 Herzen  
 **Meister – Energie:** Schwarzes Gift / +2 Herzen
@@ -593,11 +592,11 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 5 | Grau, Grau | Blau, Gelb |
-| Meister | 4 | 7 | Grau, Grau | Blau, Gelb |
+| Normal | 4 | 5 | Grau | Blau, Gelb |
+| Meister | 4 | 7 | Grau | Blau, Gelb |
 
 **Normal – Energie:** Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt. / +1 Herz  
-**Normal – Aktion:** Todesschrei: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Wissen-Probe ab. Misslingt sie, ist er verdammt oder erleidet 1 Herz (deine Wahl). Höchstens 1× pro Runde.  
+**Normal – Aktion:** Todesschrei: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, ist er verdammt oder erleidet 1 Herz (deine Wahl). Höchstens 1× pro Runde.  
 **Meister – Energie:** Verdammen / +2 Herzen  
 **Meister – Fähigkeit:** Schnitter: Wird ein Held innerhalb von 5 Feldern zu diesem Monster kampfunfähig, darf sich dieses Monster sofort bis zu seiner Bewegung weit bewegen und dann einen Angriff ausführen. Höchstens 1× pro Runde.  
 **Meister – Aktion:** Todesschrei (wie Normal)
@@ -606,8 +605,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 6 | Grau, Grau | Blau, Gelb |
-| Meister | 5 | 8 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 5 | 6 | Schwarz | Blau, Gelb |
+| Meister | 5 | 8 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Verdammen / +2 Herzen  
 **Meister – Energie:** Verdammen / +3 Herzen
@@ -640,7 +639,7 @@
 **Normal – Fähigkeiten:**
 - Reichweite: Dieses Monster darf Ziele in bis zu 2 Feldern Entfernung angreifen.
 - Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.
-- Beschützen: Jedes Mal, wenn eine Figur in der Sichtlinie dieses Monsters einen Angriff auf eine zu diesem Monster benachbarte Figur ausführt, darf dieses Monster vor dem Würfeln 1 Erschöpfung erleiden, um Ziel des Angriffs zu werden.
+- Beschützen: Jedes Mal, wenn eine Figur in der Sichtlinie dieses Monsters einen Angriff auf eine zu diesem Monster benachbarte Figur ausführt, darf dieses Monster vor dem Würfeln 1 Herz erleiden, um Ziel des Angriffs zu werden. Reichweite und Sichtlinie werden weiterhin zum ursprünglichen Ziel gemessen.
 
 **Meister – Energie:** +3 Herzen  
 **Meister – Fähigkeiten:** Reichweite / Eisenhaut / Beschützen (wie Normal)
@@ -650,7 +649,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 2 | 10 | Grau, Schwarz | Blau, Rot, Grün |
-| Meister | 2 | 12 | Grau, Grau | Blau, Rot, Grün |
+| Meister | 2 | 12 | Grau, Schwarz | Blau, Rot, Grün |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -701,7 +700,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 4 | Grau, Braun | Blau, Rot |
-| Meister | 4 | 6 | Grau, Grau | Blau, Rot |
+| Meister | 4 | 6 | Grau, Braun | Blau, Rot |
 
 **Normal – Energie:** Verdorren: Das Ziel erleidet 1 Erschöpfung. / Bluten: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), blutet das Ziel.  
 **Normal – Aktion:** Flüstern: Jeder zu diesem Monster benachbarte Held legt eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, bewegt sich 1 Feld in eine Richtung deiner Wahl.  
@@ -713,8 +712,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau, Schwarz | Blau, Rot |
-| Meister | 4 | 8 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 4 | 6 | Schwarz, Braun | Blau, Rot |
+| Meister | 4 | 8 | Schwarz, Braun | Blau, Rot, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -728,8 +727,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 8 | Grau, Grau | Blau, Rot |
-| Meister | 3 | 9 | Grau, Grau | Blau, Rot |
+| Normal | 3 | 8 | Grau | Blau, Rot |
+| Meister | 3 | 9 | Grau | Blau, Rot |
 
 **Normal – Energie:** Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.  
 **Normal – Aktion:** Blutrausch: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens 1× pro Zug.  
@@ -740,8 +739,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 9 | Grau, Grau | Blau, Rot |
-| Meister | 3 | 10 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 3 | 9 | Grau | Blau, Rot, Gelb |
+| Meister | 3 | 10 | Schwarz | Blau, Rot, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -765,19 +764,19 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau, Grau | Blau, Rot |
-| Meister | 4 | 7 | Grau, Grau | Blau, Rot |
+| Normal | 4 | 4 | Grau | Blau, Rot |
+| Meister | 4 | 7 | Grau | Blau, Rot |
 
 **Normal – Energie:** Vergiften / Durchbohren 1  
 **Meister – Energie:** Vergiften / Durchbohren 2  
-**Meister – Aktion:** Einspinnen: Jeder zu diesem Monster benachbarte Held legt eine Stärke-Probe ab. Jeder Held, dessen Probe misslingt, ist bewegungsunfähig.
+**Meister – Aktion:** Einspinnen: Jeder zu diesem Monster benachbarte Held legt eine Gespür-Probe ab. Jeder Held, dessen Probe misslingt, ist bewegungsunfähig.
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 6 | Grau, Braun | Blau, Rot |
-| Meister | 4 | 9 | Grau, Grau | Blau, Rot, Gelb |
+| Meister | 4 | 9 | Grau, Braun | Blau, Rot, Gelb |
 
 **Normal – Energie:** Vergiften / Durchbohren 2  
 **Meister – Energie:** Vergiften / Durchbohren 3
@@ -792,20 +791,20 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 4 | Grau, Braun | Blau, Gelb |
-| Meister | 6 | 6 | Grau, Grau | Blau, Gelb |
+| Normal | 5 | 4 | Braun | Blau, Gelb |
+| Meister | 6 | 6 | Braun | Blau, Gelb |
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Fliegen  
-**Meister – Energie:** Betäuben: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel betäubt. / +2 Herzen  
+**Meister – Energie:** Betäuben: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel betäubt. / +1 Herz  
 **Meister – Fähigkeit:** Fliegen (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 7 | Grau, Braun | Blau, Gelb |
-| Meister | 6 | 9 | Grau, Grau | Blau, Gelb, Gelb |
+| Normal | 5 | 7 | Braun | Blau, Gelb |
+| Meister | 6 | 9 | Braun | Blau, Gelb, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -819,10 +818,12 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau, Grau | Blau, Gelb |
-| Meister | 4 | 5 | Grau, Grau | Blau, Rot |
+| Normal | 4 | 4 | Grau | Blau, Gelb |
+| Meister | 4 | 5 | Grau | Blau, Rot |
 
+**Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Wüten: Beide Aktionen dieses Monsters in einem Zug dürfen Angriffsaktionen sein.  
+**Meister – Energie:** +2 Herzen  
 **Meister – Fähigkeiten:**
 - Wüten (wie Normal)
 - Befehl: Jedes Minion-Monster innerhalb von 3 Feldern zu diesem Monster darf bei jedem seiner Angriffe 1 Würfel neu würfeln. Jedes Minion kann pro Angriff nur von 1 Monster mit Befehl profitieren.
@@ -831,8 +832,11 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 5 | Grau, Grau | Blau, Rot |
-| Meister | 5 | 6 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 5 | 5 | Grau | Blau, Rot |
+| Meister | 5 | 6 | Grau | Blau, Rot, Gelb |
+
+**Normal – Energie:** +2 Herzen  
+**Meister – Energie:** +2 Herzen
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -861,8 +865,10 @@
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Wandeln: Wenn dieses Monster angreift, verwendet es die Würfel einer Figur (Wahl des Overlords) in seiner Sichtlinie. Wird ein Held gewählt, darf der Overlord wählen, welche der ausgerüsteten Waffen des Helden verwendet wird. Das Monster kann keine anderen Fähigkeiten der Figur nutzen.  
-**Meister – Energie:** Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln. / +1 Herz  
-**Meister – Fähigkeit:** Wandeln (wie Normal)
+**Meister – Energie:** +1 Herz  
+**Meister – Fähigkeiten:**
+- Wandeln (wie Normal)
+- Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.
 
 ### Akt 2
 
@@ -872,7 +878,10 @@
 | Meister | 3 | 10 | Grau | (variabel) |
 
 **Normal – Energie:** +1 Herz  
-**Meister – Energie:** Zauberei 3 / +1 Herz
+**Meister – Energie:** +1 Herz  
+**Meister – Fähigkeiten:**
+- Wandeln (wie Normal)
+- Zauberei 3: Nach einem Angriffswurf darf dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.
 
 ---
 
@@ -888,7 +897,8 @@
 | Meister | 3 | 5 | Grau | Blau, Rot |
 
 **Normal – Energie:** Druckwelle: Dieser Angriff betrifft alle Figuren, die zum Zielfeld benachbart sind. / +1 Herz  
-**Meister – Energie:** Druckwelle / +2 Herzen
+**Meister – Energie:** +2 Herzen  
+**Meister – Fähigkeit:** Druckwelle: Dieser Angriff betrifft alle Figuren, die zum Zielfeld benachbart sind.
 
 ### Akt 2
 
@@ -898,7 +908,8 @@
 | Meister | 3 | 7 | Grau | Blau, Rot, Gelb |
 
 **Normal – Energie:** Druckwelle / +2 Herzen  
-**Meister – Energie:** Druckwelle / +2 Herzen / +1 Herz
+**Meister – Energie:** +2 Herzen / +1 Herz  
+**Meister – Fähigkeit:** Druckwelle (wie Akt 1)
 
 ---
 
@@ -910,8 +921,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 10 | Grau | Blau, Rot |
-| Meister | 3 | 12 | Grau | Blau, Rot |
+| Normal | 3 | 10 | Schwarz | Blau, Rot |
+| Meister | 3 | 12 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** Betäuben  
 **Normal – Fähigkeit:** Reichweite: Dieses Monster darf Ziele in bis zu 2 Feldern Entfernung angreifen.  
@@ -923,8 +934,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 12 | Grau | Blau, Rot, Gelb |
-| Meister | 3 | 15 | Grau | Blau, Rot, Gelb |
+| Normal | 3 | 12 | Schwarz | Blau, Rot, Gelb |
+| Meister | 3 | 15 | Schwarz | Blau, Rot, Rot |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -948,8 +959,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 8 | Grau, Schwarz | Blau, Rot |
-| Meister | 3 | 10 | Grau, Schwarz | Blau, Rot |
+| Normal | 3 | 8 | Schwarz | Blau, Rot |
+| Meister | 3 | 10 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.  
@@ -962,8 +973,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 10 | Grau, Schwarz | Blau, Rot, Gelb |
-| Meister | 3 | 12 | Grau, Schwarz | Blau, Rot, Gelb |
+| Normal | 3 | 10 | Grau, Schwarz | Blau, Rot, Rot |
+| Meister | 3 | 12 | Grau, Schwarz | Blau, Rot, Rot |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -987,8 +998,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau | Blau, Gelb |
-| Meister | 4 | 9 | Grau | Blau, Gelb, Gelb |
+| Normal | 4 | 6 | Grau, Braun | Blau, Gelb, Gelb |
+| Meister | 4 | 9 | Grau, Braun | Blau, Gelb, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -1005,10 +1016,12 @@
 | Normal | 4 | 3 | Grau | Blau, Gelb |
 | Meister | 4 | 5 | Grau | Blau, Gelb |
 
-**Normal – Energie:** Zauberei 2  
+**Normal – Fähigkeit:** Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.  
 **Normal – Aktion:** Beschwören: Wähle ein Minion-Monster innerhalb von 3 Feldern zu diesem Monster. Platziere dieses Minion-Monster auf einem leeren Feld benachbart zu diesem Monster.  
-**Meister – Energie:** Zauberei 3  
-**Meister – Fähigkeit:** Todeswunsch: Würde dieses Master-Monster besiegt, darf der Overlord 1 Minion-Monster derselben Gruppe stattdessen besiegen lassen. Tut er das, heilt dieses Master-Monster alle Herzen.  
+**Meister – Fähigkeiten:**
+- Zauberei 3: Nach einem Angriffswurf darf dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.
+- Todeswunsch: Würde dieses Master-Monster besiegt, darf der Overlord 1 Minion-Monster derselben Gruppe stattdessen besiegen lassen. Tut er das, heilt dieses Master-Monster alle Herzen.
+
 **Meister – Aktion:** Beschwören (wie Normal)
 
 ### Akt 2
@@ -1071,8 +1084,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau | Blau, Gelb |
-| Meister | 3 | 7 | Grau | Blau, Gelb |
+| Normal | 3 | 5 | Grau, Grau | Blau, Gelb |
+| Meister | 3 | 7 | Grau, Grau | Blau, Gelb |
 
 **Normal – Energie:** Druckwelle / +2 Herzen  
 **Meister – Energie:** Druckwelle / +2 Herzen  
@@ -1175,8 +1188,8 @@
 | Normal | 3 | 6 | Grau | Blau, Gelb |
 | Meister | 3 | 9 | Grau | Blau, Rot |
 
-**Normal – Energie:** Rückstoß / +3 Lebenspunkte  
-**Meister – Energie:** Rückstoß / +3 Lebenspunkte  
+**Normal – Energie:** Rückstoß / +3 Herzen  
+**Meister – Energie:** Rückstoß / +3 Herzen  
 **Meister – Fähigkeit:** Fleischhändler: Jedes Mal, wenn ein Held, dessen Heldenmarker nicht auf dieser Karte liegt, 1 oder mehr Herzen durch einen Angriff dieses Monsters erleidet, lege 1 seiner Heldenmarker auf diese Karte. Für jeden Heldenmarker auf dieser Karte erhält dieses Monster +2 Lebenspunkte. Wird dieses Monster besiegt, lege alle Heldenmarker von dieser Karte ab.
 
 ### Akt 2
@@ -1247,8 +1260,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 6 | Grau | Blau, Rot |
-| Meister | 5 | 8 | Grau | Blau, Rot, Gelb |
+| Normal | 5 | 6 | Schwarz | Blau, Rot |
+| Meister | 5 | 8 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Jagen / Durchbohren 3  
 **Meister – Energie:** Jagen / Durchbohren 3 / Feueratem
@@ -1295,25 +1308,37 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 7 | Grau, Braun | Blau, Gelb |
-| Meister | 5 | 9 | Grau, Braun | Blau, Gelb |
+| Normal | 5 | 7 | Braun | Blau, Gelb |
+| Meister | 5 | 9 | Braun | Blau, Gelb |
 
-**Normal – Energie:** Durchbohren 2 / +1 Lebenspunkt  
-**Normal – Fähigkeit:** Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.  
-**Meister – Energie:** Durchbohren 3 / +1 Lebenspunkt  
+**Normal – Energie:** +1 Herz  
+**Normal – Fähigkeiten:**
+- Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.
+- Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.
+
+**Meister – Energie:** +1 Herz  
 **Meister – Fähigkeiten:**
 - Heimlich (wie Normal)
-- Riposte: Jedes Mal, wenn eine benachbarte Figur einen Angriff abschließt, der dieses Monster betrifft, erleidet diese Figur Herzen in Höhe der Verteidigungsergebnisse; ist der Angriff ein Fehlschlag, erleidet die Figur stattdessen Herzen in Höhe der gewürfelten Schild.
+- Durchbohren 3: Dieser Angriff ignoriert 3 Schild im Verteidigungswurf.
+- Riposte: Jedes Mal, wenn eine benachbarte Figur einen Angriff abschließt, der dieses Monster betrifft, erleidet diese Figur Herzen in Höhe der gewürfelten Schilde; ist der Angriff ein Fehlschlag, erleidet die Figur stattdessen 1 Herz.
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 8 | Grau, Braun | Blau, Gelb |
-| Meister | 5 | 10 | Grau, Braun | Blau, Gelb |
+| Normal | 5 | 8 | Grau | Blau, Gelb |
+| Meister | 5 | 10 | Grau | Blau, Gelb |
 
-**Normal – Energie:** Durchbohren 2 / +2 Lebenspunkte  
-**Meister – Energie:** Durchbohren 4 / +2 Lebenspunkte
+**Normal – Energie:** +2 Herzen  
+**Normal – Fähigkeiten:**
+- Heimlich (wie Akt 1)
+- Durchbohren 2 (wie Akt 1)
+
+**Meister – Energie:** +2 Herzen  
+**Meister – Fähigkeiten:**
+- Heimlich (wie Akt 1)
+- Durchbohren 4: Dieser Angriff ignoriert 4 Schild im Verteidigungswurf.
+- Riposte (wie Akt 1)
 
 ---
 
@@ -1365,11 +1390,11 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 5 | Grau | Blau, Gelb |
-| Meister | 4 | 7 | Grau | Blau, Gelb |
+| Meister | 4 | 7 | Schwarz | Blau, Gelb |
 
-**Normal – Energie:** +1 Lebenspunkt  
+**Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Lebensdurst 1: Jedes Mal, wenn ein Held innerhalb von 5 Feldern zu diesem Monster 1 oder mehr Herzen heilt, reduziert er die geheilte Anzahl Herzen um 1 (Minimum 0).  
-**Meister – Energie:** +1 Lebenspunkt  
+**Meister – Energie:** +1 Herz  
 **Meister – Fähigkeit:** Lebensdurst 1 (wie Normal)  
 **Meister – Aktion:** Todesomen: Wähle 1 Helden in der Sichtlinie dieses Monsters. Dieser Held darf 2 Herzen erleiden. Tut er das nicht, erleidet er 1 Zustand deiner Wahl.
 
@@ -1377,11 +1402,11 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 7 | Grau | Blau, Gelb |
+| Normal | 5 | 7 | Schwarz | Blau, Gelb |
 | Meister | 5 | 9 | Grau, Schwarz | Blau, Gelb |
 
-**Normal – Energie:** +2 Lebenspunkte  
-**Meister – Energie:** +2 Lebenspunkte  
+**Normal – Energie:** +2 Herzen  
+**Meister – Energie:** +2 Herzen  
 **Meister – Fähigkeit:** Lebensdurst 2: Jedes Mal, wenn ein Held innerhalb von 5 Feldern zu diesem Monster 1 oder mehr Herzen heilt, reduziert er die geheilte Anzahl Herzen um 2 (Minimum 0).  
 **Meister – Aktion:** Todesomen (wie Akt 1)
 
@@ -1395,23 +1420,35 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 3 | Grau | Blau, Gelb |
-| Meister | 4 | 6 | Grau | Blau, Gelb |
+| Normal | 4 | 3 | Braun | Blau, Gelb |
+| Meister | 4 | 6 | Braun | Blau, Gelb |
 
-**Normal – Energie:** Durchbohren 1 / +1 Reichweite  
-**Normal – Fähigkeit:** Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.  
-**Meister – Energie:** Durchbohren 1 / +1 Reichweite / +1 Lebenspunkt  
-**Meister – Fähigkeit:** Wiederbelebung (wie Normal)
+**Normal – Energie:** +1 Reichweite  
+**Normal – Fähigkeiten:**
+- Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.
+- Durchbohren 1: Dieser Angriff ignoriert 1 Schild im Verteidigungswurf.
+
+**Meister – Energie:** +1 Reichweite / +1 Herz  
+**Meister – Fähigkeiten:**
+- Wiederbelebung (wie Normal)
+- Durchbohren 1 (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau | Blau, Gelb |
-| Meister | 4 | 8 | Grau | Blau, Gelb |
+| Normal | 4 | 4 | Braun | Blau, Gelb |
+| Meister | 4 | 8 | Braun | Blau, Gelb |
 
-**Normal – Energie:** Durchbohren 1 / +2 Reichweite  
-**Meister – Energie:** Durchbohren 2 / +2 Reichweite / +2 Lebenspunkte
+**Normal – Energie:** +2 Reichweite  
+**Normal – Fähigkeiten:**
+- Wiederbelebung (wie Akt 1)
+- Durchbohren 1 (wie Akt 1)
+
+**Meister – Energie:** +2 Reichweite / +2 Herzen  
+**Meister – Fähigkeiten:**
+- Wiederbelebung (wie Akt 1)
+- Durchbohren 2: Dieser Angriff ignoriert 2 Schild im Verteidigungswurf.
 
 ---
 
@@ -1433,8 +1470,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 5 | Grau, Grau | Blau, Rot |
-| Meister | 4 | 7 | Grau, Grau | Blau, Rot |
+| Normal | 4 | 5 | Grau | Blau, Rot |
+| Meister | 4 | 7 | Grau | Blau, Rot |
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Wüten  
@@ -1446,8 +1483,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 7 | Grau, Grau | Blau, Rot, Gelb |
-| Meister | 4 | 9 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 4 | 7 | Grau | Blau, Rot, Gelb |
+| Meister | 4 | 9 | Grau | Blau, Rot, Rot |
 
 **Normal – Energie:** +2 Herzen  
 **Meister – Energie:** +2 Herzen
@@ -1462,19 +1499,19 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 4 | Grau, Grau | Blau, Rot |
-| Meister | 4 | 5 | Grau, Grau | Blau, Rot |
+| Normal | 4 | 4 | Grau | Blau, Rot |
+| Meister | 4 | 5 | Grau | Blau, Rot |
 
 **Normal – Energie:** Verseuchen / Durchbohren 2  
 **Meister – Energie:** Verseuchen / Durchbohren 2  
-**Meister – Aktion:** Extrahieren: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Misslingt sie, erleidet der Held 2 Herzen und dieses Monster heilt 2 Herzen.
+**Meister – Aktion:** Extrahieren: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Misslingt sie, erleidet der Held 2 Erschöpfung und dieses Monster heilt 2 Herzen.
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 5 | Grau, Braun | Blau, Rot, Gelb |
-| Meister | 4 | 8 | Grau, Grau | Blau, Rot, Gelb |
+| Meister | 4 | 8 | Grau, Braun | Blau, Rot, Gelb |
 
 **Normal – Energie:** Verseuchen / Durchbohren 3  
 **Meister – Energie:** Verseuchen / Durchbohren 3
@@ -1489,8 +1526,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 5 | Grau, Schwarz | Blau, Rot |
-| Meister | 4 | 6 | Grau, Schwarz | Blau, Rot |
+| Normal | 4 | 5 | Schwarz | Blau, Rot |
+| Meister | 4 | 6 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** Vergiften  
 **Normal – Fähigkeit:** Zauberei 1  
@@ -1502,8 +1539,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 6 | Grau, Schwarz | Blau, Rot |
-| Meister | 4 | 8 | Grau, Schwarz | Blau, Rot, Gelb |
+| Normal | 4 | 6 | Schwarz | Blau, Rot |
+| Meister | 4 | 8 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Vergiften  
 **Normal – Fähigkeit:** Zauberei 3  
@@ -1530,14 +1567,14 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 8 | Grau | Blau |
-| Meister | 4 | 8 | Grau, Schwarz | Blau |
+| Normal | 4 | 8 | Braun | Blau |
+| Meister | 4 | 8 | Schwarz | Blau |
 
 **Normal – Energie:** Durchbohren 1  
 **Normal – Fähigkeiten:**
 - Sturmangriff: Jedes Mal, wenn dieses Monster ein Feld als Ziel wählt, zu dem es zu Beginn seiner Aktivierung nicht benachbart war, füge 1 roten Machtwürfel zu seinem Angriffspool hinzu.
 - Fauliger Schlick: Am Ende der Aktivierung dieses Monsters ist jeder Held innerhalb von 3 Feldern verseucht.
-- Eiterbeulen: Jedes Mal, wenn ein verseuchter Held innerhalb von 3 Feldern zu 1 oder mehr Monstern mit Eiterbeulen freiwillig 1 oder mehr Herzen erleidet, erleidet dieser Held 1 Herz.
+- Eiterbeulen: Jedes Mal, wenn ein verseuchter Held innerhalb von 3 Feldern zu 1 oder mehr Monstern mit Eiterbeulen freiwillig 1 oder mehr Erschöpfung ausgibt, erleidet dieser Held 1 Herz.
 
 **Meister – Energie:** Durchbohren 2  
 **Meister – Fähigkeiten:** Sturmangriff / Fauliger Schlick / Eiterbeulen (wie Normal)
@@ -1547,7 +1584,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 4 | 10 | Grau, Braun | Blau, Rot |
-| Meister | 4 | 10 | Grau, Grau | Blau, Rot |
+| Meister | 4 | 10 | Schwarz, Grau | Blau, Rot |
 
 **Normal – Energie:** Durchbohren 2  
 **Meister – Energie:** Durchbohren 4
@@ -1571,7 +1608,7 @@
 
 **Meister – Fähigkeiten:**
 - Begraben / Reichweite (wie Normal)
-- Eisig: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Herz.
+- Eisig: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Erschöpfung.
 
 ### Akt 2
 
@@ -1586,33 +1623,33 @@
 
 ## Schatten (Shade)
 
-**Erweiterung:** Scherben von Everdark | **Merkmale:** Verflucht, Dunkel
+**Erweiterung:** Scherben von Everdark | **Merkmale:** Verflucht, Kalt
 
 ### Akt 1
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 4 | 2 | Grau, Schwarz | Blau, Gelb |
-| Meister | 4 | 5 | Grau, Schwarz | Blau, Gelb |
+| Normal | 4 | 2 | Schwarz | Blau, Gelb |
+| Meister | 4 | 5 | Schwarz | Blau, Gelb |
 
 **Normal – Energie:** Durchbohren 1  
-**Normal – Fähigkeit:** Seelenfessel 1: Jedes Mal, wenn ein Held innerhalb von 3 Feldern zu diesem Monster 1 oder mehr Herzen heilt, darf dieses Monster die geheilte Anzahl Herzen um 1 reduzieren (Minimum 0).  
-**Normal – Aktion:** Flackern: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Entferne dieses Monster von der Karte und platziere es benachbart zu diesem Helden. Hat dieses Monster in dieser Aktivierung noch nicht angegriffen, darf es dann einen Angriff auf diesen Helden ausführen.  
+**Normal – Fähigkeit:** Seelenfessel 1: Jedes Mal, wenn ein Held innerhalb von 3 Feldern zu diesem Monster 1 oder mehr Erschöpfung zurückgewinnt, darf dieses Monster die zurückgewonnene Anzahl Erschöpfung um 1 reduzieren (Minimum 0).  
+**Normal – Aktion:** Flackern: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Entferne dieses Monster von der Karte und platziere es benachbart zu diesem Helden. Hat dieses Monster in dieser Aktivierung noch nicht angegriffen, legt der Held eine Gespür-Probe ab. Misslingt sie, darf dieses Monster dann einen Angriff auf diesen Helden ausführen.  
 **Meister – Energie:** Durchbohren 2  
-**Meister – Fähigkeit:** Seelenfessel 2: ... die geheilte Anzahl Herzen um 2 reduzieren.  
+**Meister – Fähigkeit:** Seelenfessel 2: Jedes Mal, wenn ein Held innerhalb von 3 Feldern zu diesem Monster 1 oder mehr Erschöpfung zurückgewinnt, darf dieses Monster die zurückgewonnene Anzahl Erschöpfung um 2 reduzieren (Minimum 0).  
 **Meister – Aktion:** Flackern (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 4 | Grau, Schwarz | Blau, Rot |
-| Meister | 5 | 7 | Grau, Schwarz | Blau, Rot, Gelb |
+| Normal | 5 | 4 | Schwarz | Blau, Rot |
+| Meister | 5 | 7 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Durchbohren 1  
-**Normal – Fähigkeit:** Seelenfessel 1  
+**Normal – Fähigkeit:** Seelenfessel 1 (wie Akt 1)  
 **Meister – Energie:** Durchbohren 2  
-**Meister – Fähigkeit:** Seelenfessel 3: ... die geheilte Anzahl Herzen um 3 reduzieren.
+**Meister – Fähigkeit:** Seelenfessel 3: Jedes Mal, wenn ein Held innerhalb von 3 Feldern zu diesem Monster 1 oder mehr Erschöpfung zurückgewinnt, darf dieses Monster die zurückgewonnene Anzahl Erschöpfung um 3 reduzieren (Minimum 0).
 
 ---
 
@@ -1634,8 +1671,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 2 | 7 | Grau, Braun | Blau, Gelb |
-| Meister | 2 | 10 | Grau, Schwarz | Blau, Gelb |
+| Normal | 2 | 7 | Braun | Blau, Gelb |
+| Meister | 2 | 10 | Braun | Blau, Gelb |
 
 **Normal – Energie:** Verängstigen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel verängstigt. / +1 Herz  
 **Normal – Fähigkeit:** Überfluten: Helden behandeln jedes zu diesem Monster benachbarte Feld als Schlamm-Feld.  
@@ -1648,8 +1685,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 2 | 8 | Grau, Grau | Blau, Gelb, Gelb |
-| Meister | 2 | 12 | Grau, Schwarz | Blau, Rot, Gelb |
+| Normal | 2 | 8 | Grau | Blau, Gelb, Gelb |
+| Meister | 2 | 12 | Grau | Blau, Rot, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -1663,8 +1700,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 5 | Grau, Grau | Blau, Gelb |
-| Meister | 5 | 7 | Grau, Grau | Blau, Gelb |
+| Normal | 5 | 5 | Grau | Blau, Gelb |
+| Meister | 5 | 7 | Grau | Blau, Gelb |
 
 **Normal – Energie:** Durchbohren 1  
 **Normal – Fähigkeiten:**
@@ -1678,8 +1715,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 5 | 6 | Grau, Grau | Blau, Rot |
-| Meister | 5 | 9 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 5 | 6 | Schwarz | Blau, Rot |
+| Meister | 5 | 9 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Durchbohren 1  
 **Meister – Energie:** Durchbohren 2 / Peitschen
@@ -1742,23 +1779,23 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 2 | 6 | Grau, Grau | Blau, Gelb |
-| Meister | 2 | 8 | Grau, Grau | Blau, Gelb |
+| Normal | 2 | 6 | Grau | Blau, Gelb |
+| Meister | 2 | 8 | Grau | Blau, Gelb |
 
 **Normal – Energie:** +1 Herz  
-**Normal – Aktionen:**
-- Ätherischer Griff: Zu Beginn des Overlord-Zuges darf dieses Monster 1 Heldenmarker von seinem Sockel ablegen. Tut es das, entferne es von der Karte und platziere es innerhalb von 3 Feldern zum entsprechenden Helden.
-- Furchtmal: Wähle einen Helden in der Sichtlinie dieses Monsters und lege dessen Heldenmarker auf den Sockel dieses Monsters.
+**Normal – Fähigkeit:** Ätherischer Griff: Zu Beginn des Overlord-Zuges darf dieses Monster 1 Heldenmarker von seinem Sockel ablegen. Tut es das, entferne es von der Karte und platziere es innerhalb von 3 Feldern zum entsprechenden Helden.  
+**Normal – Aktion:** Furchtmal: Wähle einen Helden in der Sichtlinie dieses Monsters und lege dessen Heldenmarker auf den Sockel dieses Monsters.
 
 **Meister – Energie:** Verängstigen / +1 Herz  
-**Meister – Aktionen:** Ätherischer Griff / Furchtmal (wie Normal)
+**Meister – Fähigkeit:** Ätherischer Griff (wie Normal)  
+**Meister – Aktion:** Furchtmal (wie Normal)
 
 ### Akt 2
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 2 | 8 | Grau, Braun | Blau, Gelb |
-| Meister | 2 | 10 | Grau, Grau | Blau, Gelb, Gelb |
+| Meister | 2 | 10 | Grau, Braun | Blau, Gelb, Gelb |
 
 **Normal – Energie:** +2 Herzen  
 **Meister – Energie:** Verängstigen / +2 Herzen
@@ -1774,10 +1811,10 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 5 | 7 | Grau, Braun | Blau, Gelb |
-| Meister | 5 | 9 | Grau, Grau | Blau, Gelb |
+| Meister | 5 | 9 | Grau, Braun | Blau, Gelb |
 
 **Normal – Energie:** Sterbliche Bindung: Das Ziel legt eine Wissen-Probe ab. Misslingt sie, lege seinen Heldenmarker auf diese Karte. Ein Held, dessen Marker auf dieser Karte liegt, kann keine Herzen heilen. Wird ein Monster dieser Gruppe besiegt oder ein Held kampfunfähig, lege alle Heldenmarker von dieser Karte ab. / +1 Herz  
-**Normal – Fähigkeit:** Schattenschritt: Jedes Mal, wenn ein Held einen Angriff auf dieses Monster ausführt, darf er 1 Herz ausgeben. Tut er das nicht, erhält dieses Monster 3 Bewegungspunkte, nachdem der Angriff abgeschlossen ist.  
+**Normal – Fähigkeit:** Schattenschritt: Jedes Mal, wenn ein Held einen Angriff auf dieses Monster ausführt, darf er 1 Schub ausgeben. Tut er das nicht, erhält dieses Monster 5 Bewegungspunkte, nachdem der Angriff abgeschlossen ist.  
 **Meister – Energie:** Sterbliche Bindung / +1 Herz  
 **Meister – Fähigkeit:** Schattenschritt (wie Normal)
 
@@ -1786,7 +1823,7 @@
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
 | Normal | 5 | 8 | Grau, Grau | Blau, Gelb, Gelb |
-| Meister | 5 | 10 | Grau, Grau | Blau, Gelb |
+| Meister | 5 | 10 | Grau, Grau | Blau, Gelb, Gelb |
 
 *(Fähigkeiten wie Akt 1)*
 
@@ -1800,8 +1837,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 5 | Grau, Grau | Blau, Rot |
-| Meister | 3 | 8 | Grau, Grau | Blau, Rot |
+| Normal | 3 | 5 | Schwarz | Blau, Rot |
+| Meister | 3 | 8 | Schwarz | Blau, Rot |
 
 **Normal – Energie:** +1 Herz  
 **Normal – Fähigkeit:** Durchstoßen: Jeder Angriff dieses Monsters ignoriert 1 Schild für jeden Verteidigungswürfel, den das Ziel des Angriffs würfelt.  
@@ -1814,8 +1851,8 @@
 
 | Typ | Bewegung | LP | Verteidigung | Angriff |
 |-----|----------|-----|-------------|---------|
-| Normal | 3 | 7 | Grau, Grau | Blau, Rot |
-| Meister | 3 | 9 | Grau, Grau | Blau, Rot, Gelb |
+| Normal | 3 | 7 | Schwarz | Blau, Rot |
+| Meister | 3 | 9 | Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** +2 Herzen  
 **Meister – Energie:** +2 Herzen
