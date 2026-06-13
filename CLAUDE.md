@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.1 (2026-06-13)
+## Aktuelle Version: 1.1.2 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), **Grundspiel-Helden-Klassen (1.1.1)**. Offen: Erweiterungs-Klassen, Items, Overlord, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), **Alle 16 Erweiterungs-Klassen (1.1.2)**. Offen: Items, Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -189,9 +189,10 @@ Totenbeschwörer-Begleiter heißt „Reanimate", nicht „Skelett" — beides vi
       (2026-06-13: alle 56 Gruppen aus den `-back.png`-Karten abgelesen; neues Feld
       `groupSizes: { p2/p3/p4: [Diener, Meister] }` im `Monster`-Typ; Anzeige in
       MonstersPage; Datenintegritäts-Test ergänzt — 19 Tests grün)
-- [~] Helden-Klassen: Grundspiel ✅ (1.1.1 – 8 Klassen, 72 Fähigkeitskarten, zweisprachig
-      EN+DE aus any2cards-Strukturdaten; src/data/heroClasses.ts, ClassesPage, Tests).
-      Offen: Klassen der Erweiterungen (Champion, Beastmaster, Marshal, … → 1.1.x)
+- [x] Helden-Klassen: Alle 24 Klassen ✅ (1.1.2 – 8 Grundspiel + 16 Erweiterungen, 204+
+      Fähigkeitskarten, zweisprachig EN+DE aus any2cards-Strukturdaten; 3 Begleiter:
+      Wolf/Beastmaster, Gerufener Stein/Geomant, Schattengeist/Shadow Walker.
+      Elementalist mit 'elemental'-XP-Typ; Seelenernter mit 2 Startkarten).
 - [ ] Items (items.md ist Stub, src/data/items.ts fehlt)
 - [ ] Overlord-Klassen + Karten (overlord-classes.md ist Stub, src/data/overlordClasses.ts fehlt)
 - [ ] Leutnants (lieutenants.md ist Stub, src/data/lieutenants.ts fehlt)
