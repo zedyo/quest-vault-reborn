@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.4',
+    date: '2026-06-13',
+    title: 'Ausrüstung: Deutsche Texte & doppelseitige Relikte',
+    highlights: [
+      'Alle Item- und Reliktkarten jetzt mit deutscher Übersetzung – per Schalter zwischen Deutsch und dem englischen Original umschaltbar.',
+      'Relikte sind nun vollständig als doppelseitige Karten erfasst: die Helden-Seite und die Overlord-Seite werden getrennt dargestellt und beschriftet.',
+      'Deutsche Item-Namen ergänzt; Akt-Zuordnung der Shop-Karten korrigiert (Akt 1 / Akt 2).',
+    ],
+  },
+  {
     version: '1.1.3',
     date: '2026-06-13',
     title: 'Ausrüstung: Shop-Karten & Relikte',
