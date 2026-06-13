@@ -86,6 +86,35 @@ describe('Monster-Datenintegrität', () => {
     }
     expect(errors, errors.join('\n')).toEqual([])
   })
+
+  it('Gruppengrößen vollständig und plausibel (alle Monster, 2/3/4 Spieler)', () => {
+    const errors: string[] = []
+    for (const m of MONSTERS) {
+      if (!m.groupSizes) {
+        errors.push(`${m.id}: groupSizes fehlt`)
+        continue
+      }
+      for (const key of ['p2', 'p3', 'p4'] as const) {
+        const comp = m.groupSizes[key]
+        if (!Array.isArray(comp) || comp.length !== 2) {
+          errors.push(`${m.id}.${key}: muss [Diener, Meister] sein`)
+          continue
+        }
+        const [minions, masters] = comp
+        if (!Number.isInteger(minions) || minions < 0 || minions > 12)
+          errors.push(`${m.id}.${key}: Diener-Zahl ${minions} unplausibel`)
+        if (!Number.isInteger(masters) || masters < 0 || masters > 3)
+          errors.push(`${m.id}.${key}: Meister-Zahl ${masters} unplausibel`)
+        if (minions + masters < 1)
+          errors.push(`${m.id}.${key}: Gruppe hat 0 Figuren`)
+      }
+      // Gruppe darf mit steigender Spielerzahl nicht schrumpfen (Gesamtfiguren)
+      const total = (k: 'p2' | 'p3' | 'p4') => m.groupSizes![k][0] + m.groupSizes![k][1]
+      if (total('p3') < total('p2')) errors.push(`${m.id}: 3-Spieler-Gruppe kleiner als 2-Spieler`)
+      if (total('p4') < total('p3')) errors.push(`${m.id}: 4-Spieler-Gruppe kleiner als 3-Spieler`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
 })
 
 describe('Helden-Datenintegrität', () => {

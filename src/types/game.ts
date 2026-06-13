@@ -34,12 +34,29 @@ export interface MonsterStats {
   actions?: string[]
 }
 
+/** Gruppenzusammensetzung als [Diener, Meister] (Anzahl normaler + Meister-Figuren) */
+export type GroupComposition = [minions: number, masters: number]
+
+/**
+ * Monster-Gruppengröße pro Spielerzahl, von den offiziellen Kartenrückseiten
+ * (any2cards `-back.png`) validiert. Jeder Eintrag ist [Diener, Meister].
+ */
+export interface MonsterGroupSizes {
+  /** 2 Helden */
+  p2: GroupComposition
+  /** 3 Helden */
+  p3: GroupComposition
+  /** 4 Helden */
+  p4: GroupComposition
+}
+
 export interface Monster {
   id: string
   nameDe: string
   nameEn: string
   expansionId: string
   traits?: string[]
+  groupSizes?: MonsterGroupSizes
   normal?: MonsterStats
   master?: MonsterStats
   act2Normal?: MonsterStats
