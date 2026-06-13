@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.0 (2026-06-13)
+## Aktuelle Version: 1.1.1 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (Teil 1 ausgeliefert) | Datenvollständigkeit – ausgeliefert: Monster-Gruppengrößen, Versionsanzeige + Release-Notes-Popup. Offen: Helden-Klassen, Items, Overlord, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), **Grundspiel-Helden-Klassen (1.1.1)**. Offen: Erweiterungs-Klassen, Items, Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -160,6 +160,27 @@ Schwärme (Kobold) deutlich größere Zahlen. Im Code: `groupSizes` als `[Diener
 
 → Vollständiger Validierungspass aller 56 Monstergruppen + 2 Helden: ✅ ABGESCHLOSSEN
 
+### any2cards-STRUKTURDATEN (Goldgrube, entdeckt 2026-06-13)
+
+Das any2cards/d2e-Repo hat ein `data/`-Verzeichnis mit **strukturierten JS/JSON-Dateien** —
+weit zuverlässiger als Pixel-Lesen von Kartenbildern. Zugriff ohne API-Limit per
+Blobless-Clone: `git clone --filter=blob:none --no-checkout --depth 1 https://github.com/any2cards/d2e`,
+dann `git -C <repo> ls-tree -r --name-only HEAD | grep '^data/'`. Einzeldatei direkt:
+`https://raw.githubusercontent.com/any2cards/d2e/master/data/<name>.js` (ist gültiges JSON).
+
+Relevante Dateien für offene v1.1-Aufgaben:
+- `class-skills.js` (282 Karten, Felder: name, archetype, class, `xp cost`, `fatigue cost`,
+  rules, expansion, image), `class-familiars.js`, `class-items.js`, `hybrid-class-skills.js`
+- `shop-items.js`, `relics.js` (Items), `overlord-decks.js` (Overlord), `lieutenants.js`,
+  `agents.js` (Leutnants), `travel-event-decks.js` (Reisekarten), `heroes.js`, `monsters.js`
+
+**Wichtig:** Daten sind **englisch**. Vorgehen (mit User abgestimmt 2026-06-13):
+**zweisprachig** speichern — EN-Original (zuverlässig) + DE-Community-Übersetzung
+(klar als solche markieren, nicht zwingend offizieller FFG-Wortlaut). Vorsicht bei
+**Errata-Dubletten** (dieselbe Karte 2× mit unterschiedlichem Text → die spätere/
+klarere Fassung nehmen) und **Stub-Fehlern** (z. B. Runenmeister hat KEINEN Begleiter;
+Totenbeschwörer-Begleiter heißt „Reanimate", nicht „Skelett" — beides via Daten korrigiert).
+
 ---
 
 ## Was noch fehlt (offene Arbeit v1.1)
@@ -168,7 +189,9 @@ Schwärme (Kobold) deutlich größere Zahlen. Im Code: `groupSizes` als `[Diener
       (2026-06-13: alle 56 Gruppen aus den `-back.png`-Karten abgelesen; neues Feld
       `groupSizes: { p2/p3/p4: [Diener, Meister] }` im `Monster`-Typ; Anzeige in
       MonstersPage; Datenintegritäts-Test ergänzt — 19 Tests grün)
-- [ ] Helden-Klassen vollständig (hero-classes.md ist Stub, Daten ausstehend)
+- [~] Helden-Klassen: Grundspiel ✅ (1.1.1 – 8 Klassen, 72 Fähigkeitskarten, zweisprachig
+      EN+DE aus any2cards-Strukturdaten; src/data/heroClasses.ts, ClassesPage, Tests).
+      Offen: Klassen der Erweiterungen (Champion, Beastmaster, Marshal, … → 1.1.x)
 - [ ] Items (items.md ist Stub, src/data/items.ts fehlt)
 - [ ] Overlord-Klassen + Karten (overlord-classes.md ist Stub, src/data/overlordClasses.ts fehlt)
 - [ ] Leutnants (lieutenants.md ist Stub, src/data/lieutenants.ts fehlt)

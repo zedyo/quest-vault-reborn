@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.1',
+    date: '2026-06-13',
+    title: 'Helden-Klassen (Grundspiel)',
+    highlights: [
+      'Neu: Eigene Seite „Klassen" mit allen 8 Grundspiel-Klassen und ihren Fähigkeitskarten – inkl. XP-Kosten, Ausdauer-Kosten und Regeltext.',
+      'Kartentexte zweisprachig: deutsche Übersetzung mit Umschaltung auf den englischen Originalwortlaut.',
+      'Begleiter des Totenbeschwörers (Reanimierter) mit Werten ergänzt.',
+    ],
+  },
+  {
     version: '1.1.0',
     date: '2026-06-13',
     title: 'Monster-Gruppengrößen & Versionsverlauf',

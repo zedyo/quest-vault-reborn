@@ -6,6 +6,7 @@ import QuestEditorPage from './pages/QuestEditorPage'
 import CollectionPage from './pages/CollectionPage'
 import MonstersPage from './pages/MonstersPage'
 import HeroesPage from './pages/HeroesPage'
+import ClassesPage from './pages/ClassesPage'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="sammlung" element={<CollectionPage />} />
         <Route path="monster" element={<MonstersPage />} />
         <Route path="helden" element={<HeroesPage />} />
+        <Route path="klassen" element={<ClassesPage />} />
       </Route>
     </Routes>
   )
