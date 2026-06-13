@@ -281,6 +281,8 @@ describe('Item-Datenintegrität', () => {
     for (const item of SHOP_ITEMS) {
       if (!item.id) errors.push(`Item ohne ID`)
       if (!item.nameEn) errors.push(`${item.id}: nameEn fehlt`)
+      if (!item.nameDe) errors.push(`${item.id}: nameDe fehlt`)
+      if (!item.rulesDe) errors.push(`${item.id}: rulesDe fehlt`)
       if (item.act !== 1 && item.act !== 2) errors.push(`${item.id}: act ${item.act} ungültig`)
       if (item.cost < 0 || item.cost > 5000) errors.push(`${item.id}: cost ${item.cost} unplausibel`)
       if (!VALID_EQUIP.has(item.equip)) errors.push(`${item.id}: equip '${item.equip}' ungültig`)
@@ -293,10 +295,14 @@ describe('Item-Datenintegrität', () => {
   })
 
   it('Relikte: Pflichtfelder + Plausibilität', () => {
+    const VALID_SIDE = new Set(['hero', 'overlord'])
     const errors: string[] = []
     for (const item of RELICS) {
       if (!item.id) errors.push(`Relikt ohne ID`)
       if (!item.nameEn) errors.push(`${item.id}: nameEn fehlt`)
+      if (!item.nameDe) errors.push(`${item.id}: nameDe fehlt`)
+      if (!item.rulesDe) errors.push(`${item.id}: rulesDe fehlt`)
+      if (!VALID_SIDE.has(item.side)) errors.push(`${item.id}: side '${item.side}' ungültig`)
       if (!VALID_EQUIP.has(item.equip)) errors.push(`${item.id}: equip '${item.equip}' ungültig`)
       if (item.attack && !VALID_ATTACK.has(item.attack)) errors.push(`${item.id}: attack '${item.attack}' ungültig`)
       for (const d of item.dice) {
@@ -304,6 +310,13 @@ describe('Item-Datenintegrität', () => {
       }
     }
     expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('Relikte: doppelseitig (Helden- und Overlord-Seite vorhanden)', () => {
+    const hero = RELICS.filter((r) => r.side === 'hero').length
+    const overlord = RELICS.filter((r) => r.side === 'overlord').length
+    expect(hero, 'Helden-Seiten').toBeGreaterThan(0)
+    expect(overlord, 'Overlord-Seiten').toBeGreaterThan(0)
   })
 })
 

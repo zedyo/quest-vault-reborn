@@ -24,10 +24,13 @@ export type DieColor = 'blue' | 'red' | 'yellow' | 'green' | 'white' | 'gray' | 
 export type ItemEquip = 'one-hand' | 'two-hands' | 'armor' | 'other'
 export type AttackType = 'melee' | 'range'
 
+/** Relikte sind doppelseitig: eine Helden-Seite und eine Overlord-(Leutnants-)Seite. */
+export type RelicSide = 'hero' | 'overlord'
+
 export interface ShopItem {
   id: string
   nameEn: string
-  /** DE-Name: vorläufig = nameEn (offizielle FFG-DE-Namen noch nicht erfasst) */
+  /** DE-Name: Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut) */
   nameDe: string
   expansionId: string
   act: 1 | 2
@@ -37,20 +40,26 @@ export interface ShopItem {
   equip: ItemEquip
   dice: DieColor[]
   rulesEn: string
+  /** DE-Regeltext: Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut) */
+  rulesDe: string
   imageUrl?: string
 }
 
 export interface Relic {
   id: string
   nameEn: string
-  /** DE-Name: vorläufig = nameEn (offizielle FFG-DE-Namen noch nicht erfasst) */
+  /** DE-Name: Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut) */
   nameDe: string
   expansionId: string
+  /** Welche Seite der doppelseitigen Reliktkarte: Helden- oder Overlord-Seite */
+  side: RelicSide
   traits: string[]
   attack?: AttackType
   equip: ItemEquip
   dice: DieColor[]
   rulesEn: string
+  /** DE-Regeltext: Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut) */
+  rulesDe: string
   imageUrl?: string
 }
 
