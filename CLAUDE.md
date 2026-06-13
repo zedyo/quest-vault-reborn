@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.0.3 (2026-06-13)
+## Aktuelle Version: 1.1.0 (2026-06-13)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Vorbereitung | Datenvollständigkeit: Gruppengrößen, Klassen, Items, Overlord, Leutnants, Kampagnen |
+| v1.1.0 | 🔄 In Arbeit (Teil 1 ausgeliefert) | Datenvollständigkeit – ausgeliefert: Monster-Gruppengrößen, Versionsanzeige + Release-Notes-Popup. Offen: Helden-Klassen, Items, Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -293,6 +293,34 @@ Bei BLOCKIERT: Befund beheben, erneut prüfen lassen. Niemals blockierte Änderu
 - `.github/workflows/ci.yml`: Tests + Build auf jedem Feature-Branch-Push und PR
 - `.github/workflows/deploy.yml`: Tests laufen VOR dem Deploy — rote Tests = kein Deploy
 - Tests niemals löschen/skippen um CI grün zu bekommen; Ursache beheben
+
+### Auto-PR-und-Merge (User-Anweisung 2026-06-13, dauerhaft)
+
+Der User hat dauerhaft autorisiert: **Wenn ALLE folgenden Bedingungen erfüllt sind,
+automatisch einen PR nach `main` öffnen UND mergen — ohne Rückfrage:**
+
+1. `npm test` lokal grün UND `npm run build` fehlerfrei
+2. CI-Checks (`ci.yml`) auf dem gepushten Branch/PR sind **grün** (Status abwarten,
+   nicht raten — via GitHub-MCP `pull_request_read`/`get_job_logs` prüfen)
+3. Die Prüfung war **gründlich** und ergab **keine Fehler**: zuständige Subagenten
+   (`daten-pruefer` bei `src/data/*`-Spieldaten, `sicherheits-pruefer` bei sonstigen
+   `src/`-Änderungen) haben **FREIGABE** gegeben
+
+**Ablauf:** committen → pushen → CI abwarten → bei Grün PR erstellen
+(`mcp__github__create_pull_request`) → mergen (`mcp__github__merge_pull_request`,
+Squash). Merge nach `main` löst automatisch den Deploy aus (`deploy.yml`).
+
+**Nicht mergen** wenn: CI rot, ein Subagent BLOCKIERT, Tests/Build fehlschlagen,
+oder es eine offene inhaltliche Rückfrage gibt. Dann Befund beheben oder nachfragen.
+Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
+
+### Release Notes pflegen (öffentlich)
+
+- Bei **jedem Versionsbump** einen Eintrag in `src/data/releaseNotes.ts` ergänzen
+  (neueste Version oben, `version` muss zur `package.json` passen).
+- **Nur öffentlich relevante** Infos: sichtbare Features, Verbesserungen, Datenpflege.
+  **Niemals** interne Strategie, Monetarisierung/Ko-Fi/Spenden, Sicherheits- oder
+  Technik-Interna in die Release Notes schreiben (werden im Startseiten-Popup gezeigt).
 
 ### Schutzregeln
 

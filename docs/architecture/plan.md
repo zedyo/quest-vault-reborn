@@ -1,8 +1,9 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.0.3  
+**Aktuelle Version:** 1.1.0  
 **Letztes Update:** 2026-06-13  
-**Status:** v1.0 ausgeliefert, Qualitäts-Patches v1.0.1–v1.0.3 (Audit-Fixes + vollständiger Daten-Validierungspass), v1.1 in Vorbereitung
+**Status:** v1.0 ausgeliefert; v1.1.0 inkrementell gestartet (Teil 1: Monster-Gruppengrößen,
+Versionsanzeige + Release-Notes-Popup ausgeliefert), weitere v1.1-Daten folgen in 1.1.x
 
 ---
 
