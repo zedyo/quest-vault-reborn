@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { MONSTERS } from '../monsters'
 import { HEROES } from '../heroes'
+import { HERO_CLASSES } from '../heroClasses'
 import { MAP_TILES, getTilePartner } from '../mapTiles'
 import { EXPANSIONS } from '../expansions'
 import type { DieColor, MonsterStats } from '../../types/game'
@@ -156,6 +157,48 @@ describe('Helden-Datenintegrität', () => {
       for (const attr of ['might', 'knowledge', 'willpower', 'awareness'] as const) {
         const v = h[attr]!
         if (v < 1 || v > 6) errors.push(`${h.id}: ${attr} ${v}`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Helden-Klassen-Datenintegrität', () => {
+  const VALID_ARCH = ['krieger', 'heiler', 'magier', 'spaeher']
+
+  it('hat keine doppelten Klassen-IDs', () => {
+    const ids = HERO_CLASSES.map((c) => c.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('Klassen: Pflichtfelder, gültige Archetypen und expansionIds', () => {
+    for (const c of HERO_CLASSES) {
+      expect(c.id, 'Klasse ohne id').toBeTruthy()
+      expect(c.nameEn, `${c.id}: nameEn fehlt`).toBeTruthy()
+      expect(c.nameDe, `${c.id}: nameDe fehlt`).toBeTruthy()
+      expect(VALID_ARCH, `${c.id}: ungültiger Archetyp`).toContain(c.archetype)
+      expect(EXPANSION_IDS.has(c.expansionId), `${c.id}: unbekannte expansionId '${c.expansionId}'`).toBe(true)
+      expect(c.skills.length, `${c.id}: keine Fähigkeitskarten`).toBeGreaterThan(0)
+    }
+  })
+
+  it('Fähigkeitskarten sind vollständig zweisprachig und plausibel', () => {
+    const errors: string[] = []
+    for (const c of HERO_CLASSES) {
+      const skillIds = c.skills.map((s) => s.id)
+      if (new Set(skillIds).size !== skillIds.length)
+        errors.push(`${c.id}: doppelte Skill-IDs`)
+      const starters = c.skills.filter((s) => s.xpCost === 0)
+      if (starters.length !== 1)
+        errors.push(`${c.id}: erwartet genau 1 Startfähigkeit (XP 0), hat ${starters.length}`)
+      for (const s of c.skills) {
+        if (!s.nameEn || !s.nameDe) errors.push(`${c.id}/${s.id}: Name fehlt (EN/DE)`)
+        if (!s.rulesEn || !s.rulesDe) errors.push(`${c.id}/${s.id}: Regeltext fehlt (EN/DE)`)
+        if (!Number.isInteger(s.xpCost) || s.xpCost < 0 || s.xpCost > 5)
+          errors.push(`${c.id}/${s.id}: XP-Kosten ${s.xpCost} unplausibel`)
+        const fc = s.fatigueCost
+        const fcOk = fc === 'X' || (Number.isInteger(fc) && (fc as number) >= 0 && (fc as number) <= 9)
+        if (!fcOk) errors.push(`${c.id}/${s.id}: Ausdauer-Kosten ${fc} unplausibel`)
       }
     }
     expect(errors, errors.join('\n')).toEqual([])

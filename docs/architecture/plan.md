@@ -1,9 +1,9 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.0  
+**Aktuelle Version:** 1.1.1  
 **Letztes Update:** 2026-06-13  
-**Status:** v1.0 ausgeliefert; v1.1.0 inkrementell gestartet (Teil 1: Monster-Gruppengrößen,
-Versionsanzeige + Release-Notes-Popup ausgeliefert), weitere v1.1-Daten folgen in 1.1.x
+**Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0: Monster-Gruppengrößen, Versionsanzeige+
+Release-Notes; 1.1.1: Grundspiel-Helden-Klassen zweisprachig). Weitere v1.1-Daten folgen in 1.1.x
 
 ---
 
@@ -48,7 +48,8 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 **Aufgaben:**
 - [x] Monster-Gruppengrößen pro Spieleranzahl (2/3/4) — alle 56 Gruppen (2026-06-13,
       von `-back.png`-Karten validiert; Feld `groupSizes`, UI-Anzeige, Integritäts-Test)
-- [ ] Helden-Klassen vollständig (alle Klassen aller Erweiterungen, Fähigkeitskarten, Kosten in XP)
+- [~] Helden-Klassen: Grundspiel ✅ (1.1.1 – 8 Klassen, 72 Karten, zweisprachig EN+DE,
+      ClassesPage). Offen: Klassen der Erweiterungen (Champion, Beastmaster, Marshal, Prophet, …)
 - [ ] Beschwörungs-Begleiter (Companion-Karten mit eigenen Werten)
 - [ ] Item-Shop-Karten (alle Gegenstände, Typen, Kosten, Fähigkeiten, pro Erweiterung)
 - [ ] Reliktkarten (alle Relikte)

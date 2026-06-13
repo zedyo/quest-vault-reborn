@@ -64,10 +64,53 @@ export interface Monster {
   imageUrl?: string
 }
 
+export type HeroArchetype = 'krieger' | 'heiler' | 'magier' | 'spaeher'
+
+/** Eine Klassen-Fähigkeitskarte (zweisprachig: EN-Original + DE-Übersetzung) */
+export interface ClassSkill {
+  id: string
+  nameEn: string
+  nameDe: string
+  /** XP-Kosten (0 = kostenlose Startfähigkeit) */
+  xpCost: number
+  /** Ausdauer-Kosten zum Auslösen ('X' = variabel) */
+  fatigueCost: number | 'X'
+  rulesEn: string
+  rulesDe: string
+  /** Kartenbild-URL (any2cards) */
+  imageUrl?: string
+}
+
+/** Beschwörungs-/Begleiter-Figur einer Klasse (z. B. Reanimierter des Totenbeschwörers) */
+export interface ClassFamiliar {
+  nameEn: string
+  nameDe: string
+  speed?: number
+  health?: number
+  defense?: DieColor[]
+  /** Angriffsart, z. B. 'Nahkampf' */
+  attackType?: string
+  /** Angriffswürfel */
+  dice?: DieColor[]
+  rulesEn: string
+  rulesDe: string
+  imageUrl?: string
+}
+
+export interface HeroClass {
+  id: string
+  nameEn: string
+  nameDe: string
+  archetype: HeroArchetype
+  expansionId: string
+  skills: ClassSkill[]
+  familiar?: ClassFamiliar
+}
+
 export interface Hero {
   id: string
   name: string
-  archetype: 'krieger' | 'heiler' | 'magier' | 'spaeher'
+  archetype: HeroArchetype
   expansionId: string
   speed?: number
   health?: number
