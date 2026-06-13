@@ -173,6 +173,9 @@ export default function HomePage() {
               ze.d@me.com
             </a>
           </p>
+          <p className="text-[11px] text-gray-700 text-center pt-1">
+            Quest Vault Reborn · Version {__APP_VERSION__}
+          </p>
         </div>
       </div>
     </div>
