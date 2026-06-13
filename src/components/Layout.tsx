@@ -8,6 +8,7 @@ const navItems = [
   { to: '/quest', label: '📜 Quest-Editor', end: false },
   { to: '/monster', label: '👹 Monster', end: false },
   { to: '/helden', label: '🧙 Helden', end: false },
+  { to: '/klassen', label: '⚔️ Klassen', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 
