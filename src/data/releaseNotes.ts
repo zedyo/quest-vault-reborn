@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.18',
+    date: '2026-06-14',
+    title: 'Leutnants (Grundspiel)',
+    highlights: [
+      'Neue Seite „🗡️ Leutnants": die sechs Grundspiel-Leutnants (Baron Zachareth, Belthir, die Farrows und Splig) mit Werten für Akt I und II.',
+      'Pro Leutnant: Angriffswürfel, Attribute, Werte je Spielerzahl (2/3/4) und Fähigkeiten mit Regeltext – zweisprachig (Deutsch/Englisch).',
+      'Leutnants der Erweiterungen folgen in einem nächsten Schritt.',
+    ],
+  },
+  {
     version: '1.1.17',
     date: '2026-06-14',
     title: 'Overlord-Belohnungskarten – Kartensatz komplett',

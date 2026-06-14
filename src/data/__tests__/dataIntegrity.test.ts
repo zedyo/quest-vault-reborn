@@ -6,6 +6,7 @@ import { MAP_TILES, getTilePartner } from '../mapTiles'
 import { EXPANSIONS } from '../expansions'
 import { SHOP_ITEMS, RELICS } from '../items'
 import { OVERLORD_DECKS } from '../overlordClasses'
+import { LIEUTENANTS } from '../lieutenants'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -261,6 +262,56 @@ describe('Overlord-Klassen-Datenintegrität', () => {
           errors.push(`${d.id}/${c.id}: Klassenkarte sollte XP kosten`)
         if (d.kind === 'reward' && c.xpCost !== null)
           errors.push(`${d.id}/${c.id}: Belohnungskarte sollte xpCost null haben, hat ${c.xpCost}`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Leutnant-Datenintegrität', () => {
+  it('hat keine doppelten IDs', () => {
+    const ids = LIEUTENANTS.map((l) => l.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('Pflichtfelder, gültige expansionId, 1–2 Formen', () => {
+    for (const l of LIEUTENANTS) {
+      expect(l.id, 'Leutnant ohne id').toBeTruthy()
+      expect(l.nameEn, `${l.id}: nameEn fehlt`).toBeTruthy()
+      expect(l.nameDe, `${l.id}: nameDe fehlt`).toBeTruthy()
+      expect(EXPANSION_IDS.has(l.expansionId), `${l.id}: unbekannte expansionId '${l.expansionId}'`).toBe(true)
+      expect(l.forms.length, `${l.id}: 1–2 Formen erwartet`).toBeGreaterThan(0)
+      expect(l.forms.length).toBeLessThanOrEqual(2)
+    }
+  })
+
+  it('Formen: plausible Werte, gültige Würfel, vollständige Fähigkeiten', () => {
+    const errors: string[] = []
+    for (const l of LIEUTENANTS) {
+      for (const f of l.forms) {
+        if (f.act !== 1 && f.act !== 2) errors.push(`${l.id}: ungültiger Akt ${f.act}`)
+        for (const attr of [f.might, f.knowledge, f.willpower, f.awareness]) {
+          if (!Number.isInteger(attr) || attr < 0 || attr > 6) errors.push(`${l.id} Akt${f.act}: Attribut ${attr} unplausibel`)
+        }
+        for (const d of f.attackDice) {
+          if (!ATTACK_DICE.includes(d)) errors.push(`${l.id} Akt${f.act}: '${d}' ist kein Angriffswürfel`)
+        }
+        if (f.attackDice.length === 0) errors.push(`${l.id} Akt${f.act}: Angriffspool leer`)
+        for (const [pc, s] of [['2', f.perPlayer.p2], ['3', f.perPlayer.p3], ['4', f.perPlayer.p4]] as const) {
+          if (s.speed < 1 || s.speed > 10) errors.push(`${l.id} Akt${f.act} ${pc}Sp: speed ${s.speed} unplausibel`)
+          if (s.health < 1 || s.health > 40) errors.push(`${l.id} Akt${f.act} ${pc}Sp: health ${s.health} unplausibel`)
+          if (s.defense.length === 0) errors.push(`${l.id} Akt${f.act} ${pc}Sp: keine Verteidigung`)
+          for (const d of s.defense) {
+            if (!DEFENSE_DICE.includes(d)) errors.push(`${l.id} Akt${f.act} ${pc}Sp: '${d}' ist kein Verteidigungswürfel`)
+          }
+        }
+        if (f.abilities.length === 0) errors.push(`${l.id} Akt${f.act}: keine Fähigkeiten`)
+        for (const ab of f.abilities) {
+          if (!ab.labelEn || !ab.labelDe) errors.push(`${l.id} Akt${f.act}: Fähigkeit-Label fehlt (EN/DE)`)
+          if ((ab.rulesEn && !ab.rulesDe) || (!ab.rulesEn && ab.rulesDe))
+            errors.push(`${l.id} Akt${f.act}/${ab.labelEn}: Regeltext nur einsprachig`)
+        }
+        if (!f.imageUrl.startsWith('https://')) errors.push(`${l.id} Akt${f.act}: imageUrl ungültig`)
       }
     }
     expect(errors, errors.join('\n')).toEqual([])

@@ -11,6 +11,7 @@ const navItems = [
   { to: '/klassen', label: '⚔️ Klassen', end: false },
   { to: '/items', label: '🛒 Items', end: false },
   { to: '/overlord', label: '👑 Overlord', end: false },
+  { to: '/leutnants', label: '🗡️ Leutnants', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 
