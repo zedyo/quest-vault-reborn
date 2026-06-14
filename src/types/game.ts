@@ -165,8 +165,8 @@ export interface OverlordCard {
   cardType: OverlordCardType
   /** Anzahl Kopien im Deck */
   count: number
-  /** XP-Kosten (0 = Basis-/Startdeck, sonst Kaufkosten der Klassenkarte) */
-  xpCost: number
+  /** XP-Kosten (0 = Basis-/Startdeck, sonst Kaufkosten; null = Belohnungskarte, nicht kaufbar) */
+  xpCost: number | null
   rulesEn: string
   rulesDe: string
   /** Kartenbild-URL (any2cards) */

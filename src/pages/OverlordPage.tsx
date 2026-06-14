@@ -28,7 +28,14 @@ const TYPE_STYLE: Record<OverlordCardType, string> = {
   Special: 'bg-amber-900/50 text-amber-300 border border-amber-800/50',
 }
 
-function XpBadge({ xp }: { xp: number }) {
+function XpBadge({ xp }: { xp: number | null }) {
+  if (xp === null) {
+    return (
+      <span className="text-[10px] font-semibold uppercase tracking-wide bg-amber-900/60 text-amber-300 px-1.5 py-0.5 rounded shrink-0">
+        Belohnung
+      </span>
+    )
+  }
   if (xp === 0) {
     return (
       <span className="text-[10px] font-semibold uppercase tracking-wide bg-emerald-900/60 text-emerald-300 px-1.5 py-0.5 rounded shrink-0">
@@ -99,7 +106,7 @@ function CardRow({ card, lang, onImageOpen }: { card: OverlordCard; lang: Lang; 
 function DeckBlock({ deck, lang, onImageOpen }: { deck: OverlordDeck; lang: Lang; onImageOpen: (c: OverlordCard) => void }) {
   // Karten nach XP-Kosten sortieren, dann nach Name
   const cards = useMemo(
-    () => [...deck.cards].sort((a, b) => a.xpCost - b.xpCost || a.nameDe.localeCompare(b.nameDe)),
+    () => [...deck.cards].sort((a, b) => (a.xpCost ?? 99) - (b.xpCost ?? 99) || a.nameDe.localeCompare(b.nameDe)),
     [deck.cards],
   )
   const totalCards = deck.cards.reduce((sum, c) => sum + c.count, 0)

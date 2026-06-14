@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.17',
+    date: '2026-06-14',
+    title: 'Overlord-Belohnungskarten – Kartensatz komplett',
+    highlights: [
+      'Die Overlord-Seite enthält jetzt auch die Belohnungskarten (Overlord-, Quest- und Gerücht-Belohnungen) aus 13 Erweiterungen.',
+      'Damit ist der komplette Overlord-Kartensatz erfasst: 105 Karten, zweisprachig mit Kartenbild, Typ und Regeltext.',
+    ],
+  },
+  {
     version: '1.1.16',
     date: '2026-06-14',
     title: 'Overlord-Klassen der Erweiterungen',

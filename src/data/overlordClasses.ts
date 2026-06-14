@@ -4,10 +4,11 @@ import type { OverlordDeck } from '../types/game'
 // Englischer Text = Originalwortlaut der Karten. Deutscher Text = Community-Übersetzung
 // (nicht zwingend identisch mit der offiziellen deutschen FFG-Edition).
 //
-// Umfang dieser Datei: GRUNDSPIEL (Basis-Deck + Magus/Saboteur/Kriegsherr + Universal)
-// sowie die ERWEITERUNGS-KLASSEN (Basis II + Punisher/Infector/Enchanter/Unkindness/
-// Shadowmancer/Soulbinder + Universal-Erweiterungen). Belohnungskarten (Overlord/Quest/
-// Rumor Reward) folgen als letztes Increment.
+// Umfang dieser Datei: VOLLSTÄNDIGER Overlord-Kartensatz aus overlord-decks.js –
+// Grundspiel (Basis + Magus/Saboteur/Kriegsherr + Universal), die Erweiterungs-Klassen
+// (Basis II + Punisher/Infector/Enchanter/Unkindness/Shadowmancer/Soulbinder + Universal-
+// Erweiterungen) sowie die BELOHNUNGSKARTEN (Overlord/Quest/Rumor Reward; xpCost null,
+// kind 'reward', über Kampagnen erworben, nicht mit XP kaufbar).
 //
 // Hinweise zur Datenpflege:
 // - Die Kartenrückseite ('overlord-decks-back') ist KEINE Spielkarte und wird ausgelassen.
@@ -780,6 +781,277 @@ export const OVERLORD_DECKS: OverlordDeck[] = [
         rulesEn: 'Play this card when a monster is attacked, after dice are rolled. Reveal any number of Overlord cards from your hand. That monster recovers 1 Heart and adds 1 Shield to his defense results for each non-Basic Overlord card you reveal.',
         rulesDe: 'Spiele diese Karte, wenn ein Monster angegriffen wird, nachdem die Würfel geworfen wurden. Decke beliebig viele Overlord-Karten von deiner Hand auf. Dieses Monster gewinnt 1 Herz zurück und fügt seinen Verteidigungsergebnissen 1 Schild für jede aufgedeckte Nicht-Basis-Overlord-Karte hinzu.',
         imageUrl: `${OD}/shadow-of-nerekhall/universal/sn-diverse-means-errata.png`,
+      },
+    ],
+  },
+
+  // ─── Belohnungskarten (über Kampagnen erworben, nicht mit XP kaufbar) ────────
+
+  // Quest-Belohnung – Labyrinth des Verderbens
+  {
+    id: 'reward-lr',
+    nameEn: 'Quest Reward',
+    nameDe: 'Quest-Belohnung',
+    kind: 'reward',
+    expansionId: 'labyrinth-of-ruin',
+    cards: [
+      {
+        id: 'spligsrevenge', nameEn: "Splig's Revenge", nameDe: 'Spligs Rache',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Return this card to the game box at the start of your turn. Replace a figure with goblin in its name with Splig. Splig cannot wield a relic. At the end of the quest, if Splig was not defeated, regain this card from the game box.',
+        rulesDe: 'Lege diese Karte zu Beginn deines Zuges zurück in die Spielschachtel. Ersetze eine Figur, die „Goblin" im Namen trägt, durch Splig. Splig kann kein Relikt führen. Wurde Splig am Ende des Szenarios nicht besiegt, nimm diese Karte aus der Spielschachtel zurück.',
+        imageUrl: `${OD}/labyrinth-of-ruin/quest-reward/lr-spligs-revenge.png`,
+      },
+      {
+        id: 'twinsouls', nameEn: 'Twin Souls', nameDe: 'Zwillingsseelen',
+        cardType: 'Magic', count: 1, xpCost: null,
+        rulesEn: 'Play this card when activating Lord Merick Farrow. Immediately remove Lord Merick Farrow from the map and replace him with Sir Alric Farrow. Sir Alric Farrow cannon wield a relic.',
+        rulesDe: 'Spiele diese Karte, wenn du Lord Merick Farrow aktivierst. Entferne Lord Merick Farrow sofort vom Spielplan und ersetze ihn durch Sir Alric Farrow. Sir Alric Farrow kann kein Relikt führen.',
+        imageUrl: `${OD}/labyrinth-of-ruin/quest-reward/lr-twin-souls.png`,
+      },
+    ],
+  },
+
+  // Gerücht-Belohnung – Höhle des Lindwurms
+  {
+    id: 'reward-lw',
+    nameEn: 'Rumor Reward',
+    nameDe: 'Gerücht-Belohnung',
+    kind: 'reward',
+    expansionId: 'lair-of-the-wyrm',
+    cards: [
+      {
+        id: 'thewyrmqueensfavor', nameEn: "The Wyrm Queen's Favor", nameDe: 'Die Gunst der Wyrm-Königin',
+        cardType: 'Special', count: 1, xpCost: null,
+        rulesEn: 'Play this card at the start of your turn. Each hero tests Awareness. If all heroes pass, shuffle this card back into your deck. If a hero fails, choose 1 hero that failed his test and place 1 master hybrid sentinel within 3 spaces of that hero, respecting group limits. You may play this card even when hybrid sentinels are not 1 of your monster groups.',
+        rulesDe: 'Spiele diese Karte zu Beginn deines Zuges. Jeder Held legt eine Gespür-Probe ab. Gelingt sie allen Helden, mische diese Karte zurück in dein Deck. Misslingt sie einem Helden, wähle 1 Helden, dem seine Probe misslang, und platziere 1 Meister-Hybrid-Wächter innerhalb von 3 Feldern um diesen Helden, unter Beachtung der Gruppenlimits. Du darfst diese Karte auch dann spielen, wenn Hybrid-Wächter nicht zu deinen Monstergruppen gehören.',
+        imageUrl: `${OD}/lair-of-the-wyrm/rumor-reward/lw-the-wyrm-queens-favor.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Bündnisse der Wildnis
+  {
+    id: 'reward-bw',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'bonds-of-the-wild',
+    cards: [
+      {
+        id: 'hunkofjunk', nameEn: 'Hunk of Junk', nameDe: 'Schrotthaufen',
+        cardType: 'Trap', count: 1, xpCost: null,
+        rulesEn: 'Play this card when a hero uses a Potion or Item Search card, before its effect is resolved. That hero tests Knowledge. If he passes, draw 1 Overlord card. If he fails, flip that Search card facedown without resolving its effect.',
+        rulesDe: 'Spiele diese Karte, wenn ein Held einen Trank oder eine Gegenstands-Suchkarte benutzt, bevor deren Effekt abgehandelt wird. Dieser Held legt eine Wissen-Probe ab. Gelingt sie, ziehe 1 Overlord-Karte. Misslingt sie, drehe diese Suchkarte verdeckt, ohne ihren Effekt abzuhandeln.',
+        imageUrl: `${OD}/bonds-of-the-wild/overlord-reward/bw-hunk-of-junk.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Krone des Schicksals
+  {
+    id: 'reward-cd',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'crown-of-destiny',
+    cards: [
+      {
+        id: 'firegems', nameEn: 'Fire Gems', nameDe: 'Feueredelsteine',
+        cardType: 'Trap', count: 1, xpCost: null,
+        rulesEn: 'Play this card when a hero enters an empty space. He tests Awareness. If he fails, roll 1 red power die. That hero and each figure adjacent to him suffers Hearts equal to the Hearts rolled.',
+        rulesDe: 'Spiele diese Karte, wenn ein Held ein leeres Feld betritt. Er legt eine Gespür-Probe ab. Misslingt sie, wirf 1 roten Machtwürfel. Dieser Held und jede zu ihm benachbarte Figur erleiden so viele Herzen, wie gewürfelt wurden.',
+        imageUrl: `${OD}/crown-of-destiny/overlord-reward/cd-fire-gems.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Kreuzzug der Vergessenen
+  {
+    id: 'reward-cf',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'crusade-of-the-forgotten',
+    cards: [
+      {
+        id: 'forgottensorcery', nameEn: 'Forgotten Sorcery', nameDe: 'Vergessene Zauberei',
+        cardType: 'Magic', count: 1, xpCost: null,
+        rulesEn: 'Play this card when you activate a monster group with the Ranged attack type. Until the end of the round, each monster in that group gains: Sorcery 2: After making an attack roll, this monster may convert up to 2 range to Hearts, or up to 2 Hearts to range.',
+        rulesDe: 'Spiele diese Karte, wenn du eine Monstergruppe mit dem Fernkampf-Angriffstyp aktivierst. Bis zum Ende der Runde erhält jedes Monster dieser Gruppe: Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.',
+        imageUrl: `${OD}/crusade-of-the-forgotten/overlord-reward/cf-forgotten-sorcery.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Wächter von Deephall
+  {
+    id: 'reward-gd',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'guardians-of-deephall',
+    cards: [
+      {
+        id: 'powerinnumbers', nameEn: 'Power in Numbers', nameDe: 'Macht der Vielen',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card during your turn and choose a map tile. If there are more monsters on that map tile than heroes, each hero on that tile suffers 1 Heart and 2 Fatigue, and each monster on that tile recovers 2 Hearts.',
+        rulesDe: 'Spiele diese Karte während deines Zuges und wähle ein Kartenteil. Befinden sich auf diesem Kartenteil mehr Monster als Helden, erleidet jeder Held auf diesem Teil 1 Herz und 2 Erschöpfung, und jedes Monster auf diesem Teil gewinnt 2 Herzen zurück.',
+        imageUrl: `${OD}/guardians-of-deephall/overlord-reward/gd-power-in-numbers.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Schloss Rabenfels
+  {
+    id: 'reward-mr',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'manor-of-ravens',
+    cards: [
+      {
+        id: 'downandout', nameEn: 'Down and Out', nameDe: 'Am Boden',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: "Play this card when a hero performs a revive action, before dice are rolled. That hero or the knocked-out hero immediately tests Might, the heroes' choice. If the chosen hero fails, the knocked-out hero does not recover any Hearts and remains knocked-out. If the chosen hero passes, draw 1 Overlord card.",
+        rulesDe: 'Spiele diese Karte, wenn ein Held eine Wiederbelebungsaktion ausführt, bevor die Würfel geworfen werden. Dieser Held oder der kampfunfähige Held legt sofort eine Stärke-Probe ab (Wahl der Helden). Misslingt sie dem gewählten Helden, gewinnt der kampfunfähige Held keine Herzen zurück und bleibt kampfunfähig. Gelingt sie dem gewählten Helden, ziehe 1 Overlord-Karte.',
+        imageUrl: `${OD}/manor-of-ravens/overlord-reward/mr-down-and-out.png`,
+      },
+      {
+        id: 'endlesssupply', nameEn: 'Endless Supply', nameDe: 'Endloser Nachschub',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card at the start of your turn. If you started this quest with 20 or more cards in your Overlord deck, draw 4 Overlord cards.',
+        rulesDe: 'Spiele diese Karte zu Beginn deines Zuges. Hast du dieses Szenario mit 20 oder mehr Karten in deinem Overlord-Deck begonnen, ziehe 4 Overlord-Karten.',
+        imageUrl: `${OD}/manor-of-ravens/overlord-reward/mr-endless-supply.png`,
+      },
+      {
+        id: 'unbroken', nameEn: 'Unbroken', nameDe: 'Ungebrochen',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card on 1 monster at the end of your turn. Until the start of your next turn, each time that monster suffers 3 or more Hearts, it suffers 2 Hearts instead.',
+        rulesDe: 'Spiele diese Karte am Ende deines Zuges auf 1 Monster. Bis zum Beginn deines nächsten Zuges erleidet dieses Monster jedes Mal, wenn es 3 oder mehr Herzen erleiden würde, stattdessen 2 Herzen.',
+        imageUrl: `${OD}/manor-of-ravens/overlord-reward/mr-unbroken.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Eid des Ausgestoßenen
+  {
+    id: 'reward-oo',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'oath-of-the-outcast',
+    cards: [
+      {
+        id: 'unseenwings', nameEn: 'Unseen Wings', nameDe: 'Ungesehene Schwingen',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card during your turn and choose 1 monster group. Move up to 3 monsters in that group up to 3 spaces.',
+        rulesDe: 'Spiele diese Karte während deines Zuges und wähle 1 Monstergruppe. Bewege bis zu 3 Monster dieser Gruppe bis zu 3 Felder weit.',
+        imageUrl: `${OD}/oath-of-the-outcast/overlord-reward/oo-unseen-wings.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Splitter der Ewigen Dunkelheit
+  {
+    id: 'reward-se',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'shards-of-everdark',
+    cards: [
+      {
+        id: 'mockery', nameEn: 'Mockery', nameDe: 'Spott',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: "Play this card when a hero fails a Willpower test. Place this card in that hero's play area. Each time that hero tests any attribute, he rolls 1 additional gray die. If this card is in a hero's play area at the end of an encounter, the overlord may either discard it or return it to his hand.",
+        rulesDe: 'Spiele diese Karte, wenn einem Helden eine Willenskraft-Probe misslingt. Lege diese Karte in die Auslage dieses Helden. Jedes Mal, wenn dieser Held ein Attribut prüft, würfelt er 1 zusätzlichen grauen Würfel. Liegt diese Karte am Ende einer Begegnung in der Auslage eines Helden, darf der Overlord sie entweder ablegen oder auf seine Hand zurücknehmen.',
+        imageUrl: `${OD}/shards-of-everdark/overlord-reward/se-mockery.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Hüter des Geheimnisses
+  {
+    id: 'reward-ss',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'stewards-of-the-secret',
+    cards: [
+      {
+        id: 'splice', nameEn: 'Splice', nameDe: 'Verschmelzung',
+        cardType: 'Magic', count: 1, xpCost: null,
+        rulesEn: 'Play this card on 1 monster group during your turn and keep it in your play area. Each time a monster in this group performs an attack, that attack gains: Surge: +2 Hearts and a monster within 3 spaces of this monster suffers 2 Hearts.',
+        rulesDe: 'Spiele diese Karte während deines Zuges auf 1 Monstergruppe und lege sie in deine Auslage. Jedes Mal, wenn ein Monster dieser Gruppe einen Angriff ausführt, erhält dieser Angriff: Schub: +2 Herzen und ein Monster innerhalb von 3 Feldern um dieses Monster erleidet 2 Herzen.',
+        imageUrl: `${OD}/stewards-of-the-secret/overlord-reward/ss-splice.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Die Trollsümpfe
+  {
+    id: 'reward-tf',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'the-trollfens',
+    cards: [
+      {
+        id: 'offertoryaffliction', nameEn: 'Offertory Affliction', nameDe: 'Opfergabe des Leids',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card when activating a monster with a condition token during your turn. Choose a hero adjacent to that monster. Discard the condition token from the monster, and the chosen hero gains the corresponding Condition card.',
+        rulesDe: 'Spiele diese Karte, wenn du während deines Zuges ein Monster mit einem Zustandsmarker aktivierst. Wähle einen zu diesem Monster benachbarten Helden. Lege den Zustandsmarker vom Monster ab, und der gewählte Held erhält die entsprechende Zustandskarte.',
+        imageUrl: `${OD}/the-trollfens/overlord-reward/tf-offertory-affliction.png`,
+      },
+      {
+        id: 'secretsofflesh', nameEn: 'Secrets of Flesh', nameDe: 'Geheimnisse des Fleisches',
+        cardType: 'Magic', count: 1, xpCost: null,
+        rulesEn: 'Play this card at the start of your turn and roll 1 red power die. Each of your monsters recovers Hearts equal to the Hearts rolled.',
+        rulesDe: 'Spiele diese Karte zu Beginn deines Zuges und wirf 1 roten Machtwürfel. Jedes deiner Monster gewinnt so viele Herzen zurück, wie gewürfelt wurden.',
+        imageUrl: `${OD}/the-trollfens/overlord-reward/tf-secrets-of-flesh.png`,
+      },
+      {
+        id: 'toxicreprisal', nameEn: 'Toxic Reprisal', nameDe: 'Giftige Vergeltung',
+        cardType: 'Trap', count: 1, xpCost: null,
+        rulesEn: 'Play this card when a monster is defeated. A hero of your choice within 3 spaces of that monster is Diseased and Weakened.',
+        rulesDe: 'Spiele diese Karte, wenn ein Monster besiegt wird. Ein Held deiner Wahl innerhalb von 3 Feldern um dieses Monster ist verseucht und geschwächt.',
+        imageUrl: `${OD}/the-trollfens/overlord-reward/tf-toxic-reprisal.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Vertrag der Champions
+  {
+    id: 'reward-tc',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'treaty-of-champions',
+    cards: [
+      {
+        id: 'hagshunger', nameEn: "Hag's Hunger", nameDe: 'Hunger der Hexe',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card when a hero is defeated. Each hero within 3 spaces of that hero suffers 2 Fatigue.',
+        rulesDe: 'Spiele diese Karte, wenn ein Held besiegt wird. Jeder Held innerhalb von 3 Feldern um diesen Helden erleidet 2 Erschöpfung.',
+        imageUrl: `${OD}/treaty-of-champions/overlord-reward/tc-hags-hunger.png`,
+      },
+    ],
+  },
+
+  // Overlord-Belohnung – Visionen der Dämmerung
+  {
+    id: 'reward-vd',
+    nameEn: 'Overlord Reward',
+    nameDe: 'Overlord-Belohnung',
+    kind: 'reward',
+    expansionId: 'visions-of-dawn',
+    cards: [
+      {
+        id: 'hardknocks', nameEn: 'Hard Knocks', nameDe: 'Harte Schläge',
+        cardType: 'Event', count: 1, xpCost: null,
+        rulesEn: 'Play this card when a monster attacks a hero, after rolling dice. This attack gains: Surge: Remove the target from the map, then place him on any empty space within 3 spaces of his original space. He counts as entering that space and is Stunned.',
+        rulesDe: 'Spiele diese Karte, wenn ein Monster einen Helden angreift, nachdem die Würfel geworfen wurden. Dieser Angriff erhält: Schub: Entferne das Ziel vom Spielplan und platziere es dann auf einem beliebigen leeren Feld innerhalb von 3 Feldern um sein ursprüngliches Feld. Es gilt als dieses Feld betretend und ist betäubt.',
+        imageUrl: `${OD}/visions-of-dawn/overlord-reward/vd-hard-knocks.png`,
       },
     ],
   },
