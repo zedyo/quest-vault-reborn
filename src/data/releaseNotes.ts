@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.23',
+    date: '2026-06-14',
+    title: 'Plotdecks – Grundspiel komplett',
+    highlights: [
+      'Alle sechs Grundspiel-Plotdecks sind jetzt erfasst (60 Karten): zusätzlich Von Macht verflucht, Die gefallene Elite und Goblin-Aufstand.',
+      'Zweisprachig mit Kauf-/Auslösekosten und Regeltext. Die Erweiterungs-Plotdecks folgen als Nächstes.',
+    ],
+  },
+  {
     version: '1.1.22',
     date: '2026-06-14',
     title: 'Plotdecks (erste Agenten-Karten)',
