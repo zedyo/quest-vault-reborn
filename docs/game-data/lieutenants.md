@@ -151,6 +151,22 @@ Plotdeck-Label, Such-/Sammlungs-/Sprachfilter und Karten-Lightbox.
 
 ---
 
+## Plotdeck-Karten (`src/data/plotDecks.ts`)
+
+Die eigentlichen **Plotdeck-Karten**: jeder Agent bringt ein Plotdeck mit ~10 Karten, die der
+Overlord mit **Bedrohungsmarkern** kauft (`threatCost`) und auslöst (`triggerCost`). Quelle:
+any2cards `data/plot-decks.js` (201 Karten in 20 Decks). EN 1:1 aus Quelle, DE handübersetzt.
+Kartenrückseiten (`plot-decks-back`) ausgelassen.
+
+**Status:** Grundspiel-Batch 1 ✅ (v1.1.22 – **3 Decks, 30 Karten**: Saat des Verrats /
+Hybride Loyalität / Endloser Durst). Offen: 3 weitere Grundspiel-Decks (The Fallen Elite,
+Cursed by Power, Goblin Uprising) + alle Erweiterungs-Plotdecks (→ weitere Increments).
+
+Anzeige: `src/pages/PlotDecksPage.tsx` (Route `/plotdecks`), gruppiert nach Erweiterung + Deck
+(mit Agenten-Label), Such-/Sammlungs-/Sprachfilter, Symbolen und Karten-Lightbox.
+
+---
+
 ## Datenmodell (`src/data/lieutenants.ts`)
 
 ```typescript
