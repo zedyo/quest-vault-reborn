@@ -230,6 +230,40 @@ export interface Lieutenant {
   forms: LieutenantForm[]
 }
 
+/**
+ * Werte eines Agenten in einem Akt. Wie LieutenantForm, aber OHNE Attribute
+ * (Agenten-Statkarten führen keine Attributwerte).
+ */
+export interface AgentForm {
+  act: 1 | 2
+  expansionId: string
+  attackTypeEn: string
+  attackTypeDe: string
+  attackDice: DieColor[]
+  perPlayer: {
+    p2: LieutenantPerPlayerStats
+    p3: LieutenantPerPlayerStats
+    p4: LieutenantPerPlayerStats
+  }
+  abilities: LieutenantAbility[]
+  imageUrl: string
+}
+
+/**
+ * Ein Agent: die aufgewertete Version eines Leutnants (eigene Werte/Fähigkeiten)
+ * aus einem Leutnants-Pack, verknüpft mit einem Plotdeck.
+ */
+export interface Agent {
+  id: string
+  nameEn: string
+  nameDe: string
+  expansionId: string
+  /** Name des zugehörigen Plotdecks (EN/DE). */
+  plotDeckEn: string
+  plotDeckDe: string
+  forms: AgentForm[]
+}
+
 export interface Hero {
   id: string
   name: string
