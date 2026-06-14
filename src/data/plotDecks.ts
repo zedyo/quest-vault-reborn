@@ -7,8 +7,7 @@ import type { PlotDeck } from '../types/game'
 // Plotdecks gehören je zu einem Agenten (Leutnants-Pack). threatCost = Kaufkosten in
 // Bedrohungsmarkern, triggerCost = Auslösekosten. Kartenrückseiten ('plot-decks-back')
 // werden ausgelassen. EN 1:1 aus Quelle geparst, DE handübersetzt.
-// Umfang: GRUNDSPIEL Batch 1 (Seeds of Betrayal, Hybrid Loyalty, Endless Thirst — 30 Karten).
-// Weitere Plotdecks folgen in weiteren Increments.
+// Umfang: GRUNDSPIEL vollständig (6 Decks — 60 Karten). Erweiterungs-Plotdecks folgen.
 
 export const PLOT_DECKS: PlotDeck[] = [
   {
@@ -338,6 +337,336 @@ export const PLOT_DECKS: PlotDeck[] = [
         "rulesEn": "Exhaust this card when a monster knocks out a hero. Mark that monster by placing 1 threat token from the supply on its base. If it has the Dark monster trait, you may immediately move it up to its Speed. Each marked monster applies +1 to its Health per hero.",
         "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Helden kampfunfähig macht. Markiere dieses Monster, indem du 1 Bedrohungsmarker aus dem Vorrat auf seine Basis legst. Hat es das Monster-Merkmal „Dunkel\", darfst du es sofort bis zu seiner Bewegung weit bewegen. Jedes markiertes Monster erhält +1 auf seine Lebenspunkte pro Held.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-the-taste-of-suffering.png"
+      }
+    ]
+  },
+  {
+    "id": "cursed-by-power",
+    "nameEn": "Cursed by Power",
+    "nameDe": "Von Macht verflucht",
+    "agentEn": "Lord Merick Farrow",
+    "agentDe": "Lord Merick Farrow",
+    "expansionId": "base",
+    "cards": [
+      {
+        "id": "darkpact",
+        "nameEn": "Dark Pact",
+        "nameDe": "Dunkler Pakt",
+        "threatCost": 0,
+        "triggerCost": 0,
+        "rulesEn": "After setup of the first encounter of each quest, the hero players choose a hero and place that hero's hero token on this card. When the chosen hero suffers any amount of Hearts, he may exhaust this card to reduce the amount of Hearts suffered by up to 2. If he does, you gain 1 threat token. At the end of each quest, discard the hero token from this card.",
+        "rulesDe": "Nach dem Aufbau der ersten Begegnung jedes Szenarios wählen die Heldenspieler einen Helden und legen den Heldenmarker dieses Helden auf diese Karte. Wenn der gewählte Held eine beliebige Menge Herzen erleidet, darf er diese Karte erschöpfen, um die Menge der erlittenen Herzen um bis zu 2 zu verringern. Tut er das, erhältst du 1 Bedrohungsmarker. Am Ende jedes Szenarios entferne den Heldenmarker von dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-dark-pact.png"
+      },
+      {
+        "id": "greaterpower",
+        "nameEn": "Greater Power",
+        "nameDe": "Größere Macht",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster performs an attack, after dice are rolled, to discard the top card from your Overlord deck. This attack gains +2 Hearts. If the discarded card was a Magic Overlord card, this attack gains +3 Hearts instead.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff ausführt, nachdem die Würfel geworfen wurden, um die oberste Karte deines Overlord-Decks abzulegen. Dieser Angriff erhält +2 Herzen. War die abgelegte Karte eine Magie-Overlord-Karte, erhält dieser Angriff stattdessen +3 Herzen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-greater-power.png"
+      },
+      {
+        "id": "masques",
+        "nameEn": "Masques",
+        "nameDe": "Maskenspiel",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero performs an attack, before dice are rolled. If you do, the attack is a miss. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Angriff ausführt, bevor die Würfel geworfen werden. Tust du das, geht der Angriff daneben. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-masques.png"
+      },
+      {
+        "id": "thedarkmark",
+        "nameEn": "The Dark Mark",
+        "nameDe": "Das dunkle Mal",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "After setup of the first encounter of each quest, the hero players choose a hero and place that hero's hero token on this card. Exhaust this card when a hero suffers at least 1 Heart. That hero suffers no Hearts and the hero whose hero token is on this card suffers 2 Hearts instead. At the end of the quest, discard the hero token from this card.",
+        "rulesDe": "Nach dem Aufbau der ersten Begegnung jedes Szenarios wählen die Heldenspieler einen Helden und legen den Heldenmarker dieses Helden auf diese Karte. Erschöpfe diese Karte, wenn ein Held mindestens 1 Herz erleidet. Dieser Held erleidet keine Herzen, und stattdessen erleidet der Held, dessen Heldenmarker auf dieser Karte liegt, 2 Herzen. Am Ende des Szenarios entferne den Heldenmarker von dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-the-dark-mark.png"
+      },
+      {
+        "id": "thegraspinggrave",
+        "nameEn": "The Grasping Grave",
+        "nameDe": "Das greifende Grab",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero performs a stand-up action or is revived by another hero. That hero rolls 1 red power die instead of 2.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held eine Aufsteh-Aktion ausführt oder von einem anderen Helden wiederbelebt wird. Dieser Held wirft 1 roten Machtwürfel statt 2.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-the-grasping-grave.png"
+      },
+      {
+        "id": "boltfromtheblue",
+        "nameEn": "Bolt From The Blue",
+        "nameDe": "Blitz aus heiterem Himmel",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card during your turn to choose a hero. Perform an attack targeting the chosen hero using the following dice: Range: Blue Yellow. If the total range is less than 4, it is a miss. This attack gains: Surge: +2 Range. Surge: +2 Hearts.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges, um einen Helden zu wählen. Führe einen Angriff gegen den gewählten Helden mit folgenden Würfeln aus: Reichweite: Blau Gelb. Ist die Gesamtreichweite kleiner als 4, geht er daneben. Dieser Angriff erhält: Schub: +2 Reichweite. Schub: +2 Herzen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-bolt-from-the-blue.png"
+      },
+      {
+        "id": "mysticmight",
+        "nameEn": "Mystic Might",
+        "nameDe": "Mystische Macht",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after you play a Magic Overlord card. Place 1 fatigue token on this card. You may discard 1 fatigue token from this card, after dice are rolled, to either gain +2 Hearts for an attack or add 2 Shields to a defense result. At the end of each quest, discard all fatigue tokens on this card.",
+        "rulesDe": "Nutze diese Karte, nachdem du eine Magie-Overlord-Karte gespielt hast. Lege 1 Erschöpfungsmarker auf diese Karte. Du darfst 1 Erschöpfungsmarker von dieser Karte ablegen, nachdem die Würfel geworfen wurden, um entweder +2 Herzen für einen Angriff zu erhalten oder 2 Schilde zu einem Verteidigungsergebnis hinzuzufügen. Am Ende jedes Szenarios entferne alle Erschöpfungsmarker von dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-mystic-might.png"
+      },
+      {
+        "id": "summonmerick",
+        "nameEn": "Summon - Merick",
+        "nameDe": "Beschwören – Merick",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master monster in that group with the Lord Merick Farrow agent. If the Lord Merick Farrow agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Lord Merick Farrow lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister-Monster dieser Gruppe durch den Lord-Merick-Farrow-Agenten. Wird der Lord-Merick-Farrow-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Lord-Merick-Farrow-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-summon-merick.png"
+      },
+      {
+        "id": "thaumaturgy",
+        "nameEn": "Thaumaturgy",
+        "nameDe": "Thaumaturgie",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn and discard a Magic Overlord card from your hand to search your discard pile for a Magic Overlord card of your choice. Reveal that card and place it in your hand.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges und lege eine Magie-Overlord-Karte von deiner Hand ab, um deinen Ablagestapel nach einer Magie-Overlord-Karte deiner Wahl zu durchsuchen. Decke diese Karte auf und nimm sie auf deine Hand.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-thaumaturgy.png"
+      },
+      {
+        "id": "cabal",
+        "nameEn": "Cabal",
+        "nameDe": "Kabale",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose a monster group and place this card near that group's Monster card. Each master monster in that group gains: Surge: Overseer: This monster deals +1 Heart for each other monster in its group within 3 spaces of the target, (to a maximum of +4 Hearts).",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine Monstergruppe zu wählen, und lege diese Karte neben die Monsterkarte dieser Gruppe. Jedes Meister-Monster dieser Gruppe erhält: Schub: Aufseher: Dieses Monster fügt +1 Herz für jedes andere Monster seiner Gruppe innerhalb von 3 Feldern um das Ziel zu (bis zu maximal +4 Herzen).",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-cabal.png"
+      }
+    ]
+  },
+  {
+    "id": "the-fallen-elite",
+    "nameEn": "The Fallen Elite",
+    "nameDe": "Die gefallene Elite",
+    "agentEn": "Sir Alric Farrow",
+    "agentDe": "Sir Alric Farrow",
+    "expansionId": "base",
+    "cards": [
+      {
+        "id": "armorofdarkness",
+        "nameEn": "Armor Of Darkness",
+        "nameDe": "Rüstung der Finsternis",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster is attacked, after dice are rolled, to add 2 Shields to the results.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster angegriffen wird, nachdem die Würfel geworfen wurden, um 2 Schilde zu den Ergebnissen hinzuzufügen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-armor-of-darkness.png"
+      },
+      {
+        "id": "darkchampions",
+        "nameEn": "Dark Champions",
+        "nameDe": "Dunkle Champions",
+        "threatCost": 2,
+        "triggerCost": 3,
+        "rulesEn": "Exhaust this card after setup of an encounter. While this card is exhausted, each master monster gains +2 Health and adds 1 additional brown die to its defense pool. Each of its attacks gains: Surge: +2 Hearts. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Solange diese Karte erschöpft ist, erhält jedes Meister-Monster +2 Lebenspunkte und fügt 1 zusätzlichen braunen Würfel zu seinem Verteidigungspool hinzu. Jeder seiner Angriffe erhält: Schub: +2 Herzen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-dark-champions.png"
+      },
+      {
+        "id": "fightinformation",
+        "nameEn": "Fight In Formation",
+        "nameDe": "In Formation kämpfen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster is attacked, before dice are rolled. Add 1 Shield to the results for each monster in the monster's group that is adjacent to it (to a maximum of 3 Shields). If the defending monster does not suffer at least 1 Heart from this attack, gain 1 threat token.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster angegriffen wird, bevor die Würfel geworfen werden. Füge 1 Schild zu den Ergebnissen hinzu für jedes Monster der Gruppe des Monsters, das ihm benachbart ist (bis zu maximal 3 Schilde). Erleidet das verteidigende Monster durch diesen Angriff nicht mindestens 1 Herz, erhalte 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-fight-in-formation.png"
+      },
+      {
+        "id": "trialofknighthood",
+        "nameEn": "Trial Of Knighthood",
+        "nameDe": "Ritterprobe",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a master monster performs an attack, before dice are rolled. If this attack defeats a hero that has at least 4 Might, gain 2 threat tokens. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster einen Angriff ausführt, bevor die Würfel geworfen werden. Besiegt dieser Angriff einen Helden mit mindestens 4 Stärke, erhalte 2 Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-trial-of-knighthood.png"
+      },
+      {
+        "id": "veterancouncil",
+        "nameEn": "Veteran Council",
+        "nameDe": "Veteranenrat",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter. At the end of this encounter, gain 1 threat token for each master monster remaining on the map (to a maximum of 3 threat tokens). This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Am Ende dieser Begegnung erhalte 1 Bedrohungsmarker für jedes auf dem Spielplan verbliebene Meister-Monster (bis zu maximal 3 Bedrohungsmarker). Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-veteran-council.png"
+      },
+      {
+        "id": "knighttraining",
+        "nameEn": "Knight Training",
+        "nameDe": "Ritterausbildung",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "After setup of each encounter, choose a monster group of SMALL monsters and place this card near the chosen group's Monster card. Exhaust this card when a monster of the chosen group is attacked, after dice are rolled, to reroll 1 defense die. While this card is exhausted, each time a monster of that group is attacked, after dice are rolled, you may reroll 1 defense die.",
+        "rulesDe": "Wähle nach dem Aufbau jeder Begegnung eine Monstergruppe aus KLEINEN Monstern und lege diese Karte neben die Monsterkarte der gewählten Gruppe. Erschöpfe diese Karte, wenn ein Monster der gewählten Gruppe angegriffen wird, nachdem die Würfel geworfen wurden, um 1 Verteidigungswürfel neu zu würfeln. Solange diese Karte erschöpft ist, darfst du jedes Mal, wenn ein Monster dieser Gruppe angegriffen wird, nachdem die Würfel geworfen wurden, 1 Verteidigungswürfel neu würfeln.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-knight-training.png"
+      },
+      {
+        "id": "summonalric",
+        "nameEn": "Summon - Alric",
+        "nameDe": "Beschwören – Alric",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master and 1 minion monster in the chosen group with the Sir Alric Farrow agent. If the Sir Alric Farrow agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Sir Alric Farrow lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister- und 1 Diener-Monster der gewählten Gruppe durch den Sir-Alric-Farrow-Agenten. Wird der Sir-Alric-Farrow-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Sir-Alric-Farrow-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-summon-alric.png"
+      },
+      {
+        "id": "unkillable",
+        "nameEn": "Unkillable",
+        "nameDe": "Untötbar",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a master monster is defeated. Replace the master monster with a minion monster from the same monster group, respecting group limits. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster besiegt wird. Ersetze das Meister-Monster durch ein Diener-Monster derselben Monstergruppe, unter Beachtung der Gruppenlimits. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-unkillable.png"
+      },
+      {
+        "id": "vengefulresolve",
+        "nameEn": "Vengeful Resolve",
+        "nameDe": "Rachsüchtige Entschlossenheit",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "After setup of each encounter, choose a monster group of SMALL monsters and place this card near the chosen group's Monster card. Exhaust this card at the end of your turn. While this card is exhausted, each time a hero performs an attack that deals at least 1 Heart to a monster of that group, that hero suffers 1 Heart.",
+        "rulesDe": "Wähle nach dem Aufbau jeder Begegnung eine Monstergruppe aus KLEINEN Monstern und lege diese Karte neben die Monsterkarte der gewählten Gruppe. Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, erleidet jedes Mal, wenn ein Held einen Angriff ausführt, der einem Monster dieser Gruppe mindestens 1 Herz zufügt, dieser Held 1 Herz.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-vengeful-resolve.png"
+      },
+      {
+        "id": "refusetodie",
+        "nameEn": "Refuse To Die",
+        "nameDe": "Sich weigern zu sterben",
+        "threatCost": 4,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn to choose a monster. Place a threat token on that monster's base as a reminder. While this card is exhausted, the chosen monster applies +2 to its Health. The monster also recovers 2 Hearts at the start of each overlord turn. This card does not refresh as normal. It refreshes when the chosen monster is defeated or at the end of the encounter.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges, um ein Monster zu wählen. Lege als Erinnerung einen Bedrohungsmarker auf die Basis dieses Monsters. Solange diese Karte erschöpft ist, erhält das gewählte Monster +2 auf seine Lebenspunkte. Das Monster gewinnt außerdem zu Beginn jedes Overlord-Zuges 2 Herzen zurück. Diese Karte erholt sich nicht wie üblich. Sie erholt sich, wenn das gewählte Monster besiegt wird oder am Ende der Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-refuse-to-die.png"
+      }
+    ]
+  },
+  {
+    "id": "goblin-uprising",
+    "nameEn": "Goblin Uprising",
+    "nameDe": "Goblin-Aufstand",
+    "agentEn": "Splig",
+    "agentDe": "Splig",
+    "expansionId": "base",
+    "cards": [
+      {
+        "id": "spiritedretreat",
+        "nameEn": "Spirited Retreat",
+        "nameDe": "Beherzter Rückzug",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a SMALL monster with the Wilderness monster trait declares a move action. Move that monster 1 space. If that monster ends this move action within 3 spaces of a hero, it may move 1 additional space.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein KLEINES Monster mit dem Monster-Merkmal „Wildnis\" eine Bewegungsaktion ansagt. Bewege dieses Monster 1 Feld. Beendet dieses Monster diese Bewegungsaktion innerhalb von 3 Feldern um einen Helden, darf es sich 1 zusätzliches Feld bewegen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-spirited-retreat.png"
+      },
+      {
+        "id": "feralinstincts",
+        "nameEn": "Feral Instincts",
+        "nameDe": "Wilde Instinkte",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after setup of an encounter to choose one of your monster groups. During this encounter, that group gains the Wilderness monster trait. Place a threat token from the supply on that group's Monster card as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen. Während dieser Begegnung erhält diese Gruppe das Monster-Merkmal „Wildnis\". Lege als Erinnerung einen Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-feral-instincts.png"
+      },
+      {
+        "id": "emergencyrations",
+        "nameEn": "Emergency Rations",
+        "nameDe": "Notrationen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card during your turn to choose a monster and roll 1 red power die. The chosen monster recovers Hearts equal to the Hearts rolled. If that monster has the Wilderness monster trait, it recovers 1 additional Heart.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges, um ein Monster zu wählen und 1 roten Machtwürfel zu werfen. Das gewählte Monster gewinnt so viele Herzen zurück, wie gewürfelt wurden. Hat dieses Monster das Monster-Merkmal „Wildnis\", gewinnt es 1 zusätzliches Herz zurück.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-emergency-rations.png"
+      },
+      {
+        "id": "meatshield",
+        "nameEn": "Meat Shield",
+        "nameDe": "Kanonenfutter",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster suffers any amount of Hearts. Choose a monster adjacent to that monster to suffer all of the Hearts instead.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster eine beliebige Menge Herzen erleidet. Wähle ein zu diesem Monster benachbartes Monster, das stattdessen alle Herzen erleidet.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-meat-shield.png"
+      },
+      {
+        "id": "overfed",
+        "nameEn": "Overfed",
+        "nameDe": "Überfüttert",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter. While this card is exhausted, each monster with the Wilderness monster trait applies +2 to its Health and -1 to its Speed. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Solange diese Karte erschöpft ist, erhält jedes Monster mit dem Monster-Merkmal „Wildnis\" +2 auf seine Lebenspunkte und -1 auf seine Bewegung. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-overfed.png"
+      },
+      {
+        "id": "diveintocover",
+        "nameEn": "Dive Into Cover",
+        "nameDe": "In Deckung springen",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after a hero resolves an attack affecting a monster. If that monster was not defeated, it may immediately move 3 spaces. If that monster has the Wilderness monster trait, it adds 1 additional black die to its defense pool until the start of your next turn. Place a threat token from the supply on that monster's base as a reminder.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held einen Angriff abgehandelt hat, der ein Monster betrifft. Wurde dieses Monster nicht besiegt, darf es sich sofort 3 Felder bewegen. Hat dieses Monster das Monster-Merkmal „Wildnis\", fügt es bis zum Beginn deines nächsten Zuges 1 zusätzlichen schwarzen Würfel zu seinem Verteidigungspool hinzu. Lege als Erinnerung einen Bedrohungsmarker aus dem Vorrat auf die Basis dieses Monsters.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-dive-into-cover.png"
+      },
+      {
+        "id": "goblinambush",
+        "nameEn": "Goblin Ambush",
+        "nameDe": "Goblin-Hinterhalt",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after a hero enters an empty space. Perform an attack targeting that hero as if from a master goblin archer. If the total range of this attack is less than 4, it is a miss. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held ein leeres Feld betreten hat. Führe einen Angriff gegen diesen Helden aus, als käme er von einem Meister-Goblin-Schützen. Ist die Gesamtreichweite dieses Angriffs kleiner als 4, geht er daneben. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-goblin-ambush.png"
+      },
+      {
+        "id": "summonsplig",
+        "nameEn": "Summon - Splig",
+        "nameDe": "Beschwören – Splig",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master monster in the chosen group with the Splig agent. If the Splig agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Splig lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister-Monster der gewählten Gruppe durch den Splig-Agenten. Wird der Splig-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Splig-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-summon-splig.png"
+      },
+      {
+        "id": "raidedarmory",
+        "nameEn": "Raided Armory",
+        "nameDe": "Geplünderte Waffenkammer",
+        "threatCost": 4,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn and choose a monster group. Place this card near that group's Monster card. While this card is exhausted, each monster in that group adds 1 Surge to each of its attack results and 1 Shield to each of its defense results. If that group has the Wilderness monster trait, each monster in that group gains +1 Heart on each attack.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges und wähle eine Monstergruppe. Lege diese Karte neben die Monsterkarte dieser Gruppe. Solange diese Karte erschöpft ist, fügt jedes Monster dieser Gruppe 1 Schub zu jedem seiner Angriffsergebnisse und 1 Schild zu jedem seiner Verteidigungsergebnisse hinzu. Hat diese Gruppe das Monster-Merkmal „Wildnis\", erhält jedes Monster dieser Gruppe +1 Herz auf jeden Angriff.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-raided-armory.png"
+      },
+      {
+        "id": "scavenge",
+        "nameEn": "Scavenge",
+        "nameDe": "Plündern",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card in exhausted, each of your monsters gains: Action: If this monster is in a space containing or adjacent to a knocked-out hero, place 1 threat token from the supply on this card. No more than 6 threat tokens can be on this card at any time. At the end of the quest, gain all threat tokens on this card.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes deiner Monster: Aktion: Befindet sich dieses Monster auf einem Feld, das einen kampfunfähigen Helden enthält oder ihm benachbart ist, lege 1 Bedrohungsmarker aus dem Vorrat auf diese Karte. Es können sich nie mehr als 6 Bedrohungsmarker auf dieser Karte befinden. Am Ende des Szenarios erhalte alle Bedrohungsmarker auf dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-scavenge.png"
       }
     ]
   }
