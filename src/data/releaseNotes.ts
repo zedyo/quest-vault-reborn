@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.7',
+    date: '2026-06-14',
+    title: 'Neue Spielsymbole und Würfelgrafiken',
+    highlights: [
+      'Würfel werden jetzt als kleine 3D-Würfel in ihrer echten Farbe angezeigt – bei Helden, Monstern und Ausrüstung.',
+      'Neue Symbole für Bewegung (Stiefel) und Verteidigung (Schild) sowie überarbeitete Symbole für Aktion, Energie/Schub und Erschöpfung.',
+    ],
+  },
+  {
     version: '1.1.6',
     date: '2026-06-13',
     title: 'Kompatibilitätsfix: Kartentexte auf allen Browsern',
