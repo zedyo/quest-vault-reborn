@@ -1,11 +1,11 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.19  
+**Aktuelle Version:** 1.1.20  
 **Letztes Update:** 2026-06-14  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
 1.1.13: Refactoring; 1.1.14: Bestätigungsdialog/Dependency-Hygiene; 1.1.15–1.1.17: Overlord-Kartensatz
-komplett 105 Karten; 1.1.18–1.1.19: Leutnants komplett 21/39). Weitere v1.1-Daten (Agenten,
-Kampagnen, Reisekarten) folgen in 1.1.x
+komplett 105 Karten; 1.1.18–1.1.19: Leutnants komplett 21/39; 1.1.20: Agenten Grundspiel). Weitere
+v1.1-Daten (Erweiterungs-Agenten + Plotdeck-Karten, Kampagnen, Reisekarten) folgen in 1.1.x
 
 ---
 
@@ -58,7 +58,9 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 - [x] Overlord-Klassen + Karten: VOLLSTÄNDIG ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungen +
       1.1.17 Belohnungskarten; 105 Karten in 27 Decks, EN 105/105 wortgetreu verifiziert)
 - [x] Overlord-Hauptmänner/Leutnants: VOLLSTÄNDIG ✅ (1.1.18 Grundspiel + 1.1.19 Erweiterungen;
-      21 Leutnants / 39 Formen, EN verifiziert). Offen: aufgewertete Agenten/Plotdecks
+      21 Leutnants / 39 Formen, EN verifiziert)
+- [~] Agenten + Plotdecks: Grundspiel-Agenten ✅ (1.1.20 – 6 Agenten + Plotdeck-Verweis, /agenten-Seite).
+      Offen: Erweiterungs-Agenten + Plotdeck-Karten (201 in 20 Decks)
 - [ ] Reisekarten + Nebenszenarien (alle Reisekarten, ausgelöste Ereignisse)
 - [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
 - [x] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen (v1.0.3: 70+ Korrekturen, alle 56 Monstergruppen + 60 Helden kartenscan-validiert)
