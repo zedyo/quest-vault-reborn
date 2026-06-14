@@ -249,8 +249,10 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
       `ConfirmDialog` auf `ModalOverlay`; Quest aus Liste/Editor + Begegnung abgesichert)
 - [ ] Standalone-Kartenbauer (/karte) speichert nicht → persistieren oder warnen
 - [ ] Touch-Targets ≥44px (Monster-Token-X ist 14px), Hover-Vorschau braucht Touch-Alternative
-- [ ] localforage entfernen oder als IndexedDB-Adapter nutzen (tote Dependency)
-- [ ] react-router-dom auf ≥6.30.4 (Open-Redirect-Advisory, praktisch kaum ausnutzbar)
+- [x] localforage entfernen (v1.1.x – tote Dependency, nirgends importiert; Store nutzt
+      zustand-Default `localStorage`. Aus package.json + lockfile entfernt)
+- [x] react-router-dom auf ≥6.30.4 (v1.1.x – Open-Redirect-Advisory; von 6.30.3 → 6.30.4,
+      Floor in package.json auf `^6.30.4` angehoben)
 - [ ] navItems umgruppieren wenn v1.3+ kommt: Spielen / Erstellen / Kompendium / Sammlung
 
 ### Offen — Niedrig
