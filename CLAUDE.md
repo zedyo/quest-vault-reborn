@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.5 (2026-06-13)
+## Aktuelle Version: 1.1.7 (2026-06-14)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), **DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), **Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -406,6 +406,13 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   Helfer-Funktion `renderGameText()` (ersetzt Herz/Schub/Erschöpfung durch Symbole und
   setzt jeden Satz in eine eigene Zeile). Monster- und Item-Karten nutzen dieselben
   Symbole (1.1.5). Für künftige Kartentexte (Overlord, Klassen) wiederverwenden.
+  **1.1.7:** Symbol-Pfade aus einer PSD-Familiar-Kartenvorlage (per `psd-tools`/`potrace`
+  aufbereitet) ergänzt/überarbeitet: `MovementSymbol` (Stiefel), `DefenseSymbol` (Schild),
+  Kreis-Badges (`MovementBadge`/`DefenseBadge`) und `DiceSymbol` (isometrischer 3D-Würfel,
+  Basisfarben aus den PSD-Pixeln). `DiceSymbol` ersetzt die Buchstaben-Quadrate in
+  `DiceDisplay.tsx` (`DicePip`) + ItemsPage. Action=blau, Surge=diagonaler Blitz,
+  Fatigue=gelber gebogener Tropfen. Movement/Defense-Komponenten sind angelegt, aber noch
+  in keiner Seite verbaut (für künftige Nutzung bereit).
 - **Datenspeicherung:** localStorage via zustand persist (bis v2.0)
 - **Assets:** any2cards/d2e PNG-Tiles (Community, FFG IP Grauzone)
 - **Hosting:** GitHub Pages (deploy.yml vorhanden)
