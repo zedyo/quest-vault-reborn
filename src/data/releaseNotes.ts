@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.19',
+    date: '2026-06-14',
+    title: 'Leutnants der Erweiterungen',
+    highlights: [
+      'Die Leutnants-Seite enthält jetzt alle Erweiterungs-Leutnants (u. a. Valyndra, Ariad, Bol’Goreth, Skarn, die Olliven-Brüder, Verminous, Kyndrithul) – insgesamt 21 Leutnants.',
+      'Leutnants, deren zweiter Akt aus einer anderen Box stammt (Bilehall → Rostende Ketten), zeigen die jeweilige Erweiterung pro Akt an.',
+    ],
+  },
+  {
     version: '1.1.18',
     date: '2026-06-14',
     title: 'Leutnants (Grundspiel)',

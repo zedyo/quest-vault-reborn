@@ -48,12 +48,19 @@ function PerPlayerTable({ form, lang }: { form: LieutenantForm; lang: Lang }) {
   )
 }
 
-function FormBlock({ form, lang, onImageOpen }: { form: LieutenantForm; lang: Lang; onImageOpen: () => void }) {
+function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: LieutenantForm; lang: Lang; otherExpansion?: string; onImageOpen: () => void }) {
   return (
     <div className="rounded border border-dungeon-700 p-2 space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-gold-400">Akt {form.act === 1 ? 'I' : 'II'}</span>
-        <button onClick={onImageOpen} className="text-[10px] text-gray-500 hover:text-gold-400" title="Karte vergrößern">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-semibold text-gold-400">
+          Akt {form.act === 1 ? 'I' : 'II'}
+          {otherExpansion && (
+            <span className="ml-1 text-[10px] font-normal text-gray-500" title="Diese Akt-Karte stammt aus einer anderen Erweiterung">
+              · {otherExpansion}
+            </span>
+          )}
+        </span>
+        <button onClick={onImageOpen} className="text-[10px] text-gray-500 hover:text-gold-400 shrink-0" title="Karte vergrößern">
           🔍 Karte
         </button>
       </div>
@@ -93,7 +100,7 @@ function FormBlock({ form, lang, onImageOpen }: { form: LieutenantForm; lang: La
   )
 }
 
-function LieutenantCard({ lt, lang, onImageOpen }: { lt: Lieutenant; lang: Lang; onImageOpen: (url: string, name: string) => void }) {
+function LieutenantCard({ lt, lang, expansionName, onImageOpen }: { lt: Lieutenant; lang: Lang; expansionName: (id: string) => string; onImageOpen: (url: string, name: string) => void }) {
   return (
     <div className="card space-y-2">
       <div>
@@ -108,6 +115,7 @@ function LieutenantCard({ lt, lang, onImageOpen }: { lt: Lieutenant; lang: Lang;
             key={f.act}
             form={f}
             lang={lang}
+            otherExpansion={f.expansionId !== lt.expansionId ? expansionName(f.expansionId) : undefined}
             onImageOpen={() => onImageOpen(f.imageUrl, `${lang === 'de' ? lt.nameDe : lt.nameEn} – Akt ${f.act === 1 ? 'I' : 'II'}`)}
           />
         ))}
@@ -197,7 +205,13 @@ export default function LieutenantsPage() {
               </h3>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
                 {lts.map((lt) => (
-                  <LieutenantCard key={lt.id} lt={lt} lang={lang} onImageOpen={(url, name) => setLightbox({ imageUrl: url, name })} />
+                  <LieutenantCard
+                    key={lt.id}
+                    lt={lt}
+                    lang={lang}
+                    expansionName={(id) => expansionMap[id]?.nameDe ?? id}
+                    onImageOpen={(url, name) => setLightbox({ imageUrl: url, name })}
+                  />
                 ))}
               </div>
             </div>
