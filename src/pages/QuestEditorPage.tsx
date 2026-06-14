@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useGameStore } from '../store/useGameStore'
 import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster } from '../types/game'
 import type { PlacedMapTile } from '../components/MapBuilder/types'
@@ -7,7 +7,7 @@ import { MONSTERS } from '../data/monsters'
 import { HEROES, ARCHETYPE_COLORS } from '../data/heroes'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 import { parseImportedQuest, MAX_IMPORT_BYTES } from '../utils/questImport'
-import { renderGameTextInline } from '../components/GameSymbols'
+import { renderGameTextInline, HeartSymbol, SurgeSymbol, FatigueSymbol, ActionSymbol } from '../components/GameSymbols'
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -189,18 +189,76 @@ interface TextFieldProps {
   placeholder?: string
 }
 
-function TextField({ label, value, onChange, rows = 3, placeholder }: TextFieldProps) {
+// Wörter, die in Vorschau/Druck als Kartensymbole gerendert werden (siehe
+// renderGameTextInline). Über die Leiste per Klick einfügbar.
+const INSERTABLE_SYMBOLS: { word: string; Icon: (p: { size?: number }) => JSX.Element }[] = [
+  { word: 'Herz', Icon: HeartSymbol },
+  { word: 'Schub', Icon: SurgeSymbol },
+  { word: 'Erschöpfung', Icon: FatigueSymbol },
+  { word: 'Aktion', Icon: ActionSymbol },
+]
+
+function SymbolInsertBar({ onInsert }: { onInsert: (word: string) => void }) {
   return (
-    <label className="block">
-      <span className="block text-xs font-semibold text-gold-400 mb-1">{label}</span>
+    <span className="flex items-center gap-1">
+      {INSERTABLE_SYMBOLS.map(({ word, Icon }) => (
+        <button
+          key={word}
+          type="button"
+          title={`„${word}" einfügen – erscheint in Vorschau & Druck als Symbol`}
+          aria-label={`${word} als Symbol einfügen`}
+          // onMouseDown + preventDefault: Fokus/Cursor im Textfeld bleibt erhalten
+          onMouseDown={(e) => {
+            e.preventDefault()
+            onInsert(word)
+          }}
+          className="inline-flex items-center justify-center w-6 h-6 rounded bg-dungeon-800 border border-dungeon-700 hover:border-gold-500 hover:bg-dungeon-700 transition-colors"
+        >
+          <Icon size={13} />
+        </button>
+      ))}
+    </span>
+  )
+}
+
+function TextField({ label, value, onChange, rows = 3, placeholder }: TextFieldProps) {
+  const taRef = useRef<HTMLTextAreaElement>(null)
+
+  const insertSymbol = (word: string) => {
+    const el = taRef.current
+    // Cursorposition nur nutzen, wenn das Feld fokussiert ist – sonst ans Ende anhängen
+    const focused = !!el && document.activeElement === el
+    const start = focused ? el.selectionStart : value.length
+    const end = focused ? el.selectionEnd : value.length
+    const before = value.slice(0, start)
+    const after = value.slice(end)
+    // Leerzeichen davor, damit die Wortgrenze stimmt (sonst rendert das Symbol nicht)
+    const sep = before.length > 0 && !/\s$/.test(before) ? ' ' : ''
+    const insert = sep + word
+    onChange(before + insert + after)
+    const caret = before.length + insert.length
+    requestAnimationFrame(() => {
+      if (!el) return
+      el.focus()
+      el.setSelectionRange(caret, caret)
+    })
+  }
+
+  return (
+    <div className="block">
+      <div className="flex items-center justify-between gap-2 mb-1">
+        <span className="text-xs font-semibold text-gold-400">{label}</span>
+        <SymbolInsertBar onInsert={insertSymbol} />
+      </div>
       <textarea
+        ref={taRef}
         value={value}
         rows={rows}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className="w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500 resize-y"
       />
-    </label>
+    </div>
   )
 }
 
@@ -538,6 +596,14 @@ export default function QuestEditorPage() {
           rows={2}
           placeholder="Worum geht es in dieser Quest?"
         />
+        <p className="text-[11px] text-gray-500 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+          <span className="text-gray-400">Tipp:</span>
+          <span className="inline-flex items-center gap-1"><HeartSymbol size={12} />Herz</span>
+          <span className="inline-flex items-center gap-1"><SurgeSymbol size={12} />Schub</span>
+          <span className="inline-flex items-center gap-1"><FatigueSymbol size={12} />Erschöpfung</span>
+          <span className="inline-flex items-center gap-1"><ActionSymbol size={12} />Aktion</span>
+          <span>– diese Wörter erscheinen in Vorschau &amp; Druckansicht als Symbole. Per Klick auf die Symbol-Knöpfe an jedem Textfeld einfügen oder einfach so tippen.</span>
+        </p>
       </div>
 
       {/* Heldenauswahl */}
