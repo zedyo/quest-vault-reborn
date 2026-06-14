@@ -3,6 +3,7 @@ import { HERO_CLASSES } from '../data/heroClasses'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
+import { SearchInput, OwnedToggle, LangToggle } from '../components/Filters'
 import type { HeroClass, ClassSkill, HeroArchetype } from '../types/game'
 
 const ARCHETYPE_DE: Record<HeroArchetype, string> = {
@@ -138,39 +139,9 @@ export default function ClassesPage() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <input
-          type="search"
-          placeholder="Klasse suchen…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-dungeon-800 border border-dungeon-700 text-gray-100 rounded px-3 py-2 text-sm w-56 focus:outline-none focus:border-gold-500"
-        />
-        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={onlyOwned}
-            onChange={(e) => setOnlyOwned(e.target.checked)}
-            className="accent-gold-500"
-          />
-          Nur meine Sammlung
-        </label>
-
-        {/* Sprach-Umschalter */}
-        <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600 ml-auto">
-          {(['de', 'en'] as const).map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className={`px-3 py-1.5 text-sm font-medium transition-colors ${
-                lang === l
-                  ? 'bg-gold-700 text-gray-900'
-                  : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
-              }`}
-            >
-              {l === 'de' ? 'Deutsch' : 'English'}
-            </button>
-          ))}
-        </div>
+        <SearchInput value={search} onChange={setSearch} placeholder="Klasse suchen…" className="w-56" />
+        <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>
 
       {lang === 'de' && (

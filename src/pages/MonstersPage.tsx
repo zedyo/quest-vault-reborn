@@ -1,51 +1,14 @@
 import { useState, useMemo } from 'react'
 import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
+import { monsterImageUrl } from '../data/assetUrls'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
 import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
+import { HealthIcon, AttackIcon } from '../components/StatIcons'
+import ModalOverlay from '../components/ModalOverlay'
+import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
-
-// Per-expansion filename prefix (any2cards/d2e naming convention)
-const EXPANSION_PREFIX: Record<string, string> = {
-  'base':                    'bg',
-  'lair-of-the-wyrm':        'lw',
-  'labyrinth-of-ruin':       'lr',
-  'the-trollfens':           'tf',
-  'shadow-of-nerekhall':     'sn',
-  'manor-of-ravens':         'mr',
-  'oath-of-the-outcast':     'oo',
-  'crown-of-destiny':        'cd',
-  'crusade-of-the-forgotten':'cf',
-  'guardians-of-deephall':   'gd',
-  'visions-of-dawn':         'vd',
-  'bonds-of-the-wild':       'bw',
-  'treaty-of-champions':     'tc',
-  'stewards-of-the-secret':  'ss',
-  'shards-of-everdark':      'se',
-  'mists-of-bilehall':       'mb',
-  'the-chains-that-rust':    'cr',
-}
-
-const EXPANSION_PATH: Record<string, string> = {
-  'base':                    'base-game',
-  'lair-of-the-wyrm':        'lair-of-the-wyrm',
-  'labyrinth-of-ruin':       'labyrinth-of-ruin',
-  'the-trollfens':           'the-trollfens',
-  'shadow-of-nerekhall':     'shadow-of-nerekhall',
-  'manor-of-ravens':         'manor-of-ravens',
-  'oath-of-the-outcast':     'oath-of-the-outcast',
-  'crown-of-destiny':        'crown-of-destiny',
-  'crusade-of-the-forgotten':'crusade-of-the-forgotten',
-  'guardians-of-deephall':   'guardians-of-deephall',
-  'visions-of-dawn':         'visions-of-dawn',
-  'bonds-of-the-wild':       'bonds-of-the-wild',
-  'treaty-of-champions':     'treaty-of-champions',
-  'stewards-of-the-secret':  'stewards-of-the-secret',
-  'shards-of-everdark':      'shards-of-everdark',
-  'mists-of-bilehall':       'mists-of-bilehall',
-  'the-chains-that-rust':    'the-chains-that-rust',
-}
 
 /**
  * Returns merged stats for the requested act:
@@ -69,13 +32,6 @@ function getActStats(
   }
 }
 
-function monsterImageUrl(monsterId: string, expansionId: string, act: 1 | 2 = 1): string {
-  const prefix = EXPANSION_PREFIX[expansionId] ?? 'bg'
-  const expPath = EXPANSION_PATH[expansionId] ?? expansionId
-  const actPath = act === 2 ? 'act2' : 'act1'
-  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/${actPath}/${prefix}-${monsterId}-front.png`
-}
-
 /**
  * Format an ability/surge/action entry:
  * - Optionally strip a leading "Schub: " prefix (for surge entries)
@@ -92,41 +48,8 @@ function formatEntry(text: string, stripSchub = false): React.ReactNode {
   return <><strong className="text-gray-300 font-semibold">{name}</strong>{renderGameTextInline(rest, 12)}</>
 }
 
-// ── Stat icons — faithful to the Descent 2e card art ────────────────────────
-
-function HealthIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#b52524" />
-      {/* Classic symmetric heart with cubic bezier lobes */}
-      <g transform="translate(12 12) scale(0.7951) translate(-12 -12.92)">
-        <path
-          d="M12,21 L4.5,13.5 C3,11.5 3,7.5 6,5.5 C9,3.5 11.5,6.5 12,9 C12.5,6.5 15,3.5 18,5.5 C21,7.5 21,11.5 19.5,13.5 Z"
-          fill="white"
-        />
-      </g>
-    </svg>
-  )
-}
-
-function AttackIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#847974" />
-      {/* Sword pointing diagonally from bottom-left to top-right */}
-      <g stroke="white" strokeLinecap="round">
-        <line x1="11.3" y1="12.7" x2="17" y2="7" strokeWidth="2.4" />
-        <line x1="9.2" y1="10.6" x2="13.4" y2="14.8" strokeWidth="2" />
-        <line x1="11.3" y1="12.7" x2="7.4" y2="16.6" strokeWidth="2" />
-      </g>
-      <polygon points="18.7,5.3 17.7,8.0 15.9,6.2" fill="white" />
-      <circle cx="6.8" cy="17.2" r="1.6" fill="white" />
-    </svg>
-  )
-}
-
-// SurgeSymbol & ActionSymbol stammen aus ../components/GameSymbols (identisch
-// auf Monster- und Item-Karten verwendet).
+// Stat-Icons (HealthIcon/AttackIcon) liegen zentral in ../components/StatIcons;
+// SurgeSymbol & ActionSymbol in ../components/GameSymbols.
 
 // ── TraitIcon ─────────────────────────────────────────────────────────────────
 
@@ -409,15 +332,12 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
   const noAct2Data = act === 2 && !monster.act2Normal && !monster.act2Master
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-      onClick={onClose}
+    <ModalOverlay
+      onClose={onClose}
+      ariaLabel={monster.nameDe}
+      className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+      style={{ maxWidth: 740 }}
     >
-      <div
-        className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-        style={{ maxWidth: 740 }}
-        onClick={(e) => e.stopPropagation()}
-      >
         <div className="flex items-start justify-between p-4 border-b border-dungeon-700">
           <div>
             <h3 className="text-xl font-bold text-gray-100">{monster.nameDe}</h3>
@@ -472,8 +392,7 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </ModalOverlay>
   )
 }
 
@@ -577,46 +496,19 @@ export default function MonstersPage() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <input
-          type="search"
-          placeholder="Suche nach Name…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-dungeon-800 border border-dungeon-700 text-gray-100 rounded px-3 py-2 text-sm w-64 focus:outline-none focus:border-gold-500"
-        />
-        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={onlyOwned}
-            onChange={(e) => setOnlyOwned(e.target.checked)}
-            className="accent-gold-500"
-          />
-          Nur meine Sammlung
-        </label>
+        <SearchInput value={search} onChange={setSearch} placeholder="Suche nach Name…" />
+        <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
 
         {/* Act toggle */}
-        <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600 ml-auto sm:ml-0">
-          <button
-            onClick={() => handleActChange(1)}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors ${
-              act === 1
-                ? 'bg-gold-700 text-gray-900'
-                : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
-            }`}
-          >
-            Akt 1
-          </button>
-          <button
-            onClick={() => handleActChange(2)}
-            className={`px-3 py-1.5 text-sm font-medium transition-colors ${
-              act === 2
-                ? 'bg-gold-700 text-gray-900'
-                : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
-            }`}
-          >
-            Akt 2
-          </button>
-        </div>
+        <SegmentedControl<1 | 2>
+          className="ml-auto sm:ml-0"
+          value={act}
+          onChange={handleActChange}
+          options={[
+            { value: 1, label: 'Akt 1' },
+            { value: 2, label: 'Akt 2' },
+          ]}
+        />
       </div>
 
       {availableTraits.length > 0 && (
