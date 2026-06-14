@@ -9,6 +9,7 @@ import HeroesPage from './pages/HeroesPage'
 import ClassesPage from './pages/ClassesPage'
 import ItemsPage from './pages/ItemsPage'
 import OverlordPage from './pages/OverlordPage'
+import LieutenantsPage from './pages/LieutenantsPage'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="klassen" element={<ClassesPage />} />
         <Route path="items" element={<ItemsPage />} />
         <Route path="overlord" element={<OverlordPage />} />
+        <Route path="leutnants" element={<LieutenantsPage />} />
       </Route>
     </Routes>
   )

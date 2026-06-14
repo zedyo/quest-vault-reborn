@@ -1,10 +1,11 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.17  
+**Aktuelle Version:** 1.1.18  
 **Letztes Update:** 2026-06-14  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
 1.1.13: Refactoring; 1.1.14: Bestätigungsdialog/Dependency-Hygiene; 1.1.15–1.1.17: Overlord-Kartensatz
-komplett, 105 Karten). Weitere v1.1-Daten (Leutnants, Kampagnen) folgen in 1.1.x
+komplett 105 Karten; 1.1.18: Leutnants Grundspiel). Weitere v1.1-Daten (Erweiterungs-Leutnants,
+Kampagnen) folgen in 1.1.x
 
 ---
 
@@ -56,7 +57,8 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 - [ ] Reliktkarten (alle Relikte)
 - [x] Overlord-Klassen + Karten: VOLLSTÄNDIG ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungen +
       1.1.17 Belohnungskarten; 105 Karten in 27 Decks, EN 105/105 wortgetreu verifiziert)
-- [ ] Overlord-Hauptmänner/Leutnants (alle mit Werten, Fähigkeitskarten)
+- [~] Overlord-Hauptmänner/Leutnants: Grundspiel ✅ (1.1.18 – 6 Leutnants, Akt I+II, Werte je
+      Spielerzahl + Fähigkeiten, zweisprachig). Offen: Erweiterungs-Leutnants + Agenten/Plotdecks
 - [ ] Reisekarten + Nebenszenarien (alle Reisekarten, ausgelöste Ereignisse)
 - [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
 - [x] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen (v1.0.3: 70+ Korrekturen, alle 56 Monstergruppen + 60 Helden kartenscan-validiert)
