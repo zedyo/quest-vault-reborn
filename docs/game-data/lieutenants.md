@@ -109,6 +109,31 @@ Attribute: Stärke/Wissen/Willenskraft/Gespür (M/W/Wi/G). Angriff/Fähigkeiten 
 
 ---
 
+## Agenten (`src/data/agents.ts`)
+
+Agenten sind die **aufgewerteten Leutnant-Versionen** aus den Leutnants-Packs: eigene
+Fähigkeiten (z. B. „Lenkung" statt „Herrschaft", „Der da!" statt „Nicht ich!") und je ein
+zugehöriges **Plotdeck**. Agenten-Statkarten führen **keine Attributwerte** (nur Angriff,
+Werte je Spielerzahl, Fähigkeiten). Quelle: any2cards `data/agents.js`.
+
+**Status:** Grundspiel erfasst ✅ (v1.1.20 – 6 Agenten, 12 Formen, EN 1:1 verifiziert).
+Erweiterungs-Agenten + die eigentlichen **Plotdeck-Karten** (`data/plot-decks.js`, 201 Karten
+in 20 Decks) folgen in weiteren Increments.
+
+| Agent | Plotdeck (DE / EN) |
+|---|---|
+| Baron Zachareth | Saat des Verrats / Seeds of Betrayal |
+| Belthir | Hybride Loyalität / Hybrid Loyalty |
+| Lady Eliza Farrow | Endloser Durst / Endless Thirst |
+| Lord Merick Farrow | Von Macht verflucht / Cursed by Power |
+| Sir Alric Farrow | Die gefallene Elite / The Fallen Elite |
+| Splig | Goblin-Aufstand / Goblin Uprising |
+
+Anzeige: `src/pages/AgentsPage.tsx` (Route `/agenten`), gruppiert nach Erweiterung, mit
+Plotdeck-Label, Such-/Sammlungs-/Sprachfilter und Karten-Lightbox.
+
+---
+
 ## Datenmodell (`src/data/lieutenants.ts`)
 
 ```typescript

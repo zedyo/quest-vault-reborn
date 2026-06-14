@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.20',
+    date: '2026-06-14',
+    title: 'Agenten (Grundspiel)',
+    highlights: [
+      'Neue Seite „🎭 Agenten": die aufgewerteten Leutnant-Versionen aus den Leutnants-Packs (Grundspiel) mit eigenen Fähigkeiten und ihrem Plotdeck-Namen.',
+      'Pro Agent: Angriffswürfel, Werte je Spielerzahl und Fähigkeiten mit Regeltext, zweisprachig. Die eigentlichen Plotdeck-Karten folgen als Nächstes.',
+    ],
+  },
+  {
     version: '1.1.19',
     date: '2026-06-14',
     title: 'Leutnants der Erweiterungen',
