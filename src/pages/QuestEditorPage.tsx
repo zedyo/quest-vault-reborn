@@ -8,6 +8,7 @@ import { HEROES, ARCHETYPE_COLORS } from '../data/heroes'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 import { parseImportedQuest, MAX_IMPORT_BYTES } from '../utils/questImport'
 import { renderGameTextInline, HeartSymbol, SurgeSymbol, FatigueSymbol, ActionSymbol } from '../components/GameSymbols'
+import ConfirmDialog from '../components/ConfirmDialog'
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -355,6 +356,12 @@ export default function QuestEditorPage() {
 
   const [selectedQuestId, setSelectedQuestId] = useState<string | null>(null)
   const [activeEncounterId, setActiveEncounterId] = useState<string | null>(null)
+  // Bestätigung vor dem Löschen (Touch-Mistap = Datenverlust vermeiden)
+  const [pendingDelete, setPendingDelete] = useState<
+    | { type: 'quest'; id: string; title: string }
+    | { type: 'encounter'; id: string; title: string }
+    | null
+  >(null)
 
   const quest = quests.find((q) => q.id === selectedQuestId) ?? null
   const encounter =
@@ -441,10 +448,41 @@ export default function QuestEditorPage() {
     }
   }
 
+  function confirmPendingDelete() {
+    if (!pendingDelete) return
+    if (pendingDelete.type === 'quest') removeQuest(pendingDelete.id)
+    else removeEncounter(pendingDelete.id)
+    setPendingDelete(null)
+  }
+
+  // Bestätigungsdialog – in beiden Ansichten (Liste + Editor) einblendbar
+  const confirmDialog = pendingDelete && (
+    <ConfirmDialog
+      title={pendingDelete.type === 'quest' ? 'Quest löschen?' : 'Begegnung entfernen?'}
+      message={
+        pendingDelete.type === 'quest' ? (
+          <>
+            Die Quest <strong className="text-gray-100">„{pendingDelete.title}"</strong> wird mit
+            allen Begegnungen dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden.
+          </>
+        ) : (
+          <>
+            Die Begegnung <strong className="text-gray-100">„{pendingDelete.title}"</strong> wird
+            dauerhaft entfernt. Das kann nicht rückgängig gemacht werden.
+          </>
+        )
+      }
+      confirmLabel={pendingDelete.type === 'quest' ? 'Quest löschen' : 'Begegnung entfernen'}
+      onConfirm={confirmPendingDelete}
+      onCancel={() => setPendingDelete(null)}
+    />
+  )
+
   // ─── Quest-Liste ────────────────────────────────────────────────────
   if (!quest) {
     return (
       <div className="space-y-6">
+        {confirmDialog}
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Quest-Editor</h2>
@@ -490,7 +528,7 @@ export default function QuestEditorPage() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation()
-                      removeQuest(q.id)
+                      setPendingDelete({ type: 'quest', id: q.id, title: q.title })
                     }}
                     className="text-xs text-gray-600 hover:text-red-400 shrink-0"
                     title="Quest löschen"
@@ -543,6 +581,7 @@ export default function QuestEditorPage() {
   // ─── Quest-Detail ───────────────────────────────────────────────────
   return (
     <div className="space-y-5">
+      {confirmDialog}
       <div className="flex items-center gap-3">
         <button
           onClick={() => {
@@ -572,7 +611,7 @@ export default function QuestEditorPage() {
             🖨 PDF
           </button>
           <button
-            onClick={() => removeQuest(quest.id)}
+            onClick={() => setPendingDelete({ type: 'quest', id: quest.id, title: quest.title })}
             className="text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
           >
             🗑 Löschen
@@ -654,7 +693,9 @@ export default function QuestEditorPage() {
               </label>
               {quest.encounters.length > 1 && (
                 <button
-                  onClick={() => removeEncounter(encounter.id)}
+                  onClick={() =>
+                    setPendingDelete({ type: 'encounter', id: encounter.id, title: encounter.title })
+                  }
                   className="self-end text-xs px-3 py-2 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
                 >
                   🗑 Entfernen

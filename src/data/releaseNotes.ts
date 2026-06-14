@@ -20,6 +20,14 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.14',
+    date: '2026-06-14',
+    title: 'Sicherheitsabfrage vor dem Löschen',
+    highlights: [
+      'Beim Löschen einer Quest oder einer Begegnung erscheint jetzt eine Sicherheitsabfrage – so geht durch einen versehentlichen Klick (besonders auf dem iPad) nichts mehr verloren.',
+    ],
+  },
+  {
     version: '1.1.13',
     date: '2026-06-14',
     title: 'Einheitliche Kartenvorschauen',
