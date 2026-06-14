@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.13',
+    date: '2026-06-14',
+    title: 'Einheitliche Kartenvorschauen',
+    highlights: [
+      'Alle Karten-Vorschaufenster (Helden, Monster, Items) lassen sich jetzt einheitlich mit der Esc-Taste oder per Klick neben die Karte schließen.',
+      'Im Hintergrund laufende Verbesserungen an der Code-Struktur sorgen dafür, dass neue Inhaltsseiten künftig schneller und einheitlicher dazukommen.',
+    ],
+  },
+  {
     version: '1.1.12',
     date: '2026-06-14',
     title: 'Symbol-Hilfe im Quest-Editor',

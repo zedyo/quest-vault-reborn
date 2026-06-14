@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.12 (2026-06-14)
+## Aktuelle Version: 1.1.13 (2026-06-14)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), **Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), **Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13)**. Offen: Overlord, Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -428,6 +428,24 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   jeweiligen Begriff an der Cursorposition einfügt (onMouseDown+preventDefault hält Fokus/Cursor;
   fügt mit korrekter Wortgrenze ein), plus Hinweis-Zeile unter der Quest-Beschreibung. So wissen
   Quest-Autoren, welche Wörter als Symbole erscheinen und wie sie sie einfügen.
+- **Geteilte UI-Bausteine (1.1.13 – Refactoring, vor neuen Inhaltsseiten):** Wiederkehrende
+  Muster aus den Übersichtsseiten zentral gebündelt, damit künftige Seiten (Overlord, Leutnants,
+  Kampagnen) sie wiederverwenden statt zu kopieren:
+  - `src/components/StatIcons.tsx` — `HealthIcon`/`StaminaIcon`/`AttackIcon` (zuvor in HeroesPage
+    UND MonstersPage dupliziert; ergänzen die Bewegungs-/Verteidigungs-Badges aus GameSymbols).
+  - `src/components/ModalOverlay.tsx` — geteilter Lightbox-/Dialog-Backdrop (Escape-Schließen +
+    Klick-außerhalb + `stopPropagation` am Panel + Fokus ins Panel + `role="dialog"`). Genutzt von
+    Helden-/Monster-/Item-Lightbox und ReleaseNotesModal. **Folge:** Helden- und Monster-Vorschau
+    schließen jetzt auch per Esc (vorher nur Items).
+  - `src/components/Filters.tsx` — `SearchInput`, `OwnedToggle` („Nur meine Sammlung"),
+    `SegmentedControl<T>` (generische Buttongruppe in Goldoptik) + `LangToggle` (DE/EN).
+    In Helden/Monster/Items/Klassen verbaut. (ItemsPage-Akt-Filter + Tabs bewusst lokal gelassen —
+    abweichende Aktiv-Optik.)
+  - `src/data/assetUrls.ts` — zentrales Asset-URL-Modul: `ANY2CARDS_IMAGES`-Basis, `EXPANSION_PATH`,
+    `EXPANSION_PREFIX`, `monsterImageUrl()`, `tileImageUrl()`. Löst die zuvor 3 parallelen Strategien
+    (gespeicherte Voll-URLs in heroes.ts/items.ts bleiben, da pro Karte validiert; die berechneten
+    Monster-/Tile-URLs nutzen jetzt die geteilten Maps). `mapTiles.ts` re-exportiert `tileImageUrl`
+    für API-Stabilität.
 - **Datenspeicherung:** localStorage via zustand persist (bis v2.0)
 - **Assets:** any2cards/d2e PNG-Tiles (Community, FFG IP Grauzone)
 - **Hosting:** GitHub Pages (deploy.yml vorhanden)

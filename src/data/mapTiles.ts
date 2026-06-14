@@ -29,22 +29,9 @@ export function rotateConnectors(
   }
 }
 
-// URL helper — base game uses prefix "bg-"; expansions embed their prefix in the tile id.
-export function tileImageUrl(tile: MapTileDefinition): string {
-  const expPath: Record<string, string> = {
-    'base':                  'base-game',
-    'lair-of-the-wyrm':     'lair-of-the-wyrm',
-    'labyrinth-of-ruin':    'labyrinth-of-ruin',
-    'the-trollfens':        'the-trollfens',
-    'shadow-of-nerekhall':  'shadow-of-nerekhall',
-    'manor-of-ravens':      'manor-of-ravens',
-    'mists-of-bilehall':    'mists-of-bilehall',
-    'the-chains-that-rust': 'the-chains-that-rust',
-  }
-  const folder = expPath[tile.expansionId] ?? tile.expansionId
-  const filename = tile.expansionId === 'base' ? `bg-${tile.id}` : tile.id
-  return `https://raw.githubusercontent.com/any2cards/d2e/master/images/map-tiles/d2e/${folder}/${filename}.png`
-}
+// URL-Helfer liegt zentral in assetUrls.ts (geteilte Repo-Basis + Erweiterungs-
+// Ordnerzuordnung). Re-Export hält die bestehende mapTiles-API stabil.
+export { tileImageUrl } from './assetUrls'
 
 // Returns the partner tile id (a↔b) or null for unpaired tiles.
 export function getTilePartner(id: string): string | null {

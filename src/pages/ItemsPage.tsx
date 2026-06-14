@@ -1,8 +1,10 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText, DiceSymbol } from '../components/GameSymbols'
+import ModalOverlay from '../components/ModalOverlay'
+import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
 import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide } from '../types/game'
 
 const EQUIP_DE: Record<ItemEquip, string> = {
@@ -16,8 +18,6 @@ const SIDE_LABEL: Record<RelicSide, string> = {
   hero:     'Helden-Seite',
   overlord: 'Overlord-Seite',
 }
-
-type Lang = 'de' | 'en'
 
 function DiceRow({ dice }: { dice: DieColor[] }) {
   if (!dice.length) return null
@@ -35,31 +35,25 @@ function DiceRow({ dice }: { dice: DieColor[] }) {
 interface LightboxState { imageUrl: string; name: string }
 
 function ItemLightbox({ imageUrl, name, onClose }: LightboxState & { onClose: () => void }) {
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [onClose])
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
-      onClick={onClose}
+    <ModalOverlay
+      onClose={onClose}
+      ariaLabel={name}
+      backdropClassName="bg-black/85"
+      className="relative max-w-xs w-full"
     >
-      <div className="relative max-w-xs w-full" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={onClose}
-          className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm"
-        >
-          ✕ Schließen
-        </button>
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full rounded-lg shadow-2xl border border-dungeon-600"
-        />
-      </div>
-    </div>
+      <button
+        onClick={onClose}
+        className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm"
+      >
+        ✕ Schließen
+      </button>
+      <img
+        src={imageUrl}
+        alt={name}
+        className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+      />
+    </ModalOverlay>
   )
 }
 
@@ -271,13 +265,7 @@ export default function ItemsPage() {
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
-        <input
-          type="search"
-          placeholder="Item suchen…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-dungeon-800 border border-dungeon-700 text-gray-100 rounded px-3 py-2 text-sm w-52 focus:outline-none focus:border-gold-500"
-        />
+        <SearchInput value={search} onChange={setSearch} placeholder="Item suchen…" className="w-52" />
 
         {tab === 'shop' && (
           <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600">
@@ -297,32 +285,9 @@ export default function ItemsPage() {
           </div>
         )}
 
-        {/* Sprach-Umschalter */}
-        <div className="flex items-center gap-0 rounded overflow-hidden border border-dungeon-600 ml-auto">
-          {(['de', 'en'] as const).map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className={`px-3 py-1.5 text-sm font-medium transition-colors ${
-                lang === l
-                  ? 'bg-gold-700 text-gray-900'
-                  : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
-              }`}
-            >
-              {l === 'de' ? 'Deutsch' : 'English'}
-            </button>
-          ))}
-        </div>
+        <LangToggle value={lang} onChange={setLang} className="ml-auto" />
 
-        <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={onlyOwned}
-            onChange={(e) => setOnlyOwned(e.target.checked)}
-            className="accent-gold-500"
-          />
-          Nur meine Sammlung
-        </label>
+        <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
       </div>
 
       <p className="text-[11px] text-gray-600 -mt-3">
