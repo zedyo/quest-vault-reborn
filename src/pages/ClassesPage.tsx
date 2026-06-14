@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { HERO_CLASSES } from '../data/heroClasses'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
+import { renderGameText } from '../components/GameSymbols'
 import type { HeroClass, ClassSkill, HeroArchetype } from '../types/game'
 
 const ARCHETYPE_DE: Record<HeroArchetype, string> = {
@@ -47,7 +48,7 @@ function SkillRow({ skill, lang }: { skill: ClassSkill; lang: 'de' | 'en' }) {
           Ausdauer: {skill.fatigueCost}
         </span>
       </div>
-      <p className="text-xs text-gray-400 leading-snug">{rules}</p>
+      <div className="text-xs text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 12)}</div>
     </div>
   )
 }
@@ -67,7 +68,7 @@ function FamiliarBlock({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
         {f.health != null && <span>Leben: <span className="text-gray-200">{f.health}</span></span>}
         {f.attackType && <span>Angriff: <span className="text-gray-200">{f.attackType}</span></span>}
       </div>
-      <p className="text-xs text-gray-400 leading-snug">{rules}</p>
+      <div className="text-xs text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 12)}</div>
     </div>
   )
 }
