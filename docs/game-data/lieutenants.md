@@ -116,18 +116,35 @@ Fähigkeiten (z. B. „Lenkung" statt „Herrschaft", „Der da!" statt „Nicht
 zugehöriges **Plotdeck**. Agenten-Statkarten führen **keine Attributwerte** (nur Angriff,
 Werte je Spielerzahl, Fähigkeiten). Quelle: any2cards `data/agents.js`.
 
-**Status:** Grundspiel erfasst ✅ (v1.1.20 – 6 Agenten, 12 Formen, EN 1:1 verifiziert).
-Erweiterungs-Agenten + die eigentlichen **Plotdeck-Karten** (`data/plot-decks.js`, 201 Karten
-in 20 Decks) folgen in weiteren Increments.
+**Status:** Grundspiel + saubere Erweiterungs-Agenten erfasst ✅ (v1.1.20 + v1.1.21 –
+**16 Agenten, 32 Formen**, EN 1:1 verifiziert). Die eigentlichen **Plotdeck-Karten**
+(`data/plot-decks.js`, 201 Karten in 20 Decks) folgen in weiteren Increments.
 
-| Agent | Plotdeck (DE / EN) |
-|---|---|
-| Baron Zachareth | Saat des Verrats / Seeds of Betrayal |
-| Belthir | Hybride Loyalität / Hybrid Loyalty |
-| Lady Eliza Farrow | Endloser Durst / Endless Thirst |
-| Lord Merick Farrow | Von Macht verflucht / Cursed by Power |
-| Sir Alric Farrow | Die gefallene Elite / The Fallen Elite |
-| Splig | Goblin-Aufstand / Goblin Uprising |
+> ⚠️ **Datenbefund (Validierung ausstehend):** Die any2cards-`agents.js`-Daten für die
+> Agenten von **Ardus Ix'Erebus, Kyndrithul, Zarihell und Skarn** sind **vertauscht** –
+> die xws-Schlüssel tragen fremde Fähigkeiten/Regeltexte (die Regeln nennen jeweils einen
+> anderen Charakter), `askarn` ist sogar unter falscher Erweiterung gelistet. Diese 4 Agenten
+> sind **bewusst ausgeschlossen** und werden erst nach Kartenscan-Validierung ergänzt, statt
+> fehlerhafte Daten zu übernehmen.
+
+| Agent | Erweiterung | Plotdeck (DE / EN) |
+|---|---|---|
+| Baron Zachareth | Grundspiel | Saat des Verrats / Seeds of Betrayal |
+| Belthir | Grundspiel | Hybride Loyalität / Hybrid Loyalty |
+| Lady Eliza Farrow | Grundspiel | Endloser Durst / Endless Thirst |
+| Lord Merick Farrow | Grundspiel | Von Macht verflucht / Cursed by Power |
+| Sir Alric Farrow | Grundspiel | Die gefallene Elite / The Fallen Elite |
+| Splig | Grundspiel | Goblin-Aufstand / Goblin Uprising |
+| Ariad | Labyrinth des Verderbens | Dunkle Illusionen / Dark Illusions |
+| Königin Ariad | Labyrinth des Verderbens | Verworrenes Netz / Tangled Web |
+| Raythen | Labyrinth des Verderbens | Gaunerei / Skulduggery |
+| Serena | Labyrinth des Verderbens | Stiller Beschützer / Silent Protector |
+| Valyndra | Höhle des Lindwurms | Gier des Drachen / Dragon's Greed |
+| Gargan Mirklace | Schatten von Nerekhall | Brennender Ehrgeiz / Burning Ambition |
+| Rylan Olliven | Schatten von Nerekhall | Innere Verderbnis / Inner Corruption |
+| Tristayne Olliven | Schatten von Nerekhall | Instabile Kräfte / Unstable Forces |
+| Verminous | Schatten von Nerekhall | Ungesehene Legionen / Unseen Legions |
+| Bol'Goreth | Die Trollsümpfe | Wütende Infektion / Raging Infection |
 
 Anzeige: `src/pages/AgentsPage.tsx` (Route `/agenten`), gruppiert nach Erweiterung, mit
 Plotdeck-Label, Such-/Sammlungs-/Sprachfilter und Karten-Lightbox.
