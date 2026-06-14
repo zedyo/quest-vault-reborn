@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.16 (2026-06-14)
+## Aktuelle Version: 1.1.17 (2026-06-14)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), **Overlord-Erweiterungsklassen: Basis II + Peiniger/Seuchenbringer/Verzauberer/Bosheit/Schattenmagier/Seelenbinder + Universal-Erw., 87 Karten gesamt (1.1.16)**. Offen: Overlord-Belohnungskarten, Leutnants, Kampagnen (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), **Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17)**. Offen: Leutnants, Kampagnen (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -197,12 +197,11 @@ Totenbeschwörer-Begleiter heißt „Reanimate", nicht „Skelett" — beides vi
       1.1.4 – DE-Übersetzungen aller Item-/Reliktnamen + Regeltexte (Community-Übersetzung, EN/DE-Schalter),
       Relikte nun doppelseitig erfasst: 27 Helden-Seiten + 27 Overlord-Seiten mit `side`-Feld, getrennt
       dargestellt; Akt-Zuordnung der Shop-Karten korrigiert. `RelicSide`-Typ + Datenintegritäts-Tests ergänzt)
-- [~] Overlord-Klassen + Karten: alle Klassen ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungs-Klassen;
-      87 Karten zweisprachig aus any2cards `overlord-decks.js`, EN wortgetreu verifiziert; 14 Decks:
-      Basis/Magus/Saboteur/Kriegsherr/Universal + Basis II/Peiniger/Seuchenbringer/Verzauberer/
-      Bosheit/Schattenmagier/Seelenbinder + Universal-Erw.; `overlordClasses.ts` + `OverlordPage.tsx`
-      Route `/overlord` + Tests + overlord-classes.md). Offen: Belohnungskarten (Overlord/Quest/Rumor
-      Reward, 18 Karten)
+- [x] Overlord-Klassen + Karten: VOLLSTÄNDIG ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungs-Klassen +
+      1.1.17 Belohnungskarten; **105 Karten in 27 Decks** zweisprachig aus any2cards `overlord-decks.js`,
+      EN 105/105 wortgetreu verifiziert; alle Klassen + Universal + Belohnungskarten (Overlord/Quest/
+      Rumor Reward, `xpCost: null`, `kind 'reward'`); `overlordClasses.ts` + `OverlordPage.tsx`
+      Route `/overlord` + Tests + overlord-classes.md)
 - [ ] Leutnants (lieutenants.md ist Stub, src/data/lieutenants.ts fehlt)
 - [ ] Reisekarten + Nebenszenarien (travel-cards.md ist Stub)
 - [ ] Kampagnen (campaigns.md ist Stub, src/data/campaigns.ts fehlt)
