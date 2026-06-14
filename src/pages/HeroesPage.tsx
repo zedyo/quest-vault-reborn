@@ -3,20 +3,10 @@ import { HEROES, ARCHETYPE_LABELS, ARCHETYPE_COLORS } from '../data/heroes'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
+import { MovementBadge, DefenseBadge } from '../components/GameSymbols'
 import type { Hero } from '../types/game'
 
 // ── Stat icons ────────────────────────────────────────────────────────────────
-
-function MovementIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#15552c" />
-      <g transform="translate(12 12) scale(0.7941) translate(-14 -12.5)">
-        <path d="M9,4 C8.4,4 8.4,5 8.6,6.5 C8.9,9 8.6,11.5 8.6,13.5 C8.5,15.8 7.9,17.6 7.9,19 C7.9,20.4 8.2,21 9,21 L17.4,21 C19,21 20.1,20.4 20.1,19 C20.1,17.7 19,17 17.4,16.8 L14,16.3 C13,16.1 12.6,15.1 12.6,13.5 C12.6,10 12.8,7 12.6,5 C12.5,4.2 12,4 11.4,4 Z" fill="white" />
-      </g>
-    </svg>
-  )
-}
 
 function HealthIcon({ size = 16 }: { size?: number }) {
   return (
@@ -35,17 +25,6 @@ function StaminaIcon({ size = 16 }: { size?: number }) {
       <circle cx="12" cy="12" r="12" fill="#92400e" />
       <path d="M 12 3 C 7 8 5.5 12 5.5 15 C 5.5 19.1 8.5 21.5 12 21.5 C 15.5 21.5 18.5 19.1 18.5 15 C 18.5 12 17 8 12 3 Z" fill="white" />
       <path d="M 9.5 15 C 9.5 13.5 10.5 12 12 11" stroke="#92400e" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function DefenseIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}>
-      <circle cx="12" cy="12" r="12" fill="#1f6fb2" />
-      <g transform="translate(12 12) scale(0.8182) translate(-12 -13.25)">
-        <path d="M12,21.5 L4.5,15.5 L4.5,7.5 Q4.5,5 7,5 L17,5 Q19.5,5 19.5,7.5 L19.5,15.5 Z" fill="white" />
-      </g>
     </svg>
   )
 }
@@ -123,7 +102,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {hero.speed != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <MovementIcon size={18} /><span className="text-gray-400">Bewegung</span>
+                    <MovementBadge size={18} circle="#15552c" /><span className="text-gray-400">Bewegung</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.speed}</span>
                   </div>
                 )}
@@ -141,7 +120,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
                 )}
                 {hero.defense && hero.defense.length > 0 && (
                   <div className="flex items-center gap-2 text-sm">
-                    <DefenseIcon size={18} /><span className="text-gray-400">Verteidigung</span>
+                    <DefenseBadge size={18} circle="#1f6fb2" /><span className="text-gray-400">Verteidigung</span>
                     <div className="flex gap-0.5 ml-auto">{hero.defense.map((d, i) => <DicePip key={i} color={d} />)}</div>
                   </div>
                 )}
@@ -301,7 +280,7 @@ export default function HeroesPage() {
                     <div className="grid grid-cols-2 gap-x-1 gap-y-0.5 pt-1 border-t border-dungeon-700">
                       {h.speed != null && (
                         <div className="flex items-center gap-1">
-                          <MovementIcon size={12} />
+                          <MovementBadge size={12} circle="#15552c" />
                           <span className="text-[10px] text-gray-300 font-medium">{h.speed}</span>
                         </div>
                       )}
@@ -319,7 +298,7 @@ export default function HeroesPage() {
                       )}
                       {h.defense && h.defense.length > 0 && (
                         <div className="flex items-center gap-0.5">
-                          <DefenseIcon size={12} />
+                          <DefenseBadge size={12} circle="#1f6fb2" />
                           {h.defense.map((d, i) => <DicePip key={i} color={d} />)}
                         </div>
                       )}
