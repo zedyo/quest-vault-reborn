@@ -3,7 +3,7 @@ import { HEROES, ARCHETYPE_LABELS, ARCHETYPE_COLORS } from '../data/heroes'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { MovementBadge, DefenseBadge } from '../components/GameSymbols'
+import { MovementBadge, DefenseBadge, renderGameText } from '../components/GameSymbols'
 import type { Hero } from '../types/game'
 
 // ── Stat icons ────────────────────────────────────────────────────────────────
@@ -139,7 +139,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
             {hero.heroAbility && (
               <div className="pt-1 border-t border-dungeon-700">
                 <p className="text-xs text-blue-400 font-semibold mb-0.5">Heldenfähigkeit</p>
-                <p className="text-sm text-gray-300 leading-snug">{hero.heroAbility}</p>
+                <div className="text-sm text-gray-300 leading-snug space-y-0.5">{renderGameText(hero.heroAbility)}</div>
               </div>
             )}
 
@@ -147,7 +147,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
             {hero.heroicFeat && (
               <div className="pt-1 border-t border-dungeon-700">
                 <p className="text-xs text-gold-500 font-semibold mb-0.5">Heldentat</p>
-                <p className="text-sm text-gray-300 leading-snug">{hero.heroicFeat}</p>
+                <div className="text-sm text-gray-300 leading-snug space-y-0.5">{renderGameText(hero.heroicFeat)}</div>
               </div>
             )}
           </div>

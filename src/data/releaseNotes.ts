@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.9',
+    date: '2026-06-14',
+    title: 'Kartensymbole in Helden- und Klassentexten',
+    highlights: [
+      'Helden-Fähigkeiten, Heldentaten und die Fähigkeitskarten der Klassen zeigen jetzt die Original-Symbole (❤ Herz, ⚡ Schub, 💧 Erschöpfung) statt der Wörter – wie schon auf der Ausrüstungsseite.',
+      'Jede Fähigkeit steht – wie auf den echten Karten – in einer eigenen Zeile.',
+    ],
+  },
+  {
     version: '1.1.8',
     date: '2026-06-14',
     title: 'Bewegungs- und Verteidigungssymbol bei den Werten',
