@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.12',
+    date: '2026-06-14',
+    title: 'Symbol-Hilfe im Quest-Editor',
+    highlights: [
+      'Im Quest-Editor gibt es an jedem Textfeld jetzt Knöpfe, um die Kartensymbole (❤ Herz, ⚡ Schub, 💧 Erschöpfung, ↻ Aktion) per Klick an der Cursorposition einzufügen.',
+      'Ein Hinweis zeigt, welche Wörter in Vorschau und Druckansicht automatisch als Symbole erscheinen.',
+    ],
+  },
+  {
     version: '1.1.11',
     date: '2026-06-14',
     title: 'Aktions-Symbol in Kartentexten',
