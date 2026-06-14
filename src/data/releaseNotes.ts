@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.15',
+    date: '2026-06-14',
+    title: 'Overlord-Karten (Grundspiel)',
+    highlights: [
+      'Neue Seite „👑 Overlord": das Basis-Deck und die drei Grundspiel-Klassen (Magus, Saboteur, Kriegsherr) sowie die Universal-Karten – mit Kartenbild, Typ, XP-Kosten und Regeltext.',
+      'Zweisprachig (Deutsch/Englisch) umschaltbar, mit Such- und Sammlungsfilter und den gewohnten Kartensymbolen.',
+      'Erweiterungs-Klassen und Belohnungskarten folgen in einem nächsten Schritt.',
+    ],
+  },
+  {
     version: '1.1.14',
     date: '2026-06-14',
     title: 'Sicherheitsabfrage vor dem Löschen',
