@@ -20,6 +20,14 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.8',
+    date: '2026-06-14',
+    title: 'Bewegungs- und Verteidigungssymbol bei den Werten',
+    highlights: [
+      'Die neuen Symbole für Bewegung (Stiefel) und Verteidigung (Schild) erscheinen jetzt direkt bei den Helden- und Monsterwerten.',
+    ],
+  },
+  {
     version: '1.1.7',
     date: '2026-06-14',
     title: 'Neue Spielsymbole und Würfelgrafiken',
