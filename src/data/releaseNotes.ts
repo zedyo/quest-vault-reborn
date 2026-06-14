@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.21',
+    date: '2026-06-14',
+    title: 'Agenten der Erweiterungen',
+    highlights: [
+      'Die Agenten-Seite enthält jetzt auch die Erweiterungs-Agenten (u. a. Ariad, Raythen, Valyndra, Gargan Mirklace, Verminous, Bol’Goreth) – insgesamt 16 Agenten mit ihren Plotdecks.',
+      'Vier Agenten (Ardus Ix’Erebus, Kyndrithul, Zarihell, Skarn) fehlen vorerst bewusst: Die Quelldaten sind dort fehlerhaft (vertauscht) und werden erst nach Prüfung ergänzt.',
+    ],
+  },
+  {
     version: '1.1.20',
     date: '2026-06-14',
     title: 'Agenten (Grundspiel)',
