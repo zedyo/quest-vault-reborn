@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { RELEASE_NOTES } from '../data/releaseNotes'
+import ModalOverlay from './ModalOverlay'
 
 const MONTHS_DE = [
   'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
@@ -19,28 +19,13 @@ interface Props {
 export default function ReleaseNotesModal({ onClose }: Props) {
   const current = __APP_VERSION__
 
-  // Schließen mit Escape-Taste
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Versionsverlauf"
+    <ModalOverlay
+      onClose={onClose}
+      ariaLabel="Versionsverlauf"
+      className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+      style={{ maxWidth: 560 }}
     >
-      <div
-        className="bg-dungeon-900 border border-dungeon-600 rounded-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl"
-        style={{ maxWidth: 560 }}
-        onClick={(e) => e.stopPropagation()}
-      >
         <div className="flex items-start justify-between p-4 border-b border-dungeon-700 sticky top-0 bg-dungeon-900 z-10">
           <div>
             <h3 className="text-xl font-bold text-gold-400 font-display">Versionsverlauf</h3>
@@ -91,7 +76,6 @@ export default function ReleaseNotesModal({ onClose }: Props) {
             )
           })}
         </div>
-      </div>
-    </div>
+    </ModalOverlay>
   )
 }

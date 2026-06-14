@@ -1,9 +1,10 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.1  
-**Letztes Update:** 2026-06-13  
-**Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0: Monster-Gruppengrößen, Versionsanzeige+
-Release-Notes; 1.1.1: Grundspiel-Helden-Klassen zweisprachig). Weitere v1.1-Daten folgen in 1.1.x
+**Aktuelle Version:** 1.1.13  
+**Letztes Update:** 2026-06-14  
+**Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
+1.1.13: Refactoring – geteilte UI-Bausteine + zentrales Asset-URL-Modul). Weitere v1.1-Daten
+(Overlord, Leutnants, Kampagnen) folgen in 1.1.x
 
 ---
 
@@ -240,8 +241,10 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 - [x] Reanimate-Werte gegen Kartenscan validiert (v1.0.2: Defense überall Braun, act2Master-Angriff 3 Würfel, Schwarm-Text korrigiert)
 - [x] Rat-Swarm gegen Scan verifiziert (v1.0.2: Akt-1-Meister-Defense Braun, Gefräßig gibt Energie statt Herz; attack ['green'] bestätigt)
 - [ ] Store-Aufteilung VOR v1.3 entscheiden: Session-/Tracker-State getrennt von Quest-Definitionen
-- [ ] Duplikate extrahieren: StatIcons, Lightbox, FilterBar (bevor Items/Klassen-Seiten sie kopieren)
-- [ ] Zentrales Asset-URL-Modul (aktuell 3 verschiedene Strategien)
+- [x] Duplikate extrahieren: StatIcons, Lightbox, FilterBar (v1.1.13 – `StatIcons.tsx`,
+      `ModalOverlay.tsx`, `Filters.tsx`; in Helden/Monster/Items/Klassen + ReleaseNotesModal verbaut)
+- [x] Zentrales Asset-URL-Modul (v1.1.13 – `src/data/assetUrls.ts`: Basis-URL + EXPANSION_PATH/PREFIX
+      + monsterImageUrl/tileImageUrl; löst die 3 parallelen Strategien)
 - [ ] Quest-Löschen ohne Rückfrage (Touch-Mistap = Datenverlust) → Bestätigung/Undo
 - [ ] Standalone-Kartenbauer (/karte) speichert nicht → persistieren oder warnen
 - [ ] Touch-Targets ≥44px (Monster-Token-X ist 14px), Hover-Vorschau braucht Touch-Alternative
@@ -255,7 +258,8 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 - [ ] Gesamt-Export/-Import (Backup) vor v1.4
 - [ ] Actions per Commit-SHA pinnen
 - [ ] CSP-Meta-Tag (img-src 'self' raw.githubusercontent.com)
-- [ ] Lightbox: Escape-Close + Fokus-Management
+- [x] Lightbox: Escape-Close + Fokus-Management (v1.1.13 – via geteiltem `ModalOverlay`:
+      Escape schließt, Fokus wandert ins Panel; voller Fokus-Trap später)
 - [ ] Asset-Hotlinking-Risiko (any2cards) in decisions.md dokumentieren; Vendoring evaluieren
 - [ ] vitest 4.x Update (Critical-Advisory betrifft nur Dev-Umgebung)
 
