@@ -2,20 +2,8 @@ import { useState, useMemo, useEffect } from 'react'
 import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
-import { renderGameText } from '../components/GameSymbols'
+import { renderGameText, DiceSymbol } from '../components/GameSymbols'
 import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide } from '../types/game'
-
-const DIE_COLOR: Record<DieColor, string> = {
-  blue:   'bg-blue-600',
-  red:    'bg-red-600',
-  yellow: 'bg-yellow-500',
-  green:  'bg-green-600',
-  white:  'bg-gray-100',
-  gray:   'bg-gray-400',
-  brown:  'bg-amber-800',
-  black:  'bg-gray-800 border border-gray-600',
-  silver: 'bg-gray-300',
-}
 
 const EQUIP_DE: Record<ItemEquip, string> = {
   'one-hand':  '1 Hand',
@@ -36,7 +24,7 @@ function DiceRow({ dice }: { dice: DieColor[] }) {
   return (
     <div className="flex gap-1 items-center flex-wrap">
       {dice.map((d, i) => (
-        <span key={i} className={`inline-block w-3.5 h-3.5 rounded-sm ${DIE_COLOR[d] ?? 'bg-gray-500'}`} title={d} />
+        <DiceSymbol key={i} color={d} size={16} />
       ))}
     </div>
   )
