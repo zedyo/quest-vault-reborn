@@ -1,11 +1,11 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.15  
+**Aktuelle Version:** 1.1.16  
 **Letztes Update:** 2026-06-14  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
-1.1.13: Refactoring – geteilte UI-Bausteine + zentrales Asset-URL-Modul; 1.1.14: Bestätigungsdialog
-vor dem Löschen; Dependency-Hygiene; 1.1.15: Overlord-Karten Grundspiel). Weitere v1.1-Daten
-(Overlord-Erweiterungsklassen, Leutnants, Kampagnen) folgen in 1.1.x
+1.1.13: Refactoring; 1.1.14: Bestätigungsdialog/Dependency-Hygiene; 1.1.15: Overlord-Karten Grundspiel;
+1.1.16: Overlord-Erweiterungsklassen). Weitere v1.1-Daten (Overlord-Belohnungskarten, Leutnants,
+Kampagnen) folgen in 1.1.x
 
 ---
 
@@ -55,8 +55,8 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 - [ ] Beschwörungs-Begleiter (Companion-Karten mit eigenen Werten)
 - [ ] Item-Shop-Karten (alle Gegenstände, Typen, Kosten, Fähigkeiten, pro Erweiterung)
 - [ ] Reliktkarten (alle Relikte)
-- [~] Overlord-Klassen + Karten: Grundspiel ✅ (1.1.15 – Basis-Deck + Magus/Saboteur/Kriegsherr +
-      Universal, 28 Karten zweisprachig). Offen: Erweiterungs-Klassen + Belohnungskarten
+- [~] Overlord-Klassen + Karten: alle Klassen ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungen,
+      87 Karten zweisprachig, EN wortgetreu verifiziert). Offen: Belohnungskarten (18)
 - [ ] Overlord-Hauptmänner/Leutnants (alle mit Werten, Fähigkeitskarten)
 - [ ] Reisekarten + Nebenszenarien (alle Reisekarten, ausgelöste Ereignisse)
 - [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
