@@ -13,6 +13,7 @@ const navItems = [
   { to: '/overlord', label: '👑 Overlord', end: false },
   { to: '/leutnants', label: '🗡️ Leutnants', end: false },
   { to: '/agenten', label: '🎭 Agenten', end: false },
+  { to: '/plotdecks', label: '📜 Plotdecks', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 
