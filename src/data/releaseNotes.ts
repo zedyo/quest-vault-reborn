@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.16',
+    date: '2026-06-14',
+    title: 'Overlord-Klassen der Erweiterungen',
+    highlights: [
+      'Die Overlord-Seite enthält jetzt alle Erweiterungs-Klassen: Basis II, Peiniger, Seuchenbringer, Verzauberer, Bosheit, Schattenmagier und Seelenbinder – plus die Universal-Karten der Erweiterungen.',
+      'Insgesamt 87 Overlord-Karten, zweisprachig (Deutsch/Englisch) mit Kartenbild, Typ, XP-Kosten und Regeltext. Nur noch die Belohnungskarten fehlen.',
+    ],
+  },
+  {
     version: '1.1.15',
     date: '2026-06-14',
     title: 'Overlord-Karten (Grundspiel)',
