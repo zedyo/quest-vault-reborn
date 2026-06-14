@@ -290,6 +290,7 @@ describe('Leutnant-Datenintegrität', () => {
     for (const l of LIEUTENANTS) {
       for (const f of l.forms) {
         if (f.act !== 1 && f.act !== 2) errors.push(`${l.id}: ungültiger Akt ${f.act}`)
+        if (!EXPANSION_IDS.has(f.expansionId)) errors.push(`${l.id} Akt${f.act}: unbekannte Form-expansionId '${f.expansionId}'`)
         for (const attr of [f.might, f.knowledge, f.willpower, f.awareness]) {
           if (!Number.isInteger(attr) || attr < 0 || attr > 6) errors.push(`${l.id} Akt${f.act}: Attribut ${attr} unplausibel`)
         }

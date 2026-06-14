@@ -203,6 +203,8 @@ export interface LieutenantAbility {
 /** Werte eines Leutnants in einem Akt (1 oder 2). */
 export interface LieutenantForm {
   act: 1 | 2
+  /** Erweiterung dieser Akt-Karte (kann von der Leutnant-Erweiterung abweichen, z. B. Akt II in einer anderen Box). */
+  expansionId: string
   attackTypeEn: string
   attackTypeDe: string
   attackDice: DieColor[]
