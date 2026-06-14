@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.10',
+    date: '2026-06-14',
+    title: 'Kartensymbole bei Monstern und im Quest-Editor',
+    highlights: [
+      'Monster-Fähigkeiten sowie Energie- und Aktionstexte zeigen jetzt die Original-Symbole (❤ Herz, ⚡ Schub, 💧 Erschöpfung) statt der Wörter.',
+      'Auch Quest-Beschreibungen und Begegnungstexte – inklusive Druckansicht – verwenden die Symbole.',
+    ],
+  },
+  {
     version: '1.1.9',
     date: '2026-06-14',
     title: 'Kartensymbole in Helden- und Klassentexten',

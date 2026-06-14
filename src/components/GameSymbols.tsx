@@ -244,6 +244,17 @@ function renderInline(text: string, symbolSize: number): ReactNode[] {
 }
 
 /**
+ * Wie `renderGameText`, aber OHNE Satz-pro-Zeile-Umbruch: ersetzt nur die
+ * Symbole (❤/⚡/💧) inline und lässt die übrige Formatierung (z. B. eigene
+ * Zeilenumbrüche per `white-space: pre-wrap`) unangetastet. Für Fließtexte
+ * wie Quest-Beschreibungen und Monster-Fähigkeitseinträge.
+ */
+export function renderGameTextInline(text: string, symbolSize = 13): ReactNode {
+  if (!text) return null
+  return <>{renderInline(text, symbolSize)}</>
+}
+
+/**
  * Rendert einen Regeltext kartengetreu:
  * - Herz/Herzen → ❤, Schub/Surge → ⚡, Erschöpfung/Fatigue → 💧
  * - jeder mit Punkt endende Satz steht in einer eigenen Zeile

@@ -3,7 +3,7 @@ import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge } from '../components/GameSymbols'
+import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
 // Per-expansion filename prefix (any2cards/d2e naming convention)
@@ -76,24 +76,20 @@ function monsterImageUrl(monsterId: string, expansionId: string, act: 1 | 2 = 1)
   return `https://raw.githubusercontent.com/any2cards/d2e/master/images/monsters/d2e/${expPath}/${actPath}/${prefix}-${monsterId}-front.png`
 }
 
-/** Replace "Herz"/"Herzen" words with ❤ symbol */
-function withHeartSymbol(text: string): string {
-  return text.replace(/\bHerzen\b/g, '❤').replace(/\bHerz\b/g, '❤')
-}
-
 /**
  * Format an ability/surge/action entry:
  * - Optionally strip a leading "Schub: " prefix (for surge entries)
  * - If text contains "Name: description", render Name: in bold
- * - Replace Herz/Herzen with ❤
+ * - Ersetzt Herz/Schub/Erschöpfung durch die Kartensymbole ❤/⚡/💧 (inline,
+ *   ohne Satzumbruch — jeder Eintrag ist bereits eine eigene Zeile)
  */
 function formatEntry(text: string, stripSchub = false): React.ReactNode {
-  let s = stripSchub ? text.replace(/^Schub:\s*/i, '') : text
+  const s = stripSchub ? text.replace(/^Schub:\s*/i, '') : text
   const colonIdx = s.indexOf(':')
-  if (colonIdx === -1) return withHeartSymbol(s)
+  if (colonIdx === -1) return renderGameTextInline(s, 12)
   const name = s.slice(0, colonIdx + 1)
-  const rest = withHeartSymbol(s.slice(colonIdx + 1))
-  return <><strong className="text-gray-300 font-semibold">{name}</strong>{rest}</>
+  const rest = s.slice(colonIdx + 1)
+  return <><strong className="text-gray-300 font-semibold">{name}</strong>{renderGameTextInline(rest, 12)}</>
 }
 
 // ── Stat icons — faithful to the Descent 2e card art ────────────────────────

@@ -7,6 +7,7 @@ import { MONSTERS } from '../data/monsters'
 import { HEROES, ARCHETYPE_COLORS } from '../data/heroes'
 import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 import { parseImportedQuest, MAX_IMPORT_BYTES } from '../utils/questImport'
+import { renderGameTextInline } from '../components/GameSymbols'
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -56,7 +57,7 @@ function QuestPrintView({ quest }: { quest: Quest }) {
       <div style={{ borderBottom: '2px solid #000', paddingBottom: 8, marginBottom: 14 }}>
         <div style={{ fontSize: 22, fontWeight: 'bold', margin: 0 }}>{quest.title}</div>
         {quest.description && (
-          <div style={{ marginTop: 4, fontSize: 13, color: '#333' }}>{quest.description}</div>
+          <div style={{ marginTop: 4, fontSize: 13, color: '#333' }}>{renderGameTextInline(quest.description, 13)}</div>
         )}
       </div>
 
@@ -76,7 +77,7 @@ function QuestPrintView({ quest }: { quest: Quest }) {
 
           {enc.flavourText && (
             <div style={{ fontStyle: 'italic', fontSize: 12, marginBottom: 8, color: '#444', borderLeft: '3px solid #ccc', paddingLeft: 8 }}>
-              {enc.flavourText}
+              {renderGameTextInline(enc.flavourText, 12)}
             </div>
           )}
 
@@ -93,7 +94,7 @@ function QuestPrintView({ quest }: { quest: Quest }) {
               .map(({ label, value }) => (
                 <div key={label}>
                   <div style={{ fontSize: 10, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#555' }}>{label}</div>
-                  <div style={{ fontSize: 12, marginTop: 2, whiteSpace: 'pre-wrap' }}>{value}</div>
+                  <div style={{ fontSize: 12, marginTop: 2, whiteSpace: 'pre-wrap' }}>{renderGameTextInline(value, 12)}</div>
                 </div>
               ))}
 
@@ -114,7 +115,7 @@ function QuestPrintView({ quest }: { quest: Quest }) {
           {enc.story && (
             <div style={{ fontSize: 12, fontStyle: 'italic', color: '#444', marginTop: 4 }}>
               <strong style={{ fontStyle: 'normal', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Geschichte</strong>
-              <div style={{ marginTop: 2 }}>{enc.story}</div>
+              <div style={{ marginTop: 2 }}>{renderGameTextInline(enc.story, 12)}</div>
             </div>
           )}
         </div>
@@ -440,7 +441,7 @@ export default function QuestEditorPage() {
                   </button>
                 </div>
                 <p className="text-gray-500 text-sm line-clamp-2 min-h-[2.5rem]">
-                  {q.description || 'Keine Beschreibung'}
+                  {q.description ? renderGameTextInline(q.description, 13) : 'Keine Beschreibung'}
                 </p>
                 <div className="flex items-center justify-between mt-auto">
                   <span className="text-gray-600 text-xs">
