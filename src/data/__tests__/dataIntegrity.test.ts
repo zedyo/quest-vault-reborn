@@ -5,7 +5,8 @@ import { HERO_CLASSES } from '../heroClasses'
 import { MAP_TILES, getTilePartner } from '../mapTiles'
 import { EXPANSIONS } from '../expansions'
 import { SHOP_ITEMS, RELICS } from '../items'
-import type { DieColor, MonsterStats } from '../../types/game'
+import { OVERLORD_DECKS } from '../overlordClasses'
+import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
 
@@ -200,6 +201,63 @@ describe('Helden-Klassen-Datenintegrität', () => {
         const fc = s.fatigueCost
         const fcOk = fc === 'X' || (Number.isInteger(fc) && (fc as number) >= 0 && (fc as number) <= 9)
         if (!fcOk) errors.push(`${c.id}/${s.id}: Ausdauer-Kosten ${fc} unplausibel`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Overlord-Klassen-Datenintegrität', () => {
+  const VALID_KIND = ['basic', 'class', 'universal', 'reward']
+  const VALID_TYPE: OverlordCardType[] = ['Event', 'Magic', 'Trap', 'Special']
+  const allCards = OVERLORD_DECKS.flatMap((d) => d.cards)
+
+  it('hat keine doppelten Deck-IDs', () => {
+    const ids = OVERLORD_DECKS.map((d) => d.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('hat keine doppelten Karten-IDs (deckübergreifend)', () => {
+    const ids = allCards.map((c) => c.id)
+    expect(new Set(ids).size, 'doppelte Overlord-Karten-IDs').toBe(ids.length)
+  })
+
+  it('Decks: Pflichtfelder, gültige Art und expansionId', () => {
+    for (const d of OVERLORD_DECKS) {
+      expect(d.id, 'Deck ohne id').toBeTruthy()
+      expect(d.nameEn, `${d.id}: nameEn fehlt`).toBeTruthy()
+      expect(d.nameDe, `${d.id}: nameDe fehlt`).toBeTruthy()
+      expect(VALID_KIND, `${d.id}: ungültige Deck-Art '${d.kind}'`).toContain(d.kind)
+      expect(EXPANSION_IDS.has(d.expansionId), `${d.id}: unbekannte expansionId '${d.expansionId}'`).toBe(true)
+      expect(d.cards.length, `${d.id}: keine Karten`).toBeGreaterThan(0)
+    }
+  })
+
+  it('Karten sind vollständig zweisprachig und plausibel', () => {
+    const errors: string[] = []
+    for (const d of OVERLORD_DECKS) {
+      for (const c of d.cards) {
+        if (!c.nameEn || !c.nameDe) errors.push(`${d.id}/${c.id}: Name fehlt (EN/DE)`)
+        if (!c.rulesEn || !c.rulesDe) errors.push(`${d.id}/${c.id}: Regeltext fehlt (EN/DE)`)
+        if (!VALID_TYPE.includes(c.cardType)) errors.push(`${d.id}/${c.id}: ungültiger Kartentyp '${c.cardType}'`)
+        if (!Number.isInteger(c.xpCost) || c.xpCost < 0 || c.xpCost > 5)
+          errors.push(`${d.id}/${c.id}: XP-Kosten ${c.xpCost} unplausibel`)
+        if (!Number.isInteger(c.count) || c.count < 1 || c.count > 5)
+          errors.push(`${d.id}/${c.id}: Anzahl ${c.count} unplausibel`)
+        if (!c.imageUrl || !c.imageUrl.startsWith('https://')) errors.push(`${d.id}/${c.id}: imageUrl fehlt/ungültig`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('Basis-Deck enthält nur Startkarten (XP 0); Klassenkarten kosten XP', () => {
+    const errors: string[] = []
+    for (const d of OVERLORD_DECKS) {
+      for (const c of d.cards) {
+        if (d.kind === 'basic' && c.xpCost !== 0)
+          errors.push(`${d.id}/${c.id}: Basiskarte sollte 0 XP kosten, hat ${c.xpCost}`)
+        if (d.kind === 'class' && c.xpCost < 1)
+          errors.push(`${d.id}/${c.id}: Klassenkarte sollte XP kosten`)
       }
     }
     expect(errors, errors.join('\n')).toEqual([])

@@ -149,6 +149,40 @@ export interface HeroClass {
   familiar?: ClassFamiliar
 }
 
+// ── Overlord-Klassen & -Karten ───────────────────────────────────────────────
+
+export type OverlordCardType = 'Event' | 'Magic' | 'Trap' | 'Special'
+
+/** Art eines Overlord-Decks: Basisdeck, wählbare Klasse oder Universalkarten. */
+export type OverlordDeckKind = 'basic' | 'class' | 'universal' | 'reward'
+
+/** Eine Overlord-Karte (zweisprachig: EN-Original + DE-Community-Übersetzung). */
+export interface OverlordCard {
+  id: string
+  nameEn: string
+  nameDe: string
+  /** Kartentyp (Ereignis/Magie/Falle/Spezial) */
+  cardType: OverlordCardType
+  /** Anzahl Kopien im Deck */
+  count: number
+  /** XP-Kosten (0 = Basis-/Startdeck, sonst Kaufkosten der Klassenkarte) */
+  xpCost: number
+  rulesEn: string
+  rulesDe: string
+  /** Kartenbild-URL (any2cards) */
+  imageUrl: string
+}
+
+/** Ein Overlord-Deck: Basis, eine wählbare Klasse oder Universal-Karten. */
+export interface OverlordDeck {
+  id: string
+  nameEn: string
+  nameDe: string
+  kind: OverlordDeckKind
+  expansionId: string
+  cards: OverlordCard[]
+}
+
 export interface Hero {
   id: string
   name: string
