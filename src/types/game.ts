@@ -264,6 +264,34 @@ export interface Agent {
   forms: AgentForm[]
 }
 
+// ── Plotdecks (Agenten-Karten) ───────────────────────────────────────────────
+
+/** Eine Plotkarte aus dem Plotdeck eines Agenten (zweisprachig). */
+export interface PlotCard {
+  id: string
+  nameEn: string
+  nameDe: string
+  /** Kaufkosten in Bedrohungsmarkern. */
+  threatCost: number
+  /** Auslösekosten (Bedrohungsmarker) beim Aktivieren. */
+  triggerCost: number
+  rulesEn: string
+  rulesDe: string
+  imageUrl: string
+}
+
+/** Ein Plotdeck, das zu einem Agenten gehört. */
+export interface PlotDeck {
+  id: string
+  nameEn: string
+  nameDe: string
+  /** Agent, dem dieses Plotdeck gehört (EN/DE). */
+  agentEn: string
+  agentDe: string
+  expansionId: string
+  cards: PlotCard[]
+}
+
 export interface Hero {
   id: string
   name: string

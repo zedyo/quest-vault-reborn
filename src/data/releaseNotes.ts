@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.22',
+    date: '2026-06-14',
+    title: 'Plotdecks (erste Agenten-Karten)',
+    highlights: [
+      'Neue Seite „📜 Plotdecks": die Karten aus den Plotdecks der Agenten – mit Kauf- und Auslösekosten (Bedrohungsmarker), Regeltext und Kartenbild.',
+      'Erste drei Grundspiel-Plotdecks (Saat des Verrats, Hybride Loyalität, Endloser Durst) – zweisprachig. Weitere Plotdecks folgen.',
+    ],
+  },
+  {
     version: '1.1.21',
     date: '2026-06-14',
     title: 'Agenten der Erweiterungen',

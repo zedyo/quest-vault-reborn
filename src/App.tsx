@@ -11,6 +11,7 @@ import ItemsPage from './pages/ItemsPage'
 import OverlordPage from './pages/OverlordPage'
 import LieutenantsPage from './pages/LieutenantsPage'
 import AgentsPage from './pages/AgentsPage'
+import PlotDecksPage from './pages/PlotDecksPage'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="overlord" element={<OverlordPage />} />
         <Route path="leutnants" element={<LieutenantsPage />} />
         <Route path="agenten" element={<AgentsPage />} />
+        <Route path="plotdecks" element={<PlotDecksPage />} />
       </Route>
     </Routes>
   )

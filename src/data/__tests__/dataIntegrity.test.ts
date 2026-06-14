@@ -8,6 +8,7 @@ import { SHOP_ITEMS, RELICS } from '../items'
 import { OVERLORD_DECKS } from '../overlordClasses'
 import { LIEUTENANTS } from '../lieutenants'
 import { AGENTS } from '../agents'
+import { PLOT_DECKS } from '../plotDecks'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -362,6 +363,45 @@ describe('Agenten-Datenintegrität', () => {
           if ((ab.rulesEn && !ab.rulesDe) || (!ab.rulesEn && ab.rulesDe)) errors.push(`${a.id} Akt${f.act}/${ab.labelEn}: Regeltext einsprachig`)
         }
         if (!f.imageUrl.startsWith('https://')) errors.push(`${a.id} Akt${f.act}: imageUrl ungültig`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Plotdeck-Datenintegrität', () => {
+  const allCards = PLOT_DECKS.flatMap((d) => d.cards)
+
+  it('hat keine doppelten Deck-IDs und Karten-IDs', () => {
+    const deckIds = PLOT_DECKS.map((d) => d.id)
+    expect(new Set(deckIds).size, 'doppelte Deck-IDs').toBe(deckIds.length)
+    const cardIds = allCards.map((c) => c.id)
+    expect(new Set(cardIds).size, 'doppelte Karten-IDs').toBe(cardIds.length)
+  })
+
+  it('Decks: Pflichtfelder, gültige expansionId, Agent, Karten vorhanden', () => {
+    for (const d of PLOT_DECKS) {
+      expect(d.id, 'Deck ohne id').toBeTruthy()
+      expect(d.nameEn, `${d.id}: nameEn fehlt`).toBeTruthy()
+      expect(d.nameDe, `${d.id}: nameDe fehlt`).toBeTruthy()
+      expect(d.agentEn, `${d.id}: agentEn fehlt`).toBeTruthy()
+      expect(d.agentDe, `${d.id}: agentDe fehlt`).toBeTruthy()
+      expect(EXPANSION_IDS.has(d.expansionId), `${d.id}: unbekannte expansionId '${d.expansionId}'`).toBe(true)
+      expect(d.cards.length, `${d.id}: keine Karten`).toBeGreaterThan(0)
+    }
+  })
+
+  it('Karten: zweisprachig, plausible Kosten, gültige Bild-URL', () => {
+    const errors: string[] = []
+    for (const d of PLOT_DECKS) {
+      for (const c of d.cards) {
+        if (!c.nameEn || !c.nameDe) errors.push(`${d.id}/${c.id}: Name fehlt (EN/DE)`)
+        if (!c.rulesEn || !c.rulesDe) errors.push(`${d.id}/${c.id}: Regeltext fehlt (EN/DE)`)
+        if (!Number.isInteger(c.threatCost) || c.threatCost < 0 || c.threatCost > 6)
+          errors.push(`${d.id}/${c.id}: threatCost ${c.threatCost} unplausibel`)
+        if (!Number.isInteger(c.triggerCost) || c.triggerCost < 0 || c.triggerCost > 6)
+          errors.push(`${d.id}/${c.id}: triggerCost ${c.triggerCost} unplausibel`)
+        if (!c.imageUrl.startsWith('https://')) errors.push(`${d.id}/${c.id}: imageUrl ungültig`)
       }
     }
     expect(errors, errors.join('\n')).toEqual([])
