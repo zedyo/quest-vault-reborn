@@ -60,15 +60,17 @@ export function HeartSymbol({ size = 13 }: { size?: number }) {
   )
 }
 
-/** Blue droplet — the 💧 fatigue symbol on Descent 2e hero/item cards */
+/** Left-bent flame-drop — the fatigue symbol on Descent 2e hero/item cards.
+ *  White fill, prominent yellow border, right side concave (S-curve), body leans left. */
 export function FatigueSymbol({ size = 13 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={baseStyle}>
+      {/* Tip upper-right → right side S-curves outward then concave → sweeps bottom-left → convex left side back to tip */}
       <path
-        d="M12 2.5 C12 2.5 5.5 10.5 5.5 15 A6.5 6.5 0 0 0 18.5 15 C18.5 10.5 12 2.5 12 2.5 Z"
-        fill="#3b82f6"
-        stroke="#2563eb"
-        strokeWidth="0.5"
+        d="M 17 3 C 24 7, 12 13, 15 18 C 13 21, 7 23, 5 18 C 3 13, 5 6, 17 3 Z"
+        fill="white"
+        stroke="#fbbf24"
+        strokeWidth="2"
         strokeLinejoin="round"
       />
     </svg>
