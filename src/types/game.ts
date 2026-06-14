@@ -183,6 +183,51 @@ export interface OverlordDeck {
   cards: OverlordCard[]
 }
 
+// ── Leutnants / Hauptmänner ──────────────────────────────────────────────────
+
+/** Werte eines Leutnants bei einer bestimmten Spielerzahl. */
+export interface LieutenantPerPlayerStats {
+  speed: number
+  health: number
+  defense: DieColor[]
+}
+
+/** Eine Leutnant-Fähigkeit: Kurzlabel (mit Aktion/Schub-Präfix) + optionaler Regeltext. */
+export interface LieutenantAbility {
+  labelEn: string
+  labelDe: string
+  rulesEn?: string
+  rulesDe?: string
+}
+
+/** Werte eines Leutnants in einem Akt (1 oder 2). */
+export interface LieutenantForm {
+  act: 1 | 2
+  attackTypeEn: string
+  attackTypeDe: string
+  attackDice: DieColor[]
+  might: number
+  knowledge: number
+  willpower: number
+  awareness: number
+  perPlayer: {
+    p2: LieutenantPerPlayerStats
+    p3: LieutenantPerPlayerStats
+    p4: LieutenantPerPlayerStats
+  }
+  abilities: LieutenantAbility[]
+  imageUrl: string
+}
+
+export interface Lieutenant {
+  id: string
+  nameEn: string
+  nameDe: string
+  expansionId: string
+  /** 1 Eintrag (nur ein Akt) oder 2 (Akt I + II). */
+  forms: LieutenantForm[]
+}
+
 export interface Hero {
   id: string
   name: string
