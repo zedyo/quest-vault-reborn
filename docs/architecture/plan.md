@@ -1,10 +1,10 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.13  
+**Aktuelle Version:** 1.1.14  
 **Letztes Update:** 2026-06-14  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
-1.1.13: Refactoring – geteilte UI-Bausteine + zentrales Asset-URL-Modul). Weitere v1.1-Daten
-(Overlord, Leutnants, Kampagnen) folgen in 1.1.x
+1.1.13: Refactoring – geteilte UI-Bausteine + zentrales Asset-URL-Modul; 1.1.14: Bestätigungsdialog
+vor dem Löschen). Weitere v1.1-Daten (Overlord, Leutnants, Kampagnen) folgen in 1.1.x
 
 ---
 
@@ -245,7 +245,8 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
       `ModalOverlay.tsx`, `Filters.tsx`; in Helden/Monster/Items/Klassen + ReleaseNotesModal verbaut)
 - [x] Zentrales Asset-URL-Modul (v1.1.13 – `src/data/assetUrls.ts`: Basis-URL + EXPANSION_PATH/PREFIX
       + monsterImageUrl/tileImageUrl; löst die 3 parallelen Strategien)
-- [ ] Quest-Löschen ohne Rückfrage (Touch-Mistap = Datenverlust) → Bestätigung/Undo
+- [x] Quest-Löschen ohne Rückfrage (Touch-Mistap = Datenverlust) → Bestätigung (v1.1.14 –
+      `ConfirmDialog` auf `ModalOverlay`; Quest aus Liste/Editor + Begegnung abgesichert)
 - [ ] Standalone-Kartenbauer (/karte) speichert nicht → persistieren oder warnen
 - [ ] Touch-Targets ≥44px (Monster-Token-X ist 14px), Hover-Vorschau braucht Touch-Alternative
 - [ ] localforage entfernen oder als IndexedDB-Adapter nutzen (tote Dependency)
