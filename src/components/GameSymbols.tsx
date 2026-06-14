@@ -228,10 +228,11 @@ export function DiceSymbol({ color, size = 16 }: { color: DieColor; size?: numbe
 // Begriffe (DE + EN), die durch Symbole ersetzt werden. Reihenfolge: Plural vor
 // Singular, damit z. B. "Herzen" vor "Herz" greift. Wortgrenzen (\b) verhindern,
 // dass Teilstrings in zusammengesetzten Wörtern fälschlich ersetzt werden.
-const TOKEN_SPLIT = /(\bHerzen\b|\bHerz\b|\bHearts\b|\bHeart\b|\bSchübe\b|\bSchub\b|\bSurges\b|\bSurge\b|\bErschöpfung\b|\bFatigue\b)/g
+const TOKEN_SPLIT = /(\bHerzen\b|\bHerz\b|\bHearts\b|\bHeart\b|\bSchübe\b|\bSchub\b|\bSurges\b|\bSurge\b|\bErschöpfung\b|\bFatigue\b|\bAktionen\b|\bAktion\b|\bActions\b|\bAction\b)/g
 const IS_HEART = /^(Herzen|Herz|Hearts|Heart)$/
 const IS_SURGE = /^(Schübe|Schub|Surges|Surge)$/
 const IS_FATIGUE = /^(Erschöpfung|Fatigue)$/
+const IS_ACTION = /^(Aktionen|Aktion|Actions|Action)$/
 
 function renderInline(text: string, symbolSize: number): ReactNode[] {
   // String.split mit Capture-Gruppe behält die Treffer im Ergebnis-Array.
@@ -239,6 +240,7 @@ function renderInline(text: string, symbolSize: number): ReactNode[] {
     if (IS_HEART.test(part)) return <HeartSymbol key={i} size={symbolSize} />
     if (IS_SURGE.test(part)) return <SurgeSymbol key={i} size={symbolSize} />
     if (IS_FATIGUE.test(part)) return <FatigueSymbol key={i} size={symbolSize} />
+    if (IS_ACTION.test(part)) return <ActionSymbol key={i} size={symbolSize} />
     return <span key={i}>{part}</span>
   })
 }
@@ -256,7 +258,7 @@ export function renderGameTextInline(text: string, symbolSize = 13): ReactNode {
 
 /**
  * Rendert einen Regeltext kartengetreu:
- * - Herz/Herzen → ❤, Schub/Surge → ⚡, Erschöpfung/Fatigue → 💧
+ * - Herz/Herzen → ❤, Schub/Surge → ⚡, Erschöpfung/Fatigue → 💧, Aktion/Action → ↻
  * - jeder mit Punkt endende Satz steht in einer eigenen Zeile
  */
 export function renderGameText(text: string, symbolSize = 13): ReactNode {

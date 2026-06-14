@@ -20,6 +20,14 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.11',
+    date: '2026-06-14',
+    title: 'Aktions-Symbol in Kartentexten',
+    highlights: [
+      'Das Wort „Aktion" wird in Karten- und Beschreibungstexten jetzt durch das Aktions-Symbol (↻) ersetzt – bei Helden, Klassen, Items, Relikten, Monstern und im Quest-Editor.',
+    ],
+  },
+  {
     version: '1.1.10',
     date: '2026-06-14',
     title: 'Kartensymbole bei Monstern und im Quest-Editor',
