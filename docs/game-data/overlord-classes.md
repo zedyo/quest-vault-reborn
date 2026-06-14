@@ -1,7 +1,7 @@
 # Descent 2. Edition – Overlord-Klassen & Karten
 
-**Status:** Grundspiel + alle Erweiterungs-Klassen erfasst ✅ (v1.1.15 / v1.1.16). Nur noch
-Belohnungskarten ausstehend.
+**Status:** VOLLSTÄNDIG ✅ (v1.1.15–v1.1.17): Grundspiel + alle Erweiterungs-Klassen + alle
+Belohnungskarten. 105 Karten in 27 Decks, EN wortgetreu gegen Quelle verifiziert (105/105).
 **Quelle:** any2cards/d2e, `data/overlord-decks.js` (englischer Originaltext)
 **Übersetzung:** Deutsch = Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut)
 **Zuletzt aktualisiert:** 2026-06-14
@@ -38,7 +38,8 @@ Karten ist wortgetreu gegen die Quelle verifiziert (87/87, 0 Abweichungen).
 | Schattenmagier/Shadowmancer | Schatten von Nerekhall | 7 | ✅ |
 | Seelenbinder/Soulbinder | Die rostenden Ketten | 8 | ✅ |
 | **Klassen + Universal gesamt** | | **87** | ✅ |
-| Belohnungskarten (Overlord/Quest/Rumor Reward) | diverse | 18 | ⏳ offen |
+| Belohnungskarten (Overlord/Quest/Rumor Reward) | diverse (13 Erweiterungen) | 18 | ✅ |
+| **Gesamt** | | **105** | ✅ |
 
 ---
 
@@ -214,6 +215,33 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 | Solidarität | Solidarity | Schatten von Nerekhall | Ereignis | 1 | 1 |
 | Aufwertung | Upgrade | Schatten von Nerekhall | Ereignis | 1 | 1 |
 | Vielfältige Mittel | Diverse Means *(Errata)* | Schatten von Nerekhall | Ereignis | 1 | 2 |
+
+---
+
+## Belohnungskarten
+
+*Über Kampagnen-Ereignisse erworben, nicht mit XP kaufbar (`xpCost: null`, `kind: 'reward'`).*
+
+| Karte (DE) | Karte (EN) | Belohnungs-Art | Erweiterung | Typ |
+|---|---|---|---|---|
+| Spligs Rache | Splig's Revenge | Quest | Labyrinth des Verderbens | Ereignis |
+| Zwillingsseelen | Twin Souls | Quest | Labyrinth des Verderbens | Magie |
+| Die Gunst der Wyrm-Königin | The Wyrm Queen's Favor | Gerücht | Höhle des Lindwurms | Spezial |
+| Schrotthaufen | Hunk of Junk | Overlord | Bündnisse der Wildnis | Falle |
+| Feueredelsteine | Fire Gems | Overlord | Krone des Schicksals | Falle |
+| Vergessene Zauberei | Forgotten Sorcery | Overlord | Kreuzzug der Vergessenen | Magie |
+| Macht der Vielen | Power in Numbers | Overlord | Wächter von Deephall | Ereignis |
+| Am Boden | Down and Out | Overlord | Schloss Rabenfels | Ereignis |
+| Endloser Nachschub | Endless Supply | Overlord | Schloss Rabenfels | Ereignis |
+| Ungebrochen | Unbroken | Overlord | Schloss Rabenfels | Ereignis |
+| Ungesehene Schwingen | Unseen Wings | Overlord | Eid des Ausgestoßenen | Ereignis |
+| Spott | Mockery | Overlord | Splitter der Ewigen Dunkelheit | Ereignis |
+| Verschmelzung | Splice | Overlord | Hüter des Geheimnisses | Magie |
+| Opfergabe des Leids | Offertory Affliction | Overlord | Die Trollsümpfe | Ereignis |
+| Geheimnisse des Fleisches | Secrets of Flesh | Overlord | Die Trollsümpfe | Magie |
+| Giftige Vergeltung | Toxic Reprisal | Overlord | Die Trollsümpfe | Falle |
+| Hunger der Hexe | Hag's Hunger | Overlord | Vertrag der Champions | Ereignis |
+| Harte Schläge | Hard Knocks | Overlord | Visionen der Dämmerung | Ereignis |
 
 ---
 

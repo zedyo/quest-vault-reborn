@@ -240,7 +240,8 @@ describe('Overlord-Klassen-Datenintegrität', () => {
         if (!c.nameEn || !c.nameDe) errors.push(`${d.id}/${c.id}: Name fehlt (EN/DE)`)
         if (!c.rulesEn || !c.rulesDe) errors.push(`${d.id}/${c.id}: Regeltext fehlt (EN/DE)`)
         if (!VALID_TYPE.includes(c.cardType)) errors.push(`${d.id}/${c.id}: ungültiger Kartentyp '${c.cardType}'`)
-        if (!Number.isInteger(c.xpCost) || c.xpCost < 0 || c.xpCost > 5)
+        // null = Belohnungskarte (nicht kaufbar); sonst 0..5
+        if (c.xpCost !== null && (!Number.isInteger(c.xpCost) || c.xpCost < 0 || c.xpCost > 5))
           errors.push(`${d.id}/${c.id}: XP-Kosten ${c.xpCost} unplausibel`)
         if (!Number.isInteger(c.count) || c.count < 1 || c.count > 5)
           errors.push(`${d.id}/${c.id}: Anzahl ${c.count} unplausibel`)
@@ -250,14 +251,16 @@ describe('Overlord-Klassen-Datenintegrität', () => {
     expect(errors, errors.join('\n')).toEqual([])
   })
 
-  it('Basis-Deck enthält nur Startkarten (XP 0); Klassenkarten kosten XP', () => {
+  it('XP-Kosten passen zur Deck-Art (Basis 0, Klasse ≥1, Belohnung null)', () => {
     const errors: string[] = []
     for (const d of OVERLORD_DECKS) {
       for (const c of d.cards) {
         if (d.kind === 'basic' && c.xpCost !== 0)
           errors.push(`${d.id}/${c.id}: Basiskarte sollte 0 XP kosten, hat ${c.xpCost}`)
-        if (d.kind === 'class' && c.xpCost < 1)
+        if (d.kind === 'class' && (c.xpCost === null || c.xpCost < 1))
           errors.push(`${d.id}/${c.id}: Klassenkarte sollte XP kosten`)
+        if (d.kind === 'reward' && c.xpCost !== null)
+          errors.push(`${d.id}/${c.id}: Belohnungskarte sollte xpCost null haben, hat ${c.xpCost}`)
       }
     }
     expect(errors, errors.join('\n')).toEqual([])
