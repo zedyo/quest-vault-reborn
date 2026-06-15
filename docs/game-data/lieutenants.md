@@ -158,10 +158,11 @@ Overlord mit **Bedrohungsmarkern** kauft (`threatCost`) und auslöst (`triggerCo
 any2cards `data/plot-decks.js` (201 Karten in 20 Decks). EN 1:1 aus Quelle, DE handübersetzt.
 Kartenrückseiten (`plot-decks-back`) ausgelassen.
 
-**Status:** Grundspiel vollständig + Erweiterungs-Batch 1 ✅ (**9 Decks, 90 Karten**). Grundspiel
-(v1.1.22/23): Saat des Verrats, Hybride Loyalität, Endloser Durst, Von Macht verflucht, Die gefallene
-Elite, Goblin-Aufstand. Erweiterungen Batch 1 (v1.1.24): Gier des Drachen (Valyndra), Wütende Infektion
-(Bol'Goreth), Dunkle Illusionen (Ariad). Offen: 11 weitere Erweiterungs-Plotdecks (110 Karten).
+**Status:** Grundspiel + Labyrinth komplett ✅ (**12 Decks, 120 Karten**). Grundspiel (v1.1.22/23):
+6 Decks. Erweiterungen: Gier des Drachen (Valyndra, Lindwurm), Wütende Infektion (Bol'Goreth, Trollsümpfe),
+Dunkle Illusionen/Verworrenes Netz/Gaunerei/Stiller Beschützer (Labyrinth: Ariad/Queen Ariad/Raythen/Serena).
+Karten-ID = `deckId-xws` (ein xws „feralinstincts" kommt in zwei Decks vor → global eindeutig).
+Offen: 8 weitere Erweiterungs-Plotdecks (80 Karten: Rabenfels, Bilehall, Nerekhall).
 
 Anzeige: `src/pages/PlotDecksPage.tsx` (Route `/plotdecks`), gruppiert nach Erweiterung + Deck
 (mit Agenten-Label), Such-/Sammlungs-/Sprachfilter, Symbolen und Karten-Lightbox.

@@ -7,8 +7,8 @@ import type { PlotDeck } from '../types/game'
 // Plotdecks gehören je zu einem Agenten (Leutnants-Pack). threatCost = Kaufkosten in
 // Bedrohungsmarkern, triggerCost = Auslösekosten. Kartenrückseiten ('plot-decks-back')
 // werden ausgelassen. EN 1:1 aus Quelle geparst, DE handübersetzt.
-// Umfang: GRUNDSPIEL (6 Decks) + Erweiterungs-Plotdecks Batch 1 (Dragon's Greed, Raging
-// Infection, Dark Illusions) = 9 Decks / 90 Karten. Weitere Erweiterungs-Plotdecks folgen.
+// Umfang: GRUNDSPIEL (6 Decks) + Erweiterungs-Plotdecks Batch 1+2 = 12 Decks / 120 Karten.
+// Karten-ID = deckId-xws (ein xws kommt in zwei Decks vor). Weitere Plotdecks folgen.
 
 export const PLOT_DECKS: PlotDeck[] = [
   {
@@ -20,7 +20,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "solepurpose",
+        "id": "seeds-of-betrayal-solepurpose",
         "nameEn": "Sole Purpose",
         "nameDe": "Einziger Zweck",
         "threatCost": 0,
@@ -30,7 +30,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-sole-purpose.png"
       },
       {
-        "id": "scryingandplotting",
+        "id": "seeds-of-betrayal-scryingandplotting",
         "nameEn": "Scrying And Plotting",
         "nameDe": "Spähen und Intrigieren",
         "threatCost": 1,
@@ -40,7 +40,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-scrying-and-plotting.png"
       },
       {
-        "id": "alwaysprepared",
+        "id": "seeds-of-betrayal-alwaysprepared",
         "nameEn": "Always Prepared",
         "nameDe": "Stets vorbereitet",
         "threatCost": 2,
@@ -50,7 +50,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-always-prepared.png"
       },
       {
-        "id": "nefariouspower",
+        "id": "seeds-of-betrayal-nefariouspower",
         "nameEn": "Nefarious Power",
         "nameDe": "Niederträchtige Macht",
         "threatCost": 2,
@@ -60,7 +60,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-nefarious-power.png"
       },
       {
-        "id": "rushofpower",
+        "id": "seeds-of-betrayal-rushofpower",
         "nameEn": "Rush Of Power",
         "nameDe": "Machtrausch",
         "threatCost": 2,
@@ -70,7 +70,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-rush-of-power.png"
       },
       {
-        "id": "twoprongedgambit",
+        "id": "seeds-of-betrayal-twoprongedgambit",
         "nameEn": "Two-Pronged Gambit",
         "nameDe": "Zweigleisiges Spiel",
         "threatCost": 2,
@@ -80,7 +80,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-two-pronged-gambit.png"
       },
       {
-        "id": "falsefriends",
+        "id": "seeds-of-betrayal-falsefriends",
         "nameEn": "False Friends",
         "nameDe": "Falsche Freunde",
         "threatCost": 3,
@@ -90,7 +90,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-false-friends.png"
       },
       {
-        "id": "summonzachareth",
+        "id": "seeds-of-betrayal-summonzachareth",
         "nameEn": "Summon - Zachareth",
         "nameDe": "Beschwören – Zachareth",
         "threatCost": 3,
@@ -100,7 +100,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-summon-zachareth.png"
       },
       {
-        "id": "troubleontheroad",
+        "id": "seeds-of-betrayal-troubleontheroad",
         "nameEn": "Trouble On The Road",
         "nameDe": "Ärger unterwegs",
         "threatCost": 3,
@@ -110,7 +110,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/seeds-of-betrayal/bg-trouble-on-the-road.png"
       },
       {
-        "id": "meticulousplanning",
+        "id": "seeds-of-betrayal-meticulousplanning",
         "nameEn": "Meticulous Planning",
         "nameDe": "Akribische Planung",
         "threatCost": 4,
@@ -130,7 +130,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "dualtraining",
+        "id": "hybrid-loyalty-dualtraining",
         "nameEn": "Dual Training",
         "nameDe": "Doppelausbildung",
         "threatCost": 0,
@@ -140,7 +140,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-dual-training.png"
       },
       {
-        "id": "bribery",
+        "id": "hybrid-loyalty-bribery",
         "nameEn": "Bribery",
         "nameDe": "Bestechung",
         "threatCost": 2,
@@ -150,7 +150,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-bribery.png"
       },
       {
-        "id": "cutadeal",
+        "id": "hybrid-loyalty-cutadeal",
         "nameEn": "Cut A Deal",
         "nameDe": "Einen Handel schließen",
         "threatCost": 2,
@@ -160,7 +160,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-cut-a-deal.png"
       },
       {
-        "id": "endit",
+        "id": "hybrid-loyalty-endit",
         "nameEn": "End It!",
         "nameDe": "Mach Schluss!",
         "threatCost": 2,
@@ -170,7 +170,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-end-it.png"
       },
       {
-        "id": "fightwithhonor",
+        "id": "hybrid-loyalty-fightwithhonor",
         "nameEn": "Fight With Honor",
         "nameDe": "Mit Ehre kämpfen",
         "threatCost": 2,
@@ -180,7 +180,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-fight-with-honor.png"
       },
       {
-        "id": "makeourownluck",
+        "id": "hybrid-loyalty-makeourownluck",
         "nameEn": "Make Our Own Luck",
         "nameDe": "Unser Glück selbst schmieden",
         "threatCost": 2,
@@ -190,7 +190,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-make-our-own-luck.png"
       },
       {
-        "id": "showofforce",
+        "id": "hybrid-loyalty-showofforce",
         "nameEn": "Show Of Force",
         "nameDe": "Machtdemonstration",
         "threatCost": 2,
@@ -200,7 +200,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-show-of-force.png"
       },
       {
-        "id": "resourceful",
+        "id": "hybrid-loyalty-resourceful",
         "nameEn": "Resourceful",
         "nameDe": "Einfallsreich",
         "threatCost": 3,
@@ -210,7 +210,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-resourceful.png"
       },
       {
-        "id": "summonbelthir",
+        "id": "hybrid-loyalty-summonbelthir",
         "nameEn": "Summon - Belthir",
         "nameDe": "Beschwören – Belthir",
         "threatCost": 3,
@@ -220,7 +220,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/hybrid-loyalty/bg-summon-belthir.png"
       },
       {
-        "id": "hazardpay",
+        "id": "hybrid-loyalty-hazardpay",
         "nameEn": "Hazard Pay",
         "nameDe": "Gefahrenzulage",
         "threatCost": 4,
@@ -240,7 +240,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "bloodline",
+        "id": "endless-thirst-bloodline",
         "nameEn": "Bloodline",
         "nameDe": "Blutlinie",
         "threatCost": 0,
@@ -250,7 +250,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-bloodline.png"
       },
       {
-        "id": "baddreams",
+        "id": "endless-thirst-baddreams",
         "nameEn": "Bad Dreams",
         "nameDe": "Albträume",
         "threatCost": 1,
@@ -260,7 +260,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-bad-dreams.png"
       },
       {
-        "id": "nightsembrace",
+        "id": "endless-thirst-nightsembrace",
         "nameEn": "Night'S Embrace",
         "nameDe": "Umarmung der Nacht",
         "threatCost": 1,
@@ -270,7 +270,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-nights-embrace.png"
       },
       {
-        "id": "fangsinthedark",
+        "id": "endless-thirst-fangsinthedark",
         "nameEn": "Fangs In The Dark",
         "nameDe": "Reißzähne im Dunkeln",
         "threatCost": 2,
@@ -280,7 +280,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-fangs-in-the-dark.png"
       },
       {
-        "id": "thepowerofblood",
+        "id": "endless-thirst-thepowerofblood",
         "nameEn": "The Power Of Blood",
         "nameDe": "Die Macht des Blutes",
         "threatCost": 2,
@@ -290,7 +290,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-the-power-of-blood.png"
       },
       {
-        "id": "nighttimehunt",
+        "id": "endless-thirst-nighttimehunt",
         "nameEn": "Nighttime Hunt",
         "nameDe": "Nächtliche Jagd",
         "threatCost": 3,
@@ -300,7 +300,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-nighttime-hunt.png"
       },
       {
-        "id": "scentofblood",
+        "id": "endless-thirst-scentofblood",
         "nameEn": "Scent Of Blood",
         "nameDe": "Witterung von Blut",
         "threatCost": 3,
@@ -310,7 +310,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-scent-of-blood.png"
       },
       {
-        "id": "summoneliza",
+        "id": "endless-thirst-summoneliza",
         "nameEn": "Summon - Eliza",
         "nameDe": "Beschwören – Eliza",
         "threatCost": 3,
@@ -320,7 +320,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-summon-eliza.png"
       },
       {
-        "id": "theladyscare",
+        "id": "endless-thirst-theladyscare",
         "nameEn": "The Lady'S Care",
         "nameDe": "Die Fürsorge der Lady",
         "threatCost": 3,
@@ -330,7 +330,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/endless-thirst/bg-the-ladys-care.png"
       },
       {
-        "id": "thetasteofsuffering",
+        "id": "endless-thirst-thetasteofsuffering",
         "nameEn": "The Taste Of Suffering",
         "nameDe": "Der Geschmack des Leids",
         "threatCost": 3,
@@ -350,7 +350,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "darkpact",
+        "id": "cursed-by-power-darkpact",
         "nameEn": "Dark Pact",
         "nameDe": "Dunkler Pakt",
         "threatCost": 0,
@@ -360,7 +360,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-dark-pact.png"
       },
       {
-        "id": "greaterpower",
+        "id": "cursed-by-power-greaterpower",
         "nameEn": "Greater Power",
         "nameDe": "Größere Macht",
         "threatCost": 2,
@@ -370,7 +370,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-greater-power.png"
       },
       {
-        "id": "masques",
+        "id": "cursed-by-power-masques",
         "nameEn": "Masques",
         "nameDe": "Maskenspiel",
         "threatCost": 2,
@@ -380,7 +380,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-masques.png"
       },
       {
-        "id": "thedarkmark",
+        "id": "cursed-by-power-thedarkmark",
         "nameEn": "The Dark Mark",
         "nameDe": "Das dunkle Mal",
         "threatCost": 2,
@@ -390,7 +390,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-the-dark-mark.png"
       },
       {
-        "id": "thegraspinggrave",
+        "id": "cursed-by-power-thegraspinggrave",
         "nameEn": "The Grasping Grave",
         "nameDe": "Das greifende Grab",
         "threatCost": 2,
@@ -400,7 +400,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-the-grasping-grave.png"
       },
       {
-        "id": "boltfromtheblue",
+        "id": "cursed-by-power-boltfromtheblue",
         "nameEn": "Bolt From The Blue",
         "nameDe": "Blitz aus heiterem Himmel",
         "threatCost": 3,
@@ -410,7 +410,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-bolt-from-the-blue.png"
       },
       {
-        "id": "mysticmight",
+        "id": "cursed-by-power-mysticmight",
         "nameEn": "Mystic Might",
         "nameDe": "Mystische Macht",
         "threatCost": 3,
@@ -420,7 +420,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-mystic-might.png"
       },
       {
-        "id": "summonmerick",
+        "id": "cursed-by-power-summonmerick",
         "nameEn": "Summon - Merick",
         "nameDe": "Beschwören – Merick",
         "threatCost": 3,
@@ -430,7 +430,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-summon-merick.png"
       },
       {
-        "id": "thaumaturgy",
+        "id": "cursed-by-power-thaumaturgy",
         "nameEn": "Thaumaturgy",
         "nameDe": "Thaumaturgie",
         "threatCost": 3,
@@ -440,7 +440,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/cursed-by-power/bg-thaumaturgy.png"
       },
       {
-        "id": "cabal",
+        "id": "cursed-by-power-cabal",
         "nameEn": "Cabal",
         "nameDe": "Kabale",
         "threatCost": 4,
@@ -460,7 +460,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "armorofdarkness",
+        "id": "the-fallen-elite-armorofdarkness",
         "nameEn": "Armor Of Darkness",
         "nameDe": "Rüstung der Finsternis",
         "threatCost": 0,
@@ -470,7 +470,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-armor-of-darkness.png"
       },
       {
-        "id": "darkchampions",
+        "id": "the-fallen-elite-darkchampions",
         "nameEn": "Dark Champions",
         "nameDe": "Dunkle Champions",
         "threatCost": 2,
@@ -480,7 +480,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-dark-champions.png"
       },
       {
-        "id": "fightinformation",
+        "id": "the-fallen-elite-fightinformation",
         "nameEn": "Fight In Formation",
         "nameDe": "In Formation kämpfen",
         "threatCost": 2,
@@ -490,7 +490,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-fight-in-formation.png"
       },
       {
-        "id": "trialofknighthood",
+        "id": "the-fallen-elite-trialofknighthood",
         "nameEn": "Trial Of Knighthood",
         "nameDe": "Ritterprobe",
         "threatCost": 2,
@@ -500,7 +500,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-trial-of-knighthood.png"
       },
       {
-        "id": "veterancouncil",
+        "id": "the-fallen-elite-veterancouncil",
         "nameEn": "Veteran Council",
         "nameDe": "Veteranenrat",
         "threatCost": 2,
@@ -510,7 +510,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-veteran-council.png"
       },
       {
-        "id": "knighttraining",
+        "id": "the-fallen-elite-knighttraining",
         "nameEn": "Knight Training",
         "nameDe": "Ritterausbildung",
         "threatCost": 3,
@@ -520,7 +520,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-knight-training.png"
       },
       {
-        "id": "summonalric",
+        "id": "the-fallen-elite-summonalric",
         "nameEn": "Summon - Alric",
         "nameDe": "Beschwören – Alric",
         "threatCost": 3,
@@ -530,7 +530,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-summon-alric.png"
       },
       {
-        "id": "unkillable",
+        "id": "the-fallen-elite-unkillable",
         "nameEn": "Unkillable",
         "nameDe": "Untötbar",
         "threatCost": 3,
@@ -540,7 +540,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-unkillable.png"
       },
       {
-        "id": "vengefulresolve",
+        "id": "the-fallen-elite-vengefulresolve",
         "nameEn": "Vengeful Resolve",
         "nameDe": "Rachsüchtige Entschlossenheit",
         "threatCost": 3,
@@ -550,7 +550,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/the-fallen-elite/bg-vengeful-resolve.png"
       },
       {
-        "id": "refusetodie",
+        "id": "the-fallen-elite-refusetodie",
         "nameEn": "Refuse To Die",
         "nameDe": "Sich weigern zu sterben",
         "threatCost": 4,
@@ -570,7 +570,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "base",
     "cards": [
       {
-        "id": "spiritedretreat",
+        "id": "goblin-uprising-spiritedretreat",
         "nameEn": "Spirited Retreat",
         "nameDe": "Beherzter Rückzug",
         "threatCost": 0,
@@ -580,7 +580,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-spirited-retreat.png"
       },
       {
-        "id": "feralinstincts",
+        "id": "goblin-uprising-feralinstincts",
         "nameEn": "Feral Instincts",
         "nameDe": "Wilde Instinkte",
         "threatCost": 1,
@@ -590,7 +590,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-feral-instincts.png"
       },
       {
-        "id": "emergencyrations",
+        "id": "goblin-uprising-emergencyrations",
         "nameEn": "Emergency Rations",
         "nameDe": "Notrationen",
         "threatCost": 2,
@@ -600,7 +600,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-emergency-rations.png"
       },
       {
-        "id": "meatshield",
+        "id": "goblin-uprising-meatshield",
         "nameEn": "Meat Shield",
         "nameDe": "Kanonenfutter",
         "threatCost": 2,
@@ -610,7 +610,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-meat-shield.png"
       },
       {
-        "id": "overfed",
+        "id": "goblin-uprising-overfed",
         "nameEn": "Overfed",
         "nameDe": "Überfüttert",
         "threatCost": 2,
@@ -620,7 +620,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-overfed.png"
       },
       {
-        "id": "diveintocover",
+        "id": "goblin-uprising-diveintocover",
         "nameEn": "Dive Into Cover",
         "nameDe": "In Deckung springen",
         "threatCost": 3,
@@ -630,7 +630,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-dive-into-cover.png"
       },
       {
-        "id": "goblinambush",
+        "id": "goblin-uprising-goblinambush",
         "nameEn": "Goblin Ambush",
         "nameDe": "Goblin-Hinterhalt",
         "threatCost": 3,
@@ -640,7 +640,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-goblin-ambush.png"
       },
       {
-        "id": "summonsplig",
+        "id": "goblin-uprising-summonsplig",
         "nameEn": "Summon - Splig",
         "nameDe": "Beschwören – Splig",
         "threatCost": 3,
@@ -650,7 +650,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-summon-splig.png"
       },
       {
-        "id": "raidedarmory",
+        "id": "goblin-uprising-raidedarmory",
         "nameEn": "Raided Armory",
         "nameDe": "Geplünderte Waffenkammer",
         "threatCost": 4,
@@ -660,7 +660,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-raided-armory.png"
       },
       {
-        "id": "scavenge",
+        "id": "goblin-uprising-scavenge",
         "nameEn": "Scavenge",
         "nameDe": "Plündern",
         "threatCost": 4,
@@ -680,7 +680,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "lair-of-the-wyrm",
     "cards": [
       {
-        "id": "mineallmine",
+        "id": "dragons-greed-mineallmine",
         "nameEn": "Mine All Mine",
         "nameDe": "Alles meins",
         "threatCost": 0,
@@ -690,7 +690,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-mine-all-mine.png"
       },
       {
-        "id": "ironhardscales",
+        "id": "dragons-greed-ironhardscales",
         "nameEn": "Iron-Hard Scales",
         "nameDe": "Eisenharte Schuppen",
         "threatCost": 2,
@@ -700,7 +700,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-iron-hard-scales.png"
       },
       {
-        "id": "terrifyingpresence",
+        "id": "dragons-greed-terrifyingpresence",
         "nameEn": "Terrifying Presence",
         "nameDe": "Furchteinflößende Präsenz",
         "threatCost": 2,
@@ -710,7 +710,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-terrifying-presence.png"
       },
       {
-        "id": "auriumplating",
+        "id": "dragons-greed-auriumplating",
         "nameEn": "Aurium Plating",
         "nameDe": "Auriumpanzerung",
         "threatCost": 3,
@@ -720,7 +720,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-aurium-plating.png"
       },
       {
-        "id": "jealousrage",
+        "id": "dragons-greed-jealousrage",
         "nameEn": "Jealous Rage",
         "nameDe": "Eifersüchtige Wut",
         "threatCost": 3,
@@ -730,7 +730,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-jealous-rage.png"
       },
       {
-        "id": "massivebulk",
+        "id": "dragons-greed-massivebulk",
         "nameEn": "Massive Bulk",
         "nameDe": "Gewaltige Masse",
         "threatCost": 3,
@@ -740,7 +740,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-massive-bulk.png"
       },
       {
-        "id": "punishtheweak",
+        "id": "dragons-greed-punishtheweak",
         "nameEn": "Punish The Weak",
         "nameDe": "Die Schwachen bestrafen",
         "threatCost": 3,
@@ -750,7 +750,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-punish-the-weak.png"
       },
       {
-        "id": "summonvalyndra",
+        "id": "dragons-greed-summonvalyndra",
         "nameEn": "Summon - Valyndra",
         "nameDe": "Beschwören – Valyndra",
         "threatCost": 3,
@@ -760,7 +760,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-summon-valyndra.png"
       },
       {
-        "id": "guardiansofthehoard",
+        "id": "dragons-greed-guardiansofthehoard",
         "nameEn": "Guardians Of The Hoard",
         "nameDe": "Wächter des Hortes",
         "threatCost": 4,
@@ -770,7 +770,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-guardians-of-the-hoard.png"
       },
       {
-        "id": "valyndrasshadow",
+        "id": "dragons-greed-valyndrasshadow",
         "nameEn": "Valyndra'S Shadow",
         "nameDe": "Valyndras Schatten",
         "threatCost": 4,
@@ -790,7 +790,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "the-trollfens",
     "cards": [
       {
-        "id": "plaguerelease",
+        "id": "raging-infection-plaguerelease",
         "nameEn": "Plague Release",
         "nameDe": "Seuchenausbruch",
         "threatCost": 0,
@@ -800,7 +800,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-plague-release.png"
       },
       {
-        "id": "envenom",
+        "id": "raging-infection-envenom",
         "nameEn": "Envenom",
         "nameDe": "Vergiften",
         "threatCost": 1,
@@ -810,7 +810,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-envenom.png"
       },
       {
-        "id": "infected",
+        "id": "raging-infection-infected",
         "nameEn": "Infected",
         "nameDe": "Infiziert",
         "threatCost": 1,
@@ -820,7 +820,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-infected.png"
       },
       {
-        "id": "afflictionaura",
+        "id": "raging-infection-afflictionaura",
         "nameEn": "Affliction Aura",
         "nameDe": "Aura des Leidens",
         "threatCost": 2,
@@ -830,7 +830,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-affliction-aura.png"
       },
       {
-        "id": "fetidstench",
+        "id": "raging-infection-fetidstench",
         "nameEn": "Fetid Stench",
         "nameDe": "Fauliger Gestank",
         "threatCost": 2,
@@ -840,7 +840,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-fetid-stench.png"
       },
       {
-        "id": "massmutation",
+        "id": "raging-infection-massmutation",
         "nameEn": "Mass Mutation",
         "nameDe": "Massenmutation",
         "threatCost": 2,
@@ -850,7 +850,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-mass-mutation.png"
       },
       {
-        "id": "weaknesswithin",
+        "id": "raging-infection-weaknesswithin",
         "nameEn": "Weakness Within",
         "nameDe": "Schwäche im Innern",
         "threatCost": 2,
@@ -860,7 +860,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-weakness-within.png"
       },
       {
-        "id": "summonbolgoreth",
+        "id": "raging-infection-summonbolgoreth",
         "nameEn": "Summon - Bol'Goreth",
         "nameDe": "Beschwören – Bol'Goreth",
         "threatCost": 3,
@@ -870,7 +870,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-summon-bolgoreth.png"
       },
       {
-        "id": "weakenedspirit",
+        "id": "raging-infection-weakenedspirit",
         "nameEn": "Weakened Spirit",
         "nameDe": "Geschwächter Geist",
         "threatCost": 3,
@@ -880,7 +880,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-weakened-spirit.png"
       },
       {
-        "id": "virulentcloud",
+        "id": "raging-infection-virulentcloud",
         "nameEn": "Virulent Cloud",
         "nameDe": "Giftige Wolke",
         "threatCost": 4,
@@ -900,7 +900,7 @@ export const PLOT_DECKS: PlotDeck[] = [
     "expansionId": "labyrinth-of-ruin",
     "cards": [
       {
-        "id": "misdirection",
+        "id": "dark-illusions-misdirection",
         "nameEn": "Misdirection",
         "nameDe": "Ablenkung",
         "threatCost": 0,
@@ -910,7 +910,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-misdirection.png"
       },
       {
-        "id": "intricateschemes",
+        "id": "dark-illusions-intricateschemes",
         "nameEn": "Intricate Schemes",
         "nameDe": "Verschachtelte Ränke",
         "threatCost": 1,
@@ -920,7 +920,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-intricate-schemes.png"
       },
       {
-        "id": "taintedblood",
+        "id": "dark-illusions-taintedblood",
         "nameEn": "Tainted Blood",
         "nameDe": "Verdorbenes Blut",
         "threatCost": 1,
@@ -930,7 +930,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-tainted-blood.png"
       },
       {
-        "id": "enthrall",
+        "id": "dark-illusions-enthrall",
         "nameEn": "Enthrall",
         "nameDe": "Versklaven",
         "threatCost": 2,
@@ -940,7 +940,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-enthrall.png"
       },
       {
-        "id": "malediction",
+        "id": "dark-illusions-malediction",
         "nameEn": "Malediction",
         "nameDe": "Verwünschung",
         "threatCost": 2,
@@ -950,7 +950,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-malediction.png"
       },
       {
-        "id": "mirage",
+        "id": "dark-illusions-mirage",
         "nameEn": "Mirage",
         "nameDe": "Trugbild",
         "threatCost": 2,
@@ -960,7 +960,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-mirage.png"
       },
       {
-        "id": "darknessfalls",
+        "id": "dark-illusions-darknessfalls",
         "nameEn": "Darkness Falls",
         "nameDe": "Dunkelheit bricht herein",
         "threatCost": 3,
@@ -970,7 +970,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-darkness-falls.png"
       },
       {
-        "id": "phantasm",
+        "id": "dark-illusions-phantasm",
         "nameEn": "Phantasm",
         "nameDe": "Phantasma",
         "threatCost": 3,
@@ -980,7 +980,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-phantasm.png"
       },
       {
-        "id": "summonariad",
+        "id": "dark-illusions-summonariad",
         "nameEn": "Summon - Ariad",
         "nameDe": "Beschwören – Ariad",
         "threatCost": 3,
@@ -990,7 +990,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-summon-ariad.png"
       },
       {
-        "id": "theritualcontinues",
+        "id": "dark-illusions-theritualcontinues",
         "nameEn": "The Ritual Continues",
         "nameDe": "Das Ritual geht weiter",
         "threatCost": 4,
@@ -998,6 +998,336 @@ export const PLOT_DECKS: PlotDeck[] = [
         "rulesEn": "At the start of each encounter, place fatigue tokens on this card equal to the number of heroes. Each of your master monsters gains: Action: Discard 1 fatigue token from \"The Ritual Continues\". At the end of each encounter, if there are no fatigue tokens on this card, gain 2 threat tokens. Then, discard all tokens from this card.",
         "rulesDe": "Lege zu Beginn jeder Begegnung so viele Erschöpfungsmarker auf diese Karte wie Helden. Jedes deiner Meister-Monster erhält: Aktion: Lege 1 Erschöpfungsmarker von „Das Ritual geht weiter\" ab. Liegen am Ende jeder Begegnung keine Erschöpfungsmarker auf dieser Karte, erhalte 2 Bedrohungsmarker. Lege dann alle Marker von dieser Karte ab.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-the-ritual-continues.png"
+      }
+    ]
+  },
+  {
+    "id": "tangled-web",
+    "nameEn": "Tangled Web",
+    "nameDe": "Verworrenes Netz",
+    "agentEn": "Queen Ariad",
+    "agentDe": "Königin Ariad",
+    "expansionId": "labyrinth-of-ruin",
+    "cards": [
+      {
+        "id": "tangled-web-naturalcamouflage",
+        "nameEn": "Natural Camouflage",
+        "nameDe": "Natürliche Tarnung",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "At the start of an encounter, exhaust this card. While this card is exhausted, each time a monster with the Wilderness monster trait rolls at least 1 blank when rolling defense dice, add 1 Shield to the results for each blank rolled. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn einer Begegnung. Solange diese Karte erschöpft ist, füge jedes Mal, wenn ein Monster mit dem Monster-Merkmal „Wildnis\" beim Werfen der Verteidigungswürfel mindestens 1 Leerseite würfelt, 1 Schild zu den Ergebnissen hinzu für jede gewürfelte Leerseite. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-natural-camouflage.png"
+      },
+      {
+        "id": "tangled-web-feralinstincts",
+        "nameEn": "Feral Instincts",
+        "nameDe": "Wilde Instinkte",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after setup of an encounter to choose one of your monster groups. During this encounter, that group gains the Wilderness monster trait. Place a threat token from the supply on that group's Monster card as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen. Während dieser Begegnung erhält diese Gruppe das Monster-Merkmal „Wildnis\". Lege als Erinnerung einen Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-feral-instincts.png"
+      },
+      {
+        "id": "tangled-web-embracedarkness",
+        "nameEn": "Embrace Darkness",
+        "nameDe": "Dunkelheit umarmen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card during your turn. Gain 1 threat token for each knocked-out hero. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges. Erhalte 1 Bedrohungsmarker für jeden kampfunfähigen Helden. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-embrace-darkness.png"
+      },
+      {
+        "id": "tangled-web-entanglingweave",
+        "nameEn": "Entangling Weave",
+        "nameDe": "Verstrickendes Gewebe",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn to choose a monster group and place this card near that group's Monster card. While this card is exhausted, each hero must spend 1 additional movement point to enter a space adjacent to at least 1 monster in that group.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges, um eine Monstergruppe zu wählen, und lege diese Karte neben die Monsterkarte dieser Gruppe. Solange diese Karte erschöpft ist, muss jeder Held 1 zusätzlichen Bewegungspunkt ausgeben, um ein Feld zu betreten, das zu mindestens 1 Monster dieser Gruppe benachbart ist.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-entangling-weave.png"
+      },
+      {
+        "id": "tangled-web-hiddenpredator",
+        "nameEn": "Hidden Predator",
+        "nameDe": "Verborgener Räuber",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter. While this card is exhausted, each monster with the Wilderness monster trait gains: Ambush: Each time this monster performs an attack that targets a hero that did not have line of sight to this monster at the start of its activation, that attack gains Pierce 2. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Solange diese Karte erschöpft ist, erhält jedes Monster mit dem Monster-Merkmal „Wildnis\": Hinterhalt: Jedes Mal, wenn dieses Monster einen Angriff gegen einen Helden ausführt, der zu Beginn seiner Aktivierung keine Sichtlinie zu diesem Monster hatte, erhält dieser Angriff Durchbohren 2. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-hidden-predator.png"
+      },
+      {
+        "id": "tangled-web-unsafepassage",
+        "nameEn": "Unsafe Passage",
+        "nameDe": "Unsicherer Durchgang",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after resolving a Trap card to return that card to your hand. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem du eine Fallenkarte abgehandelt hast, um diese Karte auf deine Hand zurückzunehmen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-unsafe-passage.png"
+      },
+      {
+        "id": "tangled-web-webofdeception",
+        "nameEn": "Web Of Deception",
+        "nameDe": "Netz der Täuschung",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero gains a Condition card. Replace that card with a different Condition card of your choice.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held eine Zustandskarte erhält. Ersetze diese Karte durch eine andere Zustandskarte deiner Wahl.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-web-of-deception.png"
+      },
+      {
+        "id": "tangled-web-solitaryprey",
+        "nameEn": "Solitary Prey",
+        "nameDe": "Einsame Beute",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster performs an attack that targets a hero who is not adjacent to any other hero, before dice are rolled. This attack gains +2 Hearts. Additionally, if the monster has the Wilderness monster trait, this attack gains Pierce 1.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff gegen einen Helden ausführt, der zu keinem anderen Helden benachbart ist, bevor die Würfel geworfen werden. Dieser Angriff erhält +2 Herzen. Hat das Monster außerdem das Monster-Merkmal „Wildnis\", erhält dieser Angriff Durchbohren 1.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-solitary-prey.png"
+      },
+      {
+        "id": "tangled-web-summonqueenariad",
+        "nameEn": "Summon - Queen Ariad",
+        "nameDe": "Beschwören – Königin Ariad",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace that group with the Queen Ariad agent. If the Queen Ariad agent is defeated, return this card to your Plot deck. You cannot use this card in the \"Labyrinth Of Ruin\" campaign.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze diese Gruppe durch den Königin-Ariad-Agenten. Wird der Königin-Ariad-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in der Kampagne „Labyrinth des Verderbens\" verwenden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-summon-queen-ariad.png"
+      },
+      {
+        "id": "tangled-web-savageexploitation",
+        "nameEn": "Savage Exploitation",
+        "nameDe": "Wilde Ausbeutung",
+        "threatCost": 4,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when you resolve a Trap card played on a hero during his turn. Choose 1 monster with the Wilderness monster trait. That monster may immediately perform an attack targeting that hero. After this attack is resolved, the active player resumes his turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du eine Fallenkarte abhandelst, die während des Zuges eines Helden auf ihn gespielt wurde. Wähle 1 Monster mit dem Monster-Merkmal „Wildnis\". Dieses Monster darf sofort einen Angriff gegen diesen Helden ausführen. Nach dem Abhandeln dieses Angriffs setzt der aktive Spieler seinen Zug fort.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/tangled-web/lr-savage-exploitation.png"
+      }
+    ]
+  },
+  {
+    "id": "skulduggery",
+    "nameEn": "Skulduggery",
+    "nameDe": "Gaunerei",
+    "agentEn": "Raythen",
+    "agentDe": "Raythen",
+    "expansionId": "labyrinth-of-ruin",
+    "cards": [
+      {
+        "id": "skulduggery-pettytheft",
+        "nameEn": "Petty Theft",
+        "nameDe": "Kleiner Diebstahl",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each of your monsters gains the following abilities: This monster may spend 2 movement points to reveal 1 adjacent search token. If it is not a unique search token, place it on this monster's base. While a search token is on this monster's base, the token cannot be searched by any hero. If this monster is defeated or leaves the map for any reason, place any search tokens on its base in the space last occupied by the monster.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes deiner Monster folgende Fähigkeiten: Dieses Monster darf 2 Bewegungspunkte ausgeben, um 1 benachbarten Suchmarker aufzudecken. Ist es kein einzigartiger Suchmarker, lege ihn auf die Basis dieses Monsters. Solange ein Suchmarker auf der Basis dieses Monsters liegt, kann der Marker von keinem Helden durchsucht werden. Wird dieses Monster besiegt oder verlässt es aus irgendeinem Grund den Spielplan, lege alle Suchmarker auf seiner Basis auf das zuletzt von dem Monster besetzte Feld.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-petty-theft.png"
+      },
+      {
+        "id": "skulduggery-concealment",
+        "nameEn": "Concealment",
+        "nameDe": "Verbergen",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when you activate a monster with at least 1 search token on its base. Look at the top 2 cards of the Search deck. Place 1 card on the top of the Search deck and 1 card on the bottom. This card does not refresh as normal. Refresh this card at the end of each quest, or spend 1 threat token at the start of your turn to refresh it.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du ein Monster mit mindestens 1 Suchmarker auf seiner Basis aktivierst. Sieh dir die obersten 2 Karten des Suchstapels an. Lege 1 Karte oben auf den Suchstapel und 1 Karte unten darunter. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios, oder gib zu Beginn deines Zuges 1 Bedrohungsmarker aus, um sie zu erholen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-concealment.png"
+      },
+      {
+        "id": "skulduggery-covetous",
+        "nameEn": "Covetous",
+        "nameDe": "Begierig",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero draws a Search card. While this card is exhausted, add 1 Surge to the results of each attack that targets a hero with at least 1 faceup Search card in his play area. This card does not refresh as normal. Refresh this card at the end of your turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held eine Suchkarte zieht. Solange diese Karte erschöpft ist, füge 1 Schub zu den Ergebnissen jedes Angriffs hinzu, der einen Helden mit mindestens 1 offen liegenden Suchkarte in seiner Auslage zum Ziel hat. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende deines Zuges.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-covetous.png"
+      },
+      {
+        "id": "skulduggery-distraction",
+        "nameEn": "Distraction",
+        "nameDe": "Ablenkungsmanöver",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a hero declares an attack targeting a monster with at least 1 search token on its base. Remove 1 search token from that monster's base and place it in a space adjacent to the hero performing the attack. That hero immediately searches that search token instead of performing the attack. Then, he is Stunned, and you may move the monster up to 2 spaces.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Angriff gegen ein Monster mit mindestens 1 Suchmarker auf seiner Basis ansagt. Entferne 1 Suchmarker von der Basis dieses Monsters und platziere ihn auf einem Feld benachbart zu dem angreifenden Helden. Dieser Held durchsucht sofort diesen Suchmarker, anstatt den Angriff auszuführen. Dann ist er betäubt, und du darfst das Monster bis zu 2 Felder bewegen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-distraction.png"
+      },
+      {
+        "id": "skulduggery-foiledagain",
+        "nameEn": "Foiled Again",
+        "nameDe": "Schon wieder vereitelt",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after a hero draws (and chooses to keep) a Search card. Set that Search card aside and that hero draws another Search card. Then, return the Search card that was set aside to the top of the Search deck.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held eine Suchkarte gezogen (und sich entschieden hat, sie zu behalten) hat. Lege diese Suchkarte beiseite, und dieser Held zieht eine andere Suchkarte. Lege dann die beiseitegelegte Suchkarte oben auf den Suchstapel zurück.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-foiled-again.png"
+      },
+      {
+        "id": "skulduggery-slippery",
+        "nameEn": "Slippery",
+        "nameDe": "Glitschig",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when you activate a monster. That monster may move into spaces occupied by enemy figures at a cost of 1 additional movement point per space. The monster must end its movement in an empty space following normal movement rules. If that monster has at least 1 search token on its base, refresh this card at the end of that monster's activation.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du ein Monster aktivierst. Dieses Monster darf sich auf von feindlichen Figuren besetzte Felder bewegen, zu Kosten von 1 zusätzlichen Bewegungspunkt pro Feld. Das Monster muss seine Bewegung gemäß den normalen Bewegungsregeln auf einem leeren Feld beenden. Hat dieses Monster mindestens 1 Suchmarker auf seiner Basis, erhole diese Karte am Ende der Aktivierung dieses Monsters.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-slippery.png"
+      },
+      {
+        "id": "skulduggery-baitandswitch",
+        "nameEn": "Bait And Switch",
+        "nameDe": "Köder und Tausch",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a hero enters an empty space adjacent to a search token. Choose 1 SMALL monster within 5 spaces of that search token. The chosen monster and that search token trade spaces. Then, that monster may immediately perform an attack targeting that hero. After this attack is resolved, the active player resumes their turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held ein leeres Feld betritt, das zu einem Suchmarker benachbart ist. Wähle 1 KLEINES Monster innerhalb von 5 Feldern um diesen Suchmarker. Das gewählte Monster und dieser Suchmarker tauschen die Felder. Dann darf dieses Monster sofort einen Angriff gegen diesen Helden ausführen. Nach dem Abhandeln dieses Angriffs setzt der aktive Spieler seinen Zug fort.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-bait-and-switch.png"
+      },
+      {
+        "id": "skulduggery-cursedtreasure",
+        "nameEn": "Cursed Treasure",
+        "nameDe": "Verfluchter Schatz",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a hero within 3 spaces of a monster searches a search token. You may place 1 threat token on this card. This card cannot hold more than 4 threat tokens at any time. At the end of the quest, gain all threat tokens on this card.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held innerhalb von 3 Feldern um ein Monster einen Suchmarker durchsucht. Du darfst 1 Bedrohungsmarker auf diese Karte legen. Diese Karte kann nie mehr als 4 Bedrohungsmarker tragen. Am Ende des Szenarios erhalte alle Bedrohungsmarker auf dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-cursed-treasure.png"
+      },
+      {
+        "id": "skulduggery-guardedtreasure",
+        "nameEn": "Guarded Treasure",
+        "nameDe": "Bewachter Schatz",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Each monster with at least 1 search token on its base adds 1 Shield to its defense results. At the end of each encounter, if there is at least 1 monster with a search token on its base, gain 1 threat token.",
+        "rulesDe": "Jedes Monster mit mindestens 1 Suchmarker auf seiner Basis fügt 1 Schild zu seinen Verteidigungsergebnissen hinzu. Liegt am Ende jeder Begegnung mindestens 1 Monster mit einem Suchmarker auf seiner Basis vor, erhalte 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-guarded-treasure.png"
+      },
+      {
+        "id": "skulduggery-summonraythen",
+        "nameEn": "Summon - Raythen",
+        "nameDe": "Beschwören – Raythen",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master monster in that group with the Raythen agent. If the Raythen agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Raythen lieutenant, ally, or hero.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister-Monster dieser Gruppe durch den Raythen-Agenten. Wird der Raythen-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das Raythen als Leutnant, Verbündeten oder Held nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/skulduggery/lr-summon-raythen.png"
+      }
+    ]
+  },
+  {
+    "id": "silent-protector",
+    "nameEn": "Silent Protector",
+    "nameDe": "Stiller Beschützer",
+    "agentEn": "Serena",
+    "agentDe": "Serena",
+    "expansionId": "labyrinth-of-ruin",
+    "cards": [
+      {
+        "id": "silent-protector-brethren",
+        "nameEn": "Brethren",
+        "nameDe": "Brüder",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when you activate a monster group with the Civilized monster trait. Choose 2 monsters in that group. The first monster performs 1 less action this turn, and the second monster may perform 1 additional action this turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du eine Monstergruppe mit dem Monster-Merkmal „Zivilisiert\" aktivierst. Wähle 2 Monster dieser Gruppe. Das erste Monster führt in diesem Zug 1 Aktion weniger aus, und das zweite Monster darf in diesem Zug 1 zusätzliche Aktion ausführen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-brethren.png"
+      },
+      {
+        "id": "silent-protector-diplomatic",
+        "nameEn": "Diplomatic",
+        "nameDe": "Diplomatisch",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after setup of an encounter to choose one of your monster groups. During this encounter, that group gains the Civilized monster trait. Place 1 threat token from the supply on that group's Monster card as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen. Während dieser Begegnung erhält diese Gruppe das Monster-Merkmal „Zivilisiert\". Lege als Erinnerung 1 Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-diplomatic.png"
+      },
+      {
+        "id": "silent-protector-curativespirit",
+        "nameEn": "Curative Spirit",
+        "nameDe": "Heilender Geist",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each master monster with the Civilized monster trait gains: Action: Perform an attack. If this attack deals at least 1 Heart (after the defense roll), this monster and 1 monster within 3 spaces of this monster each recover 2 Hearts.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes Meister-Monster mit dem Monster-Merkmal „Zivilisiert\": Aktion: Führe einen Angriff aus. Fügt dieser Angriff mindestens 1 Herz zu (nach dem Verteidigungswurf), gewinnen dieses Monster und 1 Monster innerhalb von 3 Feldern um dieses Monster je 2 Herzen zurück.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-curative-spirit.png"
+      },
+      {
+        "id": "silent-protector-pacify",
+        "nameEn": "Pacify",
+        "nameDe": "Befrieden",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster performs an attack that targets a hero, before dice are rolled. If that attack is not a miss, that hero is Stunned.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff gegen einen Helden ausführt, bevor die Würfel geworfen werden. Geht dieser Angriff nicht daneben, ist dieser Held betäubt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-pacify.png"
+      },
+      {
+        "id": "silent-protector-pitytheweak",
+        "nameEn": "Pity The Weak",
+        "nameDe": "Mitleid mit den Schwachen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero performs an attack targeting a monster that has at least 1 Heart token, before dice are rolled. The hero suffers 1 Fatigue and tests Willpower. If he fails, he removes 1 Surge from the attack results. After the attack is resolved, if that monster has the Civilized monster trait and was not defeated, the monster may move 2 spaces.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Angriff gegen ein Monster mit mindestens 1 Herzmarker ausführt, bevor die Würfel geworfen werden. Der Held erleidet 1 Erschöpfung und legt eine Willenskraft-Probe ab. Misslingt sie, entfernt er 1 Schub aus den Angriffsergebnissen. Hat dieses Monster nach dem Abhandeln des Angriffs das Monster-Merkmal „Zivilisiert\" und wurde nicht besiegt, darf sich das Monster 2 Felder bewegen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-pity-the-weak.png"
+      },
+      {
+        "id": "silent-protector-oathofsilence",
+        "nameEn": "Oath Of Silence",
+        "nameDe": "Schweigegelübde",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose a monster. While this card is exhausted, that monster cannot perform any actions except for move actions. At the end of each of your turns, each monster within 3 spaces of that monster recovers 2 Hearts. Place 1 threat token from the supply on that monster's base as a reminder. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um ein Monster zu wählen. Solange diese Karte erschöpft ist, kann dieses Monster außer Bewegungsaktionen keine Aktionen ausführen. Am Ende jedes deiner Züge gewinnt jedes Monster innerhalb von 3 Feldern um dieses Monster 2 Herzen zurück. Lege als Erinnerung 1 Bedrohungsmarker aus dem Vorrat auf die Basis dieses Monsters. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-oath-of-silence.png"
+      },
+      {
+        "id": "silent-protector-powerinmourning",
+        "nameEn": "Power In Mourning",
+        "nameDe": "Macht in der Trauer",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a master monster is defeated. You may place 2 threat tokens on this card. This card cannot hold more than 8 threat tokens at any time. At the end of the quest, gain all threat tokens on this card.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster besiegt wird. Du darfst 2 Bedrohungsmarker auf diese Karte legen. Diese Karte kann nie mehr als 8 Bedrohungsmarker tragen. Am Ende des Szenarios erhalte alle Bedrohungsmarker auf dieser Karte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-power-in-mourning.png"
+      },
+      {
+        "id": "silent-protector-sharedburdens",
+        "nameEn": "Shared Burdens",
+        "nameDe": "Geteilte Lasten",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster suffers at least 2 Hearts to reduce the amount of Hearts that monster suffers to a minimum of 1 Heart. Then, all monsters in that monster's group suffer an amount of Hearts equal to the amount by which you reduced the first monster's Hearts, divided any way you choose between those monsters.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster mindestens 2 Herzen erleidet, um die Menge der von diesem Monster erlittenen Herzen auf mindestens 1 Herz zu verringern. Dann erleiden alle Monster der Gruppe dieses Monsters so viele Herzen, wie du die Herzen des ersten Monsters verringert hast, beliebig zwischen diesen Monstern aufgeteilt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-shared-burdens.png"
+      },
+      {
+        "id": "silent-protector-summonserena",
+        "nameEn": "Summon - Serena",
+        "nameDe": "Beschwören – Serena",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master monster in that group with the Serena agent. If the Serena agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Serena lieutenant, ally, or hero.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister-Monster dieser Gruppe durch den Serena-Agenten. Wird der Serena-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das Serena als Leutnant, Verbündeten oder Held nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-summon-serena.png"
+      },
+      {
+        "id": "silent-protector-travelersrest",
+        "nameEn": "Traveler'S Rest",
+        "nameDe": "Rast des Reisenden",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, heroes cannot suffer Fatigue to gain movement points.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, können Helden keine Erschöpfung erleiden, um Bewegungspunkte zu erhalten.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-travelers-rest.png"
       }
     ]
   }

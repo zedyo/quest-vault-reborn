@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.25',
+    date: '2026-06-15',
+    title: 'Plotdecks – Labyrinth des Verderbens',
+    highlights: [
+      'Die Plotdecks aus Labyrinth des Verderbens sind jetzt komplett: Verworrenes Netz (Königin Ariad), Gaunerei (Raythen) und Stiller Beschützer (Serena) – 30 weitere Karten.',
+      'Damit sind 120 Plotkarten erfasst, zweisprachig. Weitere Erweiterungs-Plotdecks folgen.',
+    ],
+  },
+  {
     version: '1.1.24',
     date: '2026-06-15',
     title: 'Plotdecks – erste Erweiterungen',
