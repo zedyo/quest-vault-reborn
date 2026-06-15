@@ -7,7 +7,8 @@ import type { PlotDeck } from '../types/game'
 // Plotdecks gehören je zu einem Agenten (Leutnants-Pack). threatCost = Kaufkosten in
 // Bedrohungsmarkern, triggerCost = Auslösekosten. Kartenrückseiten ('plot-decks-back')
 // werden ausgelassen. EN 1:1 aus Quelle geparst, DE handübersetzt.
-// Umfang: GRUNDSPIEL vollständig (6 Decks — 60 Karten). Erweiterungs-Plotdecks folgen.
+// Umfang: GRUNDSPIEL (6 Decks) + Erweiterungs-Plotdecks Batch 1 (Dragon's Greed, Raging
+// Infection, Dark Illusions) = 9 Decks / 90 Karten. Weitere Erweiterungs-Plotdecks folgen.
 
 export const PLOT_DECKS: PlotDeck[] = [
   {
@@ -667,6 +668,336 @@ export const PLOT_DECKS: PlotDeck[] = [
         "rulesEn": "Exhaust this card at the start of your turn. While this card in exhausted, each of your monsters gains: Action: If this monster is in a space containing or adjacent to a knocked-out hero, place 1 threat token from the supply on this card. No more than 6 threat tokens can be on this card at any time. At the end of the quest, gain all threat tokens on this card.",
         "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes deiner Monster: Aktion: Befindet sich dieses Monster auf einem Feld, das einen kampfunfähigen Helden enthält oder ihm benachbart ist, lege 1 Bedrohungsmarker aus dem Vorrat auf diese Karte. Es können sich nie mehr als 6 Bedrohungsmarker auf dieser Karte befinden. Am Ende des Szenarios erhalte alle Bedrohungsmarker auf dieser Karte.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/base-game/goblin-uprising/bg-scavenge.png"
+      }
+    ]
+  },
+  {
+    "id": "dragons-greed",
+    "nameEn": "Dragon's Greed",
+    "nameDe": "Gier des Drachen",
+    "agentEn": "Valyndra",
+    "agentDe": "Valyndra",
+    "expansionId": "lair-of-the-wyrm",
+    "cards": [
+      {
+        "id": "mineallmine",
+        "nameEn": "Mine All Mine",
+        "nameDe": "Alles meins",
+        "threatCost": 0,
+        "triggerCost": 0,
+        "rulesEn": "At the end of each encounter, place a number of threat tokens on this card equal to the number of search tokens remaining on the map. You may return this card to the game box at the end of any quest to gain all threat tokens on this card. If you do not do this, discard all threat tokens on this card.",
+        "rulesDe": "Lege am Ende jeder Begegnung so viele Bedrohungsmarker auf diese Karte wie Suchmarker auf dem Spielplan verbleiben. Du darfst diese Karte am Ende eines beliebigen Szenarios zurück in die Spielschachtel legen, um alle Bedrohungsmarker auf dieser Karte zu erhalten. Tust du das nicht, lege alle Bedrohungsmarker auf dieser Karte ab.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-mine-all-mine.png"
+      },
+      {
+        "id": "ironhardscales",
+        "nameEn": "Iron-Hard Scales",
+        "nameDe": "Eisenharte Schuppen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster is attacked, before dice are rolled, to add 2 Shields to the results. If you roll one or more blanks, add an additional 1 Shield to the results.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster angegriffen wird, bevor die Würfel geworfen werden, um 2 Schilde zu den Ergebnissen hinzuzufügen. Würfelst du eine oder mehr Leerseiten, füge 1 zusätzliches Schild zu den Ergebnissen hinzu.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-iron-hard-scales.png"
+      },
+      {
+        "id": "terrifyingpresence",
+        "nameEn": "Terrifying Presence",
+        "nameDe": "Furchteinflößende Präsenz",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each hero within 3 spaces of a HUGE or MASSIVE monster applies -1 to his Might, Willpower, Knowledge, and Awareness, (to a minimum of 1).",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jeder Held innerhalb von 3 Feldern um ein RIESIGES oder GEWALTIGES Monster -1 auf seine Stärke, Willenskraft, sein Wissen und Gespür (mindestens 1).",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-terrifying-presence.png"
+      },
+      {
+        "id": "auriumplating",
+        "nameEn": "Aurium Plating",
+        "nameDe": "Auriumpanzerung",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose a HUGE or MASSIVE monster group. Place this card near that group's Monster card. Each monster in that group applies +2 to its Health and is immune to Pierce. This card does not refresh as normal. Refresh this card at the start of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine RIESIGE oder GEWALTIGE Monstergruppe zu wählen. Lege diese Karte neben die Monsterkarte dieser Gruppe. Jedes Monster dieser Gruppe erhält +2 auf seine Lebenspunkte und ist immun gegen Durchbohren. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte zu Beginn jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-aurium-plating.png"
+      },
+      {
+        "id": "jealousrage",
+        "nameEn": "Jealous Rage",
+        "nameDe": "Eifersüchtige Wut",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a hero declares a search action to choose a monster within 5 spaces of that hero. Remove that monster from the map and place it in an empty space adjacent to that hero. Then, that monster immediately performs an attack targeting that hero. After resolving this attack, if the hero was not defeated, he may continue his turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held eine Durchsuchen-Aktion ansagt, um ein Monster innerhalb von 5 Feldern um diesen Helden zu wählen. Entferne dieses Monster vom Spielplan und platziere es auf einem leeren Feld benachbart zu diesem Helden. Dann führt dieses Monster sofort einen Angriff gegen diesen Helden aus. Wurde der Held nach dem Abhandeln dieses Angriffs nicht besiegt, darf er seinen Zug fortsetzen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-jealous-rage.png"
+      },
+      {
+        "id": "massivebulk",
+        "nameEn": "Massive Bulk",
+        "nameDe": "Gewaltige Masse",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a HUGE or MASSIVE monster ends or interrupts its movement. You can place that monster's base in spaces occupied by heroes. Move each hero in the occupied spaces to the closest empty space. The HUGE or MASSIVE monster suffers 1 Heart for each hero it moves.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein RIESIGES oder GEWALTIGES Monster seine Bewegung beendet oder unterbricht. Du darfst die Basis dieses Monsters auf von Helden besetzten Feldern platzieren. Bewege jeden Helden auf den besetzten Feldern auf das nächstgelegene leere Feld. Das RIESIGE oder GEWALTIGE Monster erleidet 1 Herz für jeden Helden, den es bewegt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-massive-bulk.png"
+      },
+      {
+        "id": "punishtheweak",
+        "nameEn": "Punish The Weak",
+        "nameDe": "Die Schwachen bestrafen",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each of your monsters gains: Surge: Crush: This monster deals +1 Heart for each space its base occupies that exceeds the target hero's Might.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes deiner Monster: Schub: Zermalmen: Dieses Monster fügt +1 Herz für jedes von seiner Basis besetzte Feld zu, das die Stärke des Zielhelden übersteigt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-punish-the-weak.png"
+      },
+      {
+        "id": "summonvalyndra",
+        "nameEn": "Summon - Valyndra",
+        "nameDe": "Beschwören – Valyndra",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master and 2 minion monsters in the chosen group with the Valyndra agent. If the Valyndra agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Valyndra lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister- und 2 Diener-Monster der gewählten Gruppe durch den Valyndra-Agenten. Wird der Valyndra-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Valyndra-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-summon-valyndra.png"
+      },
+      {
+        "id": "guardiansofthehoard",
+        "nameEn": "Guardians Of The Hoard",
+        "nameDe": "Wächter des Hortes",
+        "threatCost": 4,
+        "triggerCost": 0,
+        "rulesEn": "Use this card after setup of an encounter to place any number of your threat tokens on this card. Threat tokens on this card cannot be spent during this encounter. Return all threat tokens from this card to your play area at the end of each encounter. If there are more threat tokens on this card than there are HUGE and MASSIVE monsters on the map, each HUGE and MASSIVE monster gains gain +1 Heart on each attack.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um beliebig viele deiner Bedrohungsmarker auf diese Karte zu legen. Bedrohungsmarker auf dieser Karte können während dieser Begegnung nicht ausgegeben werden. Lege am Ende jeder Begegnung alle Bedrohungsmarker von dieser Karte zurück in deine Auslage. Liegen auf dieser Karte mehr Bedrohungsmarker, als es RIESIGE und GEWALTIGE Monster auf dem Spielplan gibt, erhält jedes RIESIGE und GEWALTIGE Monster +1 Herz auf jeden Angriff.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-guardians-of-the-hoard.png"
+      },
+      {
+        "id": "valyndrasshadow",
+        "nameEn": "Valyndra'S Shadow",
+        "nameDe": "Valyndras Schatten",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn to choose a hero. Mark him with a threat token from the supply. At the start of your next turn, perform an attack targeting the marked hero as if from the Valyndra agent. You cannot use this card in any quest that uses the Valyndra lieutenant or the Valyndra agent. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges, um einen Helden zu wählen. Markiere ihn mit einem Bedrohungsmarker aus dem Vorrat. Führe zu Beginn deines nächsten Zuges einen Angriff gegen den markierten Helden aus, als käme er vom Valyndra-Agenten. Du kannst diese Karte nicht in einem Szenario verwenden, das den Valyndra-Leutnant oder den Valyndra-Agenten nutzt. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/lair-of-the-wyrm/dragons-greed/lw-valyndras-shadow.png"
+      }
+    ]
+  },
+  {
+    "id": "raging-infection",
+    "nameEn": "Raging Infection",
+    "nameDe": "Wütende Infektion",
+    "agentEn": "Bol'Goreth",
+    "agentDe": "Bol'Goreth",
+    "expansionId": "the-trollfens",
+    "cards": [
+      {
+        "id": "plaguerelease",
+        "nameEn": "Plague Release",
+        "nameDe": "Seuchenausbruch",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero who is Poisoned or Diseased is defeated. If that hero was Poisoned, each hero within 3 spaces tests Might. Each hero who fails is Poisoned. If that hero was Diseased, each hero within 3 spaces tests Willpower. Each hero who fails is Diseased.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein vergifteter oder verseuchter Held besiegt wird. War dieser Held vergiftet, legt jeder Held innerhalb von 3 Feldern eine Stärke-Probe ab. Jeder Held, dem sie misslingt, ist vergiftet. War dieser Held verseucht, legt jeder Held innerhalb von 3 Feldern eine Willenskraft-Probe ab. Jeder Held, dem sie misslingt, ist verseucht.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-plague-release.png"
+      },
+      {
+        "id": "envenom",
+        "nameEn": "Envenom",
+        "nameDe": "Vergiften",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose one of your monster groups, and place this card near that group's Monster card. While this card is exhausted, each master monster in the group gains: Surge: Poison. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen, und lege diese Karte neben die Monsterkarte dieser Gruppe. Solange diese Karte erschöpft ist, erhält jedes Meister-Monster der Gruppe: Schub: Vergiften. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-envenom.png"
+      },
+      {
+        "id": "infected",
+        "nameEn": "Infected",
+        "nameDe": "Infiziert",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose one of your monster groups, and place this card near that group's Monster card. While this card is exhausted, each master monster in the group gains: Surge: Disease. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen, und lege diese Karte neben die Monsterkarte dieser Gruppe. Solange diese Karte erschöpft ist, erhält jedes Meister-Monster der Gruppe: Schub: Seuche. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-infected.png"
+      },
+      {
+        "id": "afflictionaura",
+        "nameEn": "Affliction Aura",
+        "nameDe": "Aura des Leidens",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Use this card after setup of an encounter to choose a monster. Each hero that starts his turn within 5 spaces of that monster is Diseased. Place a threat token on the monster's base as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um ein Monster zu wählen. Jeder Held, der seinen Zug innerhalb von 5 Feldern um dieses Monster beginnt, ist verseucht. Lege als Erinnerung einen Bedrohungsmarker auf die Basis des Monsters.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-affliction-aura.png"
+      },
+      {
+        "id": "fetidstench",
+        "nameEn": "Fetid Stench",
+        "nameDe": "Fauliger Gestank",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero passes an attribute test from a Poisoned or Diseased Condition card. That hero fails the test instead.",
+        "rulesDe": "Erschöpfe diese Karte, wenn einem Helden eine Attributsprobe von einer Zustandskarte „Vergiftet\" oder „Verseucht\" gelingt. Diesem Helden misslingt die Probe stattdessen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-fetid-stench.png"
+      },
+      {
+        "id": "massmutation",
+        "nameEn": "Mass Mutation",
+        "nameDe": "Massenmutation",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. Each hero discards all Condition cards from his play area. For each Condition card discarded, gain 1 threat token (to a maximum of 4). This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Jeder Held legt alle Zustandskarten aus seiner Auslage ab. Erhalte für jede abgelegte Zustandskarte 1 Bedrohungsmarker (bis zu maximal 4). Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-mass-mutation.png"
+      },
+      {
+        "id": "weaknesswithin",
+        "nameEn": "Weakness Within",
+        "nameDe": "Schwäche im Innern",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter. While this card is exhausted, each time a hero fails an attribute test while Poisoned or Diseased, that hero suffers 1 Heart in addition to any other effects. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Solange diese Karte erschöpft ist, erleidet jedes Mal, wenn einem vergifteten oder verseuchten Helden eine Attributsprobe misslingt, dieser Held zusätzlich zu allen anderen Effekten 1 Herz. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-weakness-within.png"
+      },
+      {
+        "id": "summonbolgoreth",
+        "nameEn": "Summon - Bol'Goreth",
+        "nameDe": "Beschwören – Bol'Goreth",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master and 2 minion monsters in the chosen group with the Bol'Goreth agent. If the Bol'Goreth agent is defeated, return this card to your Plot deck. You cannot use this card in a quest that uses the Bol'Goreth lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister- und 2 Diener-Monster der gewählten Gruppe durch den Bol'Goreth-Agenten. Wird der Bol'Goreth-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Bol'Goreth-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-summon-bolgoreth.png"
+      },
+      {
+        "id": "weakenedspirit",
+        "nameEn": "Weakened Spirit",
+        "nameDe": "Geschwächter Geist",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero is defeated to mark that hero with a threat token from the supply. Each marked hero applies -1 to his Willpower (to a minimum of 1) while he is Diseased and -1 to his Might (to a minimum of 1) while he is Poisoned. Discard all threat tokens on heroes at the end of the quest.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held besiegt wird, um diesen Helden mit einem Bedrohungsmarker aus dem Vorrat zu markieren. Jeder markierte Held erhält -1 auf seine Willenskraft (mindestens 1), solange er verseucht ist, und -1 auf seine Stärke (mindestens 1), solange er vergiftet ist. Lege am Ende des Szenarios alle Bedrohungsmarker auf Helden ab.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-weakened-spirit.png"
+      },
+      {
+        "id": "virulentcloud",
+        "nameEn": "Virulent Cloud",
+        "nameDe": "Giftige Wolke",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card during your turn. Each hero with the Poisoned condition suffers 1 Heart and each hero with the Diseased condition suffers 1 Fatigue. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges. Jeder Held mit dem Zustand „Vergiftet\" erleidet 1 Herz und jeder Held mit dem Zustand „Verseucht\" erleidet 1 Erschöpfung. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/the-trollfens/raging-infection/tf-virulent-cloud.png"
+      }
+    ]
+  },
+  {
+    "id": "dark-illusions",
+    "nameEn": "Dark Illusions",
+    "nameDe": "Dunkle Illusionen",
+    "agentEn": "Ariad",
+    "agentDe": "Ariad",
+    "expansionId": "labyrinth-of-ruin",
+    "cards": [
+      {
+        "id": "misdirection",
+        "nameEn": "Misdirection",
+        "nameDe": "Ablenkung",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster performs an attack that is a miss. Reroll the attack die. If that monster has the Cursed monster trait, you may also reroll 1 power die. If that attack deals at least 1 Heart (after the defense roll), the monster that performed the attack may move 1 space.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff ausführt, der danebengeht. Würfle den Angriffswürfel neu. Hat dieses Monster das Monster-Merkmal „Verflucht\", darfst du außerdem 1 Machtwürfel neu würfeln. Fügt dieser Angriff mindestens 1 Herz zu (nach dem Verteidigungswurf), darf sich das Monster, das den Angriff ausgeführt hat, 1 Feld bewegen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-misdirection.png"
+      },
+      {
+        "id": "intricateschemes",
+        "nameEn": "Intricate Schemes",
+        "nameDe": "Verschachtelte Ränke",
+        "threatCost": 1,
+        "triggerCost": 0,
+        "rulesEn": "During the Choose Next Quest step of the Campaign Phase, each time you would choose the next quest to be played, you may force the heroes to choose which quest will be played next. If you do, gain 3 threat tokens.",
+        "rulesDe": "Während des Schritts „Nächstes Szenario wählen\" der Kampagnenphase darfst du jedes Mal, wenn du das nächste zu spielende Szenario wählen würdest, die Helden zwingen zu wählen, welches Szenario als Nächstes gespielt wird. Tust du das, erhalte 3 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-intricate-schemes.png"
+      },
+      {
+        "id": "taintedblood",
+        "nameEn": "Tainted Blood",
+        "nameDe": "Verdorbenes Blut",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after setup of an encounter to choose one of your monster groups. During this encounter, that monster group gains the Cursed monster trait. Place 1 threat token from the supply on that group's Monster card as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung, um eine deiner Monstergruppen zu wählen. Während dieser Begegnung erhält diese Monstergruppe das Monster-Merkmal „Verflucht\". Lege als Erinnerung 1 Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-tainted-blood.png"
+      },
+      {
+        "id": "enthrall",
+        "nameEn": "Enthrall",
+        "nameDe": "Versklaven",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn to choose 1 monster. Each hero in that monster's line of sight tests Willpower. If that monster has the Cursed monster trait, add 1 Shield to the results of each test. You may move each hero who fails 2 spaces.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges, um 1 Monster zu wählen. Jeder Held in der Sichtlinie dieses Monsters legt eine Willenskraft-Probe ab. Hat dieses Monster das Monster-Merkmal „Verflucht\", füge 1 Schild zu den Ergebnissen jeder Probe hinzu. Du darfst jeden Helden, dem sie misslingt, 2 Felder bewegen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-enthrall.png"
+      },
+      {
+        "id": "malediction",
+        "nameEn": "Malediction",
+        "nameDe": "Verwünschung",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, each attack that targets a monster with the Cursed monster trait gains +1 Heart. After resolving each of these attacks, the attacking hero suffers 1 Heart and 1 Fatigue.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, erhält jeder Angriff, der ein Monster mit dem Monster-Merkmal „Verflucht\" zum Ziel hat, +1 Herz. Nach dem Abhandeln jedes dieser Angriffe erleidet der angreifende Held 1 Herz und 1 Erschöpfung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-malediction.png"
+      },
+      {
+        "id": "mirage",
+        "nameEn": "Mirage",
+        "nameDe": "Trugbild",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero resolves an attack that does not deal at least 1 Heart (after the defense roll). Remove 1 monster affected by this attack from the map and place it in an empty space within 3 spaces of its original space. If that monster has the Cursed monster trait, the attacking hero suffers 1 Fatigue.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Angriff abhandelt, der nicht mindestens 1 Herz zufügt (nach dem Verteidigungswurf). Entferne 1 von diesem Angriff betroffenes Monster vom Spielplan und platziere es auf einem leeren Feld innerhalb von 3 Feldern um sein ursprüngliches Feld. Hat dieses Monster das Monster-Merkmal „Verflucht\", erleidet der angreifende Held 1 Erschöpfung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-mirage.png"
+      },
+      {
+        "id": "darknessfalls",
+        "nameEn": "Darkness Falls",
+        "nameDe": "Dunkelheit bricht herein",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. Until the start of your next turn, line of sight for Ranged attacks can only be measured up to a range of 2. Monsters with the Cursed monster trait, lieutenants, and agents are not affected by this card. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Bis zum Beginn deines nächsten Zuges kann die Sichtlinie für Fernkampfangriffe nur bis zu einer Reichweite von 2 gemessen werden. Monster mit dem Monster-Merkmal „Verflucht\", Leutnants und Agenten sind von dieser Karte nicht betroffen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-darkness-falls.png"
+      },
+      {
+        "id": "phantasm",
+        "nameEn": "Phantasm",
+        "nameDe": "Phantasma",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero attacks a master monster with the Cursed monster trait, before dice are rolled. While this card is exhausted, each attack that targets that monster must roll 3 range in addition to any other range requirements, or the attack is a miss.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held ein Meister-Monster mit dem Monster-Merkmal „Verflucht\" angreift, bevor die Würfel geworfen werden. Solange diese Karte erschöpft ist, muss jeder Angriff, der dieses Monster zum Ziel hat, zusätzlich zu allen anderen Reichweitenanforderungen 3 Reichweite würfeln, sonst geht der Angriff daneben.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-phantasm.png"
+      },
+      {
+        "id": "summonariad",
+        "nameEn": "Summon - Ariad",
+        "nameDe": "Beschwören – Ariad",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master and 1 minion monster in that group with the Ariad agent. If the Ariad agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Ariad or Queen Ariad lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister- und 1 Diener-Monster dieser Gruppe durch den Ariad-Agenten. Wird der Ariad-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Ariad- oder Königin-Ariad-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-summon-ariad.png"
+      },
+      {
+        "id": "theritualcontinues",
+        "nameEn": "The Ritual Continues",
+        "nameDe": "Das Ritual geht weiter",
+        "threatCost": 4,
+        "triggerCost": 0,
+        "rulesEn": "At the start of each encounter, place fatigue tokens on this card equal to the number of heroes. Each of your master monsters gains: Action: Discard 1 fatigue token from \"The Ritual Continues\". At the end of each encounter, if there are no fatigue tokens on this card, gain 2 threat tokens. Then, discard all tokens from this card.",
+        "rulesDe": "Lege zu Beginn jeder Begegnung so viele Erschöpfungsmarker auf diese Karte wie Helden. Jedes deiner Meister-Monster erhält: Aktion: Lege 1 Erschöpfungsmarker von „Das Ritual geht weiter\" ab. Liegen am Ende jeder Begegnung keine Erschöpfungsmarker auf dieser Karte, erhalte 2 Bedrohungsmarker. Lege dann alle Marker von dieser Karte ab.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-the-ritual-continues.png"
       }
     ]
   }
