@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.24',
+    date: '2026-06-15',
+    title: 'Plotdecks – erste Erweiterungen',
+    highlights: [
+      'Die ersten Erweiterungs-Plotdecks sind da: Gier des Drachen (Valyndra), Wütende Infektion (Bol’Goreth) und Dunkle Illusionen (Ariad) – 30 weitere Karten.',
+      'Damit sind 90 Plotkarten erfasst, zweisprachig mit Kauf-/Auslösekosten und Regeltext. Weitere Erweiterungs-Plotdecks folgen.',
+    ],
+  },
+  {
     version: '1.1.23',
     date: '2026-06-14',
     title: 'Plotdecks – Grundspiel komplett',
