@@ -158,9 +158,10 @@ Overlord mit **Bedrohungsmarkern** kauft (`threatCost`) und auslöst (`triggerCo
 any2cards `data/plot-decks.js` (201 Karten in 20 Decks). EN 1:1 aus Quelle, DE handübersetzt.
 Kartenrückseiten (`plot-decks-back`) ausgelassen.
 
-**Status:** Grundspiel vollständig ✅ (v1.1.22 Batch 1 + v1.1.23 Batch 2 – **6 Decks, 60 Karten**:
-Saat des Verrats, Hybride Loyalität, Endloser Durst, Von Macht verflucht, Die gefallene Elite,
-Goblin-Aufstand). Offen: alle Erweiterungs-Plotdecks (14 Decks / ~141 Karten → weitere Increments).
+**Status:** Grundspiel vollständig + Erweiterungs-Batch 1 ✅ (**9 Decks, 90 Karten**). Grundspiel
+(v1.1.22/23): Saat des Verrats, Hybride Loyalität, Endloser Durst, Von Macht verflucht, Die gefallene
+Elite, Goblin-Aufstand. Erweiterungen Batch 1 (v1.1.24): Gier des Drachen (Valyndra), Wütende Infektion
+(Bol'Goreth), Dunkle Illusionen (Ariad). Offen: 11 weitere Erweiterungs-Plotdecks (110 Karten).
 
 Anzeige: `src/pages/PlotDecksPage.tsx` (Route `/plotdecks`), gruppiert nach Erweiterung + Deck
 (mit Agenten-Label), Such-/Sammlungs-/Sprachfilter, Symbolen und Karten-Lightbox.
