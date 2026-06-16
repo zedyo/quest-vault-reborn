@@ -328,6 +328,11 @@ describe('Agenten-Datenintegrität', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
+  it('ist vollständig: 20 Agenten / 40 Formen', () => {
+    expect(AGENTS.length, 'Anzahl Agenten').toBe(20)
+    expect(AGENTS.reduce((s, a) => s + a.forms.length, 0), 'Anzahl Formen').toBe(40)
+  })
+
   it('Pflichtfelder, gültige expansionId, Plotdeck, 1–2 Formen', () => {
     for (const a of AGENTS) {
       expect(a.id, 'Agent ohne id').toBeTruthy()

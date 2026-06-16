@@ -4,14 +4,16 @@ import type { Agent } from '../types/game'
 // Englischer Text = Originalwortlaut der Karten. Deutscher Text = Community-Übersetzung
 // (nicht zwingend identisch mit der offiziellen deutschen FFG-Edition).
 //
-// Umfang: Grundspiel (6) + saubere Erweiterungs-Agenten (10) = 16 Agenten.
+// Umfang: Grundspiel (6) + saubere Erweiterungs-Agenten (10) + 4 kartenscan-validierte
+// (Ardus Ix'Erebus / Kyndrithul / Zarihell / Skarn) = 20 Agenten.
 // Agenten = aufgewertete Leutnant-Versionen mit eigenen Fähigkeiten + Plotdeck;
 // Agenten-Statkarten führen KEINE Attributwerte. EN 1:1 aus Quelle geparst, DE handübersetzt.
 //
-// AUSGESCHLOSSEN (Validierung ausstehend): Die Quelldaten für die Agenten von
-// Ardus Ix'Erebus / Kyndrithul / Zarihell / Skarn sind in agents.js VERTAUSCHT
-// (xws-Schlüssel tragen fremde Fähigkeiten/Regeln, askarn sogar falsche Erweiterung).
-// Diese 4 werden erst nach Kartenscan-Validierung ergänzt, statt fehlerhafte Daten zu übernehmen.
+// HINWEIS zu Ardus/Kyndrithul/Zarihell/Skarn: Deren agents.js-Rohdaten sind VERTAUSCHT
+// (xws/name/image/act den falschen Charakteren zugewiesen). Inhalte sind aber in sich
+// stimmig (Front-Rows + Back-Rows nennen je den korrekten Charakter). Jede Form wurde
+// 2026-06-16 über die any2cards-Kartenbilder (Namensbanner + Werte) ihrem Charakter + Akt
+// zugeordnet und 1:1 verifiziert. Werte/Regeln direkt aus den validierten Karten.
 
 export const AGENTS: Agent[] = [
   {
@@ -2034,6 +2036,514 @@ export const AGENTS: Agent[] = [
           }
         ],
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/shadow-of-nerekhall/act2/sn-verminous-front.png"
+      }
+    ]
+  },
+  {
+    "id": "askarn",
+    "nameEn": "Skarn",
+    "nameDe": "Skarn",
+    "expansionId": "manor-of-ravens",
+    "plotDeckEn": "Twisted Soul",
+    "plotDeckDe": "Verworrene Seele",
+    "forms": [
+      {
+        "act": 1,
+        "expansionId": "manor-of-ravens",
+        "attackTypeEn": "Melee",
+        "attackTypeDe": "Nahkampf",
+        "attackDice": [
+          "blue",
+          "yellow"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 3,
+            "health": 10,
+            "defense": [
+              "black"
+            ]
+          },
+          "p3": {
+            "speed": 3,
+            "health": 13,
+            "defense": [
+              "gray",
+              "gray"
+            ]
+          },
+          "p4": {
+            "speed": 3,
+            "health": 18,
+            "defense": [
+              "gray",
+              "gray"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Flail",
+            "labelDe": "Dreschflegel",
+            "rulesEn": "Flail: When attacking, Skarn may target 2 separate heroes. It makes 1 attack roll, and each hero rolls defense dice separately.",
+            "rulesDe": "Dreschflegel: Beim Angriff darf Skarn 2 verschiedene Helden zum Ziel nehmen. Es wird 1 Angriffswurf gemacht, und jeder Held würfelt seine Verteidigung separat."
+          },
+          {
+            "labelEn": "Energy Drain 3",
+            "labelDe": "Energieentzug 3",
+            "rulesEn": "Energy Drain X: If a hero suffers Hearts as a result of an attack from Skarn, you may cause that hero to suffer up to X Hearts as Fatigue instead.",
+            "rulesDe": "Energieentzug X: Erleidet ein Held Herzen infolge eines Angriffs von Skarn, darfst du diesen Helden stattdessen bis zu X Herzen als Erschöpfung erleiden lassen."
+          },
+          {
+            "labelEn": "Surge: Mend 3",
+            "labelDe": "Schub: Heilen 3",
+            "rulesEn": "Mend X: Skarn recovers X Hearts.",
+            "rulesDe": "Heilen X: Skarn gewinnt X Herzen zurück."
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/manor-of-ravens/act1/mr-skarn-front.png"
+      },
+      {
+        "act": 2,
+        "expansionId": "manor-of-ravens",
+        "attackTypeEn": "Melee",
+        "attackTypeDe": "Nahkampf",
+        "attackDice": [
+          "blue",
+          "red",
+          "yellow"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 3,
+            "health": 16,
+            "defense": [
+              "gray",
+              "gray"
+            ]
+          },
+          "p3": {
+            "speed": 3,
+            "health": 19,
+            "defense": [
+              "black",
+              "gray"
+            ]
+          },
+          "p4": {
+            "speed": 3,
+            "health": 24,
+            "defense": [
+              "black",
+              "gray"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Energy Drain 4",
+            "labelDe": "Energieentzug 4",
+            "rulesEn": "Energy Drain X: If a hero suffers Hearts as a result of an attack from Skarn, you may cause that hero to suffer up to X Hearts as Fatigue instead.",
+            "rulesDe": "Energieentzug X: Erleidet ein Held Herzen infolge eines Angriffs von Skarn, darfst du diesen Helden stattdessen bis zu X Herzen als Erschöpfung erleiden lassen."
+          },
+          {
+            "labelEn": "Action: Thrash",
+            "labelDe": "Aktion: Dreschen",
+            "rulesEn": "Action: Thrash: Perform an attack. This attack affects each figure adjacent to Skarn. Each figure rolls defense dice separately.",
+            "rulesDe": "Dreschen: Führe einen Angriff aus. Dieser Angriff betrifft jede zu Skarn benachbarte Figur. Jede Figur würfelt ihre Verteidigung separat."
+          },
+          {
+            "labelEn": "Surge: Mend 4",
+            "labelDe": "Schub: Heilen 4",
+            "rulesEn": "Mend X: Skarn recovers X Hearts.",
+            "rulesDe": "Heilen X: Skarn gewinnt X Herzen zurück."
+          },
+          {
+            "labelEn": "Surge: +1 Heart",
+            "labelDe": "Schub: +1 Herz"
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/manor-of-ravens/act2/mr-skarn-front.png"
+      }
+    ]
+  },
+  {
+    "id": "aardusixerebus",
+    "nameEn": "Ardus Ix'Erebus",
+    "nameDe": "Ardus Ix'Erebus",
+    "expansionId": "mists-of-bilehall",
+    "plotDeckEn": "First Legion",
+    "plotDeckDe": "Erste Legion",
+    "forms": [
+      {
+        "act": 1,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Melee",
+        "attackTypeDe": "Nahkampf",
+        "attackDice": [
+          "blue",
+          "red"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 4,
+            "health": 12,
+            "defense": [
+              "black"
+            ]
+          },
+          "p3": {
+            "speed": 4,
+            "health": 14,
+            "defense": [
+              "black",
+              "brown"
+            ]
+          },
+          "p4": {
+            "speed": 4,
+            "health": 17,
+            "defense": [
+              "black",
+              "brown"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Flanking",
+            "labelDe": "Flankieren",
+            "rulesEn": "Flanking: Each time Ardus Ix'Erebus performs an attack, he may choose 1 monster with the Cursed monster trait adjacent to the target. During that attack, he may use the Surge abilities of that monster.",
+            "rulesDe": "Flankieren: Jedes Mal, wenn Ardus Ix'Erebus einen Angriff ausführt, darf er 1 zum Ziel benachbartes Monster mit dem Monster-Merkmal „Verflucht\" wählen. Während dieses Angriffs darf er die Schub-Fähigkeiten dieses Monsters nutzen."
+          },
+          {
+            "labelEn": "Forceful Blow",
+            "labelDe": "Wuchtschlag",
+            "rulesEn": "Forceful Blow: Each time Ardus Ix'Erebus declares an attack, the target tests Might. If the target fails, add 1 Surge to the results.",
+            "rulesDe": "Wuchtschlag: Jedes Mal, wenn Ardus Ix'Erebus einen Angriff ansagt, legt das Ziel eine Stärke-Probe ab. Misslingt sie dem Ziel, füge 1 Schub zu den Ergebnissen hinzu."
+          },
+          {
+            "labelEn": "Surge: Pierce 1",
+            "labelDe": "Schub: Durchbohren 1",
+            "rulesEn": "Pierce X: This attack ignores X Shields rolled on the defense dice.",
+            "rulesDe": "Durchbohren X: Dieser Angriff ignoriert X auf den Verteidigungswürfeln gewürfelte Schilde."
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act1/mb-ardus-ixerebus-front.png"
+      },
+      {
+        "act": 2,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Melee",
+        "attackTypeDe": "Nahkampf",
+        "attackDice": [
+          "blue",
+          "red",
+          "red"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 4,
+            "health": 13,
+            "defense": [
+              "black",
+              "brown"
+            ]
+          },
+          "p3": {
+            "speed": 4,
+            "health": 16,
+            "defense": [
+              "black",
+              "gray"
+            ]
+          },
+          "p4": {
+            "speed": 4,
+            "health": 19,
+            "defense": [
+              "black",
+              "gray"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Flanking",
+            "labelDe": "Flankieren",
+            "rulesEn": "Flanking: Each time Ardus Ix'Erebus performs an attack, he may choose 1 monster with the Cursed monster trait adjacent to the target. During that attack, he may use the Surge abilities of that monster.",
+            "rulesDe": "Flankieren: Jedes Mal, wenn Ardus Ix'Erebus einen Angriff ausführt, darf er 1 zum Ziel benachbartes Monster mit dem Monster-Merkmal „Verflucht\" wählen. Während dieses Angriffs darf er die Schub-Fähigkeiten dieses Monsters nutzen."
+          },
+          {
+            "labelEn": "Forceful Blow",
+            "labelDe": "Wuchtschlag",
+            "rulesEn": "Forceful Blow: Each time Ardus Ix'Erebus declares an attack, the target tests Might. If the target fails, add 1 Surge to the results.",
+            "rulesDe": "Wuchtschlag: Jedes Mal, wenn Ardus Ix'Erebus einen Angriff ansagt, legt das Ziel eine Stärke-Probe ab. Misslingt sie dem Ziel, füge 1 Schub zu den Ergebnissen hinzu."
+          },
+          {
+            "labelEn": "Action: Rally",
+            "labelDe": "Aktion: Sammeln",
+            "rulesEn": "Rally: Each monster within 3 spaces of Ardus Ix'Erebus may discard 1 condition.",
+            "rulesDe": "Sammeln: Jedes Monster innerhalb von 3 Feldern um Ardus Ix'Erebus darf 1 Zustand ablegen."
+          },
+          {
+            "labelEn": "Surge: Pierce 1",
+            "labelDe": "Schub: Durchbohren 1",
+            "rulesEn": "Pierce X: This attack ignores X Shields rolled on the defense dice.",
+            "rulesDe": "Durchbohren X: Dieser Angriff ignoriert X auf den Verteidigungswürfeln gewürfelte Schilde."
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act2/mb-ardus-ixerebus-front.png"
+      }
+    ]
+  },
+  {
+    "id": "akyndrithul",
+    "nameEn": "Kyndrithul",
+    "nameDe": "Kyndrithul",
+    "expansionId": "mists-of-bilehall",
+    "plotDeckEn": "Vital Essence",
+    "plotDeckDe": "Lebensessenz",
+    "forms": [
+      {
+        "act": 1,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Ranged",
+        "attackTypeDe": "Fernkampf",
+        "attackDice": [
+          "blue",
+          "yellow"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 4,
+            "health": 11,
+            "defense": [
+              "gray"
+            ]
+          },
+          "p3": {
+            "speed": 4,
+            "health": 13,
+            "defense": [
+              "black"
+            ]
+          },
+          "p4": {
+            "speed": 4,
+            "health": 16,
+            "defense": [
+              "black"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Bloodthirst",
+            "labelDe": "Blutdurst",
+            "rulesEn": "Bloodthirst: Each time a hero is knocked out, Kyndrithul recovers 3 Hearts.",
+            "rulesDe": "Blutdurst: Jedes Mal, wenn ein Held kampfunfähig wird, gewinnt Kyndrithul 3 Herzen zurück."
+          },
+          {
+            "labelEn": "Sorcery 3",
+            "labelDe": "Zauberei 3",
+            "rulesEn": "Sorcery X: After making an attack roll, Kyndrithul may convert up to X range to Hearts, or up to X Hearts to range.",
+            "rulesDe": "Zauberei X: Nach einem Angriffswurf darf Kyndrithul bis zu X Reichweite in Herzen oder bis zu X Herzen in Reichweite umwandeln."
+          },
+          {
+            "labelEn": "Surge: Bone Splinter",
+            "labelDe": "Schub: Knochensplitter",
+            "rulesEn": "Bone Splinter: Each figure adjacent to the target suffers 2 Hearts.",
+            "rulesDe": "Knochensplitter: Jede zum Ziel benachbarte Figur erleidet 2 Herzen."
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act1/mb-kyndrithul-front.png"
+      },
+      {
+        "act": 2,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Ranged",
+        "attackTypeDe": "Fernkampf",
+        "attackDice": [
+          "blue",
+          "yellow",
+          "yellow"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 4,
+            "health": 13,
+            "defense": [
+              "black"
+            ]
+          },
+          "p3": {
+            "speed": 4,
+            "health": 15,
+            "defense": [
+              "black",
+              "brown"
+            ]
+          },
+          "p4": {
+            "speed": 4,
+            "health": 19,
+            "defense": [
+              "black",
+              "brown"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Bloodthirst",
+            "labelDe": "Blutdurst",
+            "rulesEn": "Bloodthirst: Each time a hero is knocked out, Kyndrithul recovers 3 Hearts.",
+            "rulesDe": "Blutdurst: Jedes Mal, wenn ein Held kampfunfähig wird, gewinnt Kyndrithul 3 Herzen zurück."
+          },
+          {
+            "labelEn": "Enthrall",
+            "labelDe": "Versklaven",
+            "rulesEn": "Enthrall: At the start of Kyndrithul's activation, you may choose any number of heroes in his line of sight to test Willpower. If none of the heroes pass, perform an attack with each chosen hero as it if were a monster.",
+            "rulesDe": "Versklaven: Zu Beginn von Kyndrithuls Aktivierung darfst du beliebig viele Helden in seiner Sichtlinie eine Willenskraft-Probe ablegen lassen. Besteht keiner der Helden, führe mit jedem gewählten Helden einen Angriff aus, als wäre er ein Monster."
+          },
+          {
+            "labelEn": "Sorcery 4",
+            "labelDe": "Zauberei 4",
+            "rulesEn": "Sorcery X: After making an attack roll, Kyndrithul may convert up to X range to Hearts, or up to X Hearts to range.",
+            "rulesDe": "Zauberei X: Nach einem Angriffswurf darf Kyndrithul bis zu X Reichweite in Herzen oder bis zu X Herzen in Reichweite umwandeln."
+          },
+          {
+            "labelEn": "Surge: Bone Splinter",
+            "labelDe": "Schub: Knochensplitter",
+            "rulesEn": "Bone Splinter: Each figure adjacent to the target suffers 2 Hearts.",
+            "rulesDe": "Knochensplitter: Jede zum Ziel benachbarte Figur erleidet 2 Herzen."
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act2/mb-kyndrithul-front.png"
+      }
+    ]
+  },
+  {
+    "id": "azarihell",
+    "nameEn": "Zarihell",
+    "nameDe": "Zarihell",
+    "expansionId": "mists-of-bilehall",
+    "plotDeckEn": "Eternal Agony",
+    "plotDeckDe": "Ewige Qual",
+    "forms": [
+      {
+        "act": 1,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Ranged",
+        "attackTypeDe": "Fernkampf",
+        "attackDice": [
+          "blue",
+          "red"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 5,
+            "health": 9,
+            "defense": [
+              "gray"
+            ]
+          },
+          "p3": {
+            "speed": 5,
+            "health": 12,
+            "defense": [
+              "black"
+            ]
+          },
+          "p4": {
+            "speed": 5,
+            "health": 15,
+            "defense": [
+              "black"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Agony",
+            "labelDe": "Pein",
+            "rulesEn": "Agony: Each time a hero performs an attack within 3 spaces of Zarihell, that hero cannot spend more than 1 Surge.",
+            "rulesDe": "Pein: Jedes Mal, wenn ein Held innerhalb von 3 Feldern um Zarihell einen Angriff ausführt, darf dieser Held nicht mehr als 1 Schub einsetzen."
+          },
+          {
+            "labelEn": "Captive Soul",
+            "labelDe": "Gefangene Seele",
+            "rulesEn": "Captive Soul: Each time Zarihell performs an attack that would defeat a hero, before that hero is knocked out, the overlord may perform an attack with that hero as it if were a monster. Then, that hero is defeated.",
+            "rulesDe": "Gefangene Seele: Jedes Mal, wenn Zarihell einen Angriff ausführt, der einen Helden besiegen würde, darf der Overlord, bevor dieser Held kampfunfähig wird, mit diesem Helden einen Angriff ausführen, als wäre er ein Monster. Dann wird dieser Held besiegt."
+          },
+          {
+            "labelEn": "Surge: +2 Hearts",
+            "labelDe": "Schub: +2 Herzen"
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act1/mb-zarihell-front.png"
+      },
+      {
+        "act": 2,
+        "expansionId": "mists-of-bilehall",
+        "attackTypeEn": "Ranged",
+        "attackTypeDe": "Fernkampf",
+        "attackDice": [
+          "blue",
+          "red",
+          "yellow"
+        ],
+        "perPlayer": {
+          "p2": {
+            "speed": 5,
+            "health": 11,
+            "defense": [
+              "black"
+            ]
+          },
+          "p3": {
+            "speed": 5,
+            "health": 14,
+            "defense": [
+              "gray",
+              "gray"
+            ]
+          },
+          "p4": {
+            "speed": 5,
+            "health": 17,
+            "defense": [
+              "gray",
+              "gray"
+            ]
+          }
+        },
+        "abilities": [
+          {
+            "labelEn": "Agony",
+            "labelDe": "Pein",
+            "rulesEn": "Agony: Each time a hero performs an attack within 3 spaces of Zarihell, that hero cannot spend more than 1 Surge.",
+            "rulesDe": "Pein: Jedes Mal, wenn ein Held innerhalb von 3 Feldern um Zarihell einen Angriff ausführt, darf dieser Held nicht mehr als 1 Schub einsetzen."
+          },
+          {
+            "labelEn": "Captive Soul",
+            "labelDe": "Gefangene Seele",
+            "rulesEn": "Captive Soul: Each time Zarihell performs an attack that would defeat a hero, before that hero is knocked out, the overlord may perform an attack with that hero as it if were a monster. Then, that hero is defeated.",
+            "rulesDe": "Gefangene Seele: Jedes Mal, wenn Zarihell einen Angriff ausführt, der einen Helden besiegen würde, darf der Overlord, bevor dieser Held kampfunfähig wird, mit diesem Helden einen Angriff ausführen, als wäre er ein Monster. Dann wird dieser Held besiegt."
+          },
+          {
+            "labelEn": "Exploit Agony",
+            "labelDe": "Pein ausnutzen",
+            "rulesEn": "Exploit Agony: Each time a hero resolves an attack within 3 spaces of Zarihell, that hero suffers 1 Fatigue for each Surge he did not spend.",
+            "rulesDe": "Pein ausnutzen: Jedes Mal, wenn ein Held innerhalb von 3 Feldern um Zarihell einen Angriff abhandelt, erleidet dieser Held 1 Erschöpfung für jeden Schub, den er nicht eingesetzt hat."
+          },
+          {
+            "labelEn": "Surge: +3 Hearts",
+            "labelDe": "Schub: +3 Herzen"
+          }
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/agents/d2e/mists-of-bilehall/act2/mb-zarihell-front.png"
       }
     ]
   }
