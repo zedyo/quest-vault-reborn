@@ -7,8 +7,9 @@ import type { PlotDeck } from '../types/game'
 // Plotdecks gehören je zu einem Agenten (Leutnants-Pack). threatCost = Kaufkosten in
 // Bedrohungsmarkern, triggerCost = Auslösekosten. Kartenrückseiten ('plot-decks-back')
 // werden ausgelassen. EN 1:1 aus Quelle geparst, DE handübersetzt.
-// Umfang: GRUNDSPIEL (6 Decks) + Erweiterungs-Plotdecks Batch 1+2 = 12 Decks / 120 Karten.
-// Karten-ID = deckId-xws (ein xws kommt in zwei Decks vor). Weitere Plotdecks folgen.
+// Umfang: GRUNDSPIEL (6) + Erweiterungs-Plotdecks (Lindwurm/Trollsümpfe/Labyrinth/Rabenfels/
+// Bilehall) = 15 Decks / 150 Karten. Karten-ID = deckId-xws (ein xws kommt in zwei Decks vor).
+// Offen: Nerekhall (4 Decks) + First Legion (Bilehall).
 
 export const PLOT_DECKS: PlotDeck[] = [
   {
@@ -1328,6 +1329,336 @@ export const PLOT_DECKS: PlotDeck[] = [
         "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, heroes cannot suffer Fatigue to gain movement points.",
         "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, können Helden keine Erschöpfung erleiden, um Bewegungspunkte zu erhalten.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/silent-protector/lr-travelers-rest.png"
+      }
+    ]
+  },
+  {
+    "id": "twisted-soul",
+    "nameEn": "Twisted Soul",
+    "nameDe": "Verworrene Seele",
+    "agentEn": "Skarn",
+    "agentDe": "Skarn",
+    "expansionId": "manor-of-ravens",
+    "cards": [
+      {
+        "id": "twisted-soul-whatdoesntkill",
+        "nameEn": "What Doesn'T Kill",
+        "nameDe": "Was nicht tötet",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster suffers 1 or more Hearts. If that monster was not defeated, it recovers 1 Heart. Mark that monster with a threat token from the supply. Each marked monster adds 1 brown die to its defense pool.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster 1 oder mehr Herzen erleidet. Wurde dieses Monster nicht besiegt, gewinnt es 1 Herz zurück. Markiere dieses Monster mit einem Bedrohungsmarker aus dem Vorrat. Jedes markierte Monster fügt 1 braunen Würfel zu seinem Verteidigungspool hinzu.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-what-doesnt-kill.png"
+      },
+      {
+        "id": "twisted-soul-possessivenature",
+        "nameEn": "Possessive Nature",
+        "nameDe": "Besitzergreifende Natur",
+        "threatCost": 1,
+        "triggerCost": 0,
+        "rulesEn": "Use this card when you exhaust the \"Summon Skarn\" Plot card. Gain threat tokens equal to the number of relics in the play areas of the heroes and the overlord. Then, return this card to the game box.",
+        "rulesDe": "Nutze diese Karte, wenn du die Plotkarte „Skarn beschwören\" erschöpfst. Erhalte so viele Bedrohungsmarker wie Relikte in den Auslagen der Helden und des Overlords. Lege dann diese Karte zurück in die Spielschachtel.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-possessive-nature.png"
+      },
+      {
+        "id": "twisted-soul-bitterrage",
+        "nameEn": "Bitter Rage",
+        "nameDe": "Bittere Wut",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each time a monster marked with a threat token performs an attack, that attack gains +2 Hearts. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes Mal, wenn ein mit einem Bedrohungsmarker markiertes Monster einen Angriff ausführt, dieser Angriff +2 Herzen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-bitter-rage.png"
+      },
+      {
+        "id": "twisted-soul-desolation",
+        "nameEn": "Desolation",
+        "nameDe": "Trostlosigkeit",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each time a hero suffers 1 or more Fatigue, that hero suffers 1 additional Fatigue. This card does not refresh as normal. Refresh this card at the end of your turn.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erleidet jedes Mal, wenn ein Held 1 oder mehr Erschöpfung erleidet, dieser Held 1 zusätzliche Erschöpfung. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende deines Zuges.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-desolation.png"
+      },
+      {
+        "id": "twisted-soul-thickscars",
+        "nameEn": "Thick Scars",
+        "nameDe": "Dicke Narben",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each monster marked with a threat token applies +2 to its Health. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes mit einem Bedrohungsmarker markierte Monster +2 auf seine Lebenspunkte. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-thick-scars.png"
+      },
+      {
+        "id": "twisted-soul-thunderousfall",
+        "nameEn": "Thunderous Fall",
+        "nameDe": "Donnernder Sturz",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a HUGE or MASSIVE monster suffers damage equal to its Health and is defeated. Each hero adjacent to that monster is Stunned.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein RIESIGES oder GEWALTIGES Monster Schaden in Höhe seiner Lebenspunkte erleidet und besiegt wird. Jeder zu diesem Monster benachbarte Held ist betäubt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-thunderous-fall.png"
+      },
+      {
+        "id": "twisted-soul-delusionalpath",
+        "nameEn": "Delusional Path",
+        "nameDe": "Wahnhafter Pfad",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero enters an empty space that is 5 or more spaces away from each other hero. That hero tests Willpower. If he fails, you may immediately move him up to his Speed. Then, the active player continues his turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held ein leeres Feld betritt, das 5 oder mehr Felder von jedem anderen Helden entfernt ist. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, darfst du ihn sofort bis zu seiner Bewegung weit bewegen. Dann setzt der aktive Spieler seinen Zug fort.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-delusional-path.png"
+      },
+      {
+        "id": "twisted-soul-summonskarn",
+        "nameEn": "Summon Skarn",
+        "nameDe": "Skarn beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter to choose an open monster group. Replace 1 master and 2 minion monsters in that group with the Skarn agent. If the Skarn agent is defeated, return this card to your Plot deck. You cannot use this card in a quest that uses the Skarn lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um eine offene Monstergruppe zu wählen. Ersetze 1 Meister- und 2 Diener-Monster dieser Gruppe durch den Skarn-Agenten. Wird der Skarn-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Skarn-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-summon-skarn.png"
+      },
+      {
+        "id": "twisted-soul-unknownorigin",
+        "nameEn": "Unknown Origin",
+        "nameDe": "Unbekannter Ursprung",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Use this card when you exhaust the \"Summon Skarn\" Plot card. Each hero tests Knowledge. FOr each hero who fails, you gain 1 threat token.",
+        "rulesDe": "Nutze diese Karte, wenn du die Plotkarte „Skarn beschwören\" erschöpfst. Jeder Held legt eine Wissen-Probe ab. Für jeden Helden, dem sie misslingt, erhältst du 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-unknown-origin.png"
+      },
+      {
+        "id": "twisted-soul-faithfulguardian",
+        "nameEn": "Faithful Guardian",
+        "nameDe": "Treuer Wächter",
+        "threatCost": 4,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when the Skarn agent is defeated. Gain 3 threat tokens.",
+        "rulesDe": "Erschöpfe diese Karte, wenn der Skarn-Agent besiegt wird. Erhalte 3 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/manor-of-ravens/twisted-soul/mr-faithful-guardian.png"
+      }
+    ]
+  },
+  {
+    "id": "vital-essence",
+    "nameEn": "Vital Essence",
+    "nameDe": "Lebensessenz",
+    "agentEn": "Kyndrithul",
+    "agentDe": "Kyndrithul",
+    "expansionId": "mists-of-bilehall",
+    "cards": [
+      {
+        "id": "vital-essence-broken",
+        "nameEn": "Broken",
+        "nameDe": "Gebrochen",
+        "threatCost": 0,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a hero is defeated. Instead of gaining 1 threat token or drawing 1 Overlord card, you may place 1 threat token from the supply on 1 of that hero's Class cards that has a fatigue cost. Each Class card with 1 or more threat tokens on it costs 1 additional fatigue to use. At the end of each quest, return all threat tokens on Class cards to the supply.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held besiegt wird. Anstatt 1 Bedrohungsmarker zu erhalten oder 1 Overlord-Karte zu ziehen, darfst du 1 Bedrohungsmarker aus dem Vorrat auf 1 Klassenkarte dieses Helden legen, die Ausdauer-Kosten hat. Jede Klassenkarte mit 1 oder mehr Bedrohungsmarkern kostet 1 zusätzliche Ausdauer zum Benutzen. Lege am Ende jedes Szenarios alle Bedrohungsmarker auf Klassenkarten zurück in den Vorrat.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-broken.png"
+      },
+      {
+        "id": "vital-essence-lastwords",
+        "nameEn": "Last Words",
+        "nameDe": "Letzte Worte",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero defeats a lieutenant or agent. Place 1 threat token from the supply on 1 of that hero's Class cards that has a fatigue cost. Then, that hero suffers Fatigue equal to the number of threat tokens on all his Class cards.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Leutnant oder Agenten besiegt. Lege 1 Bedrohungsmarker aus dem Vorrat auf 1 Klassenkarte dieses Helden, die Ausdauer-Kosten hat. Dann erleidet dieser Held so viel Erschöpfung wie die Anzahl der Bedrohungsmarker auf allen seinen Klassenkarten.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-last-words.png"
+      },
+      {
+        "id": "vital-essence-dangerousknowledge",
+        "nameEn": "Dangerous Knowledge",
+        "nameDe": "Gefährliches Wissen",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card after a hero discards an overlord card from your hand or forces you to place an overlord card on top of your deck. That hero test Knowledge. If he fails, he suffers Hearts equal to the Shields rolled in excess of his Knowledge value. If he passes, gain 1 threat token.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held eine Overlord-Karte von deiner Hand abgelegt oder dich gezwungen hat, eine Overlord-Karte oben auf dein Deck zu legen. Dieser Held legt eine Wissen-Probe ab. Misslingt sie, erleidet er so viele Herzen wie Schilde, die über seinen Wissen-Wert hinaus gewürfelt wurden. Gelingt sie, erhalte 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-dangerous-knowledge.png"
+      },
+      {
+        "id": "vital-essence-nointerference",
+        "nameEn": "No Interference",
+        "nameDe": "Keine Einmischung",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each time a hero uses a Class card with 1 or more threat tokens on it, that hero suffers 3 Hearts. This card does not refresh as normal. Refresh this card at the end of your turn.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erleidet jedes Mal, wenn ein Held eine Klassenkarte mit 1 oder mehr Bedrohungsmarkern benutzt, dieser Held 3 Herzen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende deines Zuges.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-no-interference.png"
+      },
+      {
+        "id": "vital-essence-plagueofthemind",
+        "nameEn": "Plague Of The Mind",
+        "nameDe": "Seuche des Geistes",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn and choose 1 hero; mark that hero with a threat token. Each time a marked hero would refresh a Class card with 1 or more threat tokens on it, he may choose to not refresh it. If he does refresh that card, he suffers 1 condition of your choice. When you refresh this card, discard the threat token from the marked hero.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges und wähle 1 Helden; markiere diesen Helden mit einem Bedrohungsmarker. Jedes Mal, wenn ein markierter Held eine Klassenkarte mit 1 oder mehr Bedrohungsmarkern erholen würde, darf er sich entscheiden, sie nicht zu erholen. Erholt er diese Karte, erleidet er 1 Zustand deiner Wahl. Wenn du diese Karte erholst, entferne den Bedrohungsmarker vom markierten Helden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-plague-of-the-mind.png"
+      },
+      {
+        "id": "vital-essence-bleeditout",
+        "nameEn": "Bleed It Out",
+        "nameDe": "Ausbluten lassen",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card after a hero uses a Class card with 1 or more threat tokens on it. Discard 1 threat token from that Class card. Then, that hero suffers 1 Heart and 1 Fatigue.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held eine Klassenkarte mit 1 oder mehr Bedrohungsmarkern benutzt hat. Lege 1 Bedrohungsmarker von dieser Klassenkarte ab. Dann erleidet dieser Held 1 Herz und 1 Erschöpfung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-bleed-it-out.png"
+      },
+      {
+        "id": "vital-essence-investintheflesh",
+        "nameEn": "Invest In The Flesh",
+        "nameDe": "In das Fleisch investieren",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Use this card at the end of each quest. For each hero with 1 or more threat tokens on 1 or more of his Class cards, gain 1 threat token.",
+        "rulesDe": "Nutze diese Karte am Ende jedes Szenarios. Für jeden Helden mit 1 oder mehr Bedrohungsmarkern auf 1 oder mehr seiner Klassenkarten erhalte 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-invest-in-the-flesh.png"
+      },
+      {
+        "id": "vital-essence-slowbones",
+        "nameEn": "Slow Bones",
+        "nameDe": "Träge Knochen",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each hero reduces his Speed by the number of threat tokens on all his Class cards (to a minimum of 1).",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, verringert jeder Held seine Bewegung um die Anzahl der Bedrohungsmarker auf allen seinen Klassenkarten (mindestens 1).",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-slow-bones.png"
+      },
+      {
+        "id": "vital-essence-summonkyndrithul",
+        "nameEn": "Summon Kyndrithul",
+        "nameDe": "Kyndrithul beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose one open monster group. Replace 1 master and 2 minion monsters in that group with the Kyndrithul agent. If the Kyndrithul agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Kyndrithul lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle eine offene Monstergruppe. Ersetze 1 Meister- und 2 Diener-Monster dieser Gruppe durch den Kyndrithul-Agenten. Wird der Kyndrithul-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Kyndrithul-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-summon-kyndrithul.png"
+      },
+      {
+        "id": "vital-essence-worndown",
+        "nameEn": "Worn Down",
+        "nameDe": "Zermürbt",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after a hero uses a Class card that has a fatigue cost. Place 1 threat token from the supply on that Class card.",
+        "rulesDe": "Erschöpfe diese Karte, nachdem ein Held eine Klassenkarte mit Ausdauer-Kosten benutzt hat. Lege 1 Bedrohungsmarker aus dem Vorrat auf diese Klassenkarte.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/vital-essence/mb-worn-down.png"
+      }
+    ]
+  },
+  {
+    "id": "eternal-agony",
+    "nameEn": "Eternal Agony",
+    "nameDe": "Ewige Qual",
+    "agentEn": "Zarihell",
+    "agentDe": "Zarihell",
+    "expansionId": "mists-of-bilehall",
+    "cards": [
+      {
+        "id": "eternal-agony-spite",
+        "nameEn": "Spite",
+        "nameDe": "Boshaftigkeit",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero performs an attack, before rolling dice. After that attack resolves, that hero suffers an amount of Fatigue equal to the Surge results. If that hero did not spend all Surge results during that attack, refresh this card after that attack resolves.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held einen Angriff ausführt, bevor die Würfel geworfen werden. Nachdem dieser Angriff abgehandelt wurde, erleidet dieser Held so viel Erschöpfung wie die Schub-Ergebnisse. Hat dieser Held nicht alle Schub-Ergebnisse während dieses Angriffs eingesetzt, erhole diese Karte, nachdem der Angriff abgehandelt wurde.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-spite.png"
+      },
+      {
+        "id": "eternal-agony-iflookscouldkill",
+        "nameEn": "If Looks Could Kill",
+        "nameDe": "Wenn Blicke töten könnten",
+        "threatCost": 1,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a master monster performs an attack, after spending Surges. If the Shield results are equal to or greater than the Heart results, the target is Poisoned or Diseased, your choice.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster einen Angriff ausführt, nachdem Schübe eingesetzt wurden. Sind die Schild-Ergebnisse gleich oder größer als die Herz-Ergebnisse, ist das Ziel vergiftet oder verseucht (deine Wahl).",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-if-looks-could-kill.png"
+      },
+      {
+        "id": "eternal-agony-longsuffering",
+        "nameEn": "Long Suffering",
+        "nameDe": "Langes Leiden",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Each time the Zarihell agent is affected by an attack, before Hearts is dealt, place 1 damage token on this card. Use this card when the Zarihell agent is defeated. Each hero suffers an amount of Hearts equal to the number of damage tokens on his card minus his Knowledge value. Then, gain 1 threat token for each hero defeated by this Hearts.",
+        "rulesDe": "Jedes Mal, wenn der Zarihell-Agent von einem Angriff betroffen ist, lege vor dem Zufügen von Herzen 1 Schadensmarker auf diese Karte. Nutze diese Karte, wenn der Zarihell-Agent besiegt wird. Jeder Held erleidet so viele Herzen wie die Anzahl der Schadensmarker auf dieser Karte minus seinem Wissen-Wert. Dann erhalte 1 Bedrohungsmarker für jeden durch diese Herzen besiegten Helden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-long-suffering.png"
+      },
+      {
+        "id": "eternal-agony-makenoexcuse",
+        "nameEn": "Make No Excuse",
+        "nameDe": "Keine Ausreden",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster rolls an X. That monster is immediately defeated. While this card is exhausted, you may change each X result to another result of your choice.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster ein X würfelt. Dieses Monster wird sofort besiegt. Solange diese Karte erschöpft ist, darfst du jedes X-Ergebnis in ein anderes Ergebnis deiner Wahl ändern.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-make-no-excuse.png"
+      },
+      {
+        "id": "eternal-agony-branded",
+        "nameEn": "Branded",
+        "nameDe": "Gebrandmarkt",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Use this card when a hero is defeated. Place 1 threat token from the supply on his Hero sheet. Each hero applies -1 to his Willpower and Might for each threat token on his Hero sheet (to a minimum of 1). Each time a hero performs a rest action, he may suffer 2 Fatigue to discard 1 threat token from his Hero sheet. Limit once per rest action.",
+        "rulesDe": "Nutze diese Karte, wenn ein Held besiegt wird. Lege 1 Bedrohungsmarker aus dem Vorrat auf seinen Heldenbogen. Jeder Held erhält -1 auf seine Willenskraft und Stärke für jeden Bedrohungsmarker auf seinem Heldenbogen (mindestens 1). Jedes Mal, wenn ein Held eine Rast-Aktion ausführt, darf er 2 Erschöpfung erleiden, um 1 Bedrohungsmarker von seinem Heldenbogen abzulegen. Höchstens einmal pro Rast-Aktion.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-branded.png"
+      },
+      {
+        "id": "eternal-agony-pinsandneedles",
+        "nameEn": "Pins And Needles",
+        "nameDe": "Wie auf Nadeln",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a hero suffers exactly 1 Heart. That hero suffers an additional 2 Hearts and 1 Fatigue.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held genau 1 Herz erleidet. Dieser Held erleidet zusätzlich 2 Herzen und 1 Erschöpfung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-pins-and-needles.png"
+      },
+      {
+        "id": "eternal-agony-idlehands",
+        "nameEn": "Idle Hands",
+        "nameDe": "Müßige Hände",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster that did not perform an attack during its activation ends its activation. That monster suffers 2 Hearts, and 1 other monster in its group immediately performs an attack.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster, das während seiner Aktivierung keinen Angriff ausgeführt hat, seine Aktivierung beendet. Dieses Monster erleidet 2 Herzen, und 1 anderes Monster seiner Gruppe führt sofort einen Angriff aus.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-idle-hands.png"
+      },
+      {
+        "id": "eternal-agony-sadist",
+        "nameEn": "Sadist",
+        "nameDe": "Sadist",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each of your plot cards costs 1 less threat to trigger.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, kostet jede deiner Plotkarten 1 Bedrohung weniger zum Auslösen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-sadist.png"
+      },
+      {
+        "id": "eternal-agony-summonzarihell",
+        "nameEn": "Summon Zarihell",
+        "nameDe": "Zarihell beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose one open monster group. Replace 1 master and 2 minion monsters in that group with the Zarihell agent. If the Zarihell agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Zarihell lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle eine offene Monstergruppe. Ersetze 1 Meister- und 2 Diener-Monster dieser Gruppe durch den Zarihell-Agenten. Wird der Zarihell-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Zarihell-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-summon-zarihell.png"
+      },
+      {
+        "id": "eternal-agony-timeontherack",
+        "nameEn": "Time On The Rack",
+        "nameDe": "Zeit auf der Streckbank",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Use this card when a hero ends his turn while knocked out. Choose 1 hero and place 1 of that hero's hero tokens on this card. Each hero applies -1 to his Stamina (to a minimum of 0) for each of his hero tokens on this card. Discard all hero tokens from this card at the end of each quest.",
+        "rulesDe": "Nutze diese Karte, wenn ein Held seinen Zug kampfunfähig beendet. Wähle 1 Helden und lege 1 Heldenmarker dieses Helden auf diese Karte. Jeder Held erhält -1 auf seine Ausdauer (mindestens 0) für jeden seiner Heldenmarker auf dieser Karte. Lege am Ende jedes Szenarios alle Heldenmarker von dieser Karte ab.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-time-on-the-rack.png"
       }
     ]
   }

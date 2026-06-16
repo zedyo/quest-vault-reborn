@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.26',
+    date: '2026-06-16',
+    title: 'Plotdecks – Rabenfels & Bilehall',
+    highlights: [
+      'Drei weitere Plotdecks: Verworrene Seele (Skarn, Schloss Rabenfels) sowie Lebensessenz (Kyndrithul) und Ewige Qual (Zarihell) aus Nebel von Bilehall – 30 weitere Karten.',
+      'Damit sind 150 Plotkarten erfasst, zweisprachig. Die letzten fünf Plotdecks folgen.',
+    ],
+  },
+  {
     version: '1.1.25',
     date: '2026-06-15',
     title: 'Plotdecks – Labyrinth des Verderbens',
