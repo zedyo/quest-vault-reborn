@@ -292,6 +292,45 @@ export interface PlotDeck {
   cards: PlotCard[]
 }
 
+// ── Kampagnen & Quests ───────────────────────────────────────────────────────
+
+/**
+ * Faktischer Überblick über eine offizielle Kampagne. Bewusst NUR strukturelle
+ * Eckdaten (Name, Erweiterung, Typ, Verzweigung, kurze eigene Beschreibung) —
+ * keine Reproduktion von Questbuch-Inhalten (Ziele/Monsterlisten = FFG-IP, keine
+ * zuverlässige strukturierte Quelle).
+ */
+export interface Campaign {
+  id: string
+  nameEn: string
+  nameDe: string
+  expansionId: string
+  /** Großkampagne vs. kurze Mini-Kampagne. */
+  kind: 'campaign' | 'mini'
+  /** Verzweigt der Szenariobaum nach Sieg/Niederlage? */
+  branching: boolean
+  /** Kurze, faktische Beschreibung (eigene Worte, kein Questbuch-Text). */
+  descriptionDe: string
+}
+
+/**
+ * Eine „Advanced Quest" (Rumor-Quest) aus den kleinen Erweiterungs-Packs.
+ * Quelle: any2cards `advanced-quests.js`. Es werden NUR faktische Metadaten
+ * erfasst (Titel, Erweiterung, Akt, Reise-Geländetypen) + Kartenbild-Links;
+ * der Quest-Text selbst wird nicht reproduziert.
+ */
+export interface AdvancedQuest {
+  id: string
+  nameEn: string
+  nameDe: string
+  expansionId: string
+  act?: 1 | 2
+  /** Reise-Geländetypen der Rumor-Karte (EN), z. B. ['Road','Forest']. */
+  travel: string[]
+  imageUrlFront: string
+  imageUrlBack: string
+}
+
 export interface Hero {
   id: string
   name: string
