@@ -10,6 +10,7 @@ import { LIEUTENANTS } from '../lieutenants'
 import { AGENTS } from '../agents'
 import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
+import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -454,6 +455,43 @@ describe('Leutnant ↔ Plotdeck-Verknüpfung', () => {
     const mirklace = LIEUTENANTS.find((l) => l.nameEn === 'Mirklace')
     expect(mirklace, 'Leutnant „Mirklace" nicht gefunden').toBeTruthy()
     expect(plotDeckForLieutenant(mirklace!)?.id).toBe('burning-ambition')
+  })
+})
+
+describe('Kampagnen-Datenintegrität', () => {
+  it('Kampagnen: keine doppelten IDs, gültige Erweiterung, Pflichtfelder, Typ', () => {
+    const ids = CAMPAIGNS.map((c) => c.id)
+    expect(new Set(ids).size, 'doppelte Kampagnen-IDs').toBe(ids.length)
+    for (const c of CAMPAIGNS) {
+      expect(c.nameEn && c.nameDe && c.descriptionDe, `${c.id}: Pflichtfeld fehlt`).toBeTruthy()
+      expect(EXPANSION_IDS.has(c.expansionId), `${c.id}: unbekannte expansionId '${c.expansionId}'`).toBe(true)
+      expect(['campaign', 'mini'], `${c.id}: ungültiger kind`).toContain(c.kind)
+      expect(typeof c.branching, `${c.id}: branching kein boolean`).toBe('boolean')
+    }
+  })
+
+  it('Kampagnen: vollständige Übersicht (9)', () => {
+    expect(CAMPAIGNS.length).toBe(9)
+  })
+
+  it('Advanced Quests: keine Duplikate, gültige Erweiterung, zweisprachig, Reise/Bilder gültig', () => {
+    const TERRAINS = new Set(['Road', 'Forest', 'Mountain', 'Plain', 'Water'])
+    const ids = ADVANCED_QUESTS.map((q) => q.id)
+    expect(new Set(ids).size, 'doppelte Quest-IDs').toBe(ids.length)
+    const errors: string[] = []
+    for (const q of ADVANCED_QUESTS) {
+      if (!q.nameEn || !q.nameDe) errors.push(`${q.id}: Name fehlt (EN/DE)`)
+      if (!EXPANSION_IDS.has(q.expansionId)) errors.push(`${q.id}: unbekannte expansionId '${q.expansionId}'`)
+      if (q.act !== undefined && q.act !== 1 && q.act !== 2) errors.push(`${q.id}: ungültiger Akt ${q.act}`)
+      for (const t of q.travel) if (!TERRAINS.has(t)) errors.push(`${q.id}: unbekanntes Gelände '${t}'`)
+      if (!q.imageUrlFront.startsWith('https://') || !q.imageUrlBack.startsWith('https://'))
+        errors.push(`${q.id}: imageUrl ungültig`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('Advanced Quests: vollständig erfasst (16)', () => {
+    expect(ADVANCED_QUESTS.length).toBe(16)
   })
 })
 

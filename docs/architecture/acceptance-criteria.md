@@ -68,11 +68,15 @@ werden. Vor größeren Features werden die Kriterien dem User vorgelegt.
 
 ### 1.1.7 Kampagnen & Szenarien
 
-- [ ] Alle Kampagnen aus Grundspiel und Erweiterungen dokumentiert
-- [ ] Pro Kampagne: Name, Erweiterung, Anzahl Szenarien, Verzweigungsstruktur (welche Szenarien folgen auf welche)
-- [ ] Pro Szenario: Name (DE+EN), Kampagne, vorgegebene Monstergruppen-Typen nach Spielerzahl, Missionsziele (Kurzform), Besonderheiten
-- [ ] Daten in `docs/game-data/campaigns.md` vollständig dokumentiert
-- [ ] (Optional erst v1.4): `src/data/campaigns.ts`
+- [x] Alle Kampagnen aus Grundspiel und Erweiterungen dokumentiert (9, faktischer Überblick – v1.1.30)
+- [x] Pro Kampagne: Name (DE+EN), Erweiterung, Typ (Groß-/Mini-Kampagne), Verzweigung (ja/nein) – v1.1.30
+- [~] Pro Szenario: bewusst NICHT umgesetzt – detaillierte Szenario-Daten (Monstergruppen je
+      Spielerzahl, Ziele, Besonderheiten) stehen nur in den FFG-Questbüchern (Urheberrecht, keine
+      zuverlässige strukturierte Quelle). Stattdessen: 16 „Advanced Quests" der kleinen Packs aus
+      any2cards mit faktischen Metadaten (Titel, Erweiterung, Akt, Reise-Gelände, Kartenbilder).
+      Volle Szenario-Daten → v1.4+ (nur mit Quelle + geklärter Rechtslage).
+- [x] Daten in `docs/game-data/campaigns.md` dokumentiert (Überblick + Advanced Quests + Abgrenzung)
+- [x] `src/data/campaigns.ts` (CAMPAIGNS + ADVANCED_QUESTS) + `/kampagnen`-Seite + Tests – v1.1.30
 
 ### 1.1.8 Overlay-Datenbasis
 

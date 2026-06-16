@@ -1,12 +1,12 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.29  
+**Aktuelle Version:** 1.1.30  
 **Letztes Update:** 2026-06-16  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
 1.1.13: Refactoring; 1.1.14: Bestätigungsdialog/Dependency-Hygiene; 1.1.15–1.1.17: Overlord-Kartensatz
 komplett 105 Karten; 1.1.18–1.1.19: Leutnants komplett 21/39; 1.1.20–1.1.21 + 1.1.29: Agenten komplett 20/40;
-1.1.22–1.1.27: Plotdecks komplett 200 Karten/20 Decks; 1.1.28: Leutnant↔Plotdeck-Verknüpfung). Weitere
-v1.1-Daten (Kampagnen, Reisekarten) folgen in 1.1.x
+1.1.22–1.1.27: Plotdecks komplett 200 Karten/20 Decks; 1.1.28: Leutnant↔Plotdeck-Verknüpfung;
+1.1.30: Kampagnen-Überblick + Advanced Quests). Weitere v1.1-Daten (Reisekarten) folgen in 1.1.x
 
 ---
 
