@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { PLOT_DECKS } from '../data/plotDecks'
 import { EXPANSIONS } from '../data/expansions'
+import { lieutenantForDeck } from '../data/lieutenantPlotLinks'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
@@ -55,14 +57,24 @@ function PlotCardRow({ card, lang, onImageOpen }: { card: PlotCard; lang: Lang; 
   )
 }
 
-function DeckBlock({ deck, lang, onImageOpen }: { deck: PlotDeck; lang: Lang; onImageOpen: (c: PlotCard) => void }) {
+function DeckBlock({ deck, lang, onImageOpen, highlighted }: { deck: PlotDeck; lang: Lang; onImageOpen: (c: PlotCard) => void; highlighted?: boolean }) {
+  const lt = lieutenantForDeck(deck)
+  const agentName = lang === 'de' ? deck.agentDe : deck.agentEn
   return (
-    <div>
+    <div id={`deck-${deck.id}`} className={`scroll-mt-24 transition-shadow ${highlighted ? 'ring-2 ring-gold-400 rounded-lg p-2 -m-2' : ''}`}>
       <div className="flex items-baseline gap-2 mb-2">
         <h4 className="text-gray-100 font-semibold">{lang === 'de' ? deck.nameDe : deck.nameEn}</h4>
-        <span className="text-[10px] uppercase tracking-wide text-purple-300/80">
-          🎭 {lang === 'de' ? deck.agentDe : deck.agentEn}
-        </span>
+        {lt ? (
+          <Link
+            to={`/leutnants?lt=${lt.id}`}
+            className="text-[10px] uppercase tracking-wide text-purple-300 hover:text-purple-200 underline decoration-dotted underline-offset-2"
+            title={lang === 'de' ? 'Zum Leutnant dieses Plotdecks' : "To this plot deck's lieutenant"}
+          >
+            🎭 {agentName} ↗
+          </Link>
+        ) : (
+          <span className="text-[10px] uppercase tracking-wide text-purple-300/80">🎭 {agentName}</span>
+        )}
         <span className="text-[10px] text-gray-600">{deck.cards.length} Karten</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -78,12 +90,23 @@ interface LightboxState { imageUrl: string; name: string }
 
 export default function PlotDecksPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
+  const [params] = useSearchParams()
+  const focusDeckId = params.get('deck')
   const [search, setSearch] = useState('')
-  const [onlyOwned, setOnlyOwned] = useState(true)
+  // Beim Aufruf über einen Leutnant-Link das fokussierte Deck immer zeigen.
+  const [onlyOwned, setOnlyOwned] = useState(() => !focusDeckId)
   const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
+  const [highlightId, setHighlightId] = useState<string | null>(focusDeckId)
 
   const expansionMap = useMemo(() => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])), [])
+
+  useEffect(() => {
+    if (!focusDeckId) return
+    document.getElementById(`deck-${focusDeckId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const t = setTimeout(() => setHighlightId(null), 2500)
+    return () => clearTimeout(t)
+  }, [focusDeckId])
 
   const filteredDecks = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -150,7 +173,7 @@ export default function PlotDecksPage() {
               <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">{expansionMap[expId]?.nameDe ?? expId}</h3>
               <div className="space-y-6">
                 {decks.map((deck) => (
-                  <DeckBlock key={deck.id} deck={deck} lang={lang} onImageOpen={(c) => setLightbox({ imageUrl: c.imageUrl, name: lang === 'de' ? c.nameDe : c.nameEn })} />
+                  <DeckBlock key={deck.id} deck={deck} lang={lang} highlighted={deck.id === highlightId} onImageOpen={(c) => setLightbox({ imageUrl: c.imageUrl, name: lang === 'de' ? c.nameDe : c.nameEn })} />
                 ))}
               </div>
             </div>

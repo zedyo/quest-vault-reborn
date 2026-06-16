@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { LIEUTENANTS } from '../data/lieutenants'
 import { EXPANSIONS } from '../data/expansions'
+import { plotDeckForLieutenant } from '../data/lieutenantPlotLinks'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
 import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
@@ -100,15 +102,25 @@ function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: Lieutena
   )
 }
 
-function LieutenantCard({ lt, lang, expansionName, onImageOpen }: { lt: Lieutenant; lang: Lang; expansionName: (id: string) => string; onImageOpen: (url: string, name: string) => void }) {
+function LieutenantCard({ lt, lang, expansionName, onImageOpen, highlighted }: { lt: Lieutenant; lang: Lang; expansionName: (id: string) => string; onImageOpen: (url: string, name: string) => void; highlighted?: boolean }) {
+  const deck = plotDeckForLieutenant(lt)
   return (
-    <div className="card space-y-2">
+    <div id={`lt-${lt.id}`} className={`card space-y-2 scroll-mt-24 transition-shadow ${highlighted ? 'ring-2 ring-gold-400' : ''}`}>
       <div>
         <h4 className="text-gray-100 font-semibold">{lang === 'de' ? lt.nameDe : lt.nameEn}</h4>
         {lt.nameDe !== lt.nameEn && (
           <p className="text-gray-500 text-xs">{lang === 'de' ? lt.nameEn : lt.nameDe}</p>
         )}
       </div>
+      {deck && (
+        <Link
+          to={`/plotdecks?deck=${deck.id}`}
+          className="inline-flex items-center gap-1 text-[11px] text-purple-300 hover:text-purple-200 bg-purple-900/30 hover:bg-purple-900/50 border border-purple-800/50 rounded px-2 py-0.5 transition-colors"
+          title={lang === 'de' ? 'Zum Plotdeck dieses Leutnants' : "To this lieutenant's plot deck"}
+        >
+          📜 {lang === 'de' ? `Plotdeck: ${deck.nameDe}` : `Plot deck: ${deck.nameEn}`} ↗
+        </Link>
+      )}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {lt.forms.map((f) => (
           <FormBlock
@@ -128,12 +140,23 @@ interface LightboxState { imageUrl: string; name: string }
 
 export default function LieutenantsPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
+  const [params] = useSearchParams()
+  const focusId = params.get('lt')
   const [search, setSearch] = useState('')
-  const [onlyOwned, setOnlyOwned] = useState(true)
+  // Beim Aufruf über einen Plotdeck-Link den fokussierten Leutnant immer zeigen.
+  const [onlyOwned, setOnlyOwned] = useState(() => !focusId)
   const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
+  const [highlightId, setHighlightId] = useState<string | null>(focusId)
 
   const expansionMap = useMemo(() => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])), [])
+
+  useEffect(() => {
+    if (!focusId) return
+    document.getElementById(`lt-${focusId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const t = setTimeout(() => setHighlightId(null), 2500)
+    return () => clearTimeout(t)
+  }, [focusId])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -211,6 +234,7 @@ export default function LieutenantsPage() {
                     lang={lang}
                     expansionName={(id) => expansionMap[id]?.nameDe ?? id}
                     onImageOpen={(url, name) => setLightbox({ imageUrl: url, name })}
+                    highlighted={lt.id === highlightId}
                   />
                 ))}
               </div>
