@@ -14,6 +14,7 @@ const navItems = [
   { to: '/leutnants', label: '🗡️ Leutnants', end: false },
   { to: '/agenten', label: '🎭 Agenten', end: false },
   { to: '/plotdecks', label: '📜 Plotdecks', end: false },
+  { to: '/kampagnen', label: '🏰 Kampagnen', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 

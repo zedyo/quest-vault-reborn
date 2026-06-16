@@ -12,6 +12,7 @@ import OverlordPage from './pages/OverlordPage'
 import LieutenantsPage from './pages/LieutenantsPage'
 import AgentsPage from './pages/AgentsPage'
 import PlotDecksPage from './pages/PlotDecksPage'
+import CampaignsPage from './pages/CampaignsPage'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="leutnants" element={<LieutenantsPage />} />
         <Route path="agenten" element={<AgentsPage />} />
         <Route path="plotdecks" element={<PlotDecksPage />} />
+        <Route path="kampagnen" element={<CampaignsPage />} />
       </Route>
     </Routes>
   )

@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.30',
+    date: '2026-06-16',
+    title: 'Kampagnen-Überblick & Advanced Quests',
+    highlights: [
+      'Neue Seite „🏰 Kampagnen" mit einem Überblick aller offiziellen Kampagnen (Erweiterung, Typ, ob der Szenariobaum verzweigt).',
+      'Dazu die 16 eigenständigen „Advanced Quests" der kleinen Packs mit Reise-Geländetypen und Kartenbildern – nach Sammlung filterbar, zweisprachig.',
+    ],
+  },
+  {
     version: '1.1.29',
     date: '2026-06-16',
     title: 'Agenten komplett – 20 Agenten',
