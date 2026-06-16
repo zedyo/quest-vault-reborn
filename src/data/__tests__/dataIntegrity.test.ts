@@ -379,6 +379,11 @@ describe('Plotdeck-Datenintegrität', () => {
     expect(new Set(cardIds).size, 'doppelte Karten-IDs').toBe(cardIds.length)
   })
 
+  it('ist vollständig: 20 Decks / 200 Karten', () => {
+    expect(PLOT_DECKS.length, 'Anzahl Plotdecks').toBe(20)
+    expect(allCards.length, 'Anzahl Plotkarten').toBe(200)
+  })
+
   it('Decks: Pflichtfelder, gültige expansionId, Agent, Karten vorhanden', () => {
     for (const d of PLOT_DECKS) {
       expect(d.id, 'Deck ohne id').toBeTruthy()
