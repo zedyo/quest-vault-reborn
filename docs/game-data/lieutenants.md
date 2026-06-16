@@ -158,11 +158,13 @@ Overlord mit **Bedrohungsmarkern** kauft (`threatCost`) und auslöst (`triggerCo
 any2cards `data/plot-decks.js` (201 Karten in 20 Decks). EN 1:1 aus Quelle, DE handübersetzt.
 Kartenrückseiten (`plot-decks-back`) ausgelassen.
 
-**Status:** **15 Decks, 150 Karten** ✅. Grundspiel (v1.1.22/23): 6 Decks. Erweiterungen: Gier des
-Drachen (Valyndra), Wütende Infektion (Bol'Goreth), Labyrinth (Dunkle Illusionen/Verworrenes Netz/
-Gaunerei/Stiller Beschützer), Rabenfels (Verworrene Seele/Skarn), Bilehall (Lebensessenz/Kyndrithul,
-Ewige Qual/Zarihell). Karten-ID = `deckId-xws` (ein xws „feralinstincts" kommt in zwei Decks vor).
-Offen: 5 Erweiterungs-Plotdecks (50 Karten): First Legion (Bilehall) + 4 Nerekhall-Decks.
+**Status:** **20 Decks, 200 Karten — KOMPLETT** ✅ (v1.1.27). Grundspiel (v1.1.22/23): 6 Decks.
+Erweiterungen: Gier des Drachen (Valyndra), Wütende Infektion (Bol'Goreth), Labyrinth (Dunkle
+Illusionen/Verworrenes Netz/Gaunerei/Stiller Beschützer), Rabenfels (Verworrene Seele/Skarn),
+Bilehall (Lebensessenz/Kyndrithul, Ewige Qual/Zarihell, **Erste Legion/Ardus Ix'Erebus**),
+**Schatten über Nerekhall** (Brennender Ehrgeiz/Gargan Mirklace, Innere Verderbnis/Rylan Olliven,
+Instabile Kräfte/Tristayne Olliven, Ungesehene Legionen/Verminous). Karten-ID = `deckId-xws`
+(ein xws „feralinstincts" kommt in zwei Decks vor).
 
 Anzeige: `src/pages/PlotDecksPage.tsx` (Route `/plotdecks`), gruppiert nach Erweiterung + Deck
 (mit Agenten-Label), Such-/Sammlungs-/Sprachfilter, Symbolen und Karten-Lightbox.
