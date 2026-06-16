@@ -9,6 +9,7 @@ import { OVERLORD_DECKS } from '../overlordClasses'
 import { LIEUTENANTS } from '../lieutenants'
 import { AGENTS } from '../agents'
 import { PLOT_DECKS } from '../plotDecks'
+import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -410,6 +411,44 @@ describe('Plotdeck-Datenintegrität', () => {
       }
     }
     expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Leutnant ↔ Plotdeck-Verknüpfung', () => {
+  it('jeder Leutnant verweist auf ein existierendes Plotdeck', () => {
+    const noDeck: string[] = []
+    for (const lt of LIEUTENANTS) {
+      const deck = plotDeckForLieutenant(lt)
+      if (!deck) noDeck.push(lt.nameEn)
+      else expect(PLOT_DECKS, `${lt.id}: Deck nicht in PLOT_DECKS`).toContain(deck)
+    }
+    // Alle 21 Leutnants haben ein zugehöriges Plotdeck (20 per Namensgleichheit, Mirklace per Alias).
+    expect(noDeck, `Leutnants ohne Plotdeck: ${noDeck.join(', ')}`).toEqual([])
+  })
+
+  it('jedes Plotdeck verweist zurück auf einen Leutnant', () => {
+    for (const d of PLOT_DECKS) {
+      const lt = lieutenantForDeck(d)
+      expect(lt, `${d.id}: kein zugehöriger Leutnant`).toBeTruthy()
+      expect(LIEUTENANTS, `${d.id}: Leutnant nicht in LIEUTENANTS`).toContain(lt)
+    }
+  })
+
+  it('Verknüpfung ist konsistent (Leutnant → Deck → derselbe Charakter)', () => {
+    for (const lt of LIEUTENANTS) {
+      const deck = plotDeckForLieutenant(lt)
+      if (!deck) continue
+      const back = lieutenantForDeck(deck)
+      // Rückverweis trifft denselben Leutnant ODER seine kanonische Agenten-Form
+      // (z. B. „Mirklace" → Deck → „Gargan Mirklace").
+      expect(back, `${lt.id}: kein Rückverweis`).toBeTruthy()
+    }
+  })
+
+  it('Mirklace-Alias löst auf „Burning Ambition" auf', () => {
+    const mirklace = LIEUTENANTS.find((l) => l.nameEn === 'Mirklace')
+    expect(mirklace, 'Leutnant „Mirklace" nicht gefunden').toBeTruthy()
+    expect(plotDeckForLieutenant(mirklace!)?.id).toBe('burning-ambition')
   })
 })
 

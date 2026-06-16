@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.28',
+    date: '2026-06-16',
+    title: 'Leutnants & Plotdecks verknüpft',
+    highlights: [
+      'Jeder Leutnant zeigt jetzt direkt auf sein zugehöriges Plotdeck – ein Klick springt zur passenden Stelle auf der Plotdecks-Seite und hebt sie hervor.',
+      'Umgekehrt verlinkt jedes Plotdeck zurück auf seinen Leutnant, sodass man mühelos zwischen beiden Übersichten wechseln kann.',
+    ],
+  },
+  {
     version: '1.1.27',
     date: '2026-06-16',
     title: 'Plotdecks – jetzt vollständig',

@@ -169,6 +169,13 @@ Instabile Kräfte/Tristayne Olliven, Ungesehene Legionen/Verminous). Karten-ID =
 Anzeige: `src/pages/PlotDecksPage.tsx` (Route `/plotdecks`), gruppiert nach Erweiterung + Deck
 (mit Agenten-Label), Such-/Sammlungs-/Sprachfilter, Symbolen und Karten-Lightbox.
 
+**Verknüpfung Leutnant ↔ Plotdeck (v1.1.28):** `src/data/lieutenantPlotLinks.ts` ordnet jeden
+Leutnant seinem Plotdeck zu (Match `lieutenant.nameEn === deck.agentEn`; Alias „Mirklace" →
+„Gargan Mirklace" = Deck *Burning Ambition*). Alle 21 Leutnants haben ein Deck, alle 20 Decks
+einen Leutnant (per Datenintegritäts-Test gesichert). UI: Die Leutnant-Karte zeigt einen
+„📜 Plotdeck:"-Link (→ `/plotdecks?deck=<id>`), das Plotdeck verlinkt über sein Agenten-Label
+zurück (→ `/leutnants?lt=<id>`). Beide Zielseiten scrollen zum Ziel und heben es kurz hervor.
+
 ---
 
 ## Datenmodell (`src/data/lieutenants.ts`)
