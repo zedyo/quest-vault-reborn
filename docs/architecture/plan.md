@@ -1,12 +1,12 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.1.28  
+**Aktuelle Version:** 1.1.29  
 **Letztes Update:** 2026-06-16  
 **Status:** v1.0 ausgeliefert; v1.1 inkrementell (1.1.0–1.1.12: Daten + Kartensymbole;
 1.1.13: Refactoring; 1.1.14: Bestätigungsdialog/Dependency-Hygiene; 1.1.15–1.1.17: Overlord-Kartensatz
-komplett 105 Karten; 1.1.18–1.1.19: Leutnants komplett 21/39; 1.1.20–1.1.21: Agenten 16; 1.1.22–1.1.27:
-Plotdecks komplett 200 Karten/20 Decks; 1.1.28: Leutnant↔Plotdeck-Verknüpfung). Weitere v1.1-Daten
-(Kampagnen, Reisekarten) folgen in 1.1.x
+komplett 105 Karten; 1.1.18–1.1.19: Leutnants komplett 21/39; 1.1.20–1.1.21 + 1.1.29: Agenten komplett 20/40;
+1.1.22–1.1.27: Plotdecks komplett 200 Karten/20 Decks; 1.1.28: Leutnant↔Plotdeck-Verknüpfung). Weitere
+v1.1-Daten (Kampagnen, Reisekarten) folgen in 1.1.x
 
 ---
 
@@ -60,9 +60,9 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
       1.1.17 Belohnungskarten; 105 Karten in 27 Decks, EN 105/105 wortgetreu verifiziert)
 - [x] Overlord-Hauptmänner/Leutnants: VOLLSTÄNDIG ✅ (1.1.18 Grundspiel + 1.1.19 Erweiterungen;
       21 Leutnants / 39 Formen, EN verifiziert)
-- [~] Agenten + Plotdecks: 16 Agenten ✅ (1.1.20 Grundspiel 6 + 1.1.21 Erweiterungen 10; 4 mit
-      vertauschten Quelldaten ausgeschlossen); Plotdeck-Karten VOLLSTÄNDIG ✅ (1.1.22–1.1.27:
-      20 Decks / 200 Karten). Offen: die 4 ausgeschlossenen Agenten validieren
+- [x] Agenten + Plotdecks: VOLLSTÄNDIG ✅ – 20 Agenten / 40 Formen (1.1.20 Grundspiel 6 +
+      1.1.21 Erweiterungen 10 + 1.1.29 die 4 vertauschten kartenscan-validiert) und
+      Plotdeck-Karten (1.1.22–1.1.27: 20 Decks / 200 Karten)
 - [ ] Reisekarten + Nebenszenarien (alle Reisekarten, ausgelöste Ereignisse)
 - [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
 - [x] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen (v1.0.3: 70+ Korrekturen, alle 56 Monstergruppen + 60 Helden kartenscan-validiert)

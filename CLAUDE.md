@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.28 (2026-06-16)
+## Aktuelle Version: 1.1.29 (2026-06-16)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28)**. Offen: 4 Agenten validieren, Kampagnen, Reisekarten, Overlays (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28), **Agenten KOMPLETT: 4 vertauschte Agenten (Ardus/Kyndrithul/Zarihell/Skarn) kartenscan-validiert → 20 Agenten / 40 Formen (1.1.29)**. Offen: Kampagnen, Reisekarten, Overlays (→ 1.1.x) |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -181,13 +181,20 @@ Relevante Dateien für offene v1.1-Aufgaben:
 klarere Fassung nehmen) und **Stub-Fehlern** (z. B. Runenmeister hat KEINEN Begleiter;
 Totenbeschwörer-Begleiter heißt „Reanimate", nicht „Skelett" — beides via Daten korrigiert).
 
-**VERTAUSCHTE Quelldaten (entdeckt 2026-06-14, v1.1.21):** In `agents.js` sind die Agenten von
-**Ardus Ix'Erebus / Kyndrithul / Zarihell / Skarn** (Bilehall/Manor-Region) fehlerhaft: Die
-xws-Schlüssel tragen die Fähigkeiten/Regeln EINES ANDEREN Charakters (Regeltexte nennen den
-falschen Namen), Akt-Labels sind teils dupliziert, `askarn` ist unter falscher Erweiterung
-gelistet. Verifizierbar: Bilddateiname (z. B. `mb-ardus-…`) vs. Regeltext-Charaktername stimmen
-nicht überein. Diese 4 Agenten wurden **ausgeschlossen** (nicht raten!) und sind via Kartenscan
-zu validieren, bevor sie ergänzt werden. Generator-`SKIP`-Liste in der Doku/agents.ts vermerkt.
+**VERTAUSCHTE Quelldaten (entdeckt 2026-06-14, v1.1.21 — BEHOBEN v1.1.29):** In `agents.js` sind die
+Agenten von **Ardus Ix'Erebus / Kyndrithul / Zarihell / Skarn** (Bilehall/Manor-Region) fehlerhaft:
+xws/name/image/act sind den FALSCHEN Charakteren zugewiesen (Regeltexte nennen den falschen Namen,
+Akt-Labels teils dupliziert, `askarn` unter falscher Erweiterung). **Wichtige Erkenntnis (v1.1.29):**
+Die *Inhalte* sind in sich stimmig — die Front-Rows (`attack`/`abilities`/`characteristics`) und die
+Back-Rows (`ability rules`/`deck`) nennen je den KORREKTEN Charakter; nur die Label-Felder sind
+permutiert. Front- und Back-Rows werden über die Fähigkeits-Keywords gepaart, und über die
+any2cards-Kartenbilder (Namensbanner oben + Werte) wurde jede Form ihrem Charakter+Akt eindeutig
+zugeordnet (2026-06-16). **Validierungs-Dreifachabgleich:** (1) Namensbanner auf dem Kartenbild,
+(2) Front-Ability-Signatur, (3) Back-Regeltext nennt den Charakter + korrektes Deck — alle drei
+stimmen überein. Decks bestätigt: Ardus→First Legion, Kyndrithul→Vital Essence, Zarihell→Eternal
+Agony, Skarn→Twisted Soul. Die 4 sind als kartenscan-validierte Literale im Generator (`/tmp/gen-agents.js`,
+`EXTRA`-Block) ergänzt → **20 Agenten / 40 Formen**. Werte aus den Front-Cards, EN-Regeln 1:1 aus den
+Back-Cards (inkl. Quell-Tippfehler „as it if were"), DE handübersetzt.
 
 ---
 
@@ -215,16 +222,16 @@ zu validieren, bevor sie ergänzt werden. Generator-`SKIP`-Liste in der Doku/age
       und Fähigkeiten + Regeltext, zweisprachig. EN 1:1 geparst + maschinell verifiziert (0 Abweichungen,
       Regelpaarung geprüft); `expansionId` je Form (Bilehall→Rost. Ketten). `lieutenants.ts` Generator-erzeugt
       + `LieutenantsPage.tsx` `/leutnants` + Tests + lieutenants.md).
-- [~] Agenten + Plotdecks: 16 Agenten ✅ (1.1.20 Grundspiel 6 + 1.1.21 Erweiterungen 10; je Akt I+II
-      mit Plotdeck-Verweis, zweisprachig aus any2cards `agents.js`, EN 1:1 verifiziert; `Agent`/`AgentForm`-Typen,
-      `agents.ts` Generator-erzeugt + `AgentsPage.tsx` Route `/agenten` + Tests). **4 Agenten ausgeschlossen**
-      (Ardus/Kyndrithul/Zarihell/Skarn – `agents.js`-Daten vertauscht, s. „Bekannte Probleme").
+- [x] Agenten: VOLLSTÄNDIG ✅ – **20 Agenten / 40 Formen** (1.1.20 Grundspiel 6 + 1.1.21 Erweiterungen 10,
+      EN 1:1 verifiziert; **1.1.29 die 4 zuvor ausgeschlossenen kartenscan-validiert ergänzt**:
+      Ardus Ix'Erebus/Kyndrithul/Zarihell/Skarn – vertauschte `agents.js`-Rohdaten über die Kartenbilder
+      eindeutig zugeordnet, s. „Bekannte Probleme"). `Agent`/`AgentForm`-Typen, `agents.ts` Generator-erzeugt
+      + `AgentsPage.tsx` Route `/agenten` + Tests (20/40 Count-Lock).
 - [x] Plotdeck-Karten: VOLLSTÄNDIG ✅ – Grundspiel + alle Erweiterungen (Lindwurm/Trollsümpfe/
       Labyrinth/Rabenfels/Bilehall inkl. Erste Legion/Nerekhall)
       (1.1.22–1.1.27 → **20 Decks / 200 Karten** aus any2cards `plot-decks.js`, EN 1:1 verifiziert;
       Karten-ID = `deckId-xws`, da xws „feralinstincts" in 2 Decks vorkommt; `PlotCard`/`PlotDeck`-Typen,
-      `plotDecks.ts` Generator-erzeugt + `PlotDecksPage.tsx` Route `/plotdecks` + Tests). Offen:
-      die 4 ausgeschlossenen Agenten (Ardus/Kyndrithul/Zarihell/Skarn) validieren
+      `plotDecks.ts` Generator-erzeugt + `PlotDecksPage.tsx` Route `/plotdecks` + Tests).
 - [ ] Reisekarten + Nebenszenarien (travel-cards.md ist Stub)
 - [ ] Kampagnen (campaigns.md ist Stub, src/data/campaigns.ts fehlt)
 - [ ] Overlay-Datenbasis (src/data/overlays.ts fehlt)

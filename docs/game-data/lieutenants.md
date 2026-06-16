@@ -116,16 +116,17 @@ Fähigkeiten (z. B. „Lenkung" statt „Herrschaft", „Der da!" statt „Nicht
 zugehöriges **Plotdeck**. Agenten-Statkarten führen **keine Attributwerte** (nur Angriff,
 Werte je Spielerzahl, Fähigkeiten). Quelle: any2cards `data/agents.js`.
 
-**Status:** Grundspiel + saubere Erweiterungs-Agenten erfasst ✅ (v1.1.20 + v1.1.21 –
-**16 Agenten, 32 Formen**, EN 1:1 verifiziert). Die eigentlichen **Plotdeck-Karten**
-(`data/plot-decks.js`, 201 Karten in 20 Decks) folgen in weiteren Increments.
+**Status:** VOLLSTÄNDIG ✅ – **20 Agenten, 40 Formen** (v1.1.20 + v1.1.21: 16 saubere,
+EN 1:1 verifiziert; **v1.1.29: die 4 zuvor ausgeschlossenen kartenscan-validiert ergänzt**).
 
-> ⚠️ **Datenbefund (Validierung ausstehend):** Die any2cards-`agents.js`-Daten für die
-> Agenten von **Ardus Ix'Erebus, Kyndrithul, Zarihell und Skarn** sind **vertauscht** –
-> die xws-Schlüssel tragen fremde Fähigkeiten/Regeltexte (die Regeln nennen jeweils einen
-> anderen Charakter), `askarn` ist sogar unter falscher Erweiterung gelistet. Diese 4 Agenten
-> sind **bewusst ausgeschlossen** und werden erst nach Kartenscan-Validierung ergänzt, statt
-> fehlerhafte Daten zu übernehmen.
+> ✅ **Datenbefund behoben (v1.1.29, kartenscan-validiert):** Die any2cards-`agents.js`-Daten
+> für **Ardus Ix'Erebus, Kyndrithul, Zarihell und Skarn** sind **vertauscht** – xws/name/image/act
+> wurden den falschen Charakteren zugewiesen. Die Inhalte selbst sind aber in sich stimmig:
+> Front-Rows (`attack`/`abilities`/`characteristics`) und Back-Rows (`ability rules`/`deck`)
+> nennen je den **korrekten** Charakter. Über die any2cards-Kartenbilder (Namensbanner + Werte)
+> wurde jede Form 2026-06-16 ihrem Charakter + Akt **eindeutig zugeordnet und 1:1 verifiziert**
+> (Werte aus den Front-Cards, Regeltexte 1:1 aus den Back-Cards, Decks bestätigt:
+> Ardus→First Legion, Kyndrithul→Vital Essence, Zarihell→Eternal Agony, Skarn→Twisted Soul).
 
 | Agent | Erweiterung | Plotdeck (DE / EN) |
 |---|---|---|
@@ -145,6 +146,10 @@ Werte je Spielerzahl, Fähigkeiten). Quelle: any2cards `data/agents.js`.
 | Tristayne Olliven | Schatten von Nerekhall | Instabile Kräfte / Unstable Forces |
 | Verminous | Schatten von Nerekhall | Ungesehene Legionen / Unseen Legions |
 | Bol'Goreth | Die Trollsümpfe | Wütende Infektion / Raging Infection |
+| Ardus Ix'Erebus | Nebel von Bilehall | Erste Legion / First Legion |
+| Kyndrithul | Nebel von Bilehall | Lebensessenz / Vital Essence |
+| Zarihell | Nebel von Bilehall | Ewige Qual / Eternal Agony |
+| Skarn | Schloss Rabenfels | Verworrene Seele / Twisted Soul |
 
 Anzeige: `src/pages/AgentsPage.tsx` (Route `/agenten`), gruppiert nach Erweiterung, mit
 Plotdeck-Label, Such-/Sammlungs-/Sprachfilter und Karten-Lightbox.

@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.29',
+    date: '2026-06-16',
+    title: 'Agenten komplett – 20 Agenten',
+    highlights: [
+      'Die vier letzten Agenten sind ergänzt: Ardus Ix’Erebus, Kyndrithul, Zarihell und Skarn – jeweils mit Akt I und II.',
+      'Ihre Werte und Fähigkeiten wurden direkt anhand der Originalkarten geprüft, da die Rohdaten fehlerhaft waren. Damit sind alle 20 Agenten erfasst und mit ihrem Plotdeck verknüpft.',
+    ],
+  },
+  {
     version: '1.1.28',
     date: '2026-06-16',
     title: 'Leutnants & Plotdecks verknüpft',
