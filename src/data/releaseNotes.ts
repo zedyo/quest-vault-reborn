@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.27',
+    date: '2026-06-16',
+    title: 'Plotdecks – jetzt vollständig',
+    highlights: [
+      'Die letzten fünf Plotdecks sind ergänzt: Erste Legion (Ardus Ix’Erebus) sowie die vier Decks aus Schatten über Nerekhall – Brennender Ehrgeiz (Gargan Mirklace), Innere Verderbnis (Rylan Olliven), Instabile Kräfte (Tristayne Olliven) und Ungesehene Legionen (Verminous).',
+      'Damit sind alle 20 Plotdecks mit zusammen 200 Karten erfasst – zweisprachig (Deutsch/Englisch) und durchsuchbar.',
+    ],
+  },
+  {
     version: '1.1.26',
     date: '2026-06-16',
     title: 'Plotdecks – Rabenfels & Bilehall',

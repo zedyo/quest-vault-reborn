@@ -8,8 +8,8 @@ import type { PlotDeck } from '../types/game'
 // Bedrohungsmarkern, triggerCost = Auslösekosten. Kartenrückseiten ('plot-decks-back')
 // werden ausgelassen. EN 1:1 aus Quelle geparst, DE handübersetzt.
 // Umfang: GRUNDSPIEL (6) + Erweiterungs-Plotdecks (Lindwurm/Trollsümpfe/Labyrinth/Rabenfels/
-// Bilehall) = 15 Decks / 150 Karten. Karten-ID = deckId-xws (ein xws kommt in zwei Decks vor).
-// Offen: Nerekhall (4 Decks) + First Legion (Bilehall).
+// Bilehall (inkl. First Legion)/Nerekhall) = 20 Decks / 200 Karten – ALLE Plotdecks komplett.
+// Karten-ID = deckId-xws (ein xws kommt in zwei Decks vor).
 
 export const PLOT_DECKS: PlotDeck[] = [
   {
@@ -1659,6 +1659,556 @@ export const PLOT_DECKS: PlotDeck[] = [
         "rulesEn": "Use this card when a hero ends his turn while knocked out. Choose 1 hero and place 1 of that hero's hero tokens on this card. Each hero applies -1 to his Stamina (to a minimum of 0) for each of his hero tokens on this card. Discard all hero tokens from this card at the end of each quest.",
         "rulesDe": "Nutze diese Karte, wenn ein Held seinen Zug kampfunfähig beendet. Wähle 1 Helden und lege 1 Heldenmarker dieses Helden auf diese Karte. Jeder Held erhält -1 auf seine Ausdauer (mindestens 0) für jeden seiner Heldenmarker auf dieser Karte. Lege am Ende jedes Szenarios alle Heldenmarker von dieser Karte ab.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/eternal-agony/mb-time-on-the-rack.png"
+      }
+    ]
+  },
+  {
+    "id": "first-legion",
+    "nameEn": "First Legion",
+    "nameDe": "Erste Legion",
+    "agentEn": "Ardus Ix'Erebus",
+    "agentDe": "Ardus Ix'Erebus",
+    "expansionId": "mists-of-bilehall",
+    "cards": [
+      {
+        "id": "first-legion-strengthinnumbers",
+        "nameEn": "Strength In Numbers",
+        "nameDe": "Stärke in der Zahl",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a SMALL monster performs an attack, before dice are rolled. This attack gains: Pierce X, where X is the number of monsters from that monster's group adjacent to the target.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein KLEINES Monster einen Angriff ausführt, bevor die Würfel geworfen werden. Dieser Angriff erhält: Durchbohren X, wobei X der Anzahl der Monster aus der Gruppe dieses Monsters entspricht, die dem Ziel benachbart sind.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-strength-in-numbers.png"
+      },
+      {
+        "id": "first-legion-camaraderie",
+        "nameEn": "Camaraderie",
+        "nameDe": "Kameradschaft",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Use this card during setup of an encounter an choose 1 monster group; place a threat token from the supply on that group's Monster card as a reminder. During this encounter, each SMALL monster in that group gains: Comrade: Each time a hero performs an attack that targets a SMALL monster adjacent to this monster, after dice are rolled, that hero must choose to either suffer 1 Fatigue or not spend Surges during that attack.",
+        "rulesDe": "Nutze diese Karte während des Aufbaus einer Begegnung und wähle 1 Monstergruppe; lege als Erinnerung einen Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe. Während dieser Begegnung erhält jedes KLEINE Monster dieser Gruppe: Kamerad: Jedes Mal, wenn ein Held einen Angriff ausführt, der ein zu diesem Monster benachbartes KLEINES Monster zum Ziel hat, muss dieser Held, nachdem die Würfel geworfen wurden, entweder 1 Erschöpfung erleiden oder während dieses Angriffs keine Schübe einsetzen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-camaraderie.png"
+      },
+      {
+        "id": "first-legion-fealty",
+        "nameEn": "Fealty",
+        "nameDe": "Treueschwur",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, each time a master monster or lieutenant is affected by an attack, after dice are rolled, you may choose 1 SMALL minion monster adjacent to that master monster or lieutenant to suffer 5 Hearts. If you do, add 2 Shields to that master monster or lieutenant's defense results.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, darfst du jedes Mal, wenn ein Meister-Monster oder Leutnant von einem Angriff betroffen ist, nachdem die Würfel geworfen wurden, 1 zu diesem Meister-Monster oder Leutnant benachbartes KLEINES Diener-Monster wählen, das 5 Herzen erleidet. Tust du das, füge 2 Schilde zu den Verteidigungsergebnissen dieses Meister-Monsters oder Leutnants hinzu.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-fealty.png"
+      },
+      {
+        "id": "first-legion-retribution",
+        "nameEn": "Retribution",
+        "nameDe": "Vergeltung",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when 2 or more SMALL monsters are defeated by the same attack. Choose 1 monster from the same monster group as 1 of the defeated monsters. The chosen monster immediately moves up to its Speed and then performs an attack. This attack gains: Pierce X, where X is the number of monsters defeated by the hero's attack.",
+        "rulesDe": "Erschöpfe diese Karte, wenn 2 oder mehr KLEINE Monster durch denselben Angriff besiegt werden. Wähle 1 Monster aus derselben Monstergruppe wie eines der besiegten Monster. Das gewählte Monster bewegt sich sofort bis zu seiner Bewegung weit und führt dann einen Angriff aus. Dieser Angriff erhält: Durchbohren X, wobei X der Anzahl der durch den Angriff des Helden besiegten Monster entspricht.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-retribution.png"
+      },
+      {
+        "id": "first-legion-swarmingtide",
+        "nameEn": "Swarming Tide",
+        "nameDe": "Schwärmende Flut",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, at the start of each hero's turn, that hero tests Willpower. If he fails, he suffers 1 Fatigue for each monster adjacent to him.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, legt jeder Held zu Beginn seines Zuges eine Willenskraft-Probe ab. Misslingt sie, erleidet er 1 Erschöpfung für jedes ihm benachbarte Monster.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-swarming-tide.png"
+      },
+      {
+        "id": "first-legion-threateningmasses",
+        "nameEn": "Threatening Masses",
+        "nameDe": "Bedrohliche Massen",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero enters an empty space adjacent to 1 or more monsters during his turn. That hero must choose to either immediately end his turn or test Might. If he tests and fails, gain 1 threat token for each monster adjacent to that hero. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held während seines Zuges ein leeres Feld betritt, das 1 oder mehr Monstern benachbart ist. Dieser Held muss entweder sofort seinen Zug beenden oder eine Stärke-Probe ablegen. Legt er die Probe ab und scheitert, erhalte 1 Bedrohungsmarker für jedes diesem Helden benachbarte Monster. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-threatening-masses.png"
+      },
+      {
+        "id": "first-legion-defensiveposition",
+        "nameEn": "Defensive Position",
+        "nameDe": "Verteidigungsstellung",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the end of your turn and choose 1 tile; place a threat token from the supply on that tile as a reminder. While this card is exhausted, each time a hero spends movement points to enter a space on the chosen tile, he must spend 1 additional movement point. This card does not refresh as normal. Refresh this card if there are more heroes on the chosen tile than monsters.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges und wähle 1 Plättchen; lege als Erinnerung einen Bedrohungsmarker aus dem Vorrat auf dieses Plättchen. Solange diese Karte erschöpft ist, muss jeder Held jedes Mal, wenn er Bewegungspunkte ausgibt, um ein Feld auf dem gewählten Plättchen zu betreten, 1 zusätzlichen Bewegungspunkt ausgeben. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte, wenn sich mehr Helden als Monster auf dem gewählten Plättchen befinden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-defensive-position.png"
+      },
+      {
+        "id": "first-legion-summonardusixerebus",
+        "nameEn": "Summon Ardus Ix'Erebus",
+        "nameDe": "Ardus Ix'Erebus beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose one open monster group. Replace 1 master and 1 minion monster in that group with the Ardus Ix'Erebus agent. If the Ardus Ix'Erebus agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Ardus Ix'Erebus lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle eine offene Monstergruppe. Ersetze 1 Meister- und 1 Diener-Monster dieser Gruppe durch den Ardus-Ix'Erebus-Agenten. Wird der Ardus-Ix'Erebus-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Ardus-Ix'Erebus-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-summon-ardus-ixerebus.png"
+      },
+      {
+        "id": "first-legion-loyaltyrewarded",
+        "nameEn": "Loyalty Rewarded",
+        "nameDe": "Belohnte Treue",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose 1 of your open groups. While this card is exhausted, each SMALL monster that belongs to the chosen group applies +1 to its Health. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle 1 deiner offenen Gruppen. Solange diese Karte erschöpft ist, erhält jedes KLEINE Monster der gewählten Gruppe +1 auf seine Lebenspunkte. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-loyalty-rewarded.png"
+      },
+      {
+        "id": "first-legion-risetothechallenge",
+        "nameEn": "Rise To The Challenge",
+        "nameDe": "Der Herausforderung stellen",
+        "threatCost": 4,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a SMALL master monster is defeated. While this card is exhausted, each minion monster in that monster's group uses the Speed, Health, Defense, surge abilities, and attack dice of the master monster (not including an agent) in its group; place this card near that monster group as a reminder. This card does not refresh as normal. Refresh this card at the end of your turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein KLEINES Meister-Monster besiegt wird. Solange diese Karte erschöpft ist, nutzt jedes Diener-Monster der Gruppe dieses Monsters die Bewegung, Lebenspunkte, Verteidigung, Schub-Fähigkeiten und Angriffswürfel des Meister-Monsters (nicht eines Agenten) seiner Gruppe; lege als Erinnerung diese Karte neben diese Monstergruppe. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende deines Zuges.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/mists-of-bilehall/first-legion/mb-rise-to-the-challenge.png"
+      }
+    ]
+  },
+  {
+    "id": "burning-ambition",
+    "nameEn": "Burning Ambition",
+    "nameDe": "Brennender Ehrgeiz",
+    "agentEn": "Gargan Mirklace",
+    "agentDe": "Gargan Mirklace",
+    "expansionId": "shadow-of-nerekhall",
+    "cards": [
+      {
+        "id": "burning-ambition-inferno",
+        "nameEn": "Inferno",
+        "nameDe": "Inferno",
+        "threatCost": 0,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a monster performs an attack, before dice are rolled. That attack affects all figures adjacent to the target. After that attack resolves, if that monster has the Hot monster trait, it recovers Hearts equal to the number of figures affected by the attack.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff ausführt, bevor die Würfel geworfen werden. Dieser Angriff betrifft alle dem Ziel benachbarten Figuren. Nachdem dieser Angriff abgehandelt wurde, gewinnt dieses Monster, falls es das Monster-Merkmal „Heiß\" hat, so viele Herzen zurück, wie Figuren von dem Angriff betroffen waren.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-inferno.png"
+      },
+      {
+        "id": "burning-ambition-enkindle",
+        "nameEn": "Enkindle",
+        "nameDe": "Entfachen",
+        "threatCost": 1,
+        "triggerCost": 1,
+        "rulesEn": "Use this card after setup of an encounter and choose 1 monster group. During this encounter, that group gains the Hot monster trait. Place 1 threat token from the supply on that group's Monster card as a reminder.",
+        "rulesDe": "Nutze diese Karte nach dem Aufbau einer Begegnung und wähle 1 Monstergruppe. Während dieser Begegnung erhält diese Gruppe das Monster-Merkmal „Heiß\". Lege als Erinnerung 1 Bedrohungsmarker aus dem Vorrat auf die Monsterkarte dieser Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-enkindle.png"
+      },
+      {
+        "id": "burning-ambition-scorchingpresence",
+        "nameEn": "Scorching Presence",
+        "nameDe": "Sengende Präsenz",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter. While this card is exhausted, each time a hero enters a space adjacent to at least 1 monster with the Hot monster trait, that hero suffers 1 Heart. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung. Solange diese Karte erschöpft ist, erleidet jeder Held jedes Mal, wenn er ein Feld betritt, das mindestens 1 Monster mit dem Monster-Merkmal „Heiß\" benachbart ist, 1 Herz. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-scorching-presence.png"
+      },
+      {
+        "id": "burning-ambition-shiftingearth",
+        "nameEn": "Shifting Earth",
+        "nameDe": "Bebende Erde",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn and choose a space on the map. Each hero within 3 spaces of the chosen space tests Might or Awareness, your choice. Move each hero that fails 2 spaces.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges und wähle ein Feld auf dem Spielplan. Jeder Held innerhalb von 3 Feldern um das gewählte Feld legt eine Stärke- oder Gespür-Probe ab (deine Wahl). Bewege jeden Helden, dem sie misslingt, 2 Felder weit.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-shifting-earth.png"
+      },
+      {
+        "id": "burning-ambition-tasteoftheforbidden",
+        "nameEn": "Taste Of The Forbidden",
+        "nameDe": "Geschmack des Verbotenen",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "A hero may exhaust this card when he performs an attack, before dice are rolled. If he does, that attack gains +2 Hearts, and you gain 1 threat token.",
+        "rulesDe": "Ein Held darf diese Karte erschöpfen, wenn er einen Angriff ausführt, bevor die Würfel geworfen werden. Tut er das, erhält dieser Angriff +2 Herzen, und du erhältst 1 Bedrohungsmarker.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-taste-of-the-forbidden.png"
+      },
+      {
+        "id": "burning-ambition-ynfernaelbonds",
+        "nameEn": "Ynfernael Bonds",
+        "nameDe": "Ynfernael-Bande",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster performs an attack. You may measure range and line of sight from one of the other monsters in that monster's group for that attack.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster einen Angriff ausführt. Du darfst für diesen Angriff Reichweite und Sichtlinie von einem der anderen Monster der Gruppe dieses Monsters aus messen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-ynfernael-bonds.png"
+      },
+      {
+        "id": "burning-ambition-blazingrage",
+        "nameEn": "Blazing Rage",
+        "nameDe": "Lodernde Wut",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when you activate a monster. That monster may perform 1 additional attack action this turn in addition to its normal 2 actions. At the end of the monster's activation, it suffers 2 Hearts for each attack it performed this turn. If that monster has the Hot monster trait, you may reroll 1 die during each attack the monster performs this turn.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du ein Monster aktivierst. Dieses Monster darf in diesem Zug zusätzlich zu seinen normalen 2 Aktionen 1 zusätzliche Angriffsaktion ausführen. Am Ende der Aktivierung des Monsters erleidet es 2 Herzen für jeden Angriff, den es in diesem Zug ausgeführt hat. Hat dieses Monster das Monster-Merkmal „Heiß\", darfst du während jedes Angriffs, den das Monster in diesem Zug ausführt, 1 Würfel neu würfeln.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-blazing-rage.png"
+      },
+      {
+        "id": "burning-ambition-crushingexhaustion",
+        "nameEn": "Crushing Exhaustion",
+        "nameDe": "Erdrückende Erschöpfung",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the end of your turn. Each hero tests Might or Willpower, your choice. Place 1 threat token from the supply on the Hero sheet of each hero who fails. A hero with a threat token on his Hero sheet suffers Fatigue equal to his Stamina at the end of his turn. Each time a hero performs a rest action, he may test Might or Willpower, his choice. He discards his threat token if he passes that test, or if he is defeated. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Jeder Held legt eine Stärke- oder Willenskraft-Probe ab (deine Wahl). Lege 1 Bedrohungsmarker aus dem Vorrat auf den Heldenbogen jedes Helden, dem sie misslingt. Ein Held mit einem Bedrohungsmarker auf seinem Heldenbogen erleidet am Ende seines Zuges Erschöpfung in Höhe seiner Ausdauer. Jedes Mal, wenn ein Held eine Rast-Aktion ausführt, darf er eine Stärke- oder Willenskraft-Probe ablegen (seine Wahl). Er legt seinen Bedrohungsmarker ab, wenn ihm die Probe gelingt oder wenn er besiegt wird. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-crushing-exhaustion.png"
+      },
+      {
+        "id": "burning-ambition-demonsbargain",
+        "nameEn": "Demon'S Bargain",
+        "nameDe": "Pakt mit dem Dämon",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card at the end of your turn and choose 1 knocked-out hero and an amount of Hearts and Fatigue. That hero may choose to immediately recover that amount of Hearts and Fatigue. If he does, you gain 3 threat tokens. This card does not refresh as normal. Refresh this card if the hero chooses not to recover the Hearts and Fatigue or at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges und wähle 1 kampfunfähigen Helden sowie eine Menge an Herzen und Erschöpfung. Dieser Held darf sich entscheiden, sofort diese Menge an Herzen und Erschöpfung zurückzugewinnen. Tut er das, erhältst du 3 Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte, wenn der Held sich entscheidet, die Herzen und Erschöpfung nicht zurückzugewinnen, oder am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-demons-bargain.png"
+      },
+      {
+        "id": "burning-ambition-summongarganmirklace",
+        "nameEn": "Summon Gargan Mirklace",
+        "nameDe": "Gargan Mirklace beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose 1 open monster group. Replace that group with the Gargan Mirklace agent. If the Gargan Mirklace agent is defeated, return this card to your Plot deck. You cannot use this card in the \"Shadow Of Nerekhall\" campaign.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle 1 offene Monstergruppe. Ersetze diese Gruppe durch den Gargan-Mirklace-Agenten. Wird der Gargan-Mirklace-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in der Kampagne „Schatten über Nerekhall\" verwenden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/burning-ambition/sn-summon-gargan-mirklace.png"
+      }
+    ]
+  },
+  {
+    "id": "inner-corruption",
+    "nameEn": "Inner Corruption",
+    "nameDe": "Innere Verderbnis",
+    "agentEn": "Rylan Olliven",
+    "agentDe": "Rylan Olliven",
+    "expansionId": "shadow-of-nerekhall",
+    "cards": [
+      {
+        "id": "inner-corruption-friendorfoe",
+        "nameEn": "Friend Or Foe",
+        "nameDe": "Freund oder Feind",
+        "threatCost": 0,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn to choose 1 monster. Until the start of your next turn, a hero cannot declare that monster as the target of an attack if there is another monster within 3 spaces of that monster. Place 1 threat token from the supply on that monster's base as a reminder. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges, um 1 Monster zu wählen. Bis zum Beginn deines nächsten Zuges kann ein Held dieses Monster nicht als Ziel eines Angriffs ansagen, wenn sich ein anderes Monster innerhalb von 3 Feldern um dieses Monster befindet. Lege als Erinnerung 1 Bedrohungsmarker aus dem Vorrat auf die Basis dieses Monsters. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-friend-or-foe.png"
+      },
+      {
+        "id": "inner-corruption-merchantsguild",
+        "nameEn": "Merchants' Guild",
+        "nameDe": "Händlergilde",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card during the Shopping step of the Campaign phase, after revealing the Shop Item cards, and discard 1 threat token to choose 1 Shop Item card. That card costs an additional 50 gold to purchase.",
+        "rulesDe": "Erschöpfe diese Karte während des Einkaufsschritts der Kampagnenphase, nachdem die Shop-Karten aufgedeckt wurden, und lege 1 Bedrohungsmarker ab, um 1 Shop-Karte zu wählen. Diese Karte kostet 50 Gold zusätzlich beim Kauf.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-merchants-guild.png"
+      },
+      {
+        "id": "inner-corruption-shadowcouncil",
+        "nameEn": "Shadow Council",
+        "nameDe": "Schattenrat",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of the first encounter of each quest and place up to 3 Overlord cards from your hand facedown under this card. Gain 1 threat token for each card placed under this card. While this card is exhausted, you cannot use cards under this card. When you refresh this card, discard all cards under this card. This card does not refresh as normal. Refresh this card at the end of the first encounter.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau der ersten Begegnung jedes Szenarios und lege bis zu 3 Overlord-Karten von deiner Hand verdeckt unter diese Karte. Erhalte 1 Bedrohungsmarker für jede unter diese Karte gelegte Karte. Solange diese Karte erschöpft ist, kannst du Karten unter dieser Karte nicht benutzen. Wenn du diese Karte erholst, lege alle Karten unter dieser Karte ab. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende der ersten Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-shadow-council.png"
+      },
+      {
+        "id": "inner-corruption-thievesguild",
+        "nameEn": "Thieves' Guild",
+        "nameDe": "Diebesgilde",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card after setup of an encounter to look at the top 3 cards of the Search deck. Place 2 of those cards on top of the Search deck in the order of your choice and place the remaining card on the bottom of the Search deck.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung, um dir die obersten 3 Karten des Suchstapels anzusehen. Lege 2 dieser Karten in einer Reihenfolge deiner Wahl oben auf den Suchstapel und lege die verbleibende Karte unter den Suchstapel.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-thieves-guild.png"
+      },
+      {
+        "id": "inner-corruption-deceitfulscribe",
+        "nameEn": "Deceitful Scribe",
+        "nameDe": "Hinterlistiger Schreiber",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Use this card during the Spend Experience Points step of the Campaign phase. You receive 1 XP. Then, return this card to the game box.",
+        "rulesDe": "Nutze diese Karte während des Schritts „Erfahrungspunkte ausgeben\" der Kampagnenphase. Du erhältst 1 EP. Lege dann diese Karte zurück in die Spielschachtel.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-deceitful-scribe.png"
+      },
+      {
+        "id": "inner-corruption-falseinformant",
+        "nameEn": "False Informant",
+        "nameDe": "Falscher Informant",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card at the end of the Travel step of the Campaign phase. The heroes choose 1 hero to test Awareness. If he fails, the heroes return to the location in which they started this Travel step and perform a second Travel step.",
+        "rulesDe": "Erschöpfe diese Karte am Ende des Reiseschritts der Kampagnenphase. Die Helden wählen 1 Helden, der eine Gespür-Probe ablegt. Misslingt sie, kehren die Helden zu dem Ort zurück, an dem sie diesen Reiseschritt begonnen haben, und führen einen zweiten Reiseschritt durch.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-false-informant.png"
+      },
+      {
+        "id": "inner-corruption-oneofus",
+        "nameEn": "One Of Us",
+        "nameDe": "Einer von uns",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a hero tests Willpower and fails. Immediately move that hero up to his Speed. Then, perform an attack with that hero as if he were 1 of your monsters. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, wenn einem Helden eine Willenskraft-Probe misslingt. Bewege diesen Helden sofort bis zu seiner Bewegung weit. Führe dann einen Angriff mit diesem Helden aus, als wäre er eines deiner Monster. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-one-of-us.png"
+      },
+      {
+        "id": "inner-corruption-summonrylanolliven",
+        "nameEn": "Summon Rylan Olliven",
+        "nameDe": "Rylan Olliven beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose 1 open monster group. Replace 1 master and 1 minion monster in that group with the Rylan Olliven agent. If the Rylan Olliven agent is defeated, return this card to your Plot deck. You cannot use this card in the \"Shadow Of Nerekhall\" campaign.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle 1 offene Monstergruppe. Ersetze 1 Meister- und 1 Diener-Monster dieser Gruppe durch den Rylan-Olliven-Agenten. Wird der Rylan-Olliven-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in der Kampagne „Schatten über Nerekhall\" verwenden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-summon-rylan-olliven.png"
+      },
+      {
+        "id": "inner-corruption-traitorousfriend",
+        "nameEn": "Traitorous Friend",
+        "nameDe": "Verräterischer Freund",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a hero starts his turn. That hero tests Willpower. If he fails, he suffers Fatigue equal to his Willpower. If he passes, gain 2 threat tokens. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Held seinen Zug beginnt. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, erleidet er Erschöpfung in Höhe seiner Willenskraft. Gelingt sie, erhalte 2 Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-traitorous-friend.png"
+      },
+      {
+        "id": "inner-corruption-magesguild",
+        "nameEn": "Mages' Guild",
+        "nameDe": "Magiergilde",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. Each hero tests Knowledge. Each hero who fails suffers 1 Fatigue. If 2 or more heroes fail, draw 1 Overlord card. If 3 or more heroes fail, 1 of those heroes is Stunned, your choice. If 4 or more heroes fail, gain 1 threat token. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Jeder Held legt eine Wissen-Probe ab. Jeder Held, dem sie misslingt, erleidet 1 Erschöpfung. Misslingt sie 2 oder mehr Helden, ziehe 1 Overlord-Karte. Misslingt sie 3 oder mehr Helden, ist 1 dieser Helden betäubt (deine Wahl). Misslingt sie 4 oder mehr Helden, erhalte 1 Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/inner-corruption/sn-mages-guild.png"
+      }
+    ]
+  },
+  {
+    "id": "unstable-forces",
+    "nameEn": "Unstable Forces",
+    "nameDe": "Instabile Kräfte",
+    "agentEn": "Tristayne Olliven",
+    "agentDe": "Tristayne Olliven",
+    "expansionId": "shadow-of-nerekhall",
+    "cards": [
+      {
+        "id": "unstable-forces-wildenergy",
+        "nameEn": "Wild Energy",
+        "nameDe": "Wilde Energie",
+        "threatCost": 0,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a master monster performs an attack, before dice are rolled, to add 1 Surge to the attack results. When you exhaust this card, you may discard 1 threat token. After resolving this attack, if you did not discard 1 threat token and that attack did not deal 1 or more Hearts, discard 1 threat token and the monster that attacked is defeated.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster einen Angriff ausführt, bevor die Würfel geworfen werden, um 1 Schub zu den Angriffsergebnissen hinzuzufügen. Wenn du diese Karte erschöpfst, darfst du 1 Bedrohungsmarker ablegen. Hast du nach dem Abhandeln dieses Angriffs keinen Bedrohungsmarker abgelegt und hat dieser Angriff nicht mindestens 1 Herz zugefügt, lege 1 Bedrohungsmarker ab, und das angreifende Monster wird besiegt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-wild-energy.png"
+      },
+      {
+        "id": "unstable-forces-explosivefall",
+        "nameEn": "Explosive Fall",
+        "nameDe": "Explosiver Fall",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when a monster is defeated. Each figure within 3 spaces of that monster suffers 2 Hearts.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster besiegt wird. Jede Figur innerhalb von 3 Feldern um dieses Monster erleidet 2 Herzen.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-explosive-fall.png"
+      },
+      {
+        "id": "unstable-forces-mortalcoil",
+        "nameEn": "Mortal Coil",
+        "nameDe": "Sterbliche Hülle",
+        "threatCost": 2,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card when a master monster is defeated to place 1 fatigue token in its space. At the start of your next turn, replace the fatigue token with a master monster in the same group as the defeated monster, respecting group limits. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster besiegt wird, um 1 Erschöpfungsmarker auf sein Feld zu legen. Zu Beginn deines nächsten Zuges ersetze den Erschöpfungsmarker durch ein Meister-Monster derselben Gruppe wie das besiegte Monster, unter Beachtung der Gruppenlimits. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-mortal-coil.png"
+      },
+      {
+        "id": "unstable-forces-pariah",
+        "nameEn": "Pariah",
+        "nameDe": "Ausgestoßener",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card during your turn and choose 1 monster group. Place this card near that group's Monster card. While this card is exhausted, you may activate 1 master monster of the chosen group during any other monster group's activation instead of the chosen group's activation.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges und wähle 1 Monstergruppe. Lege diese Karte neben die Monsterkarte dieser Gruppe. Solange diese Karte erschöpft ist, darfst du 1 Meister-Monster der gewählten Gruppe während der Aktivierung einer beliebigen anderen Monstergruppe aktivieren, anstatt während der Aktivierung der gewählten Gruppe.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-pariah.png"
+      },
+      {
+        "id": "unstable-forces-descendtomadness",
+        "nameEn": "Descend To Madness",
+        "nameDe": "Abstieg in den Wahnsinn",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. Each hero tests Knowledge or Willpower, your choice, in an order of your choice. Each time a hero fails, gain 1 threat token. If a hero passes, all heroes after that hero do not test. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Jeder Held legt eine Wissen- oder Willenskraft-Probe ab (deine Wahl), in einer Reihenfolge deiner Wahl. Jedes Mal, wenn einem Helden die Probe misslingt, erhalte 1 Bedrohungsmarker. Gelingt einem Helden die Probe, legen alle Helden nach diesem Helden keine Probe ab. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-descend-to-madness.png"
+      },
+      {
+        "id": "unstable-forces-loveofchaos",
+        "nameEn": "Love Of Chaos",
+        "nameDe": "Liebe zum Chaos",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card during your turn and choose 1 master monster on the map. That monster is immediately defeated, and you gain 2 threat tokens. If that monster is a large monster, you gain 1 additional threat token. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte während deines Zuges und wähle 1 Meister-Monster auf dem Spielplan. Dieses Monster wird sofort besiegt, und du erhältst 2 Bedrohungsmarker. Ist dieses Monster ein großes Monster, erhältst du 1 zusätzlichen Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-love-of-chaos.png"
+      },
+      {
+        "id": "unstable-forces-onslaught",
+        "nameEn": "Onslaught",
+        "nameDe": "Ansturm",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card at the start of your turn and choose 1 monster group. Place this card near the chosen group's Monster card. While this card is exhausted, each monster in the chosen group gains: Ravage: Both of this monster's actions on a turn may be attack actions.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges und wähle 1 Monstergruppe. Lege diese Karte neben die Monsterkarte der gewählten Gruppe. Solange diese Karte erschöpft ist, erhält jedes Monster der gewählten Gruppe: Wüten: Beide Aktionen dieses Monsters in einem Zug dürfen Angriffsaktionen sein.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-onslaught.png"
+      },
+      {
+        "id": "unstable-forces-powerandsacrifice",
+        "nameEn": "Power And Sacrifice",
+        "nameDe": "Macht und Opfer",
+        "threatCost": 3,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a master monster performs an attack, before dice are rolled. That monster may suffer up to 2 Hearts. If it does, that attack deals additional Hearts equal to the Hearts suffered. That monster cannot do this if suffering the Hearts would defeat it.",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Meister-Monster einen Angriff ausführt, bevor die Würfel geworfen werden. Dieses Monster darf bis zu 2 Herzen erleiden. Tut es das, fügt dieser Angriff zusätzliche Herzen in Höhe der erlittenen Herzen zu. Dieses Monster kann dies nicht tun, wenn das Erleiden der Herzen es besiegen würde.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-power-and-sacrifice.png"
+      },
+      {
+        "id": "unstable-forces-soulensnare",
+        "nameEn": "Soul Ensnare",
+        "nameDe": "Seelenfang",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. While this card is exhausted, each time a knocked-out hero recovers 1 or more Hearts, each hero within 3 spaces of that hero suffers 1 Heart.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Solange diese Karte erschöpft ist, erleidet jedes Mal, wenn ein kampfunfähiger Held 1 oder mehr Herzen zurückgewinnt, jeder Held innerhalb von 3 Feldern um diesen Helden 1 Herz.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-soul-ensnare.png"
+      },
+      {
+        "id": "unstable-forces-summontristayneolliven",
+        "nameEn": "Summon Tristayne Olliven",
+        "nameDe": "Tristayne Olliven beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose 1 open monster group. Replace 1 master and 1 minion monster in that group with the Tristayne Olliven agent. If the Tristayne Olliven agent is defeated, return this card to your Plot deck. You cannot use this card in the \"Shadow Of Nerekhall\" campaign.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle 1 offene Monstergruppe. Ersetze 1 Meister- und 1 Diener-Monster dieser Gruppe durch den Tristayne-Olliven-Agenten. Wird der Tristayne-Olliven-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in der Kampagne „Schatten über Nerekhall\" verwenden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unstable-forces/sn-summon-tristayne-olliven.png"
+      }
+    ]
+  },
+  {
+    "id": "unseen-legions",
+    "nameEn": "Unseen Legions",
+    "nameDe": "Ungesehene Legionen",
+    "agentEn": "Verminous",
+    "agentDe": "Verminous",
+    "expansionId": "shadow-of-nerekhall",
+    "cards": [
+      {
+        "id": "unseen-legions-mouthstofeed",
+        "nameEn": "Mouths To Feed",
+        "nameDe": "Hungrige Mäuler",
+        "threatCost": 0,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card when a monster with 4 or less Health defeats a hero. Gain 1 threat token. This card does not refresh as normal. Refresh this card at the end of each encounter. After transitioning to Act II, Plot cards that require monsters with 4 or less Health require monsters with 6 or less Health instead (even while this card is exhausted).",
+        "rulesDe": "Erschöpfe diese Karte, wenn ein Monster mit 4 oder weniger Lebenspunkten einen Helden besiegt. Erhalte 1 Bedrohungsmarker. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung. Nach dem Übergang zu Akt II benötigen Plotkarten, die Monster mit 4 oder weniger Lebenspunkten erfordern, stattdessen Monster mit 6 oder weniger Lebenspunkten (auch während diese Karte erschöpft ist).",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-mouths-to-feed.png"
+      },
+      {
+        "id": "unseen-legions-enviousswarm",
+        "nameEn": "Envious Swarm",
+        "nameDe": "Neidischer Schwarm",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of your turn. While this card is exhausted, each monster with 4 or less Health gains: Action: Perform an attack that targets 1 hero with 1 or more Relic cards equipped. This attack gains +1 Heart.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges. Solange diese Karte erschöpft ist, erhält jedes Monster mit 4 oder weniger Lebenspunkten: Aktion: Führe einen Angriff aus, der 1 Helden mit 1 oder mehr ausgerüsteten Relikt-Karten zum Ziel hat. Dieser Angriff erhält +1 Herz.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-envious-swarm.png"
+      },
+      {
+        "id": "unseen-legions-fleethelight",
+        "nameEn": "Flee The Light",
+        "nameDe": "Flucht vor dem Licht",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the end of your turn. Until the start of your next turn, each monster with 4 or less Health gains: Skittish: Each time a hero within 3 spaces of this monster suffers 1 Fatigue to gain 1 movement point, this monster may immediately move 1 space. This card does not refresh as normal. Refresh this card at the end of each encounter.",
+        "rulesDe": "Erschöpfe diese Karte am Ende deines Zuges. Bis zum Beginn deines nächsten Zuges erhält jedes Monster mit 4 oder weniger Lebenspunkten: Schreckhaft: Jedes Mal, wenn ein Held innerhalb von 3 Feldern um dieses Monster 1 Erschöpfung erleidet, um 1 Bewegungspunkt zu erhalten, darf sich dieses Monster sofort 1 Feld bewegen. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jeder Begegnung.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-flee-the-light.png"
+      },
+      {
+        "id": "unseen-legions-ignoblesacrifice",
+        "nameEn": "Ignoble Sacrifice",
+        "nameDe": "Unwürdiges Opfer",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when more than 1 monster in a monster group is affected by an attack. Before damage is dealt, choose 1 monster affected by that attack. That monster suffers all damage all other monsters in its group would suffer from that attack.",
+        "rulesDe": "Erschöpfe diese Karte, wenn mehr als 1 Monster einer Monstergruppe von einem Angriff betroffen ist. Bevor Schaden zugefügt wird, wähle 1 von diesem Angriff betroffenes Monster. Dieses Monster erleidet allen Schaden, den alle anderen Monster seiner Gruppe durch diesen Angriff erleiden würden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-ignoble-sacrifice.png"
+      },
+      {
+        "id": "unseen-legions-ineveryshadow",
+        "nameEn": "In Every Shadow",
+        "nameDe": "In jedem Schatten",
+        "threatCost": 2,
+        "triggerCost": 0,
+        "rulesEn": "Exhaust this card and discard 1 Trap Overlord card from your hand when a hero declares an open door or search action. That hero tests Awareness. If he fails, perform an attack that targets that hero with 1 monster with 4 or less Health that is on the map, ignoring range and line of sight.",
+        "rulesDe": "Erschöpfe diese Karte und lege 1 Fallen-Overlord-Karte von deiner Hand ab, wenn ein Held eine „Tür öffnen\"- oder Durchsuchen-Aktion ansagt. Dieser Held legt eine Gespür-Probe ab. Misslingt sie, führe einen Angriff gegen diesen Helden mit 1 Monster mit 4 oder weniger Lebenspunkten aus, das sich auf dem Spielplan befindet, wobei Reichweite und Sichtlinie ignoriert werden.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-in-every-shadow.png"
+      },
+      {
+        "id": "unseen-legions-infestation",
+        "nameEn": "Infestation",
+        "nameDe": "Befall",
+        "threatCost": 2,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card when you place a monster as a reinforcement. Place 1 minion monster with 4 or less Health from the same monster group in an empty space adjacent to that monster, respecting group limits.",
+        "rulesDe": "Erschöpfe diese Karte, wenn du ein Monster als Verstärkung platzierst. Platziere 1 Diener-Monster mit 4 oder weniger Lebenspunkten aus derselben Monstergruppe auf einem leeren Feld benachbart zu diesem Monster, unter Beachtung der Gruppenlimits.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-infestation.png"
+      },
+      {
+        "id": "unseen-legions-initiation",
+        "nameEn": "Initiation",
+        "nameDe": "Initiation",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Use this card when a minion monster with 4 or less Health knocks out a hero. Until that monster is defeated, it uses the characteristics, abilities, and dice of the master monster (not including an agent) in its group. Place 1 threat token on that monster's base as a reminder.",
+        "rulesDe": "Nutze diese Karte, wenn ein Diener-Monster mit 4 oder weniger Lebenspunkten einen Helden kampfunfähig macht. Bis dieses Monster besiegt wird, nutzt es die Eigenschaften, Fähigkeiten und Würfel des Meister-Monsters (nicht eines Agenten) seiner Gruppe. Lege als Erinnerung 1 Bedrohungsmarker auf die Basis dieses Monsters.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-initiation.png"
+      },
+      {
+        "id": "unseen-legions-intotheshadows",
+        "nameEn": "Into The Shadows",
+        "nameDe": "In die Schatten",
+        "threatCost": 3,
+        "triggerCost": 1,
+        "rulesEn": "Use this card when you activate a monster with 4 or less Health. Instead of performing actions, remove that monster from the map and place it on this card. Each monster on this card still counts toward the group limit of its monster group. When a hero declares a rest action, you must place each monster on this card in an empty space adjacent to that hero. Then, each of those monsters may perform an attack that targets that hero.",
+        "rulesDe": "Nutze diese Karte, wenn du ein Monster mit 4 oder weniger Lebenspunkten aktivierst. Anstatt Aktionen auszuführen, entferne dieses Monster vom Spielplan und lege es auf diese Karte. Jedes Monster auf dieser Karte zählt weiterhin zum Gruppenlimit seiner Monstergruppe. Wenn ein Held eine Rast-Aktion ansagt, musst du jedes Monster auf dieser Karte auf einem leeren Feld benachbart zu diesem Helden platzieren. Dann darf jedes dieser Monster einen Angriff ausführen, der diesen Helden zum Ziel hat.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-into-the-shadows.png"
+      },
+      {
+        "id": "unseen-legions-summonverminous",
+        "nameEn": "Summon Verminous",
+        "nameDe": "Verminous beschwören",
+        "threatCost": 3,
+        "triggerCost": 2,
+        "rulesEn": "Exhaust this card after setup of an encounter and choose 1 open monster group. Replace 1 master monster in that group with the Verminous agent. If the Verminous agent is defeated, return this card to your Plot deck. You cannot use this card in any quest that uses the Verminous lieutenant.",
+        "rulesDe": "Erschöpfe diese Karte nach dem Aufbau einer Begegnung und wähle 1 offene Monstergruppe. Ersetze 1 Meister-Monster dieser Gruppe durch den Verminous-Agenten. Wird der Verminous-Agent besiegt, nimm diese Karte zurück in dein Plotdeck. Du kannst diese Karte nicht in einem Szenario verwenden, das den Verminous-Leutnant nutzt.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-summon-verminous.png"
+      },
+      {
+        "id": "unseen-legions-alwayswatching",
+        "nameEn": "Always Watching",
+        "nameDe": "Immer wachsam",
+        "threatCost": 4,
+        "triggerCost": 1,
+        "rulesEn": "Exhaust this card at the start of an encounter. While this card is exhausted, at the start of each overlord turn, you may look at the top card of the Overlord deck. Then, place that card on the top or bottom of the Overlord deck. This card does not refresh as normal. Refresh this card at the end of each quest.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn einer Begegnung. Solange diese Karte erschöpft ist, darfst du zu Beginn jedes Overlord-Zuges die oberste Karte des Overlord-Decks ansehen. Lege dann diese Karte oben oder unten auf das Overlord-Deck. Diese Karte erholt sich nicht wie üblich. Erhole diese Karte am Ende jedes Szenarios.",
+        "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/shadow-of-nerekhall/unseen-legions/sn-always-watching.png"
       }
     ]
   }
