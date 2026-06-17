@@ -7,14 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Warme, mystische Dungeon-Palette: dunkles Anthrazit/Braun (gebranntes Holz,
+        // altes Leder) mit Gold/Fackelschein- und Pergament-Akzenten.
         dungeon: {
-          950: '#0f0f1a',
-          900: '#1a1a2e',
-          800: '#16213e',
-          700: '#0f3460',
-          600: '#1a3a5c',
+          950: '#0f0b07', // Seitenhintergrund (warmes Fast-Schwarz)
+          900: '#17110a', // Kopf-/Fußzeile, erhöhte dunkle Flächen
+          850: '#1e160e', // Zwischenebene
+          800: '#261c12', // Kartenhintergrund (dunkles Braun)
+          700: '#3a2c1d', // Rahmen (warmes Braun)
+          600: '#4f3d28', // Hover-Rahmen / Trenner
         },
         gold: {
+          200: '#fde68a',
           300: '#fcd34d',
           400: '#fbbf24',
           500: '#f59e0b',
@@ -27,7 +31,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Georgia', 'serif'],
+        // Cinzel = epische Fantasy-Serif für Überschriften; Inter = klare Lesbarkeit im Fließtext.
+        display: ['"Cinzel"', 'Georgia', 'serif'],
+        sans: ['"Inter Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },

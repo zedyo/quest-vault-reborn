@@ -380,7 +380,7 @@ export default function MapGrid({
           overflowY: 'hidden',
           height: 14,
           flexShrink: 0,
-          backgroundColor: '#0f0f1a',
+          backgroundColor: '#17110a',
         }}
       >
         <div style={{ width: scaledW + 32, height: 1 }} />
@@ -417,8 +417,8 @@ export default function MapGrid({
               transformOrigin: 'top left',
               transform: `scale(${zoom})`,
               backgroundImage: `
-                linear-gradient(to right, #2a2a3a 1px, transparent 1px),
-                linear-gradient(to bottom, #2a2a3a 1px, transparent 1px)
+                linear-gradient(to right, #332617 1px, transparent 1px),
+                linear-gradient(to bottom, #332617 1px, transparent 1px)
               `,
               backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
               cursor: (selectedTileId || monsterPlaceMode || overlayPlaceMode) ? 'crosshair' : 'default',
