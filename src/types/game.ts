@@ -414,6 +414,27 @@ export interface PlacedOverlay {
   y: number
 }
 
+/**
+ * Katalog-Definition eines Overlay-Typs (Gelände-/Tür-/Objekt-/Marker-Plättchen),
+ * den Quest-Autoren im Kartenbauer als 1×1-Feldmarker platzieren. Faktische
+ * Descent-2e-Komponenten; `descriptionDe` ist eine kurze, eigene Mechanik-Notiz.
+ */
+export interface OverlayType {
+  id: string
+  nameEn: string
+  nameDe: string
+  category: 'terrain' | 'passage' | 'object' | 'marker'
+  /** Footprint in Feldern (Annotation: 1×1 pro Feld). */
+  cols: number
+  rows: number
+  expansionId: string
+  /** Anzeigefarbe des Markers. */
+  color: string
+  /** Symbol (Emoji) für den Marker. */
+  icon: string
+  descriptionDe: string
+}
+
 export interface PlacedMonster {
   id: string
   monsterId: string

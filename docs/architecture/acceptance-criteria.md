@@ -83,9 +83,13 @@ werden. Vor größeren Features werden die Kriterien dem User vorgelegt.
 
 ### 1.1.8 Overlay-Datenbasis
 
-- [ ] Alle Overlay-Typen aller Erweiterungen in `src/data/overlays.ts`
-- [ ] Pro Overlay: id, Typ, Größe (cols × rows), Erweiterung, Beschreibung
-- [ ] Dokumentiert in `docs/game-data/overlays.md`
+- [~] Overlay-Typen in `src/data/overlays.ts` – bewusst kompakter, eindeutig realer Kernsatz
+      (9 Grundspiel-Overlays: Gelände/Tür/Objekt/Marker). Quest-spezifische Sondertoken und
+      Erweiterungs-Overlays bewusst nicht aufgenommen (keine unbelegten Daten). – v1.1.32
+- [x] Pro Overlay: id, Typ (Kategorie), Größe (cols × rows), Erweiterung, Beschreibung, Farbe/Symbol
+- [x] Im MapBuilder platzierbar (Quest-Editor + Kartenbauer), im Quest-Editor mit der Begegnung
+      gespeichert (`mapData.overlays`) – über die reine Datenbasis hinaus
+- [x] Dokumentiert in `docs/game-data/overlays.md`
 
 ### 1.1.9 Daten-Validierungspass
 
