@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.2',
+    date: '2026-06-17',
+    title: 'Frische Startseite',
+    highlights: [
+      'Die Startseite zeigt jetzt alle Bereiche übersichtlich: Werkzeuge oben, darunter Kacheln für sämtliche Übersichten (Monster, Helden, Klassen, Items, Overlord, Leutnants, Agenten, Plotdecks, Kampagnen, Reisekarten).',
+      'Aktualisierte Inhalte und Zählwerte sowie dezente Hover-Effekte auf den Kacheln.',
+    ],
+  },
+  {
     version: '1.2.1',
     date: '2026-06-17',
     title: 'Aufgeräumte Navigation',
