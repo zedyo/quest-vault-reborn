@@ -12,6 +12,7 @@ import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
+import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -525,6 +526,30 @@ describe('Reisekarten-Datenintegrität', () => {
     expect(TRAVEL_CARDS.length).toBe(41)
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'travel').length).toBe(31)
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'city').length).toBe(10)
+  })
+})
+
+describe('Overlay-Datenintegrität', () => {
+  const CATS = new Set(['terrain', 'passage', 'object', 'marker'])
+
+  it('keine doppelten IDs und OVERLAY_BY_ID deckt alle ab', () => {
+    const ids = OVERLAYS.map((o) => o.id)
+    expect(new Set(ids).size, 'doppelte Overlay-IDs').toBe(ids.length)
+    expect(Object.keys(OVERLAY_BY_ID).length).toBe(OVERLAYS.length)
+    for (const o of OVERLAYS) expect(OVERLAY_BY_ID[o.id]).toBe(o)
+  })
+
+  it('Pflichtfelder, gültige Kategorie/Erweiterung, plausibler Footprint', () => {
+    const errors: string[] = []
+    for (const o of OVERLAYS) {
+      if (!o.nameEn || !o.nameDe || !o.descriptionDe) errors.push(`${o.id}: Pflichtfeld fehlt`)
+      if (!o.color || !o.icon) errors.push(`${o.id}: color/icon fehlt`)
+      if (!CATS.has(o.category)) errors.push(`${o.id}: ungültige Kategorie '${o.category}'`)
+      if (!EXPANSION_IDS.has(o.expansionId)) errors.push(`${o.id}: unbekannte expansionId '${o.expansionId}'`)
+      if (!Number.isInteger(o.cols) || o.cols < 1 || !Number.isInteger(o.rows) || o.rows < 1)
+        errors.push(`${o.id}: Footprint ${o.cols}×${o.rows} unplausibel`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
   })
 })
 

@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef } from 'react'
 import { useGameStore } from '../store/useGameStore'
-import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster } from '../types/game'
+import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster, PlacedOverlay } from '../types/game'
 import type { PlacedMapTile } from '../components/MapBuilder/types'
 import MapBuilder from '../components/MapBuilder'
 import { MONSTERS } from '../data/monsters'
@@ -749,7 +749,8 @@ export default function QuestEditorPage() {
             <div className="px-4 py-2 border-b border-dungeon-700">
               <h3 className="font-display text-sm text-gold-400 font-bold">Karte</h3>
               <p className="text-gray-500 text-xs">
-                Plättchen platzieren, drehen und verschieben – wird mit der Begegnung gespeichert.
+                Plättchen platzieren, drehen und verschieben; Monster &amp; Overlays (Tür, Truhe,
+                Wasser, Lava …) setzen – wird mit der Begegnung gespeichert.
               </p>
             </div>
             <MapBuilder
@@ -763,6 +764,10 @@ export default function QuestEditorPage() {
               monsters={encounter.monsters}
               onMonstersChange={(m: PlacedMonster[]) => patchEncounter({ monsters: m })}
               availableMonsters={availableMonsters}
+              overlays={encounter.mapData.overlays ?? []}
+              onOverlaysChange={(o: PlacedOverlay[]) =>
+                patchEncounter({ mapData: { ...encounter.mapData, overlays: o } })
+              }
               mapHeight="520px"
             />
           </div>

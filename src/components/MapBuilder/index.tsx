@@ -13,7 +13,8 @@ import TileSidebar from './TileSidebar'
 import MapGrid, { effectiveDims } from './MapGrid'
 import type { PlacedMapTile, Rotation } from './types'
 import { MAP_TILES, getTilePartner, tileImageUrl } from '../../data/mapTiles'
-import type { Monster, PlacedMonster } from '../../types/game'
+import { OVERLAYS } from '../../data/overlays'
+import type { Monster, PlacedMonster, PlacedOverlay } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
 
 function nextRotation(r: Rotation): Rotation {
@@ -98,6 +99,10 @@ interface MapBuilderProps {
   onMonstersChange?: (monsters: PlacedMonster[]) => void
   /** When provided, enables the monster-placement toolbar section. */
   availableMonsters?: Monster[]
+  /** Overlay markers on the map (controlled). When the callback is provided,
+   *  the overlay-placement toolbar section is enabled. */
+  overlays?: PlacedOverlay[]
+  onOverlaysChange?: (overlays: PlacedOverlay[]) => void
   /** CSS height for the builder area. Defaults to the full-page height. */
   mapHeight?: string
 }
@@ -108,6 +113,8 @@ export default function MapBuilder({
   monsters,
   onMonstersChange,
   availableMonsters,
+  overlays,
+  onOverlaysChange,
   mapHeight,
 }: MapBuilderProps = {}) {
   const isControlled = controlledTiles !== undefined
@@ -170,6 +177,42 @@ export default function MapBuilder({
 
   const monsterToPlaceRef = useRef(selectedMonsterToPlace)
   monsterToPlaceRef.current = selectedMonsterToPlace
+
+  // Overlay placement state (controlled via onOverlaysChange, else internal).
+  const [selectedOverlayToPlace, setSelectedOverlayToPlace] = useState<string | null>(null)
+  const overlayToPlaceRef = useRef(selectedOverlayToPlace)
+  overlayToPlaceRef.current = selectedOverlayToPlace
+
+  const [internalOverlays, setInternalOverlays] = useState<PlacedOverlay[]>([])
+  const placedOverlays = overlays ?? internalOverlays
+  const placedOverlaysRef = useRef(placedOverlays)
+  placedOverlaysRef.current = placedOverlays
+  const onOverlaysChangeRef = useRef(onOverlaysChange)
+  onOverlaysChangeRef.current = onOverlaysChange
+  const isOverlayControlledRef = useRef(overlays !== undefined)
+  isOverlayControlledRef.current = overlays !== undefined
+
+  const setPlacedOverlays = useCallback(
+    (updater: PlacedOverlay[] | ((prev: PlacedOverlay[]) => PlacedOverlay[])) => {
+      const next =
+        typeof updater === 'function'
+          ? (updater as (prev: PlacedOverlay[]) => PlacedOverlay[])(placedOverlaysRef.current)
+          : updater
+      if (isOverlayControlledRef.current) onOverlaysChangeRef.current?.(next)
+      else setInternalOverlays(next)
+    },
+    [],
+  )
+
+  const handlePlaceOverlayOnGrid = useCallback((col: number, row: number) => {
+    const type = overlayToPlaceRef.current
+    if (!type) return
+    setPlacedOverlays((prev) => [...prev, { id: newId(), overlayType: type, x: col, y: row }])
+  }, [setPlacedOverlays])
+
+  const handleRemoveOverlay = useCallback((id: string) => {
+    setPlacedOverlays((prev) => prev.filter((o) => o.id !== id))
+  }, [setPlacedOverlays])
 
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
@@ -250,6 +293,7 @@ export default function MapBuilder({
     setSelectedTileId((prev) => (prev === id ? null : id))
     setSelectedInstanceId(null)
     setSelectedMonsterToPlace(null)
+    setSelectedOverlayToPlace(null)
   }, [placedTileIds])
 
   const handlePlaceTile = useCallback(
@@ -294,6 +338,7 @@ export default function MapBuilder({
     setSelectedInstanceId(null)
     setPartnerWarningId(null)
     setSelectedMonsterToPlace(null)
+    setSelectedOverlayToPlace(null)
   }
 
   const clearAll = () => {
@@ -371,6 +416,7 @@ export default function MapBuilder({
                       if (!e.target.value) return
                       setSelectedTileId(null)
                       setSelectedInstanceId(null)
+                      setSelectedOverlayToPlace(null)
                       setSelectedMonsterToPlace({ monsterId: e.target.value, isMaster: false })
                     }}
                     className="bg-dungeon-800 text-gray-300 border border-dungeon-600 rounded text-xs px-2 py-1 max-w-40"
@@ -382,6 +428,43 @@ export default function MapBuilder({
                   </select>
                   {(monsters?.length ?? 0) > 0 && (
                     <span className="text-gray-600 text-xs">{monsters!.length} Monster</span>
+                  )}
+                </span>
+              )}
+            </>
+          )}
+
+          {/* Overlay-placement section (fixed catalog, always available) */}
+          {(
+            <>
+              <div className="w-px h-5 bg-dungeon-600 self-center mx-1 shrink-0" />
+              {selectedOverlayToPlace ? (
+                <span className="flex items-center gap-1.5 text-sm text-purple-300 shrink-0">
+                  <span>{OVERLAYS.find((o) => o.id === selectedOverlayToPlace)?.icon}</span>
+                  <span className="text-xs">{OVERLAYS.find((o) => o.id === selectedOverlayToPlace)?.nameDe}</span>
+                  <span className="text-gray-500 text-xs">– auf Karte klicken</span>
+                  <button onClick={() => setSelectedOverlayToPlace(null)} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 shrink-0">
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      if (!e.target.value) return
+                      setSelectedTileId(null)
+                      setSelectedInstanceId(null)
+                      setSelectedMonsterToPlace(null)
+                      setSelectedOverlayToPlace(e.target.value)
+                    }}
+                    className="bg-dungeon-800 text-gray-300 border border-dungeon-600 rounded text-xs px-2 py-1 max-w-40"
+                  >
+                    <option value="">+ Overlay setzen</option>
+                    {OVERLAYS.map((o) => (
+                      <option key={o.id} value={o.id}>{o.icon} {o.nameDe}</option>
+                    ))}
+                  </select>
+                  {placedOverlays.length > 0 && (
+                    <span className="text-gray-600 text-xs">{placedOverlays.length} Overlay</span>
                   )}
                 </span>
               )}
@@ -441,6 +524,10 @@ export default function MapBuilder({
             monsterPlaceMode={!!selectedMonsterToPlace}
             onPlaceMonster={handlePlaceMonsterOnGrid}
             onRemoveMonster={handleRemoveMonster}
+            overlays={placedOverlays}
+            overlayPlaceMode={!!selectedOverlayToPlace}
+            onPlaceOverlay={handlePlaceOverlayOnGrid}
+            onRemoveOverlay={handleRemoveOverlay}
           />
         </div>
       </div>

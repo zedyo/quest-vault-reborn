@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.1.31 (2026-06-17)
+## Aktuelle Version: 1.1.32 (2026-06-17)
 
 ### Versionierungsregeln
 
@@ -34,7 +34,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 |---|---|---|
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
-| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28), **Agenten KOMPLETT: 4 vertauschte Agenten (Ardus/Kyndrithul/Zarihell/Skarn) kartenscan-validiert → 20 Agenten / 40 Formen (1.1.29), **Kampagnen-Überblick (9, faktisch) + 16 Advanced Quests, neue /kampagnen-Seite (1.1.30), **Reisekarten: 41 Reise-/Stadtereignis-Karten (faktische Metadaten + Bilder, kein Ereignistext), neue /reisekarten-Seite (1.1.31)**. Offen: Overlays (→ 1.1.x) |
+| v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28), **Agenten KOMPLETT: 4 vertauschte Agenten (Ardus/Kyndrithul/Zarihell/Skarn) kartenscan-validiert → 20 Agenten / 40 Formen (1.1.29), **Kampagnen-Überblick (9, faktisch) + 16 Advanced Quests, neue /kampagnen-Seite (1.1.30), **Reisekarten: 41 Reise-/Stadtereignis-Karten (faktische Metadaten + Bilder, kein Ereignistext), neue /reisekarten-Seite (1.1.31), **Overlays im Kartenbauer: 9 platzierbare Overlay-Marker (Gelände/Tür/Objekt/Marker) im MapBuilder + Quest-Editor (1.1.32)**. v1.1-Datenbasis damit abgeschlossen |
 | v1.2.0 | ⏳ Geplant | Design, iPad, Tests, Security |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
@@ -245,7 +245,12 @@ Back-Cards (inkl. Quell-Tippfehler „as it if were"), DE handübersetzt.
       Monsterlisten = FFG-IP, keine zuverlässige Quelle). Ausgeschlossen: „The Sunken Temple"
       (Erweiterung „Sands of the Past" nicht in expansions.ts → halluzinationsverdächtig). Offen:
       detaillierte Szenario-Daten (nur mit zuverlässiger Quelle + geklärter Rechtslage, → v1.4+).
-- [ ] Overlay-Datenbasis (src/data/overlays.ts fehlt)
+- [x] Overlay-Datenbasis ✅ (1.1.32 – `src/data/overlays.ts`): 9 platzierbare Overlay-Marker
+      (Gelände Wasser/Lava/Grube/Schlamm/Trümmer, Tür, Schatztruhe, Ziel-/Suchmarker) als
+      1×1-Feldmarker im MapBuilder (Quest-Editor + Kartenbauer) platzierbar; im Quest-Editor mit
+      der Begegnung gespeichert (`mapData.overlays`, bereits im Schema → keine Migration). Bewusst
+      kompakter, eindeutig realer Kernsatz (keine quest-spezifischen Sondertoken). Erweiterungs-
+      Overlays optional später.
 - [ ] Daten-Validierungspass: alle Werte gegen Karten-Scans prüfen
       (Verfahren etabliert — siehe „Kartenbild-Validierung" oben; Gruppengrößen
       stehen auf den `-back`-Karten)
@@ -296,7 +301,7 @@ quest-vault-reborn/
     │   ├── lieutenants.ts  ✅ (Grundspiel; Erweiterungen offen)
     │   ├── campaigns.ts    ✅ (Kampagnen-Überblick + Advanced Quests – v1.1.30)
     │   ├── travelCards.ts  ✅ (Reise-/Stadtereignis-Karten, Metadaten + Bilder – v1.1.31)
-    │   └── overlays.ts     ❌ fehlt noch
+    │   └── overlays.ts     ✅ (9 platzierbare Overlay-Marker für den Kartenbauer – v1.1.32)
     ├── types/game.ts       ← TypeScript Typdefinitionen
     ├── store/useGameStore.ts ← zustand Store
     ├── components/
@@ -507,6 +512,15 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   `/leutnants?lt=<id>`. Beide Zielseiten lesen den Query-Param (`useSearchParams`), schalten
   „Nur meine Sammlung" beim Aufruf via Link aus, scrollen zum Ziel (`scroll-mt-24`) und heben es
   ~2,5 s mit `ring-2 ring-gold-400` hervor. Muster für künftige Quer-Verlinkungen wiederverwenden.
+- **Overlays im MapBuilder (1.1.32):** `src/data/overlays.ts` (`OverlayType` + `OVERLAYS`/`OVERLAY_BY_ID`)
+  ist der platzierbare Overlay-Katalog (9 Grundspiel-Marker als 1×1-Felder). `MapBuilder` hat eine
+  Overlay-Werkzeugleiste („+ Overlay setzen") analog zur Monster-Platzierung; Overlays sind
+  **controlled** (`overlays`/`onOverlaysChange`, vom Quest-Editor durchgereicht) **ODER uncontrolled**
+  (interner State im Kartenbauer) – wie die Tiles. `MapGrid` rendert `OverlayToken` (Icon+Farbe aus
+  dem Katalog, ✕ zum Entfernen) und platziert per Klick im `overlayPlaceMode`. **Wichtig:** Das
+  Feld `mapData.overlays` war bereits im Persist-Schema (`MapData`) vorhanden → **keine** Schema-/
+  Versionsänderung nötig (nur befüllt). Platzier-Modi (Tile/Monster/Overlay) schließen sich
+  gegenseitig aus (Auswahl setzt die anderen zurück). Erweiterungs-Overlays später ergänzbar.
 - **Datenspeicherung:** localStorage via zustand persist (bis v2.0)
 - **Assets:** any2cards/d2e PNG-Tiles (Community, FFG IP Grauzone)
 - **Hosting:** GitHub Pages (deploy.yml vorhanden)
