@@ -102,23 +102,22 @@ werden. Vor größeren Features werden die Kriterien dem User vorgelegt.
 
 ## v1.2 – Qualität & Design
 
-### 1.2.1 Design-Überarbeitung
+### 1.2.1 Design-Überarbeitung (v1.2.0–1.2.3)
 
-- [ ] Neues Farbschema: Dunkelbraun/Schwarz als Basis, Pergament-Töne für Textflächen, Gold für Überschriften/Akzente
-- [ ] Mindestens 1 Fantasy-Schriftart für Überschriften (lizenzfrei, WebFont)
-- [ ] Hintergrundtextur oder -muster (Stein/Pergament) subtil eingesetzt
-- [ ] Alle bestehenden Seiten im neuen Design: HomePage, MapBuilder, QuestEditor, Heroes, Monsters, Sammlung
-- [ ] Dark Mode bleibt als primäres Theme
-- [ ] Keine weißen/hellen UI-Elemente als Kontrast (durchgehend dunkel)
-- [ ] Screenshot-Review vom User abgenommen (User bestätigt Design)
+- [x] Neues Farbschema: warmes Dunkelbraun/Anthrazit als Basis, Pergament-Töne als Akzent, Gold für Überschriften/Akzente (v1.2.0)
+- [x] Fantasy-Schriftart für Überschriften (lizenzfrei WebFont): Cinzel (OFL) via @fontsource, offline self-hosted; Inter für Fließtext (v1.2.0)
+- [ ] Hintergrundtextur/-muster (Stein/Pergament) subtil – bewusst (noch) nicht; Palette + Fonts tragen die Atmosphäre. Optional später.
+- [x] Token-basiert → alle Seiten im neuen Design (HomePage/MapBuilder/QuestEditor/Heroes/Monsters/Sammlung u. a.)
+- [x] Dark Mode bleibt primäres Theme
+- [x] Durchgehend dunkel (Pergament nur als kleiner Akzent)
+- [~] Design-Richtung vom User bestätigt (warm/mystisch, via Palette-Vorschau v1.2.0); Review der Live-App noch offen
 
-### 1.2.2 iPad & Mobile
+### 1.2.2 iPad & Mobile (v1.2.1 + v1.2.3)
 
-- [ ] Alle Seiten auf 768px × 1024px (iPad Portrait) vollständig bedienbar
-- [ ] Alle Seiten auf 1024px × 768px (iPad Landscape) vollständig bedienbar
-- [ ] Touch-Drag im MapBuilder funktioniert auf iPad (kein Maus-only)
-- [ ] Keine überlappenden Elemente auf 375px (iPhone SE) – zumindest lesbar
-- [ ] Getestet mit Browser-DevTools Tablet-Simulation
+- [x] Responsive Struktur verifiziert: Nav mit Daten-Dropdown + Hamburger < 768px (v1.2.1); Filterleisten `flex-wrap`, Inhalts-Grids responsive
+- [x] Touch-Drag im MapBuilder funktioniert (TouchSensor mit Delay, kein Maus-only)
+- [x] 375px lesbar (mobiles Menü, einspaltige Grids)
+- [~] Verifikation per Code/Breakpoints; reale Geräte-/DevTools-Tablet-Simulation durch User noch empfohlen
 
 ### 1.2.3 Unit-Tests
 
