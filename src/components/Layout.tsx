@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { EXPANSIONS } from '../data/expansions'
+import ThemeSwitcher from './ThemeSwitcher'
 
 // Werkzeuge (eigene Inhalte erstellen) bleiben prominent; die Referenz-/Datenseiten
 // liegen gebündelt unter „Daten", damit die Leiste nicht überquillt.
@@ -117,6 +118,7 @@ export default function Layout() {
             </div>
 
             <NavLink to="/sammlung" className={linkClass}>👜 Sammlung{sammlungBadge}</NavLink>
+            <ThemeSwitcher />
           </nav>
 
           {/* Mobile: Hamburger */}
@@ -149,6 +151,7 @@ export default function Layout() {
                 ))}
               </div>
             </div>
+            <ThemeSwitcher variant="inline" />
           </nav>
         )}
       </header>

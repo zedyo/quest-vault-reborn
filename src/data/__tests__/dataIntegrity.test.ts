@@ -12,6 +12,7 @@ import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
+import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
@@ -550,6 +551,19 @@ describe('Overlay-Datenintegrität', () => {
         errors.push(`${o.id}: Footprint ${o.cols}×${o.rows} unplausibel`)
     }
     expect(errors, errors.join('\n')).toEqual([])
+  })
+})
+
+describe('Theme-Datenintegrität', () => {
+  it('mehrere Themes, eindeutige IDs, Standard enthalten, Pflichtfelder', () => {
+    expect(THEMES.length, 'mindestens 2 Themes').toBeGreaterThanOrEqual(2)
+    const ids = THEMES.map((t) => t.id)
+    expect(new Set(ids).size, 'doppelte Theme-IDs').toBe(ids.length)
+    expect(ids, 'Standard-Theme nicht in der Liste').toContain(DEFAULT_THEME)
+    for (const t of THEMES) {
+      expect(t.label, `${t.id}: label fehlt`).toBeTruthy()
+      expect(/^#[0-9a-fA-F]{6}$/.test(t.swatch), `${t.id}: swatch kein Hex`).toBe(true)
+    }
   })
 })
 
