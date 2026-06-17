@@ -5,14 +5,29 @@
 @layer base {
   html {
     @apply bg-dungeon-950 text-gray-100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply min-h-screen;
+    @apply min-h-screen font-sans;
   }
 
+  /* Display-Schrift nur auf Seiten-/Abschnittsebene (h1–h3); Karten-Titel (h4)
+   *  bleiben in der gut lesbaren Inter. Cinzel wirkt mit etwas Laufweite edler. */
   h1, h2, h3 {
     @apply font-display;
+  }
+  .font-display {
+    letter-spacing: 0.01em;
+  }
+
+  /* Tastatur-Fokus durchgängig sichtbar (Accessibility-Grundlinie). */
+  :focus-visible {
+    outline: 2px solid theme('colors.gold.400');
+    outline-offset: 2px;
+    border-radius: 3px;
   }
 }
 
@@ -26,7 +41,7 @@
   }
 
   .card {
-    @apply bg-dungeon-800 border border-dungeon-700 rounded-lg p-4;
+    @apply bg-dungeon-800 border border-dungeon-700 rounded-lg p-4 shadow-sm shadow-black/20;
   }
 
   .expansion-chip {

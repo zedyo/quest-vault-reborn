@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.0',
+    date: '2026-06-17',
+    title: 'Neues Design – wärmer & atmosphärischer',
+    highlights: [
+      'Frisches Erscheinungsbild: wärmere, dunklere Dungeon-Farben (Anthrazit/Braun mit Gold- und Pergament-Akzenten) – einheitlicher und stimmungsvoller.',
+      'Neue Schriften: edle Fantasy-Überschriften (Cinzel) und gut lesbarer Fließtext (Inter), offline-fähig eingebettet.',
+      'Durchgängig sichtbare Tastatur-Fokus-Markierung für bessere Bedienbarkeit. Weitere Design-Verbesserungen folgen.',
+    ],
+  },
+  {
     version: '1.1.32',
     date: '2026-06-17',
     title: 'Overlays im Kartenbauer',
