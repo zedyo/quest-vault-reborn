@@ -1,0 +1,47 @@
+// Theme-Verwaltung. Die Farb-Themes sind als CSS-Variablen-Sätze in src/index.css
+// definiert (per `data-theme` auf <html> umschaltbar). Die Auswahl wird separat in
+// localStorage gespeichert – bewusst NICHT im zustand-Persist-Store, damit das
+// Spieldaten-Schema (und dessen Migrationspflicht) unangetastet bleibt.
+
+export interface Theme {
+  id: string
+  /** Anzeigename im Umschalter. */
+  label: string
+  /** Repräsentative Farbe für das Vorschau-Plättchen. */
+  swatch: string
+}
+
+export const THEMES: Theme[] = [
+  { id: 'dungeon', label: 'Verlies (Warm)', swatch: '#3a2c1d' },
+  { id: 'arcane', label: 'Arkanblau', swatch: '#0f3460' },
+  { id: 'slate', label: 'Schiefer (Neutral)', swatch: '#2c2c3c' },
+]
+
+export const DEFAULT_THEME = 'dungeon'
+const STORAGE_KEY = 'qvr-theme'
+
+/** Gespeichertes Theme lesen (oder Standard), robust gegen fehlenden/ungültigen Wert. */
+export function getStoredTheme(): string {
+  try {
+    const t = localStorage.getItem(STORAGE_KEY)
+    if (t && THEMES.some((x) => x.id === t)) return t
+  } catch {
+    /* localStorage nicht verfügbar */
+  }
+  return DEFAULT_THEME
+}
+
+/** `data-theme` auf <html> setzen (wirkt sofort über die CSS-Variablen). */
+export function applyTheme(id: string): void {
+  document.documentElement.setAttribute('data-theme', id)
+}
+
+/** Theme wählen: speichern + anwenden. */
+export function setStoredTheme(id: string): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, id)
+  } catch {
+    /* Schreiben fehlgeschlagen – Theme trotzdem anwenden */
+  }
+  applyTheme(id)
+}

@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Themes ──────────────────────────────────────────────────────────────────
+ * Die `dungeon`-Palette ist als R G B-Kanäle in CSS-Variablen definiert und per
+ * `data-theme` auf <html> umschaltbar (Auswahl in src/theme.ts gespeichert).
+ * Gold + Pergament bleiben themeübergreifend konstant. Standard = „dungeon" (warm). */
+:root, [data-theme='dungeon'] {
+  --c-dungeon-950: 15 11 7;
+  --c-dungeon-900: 23 17 10;
+  --c-dungeon-850: 30 22 14;
+  --c-dungeon-800: 38 28 18;
+  --c-dungeon-700: 58 44 29;
+  --c-dungeon-600: 79 61 40;
+}
+[data-theme='arcane'] {
+  --c-dungeon-950: 15 15 26;
+  --c-dungeon-900: 26 26 46;
+  --c-dungeon-850: 24 34 54;
+  --c-dungeon-800: 22 33 62;
+  --c-dungeon-700: 15 52 96;
+  --c-dungeon-600: 26 58 92;
+}
+[data-theme='slate'] {
+  --c-dungeon-950: 12 12 18;
+  --c-dungeon-900: 20 20 31;
+  --c-dungeon-850: 26 26 38;
+  --c-dungeon-800: 30 30 43;
+  --c-dungeon-700: 44 44 60;
+  --c-dungeon-600: 61 61 82;
+}
+
 @layer base {
   html {
     @apply bg-dungeon-950 text-gray-100;
@@ -33,19 +62,19 @@
   /* Textauswahl im Fackelschein-Gold. */
   ::selection {
     background-color: theme('colors.gold.500');
-    color: theme('colors.dungeon.950');
+    color: rgb(var(--c-dungeon-950));
   }
 }
 
-/* Schlanke, zur warmen Palette passende Scrollleisten. */
+/* Schlanke, zur Palette passende Scrollleisten (folgen dem aktiven Theme). */
 * {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.dungeon.600') transparent;
+  scrollbar-color: rgb(var(--c-dungeon-600)) transparent;
 }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background-color: theme('colors.dungeon.600');
+  background-color: rgb(var(--c-dungeon-600));
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: content-box;

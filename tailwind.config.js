@@ -7,15 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warme, mystische Dungeon-Palette: dunkles Anthrazit/Braun (gebranntes Holz,
-        // altes Leder) mit Gold/Fackelschein- und Pergament-Akzenten.
+        // `dungeon` ist über CSS-Variablen (R G B-Kanäle) definiert → zur Laufzeit
+        // per data-theme umschaltbar (s. src/index.css + src/theme.ts). Gold + Pergament
+        // bleiben themeübergreifend konstante Akzente.
         dungeon: {
-          950: '#0f0b07', // Seitenhintergrund (warmes Fast-Schwarz)
-          900: '#17110a', // Kopf-/Fußzeile, erhöhte dunkle Flächen
-          850: '#1e160e', // Zwischenebene
-          800: '#261c12', // Kartenhintergrund (dunkles Braun)
-          700: '#3a2c1d', // Rahmen (warmes Braun)
-          600: '#4f3d28', // Hover-Rahmen / Trenner
+          950: 'rgb(var(--c-dungeon-950) / <alpha-value>)',
+          900: 'rgb(var(--c-dungeon-900) / <alpha-value>)',
+          850: 'rgb(var(--c-dungeon-850) / <alpha-value>)',
+          800: 'rgb(var(--c-dungeon-800) / <alpha-value>)',
+          700: 'rgb(var(--c-dungeon-700) / <alpha-value>)',
+          600: 'rgb(var(--c-dungeon-600) / <alpha-value>)',
         },
         gold: {
           200: '#fde68a',
