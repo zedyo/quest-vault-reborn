@@ -1,85 +1,85 @@
 # Descent 2. Edition – Overlay-Plättchen und Spielmarker
 
-**Status:** Recherche abgeschlossen (Mai 2026)  
-**Zuletzt aktualisiert:** 2026-05-14
+**Status:** Im Kartenbauer umgesetzt ✅ (v1.1.32) – `src/data/overlays.ts` + Platzierung im MapBuilder  
+**Zuletzt aktualisiert:** 2026-06-17
 
 ---
 
-## Overlay-Plättchen (Auflegeplättchen)
+## Umsetzung im Kartenbauer (v1.1.32)
 
-Overlays sind kleinere Pappplättchen, die auf normale Kacheln gelegt werden, um das Terrain oder Spielobjekte darzustellen.
+Overlays sind vor allem für den **Questbuilder** relevant: Quest-Autoren markieren damit
+Gelände, Türen, Objekte und Missionsmarker auf der Karte. Umgesetzt als platzierbare
+**1×1-Feldmarker** im MapBuilder (Quest-Editor *und* Kartenbauer):
 
-### Terrain-Overlays
+- Auswahl per „**+ Overlay setzen**" in der Werkzeugleiste → auf ein Feld klicken platziert den Marker.
+- Marker per **✕** wieder entfernen. Im Quest-Editor werden die Overlays mit der Begegnung
+  gespeichert (`mapData.overlays`, war bereits im Persist-Schema vorgesehen → keine Migration nötig).
 
-| Typ (DE) | Typ (EN) | Effekt |
-|----------|----------|--------|
-| Wasser | Water | 2 MP zum Betreten |
-| Lava | Lava | 1 Schaden; Niederlage bei Rundenende |
-| Schlamm/Sumpf | Sludge | +1 MP; max. Geschwindigkeit 1 |
-| Grube | Pit | 2 Schaden; keine Bewegung |
-| Gefahrenfeld | Hazard | Wie Lava |
+Erfasst ist ein bewusst **kompakter, eindeutig realer Kernsatz** des Grundspiels (keine
+quest-spezifischen Sondertoken, um keine unbelegten Daten anzulegen). `descriptionDe` ist eine
+kurze, eigene Mechanik-Notiz (kein Regelheft-Text). Modell = pro Feld ein Marker (1×1), passend
+für die Karten-Annotation; nicht als exakte physische Plättchengröße gedacht.
 
-### Tür-Overlays
+### Katalog `src/data/overlays.ts`
 
-| Typ (DE) | Typ (EN) | Beschreibung |
-|----------|----------|-------------|
-| Geschlossene Tür | Closed Door | Blockiert Weg + Sichtlinie |
-| Offene Tür | Open Door | Freier Durchgang |
-| Geheimtür | Secret Door | Unsichtbar bis entdeckt |
-| Barrikade | Barricade | Blockiert Weg |
+| id | Name (DE) | Name (EN) | Kategorie | Symbol |
+|---|---|---|---|---|
+| `water` | Wasser | Water | terrain | 💧 |
+| `lava` | Lava | Lava | terrain | 🔥 |
+| `pit` | Grube | Pit | terrain | 🕳️ |
+| `sludge` | Schlamm | Sludge | terrain | 🟤 |
+| `rubble` | Trümmer | Rubble | terrain | 🪨 |
+| `door` | Tür | Door | passage | 🚪 |
+| `chest` | Schatztruhe | Treasure Chest | object | 🧰 |
+| `objective` | Zielmarker | Objective Token | marker | 🎯 |
+| `search` | Suchmarker | Search Token | marker | 🔍 |
 
-### Quest-Objekt-Overlays
+Alle `expansionId: base`, alle Footprint 1×1. Erweiterungs-Overlays können später ergänzt werden.
 
-| Typ (DE) | Typ (EN) | Verwendung |
-|----------|----------|-----------|
-| Altar | Altar | Quest-Ziel |
-| Kiste | Chest | Schatz/Quest-Objekt |
-| Statue | Statue | Hindernisblock |
-| Pilz | Mushroom | Trollsümpfe-Quest |
-| Käfig | Cage | Gefangener-Quest |
-| Brunnen | Well | Quest-Interaktion |
-| Kristall | Crystal | Quest-Ziel |
-| Schrein | Shrine | Quest-Interaktion |
+### Datenmodell
+
+```typescript
+interface OverlayType {           // Katalog (src/data/overlays.ts)
+  id: string
+  nameEn: string; nameDe: string
+  category: 'terrain' | 'passage' | 'object' | 'marker'
+  cols: number; rows: number      // Footprint (Annotation: 1×1)
+  expansionId: string
+  color: string; icon: string     // Marker-Darstellung
+  descriptionDe: string           // kurze eigene Mechanik-Notiz
+}
+
+interface PlacedOverlay {         // platzierte Instanz (mapData.overlays)
+  id: string
+  overlayType: string             // → OverlayType.id
+  x: number; y: number
+}
+```
+
+Integration: `src/components/MapBuilder/index.tsx` (Werkzeugleiste + Platzier-Logik, controlled
+*oder* uncontrolled), `MapGrid.tsx` (`OverlayToken`-Rendering + Klick-Platzierung), Quest-Editor
+reicht `encounter.mapData.overlays` durch. Datenintegritäts-Tests sichern IDs, Kategorie,
+`expansionId`, Footprint und Zweisprachigkeit ab.
 
 ---
 
-## Token-Typen (Spielmarker)
+## Hintergrund-Recherche (weitere Komponenten, nicht im Builder)
 
-### Grundspiel-Token
+Diese Listen dienen als faktische Referenz; im Builder ist bewusst nur der obige Kernsatz erfasst.
 
-| Token (DE) | Token (EN) | Beschreibung |
-|-----------|-----------|-------------|
-| Bedrohungsmarker | Threat Token | Overlord-Ressource |
-| Erkundungstoken | Search Token | Auf dem Boden platziert; Helden können suchen |
-| Schatztruhe | Treasure Token | Markiert Schatzfundort |
-| Falle | Trap | Verdeckte Falle |
-| Konditionsmarker | Condition Token | Heldenstatus (vergiftet etc.) |
-| Erschöpfungsmarker | Fatigue Token | Heldenausdauer |
-| Ohnmachtsstatus | KO Marker | Held liegt am Boden |
-| Aktivierungsmarker | Activation Token | Wessen Zug ist es |
-| Rundenmarker | Round Token | Rundentracker |
+### Weitere Gelände-/Objekt-Overlays
+Gefahrenfeld (Hazard, wie Lava); quest-spezifische Objekte wie Altar, Statue, Pilz, Käfig (jeweils
+in den Quest-Guides definiert) – bewusst nicht als generische Overlays übernommen.
 
-### Zustands-Token (Conditions)
-
-| Zustand (DE) | Zustand (EN) | Effekt |
-|-------------|-------------|--------|
-| Vergiftet | Poisoned | Am Zugende 1 Schaden |
-| Betäubt | Stunned | Nächste Aktion verlieren |
-| Verlangsamt | Slowed | Keine Rennen-Aktion; Bewegung -1 |
-| Immobilisiert | Immobilized | Keine Bewegung |
-| Verflucht | Cursed | Schaden nicht heilbar bis Entfernung |
-| Erschöpft | Weakened | (je nach Version) |
-| Blind | Blinded | Sichtlinien-Einschränkung |
-| Eingefroren | Frozen | Wie Immobilisiert |
-
-### Questspezifische Token
-
-Viele Quests haben eigene Spezialmarker (z.B. Schlüssel, Relikte, Beutewürfel). Diese sind quest-spezifisch und in den jeweiligen Quest-Guides beschrieben.
+### Spielmarker (Tokens, kein Karten-Overlay)
+Bedrohungs-, Such-, Aktivierungs-, Runden-, Erschöpfungs- und Zustandsmarker (Vergiftet, Betäubt,
+Immobilisiert, Verflucht, Blind …) sind Spielmarker, keine auf die Karte gelegten Gelände-Overlays,
+und daher nicht Teil des Builder-Overlay-Sets. Strukturiert u. a. in any2cards `tokens.js` /
+`conditions.js`.
 
 ---
 
 ## Quellen
 
-- CRRG 1.15 (Deutsch): https://descent-community.org/wp-content/uploads/2021/01/CRRG_1.15_DE_interaktiv.pdf
 - Descent Community Wiki: https://wiki.descent-community.org
 - any2cards/d2e – data/tokens.js, data/conditions.js: https://github.com/any2cards/d2e

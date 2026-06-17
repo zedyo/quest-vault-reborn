@@ -2,8 +2,9 @@ import { useRef, CSSProperties, useState, useCallback } from 'react'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
+import { OVERLAY_BY_ID } from '../../data/overlays'
 import type { PlacedMapTile } from './types'
-import type { PlacedMonster } from '../../types/game'
+import type { PlacedMonster, PlacedOverlay } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS, CONNECTOR_INSET_FRAC } from './constants'
 
 export function effectiveDims(tile: PlacedMapTile) {
@@ -230,6 +231,57 @@ function MonsterToken({
   )
 }
 
+function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove: (id: string) => void }) {
+  const def = OVERLAY_BY_ID[overlay.overlayType]
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: overlay.x * CELL_SIZE + 4,
+        top: overlay.y * CELL_SIZE + 4,
+        width: CELL_SIZE - 8,
+        height: CELL_SIZE - 8,
+        borderRadius: 6,
+        backgroundColor: (def?.color ?? '#374151') + 'cc',
+        border: `2px solid ${def?.color ?? '#6b7280'}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 20,
+        cursor: 'default',
+        userSelect: 'none',
+      }}
+      title={`${def?.nameDe ?? overlay.overlayType} – ✕ entfernen`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <span style={{ fontSize: 16, lineHeight: 1, pointerEvents: 'none' }}>{def?.icon ?? '◆'}</span>
+      <button
+        onClick={(e) => { e.stopPropagation(); onRemove(overlay.id) }}
+        style={{
+          position: 'absolute',
+          top: -5,
+          right: -5,
+          width: 14,
+          height: 14,
+          borderRadius: '50%',
+          backgroundColor: '#1f2937',
+          border: '1px solid #4b5563',
+          color: '#9ca3af',
+          fontSize: 9,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          lineHeight: 1,
+          padding: 0,
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  )
+}
+
 interface Props {
   tiles: PlacedMapTile[]
   selectedInstanceId: string | null
@@ -243,6 +295,10 @@ interface Props {
   monsterPlaceMode?: boolean
   onPlaceMonster?: (col: number, row: number) => void
   onRemoveMonster?: (id: string) => void
+  overlays?: PlacedOverlay[]
+  overlayPlaceMode?: boolean
+  onPlaceOverlay?: (col: number, row: number) => void
+  onRemoveOverlay?: (id: string) => void
 }
 
 export default function MapGrid({
@@ -258,6 +314,10 @@ export default function MapGrid({
   monsterPlaceMode,
   onPlaceMonster,
   onRemoveMonster,
+  overlays,
+  overlayPlaceMode,
+  onPlaceOverlay,
+  onRemoveOverlay,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -291,6 +351,12 @@ export default function MapGrid({
     if (monsterPlaceMode && onPlaceMonster) {
       if (col >= 0 && col < GRID_COLS && row >= 0 && row < GRID_ROWS) {
         onPlaceMonster(col, row)
+      }
+      return
+    }
+    if (overlayPlaceMode && onPlaceOverlay) {
+      if (col >= 0 && col < GRID_COLS && row >= 0 && row < GRID_ROWS) {
+        onPlaceOverlay(col, row)
       }
       return
     }
@@ -355,7 +421,7 @@ export default function MapGrid({
                 linear-gradient(to bottom, #2a2a3a 1px, transparent 1px)
               `,
               backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
-              cursor: (selectedTileId || monsterPlaceMode) ? 'crosshair' : 'default',
+              cursor: (selectedTileId || monsterPlaceMode || overlayPlaceMode) ? 'crosshair' : 'default',
             }}
           >
             {tiles.map((tile) => (
@@ -363,10 +429,13 @@ export default function MapGrid({
                 key={tile.instanceId}
                 tile={tile}
                 isSelected={tile.instanceId === selectedInstanceId}
-                placingMode={selectedTileId !== null || !!monsterPlaceMode}
+                placingMode={selectedTileId !== null || !!monsterPlaceMode || !!overlayPlaceMode}
                 onSelect={onSelectInstance}
                 zoom={zoom}
               />
+            ))}
+            {(overlays ?? []).map((o) => (
+              <OverlayToken key={o.id} overlay={o} onRemove={onRemoveOverlay ?? (() => {})} />
             ))}
             {(monsters ?? []).map((m) => (
               <MonsterToken

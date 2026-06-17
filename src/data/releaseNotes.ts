@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.32',
+    date: '2026-06-17',
+    title: 'Overlays im Kartenbauer',
+    highlights: [
+      'Im Kartenbauer und Quest-Editor lassen sich jetzt Overlays platzieren: Tür, Schatztruhe, Ziel- und Suchmarker sowie Geländefelder (Wasser, Lava, Grube, Schlamm, Trümmer).',
+      'Einfach „+ Overlay setzen" wählen und auf ein Feld klicken; im Quest-Editor werden die Overlays mit der Begegnung gespeichert.',
+    ],
+  },
+  {
     version: '1.1.31',
     date: '2026-06-17',
     title: 'Reisekarten-Übersicht',
