@@ -3,44 +3,28 @@ import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { HEROES } from '../data/heroes'
 import { MONSTERS } from '../data/monsters'
+import { HERO_CLASSES } from '../data/heroClasses'
 import ReleaseNotesModal from '../components/ReleaseNotesModal'
 
-const FEATURES = [
-  {
-    icon: '🗺️',
-    title: 'Kartenbauer',
-    description: 'Spielplan-Plättchen deiner Sammlung per Klick platzieren und drehen.',
-    href: '/karte',
-    available: true,
-  },
-  {
-    icon: '📜',
-    title: 'Quest-Editor',
-    description: 'Quests mit Begegnungen, Siegbedingungen, Monstern und Erzähltext.',
-    href: '/quest',
-    available: true,
-  },
-  {
-    icon: '👹',
-    title: 'Monster',
-    description: 'Alle Monstergruppen aus deiner Sammlung auf einen Blick.',
-    href: '/monster',
-    available: true,
-  },
-  {
-    icon: '🧙',
-    title: 'Helden',
-    description: 'Alle Helden nach Archetyp und Erweiterung gefiltert.',
-    href: '/helden',
-    available: true,
-  },
-  {
-    icon: '👜',
-    title: 'Meine Sammlung',
-    description: 'Verwalte deine Erweiterungen. Alle Werkzeuge passen sich an.',
-    href: '/sammlung',
-    available: true,
-  },
+// Werkzeuge zum Erstellen/Verwalten – mit Beschreibung prominent.
+const TOOLS = [
+  { icon: '🗺️', title: 'Kartenbauer', description: 'Spielplan-Plättchen platzieren, drehen und mit Overlays kennzeichnen.', href: '/karte' },
+  { icon: '📜', title: 'Quest-Editor', description: 'Quests mit Begegnungen, Zielen, Monstern und Erzähltext erstellen.', href: '/quest' },
+  { icon: '👜', title: 'Meine Sammlung', description: 'Erweiterungen wählen – alle Werkzeuge passen sich an.', href: '/sammlung' },
+]
+
+// Nachschlage-/Datenseiten – kompakte Kacheln (Symbol + Titel).
+const OVERVIEWS = [
+  { icon: '👹', title: 'Monster', href: '/monster' },
+  { icon: '🧙', title: 'Helden', href: '/helden' },
+  { icon: '⚔️', title: 'Klassen', href: '/klassen' },
+  { icon: '🛒', title: 'Items', href: '/items' },
+  { icon: '👑', title: 'Overlord', href: '/overlord' },
+  { icon: '🗡️', title: 'Leutnants', href: '/leutnants' },
+  { icon: '🎭', title: 'Agenten', href: '/agenten' },
+  { icon: '📜', title: 'Plotdecks', href: '/plotdecks' },
+  { icon: '🏰', title: 'Kampagnen', href: '/kampagnen' },
+  { icon: '🧭', title: 'Reisekarten', href: '/reisekarten' },
 ]
 
 export default function HomePage() {
@@ -81,27 +65,39 @@ export default function HomePage() {
         ))}
       </div>
 
+      {/* Werkzeuge */}
       <div>
-        <h3 className="font-display text-lg text-gray-300 font-semibold mb-3">Werkzeuge</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {FEATURES.map((f) => (
+        <h3 className="font-display text-lg text-gray-200 font-semibold mb-3">Werkzeuge</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {TOOLS.map((f) => (
             <Link
               key={f.href}
               to={f.href}
-              className={`card hover:border-gold-500 transition-colors group ${
-                !f.available ? 'opacity-50 pointer-events-none' : ''
-              }`}
+              className="card hover:border-gold-500 hover:-translate-y-0.5 transition-all duration-150 group"
             >
               <div className="text-2xl mb-2">{f.icon}</div>
-              <h4 className="font-display text-gold-300 font-semibold group-hover:text-gold-400 transition-colors">
+              <h4 className="text-gold-300 font-semibold group-hover:text-gold-400 transition-colors">
                 {f.title}
               </h4>
               <p className="text-gray-400 text-sm mt-1">{f.description}</p>
-              {!f.available && (
-                <span className="mt-2 inline-block text-xs bg-dungeon-700 text-gray-600 px-2 py-0.5 rounded">
-                  In Entwicklung
-                </span>
-              )}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Übersichten & Referenz */}
+      <div>
+        <h3 className="font-display text-lg text-gray-200 font-semibold mb-1">Übersichten &amp; Referenz</h3>
+        <p className="text-gray-600 text-xs mb-3">Vollständige Spieldaten – filtern sich nach deiner Sammlung.</p>
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
+          {OVERVIEWS.map((o) => (
+            <Link
+              key={o.href}
+              to={o.href}
+              className="card flex flex-col items-center justify-center gap-1.5 py-4 text-center hover:border-gold-500 hover:-translate-y-0.5 transition-all duration-150 group"
+            >
+              <span className="text-2xl">{o.icon}</span>
+              <span className="text-xs font-medium text-gray-300 group-hover:text-gold-300 transition-colors">{o.title}</span>
             </Link>
           ))}
         </div>
@@ -109,7 +105,7 @@ export default function HomePage() {
 
       {/* Projekt-Status für Fans */}
       <div className="rounded-lg border border-dungeon-600 overflow-hidden">
-        <div className="bg-dungeon-700 px-4 py-3 flex items-center gap-2 border-b border-dungeon-600">
+        <div className="bg-dungeon-800 px-4 py-3 flex items-center gap-2 border-b border-dungeon-600">
           <span className="text-lg">🛠️</span>
           <div>
             <p className="text-amber-400 font-semibold text-sm">Hobbyprojekt in aktiver Entwicklung</p>
@@ -122,16 +118,17 @@ export default function HomePage() {
 
         <div className="p-4 grid sm:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-display text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
+            <h4 className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
               <span className="text-green-500">✓</span> Bereits verfügbar
             </h4>
             <ul className="space-y-2">
               {[
-                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen aus deiner Sammlung platzieren und drehen' },
+                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen platzieren, drehen und mit Overlays (Türen, Truhen, Gelände) markieren' },
                 { icon: '📜', text: 'Quest-Editor – eigene Abenteuer erstellen, speichern und exportieren' },
-                { icon: '👹', text: 'Über 60 Monstergruppen mit allen Spielwerten (Akt 1 & Akt 2)' },
-                { icon: '🧙', text: 'Über 68 Helden mit Fähigkeiten aus allen Erweiterungen' },
-                { icon: '👜', text: 'Erweiterungs-Filter – die App passt sich deiner Sammlung an' },
+                { icon: '👹', text: `Alle ${MONSTERS.length} Monstergruppen mit vollständigen Spielwerten (Akt 1 & Akt 2)` },
+                { icon: '🧙', text: `${HEROES.length} Helden und ${HERO_CLASSES.length} Klassen aus allen Erweiterungen` },
+                { icon: '🃏', text: 'Karten-Datenbank: Items & Relikte, Overlord, Leutnants, Agenten und alle Plotdecks' },
+                { icon: '🏰', text: 'Kampagnen-Überblick, Advanced Quests und Reisekarten' },
                 { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
               ].map((item) => (
                 <li key={item.text} className="flex gap-2 text-sm text-gray-400">
@@ -143,7 +140,7 @@ export default function HomePage() {
           </div>
 
           <div>
-            <h4 className="font-display text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
+            <h4 className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
               <span className="text-amber-500">◎</span> Geplant & in Arbeit
             </h4>
             <ul className="space-y-2">
@@ -152,7 +149,6 @@ export default function HomePage() {
                 { icon: '📖', text: 'Komplette Kampagne speichern – Spielstand pausieren und Wochen später weitermachen' },
                 { icon: '⚔️', text: 'Overlord-Zentrale – eigenes Deck verwalten, Leutnanten steuern, Helden im Blick behalten' },
                 { icon: '🛡️', text: 'Spieler-Ansicht – jeder Held hat seine eigene Übersicht am Tisch' },
-                { icon: '🎨', text: 'Neues Design – düsterer, mystischer, mehr Dungeon-Atmosphäre' },
                 { icon: '🔄', text: 'Geräte-Synchronisation – Overlord und Spieler teilen sich denselben Spielstand' },
               ].map((item) => (
                 <li key={item.text} className="flex gap-2 text-sm text-gray-500">
@@ -171,10 +167,7 @@ export default function HomePage() {
           </p>
           <p className="text-xs text-gray-600 text-center">
             Fehler gefunden oder einen Feature-Wunsch?{' '}
-            <a
-              href="mailto:ze.d@me.com"
-              className="text-gold-600 hover:text-gold-400 transition-colors"
-            >
+            <a href="mailto:ze.d@me.com" className="text-gold-600 hover:text-gold-400 transition-colors">
               ze.d@me.com
             </a>
           </p>
