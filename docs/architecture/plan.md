@@ -1,12 +1,12 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.2.2  
+**Aktuelle Version:** 1.2.3  
 **Letztes Update:** 2026-06-17  
 **Status:** v1.0 ausgeliefert; v1.1-Datenbasis abgeschlossen (1.1.0–1.1.32: Daten/Kartensymbole,
 Overlord/Leutnants/Agenten/Plotdecks komplett, Kampagnen, Reisekarten, Overlays). **v1.2 (Design)
-in Arbeit:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter offline, Fokusringe);
-1.2.1 = Navigation aufgeräumt (Daten-Dropdown + mobiles Menü); 1.2.2 = Startseite-Hub aufgefrischt
-(alle Bereiche, dynamische Zählwerte). Als Nächstes: durchgängiger Feinschliff, iPad-Verifikation
+abgeschlossen:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter offline, Fokusringe);
+1.2.1 = Navigation (Daten-Dropdown + mobiles Menü); 1.2.2 = Startseite-Hub; 1.2.3 = Feinschliff
+(Scrollleisten/::selection/reduced-motion) + iPad-Layout verifiziert. Offen für v1.2: Tests/Security-Audit
 
 ---
 

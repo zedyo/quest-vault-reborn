@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.3',
+    date: '2026-06-17',
+    title: 'Feinschliff & Tablet-Optimierung',
+    highlights: [
+      'Letzter Schliff des neuen Designs: zur Optik passende schlanke Scrollleisten, goldene Textauswahl und dezente Bewegungen, die sich abschalten, wenn das System reduzierte Bewegung wünscht.',
+      'Layout auf Tablet und Handy geprüft – Menü, Filter und Übersichten passen sich sauber an die Bildschirmgröße an.',
+    ],
+  },
+  {
     version: '1.2.2',
     date: '2026-06-17',
     title: 'Frische Startseite',
