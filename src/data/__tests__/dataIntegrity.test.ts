@@ -11,6 +11,7 @@ import { AGENTS } from '../agents'
 import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
+import { TRAVEL_CARDS } from '../travelCards'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -492,6 +493,38 @@ describe('Kampagnen-Datenintegrität', () => {
 
   it('Advanced Quests: vollständig erfasst (16)', () => {
     expect(ADVANCED_QUESTS.length).toBe(16)
+  })
+})
+
+describe('Reisekarten-Datenintegrität', () => {
+  const TERRAINS: Record<'travel' | 'city', Set<string>> = {
+    travel: new Set(['Plain', 'Forest', 'Mountain', 'Road', 'Water']),
+    city: new Set(['Street', 'Tower', 'Building', 'Sewer', 'Hazard']),
+  }
+
+  it('keine doppelten IDs', () => {
+    const ids = TRAVEL_CARDS.map((c) => c.id)
+    expect(new Set(ids).size, 'doppelte Reisekarten-IDs').toBe(ids.length)
+  })
+
+  it('gültige Felder: Erweiterung, Deck-Typ, Position, Gelände, Bild', () => {
+    const errors: string[] = []
+    for (const c of TRAVEL_CARDS) {
+      if (!EXPANSION_IDS.has(c.expansionId)) errors.push(`${c.id}: unbekannte expansionId '${c.expansionId}'`)
+      if (c.deckType !== 'travel' && c.deckType !== 'city') errors.push(`${c.id}: ungültiger deckType '${c.deckType}'`)
+      if (!Number.isInteger(c.position) || c.position < 1) errors.push(`${c.id}: position ${c.position} unplausibel`)
+      if (!Number.isInteger(c.total) || c.total < 1) errors.push(`${c.id}: total ${c.total} unplausibel`)
+      if (c.eventTerrains.length === 0) errors.push(`${c.id}: keine Ereignis-Gelände`)
+      for (const t of c.eventTerrains) if (!TERRAINS[c.deckType].has(t)) errors.push(`${c.id}: '${t}' kein ${c.deckType}-Gelände`)
+      if (!c.imageUrl.startsWith('https://')) errors.push(`${c.id}: imageUrl ungültig`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('vollständig erfasst: 41 Karten (31 Reise + 10 Stadt)', () => {
+    expect(TRAVEL_CARDS.length).toBe(41)
+    expect(TRAVEL_CARDS.filter((c) => c.deckType === 'travel').length).toBe(31)
+    expect(TRAVEL_CARDS.filter((c) => c.deckType === 'city').length).toBe(10)
   })
 })
 

@@ -331,6 +331,25 @@ export interface AdvancedQuest {
   imageUrlBack: string
 }
 
+/**
+ * Eine Reise-/Stadtereignis-Karte. Quelle: any2cards travel-event-decks /
+ * city-event-decks. Es werden NUR faktische Strukturdaten erfasst (Erweiterung,
+ * Deck-Position, welche Gelände-Icons ein Ereignis tragen) + Kartenbild-Link;
+ * der Ereignistext selbst wird NICHT reproduziert.
+ */
+export interface TravelCard {
+  id: string
+  expansionId: string
+  /** 'travel' = Reise-Ereignisse (Wildnis), 'city' = Stadt-Ereignisse (Nerekhall). */
+  deckType: 'travel' | 'city'
+  /** Deck-Position N (von total). */
+  position: number
+  total: number
+  /** Gelände-Icons, die auf dieser Karte ein Ereignis auslösen (EN). */
+  eventTerrains: string[]
+  imageUrl: string
+}
+
 export interface Hero {
   id: string
   name: string
