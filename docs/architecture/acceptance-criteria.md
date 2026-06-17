@@ -60,11 +60,14 @@ werden. Vor größeren Features werden die Kriterien dem User vorgelegt.
 
 ### 1.1.6 Reisekarten & Nebenszenarien
 
-- [ ] Alle Reisekarten (Travel Cards) aller Erweiterungen erfasst
-- [ ] Pro Karte: Name (DE+EN), Erweiterung, Kartentext (DE), mögliche ausgelöste Ereignisse
-- [ ] Nebenszenarien (Side Quests) die durch Reisekarten erreichbar sind, dokumentiert
-- [ ] Daten in `docs/game-data/travel-cards.md` vollständig dokumentiert
-- [ ] (Optional erst v1.4): `src/data/travelCards.ts`
+- [x] Alle Reisekarten (Reise- + Stadtereignisse) aller Erweiterungen erfasst (41 – v1.1.31)
+- [~] Pro Karte: Erweiterung, Deck-Position, Gelände-Abdeckung (welche Icons ein Ereignis tragen)
+      + Kartenbild. **Kartentext bewusst NICHT erfasst** (FFG-Urheberrecht); das Kartenbild zeigt
+      den vollständigen Inhalt.
+- [x] Nebenszenarien (Side Quests) = als Advanced Quests dokumentiert (v1.1.30, Kampagnen-Seite),
+      von der Reisekarten-Seite verlinkt
+- [x] Daten in `docs/game-data/travel-cards.md` dokumentiert (Bestand + Abgrenzung)
+- [x] `src/data/travelCards.ts` + `/reisekarten`-Seite + Tests – v1.1.31
 
 ### 1.1.7 Kampagnen & Szenarien
 
