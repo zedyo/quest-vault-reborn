@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.4',
+    date: '2026-06-17',
+    title: 'Themes zum Umschalten',
+    highlights: [
+      'Neuer Design-Umschalter (🎨 oben rechts, auf dem Handy im Menü): wähle zwischen „Verlies" (warm), „Arkanblau" (das frühere Blau) und „Schiefer" (neutral).',
+      'Die Auswahl wird gespeichert und gilt beim nächsten Besuch automatisch.',
+    ],
+  },
+  {
     version: '1.2.3',
     date: '2026-06-17',
     title: 'Feinschliff & Tablet-Optimierung',
