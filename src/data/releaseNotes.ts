@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.1',
+    date: '2026-06-17',
+    title: 'Aufgeräumte Navigation',
+    highlights: [
+      'Die Menüleiste ist entrümpelt: Werkzeuge bleiben oben, alle Übersichtsseiten (Monster, Helden, Klassen, Items, Overlord, Leutnants, Agenten, Plotdecks, Kampagnen, Reisekarten) liegen jetzt gebündelt unter „📚 Daten".',
+      'Auf Tablet und Handy gibt es ein eigenes Menü (☰) – kein Zeilen-Wirrwarr mehr.',
+    ],
+  },
+  {
     version: '1.2.0',
     date: '2026-06-17',
     title: 'Neues Design – wärmer & atmosphärischer',
