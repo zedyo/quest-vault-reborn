@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.1.31',
+    date: '2026-06-17',
+    title: 'Reisekarten-Übersicht',
+    highlights: [
+      'Neue Seite „🧭 Reisekarten" mit allen 41 Reise- und Stadtereignis-Karten, gruppiert nach Erweiterung – inklusive Kartenbildern.',
+      'Pro Karte ist markiert, auf welchen Reise-Geländetypen sie ein Ereignis auslöst. Side-Quests („Nebenszenarien") sind als Advanced Quests auf der Kampagnen-Seite verlinkt.',
+    ],
+  },
+  {
     version: '1.1.30',
     date: '2026-06-16',
     title: 'Kampagnen-Überblick & Advanced Quests',

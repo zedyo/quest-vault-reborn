@@ -15,6 +15,7 @@ const navItems = [
   { to: '/agenten', label: '🎭 Agenten', end: false },
   { to: '/plotdecks', label: '📜 Plotdecks', end: false },
   { to: '/kampagnen', label: '🏰 Kampagnen', end: false },
+  { to: '/reisekarten', label: '🧭 Reisekarten', end: false },
   { to: '/sammlung', label: '👜 Sammlung', end: false },
 ]
 

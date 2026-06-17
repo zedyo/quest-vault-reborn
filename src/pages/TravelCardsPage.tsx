@@ -1,0 +1,146 @@
+import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { TRAVEL_CARDS } from '../data/travelCards'
+import { EXPANSIONS } from '../data/expansions'
+import { useGameStore } from '../store/useGameStore'
+import ModalOverlay from '../components/ModalOverlay'
+import { OwnedToggle, LangToggle, SegmentedControl, type Lang } from '../components/Filters'
+import type { TravelCard } from '../types/game'
+
+// Faktische Gelände-Icons je Deck-Typ → DE-Label + Symbol.
+const TERRAIN: Record<string, { de: string; icon: string }> = {
+  Plain: { de: 'Ebene', icon: '🌾' },
+  Forest: { de: 'Wald', icon: '🌲' },
+  Mountain: { de: 'Berg', icon: '⛰️' },
+  Road: { de: 'Straße', icon: '🛣️' },
+  Water: { de: 'Wasser', icon: '🌊' },
+  Street: { de: 'Gasse', icon: '🏙️' },
+  Tower: { de: 'Turm', icon: '🗼' },
+  Building: { de: 'Gebäude', icon: '🏛️' },
+  Sewer: { de: 'Kanalisation', icon: '🕳️' },
+  Hazard: { de: 'Gefahr', icon: '⚠️' },
+}
+const TERRAIN_ORDER: Record<'travel' | 'city', string[]> = {
+  travel: ['Plain', 'Forest', 'Mountain', 'Road', 'Water'],
+  city: ['Street', 'Tower', 'Building', 'Sewer', 'Hazard'],
+}
+
+function CardTile({ card, lang, onOpen }: { card: TravelCard; lang: Lang; onOpen: () => void }) {
+  const [err, setErr] = useState(false)
+  const events = new Set(card.eventTerrains)
+  return (
+    <div className="card space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-semibold text-gold-400">
+          {(card.deckType === 'city' ? (lang === 'de' ? 'Stadt-Ereignis' : 'City event') : (lang === 'de' ? 'Reise-Ereignis' : 'Travel event'))} {card.position}/{card.total}
+        </span>
+      </div>
+      {!err && (
+        <button onClick={onOpen} className="block w-full rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 focus:outline-none focus:border-gold-400 transition-colors" title="Karte vergrößern">
+          <img src={card.imageUrl} alt={`${card.deckType} event ${card.position}`} className="w-full h-auto" loading="lazy" onError={() => setErr(true)} />
+        </button>
+      )}
+      <div className="flex flex-wrap gap-1">
+        {TERRAIN_ORDER[card.deckType].map((t) => {
+          const has = events.has(t)
+          const info = TERRAIN[t]
+          return (
+            <span
+              key={t}
+              className={`inline-flex items-center gap-0.5 text-[10px] rounded px-1.5 py-0.5 border ${has ? 'bg-emerald-900/40 border-emerald-800/60 text-emerald-300' : 'bg-dungeon-800/50 border-dungeon-700 text-gray-600'}`}
+              title={has ? (lang === 'de' ? 'Ereignis auf diesem Gelände' : 'Event on this terrain') : (lang === 'de' ? 'Kein Ereignis' : 'No event')}
+            >
+              <span>{info?.icon ?? '•'}</span>{info ? (lang === 'de' ? info.de : t) : t}
+            </span>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+interface LightboxState { imageUrl: string; name: string }
+
+export default function TravelCardsPage() {
+  const ownedIds = useGameStore((s) => s.ownedExpansionIds)
+  const [onlyOwned, setOnlyOwned] = useState(true)
+  const [lang, setLang] = useState<Lang>('de')
+  const [deckFilter, setDeckFilter] = useState<'all' | 'travel' | 'city'>('all')
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null)
+
+  const expansionMap = useMemo(() => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])), [])
+  const expansionName = (id: string) => expansionMap[id]?.nameDe ?? id
+
+  const filtered = useMemo(() => TRAVEL_CARDS.filter((c) => {
+    if (onlyOwned && !ownedIds.includes(c.expansionId)) return false
+    if (deckFilter !== 'all' && c.deckType !== deckFilter) return false
+    return true
+  }), [onlyOwned, ownedIds, deckFilter])
+
+  const byExpansion = useMemo(() => {
+    const map = new Map<string, TravelCard[]>()
+    for (const c of filtered) {
+      const arr = map.get(c.expansionId) ?? []
+      arr.push(c)
+      map.set(c.expansionId, arr)
+    }
+    return map
+  }, [filtered])
+
+  return (
+    <div className="space-y-6">
+      {lightbox && (
+        <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={lightbox.name} backdropClassName="bg-black/85" className="relative max-w-md w-full">
+          <button onClick={() => setLightbox(null)} className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm">✕ Schließen</button>
+          <img src={lightbox.imageUrl} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+        </ModalOverlay>
+      )}
+
+      <div>
+        <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">🧭 Reisekarten</h2>
+        <p className="text-gray-400 text-sm">
+          {filtered.length} Reise- &amp; Stadtereignis-Karten {onlyOwned ? 'in deiner Sammlung' : 'insgesamt'}
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <SegmentedControl
+          value={deckFilter}
+          onChange={setDeckFilter}
+          options={[
+            { value: 'all', label: lang === 'de' ? 'Alle' : 'All' },
+            { value: 'travel', label: lang === 'de' ? 'Reise' : 'Travel' },
+            { value: 'city', label: lang === 'de' ? 'Stadt' : 'City' },
+          ]}
+        />
+        <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <LangToggle value={lang} onChange={setLang} className="ml-auto" />
+      </div>
+
+      <p className="text-[11px] text-gray-600 -mt-3">
+        Reisekarten lösen je nach Reise-Gelände ein Ereignis aus. Farbige Gelände-Marker = Karte hat dort ein Ereignis.
+        Der Kartentext wird nicht abgebildet – zum Lesen die Karte antippen. Side-Quests („Nebenszenarien") stehen als{' '}
+        <Link to="/kampagnen" className="text-gold-400 hover:text-gold-300 underline decoration-dotted">Advanced Quests auf der Kampagnen-Seite ↗</Link>.
+      </p>
+
+      {byExpansion.size === 0 ? (
+        <div className="card text-center text-gray-500 py-12">Keine Reisekarten für diese Auswahl.</div>
+      ) : (
+        <div className="space-y-8">
+          {Array.from(byExpansion.entries()).map(([expId, cards]) => (
+            <div key={expId}>
+              <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
+                {expansionName(expId)} <span className="text-gray-600 normal-case">· {cards[0].deckType === 'city' ? 'Stadt-Ereignisse' : 'Reise-Ereignisse'} ({cards.length})</span>
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {cards.map((c) => (
+                  <CardTile key={c.id} card={c} lang={lang} onOpen={() => setLightbox({ imageUrl: c.imageUrl, name: `${c.deckType} event ${c.position}/${c.total}` })} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
