@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.2.5 (2026-06-20)
+## Aktuelle Version: 1.2.6 (2026-06-20)
 
 ### Versionierungsregeln
 
@@ -35,7 +35,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.0.0 | ✅ Abgeschlossen | Map-Builder, Quest-Editor, Helden/Monster, Save/Load, Export, Deploy |
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
 | v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28), **Agenten KOMPLETT: 4 vertauschte Agenten (Ardus/Kyndrithul/Zarihell/Skarn) kartenscan-validiert → 20 Agenten / 40 Formen (1.1.29), **Kampagnen-Überblick (9, faktisch) + 16 Advanced Quests, neue /kampagnen-Seite (1.1.30), **Reisekarten: 41 Reise-/Stadtereignis-Karten (faktische Metadaten + Bilder, kein Ereignistext), neue /reisekarten-Seite (1.1.31), **Overlays im Kartenbauer: 9 platzierbare Overlay-Marker (Gelände/Tür/Objekt/Marker) im MapBuilder + Quest-Editor (1.1.32)**. v1.1-Datenbasis damit abgeschlossen |
-| v1.2.0–1.2.4 | ✅ Abgeschlossen | Design-Feinschliff. Design-Fundament – warme, mystische Dungeon-Palette (Anthrazit/Braun + Gold/Pergament) statt Tech-Blau, Fonts Cinzel (Display) + Inter (Fließtext, offline self-hosted via @fontsource), Tastatur-Fokusringe (1.2.0); Navigation aufgeräumt – Werkzeuge oben, 10 Referenzseiten unter „📚 Daten"-Dropdown, mobiles Hamburger-Menü (1.2.1); Startseite-Hub aufgefrischt – Werkzeuge + 10 Übersichts-Kacheln, dynamische Zählwerte (1.2.2); durchgängiger Feinschliff (Scrollleisten, ::selection-Gold, prefers-reduced-motion) + iPad-Layout verifiziert (1.2.3); umschaltbare Themes (Verlies/Arkanblau/Schiefer) via CSS-Variablen + 🎨-Umschalter (1.2.4); deutsche Heldenkarten: eingescannte Kartenbilder + offizieller Kartenstand (Namen/Heldenfähigkeit/Heldentat) für 54 von 60 Helden, englische Bilder bleiben als Fallback (1.2.5). Offen für v1.2: Tests/Security-Audit-Backlog |
+| v1.2.0–1.2.6 | ✅ Abgeschlossen | Design-Feinschliff. Design-Fundament – warme, mystische Dungeon-Palette (Anthrazit/Braun + Gold/Pergament) statt Tech-Blau, Fonts Cinzel (Display) + Inter (Fließtext, offline self-hosted via @fontsource), Tastatur-Fokusringe (1.2.0); Navigation aufgeräumt – Werkzeuge oben, 10 Referenzseiten unter „📚 Daten"-Dropdown, mobiles Hamburger-Menü (1.2.1); Startseite-Hub aufgefrischt – Werkzeuge + 10 Übersichts-Kacheln, dynamische Zählwerte (1.2.2); durchgängiger Feinschliff (Scrollleisten, ::selection-Gold, prefers-reduced-motion) + iPad-Layout verifiziert (1.2.3); umschaltbare Themes (Verlies/Arkanblau/Schiefer) via CSS-Variablen + 🎨-Umschalter (1.2.4); deutsche Heldenkarten: eingescannte Kartenbilder + offizieller Kartenstand (Namen/Heldenfähigkeit/Heldentat) für 54 von 60 Helden, englische Bilder bleiben als Fallback (1.2.5); Gerücht-Karten: 24 eingescannte deutsche Rumor-Karten (11 Erweiterungen) als web-optimierte Bilder + faktische Metadaten (Name/Erweiterung/Akt/Reise-Gelände), neue /geruechte-Seite, Kartentext bewusst nicht gerendert (FFG-IP) (1.2.6). Offen für v1.2: Tests/Security-Audit-Backlog |
 | v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
 | v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
 | v1.5.0 | ⏳ Geplant | Overlord-Kommandozentrale |
@@ -60,6 +60,13 @@ in der Cloud. Der User will **keinen dauerhaften lokalen Repo-Klon**; das Ergebn
 - **Fertiger Einfüge-Prompt:** `docs/scan-prompt.md`.
 - **Split-Skript:** `scripts/crop_hero_scans.py` (trennt eine Seite inhaltsbasiert in
   die zwei Einzelkarten).
+- **Gerücht-Karten (Rumor, eigener Kartentyp – NICHT die Advanced Quests):** eigene
+  Spezifikation + Einfüge-Prompt in `docs/scan-geruechte.md`. Einseitig, pro Erweiterung
+  gescannt. Abgleichsliste = 25 Karten in 12 Erweiterungen aus any2cards `rumors.js`
+  (im Doc tabelliert; Erweiterung gegen `expansions.ts` prüfen). Sonderfall „Sands of
+  the Past" (3 Gerüchte in any2cards, aber NICHT in expansions.ts → mit User klären,
+  nicht übernehmen). Layout NICHT als 2-up annehmen (Lindwurm/Trollsümpfe je 6 Karten);
+  Dateiname = `xws`; Text-Wiedergabe = Rückfrage wegen FFG-IP (Default: nur Metadaten).
 - **Wenn der User „scanne wie besprochen" sagt:** `docs/scan-workflow.md` lesen und
   befolgen. Kernregeln: jeden erkannten Namen gegen die 60 Helden in
   `src/data/heroes.ts` abgleichen (kein Raten), Zuschnitte + Markdown nach
@@ -89,6 +96,21 @@ in der Cloud. Der User will **keinen dauerhaften lokalen Repo-Klon**; das Ergebn
 - **Noch offen:** 3 unklare **Verteidigungswürfel** (Orkell/Nanok/Ravaella, im Scan
   grau-ähnlich) ggf. an der Karte prüfen; Zahlenwerte stimmen bei allen 54 überein.
   Siehe `scans/helden/ABWEICHUNGEN_heroes_ts.md`.
+
+### Gerücht-Karten (Rumor) – gescannt + integriert (v1.2.6, 2026-06-20)
+
+- **Gescannt + gepusht (lokale Session, Commit 961892f):** 24 deutsche Gerücht-Karten
+  (11 Erweiterungen) unter `scans/geruechte/<exp-id>/<xws>.png` + `Geruechtkarten.md`
+  (Variante B: voller deutscher Kartentext). EN↔xws 1:1 gegen any2cards `rumors.js`
+  geprüft (alle korrekt). Fehlt: `bonds-of-the-wild`/onemanstrash (nicht besessen);
+  kein „Sands of the Past".
+- **In der App (Cloud-Session, 1.2.6):** neue `/geruechte`-Seite (`RumorsPage`) zeigt
+  **Bild + faktische Metadaten** (Name DE/EN, Erweiterung, Akt, Reise-Gelände). Daten:
+  `src/data/rumors.ts` (`Rumor`-Typ), Generator `scripts/build_rumors.py`; web-optimierte
+  WebPs unter `public/geruechte/de/<xws>.webp` (4,2 MB). **Kartentext bewusst NICHT
+  gerendert** (FFG-IP, konsistent zu Kampagnen/Reisekarten – Text bleibt nur in der
+  Scan-Doku). Datenintegritäts-Test ergänzt (24er-Lock, Erweiterung/Akt/Gelände, Bild
+  existiert). Doku: `docs/game-data/rumors.md`.
 
 ---
 
