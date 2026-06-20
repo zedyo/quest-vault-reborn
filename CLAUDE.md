@@ -60,6 +60,10 @@ in der Cloud. Der User will **keinen dauerhaften lokalen Repo-Klon**; das Ergebn
 - **Fertiger Einfüge-Prompt:** `docs/scan-prompt.md`.
 - **Split-Skript:** `scripts/crop_hero_scans.py` (trennt eine Seite inhaltsbasiert in
   die zwei Einzelkarten).
+- **Gerüchtekarten (Advanced Quests):** eigene Spezifikation + Einfüge-Prompt in
+  `docs/scan-geruechte.md` – Abgleich gegen die 16 `ADVANCED_QUESTS` in `campaigns.ts`;
+  Layout NICHT als 2-up annehmen; Vorder-/Rückseite klären; Text-Wiedergabe = Rückfrage
+  wegen FFG-IP (Default: nur faktische Metadaten wie bei Kampagnen/Reisekarten).
 - **Wenn der User „scanne wie besprochen" sagt:** `docs/scan-workflow.md` lesen und
   befolgen. Kernregeln: jeden erkannten Namen gegen die 60 Helden in
   `src/data/heroes.ts` abgleichen (kein Raten), Zuschnitte + Markdown nach
