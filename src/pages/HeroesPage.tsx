@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { HEROES, ARCHETYPE_LABELS, ARCHETYPE_COLORS } from '../data/heroes'
+import { heroImageDeSrc } from '../data/heroImagesDe'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
@@ -41,6 +42,8 @@ function AttributeChips({ hero, compact = true }: { hero: Hero; compact?: boolea
 
 function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
   const [cardImgError, setCardImgError] = useState(false)
+  // Deutsches Kartenbild (eingescannt) bevorzugen, sonst das englische any2cards-Bild.
+  const cardSrc = heroImageDeSrc(hero.id) ?? hero.imageUrl
   return (
     <ModalOverlay
       onClose={onClose}
@@ -62,10 +65,10 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
         {/* Full card image + stats */}
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Full landscape card */}
-          {!cardImgError && hero.imageUrl && (
+          {!cardImgError && cardSrc && (
             <div className="sm:w-72 flex-shrink-0">
               <img
-                src={hero.imageUrl}
+                src={cardSrc}
                 alt={hero.name}
                 className="w-full rounded border border-dungeon-700"
                 onError={() => setCardImgError(true)}
@@ -205,7 +208,8 @@ export default function HeroesPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
           {filtered.map((h) => {
             const exp = expansionMap[h.expansionId]
-            const hasImg = !!h.imageUrl && !imgErrors.has(h.id)
+            const cardSrc = heroImageDeSrc(h.id) ?? h.imageUrl
+            const hasImg = !!cardSrc && !imgErrors.has(h.id)
             return (
               <div
                 key={h.id}
@@ -216,7 +220,7 @@ export default function HeroesPage() {
                 <div className="w-full aspect-[3/4] bg-dungeon-800 relative overflow-hidden">
                   {hasImg ? (
                     <img
-                      src={h.imageUrl!}
+                      src={cardSrc!}
                       alt={h.name}
                       className="w-full h-full object-cover"
                       style={{ objectPosition: 'left center' }}

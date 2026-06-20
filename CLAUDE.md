@@ -66,6 +66,23 @@ in der Cloud. Der User will **keinen dauerhaften lokalen Repo-Klon**; das Ergebn
   `scans/helden/<Klasse>/`, Original-Scans NICHT committen, erst nach User-Freigabe
   pushen.
 
+### Stand 2026-06-20 (lokale Session + Cloud-Integration)
+
+- **Gescannt + gepusht (lokale Session, Commit c182e91):** 54 von 60 deutschen
+  Heldenkarten unter `scans/helden/<Klasse>/` (volle Auflösung, ~220 MB) + je Klasse
+  eine Markdown mit wortgetreuen deutschen Karteninhalten + `ABWEICHUNGEN_heroes_ts.md`.
+- **In der App eingesetzt (Cloud-Session):** Die Helden-Übersicht zeigt jetzt die
+  **deutschen** Kartenbilder. Web-optimierte WebPs (≈900px, 9,7 MB) unter
+  `public/heroes/de/<held-id>.webp`, Zuordnung in `src/data/heroImagesDe.ts`
+  (Generator: `scripts/build_hero_de_images.py`). `HeroesPage` nimmt das deutsche Bild,
+  sonst das englische `imageUrl` (bleibt für EN-Lokalisierung erhalten). 6 ungescannte
+  Helden (Serena, Challara, Lyssa, Raythen, Ronan von der Wildnis, Vyrah der Falkner)
+  zeigen weiter das englische Bild. Datenintegritäts-Test ergänzt (54er-Lock).
+- **Bewusst NICHT geändert (offene Folgeentscheidung mit User):** die deutschen
+  **Namen** (`heroes.ts` weicht bei 16 Karten ab) und die **Regeltexte**
+  (`heroAbility`/`heroicFeat`; Kartenwortlaut weicht systematisch ab) sowie 3 unklare
+  **Verteidigungswürfel** – alles dokumentiert in `scans/helden/ABWEICHUNGEN_heroes_ts.md`.
+
 ---
 
 ## Was ist in v1.0.0 enthalten

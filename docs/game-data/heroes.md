@@ -19,6 +19,29 @@
 
 ---
 
+## Deutsche Kartenbilder (eingescannt, 2026-06-20)
+
+Die Helden-Übersicht zeigt jetzt die **eingescannten deutschen Heldenkarten** statt
+der englischen any2cards-Bilder. Details:
+
+- **Quelle:** vom User eingescannte physische deutsche Karten (Vorderseite), randlos
+  freigestellt. Volle Auflösung unter `scans/helden/<Klasse>/<karten-name>.png`
+  (nicht in der App), web-optimiert (≈900px WebP) unter `public/heroes/de/<held-id>.webp`.
+- **Zuordnung:** `src/data/heroImagesDe.ts` (HeldId → Bild), erzeugt von
+  `scripts/build_hero_de_images.py`. **54 von 60** Helden gescannt.
+- **Anzeige:** `HeroesPage` nimmt das deutsche Bild, wenn vorhanden, sonst das
+  englische `imageUrl` (bleibt in `heroes.ts` erhalten – für die spätere EN-Version).
+- **Noch ohne Scan (6):** Serena, Challara, Lyssa, Raythen, Ronan von der Wildnis,
+  Vyrah der Falkner → zeigen weiter das englische Bild.
+- **Abweichungen Karte ↔ heroes.ts:** Die deutschen Karten nutzen teils andere
+  Namen/Texte als `heroes.ts` (andere Edition/Community-Übersetzung). Vollständig
+  dokumentiert in `scans/helden/ABWEICHUNGEN_heroes_ts.md` (16 Namensabweichungen,
+  Regeltext-Wortlaut, 3 Verteidigungswürfel zur Sicht-Prüfung). Zahlenwerte stimmen
+  bei allen 54 Karten überein. Namen/Texte wurden **bewusst nicht** geändert (offene
+  Folgeentscheidung).
+
+---
+
 ## Grundspiel (8 Helden)
 
 | Held | Archetyp (DE) | Archetyp (EN) |
