@@ -46,6 +46,28 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
+## 🔄 Laufende Aufgabe (seit 2026-06-20): Deutsche Heldenscans verarbeiten
+
+Der User scannt seine **deutschen** Descent-Heldenkarten (2 Helden pro Seite, nur
+Vorderseite, PNG+JPG gemischt) und will daraus saubere Einzelkarten-Zuschnitte +
+deutsche Markdown-Doku. Die Scans liegen **lokal** auf seinem Rechner (zu groß für
+Chat-Upload) → die Verarbeitung läuft in einer **lokalen Claude-Code-Session**, nicht
+in der Cloud. Der User will **keinen dauerhaften lokalen Repo-Klon**; das Ergebnis wird
+über einen kurzlebigen Scratch-Klon auf den Arbeitsbranch gepusht.
+
+- **Vollständige Spezifikation:** `docs/scan-workflow.md` (Ordner-/Namens-Konvention,
+  Markdown-Vorlage, Korrektheits-Checks, Push-Varianten).
+- **Fertiger Einfüge-Prompt:** `docs/scan-prompt.md`.
+- **Split-Skript:** `scripts/crop_hero_scans.py` (trennt eine Seite inhaltsbasiert in
+  die zwei Einzelkarten).
+- **Wenn der User „scanne wie besprochen" sagt:** `docs/scan-workflow.md` lesen und
+  befolgen. Kernregeln: jeden erkannten Namen gegen die 60 Helden in
+  `src/data/heroes.ts` abgleichen (kein Raten), Zuschnitte + Markdown nach
+  `scans/helden/<Klasse>/`, Original-Scans NICHT committen, erst nach User-Freigabe
+  pushen.
+
+---
+
 ## Was ist in v1.0.0 enthalten
 
 - **Map Builder:** Tiles platzieren, drehen, Connector-Rendering (INSET 0.269), Hover-Vorschau in Sidebar
