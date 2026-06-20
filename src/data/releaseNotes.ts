@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.6',
+    date: '2026-06-20',
+    title: 'Gerücht-Karten',
+    highlights: [
+      'Neue Übersicht „Gerüchte" mit den eingescannten deutschen Gerücht-Karten (24 Karten aus 11 Erweiterungen) – mit Name, Erweiterung, Akt und Reise-Gelände.',
+      'Filterbar nach deiner Sammlung; Klick öffnet das große Kartenbild.',
+    ],
+  },
+  {
     version: '1.2.5',
     date: '2026-06-20',
     title: 'Deutsche Heldenkarten',

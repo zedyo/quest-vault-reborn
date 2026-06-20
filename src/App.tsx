@@ -14,6 +14,7 @@ import AgentsPage from './pages/AgentsPage'
 import PlotDecksPage from './pages/PlotDecksPage'
 import CampaignsPage from './pages/CampaignsPage'
 import TravelCardsPage from './pages/TravelCardsPage'
+import RumorsPage from './pages/RumorsPage'
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="plotdecks" element={<PlotDecksPage />} />
         <Route path="kampagnen" element={<CampaignsPage />} />
         <Route path="reisekarten" element={<TravelCardsPage />} />
+        <Route path="geruechte" element={<RumorsPage />} />
       </Route>
     </Routes>
   )
