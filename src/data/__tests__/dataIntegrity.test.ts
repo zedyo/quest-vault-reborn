@@ -15,6 +15,7 @@ import { TRAVEL_CARDS } from '../travelCards'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import { HERO_IMAGE_DE } from '../heroImagesDe'
+import { HERO_OFFICIAL_DE } from '../heroOfficialDe'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 // Tatsächlich vorhandene deutsche Heldenbilder (Vite globt public/ zur Testzeit).
@@ -727,6 +728,43 @@ describe('Deutsche Heldenbilder (HERO_IMAGE_DE)', () => {
     for (const [id, rel] of entries) {
       const file = rel.split('/').pop()!
       expect(HERO_DE_FILES.has(file), `${id}: ${rel} fehlt`).toBe(true)
+    }
+  })
+})
+
+describe('Offizieller deutscher Kartenstand (HERO_OFFICIAL_DE)', () => {
+  const HERO_IDS = new Set(HEROES.map((h) => h.id))
+
+  it('54 Helden mit offiziellem Kartentext', () => {
+    expect(Object.keys(HERO_OFFICIAL_DE).length).toBe(54)
+  })
+
+  it('deckt genau dieselben Helden ab wie die deutschen Bilder', () => {
+    expect(Object.keys(HERO_OFFICIAL_DE).sort()).toEqual(Object.keys(HERO_IMAGE_DE).sort())
+  })
+
+  it('jede Zuordnung verweist auf einen existierenden Helden mit Namen + Texten', () => {
+    for (const [id, o] of Object.entries(HERO_OFFICIAL_DE)) {
+      expect(HERO_IDS.has(id), `${id}: keine heroes.ts-id`).toBe(true)
+      expect(o.name, `${id}: name`).toBeTruthy()
+      expect(o.heroAbility, `${id}: heroAbility`).toBeTruthy()
+      expect(o.heroicFeat, `${id}: heroicFeat`).toBeTruthy()
+    }
+  })
+
+  it('Override ist in HEROES angewandt (offizielle Kartennamen)', () => {
+    const byId = Object.fromEntries(HEROES.map((h) => [h.id, h]))
+    // Stichprobe bekannter Namensabweichungen Karte ↔ alte heroes.ts-Werte.
+    expect(byId['one-fist'].name).toBe('Einfaust')
+    expect(byId['elder-mok'].name).toBe('Geistersprecher Mok')
+    expect(byId['grey-ker'].name).toBe('Ker der Graue')
+    expect(byId['steelhorns'].name).toBe('Stahlhorn')
+  })
+
+  it('Symbol-Platzhalter wurden entfernt (kein [..] im Kartentext)', () => {
+    for (const [id, o] of Object.entries(HERO_OFFICIAL_DE)) {
+      expect(/\[[^\]]+\]/.test(o.heroAbility ?? ''), `${id}: heroAbility`).toBe(false)
+      expect(/\[[^\]]+\]/.test(o.heroicFeat ?? ''), `${id}: heroicFeat`).toBe(false)
     }
   })
 })

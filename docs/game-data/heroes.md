@@ -33,12 +33,24 @@ der englischen any2cards-Bilder. Details:
   englische `imageUrl` (bleibt in `heroes.ts` erhalten – für die spätere EN-Version).
 - **Noch ohne Scan (6):** Serena, Challara, Lyssa, Raythen, Ronan von der Wildnis,
   Vyrah der Falkner → zeigen weiter das englische Bild.
-- **Abweichungen Karte ↔ heroes.ts:** Die deutschen Karten nutzen teils andere
-  Namen/Texte als `heroes.ts` (andere Edition/Community-Übersetzung). Vollständig
-  dokumentiert in `scans/helden/ABWEICHUNGEN_heroes_ts.md` (16 Namensabweichungen,
-  Regeltext-Wortlaut, 3 Verteidigungswürfel zur Sicht-Prüfung). Zahlenwerte stimmen
-  bei allen 54 Karten überein. Namen/Texte wurden **bewusst nicht** geändert (offene
-  Folgeentscheidung).
+
+### Offizieller deutscher Kartenstand übernommen (Namen + Texte)
+
+Seit v1.2.5 zeigt die App auch **Namen, Heldenfähigkeit und Heldentat** im Wortlaut
+der physischen deutschen Karten:
+
+- **Quelle:** `src/data/heroOfficialDe.ts` (Generator: `scripts/build_hero_official_de.py`,
+  liest die Scan-Markdowns). Wird in `heroes.ts` als **Override** über die Basis-Literale
+  gelegt (`BASE_HEROES.map(... ⇒ {...h, ...official})`).
+- **Alte Community-Übersetzung bleibt erhalten:** Die früheren deutschen Namen/Texte
+  stehen weiter als Basis-Literale in `heroes.ts` (nichts gelöscht – Vergleich/EN-Version).
+- **16 Namensabweichungen** jetzt am Kartenstand (z. B. „Eine Faust" → **„Einfaust"**,
+  „Ältester Mok" → **„Geistersprecher Mok"**, „Stahlhörner" → **„Stahlhorn"**).
+  Vollständige Liste: `scans/helden/ABWEICHUNGEN_heroes_ts.md`.
+- **Symbole:** `[Herz]`/`[Schub]`/`[Aktion]`-Platzhalter werden zu ❤/⚡/↻;
+  `[Ausdauer]`/`[Schild]`/Attribut-Platzhalter als Klartext (korrektes Wort, kein Icon).
+- **Offen:** Zahlenwerte stimmen bei allen 54 überein; nur 3 Verteidigungswürfel
+  (Orkell/Nanok/Ravaella) sind im Scan grau-ähnlich und ggf. an der Karte zu prüfen.
 
 ---
 
