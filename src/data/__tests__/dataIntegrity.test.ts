@@ -16,11 +16,17 @@ import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import { HERO_IMAGE_DE } from '../heroImagesDe'
 import { HERO_OFFICIAL_DE } from '../heroOfficialDe'
+import { RUMORS } from '../rumors'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
 
 // Tatsächlich vorhandene deutsche Heldenbilder (Vite globt public/ zur Testzeit).
 const HERO_DE_FILES = new Set(
   Object.keys(import.meta.glob('../../../public/heroes/de/*.webp')).map(
+    (p) => p.split('/').pop()!,
+  ),
+)
+const RUMOR_DE_FILES = new Set(
+  Object.keys(import.meta.glob('../../../public/geruechte/de/*.webp')).map(
     (p) => p.split('/').pop()!,
   ),
 )
@@ -765,6 +771,35 @@ describe('Offizieller deutscher Kartenstand (HERO_OFFICIAL_DE)', () => {
     for (const [id, o] of Object.entries(HERO_OFFICIAL_DE)) {
       expect(/\[[^\]]+\]/.test(o.heroAbility ?? ''), `${id}: heroAbility`).toBe(false)
       expect(/\[[^\]]+\]/.test(o.heroicFeat ?? ''), `${id}: heroicFeat`).toBe(false)
+    }
+  })
+})
+
+describe('Gerücht-Karten (RUMORS)', () => {
+  const EXP_IDS = new Set(EXPANSIONS.map((e) => e.id))
+  const TERRAINS = new Set(['Road', 'Forest', 'Mountain', 'Plain', 'Water'])
+
+  it('24 Karten mit eindeutigen IDs', () => {
+    expect(RUMORS.length).toBe(24)
+    expect(new Set(RUMORS.map((r) => r.id)).size).toBe(24)
+  })
+
+  it('Pflichtfelder + gültige Erweiterung/Akt/Gelände', () => {
+    for (const r of RUMORS) {
+      expect(r.nameDe, `${r.id}: nameDe`).toBeTruthy()
+      expect(r.nameEn, `${r.id}: nameEn`).toBeTruthy()
+      expect(EXP_IDS.has(r.expansionId), `${r.id}: expansionId ${r.expansionId}`).toBe(true)
+      expect([1, 2, null], `${r.id}: act`).toContain(r.act)
+      for (const t of r.travel) {
+        expect(TERRAINS.has(t), `${r.id}: Gelände '${t}'`).toBe(true)
+      }
+    }
+  })
+
+  it('jedes Kartenbild existiert in public/geruechte/de/', () => {
+    for (const r of RUMORS) {
+      expect(r.imageDe).toBe(`geruechte/de/${r.id}.webp`)
+      expect(RUMOR_DE_FILES.has(`${r.id}.webp`), `${r.id}: Bild fehlt`).toBe(true)
     }
   })
 })
