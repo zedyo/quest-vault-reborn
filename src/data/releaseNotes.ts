@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.2.5',
+    date: '2026-06-20',
+    title: 'Deutsche Heldenkarten',
+    highlights: [
+      'Die Helden-Übersicht zeigt jetzt eingescannte deutsche Heldenkarten statt der englischen Bilder (54 von 60 Helden – die übrigen folgen, sobald gescannt).',
+      'Namen, Heldenfähigkeiten und Heldentaten entsprechen nun dem Wortlaut der deutschen Karten.',
+    ],
+  },
+  {
     version: '1.2.4',
     date: '2026-06-17',
     title: 'Themes zum Umschalten',
