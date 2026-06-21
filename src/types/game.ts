@@ -350,25 +350,6 @@ export interface TravelCard {
   imageUrl: string
 }
 
-/**
- * Eine Gerücht-Karte (Rumor) – eigener Kartentyp. Erfasst werden faktische
- * Metadaten + das eingescannte deutsche Kartenbild; der Kartentext wird NICHT
- * reproduziert (FFG-IP – liegt als Referenz in scans/geruechte/Geruechtkarten.md).
- */
-export interface Rumor {
-  /** any2cards xws-Slug (= Bilddateiname). */
-  id: string
-  nameDe: string
-  nameEn: string
-  expansionId: string
-  /** Akt der Karte (meist 1), null falls unbekannt. */
-  act: 1 | 2 | null
-  /** Reise-Geländetypen (EN), z. B. ['Road','Forest']; kann leer sein. */
-  travel: string[]
-  /** Base-relativer Pfad zum deutschen Kartenbild (public/). */
-  imageDe: string
-}
-
 export interface Hero {
   id: string
   name: string

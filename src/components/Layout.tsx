@@ -21,7 +21,6 @@ const DATA = [
   { to: '/plotdecks', label: '📜 Plotdecks' },
   { to: '/kampagnen', label: '🏰 Kampagnen' },
   { to: '/reisekarten', label: '🧭 Reisekarten' },
-  { to: '/geruechte', label: '🗣️ Gerüchte' },
 ]
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

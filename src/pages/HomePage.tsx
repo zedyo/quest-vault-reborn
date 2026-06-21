@@ -25,7 +25,6 @@ const OVERVIEWS = [
   { icon: '📜', title: 'Plotdecks', href: '/plotdecks' },
   { icon: '🏰', title: 'Kampagnen', href: '/kampagnen' },
   { icon: '🧭', title: 'Reisekarten', href: '/reisekarten' },
-  { icon: '🗣️', title: 'Gerüchte', href: '/geruechte' },
 ]
 
 export default function HomePage() {
