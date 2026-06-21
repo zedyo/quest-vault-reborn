@@ -39,7 +39,3 @@ Thumbs.db
 
 # Temporary files
 tmp/
-
-# Python (Scan-Hilfsskripte)
-__pycache__/
-*.pyc

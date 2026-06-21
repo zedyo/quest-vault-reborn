@@ -1,7 +1,6 @@
 import type { Hero } from '../types/game'
-import { HERO_OFFICIAL_DE } from './heroOfficialDe'
 
-const BASE_HEROES: Hero[] = [
+export const HEROES: Hero[] = [
   // ─── Grundspiel ───────────────────────────────────────────────────
   {
     id: 'ashrian', name: 'Ashrian', archetype: 'heiler', expansionId: 'base',
@@ -499,15 +498,6 @@ const BASE_HEROES: Hero[] = [
     heroicFeat: 'Verwende während deines Zuges. Würfle 1 Kraftwürfel deiner Wahl. Du und jede an dich angrenzende Figur erleiden Herzen in Höhe der gewürfelten Herzen. Wenn du mindestens 1 Schub würfelst, darfst du jede betroffene Figur bis zu 1 Feld bewegen.',
   },
 ]
-
-// Offiziellen deutschen Kartenstand (Name + Heldenfähigkeit + Heldentat) aus den
-// eingescannten physischen Karten als Override ueber die alten Community-Werte legen.
-// Die alten Werte bleiben oben als Basis-Literale erhalten (nicht verloren –
-// z. B. fuer Vergleich/spaetere EN-Lokalisierung). 54 von 60 Helden haben Scans.
-export const HEROES: Hero[] = BASE_HEROES.map((h) => {
-  const official = HERO_OFFICIAL_DE[h.id]
-  return official ? { ...h, ...official } : h
-})
 
 export const ARCHETYPE_LABELS: Record<Hero['archetype'], string> = {
   krieger: 'Krieger',

@@ -14,22 +14,7 @@ import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
-import { HERO_IMAGE_DE } from '../heroImagesDe'
-import { HERO_OFFICIAL_DE } from '../heroOfficialDe'
-import { RUMORS } from '../rumors'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
-
-// Tatsächlich vorhandene deutsche Heldenbilder (Vite globt public/ zur Testzeit).
-const HERO_DE_FILES = new Set(
-  Object.keys(import.meta.glob('../../../public/heroes/de/*.webp')).map(
-    (p) => p.split('/').pop()!,
-  ),
-)
-const RUMOR_DE_FILES = new Set(
-  Object.keys(import.meta.glob('../../../public/geruechte/de/*.webp')).map(
-    (p) => p.split('/').pop()!,
-  ),
-)
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
 
@@ -707,99 +692,6 @@ describe('Erweiterungs-Datenintegrität', () => {
       expect(e.nameDe, `${e.id}: nameDe`).toBeTruthy()
       expect(e.nameEn, `${e.id}: nameEn`).toBeTruthy()
       expect(e.year, `${e.id}: year`).toBeGreaterThan(2010)
-    }
-  })
-})
-
-describe('Deutsche Heldenbilder (HERO_IMAGE_DE)', () => {
-  const HERO_IDS = new Set(HEROES.map((h) => h.id))
-  const entries = Object.entries(HERO_IMAGE_DE)
-
-  it('54 eingescannte Heldenkarten zugeordnet', () => {
-    expect(entries.length).toBe(54)
-  })
-
-  it('jede Zuordnung verweist auf einen existierenden Helden', () => {
-    for (const id of Object.keys(HERO_IMAGE_DE)) {
-      expect(HERO_IDS.has(id), `${id}: keine heroes.ts-id`).toBe(true)
-    }
-  })
-
-  it('keine doppelten Bildpfade', () => {
-    const paths = Object.values(HERO_IMAGE_DE)
-    expect(new Set(paths).size).toBe(paths.length)
-  })
-
-  it('jede Bilddatei existiert in public/', () => {
-    for (const [id, rel] of entries) {
-      const file = rel.split('/').pop()!
-      expect(HERO_DE_FILES.has(file), `${id}: ${rel} fehlt`).toBe(true)
-    }
-  })
-})
-
-describe('Offizieller deutscher Kartenstand (HERO_OFFICIAL_DE)', () => {
-  const HERO_IDS = new Set(HEROES.map((h) => h.id))
-
-  it('54 Helden mit offiziellem Kartentext', () => {
-    expect(Object.keys(HERO_OFFICIAL_DE).length).toBe(54)
-  })
-
-  it('deckt genau dieselben Helden ab wie die deutschen Bilder', () => {
-    expect(Object.keys(HERO_OFFICIAL_DE).sort()).toEqual(Object.keys(HERO_IMAGE_DE).sort())
-  })
-
-  it('jede Zuordnung verweist auf einen existierenden Helden mit Namen + Texten', () => {
-    for (const [id, o] of Object.entries(HERO_OFFICIAL_DE)) {
-      expect(HERO_IDS.has(id), `${id}: keine heroes.ts-id`).toBe(true)
-      expect(o.name, `${id}: name`).toBeTruthy()
-      expect(o.heroAbility, `${id}: heroAbility`).toBeTruthy()
-      expect(o.heroicFeat, `${id}: heroicFeat`).toBeTruthy()
-    }
-  })
-
-  it('Override ist in HEROES angewandt (offizielle Kartennamen)', () => {
-    const byId = Object.fromEntries(HEROES.map((h) => [h.id, h]))
-    // Stichprobe bekannter Namensabweichungen Karte ↔ alte heroes.ts-Werte.
-    expect(byId['one-fist'].name).toBe('Einfaust')
-    expect(byId['elder-mok'].name).toBe('Geistersprecher Mok')
-    expect(byId['grey-ker'].name).toBe('Ker der Graue')
-    expect(byId['steelhorns'].name).toBe('Stahlhorn')
-  })
-
-  it('Symbol-Platzhalter wurden entfernt (kein [..] im Kartentext)', () => {
-    for (const [id, o] of Object.entries(HERO_OFFICIAL_DE)) {
-      expect(/\[[^\]]+\]/.test(o.heroAbility ?? ''), `${id}: heroAbility`).toBe(false)
-      expect(/\[[^\]]+\]/.test(o.heroicFeat ?? ''), `${id}: heroicFeat`).toBe(false)
-    }
-  })
-})
-
-describe('Gerücht-Karten (RUMORS)', () => {
-  const EXP_IDS = new Set(EXPANSIONS.map((e) => e.id))
-  const TERRAINS = new Set(['Road', 'Forest', 'Mountain', 'Plain', 'Water'])
-
-  it('24 Karten mit eindeutigen IDs', () => {
-    expect(RUMORS.length).toBe(24)
-    expect(new Set(RUMORS.map((r) => r.id)).size).toBe(24)
-  })
-
-  it('Pflichtfelder + gültige Erweiterung/Akt/Gelände', () => {
-    for (const r of RUMORS) {
-      expect(r.nameDe, `${r.id}: nameDe`).toBeTruthy()
-      expect(r.nameEn, `${r.id}: nameEn`).toBeTruthy()
-      expect(EXP_IDS.has(r.expansionId), `${r.id}: expansionId ${r.expansionId}`).toBe(true)
-      expect([1, 2, null], `${r.id}: act`).toContain(r.act)
-      for (const t of r.travel) {
-        expect(TERRAINS.has(t), `${r.id}: Gelände '${t}'`).toBe(true)
-      }
-    }
-  })
-
-  it('jedes Kartenbild existiert in public/geruechte/de/', () => {
-    for (const r of RUMORS) {
-      expect(r.imageDe).toBe(`geruechte/de/${r.id}.webp`)
-      expect(RUMOR_DE_FILES.has(`${r.id}.webp`), `${r.id}: Bild fehlt`).toBe(true)
     }
   })
 })
