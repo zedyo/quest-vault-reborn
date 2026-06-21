@@ -447,6 +447,19 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   - `fix(map-builder): Tile-Rotation bei b-Seiten korrigiert`
   - `docs(game-data): Monster-Gruppengrößen validiert und dokumentiert`
   - `chore(version): v1.1.0`
+- **Commit-Autor & Attribution (User-Vorgabe 2026-06-21):** Commits werden als
+  **`zedyo <46816354+zedyo@users.noreply.github.com>`** erstellt. Zu Beginn jeder
+  Session die Git-Identität setzen:
+  `git config user.name "zedyo" && git config user.email "46816354+zedyo@users.noreply.github.com"`.
+  **Keine** `Co-authored-by: Claude …`- und **keine** `Claude-Session:`-Trailer in
+  Commit-Nachrichten — der User soll als alleiniger Autor/Contributor erscheinen.
+
+### Roh-Scans / große Bilddateien – Ablage-Regeln (2026-06-21)
+- **Roh-Scans NIEMALS committen** (verursachten einmal 250 MB Historien-Bloat, per
+  `filter-branch` bereinigt). Sie liegen unter **`scans/`** (per `.gitignore` ausgeschlossen).
+- Aus den Scans erzeugen Skripte **klein-optimierte** Bilder (webp, ~500 px, <150 KB) nach
+  **`public/cards/…`** — **nur diese** werden committet und von der App ausgeliefert
+  (Vite servt `public/` unter `base: '/quest-vault-reborn/'`).
 
 ---
 

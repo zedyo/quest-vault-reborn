@@ -39,3 +39,9 @@ Thumbs.db
 
 # Temporary files
 tmp/
+
+# Roh-Scans / Quellmaterial – NIEMALS committen (bläht die Git-Historie auf).
+# Die hochauflösenden Karten-Scans hierher kopieren; die Skripte erzeugen daraus
+# die klein-optimierten Bilder unter public/cards/ – nur DIE kommen in git.
+scans/
+*.psd
