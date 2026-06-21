@@ -19,7 +19,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Aktion: Würfle 2 rote Kraftwürfel. Jeder Held bis Reichweite 3 kann Herzen in Höhe der gewürfelten Herzen zurückgewinnen.',
   },
   {
-    id: 'leoric-of-the-book', name: 'Leoric vom Buch', archetype: 'magier', expansionId: 'base',
+    id: 'leoric-of-the-book', name: 'Leorik der Gelehrte', archetype: 'magier', expansionId: 'base',
     speed: 4, health: 8, stamina: 5, defense: ['gray'],
     might: 1, knowledge: 5, willpower: 2, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/base-game/mages/bg-leoric-of-the-book.png',
@@ -35,7 +35,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Aktion: Führe einen Angriff gegen 2 verschiedene Monster in Sichtlinie durch. 1 Wurf, jedes Monster verteidigt separat.',
   },
   {
-    id: 'jain-fairwood', name: 'Jain Fairwood', archetype: 'spaeher', expansionId: 'base',
+    id: 'jain-fairwood', name: 'Jaine Fairwood', archetype: 'spaeher', expansionId: 'base',
     speed: 5, health: 8, stamina: 5, defense: ['gray'],
     might: 2, knowledge: 3, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/base-game/scouts/bg-jain-fairwood.png',
@@ -68,7 +68,7 @@ export const HEROES: Hero[] = [
   },
   // ─── Die Höhle des Lindwurms ──────────────────────────────────────
   {
-    id: 'high-mage-quellen', name: 'Hochmagier Quellen', archetype: 'magier', expansionId: 'lair-of-the-wyrm',
+    id: 'high-mage-quellen', name: 'Großmagier Cwellin', archetype: 'magier', expansionId: 'lair-of-the-wyrm',
     speed: 4, health: 10, stamina: 4, defense: ['gray'],
     might: 1, knowledge: 5, willpower: 3, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/lair-of-the-wyrm/mages/lw-high-mage-quellen.png',
@@ -76,7 +76,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende zu Beginn deines Zuges, um deine Ausdauer für den Rest dieses Zuges um 4 zu erhöhen. Am Ende deines Zuges gewinnst du alle Erschöpfung zurück.',
   },
   {
-    id: 'reynhart-the-worthy', name: 'Reynhart der Würdige', archetype: 'krieger', expansionId: 'lair-of-the-wyrm',
+    id: 'reynhart-the-worthy', name: 'Reynhart der Erhabene', archetype: 'krieger', expansionId: 'lair-of-the-wyrm',
     speed: 4, health: 12, stamina: 4, defense: ['gray'],
     might: 3, knowledge: 1, willpower: 4, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/lair-of-the-wyrm/warriors/lw-reynhart-the-worthy.png',
@@ -101,7 +101,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende während deines Zuges, um eine deiner verdeckten Trank-Suchkarten offen umzudrehen. Außerdem darf jeder an dich angrenzende Held ebenfalls eine seiner verdeckten Trank-Suchkarten offen umzudrehen.',
   },
   {
-    id: 'dezra-the-vile', name: 'Dezra die Grausame', archetype: 'magier', expansionId: 'labyrinth-of-ruin',
+    id: 'dezra-the-vile', name: 'Desra die Schändliche', archetype: 'magier', expansionId: 'labyrinth-of-ruin',
     speed: 5, health: 8, stamina: 4, defense: ['gray'],
     might: 2, knowledge: 4, willpower: 2, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/labyrinth-of-ruin/mages/lr-dezra-the-vile.png',
@@ -125,7 +125,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende während deines Zuges, um einen Suchmarker zu durchsuchen, der an einen anderen Helden angrenzt. Dies ist zusätzlich zu deinen 2 Aktionen.',
   },
   {
-    id: 'pathfinder-durik', name: 'Pfadfinder Durik', archetype: 'krieger', expansionId: 'labyrinth-of-ruin',
+    id: 'pathfinder-durik', name: 'Kundschafter Durik', archetype: 'krieger', expansionId: 'labyrinth-of-ruin',
     speed: 5, health: 10, stamina: 4, defense: ['gray'],
     might: 3, knowledge: 2, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/labyrinth-of-ruin/warriors/lr-pathfinder-durik.png',
@@ -142,7 +142,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende während deines Zuges. Jeder Held in deiner Sichtlinie gewinnt 2 Herzen und 2 Erschöpfung zurück.',
   },
   {
-    id: 'roganna-the-shade', name: 'Roganna der Schatten', archetype: 'spaeher', expansionId: 'the-trollfens',
+    id: 'roganna-the-shade', name: 'Roganna der Schemen', archetype: 'spaeher', expansionId: 'the-trollfens',
     speed: 5, health: 10, stamina: 4, defense: ['gray'],
     might: 2, knowledge: 2, willpower: 4, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/the-trollfens/scouts/tf-roganna-the-shade.png',
@@ -185,7 +185,7 @@ export const HEROES: Hero[] = [
   },
   // ─── Schloss Rabenfels ────────────────────────────────────────────
   {
-    id: 'thaiden-mistpeak', name: 'Thaiden Nebelgipfel', archetype: 'spaeher', expansionId: 'manor-of-ravens',
+    id: 'thaiden-mistpeak', name: 'Thaiden Nebelspitze', archetype: 'spaeher', expansionId: 'manor-of-ravens',
     speed: 4, health: 10, stamina: 5, defense: ['gray'],
     might: 3, knowledge: 1, willpower: 2, awareness: 5,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/manor-of-ravens/scouts/mr-thaiden-mistpeak.png',
@@ -202,7 +202,7 @@ export const HEROES: Hero[] = [
   },
   // ─── Schwur der Verbannten ────────────────────────────────────────
   {
-    id: 'elder-mok', name: 'Ältester Mok', archetype: 'heiler', expansionId: 'oath-of-the-outcast',
+    id: 'elder-mok', name: 'Geistersprecher Mok', archetype: 'heiler', expansionId: 'oath-of-the-outcast',
     speed: 4, health: 10, stamina: 4, defense: ['gray'],
     might: 2, knowledge: 3, willpower: 4, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/oath-of-the-outcast/healers/oo-elder-mok.png',
@@ -218,7 +218,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Aktion: Jede an dich angrenzende Figur wird bewegungsunfähig gemacht.',
   },
   {
-    id: 'laurel-of-bloodwood', name: 'Laurel von Blutholz', archetype: 'spaeher', expansionId: 'oath-of-the-outcast',
+    id: 'laurel-of-bloodwood', name: 'Laurel vom Blutwald', archetype: 'spaeher', expansionId: 'oath-of-the-outcast',
     speed: 4, health: 8, stamina: 5, defense: ['gray'],
     might: 2, knowledge: 3, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/oath-of-the-outcast/scouts/oo-laurel-of-bloodwood.png',
@@ -350,7 +350,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende, wenn du von einem Angriff betroffen wirst und 1 oder mehr Herzen erleidest. Verringere die erlittenen Herzen um bis zu 5 und erhalte eine gleiche Anzahl Bewegungspunkte.',
   },
   {
-    id: 'nara-the-fang', name: 'Nara die Reißzahn', archetype: 'krieger', expansionId: 'visions-of-dawn',
+    id: 'nara-the-fang', name: 'Nara der Reißzahn', archetype: 'krieger', expansionId: 'visions-of-dawn',
     speed: 5, health: 10, stamina: 4, defense: ['gray'],
     might: 4, knowledge: 1, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/visions-of-dawn/warriors/vd-nara-the-fang.png',
@@ -383,7 +383,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende, nachdem du einen Angriff aufgelöst hast. Führe einen zusätzlichen Angriff durch, der eine an dich angrenzende Figur als Ziel hat. Ersetze 1 blauen Angriffswürfel durch 1 Kraftwürfel deiner Wahl, bevor die Würfel geworfen werden. Dieser Angriff ignoriert die Reichweite.',
   },
   {
-    id: 'ronan-of-the-wild', name: 'Ronan von der Wildnis', archetype: 'spaeher', expansionId: 'bonds-of-the-wild',
+    id: 'ronan-of-the-wild', name: 'Ronan der Wilde', archetype: 'spaeher', expansionId: 'bonds-of-the-wild',
     speed: 4, health: 10, stamina: 5, defense: ['gray'],
     might: 3, knowledge: 1, willpower: 4, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/bonds-of-the-wild/scouts/bw-ronan-of-the-wild.png',
@@ -416,7 +416,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende, wenn ein Monster aktiviert wird. Entferne deine Figur vom Spielfeld und platziere einen Heldenmarker auf deinem Feld. Zu Beginn deines nächsten Zuges ersetze diesen Heldenmarker durch deine Figur.',
   },
   {
-    id: 'grey-ker', name: 'Grey Ker', archetype: 'spaeher', expansionId: 'treaty-of-champions',
+    id: 'grey-ker', name: 'Ker der Graue', archetype: 'spaeher', expansionId: 'treaty-of-champions',
     speed: 4, health: 12, stamina: 5, defense: ['gray'],
     might: 3, knowledge: 2, willpower: 3, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/treaty-of-champions/scouts/tc-grey-ker.png',
@@ -424,7 +424,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende zu Beginn deines Zuges, um in diesem Zug 1 zusätzliche Aktion zu erhalten.',
   },
   {
-    id: 'krutzbeck', name: 'Krutzbeck', archetype: 'krieger', expansionId: 'treaty-of-champions',
+    id: 'krutzbeck', name: 'Kreutzbeck', archetype: 'krieger', expansionId: 'treaty-of-champions',
     speed: 3, health: 12, stamina: 4, defense: ['gray'],
     might: 4, knowledge: 2, willpower: 3, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/treaty-of-champions/warriors/tc-krutzbeck.png',
@@ -441,7 +441,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende während deines Zuges, auch wenn du kampfunfähig bist. Würfle 2 rote Kraftwürfel. Du und jeder kampfunfähige Held bis Reichweite 3 von dir gewinnt Herzen in Höhe der gewürfelten Herzen zurück.',
   },
   {
-    id: 'seer-kel', name: 'Seher Kel', archetype: 'magier', expansionId: 'stewards-of-the-secret',
+    id: 'seer-kel', name: 'Seherin Kel', archetype: 'magier', expansionId: 'stewards-of-the-secret',
     speed: 4, health: 10, stamina: 4, defense: ['gray'],
     might: 1, knowledge: 4, willpower: 2, awareness: 4,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/stewards-of-the-secret/mages/ss-seer-kel.png',
@@ -482,7 +482,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Verwende, wenn du einen Angriff mit einer Nahkampfwaffe durchführst, der ein normales Monster als Ziel hat, nach dem Würfeln der Würfel. Du darfst das Ergebnis jedes Angriffs- und Kraftwürfels auf ein anderes Ergebnis deiner Wahl ändern.',
   },
   {
-    id: 'one-fist', name: 'Eine Faust', archetype: 'krieger', expansionId: 'shards-of-everdark',
+    id: 'one-fist', name: 'Einfaust', archetype: 'krieger', expansionId: 'shards-of-everdark',
     speed: 4, health: 10, stamina: 4, defense: ['gray'],
     might: 3, knowledge: 2, willpower: 3, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/shards-of-everdark/warriors/se-one-fist.png',
