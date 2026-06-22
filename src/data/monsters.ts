@@ -690,7 +690,7 @@ export const MONSTERS: Monster[] = [
       surges: ['+2 Herzen'],
       abilities: [
         'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen sämtliche Zustände.',
-        'Unverrückbar: Dieses Monster darf jeden Spieleffekt ignorieren, der es zur Bewegung zwingen würde.',
+        'Unbeweglich: Dieses Monster darf alle Spieleffekte ignorieren, die es zwingen sich zu bewegen.',
       ],
     },
     act2Normal: { speed: 3, health: 10, defense: ['gray', 'black'], attack: ['blue', 'red', 'red'] },
@@ -706,15 +706,15 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: [
-        'Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.',
-        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.',
+        'Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.',
+        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.',
       ],
     },
     master: {
       speed: 4, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: [
-        'Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.',
-        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.',
+        'Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.',
+        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.',
         'Betäubung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel betäubt.',
       ],
     },
@@ -730,16 +730,16 @@ export const MONSTERS: Monster[] = [
     traits: ['Zivilisiert', 'Gebäude'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
-      abilities: ['Hexerei 2: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.'],
-      actions: ['Beschwören: Wähle ein Minion-Monster innerhalb von 3 Feldern zu diesem Monster. Platziere dieses Minion-Monster auf einem leeren Feld benachbart zu diesem Monster.'],
+      abilities: ['Hexerei 2: Nach seinem Angriffswurf kann dieses Monster bis zu 2 Reichweite in Herzen umwandeln oder bis zu 2 Herzen in Reichweite.'],
+      actions: ['Beschwören: Wähle ein normales Monster innerhalb von 3 Feldern Entfernung zu diesem Monster. Setze dann das normale Monster auf ein leeres Feld neben diesem Monster.'],
     },
     master: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
       abilities: [
-        'Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.',
-        'Todeswunsch: Würde dieses Master-Monster besiegt, darf der Overlord 1 Minion-Monster derselben Gruppe stattdessen besiegen lassen. Tut er das, heilt dieses Master-Monster alle Herzen.',
+        'Hexerei 3: Nach seinem Angriffswurf kann dieses Monster bis zu 3 Reichweite in Herzen umwandeln oder bis zu 3 Herzen in Reichweite.',
+        'Todeswunsch: Sobald dieses Elite-Monster besiegt wird, darf der Overlord stattdessen 1 normales Monster derselben Gruppe wählen, das anstelle des Elite-Monsters besiegt wird. Falls er das tut, gewinnt dieses Elite-Monster alle seine Herzen zurück.',
       ],
-      actions: ['Beschwören: Wähle ein Minion-Monster innerhalb von 3 Feldern zu diesem Monster. Platziere dieses Minion-Monster auf einem leeren Feld benachbart zu diesem Monster.'],
+      actions: ['Beschwören: Wähle ein normales Monster innerhalb von 3 Feldern Entfernung zu diesem Monster. Setze dann das normale Monster auf ein leeres Feld neben diesem Monster.'],
     },
     act2Normal: { speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'] },
     act2Master: { speed: 4, health: 8, defense: ['gray'], attack: ['blue', 'red'] },
@@ -754,23 +754,23 @@ export const MONSTERS: Monster[] = [
     traits: ['Dunkel', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
-      surges: ['Explosion: Dieser Angriff betrifft auch alle Figuren auf Nachbarfeldern des Ziels.', '+2 Herzen'],
+      surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
     },
     master: {
       speed: 3, health: 7, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
-      surges: ['Explosion: Dieser Angriff betrifft auch alle Figuren auf Nachbarfeldern des Ziels.', '+2 Herzen'],
-      actions: ['Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, bewegt er sich 2 Felder direkt von diesem Monster weg und ist bewegungsunfähig.'],
+      surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
+      actions: ['Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held muss eine Willenskraft-Probe ablegen. Falls sie misslingt, wird er 2 Felder in gerader Richtung von diesem Monster wegbewegt und ist gelähmt.'],
     },
     act2Normal: {
       speed: 3, health: 7, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'],
-      surges: ['Explosion: Dieser Angriff betrifft auch alle Figuren auf Nachbarfeldern des Ziels.', '+2 Herzen'],
+      surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
       abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
     },
     act2Master: {
       speed: 3, health: 10, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'],
-      surges: ['Explosion: Dieser Angriff betrifft auch alle Figuren auf Nachbarfeldern des Ziels.', '+2 Herzen'],
+      surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
       abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
-      actions: ['Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, bewegt er sich 2 Felder direkt von diesem Monster weg und ist bewegungsunfähig.'],
+      actions: ['Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held muss eine Willenskraft-Probe ablegen. Falls sie misslingt, wird er 2 Felder in gerader Richtung von diesem Monster wegbewegt und ist gelähmt.'],
     },
   },
   {
@@ -783,14 +783,14 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
-      actions: ['Dunkles Gebet: Wähle 1 Helden innerhalb von 5 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, erleidet er 1 Erschöpfung.'],
+      actions: ['Dunkles Gebet: Wähle einen Helden innerhalb von 5 Feldern Entfernung zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Falls sie misslingt, erleidet er 1 Erschöpfung.'],
     },
     master: {
       speed: 4, health: 6, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
       actions: [
-        'Dunkles Gebet: Wähle 1 Helden innerhalb von 5 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, erleidet er 1 Erschöpfung.',
-        'Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und würfle 1 roten Machtwürfel. Dieses Monster heilt Herzen in Höhe der gewürfelten Herzen.',
+        'Dunkles Gebet: Wähle einen Helden innerhalb von 5 Feldern Entfernung zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Falls sie misslingt, erleidet er 1 Erschöpfung.',
+        'Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und wirf einen roten Machtwürfel. Das Monster gewinnt die gewürfelten Herzen zurück.',
       ],
     },
     act2Normal: { speed: 4, health: 7, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'] },
@@ -799,8 +799,8 @@ export const MONSTERS: Monster[] = [
       surges: ['+2 Herzen'],
       abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
       actions: [
-        'Dunkles Gebet: Wähle 1 Helden innerhalb von 5 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, erleidet er 1 Erschöpfung.',
-        'Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und würfle 1 roten Machtwürfel. Dieses Monster heilt Herzen in Höhe der gewürfelten Herzen.',
+        'Dunkles Gebet: Wähle einen Helden innerhalb von 5 Feldern Entfernung zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Falls sie misslingt, erleidet er 1 Erschöpfung.',
+        'Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und wirf einen roten Machtwürfel. Das Monster gewinnt die gewürfelten Herzen zurück.',
       ],
     },
   },
@@ -816,7 +816,7 @@ export const MONSTERS: Monster[] = [
       surges: ['+1 Herz'],
       abilities: [
         'Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.',
-        'Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.',
+        'Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.',
       ],
     },
     master: {
@@ -824,8 +824,8 @@ export const MONSTERS: Monster[] = [
       surges: ['+1 Herz'],
       abilities: [
         'Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.',
-        'Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.',
-        'Eisig: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Erschöpfung.',
+        'Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.',
+        'Eiskalt: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Erschöpfung.',
       ],
     },
     act2Normal: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'red'], surges: ['+2 Herzen'] },
