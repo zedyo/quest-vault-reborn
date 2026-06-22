@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
-import { monsterImageUrl } from '../data/assetUrls'
+import { monsterCardDeUrl } from '../data/assetUrls'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
 import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
@@ -482,7 +482,7 @@ export default function MonstersPage() {
       {lightboxMonster && (
         <MonsterLightbox
           monster={lightboxMonster}
-          imgUrl={monsterImageUrl(lightboxMonster.id, lightboxMonster.expansionId, act)}
+          imgUrl={monsterCardDeUrl(lightboxMonster.id, act)}
           act={act}
           onClose={() => setLightboxMonster(null)}
         />
@@ -561,7 +561,7 @@ export default function MonstersPage() {
                 </h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                   {monsters.map((m) => {
-                    const imgUrl = monsterImageUrl(m.id, m.expansionId, act)
+                    const imgUrl = monsterCardDeUrl(m.id, act)
                     const hasImg = !imgErrors.has(m.id)
                     const normalStats = getActStats(m, act, 'normal')
                     const masterStats = getActStats(m, act, 'master')

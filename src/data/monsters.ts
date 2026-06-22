@@ -104,7 +104,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'flesh-moulder',
-    nameDe: 'Fleischformer',
+    nameDe: 'Sarkomant',
     nameEn: 'Flesh Moulder',
     expansionId: 'base',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
@@ -211,7 +211,7 @@ export const MONSTERS: Monster[] = [
   // ─── Die Höhle des Lindwurms ──────────────────────────────────────────────
   {
     id: 'fire-imps',
-    nameDe: 'Feuerimps',
+    nameDe: 'Feuerteufel',
     nameEn: 'Fire Imps',
     expansionId: 'lair-of-the-wyrm',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [3, 2] },
@@ -234,7 +234,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'hybrid-sentinel',
-    nameDe: 'Hybridwächter',
+    nameDe: 'Halbdrachenkrieger',
     nameEn: 'Hybrid Sentinel',
     expansionId: 'lair-of-the-wyrm',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -282,7 +282,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'carrion-drake',
-    nameDe: 'Aasdrake',
+    nameDe: 'Aas-Drache',
     nameEn: 'Carrion Drake',
     expansionId: 'labyrinth-of-ruin',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -305,7 +305,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'goblin-witcher',
-    nameDe: 'Goblin-Hexer',
+    nameDe: 'Goblin-Schamane',
     nameEn: 'Goblin Witcher',
     expansionId: 'labyrinth-of-ruin',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
@@ -324,7 +324,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'volucrix-reaver',
-    nameDe: 'Volucrix-Räuber',
+    nameDe: 'Volucrix-Jäger',
     nameEn: 'Volucrix Reaver',
     expansionId: 'labyrinth-of-ruin',
     groupSizes: { p2: [2, 0], p3: [2, 1], p4: [3, 1] },
@@ -367,7 +367,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'plague-worm',
-    nameDe: 'Seuchenwurm',
+    nameDe: 'Pestwurm',
     nameEn: 'Plague Worm',
     expansionId: 'the-trollfens',
     groupSizes: { p2: [1, 1], p3: [1, 1], p4: [2, 1] },
@@ -409,7 +409,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'wraith',
-    nameDe: 'Wraith',
+    nameDe: 'Geist',
     nameEn: 'Wraith',
     expansionId: 'manor-of-ravens',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -458,7 +458,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'ironbound',
-    nameDe: 'Eisengebundener',
+    nameDe: 'Eherner Wächter',
     nameEn: 'Ironbound',
     expansionId: 'shadow-of-nerekhall',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -515,7 +515,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'ynfernael-hulk',
-    nameDe: 'Ynfernael-Koloss',
+    nameDe: 'Höllenkoloss',
     nameEn: 'Ynfernael Hulk',
     expansionId: 'shadow-of-nerekhall',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -539,7 +539,7 @@ export const MONSTERS: Monster[] = [
   // ─── Schwur der Verbannten ────────────────────────────────────────────────
   {
     id: 'bane-spider',
-    nameDe: 'Fluchspinne',
+    nameDe: 'Mörderspinne',
     nameEn: 'Bane Spider',
     expansionId: 'oath-of-the-outcast',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -587,7 +587,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'razorwing',
-    nameDe: 'Klingenschwinge',
+    nameDe: 'Rasierklingenflügler',
     nameEn: 'Razorwing',
     expansionId: 'oath-of-the-outcast',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
@@ -723,7 +723,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'sorcerer',
-    nameDe: 'Zauberer',
+    nameDe: 'Hexenmeister',
     nameEn: 'Sorcerer',
     expansionId: 'crusade-of-the-forgotten',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
@@ -747,7 +747,7 @@ export const MONSTERS: Monster[] = [
   // ─── Wächter von Deephall ─────────────────────────────────────────────────
   {
     id: 'crypt-dragon',
-    nameDe: 'Kryptendrache',
+    nameDe: 'Unterweltdrache',
     nameEn: 'Crypt Dragon',
     expansionId: 'guardians-of-deephall',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -775,7 +775,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'dark-priest',
-    nameDe: 'Dunkelpriester',
+    nameDe: 'Dunkler Priester',
     nameEn: 'Dark Priest',
     expansionId: 'guardians-of-deephall',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
@@ -834,7 +834,7 @@ export const MONSTERS: Monster[] = [
   // ─── Prophezeiung eines neuen Anfangs ─────────────────────────────────────
   {
     id: 'manticore',
-    nameDe: 'Manticore',
+    nameDe: 'Mantikor',
     nameEn: 'Manticore',
     expansionId: 'visions-of-dawn',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -903,7 +903,7 @@ export const MONSTERS: Monster[] = [
   // ─── Erwachen der Wildnis ─────────────────────────────────────────────────
   {
     id: 'deep-elf',
-    nameDe: 'Tiefelfe',
+    nameDe: 'Tiefenelf',
     nameEn: 'Deep Elf',
     expansionId: 'bonds-of-the-wild',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -1126,7 +1126,7 @@ export const MONSTERS: Monster[] = [
   // ─── Scherben von Everdark ────────────────────────────────────────────────
   {
     id: 'dark-minotaur',
-    nameDe: 'Dunkelminotaurus',
+    nameDe: 'Finsterer Minotaurus',
     nameEn: 'Dark Minotaur',
     expansionId: 'shards-of-everdark',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -1154,7 +1154,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'ice-wyrm',
-    nameDe: 'Eiswurm',
+    nameDe: 'Eiswyrm',
     nameEn: 'Ice Wyrm',
     expansionId: 'shards-of-everdark',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
@@ -1231,7 +1231,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'broodwalker',
-    nameDe: 'Brutläufer',
+    nameDe: 'Gezüchtwandler',
     nameEn: 'Broodwalker',
     expansionId: 'mists-of-bilehall',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -1258,7 +1258,7 @@ export const MONSTERS: Monster[] = [
     // passt zum Phalanx-Text. act2Normal-Angriff nur 1× gelb ist laut Karte KORREKT.
     // act2Master-Angriff hat 3 Würfel: blau+gelb+gelb (vorher fehlte 1 gelber).
     id: 'reanimate',
-    nameDe: 'Wiederbelebter',
+    nameDe: 'Wiederbelebte',
     nameEn: 'Reanimate',
     expansionId: 'mists-of-bilehall',
     groupSizes: { p2: [3, 1], p3: [3, 2], p4: [4, 2] },
@@ -1306,7 +1306,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'shambling-colossus',
-    nameDe: 'Taumelnder Koloss',
+    nameDe: 'Schlurfender Koloss',
     nameEn: 'Shambling Colossus',
     expansionId: 'the-chains-that-rust',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
@@ -1329,7 +1329,7 @@ export const MONSTERS: Monster[] = [
   },
   {
     id: 'the-dispossessed',
-    nameDe: 'Die Besitzlosen',
+    nameDe: 'Die Verlorenen',
     nameEn: 'The Dispossessed',
     expansionId: 'the-chains-that-rust',
     groupSizes: { p2: [2, 0], p3: [1, 1], p4: [2, 1] },
