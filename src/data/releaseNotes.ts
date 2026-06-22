@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.1',
+    date: '2026-06-22',
+    title: 'Deutsche Original-Monsterkarten',
+    highlights: [
+      'Alle 56 Monstergruppen zeigen jetzt die deutschen Original-Kartenbilder; mit dem Akt-1/Akt-2-Umschalter lässt sich die passende Kartenseite anzeigen.',
+      'Sämtliche Fähigkeits-, Energie- und Aktionstexte aller Monster wurden wortgetreu von den deutschen Karten neu erfasst – die früheren groben Übersetzungen wurden ersetzt.',
+      'Kartenbegriffe vereinheitlicht (z. B. „nach Verrechnung der Verteidigung", Durchbohren-Wortlaut) und etliche Fähigkeitsnamen an die Karten angepasst.',
+    ],
+  },
+  {
     version: '1.3.0',
     date: '2026-06-22',
     title: 'Deutsche Original-Heldenkarten',

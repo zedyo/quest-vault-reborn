@@ -97,3 +97,12 @@ export function tileImageUrl(tile: { id: string; expansionId: string }): string 
 export function heroCardDeUrl(id: string, back = false): string {
   return `${import.meta.env.BASE_URL}cards/de/heroes/${id}${back ? '-back' : ''}.webp`
 }
+
+/**
+ * Lokales deutsches Monster-Kartenbild (aus den Original-Karten-Scans,
+ * `public/cards/de/monsters/<id>-act1|act2[-back].webp`). `act` = 1 oder 2;
+ * `back=true` liefert die Rückseite (Fähigkeitstexte + Gruppengrößen).
+ */
+export function monsterCardDeUrl(id: string, act: 1 | 2 = 1, back = false): string {
+  return `${import.meta.env.BASE_URL}cards/de/monsters/${id}-act${act}${back ? '-back' : ''}.webp`
+}
