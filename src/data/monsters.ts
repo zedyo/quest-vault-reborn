@@ -43,15 +43,15 @@ export const MONSTERS: Monster[] = [
     traits: ['Wildnis', 'Höhle'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+1 Herz'],
+      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+1 Herz'],
     },
     master: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Herzen'],
+      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+2 Herzen'],
       abilities: ['Netz: Um sich von einem Nachbarfeld dieses Monsters weg zu bewegen, muss ein Held 1 Erschöpfung erleiden (zusätzlich zu anderer Erschöpfung, die der Held für Bewegungspunkte erleidet).'],
     },
-    act2Normal: { speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Herzen'] },
-    act2Master: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Herzen', '+1 Herz'] },
+    act2Normal: { speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+2 Herzen'] },
+    act2Master: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+2 Herzen', '+1 Herz'] },
   },
   {
     id: 'elemental',
@@ -153,19 +153,19 @@ export const MONSTERS: Monster[] = [
     traits: ['Wildnis', 'Wasser'],
     normal: {
       speed: 3, health: 5, defense: ['black'], attack: ['blue', 'red'],
-      surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.', '+1 Herz'],
+      surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.', '+1 Herz'],
       abilities: ['Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.'],
     },
     master: {
       speed: 3, health: 7, defense: ['black'], attack: ['blue', 'red'],
-      surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.', '+2 Herzen'],
+      surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.', '+2 Herzen'],
       abilities: [
         'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.',
         'Peitscharme: Dieses Monster kann mit einem Angriff 2 verschiedene Helden angreifen. Das Monster macht nur einen Angriffswurf, aber jeder Held seinen eigenen Verteidigungswurf.',
       ],
     },
-    act2Normal: { speed: 3, health: 7, defense: ['gray', 'gray'], attack: ['blue', 'red', 'yellow'], surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.', '+2 Herzen'] },
-    act2Master: { speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'red', 'yellow'], surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach dem Verteidigungswurf), wird das Ziel gelähmt.', '+3 Herzen'] },
+    act2Normal: { speed: 3, health: 7, defense: ['gray', 'gray'], attack: ['blue', 'red', 'yellow'], surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.', '+2 Herzen'] },
+    act2Master: { speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'red', 'yellow'], surges: ['Lähmung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel gelähmt.', '+3 Herzen'] },
   },
   {
     id: 'shadow-dragon',
@@ -196,17 +196,17 @@ export const MONSTERS: Monster[] = [
     traits: ['Verflucht', 'Gebäude'],
     normal: {
       speed: 3, health: 3, defense: ['brown'], attack: ['blue', 'yellow'],
-      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+1 Herz'],
+      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+1 Herz'],
       abilities: ['Behäbig: Dieses Monster kann höchstens 1 Bewegungsaktion pro Zug ausführen.'],
     },
     master: {
       speed: 3, health: 6, defense: ['brown'], attack: ['blue', 'yellow'],
-      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+1 Herz'],
+      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+1 Herz'],
       abilities: ['Behäbig: Dieses Monster kann höchstens 1 Bewegungsaktion pro Zug ausführen.'],
       actions: ['Würgegriff: Wähle einen benachbarten Helden. Der Held legt eine Stärke-Probe ab. Wenn sie misslingt, wird er gelähmt.'],
     },
-    act2Normal: { speed: 3, health: 5, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+2 Herzen'] },
-    act2Master: { speed: 3, health: 9, defense: ['brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+2 Herzen'] },
+    act2Normal: { speed: 3, health: 5, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+2 Herzen'] },
+    act2Master: { speed: 3, health: 9, defense: ['brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+2 Herzen'] },
   },
   // ─── Die Höhle des Lindwurms ──────────────────────────────────────────────
   {
@@ -218,12 +218,12 @@ export const MONSTERS: Monster[] = [
     traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 5, health: 2, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Verbrennen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), brennt das Ziel.', '+1 Reichweite'],
+      surges: ['Verbrennen: Verursacht dieser Angriff mindestens 1 Herz (nach Verrechnung der Verteidigung), brennt das Ziel.', '+1 Reichweite'],
       abilities: ['Flammenwesen: Dieses Monster ignoriert alle Effekte von Lava. Beendet es seinen Zug auf einem Lavafeld, heilt es 1 Herz. Außerdem brennt dieses Monster nie.'],
     },
     master: {
       speed: 5, health: 4, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Verbrennen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), brennt das Ziel.', '+1 Herz'],
+      surges: ['Verbrennen: Verursacht dieser Angriff mindestens 1 Herz (nach Verrechnung der Verteidigung), brennt das Ziel.', '+1 Herz'],
       abilities: [
         'Flammenwesen: Dieses Monster ignoriert alle Effekte von Lava. Beendet es seinen Zug auf einem Lavafeld, heilt es 1 Herz. Außerdem erleidet dieses Monster nie Herzen durch Brennen.',
         'Brennbar: Wird dieses Monster besiegt, erleidet jeder zu ihm benachbarte Held 1 Herz.',
@@ -268,17 +268,17 @@ export const MONSTERS: Monster[] = [
     traits: ['Wildnis', 'Verflucht'],
     normal: {
       speed: 3, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red', 'green'],
-      surges: ['Durchbohren 1: Dieser Angriff ignoriert bis zu 1 des Verteidigers.'],
+      surges: ['Durchbohren 1: Dieser Angriff ignoriert bis zu 1 Schild des Verteidigers.'],
       actions: ['Zangenangriff: Führe einen Angriff gegen bis zu 2 zu diesem Monster benachbarte Helden durch. Du machst nur 1 Angriffswurf, aber jeder Held seinen eigenen Verteidigungswurf. Jeder Held, der durch diesen Angriff mindestens 1 Herz erleidet (nach Verrechnung der Verteidigung), wird gelähmt.'],
     },
     master: {
       speed: 3, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'red', 'green'],
-      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'],
+      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'],
       abilities: ['Todesfluch: Wenn dieses Monster besiegt wird, legen alle Helden auf seinen Nachbarfeldern eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, wird verflucht.'],
       actions: ['Zangenangriff: Führe einen Angriff gegen bis zu 2 zu diesem Monster benachbarte Helden durch. Du machst nur 1 Angriffswurf, aber jeder Held seinen eigenen Verteidigungswurf. Jeder Held, der durch diesen Angriff mindestens 1 Herz erleidet (nach Verrechnung der Verteidigung), wird gelähmt.'],
     },
-    act2Normal: { speed: 3, health: 7, defense: ['black'], attack: ['blue', 'red', 'green'], surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'] },
-    act2Master: { speed: 3, health: 9, defense: ['black'], attack: ['blue', 'red', 'green'], surges: ['Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.'] },
+    act2Normal: { speed: 3, health: 7, defense: ['black'], attack: ['blue', 'red', 'green'], surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'] },
+    act2Master: { speed: 3, health: 9, defense: ['black'], attack: ['blue', 'red', 'green'], surges: ['Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.'] },
   },
   {
     id: 'carrion-drake',
@@ -289,12 +289,12 @@ export const MONSTERS: Monster[] = [
     traits: ['Wasser', 'Dunkel'],
     normal: {
       speed: 5, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+1 Herz'],
+      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+1 Herz'],
       abilities: ['Fliegen: Dieses Monster kann während der Bewegung feindliche Figuren und Terrain ignorieren. Es muss seine Bewegung nach den normalen Regeln auf einem leeren Feld beenden.'],
     },
     master: {
       speed: 5, health: 8, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', '+2 Herzen'],
+      surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), erkrankt das Ziel.', '+2 Herzen'],
       abilities: [
         'Fliegen: Dieses Monster kann während der Bewegung feindliche Figuren und Terrain ignorieren. Es muss seine Bewegung nach den normalen Regeln auf einem leeren Feld beenden.',
         'Verseucht: Wenn ein Held auf einem Nachbarfeld dieses Monsters eine Vergiftet- oder Erkrankt-Zustandskarte abwerfen würde, behält er sie stattdessen.',
@@ -331,17 +331,17 @@ export const MONSTERS: Monster[] = [
     traits: ['Gebäude', 'Gebirge'],
     normal: {
       speed: 4, health: 3, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'],
+      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'],
       actions: ['Vorstoß: Dieses Monster kann sich 3 Felder bewegen und dann einen Angriff durchführen.'],
     },
     master: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.', '+1 Herz'],
+      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.', '+1 Herz'],
       abilities: ['Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.'],
       actions: ['Vorstoß: Dieses Monster kann sich 3 Felder bewegen und dann einen Angriff durchführen.'],
     },
-    act2Normal: { speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'] },
-    act2Master: { speed: 4, health: 6, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.', '+2 Herzen'] },
+    act2Normal: { speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'] },
+    act2Master: { speed: 4, health: 6, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.', '+2 Herzen'] },
   },
   // ─── Die Trollsümpfe ─────────────────────────────────────────────────────
   {
@@ -396,7 +396,7 @@ export const MONSTERS: Monster[] = [
     traits: ['Wildnis', 'Gebäude'],
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'red'],
-      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+1 Herz'],
+      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+1 Herz'],
       actions: ['Ausrauben: Führe einen Angriff durch, der auf einen benachbarten Helden zielt. Wenn der Held durch diesen Angriff niedergestreckt wird, mischst du 1 seiner Suchkarten zurück in den Suchstapel.'],
     },
     master: {
@@ -404,7 +404,7 @@ export const MONSTERS: Monster[] = [
       surges: ['Schwarzes Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht und wird vergiftet.', '+2 Herzen'],
       actions: ['Ausrauben: Führe einen Angriff durch, der auf einen benachbarten Helden zielt. Wenn der Held durch diesen Angriff niedergestreckt wird, mischst du 1 seiner Suchkarten zurück in den Suchstapel.'],
     },
-    act2Normal: { speed: 4, health: 6, defense: ['gray'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Herzen'] },
+    act2Normal: { speed: 4, health: 6, defense: ['gray'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+2 Herzen'] },
     act2Master: { speed: 4, health: 7, defense: ['black'], attack: ['blue', 'yellow', 'yellow'], surges: ['Schwarzes Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht und wird vergiftet.', '+2 Herzen'] },
   },
   {
@@ -547,20 +547,20 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.',
-        'Durchbohren 1: Dieser Angriff ignoriert bis zu 1 des Verteidigers.',
+        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.',
+        'Durchbohren 1: Dieser Angriff ignoriert bis zu 1 Schild des Verteidigers.',
       ],
     },
     master: {
       speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
+        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.',
+        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.',
       ],
       actions: ['Kokon: Alle zu diesem Monster benachbarten Helden legen eine Gespür-Probe ab. Jeder Held, dessen Probe misslingt, wird gelähmt.'],
     },
-    act2Normal: { speed: 4, health: 6, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', 'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'] },
-    act2Master: { speed: 4, health: 9, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.'] },
+    act2Normal: { speed: 4, health: 6, defense: ['gray', 'brown'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', 'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'] },
+    act2Master: { speed: 4, health: 9, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.'] },
   },
   {
     id: 'beastman',
