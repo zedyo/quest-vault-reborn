@@ -4,7 +4,14 @@
 **Quelle:** github.com/any2cards/d2e, src/data/monsters.ts  
 **Zuletzt aktualisiert:** 2026-06-13  
 ✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass, 70+ Korrekturen)  
-✅ Gruppengrößen 2026-06-13 von den Kartenrückseiten (`-back.png`) erfasst — alle 56 Gruppen
+✅ Gruppengrößen 2026-06-13 von den Kartenrückseiten (`-back.png`) erfasst — alle 56 Gruppen  
+✅ **Deutsche Original-Kartentexte (v1.3.1, 2026-06-22):** Alle Fähigkeits-/Energie-/Aktionstexte
+aller 56 Monster wortgetreu von den deutschen Original-Karten neu erfasst (ersetzen die früheren
+Community-Übersetzungen). Vollständige deutsche Kartenbasis in
+[`de-karten/monster.md`](de-karten/monster.md). Kartenbegriffe vereinheitlicht: Verteidigungs-
+Parenthese „(nach Verrechnung der Verteidigung)", Durchbohren „ignoriert [bis zu] X Schild des
+Verteidigers / … auf den geworfenen Verteidigungswürfeln", Attribut-Symbole → Wort (Faust=Stärke,
+Strahlen=Willenskraft, Buch=Wissen, Auge=Gespür). Bilder: `public/cards/de/monsters/<id>-act<1|2>[-back].webp`.
 
 ---
 
