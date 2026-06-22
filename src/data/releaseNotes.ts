@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.3',
+    date: '2026-06-22',
+    title: 'Deutsche Original-Marktkarten + Relikte',
+    highlights: [
+      'Alle 122 Marktkarten (Akt 1 + Akt 2): Namen und Regeltexte wortgetreu von den deutschen Original-Karten neu erfasst – die früheren groben Übersetzungen wurden ersetzt.',
+      'Viele Karten heißen jetzt korrekt wie auf der deutschen Karte, u. a. Kettenrüstung (statt Kettenhemd), Feuersturm (statt Flammenopfer), Axt des Wächters, Eiserner Langspeer, Kriegsgeissel, Mantel der Täuschung.',
+      'Alle 27 Relikte sind doppelseitig kartengenau erfasst (Helden- und Overlord-Seite), u. a. Armschienen der Macht, Klinge der Morgenröte, Höllenrune, Schild des dunklen Gottes.',
+    ],
+  },
+  {
     version: '1.3.2',
     date: '2026-06-22',
     title: 'Deutsche Original-Klassenkarten + Hybrid-Klassen',
