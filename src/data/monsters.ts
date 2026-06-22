@@ -841,20 +841,20 @@ export const MONSTERS: Monster[] = [
     traits: ['Wildnis', 'Dunkel'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.', '+1 Reichweite'],
+      surges: ['Durchbohren 2: Dieser Angriff ignoriert 2 Schild des Verteidigers.', '+1 Reichweite'],
       abilities: ['Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.'],
     },
     master: {
       speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: [
-        'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.',
-        'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.',
+        'Durchbohren 3: Dieser Angriff ignoriert 3 Schild des Verteidigers.',
+        'Gift: Wenn dieser Angriff mindestens 1 Herz verursacht (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.',
         '+1 Reichweite',
       ],
       abilities: ['Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.'],
     },
-    act2Normal: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.', '+2 Reichweite'] },
-    act2Master: { speed: 4, health: 9, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Durchbohren 4: Dieser Angriff ignoriert 4 Schild im Verteidigungswurf.', 'Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Reichweite'] },
+    act2Normal: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Durchbohren 3: Dieser Angriff ignoriert 3 Schild des Verteidigers.', '+2 Reichweite'] },
+    act2Master: { speed: 4, health: 9, defense: ['gray'], attack: ['blue', 'yellow', 'yellow'], surges: ['Durchbohren 4: Dieser Angriff ignoriert 4 Schild des Verteidigers.', 'Gift: Wenn dieser Angriff mindestens 1 Herz verursacht (nach Verrechnung der Verteidigung), wird das Ziel vergiftet.', '+2 Reichweite'] },
   },
   {
     id: 'ogre',
@@ -865,12 +865,12 @@ export const MONSTERS: Monster[] = [
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.', '+3 Herzen'],
+      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es dann auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Das Ziel betritt dieses Feld.', '+3 Herzen'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'red'],
-      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.', '+3 Herzen'],
-      abilities: ['Fleischhändler: Jedes Mal, wenn ein Held, dessen Heldenmarker nicht auf dieser Karte liegt, 1 oder mehr Herzen durch einen Angriff dieses Monsters erleidet, lege 1 seiner Heldenmarker auf diese Karte. Für jeden Heldenmarker auf dieser Karte erhält dieses Monster +2 Lebenspunkte. Wird dieses Monster besiegt, lege alle Heldenmarker von dieser Karte ab.'],
+      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es dann auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Das Ziel betritt dieses Feld.', '+3 Herzen'],
+      abilities: ['Fleischfresser: Lege jedes Mal, wenn ein Held, dessen Heldenmarker nicht auf dieser Karte liegt, durch einen Angriff dieses Monsters mindestens 1 Herz erleidet, 1 seiner Heldenmarker auf diese Karte. Für jeden Heldenmarker auf dieser Karte steigt die Lebenskraft dieses Monsters um +2. Sobald dieses Monster besiegt wird, werden alle Heldenmarker von dieser Karte abgeworfen.'],
     },
     act2Normal: { speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'yellow'] },
     act2Master: { speed: 3, health: 12, defense: ['gray'], attack: ['blue', 'red', 'yellow'] },
@@ -885,17 +885,17 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 3, health: 8, defense: ['gray'], attack: ['blue', 'red'],
       abilities: [
-        'Rückschwung: Sofort nach einem Angriff einsetzbar: Wähle eine beliebige Anzahl der vom Angriff betroffenen Figuren. Jede dieser Figuren legt eine Stärke-Probe ab. Besteht keine, erleidet jede gewählte Figur 2 Herzen und ist betäubt.',
-        'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.',
+        'Ausholen: Benutze diese Fähigkeit sofort, nachdem du einen Angriff ausgeführt hast, um eine beliebige Anzahl an Figuren zu wählen, die durch diesen Angriff betroffen sind. Jede dieser Figuren muss eine Willenskraft-Probe ablegen. Falls keine der Figuren die Probe besteht, erleidet jede gewählte Figur 2 Herzen und ist Betäubt.',
+        'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu zwei Felder weit angreifen.',
       ],
     },
     master: {
       speed: 3, health: 10, defense: ['gray'], attack: ['blue', 'red'],
       abilities: [
-        'Rückschwung: Sofort nach einem Angriff einsetzbar: Wähle eine beliebige Anzahl der vom Angriff betroffenen Figuren. Jede dieser Figuren legt eine Stärke-Probe ab. Besteht keine, erleidet jede gewählte Figur 2 Herzen und ist betäubt.',
-        'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.',
+        'Ausholen: Benutze diese Fähigkeit sofort, nachdem du einen Angriff ausgeführt hast, um eine beliebige Anzahl an Figuren zu wählen, die durch diesen Angriff betroffen sind. Jede dieser Figuren muss eine Willenskraft-Probe ablegen. Falls keine der Figuren die Probe besteht, erleidet jede gewählte Figur 2 Herzen und ist Betäubt.',
+        'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu zwei Felder weit angreifen.',
       ],
-      actions: ['Rundumschlag: Führe einen Angriff durch. Dieser Angriff betrifft alle anderen Figuren, die innerhalb von 2 Feldern in der Sichtlinie dieses Monsters stehen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'],
+      actions: ['Rundumschlag: Führe einen Angriff aus. Dieser Angriff betrifft alle anderen Figuren, die innerhalb von 2 Feldern in der Sichtlinie dieses Monsters stehen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'],
     },
     act2Normal: { speed: 3, health: 10, defense: ['gray'], attack: ['blue', 'red', 'red'] },
     act2Master: { speed: 3, health: 13, defense: ['gray'], attack: ['blue', 'red', 'red'] },
@@ -912,21 +912,21 @@ export const MONSTERS: Monster[] = [
       speed: 5, health: 7, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
       abilities: [
-        'Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
+        'Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.',
+        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.',
       ],
     },
     master: {
       speed: 5, health: 9, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
       abilities: [
-        'Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.',
-        'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.',
-        'Riposte: Jedes Mal, wenn eine benachbarte Figur einen Angriff abschließt, der dieses Monster betrifft, erleidet diese Figur Herzen in Höhe der gewürfelten Schilde; ist der Angriff ein Fehlschlag, erleidet die Figur stattdessen 1 Herz.',
+        'Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.',
+        'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.',
+        'Riposte: Jedes Mal wenn eine benachbarte Figur einen Angriff durchführt, der dieses Monster betrifft, erleidet jene Figur Herzen in Höhe des Verteidigungswurfs. Falls der Angriff fehlschlägt, erleidet die Figur stattdessen so viele Herzen wie Herzen gewürfelt wurden.',
       ],
     },
-    act2Normal: { speed: 5, health: 8, defense: ['gray'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'], abilities: ['Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.', 'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'] },
-    act2Master: { speed: 5, health: 10, defense: ['gray'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'], abilities: ['Heimlich: Jeder Angriff auf dieses Monster muss 3 zusätzliche Reichweite über die normalerweise nötige hinaus erzielen, sonst ist der Angriff ein Fehlschlag.', 'Durchbohren 4: Dieser Angriff ignoriert 4 Schild im Verteidigungswurf.', 'Riposte: Jedes Mal, wenn eine benachbarte Figur einen Angriff abschließt, der dieses Monster betrifft, erleidet diese Figur Herzen in Höhe der gewürfelten Schilde; ist der Angriff ein Fehlschlag, erleidet die Figur stattdessen 1 Herz.'] },
+    act2Normal: { speed: 5, health: 8, defense: ['gray'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'], abilities: ['Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.', 'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.'] },
+    act2Master: { speed: 5, health: 10, defense: ['gray'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'], abilities: ['Tarnung: Jeder Angriff, der auf dieses Monster zielt, muss 3 Reichweite mehr haben als normal; sonst gilt er als Fehlschlag.', 'Durchbohren 4: Dieser Angriff ignoriert bis zu 4 Schild des Verteidigers.', 'Riposte: Jedes Mal wenn eine benachbarte Figur einen Angriff durchführt, der dieses Monster betrifft, erleidet jene Figur Herzen in Höhe des Verteidigungswurfs. Falls der Angriff fehlschlägt, erleidet die Figur stattdessen so viele Herzen wie Herzen gewürfelt wurden.'] },
   },
   {
     id: 'hellhound',
@@ -938,20 +938,20 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Jagen: Nachdem dieser Angriff abgeschlossen ist, darfst du das Ziel von der Karte entfernen und auf einem leeren Feld benachbart zu diesem Monster platzieren.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
+        'Jagen: Nachdem dieser Angriff durchgeführt worden ist, kannst du das Ziel vom Spielplan nehmen und es auf ein leeres zu diesem Monster benachbartes Feld stellen.',
+        'Durchbohren 2: Dieser Angriff ignoriert 2 Schild auf den geworfenen Verteidigungswürfeln.',
       ],
     },
     master: {
       speed: 4, health: 6, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Jagen: Nachdem dieser Angriff abgeschlossen ist, darfst du das Ziel von der Karte entfernen und auf einem leeren Feld benachbart zu diesem Monster platzieren.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
-        'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern (inklusive Zielfeld) in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.',
+        'Jagen: Nachdem dieser Angriff durchgeführt worden ist, kannst du das Ziel vom Spielplan nehmen und es auf ein leeres zu diesem Monster benachbartes Feld stellen.',
+        'Durchbohren 2: Dieser Angriff ignoriert 2 Schild auf den geworfenen Verteidigungswürfeln.',
+        'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.',
       ],
     },
-    act2Normal: { speed: 5, health: 6, defense: ['black'], attack: ['blue', 'red'], surges: ['Jagen: Nachdem dieser Angriff abgeschlossen ist, darfst du das Ziel von der Karte entfernen und auf einem leeren Feld benachbart zu diesem Monster platzieren.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.'] },
-    act2Master: { speed: 5, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Jagen: Nachdem dieser Angriff abgeschlossen ist, darfst du das Ziel von der Karte entfernen und auf einem leeren Feld benachbart zu diesem Monster platzieren.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.', 'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern (inklusive Zielfeld) in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'] },
+    act2Normal: { speed: 5, health: 6, defense: ['black'], attack: ['blue', 'red'], surges: ['Jagen: Nachdem dieser Angriff durchgeführt worden ist, kannst du das Ziel vom Spielplan nehmen und es auf ein leeres zu diesem Monster benachbartes Feld stellen.', 'Durchbohren 3: Dieser Angriff ignoriert 3 Schild auf den geworfenen Verteidigungswürfeln.'] },
+    act2Master: { speed: 5, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Jagen: Nachdem dieser Angriff durchgeführt worden ist, kannst du das Ziel vom Spielplan nehmen und es auf ein leeres zu diesem Monster benachbartes Feld stellen.', 'Durchbohren 3: Dieser Angriff ignoriert 3 Schild auf den geworfenen Verteidigungswürfeln.', 'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'] },
   },
   {
     id: 'kobold',
@@ -962,18 +962,18 @@ export const MONSTERS: Monster[] = [
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 2, defense: ['brown'], attack: ['blue'],
-      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere benachbarte Monster zum Ziel.'],
+      surges: ['Schwarm: Dieses Monster fügt für jedes andere zum Ziel benachbarte Monster +1 Herz zu.'],
       abilities: [
         'Wendig: Dieses Monster kann sich durch Felder bewegen, auf denen Helden stehen.',
-        'Kleine Anfänge: Platziere dieses Monster nicht beim Aufbau.',
+        'Brut: Dieses Monster wird während des Aufbaus nicht aufgestellt.',
       ],
     },
     master: {
       speed: 3, health: 5, defense: ['brown'], attack: ['blue', 'yellow'],
-      surges: ['Schwarm: Dieses Monster verursacht +1 Herz für jedes andere benachbarte Monster zum Ziel.'],
+      surges: ['Schwarm: Dieses Monster fügt für jedes andere zum Ziel benachbarte Monster +1 Herz zu.'],
       abilities: [
         'Wendig: Dieses Monster kann sich durch Felder bewegen, auf denen Helden stehen.',
-        'Erschaffer: Platziere zu Beginn jedes Overlord-Zuges 1 Minion-Kobold benachbart zu diesem Monster (unter Beachtung der Gruppengrenzen).',
+        'Brutmeister: Zu Beginn jedes eigenen Spielzuges stellt der Overlord 1 normalen Kobold auf ein zu diesem Monster benachbartes Feld (Gruppengröße einhalten).',
       ],
     },
     act2Normal: { speed: 4, health: 4, defense: ['brown'], attack: ['blue'] },
