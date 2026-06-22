@@ -10,7 +10,7 @@ const ARCHETYPE_DE: Record<HeroArchetype, string> = {
   krieger: 'Krieger',
   heiler: 'Heiler',
   magier: 'Magier',
-  spaeher: 'Späher',
+  spaeher: 'Kundschafter',
 }
 
 const ARCHETYPE_ORDER: HeroArchetype[] = ['krieger', 'heiler', 'magier', 'spaeher']
@@ -74,6 +74,33 @@ function FamiliarBlock({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
   )
 }
 
+function StartingEquipmentBlock({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
+  const items = cls.startingEquipment
+  if (!items || items.length === 0) return null
+  return (
+    <div className="mt-2 rounded bg-amber-950/20 border border-amber-900/40 p-2">
+      <div className="text-[10px] font-semibold uppercase tracking-wide text-amber-300 mb-1">
+        Startausrüstung
+      </div>
+      <div className="space-y-1.5">
+        {items.map((it) => {
+          const name = lang === 'en' && it.nameEn ? it.nameEn : it.nameDe
+          const rules = lang === 'en' && it.rulesEn ? it.rulesEn : it.rulesDe
+          return (
+            <div key={it.id}>
+              <div className="flex items-baseline gap-2">
+                <span className="text-xs font-semibold text-gray-200">{name}</span>
+                {it.type && <span className="text-[10px] text-gray-500">{it.type}</span>}
+              </div>
+              <div className="text-xs text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 12)}</div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function ClassCard({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
   const skills = useMemo(() => {
     const xpVal = (x: number | 'elemental') => (x === 'elemental' ? 99 : x)
@@ -84,8 +111,20 @@ function ClassCard({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
   return (
     <div className="card">
       <div className="mb-2">
-        <h4 className="text-gray-100 font-semibold">{lang === 'de' ? cls.nameDe : cls.nameEn}</h4>
+        <div className="flex items-center gap-2 flex-wrap">
+          <h4 className="text-gray-100 font-semibold">{lang === 'de' ? cls.nameDe : cls.nameEn}</h4>
+          {cls.kind === 'hybrid' && (
+            <span className="text-[10px] font-semibold uppercase tracking-wide bg-purple-900/60 text-purple-300 px-1.5 py-0.5 rounded">
+              Hybrid
+            </span>
+          )}
+        </div>
         <p className="text-gray-500 text-xs">{lang === 'de' ? cls.nameEn : cls.nameDe}</p>
+        {cls.kind === 'hybrid' && cls.hybridArchetype && (
+          <p className="text-[11px] text-purple-300/80 mt-0.5">
+            Kombinierbar mit einem Standard-Klassendeck des Archetyps {ARCHETYPE_DE[cls.hybridArchetype]}.
+          </p>
+        )}
       </div>
       <div>
         {skills.map((s) => (
@@ -93,6 +132,7 @@ function ClassCard({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
         ))}
       </div>
       <FamiliarBlock cls={cls} lang={lang} />
+      <StartingEquipmentBlock cls={cls} lang={lang} />
     </div>
   )
 }
@@ -134,7 +174,7 @@ export default function ClassesPage() {
       <div>
         <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Helden-Klassen</h2>
         <p className="text-gray-400 text-sm">
-          {filtered.length} Klassen {onlyOwned ? 'in deiner Sammlung' : 'insgesamt'} · Fähigkeitskarten mit XP-Kosten
+          {filtered.length} Klassen {onlyOwned ? 'in deiner Sammlung' : 'insgesamt'} · Fähigkeitskarten, Startausrüstung und Begleiter
         </p>
       </div>
 
@@ -146,7 +186,8 @@ export default function ClassesPage() {
 
       {lang === 'de' && (
         <p className="text-[11px] text-gray-600 -mt-3">
-          Deutsche Kartentexte sind Community-Übersetzungen (nicht zwingend offizieller FFG-Wortlaut). Original via „English".
+          Deutsche Texte sind 1:1 von den deutschen Original-Klassenkarten erfasst. Hybrid-Klassen
+          (lila Markierung) werden mit einem Standard-Klassendeck kombiniert.
         </p>
       )}
 
