@@ -1,12 +1,13 @@
 # Descent 2. Edition – Alle Helden
 
 **Status:** Vollständige Spielwerte dokumentiert – ✅ Kartenscan-validiert 2026-06-13 (vollständiger Audit-Pass)  
+**v1.3.0 (2026-06-22):** Namen + Heldenfähigkeit/Heldentat aller 60 Helden 1:1 von den **deutschen Original-Karten** übernommen; deutsche Kartenbilder in der App. Detail-Wissensbasis: [`de-karten/helden.md`](de-karten/helden.md).  
 **Quelle:** github.com/any2cards/d2e, src/data/heroes.ts  
 **Zuletzt aktualisiert:** 2026-06-13
 
 ---
 
-**Hinweis:** Heldennamen sind Eigennamen und wurden von FFG/Asmodee auf Deutsch NICHT übersetzt. Die Archetypen wurden jedoch auf Deutsch lokalisiert.
+**Hinweis:** Die deutschen Original-Karten verwenden teils eingedeutschte Heldennamen (z. B. „Geistersprecher Mok", „Großmagier Cwellin", „Kundschafter Durik"). Seit v1.3.0 sind die Karten-Namen maßgeblich (16 Korrekturen, siehe `de-karten/helden.md`). Die Archetypen wurden ebenfalls lokalisiert.
 
 ## Archetypen
 
