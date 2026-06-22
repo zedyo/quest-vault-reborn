@@ -397,15 +397,15 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'red'],
       surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+1 Herz'],
-      actions: ['Plündern: Führe einen Angriff auf einen benachbarten Helden aus. Wird dieser Held durch den Angriff kampfunfähig, wähle 1 seiner Suchkarten und mische sie in den Suchstapel.'],
+      actions: ['Ausrauben: Führe einen Angriff durch, der auf einen benachbarten Helden zielt. Wenn der Held durch diesen Angriff niedergestreckt wird, mischst du 1 seiner Suchkarten zurück in den Suchstapel.'],
     },
     master: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Schwarzes Gift: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt und vergiftet.', '+2 Herzen'],
-      actions: ['Plündern: Führe einen Angriff auf einen benachbarten Helden aus. Wird dieser Held durch den Angriff kampfunfähig, wähle 1 seiner Suchkarten und mische sie in den Suchstapel.'],
+      surges: ['Schwarzes Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht und wird vergiftet.', '+2 Herzen'],
+      actions: ['Ausrauben: Führe einen Angriff durch, der auf einen benachbarten Helden zielt. Wenn der Held durch diesen Angriff niedergestreckt wird, mischst du 1 seiner Suchkarten zurück in den Suchstapel.'],
     },
     act2Normal: { speed: 4, health: 6, defense: ['gray'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.', '+2 Herzen'] },
-    act2Master: { speed: 4, health: 7, defense: ['black'], attack: ['blue', 'yellow', 'yellow'], surges: ['Schwarzes Gift: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt und vergiftet.', '+2 Herzen'] },
+    act2Master: { speed: 4, health: 7, defense: ['black'], attack: ['blue', 'yellow', 'yellow'], surges: ['Schwarzes Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht und wird vergiftet.', '+2 Herzen'] },
   },
   {
     id: 'wraith',
@@ -416,17 +416,17 @@ export const MONSTERS: Monster[] = [
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt.', '+1 Herz'],
-      actions: ['Todesschrei: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, ist er verdammt oder erleidet 1 Herz (deine Wahl). Höchstens 1× pro Runde.'],
+      surges: ['Todeswelle: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht.', '+1 Herz'],
+      actions: ['Todesschrei: Wähle einen Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Wenn sie misslingt, ist er todgeweiht oder erleidet 1 Herz nach Wahl des Overlords. Höchstens ein Mal pro Runde.'],
     },
     master: {
       speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt.', '+2 Herzen'],
-      abilities: ['Schnitter: Wird ein Held innerhalb von 5 Feldern zu diesem Monster kampfunfähig, darf sich dieses Monster sofort bis zu seiner Bewegung weit bewegen und dann einen Angriff ausführen. Höchstens 1× pro Runde.'],
-      actions: ['Todesschrei: Wähle 1 Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Misslingt sie, ist er verdammt oder erleidet 1 Herz (deine Wahl). Höchstens 1× pro Runde.'],
+      surges: ['Todeswelle: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht.', '+2 Herzen'],
+      abilities: ['Schnitter: Wenn ein Held innerhalb von 5 Feldern zu diesem Monster niedergestreckt wird, darf es sich sofort entsprechend seiner Geschwindigkeit bewegen und dann angreifen. Höchstens ein Mal pro Runde.'],
+      actions: ['Todesschrei: Wähle einen Helden innerhalb von 3 Feldern zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Wenn sie misslingt, ist er todgeweiht oder erleidet 1 Herz nach Wahl des Overlords. Höchstens ein Mal pro Runde.'],
     },
-    act2Normal: { speed: 5, health: 6, defense: ['black'], attack: ['blue', 'yellow'], surges: ['Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt.', '+2 Herzen'] },
-    act2Master: { speed: 5, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Verdammen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), wird das Ziel verdammt.', '+3 Herzen'] },
+    act2Normal: { speed: 5, health: 6, defense: ['black'], attack: ['blue', 'yellow'], surges: ['Todeswelle: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht.', '+2 Herzen'] },
+    act2Master: { speed: 5, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Todeswelle: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel todgeweiht.', '+3 Herzen'] },
   },
   // ─── Schatten von Nerekhall ───────────────────────────────────────────────
   {
@@ -439,19 +439,19 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['gray', 'brown'], attack: ['blue', 'red'],
       surges: [
-        'Verdorren: Das Ziel erleidet 1 Erschöpfung.',
-        'Bluten: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), blutet das Ziel.',
+        'Verwelken: Das Ziel erleidet 1 Erschöpfung.',
+        'Blutung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), blutet das Ziel.',
       ],
-      actions: ['Flüstern: Jeder zu diesem Monster benachbarte Held legt eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, bewegt sich 1 Feld in eine Richtung deiner Wahl.'],
+      actions: ['Flüstern: Alle zu diesem Monster benachbarten Helden legen eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, bewegt sich 1 Feld in eine Richtung deiner Wahl.'],
     },
     master: {
       speed: 4, health: 6, defense: ['gray', 'brown'], attack: ['blue', 'red'],
       surges: [
-        'Verdorren: Das Ziel erleidet 1 Erschöpfung.',
-        'Bluten: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), blutet das Ziel.',
+        'Verwelken: Das Ziel erleidet 1 Erschöpfung.',
+        'Blutung: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), blutet das Ziel.',
       ],
-      abilities: ['Schauriges Gelächter: Jeder Held innerhalb von 3 Feldern zu diesem Monster wendet -1 auf seine Stärke, sein Wissen, seine Willenskraft und sein Gespür an (Minimum 1).'],
-      actions: ['Flüstern: Jeder zu diesem Monster benachbarte Held legt eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, bewegt sich 1 Feld in eine Richtung deiner Wahl.'],
+      abilities: ['Höhnisches Lachen: Jeder Held innerhalb von 3 Feldern zu diesem Monster erhält -1 auf Stärke, Wissen, Willenskraft und Gespür (mindestens 1).'],
+      actions: ['Flüstern: Alle zu diesem Monster benachbarten Helden legen eine Willenskraft-Probe ab. Jeder Held, dessen Probe misslingt, bewegt sich 1 Feld in eine Richtung deiner Wahl.'],
     },
     act2Normal: { speed: 4, health: 6, defense: ['black', 'brown'], attack: ['blue', 'red'] },
     act2Master: { speed: 4, health: 8, defense: ['black', 'brown'], attack: ['blue', 'red', 'yellow'] },
@@ -468,8 +468,8 @@ export const MONSTERS: Monster[] = [
       surges: ['+2 Herzen'],
       abilities: [
         'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.',
-        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.',
-        'Beschützen: Jedes Mal, wenn eine Figur in der Sichtlinie dieses Monsters einen Angriff auf eine zu diesem Monster benachbarte Figur ausführt, darf dieses Monster vor dem Würfeln 1 Herz erleiden, um Ziel des Angriffs zu werden. Reichweite und Sichtlinie werden weiterhin zum ursprünglichen Ziel gemessen.',
+        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen sämtliche Zustände.',
+        'Beschützen: Wenn eine Figur in der Sichtlinie dieses Monsters mit einem Angriff auf ein zu diesem Monster benachbartes Monster zielt, kann dieses Monster vor dem Angriffswurf 1 Herz erleiden, um zum Ziel des Angriffs zu werden. Reichweite und Sichtlinie werden weiterhin zum ursprünglichen Ziel gemessen.',
       ],
     },
     master: {
@@ -477,8 +477,8 @@ export const MONSTERS: Monster[] = [
       surges: ['+3 Herzen'],
       abilities: [
         'Weitreichend: Dieses Monster kann mit einem Nahkampfangriff bis zu 2 Felder weit angreifen.',
-        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.',
-        'Beschützen: Jedes Mal, wenn eine Figur in der Sichtlinie dieses Monsters einen Angriff auf eine zu diesem Monster benachbarte Figur ausführt, darf dieses Monster vor dem Würfeln 1 Herz erleiden, um Ziel des Angriffs zu werden. Reichweite und Sichtlinie werden weiterhin zum ursprünglichen Ziel gemessen.',
+        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen sämtliche Zustände.',
+        'Beschützen: Wenn eine Figur in der Sichtlinie dieses Monsters mit einem Angriff auf ein zu diesem Monster benachbartes Monster zielt, kann dieses Monster vor dem Angriffswurf 1 Herz erleiden, um zum Ziel des Angriffs zu werden. Reichweite und Sichtlinie werden weiterhin zum ursprünglichen Ziel gemessen.',
       ],
     },
     act2Normal: { speed: 2, health: 10, defense: ['gray', 'black'], attack: ['blue', 'red', 'green'] },
@@ -493,21 +493,21 @@ export const MONSTERS: Monster[] = [
     traits: ['Gebäude', 'Dunkel'],
     normal: {
       speed: 3, health: 4, defense: ['brown'], attack: ['green'],
-      surges: ['Festmahl: Dieser Angriff erhält +X Herz, wobei X der verbleibenden Lebenspunkte dieses Monsters entspricht.'],
+      surges: ['Fressgier: Dieses Monster erhält +X Herz, wobei X gleich der verbleibenden Lebenspunkte dieses Monsters ist.'],
       actions: [
-        'Verschmelzen: Wähle 1 zu diesem Monster benachbartes Monster derselben Gruppe. Dieses Monster erleidet Herzen in Höhe seiner verbleibenden Lebenspunkte, das gewählte Monster heilt eine entsprechende Anzahl Herzen.',
-        'Zerfleischen: Wähle einen zu diesem Monster benachbarten Helden, der eine Stärke-Probe ablegt. Misslingt sie, blutet er.',
+        'Verschmelzen: Wähle 1 Monster derselben Gruppe auf einem Nachbarfeld dieses Monsters. Dieses Monster erleidet alle verbleibenden Herzen, und das gewählte Monster gewinnt ebenso viele Herzen zurück.',
+        'Zerfleischen: Ein benachbarter Held deiner Wahl legt eine Stärke-Probe ab. Wenn sie misslingt, blutet er.',
       ],
     },
     master: {
       // Kartenscan-validiert 2026-06-12: Master-Verteidigung in Akt 1 ist braun
       // (vorher fälschlich grau); Gefräßig gibt 1 Energie, nicht 1 Herz.
       speed: 3, health: 5, defense: ['brown'], attack: ['green'],
-      surges: ['Festmahl: Dieser Angriff erhält +X Herz, wobei X der verbleibenden Lebenspunkte dieses Monsters entspricht.'],
-      abilities: ['Gefräßig: Greift dieses Monster einen blutenden Helden an, fügt es seinen Angriffsergebnissen 1 Energie hinzu.'],
+      surges: ['Fressgier: Dieses Monster erhält +X Herz, wobei X gleich der verbleibenden Lebenspunkte dieses Monsters ist.'],
+      abilities: ['Heißhunger: Bei Angriffen gegen blutende Helden erhält dieses Monster +1 Energie.'],
       actions: [
-        'Verschmelzen: Wähle 1 zu diesem Monster benachbartes Monster derselben Gruppe. Dieses Monster erleidet Herzen in Höhe seiner verbleibenden Lebenspunkte, das gewählte Monster heilt eine entsprechende Anzahl Herzen.',
-        'Zerfleischen: Wähle einen zu diesem Monster benachbarten Helden, der eine Stärke-Probe ablegt. Misslingt sie, blutet er.',
+        'Verschmelzen: Wähle 1 Monster derselben Gruppe auf einem Nachbarfeld dieses Monsters. Dieses Monster erleidet alle verbleibenden Herzen, und das gewählte Monster gewinnt ebenso viele Herzen zurück.',
+        'Zerfleischen: Ein benachbarter Held deiner Wahl legt eine Stärke-Probe ab. Wenn sie misslingt, blutet er.',
       ],
     },
     act2Normal: { speed: 3, health: 5, defense: ['gray'], attack: ['green'] },
@@ -522,16 +522,16 @@ export const MONSTERS: Monster[] = [
     traits: ['Verflucht', 'Heiß'],
     normal: {
       speed: 3, health: 8, defense: ['gray'], attack: ['blue', 'red'],
-      surges: ['Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.'],
-      actions: ['Blutrausch: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens 1× pro Zug.'],
+      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.'],
+      actions: ['Blutgier: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens ein Mal pro Zug.'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.',
-        'Ansturm: War dieses Monster zu Beginn seiner Aktivierung nicht zum Ziel benachbart, erhält dieser Angriff +3 Herzen.',
+        'Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.',
+        'Sturmangriff: Wenn dieses Monster zu Beginn seines Zuges nicht zum Ziel benachbart war, hat der Angriff +3 Herzen.',
       ],
-      actions: ['Blutrausch: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens 1× pro Zug.'],
+      actions: ['Blutgier: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens ein Mal pro Zug.'],
     },
     act2Normal: { speed: 3, health: 9, defense: ['black'], attack: ['blue', 'red', 'yellow'] },
     act2Master: { speed: 3, health: 10, defense: ['black'], attack: ['blue', 'red', 'yellow'] },
@@ -683,13 +683,13 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 3, health: 8, defense: ['black'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
-      abilities: ['Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.'],
+      abilities: ['Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen sämtliche Zustände.'],
     },
     master: {
       speed: 3, health: 10, defense: ['black'], attack: ['blue', 'red'],
       surges: ['+2 Herzen'],
       abilities: [
-        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen alle Zustände.',
+        'Eisenhaut: Dieses Monster ist immun gegen Durchbohren und gegen sämtliche Zustände.',
         'Unverrückbar: Dieses Monster darf jeden Spieleffekt ignorieren, der es zur Bewegung zwingen würde.',
       ],
     },
@@ -865,11 +865,11 @@ export const MONSTERS: Monster[] = [
     traits: ['Gebäude', 'Höhle'],
     normal: {
       speed: 3, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.', '+3 Herzen'],
+      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.', '+3 Herzen'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'red'],
-      surges: ['Rückstoß: Entferne das Ziel von der Karte und platziere es auf einem beliebigen leeren Feld innerhalb von 3 Feldern seines ursprünglichen Feldes. Es gilt als hätte es dieses Feld betreten.', '+3 Herzen'],
+      surges: ['Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.', '+3 Herzen'],
       abilities: ['Fleischhändler: Jedes Mal, wenn ein Held, dessen Heldenmarker nicht auf dieser Karte liegt, 1 oder mehr Herzen durch einen Angriff dieses Monsters erleidet, lege 1 seiner Heldenmarker auf diese Karte. Für jeden Heldenmarker auf dieser Karte erhält dieses Monster +2 Lebenspunkte. Wird dieses Monster besiegt, lege alle Heldenmarker von dieser Karte ab.'],
     },
     act2Normal: { speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'yellow'] },
@@ -1015,12 +1015,12 @@ export const MONSTERS: Monster[] = [
     traits: ['Heiß', 'Verflucht'],
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
-      surges: ['Verdorren: Das Ziel erleidet 1 Erschöpfung.'],
+      surges: ['Verwelken: Das Ziel erleidet 1 Erschöpfung.'],
       abilities: ['Zauberei 2: Nach einem Angriffswurf darf dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
-      surges: ['Verdorren: Das Ziel erleidet 1 Erschöpfung.'],
+      surges: ['Verwelken: Das Ziel erleidet 1 Erschöpfung.'],
       abilities: [
         'Zauberei 3: Nach einem Angriffswurf darf dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.',
         'Aura 1: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Herz.',
