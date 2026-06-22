@@ -990,20 +990,20 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
-      abilities: ['Lebensdurst 1: Jedes Mal, wenn ein Held innerhalb von 5 Feldern zu diesem Monster 1 oder mehr Herzen heilt, reduziert er die geheilte Anzahl Herzen um 1 (Minimum 0).'],
+      abilities: ['Lebensdurst 1: Jedes Mal wenn ein Held innerhalb von 5 Feldern Entfernung zu diesem Monster mindestens 1 Herz zurückgewinnt, reduziert dieser Held die Anzahl der zurückgewonnenen Herzen um 1 (bis zu einem Minimum von 0).'],
     },
     master: {
       speed: 4, health: 7, defense: ['black'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
-      abilities: ['Lebensdurst 1: Jedes Mal, wenn ein Held innerhalb von 5 Feldern zu diesem Monster 1 oder mehr Herzen heilt, reduziert er die geheilte Anzahl Herzen um 1 (Minimum 0).'],
-      actions: ['Todesomen: Wähle 1 Helden in der Sichtlinie dieses Monsters. Dieser Held darf 2 Herzen erleiden. Tut er das nicht, erleidet er 1 Zustand deiner Wahl.'],
+      abilities: ['Lebensdurst 1: Jedes Mal wenn ein Held innerhalb von 5 Feldern Entfernung zu diesem Monster mindestens 1 Herz zurückgewinnt, reduziert dieser Held die Anzahl der zurückgewonnenen Herzen um 1 (bis zu einem Minimum von 0).'],
+      actions: ['Todesomen: Wähle 1 Helden in Sichtlinie dieses Monsters. Dieser Held erleidet entweder 2 Herzen oder erhält 1 Zustand deiner Wahl.'],
     },
     act2Normal: { speed: 5, health: 7, defense: ['black'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'] },
     act2Master: {
       speed: 5, health: 9, defense: ['gray', 'black'], attack: ['blue', 'yellow'],
       surges: ['+2 Herzen'],
-      abilities: ['Lebensdurst 2: Jedes Mal, wenn ein Held innerhalb von 5 Feldern zu diesem Monster 1 oder mehr Herzen heilt, reduziert er die geheilte Anzahl Herzen um 2 (Minimum 0).'],
-      actions: ['Todesomen: Wähle 1 Helden in der Sichtlinie dieses Monsters. Dieser Held darf 2 Herzen erleiden. Tut er das nicht, erleidet er 1 Zustand deiner Wahl.'],
+      abilities: ['Lebensdurst 2: Jedes Mal wenn ein Held innerhalb von 5 Feldern Entfernung zu diesem Monster mindestens 1 Herz zurückgewinnt, reduziert dieser Held die Anzahl der zurückgewonnenen Herzen um 2 (bis zu einem Minimum von 0).'],
+      actions: ['Todesomen: Wähle 1 Helden in Sichtlinie dieses Monsters. Dieser Held erleidet entweder 2 Herzen oder erhält 1 Zustand deiner Wahl.'],
     },
   },
   {
@@ -1016,14 +1016,14 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['Verwelken: Das Ziel erleidet 1 Erschöpfung.'],
-      abilities: ['Hexerei 2: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.'],
+      abilities: ['Hexerei 2: Nach seinem Angriffswurf, kann dieses Monster bis zu 2 Reichweite in Herzen umwandeln oder bis zu 2 Herzen in Reichweite.'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'yellow'],
       surges: ['Verwelken: Das Ziel erleidet 1 Erschöpfung.'],
       abilities: [
-        'Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.',
-        'Aura 1: Jedes Mal, wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet er 1 Herz.',
+        'Hexerei 3: Nach seinem Angriffswurf, kann dieses Monster bis zu 3 Reichweite in Herzen umwandeln oder bis zu 3 Herzen in Reichweite.',
+        'Aura 1: Jedes Mal wenn ein Held ein zu diesem Monster benachbartes Feld betritt, erleidet dieser Held 1 Herz.',
       ],
     },
     act2Normal: { speed: 3, health: 8, defense: ['gray', 'gray'], attack: ['blue', 'yellow', 'yellow'] },
@@ -1040,20 +1040,20 @@ export const MONSTERS: Monster[] = [
       speed: 4, health: 3, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Reichweite'],
       abilities: [
-        'Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.',
-        'Durchbohren 1: Dieser Angriff ignoriert bis zu 1 des Verteidigers.',
+        'Wiederbelebung: Jedes Mal wenn dieses Monster Herzen erleidet und nicht besiegt wird, gewinnt es so viel Herzen zurück wie es dem erlittenen Schaden oder der Anzahl der Monster aus dieser Gruppe innerhalb von 3 Feldern zu ihm entspricht, je nachdem was weniger ist.',
+        'Durchbohren 1: Dieser Angriff ignoriert 1 Schild des Verteidigers.',
       ],
     },
     master: {
       speed: 4, health: 6, defense: ['brown'], attack: ['blue', 'yellow'],
       surges: ['+1 Reichweite', '+1 Herz'],
       abilities: [
-        'Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.',
-        'Durchbohren 1: Dieser Angriff ignoriert bis zu 1 des Verteidigers.',
+        'Wiederbelebung: Jedes Mal wenn dieses Monster Herzen erleidet und nicht besiegt wird, gewinnt es so viel Herzen zurück wie es dem erlittenen Schaden oder der Anzahl der Monster aus dieser Gruppe innerhalb von 3 Feldern zu ihm entspricht, je nachdem was weniger ist.',
+        'Durchbohren 1: Dieser Angriff ignoriert 1 Schild des Verteidigers.',
       ],
     },
-    act2Normal: { speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['+2 Reichweite'], abilities: ['Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.', 'Durchbohren 1: Dieser Angriff ignoriert bis zu 1 des Verteidigers.'] },
-    act2Master: { speed: 4, health: 8, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['+2 Reichweite', '+2 Herzen'], abilities: ['Wiederbelebung: Jedes Mal, wenn dieses Monster Herzen erleidet und nicht besiegt wird, heilt es Herzen in Höhe des erlittenen Schadens oder der Anzahl Monster dieser Gruppe innerhalb von 3 Feldern, je nachdem, was kleiner ist.', 'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.'] },
+    act2Normal: { speed: 4, health: 4, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['+2 Reichweite'], abilities: ['Wiederbelebung: Jedes Mal wenn dieses Monster Herzen erleidet und nicht besiegt wird, gewinnt es so viel Herzen zurück wie es dem erlittenen Schaden oder der Anzahl der Monster aus dieser Gruppe innerhalb von 3 Feldern zu ihm entspricht, je nachdem was weniger ist.', 'Durchbohren 1: Dieser Angriff ignoriert 1 Schild des Verteidigers.'] },
+    act2Master: { speed: 4, health: 8, defense: ['brown'], attack: ['blue', 'yellow'], surges: ['+2 Reichweite', '+2 Herzen'], abilities: ['Wiederbelebung: Jedes Mal wenn dieses Monster Herzen erleidet und nicht besiegt wird, gewinnt es so viel Herzen zurück wie es dem erlittenen Schaden oder der Anzahl der Monster aus dieser Gruppe innerhalb von 3 Feldern zu ihm entspricht, je nachdem was weniger ist.', 'Durchbohren 2: Dieser Angriff ignoriert 2 Schild des Verteidigers.'] },
   },
   // ─── Hüter des Geheimnisses ───────────────────────────────────────────────
   {
@@ -1072,7 +1072,7 @@ export const MONSTERS: Monster[] = [
       speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['+2 Herzen'],
       abilities: ['Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.'],
-      actions: ['Sprungangriff: Dieses Monster bewegt sich bis zu seiner Bewegung weit. Während dieser Bewegung darf es sich durch Felder mit feindlichen Figuren bewegen. Führe dann einen Angriff aus, der jede Figur betrifft, durch die sich dieses Monster bei dieser Aktion bewegt hat.'],
+      actions: ['Sprungangriff: Dieses Monster bewegt sich bis zu seiner Geschwindigkeit. Dabei kann es sich durch Felder mit gegnerischen Figuren bewegen. Dann führt es einen Angriff aus, der jede Figur betrifft, durch die es sich während dieser Aktion bewegt hat.'],
     },
     act2Normal: { speed: 4, health: 7, defense: ['gray'], attack: ['blue', 'red', 'yellow'], surges: ['+2 Herzen'] },
     act2Master: { speed: 4, health: 9, defense: ['gray'], attack: ['blue', 'red', 'red'], surges: ['+2 Herzen'] },
@@ -1087,20 +1087,20 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 4, health: 4, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
+        'Krankheit: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel erkrankt.',
+        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.',
       ],
     },
     master: {
       speed: 4, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
-        'Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.',
-        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 des Verteidigers.',
+        'Krankheit: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel erkrankt.',
+        'Durchbohren 2: Dieser Angriff ignoriert bis zu 2 Schild des Verteidigers.',
       ],
-      actions: ['Extrahieren: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Misslingt sie, erleidet der Held 2 Erschöpfung und dieses Monster heilt 2 Herzen.'],
+      actions: ['Auslaugen: Wähle 1 zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Falls sie misslingt, erleidet der Held 2 Erschöpfung und dieses Monster gewinnt 2 Herzen zurück.'],
     },
-    act2Normal: { speed: 4, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.'] },
-    act2Master: { speed: 4, health: 8, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), erkrankt das Ziel.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 des Verteidigers.'] },
+    act2Normal: { speed: 4, health: 5, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel erkrankt.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.'] },
+    act2Master: { speed: 4, health: 8, defense: ['gray', 'brown'], attack: ['blue', 'red', 'yellow'], surges: ['Krankheit: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel erkrankt.', 'Durchbohren 3: Dieser Angriff ignoriert bis zu 3 Schild des Verteidigers.'] },
   },
   {
     id: 'naga',
@@ -1111,17 +1111,17 @@ export const MONSTERS: Monster[] = [
     traits: ['Wasser', 'Höhle'],
     normal: {
       speed: 4, health: 5, defense: ['black'], attack: ['blue', 'red'],
-      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.'],
-      abilities: ['Zauberei 1: Nach einem Angriffswurf darf dieses Monster bis zu 1 Reichweite in Herzen oder bis zu 1 Herz in Reichweite umwandeln.'],
+      surges: ['Gift: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel vergiftet.'],
+      abilities: ['Hexerei 1: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 1 Reichweite in Herzen oder bis zu 1 Herz in Reichweite umwandeln.'],
     },
     master: {
       speed: 4, health: 6, defense: ['black'], attack: ['blue', 'red'],
-      surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.'],
+      surges: ['Gift: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel vergiftet.'],
       abilities: ['Hexerei 2: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 2 Reichweite in Herzen oder bis zu 2 Herzen in Reichweite umwandeln.'],
-      actions: ['Umschlingen: Wähle 1 zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Misslingt sie, ist er bewegungsunfähig; dann darf sich dieses Monster 1 Feld bewegen und du darfst den Helden auf einem leeren Feld benachbart zu diesem Monster platzieren.'],
+      actions: ['Einschnüren: Wähle 1 zu diesem Monster benachbarten Helden. Dieser Held legt eine Stärke-Probe ab. Falls sie misslingt, ist er gelähmt, dieses Monster kann sich 1 Feld weit bewegen und dann kannst du den Helden auf ein leeres zu diesem Monster benachbartes Feld stellen.'],
     },
-    act2Normal: { speed: 4, health: 6, defense: ['black'], attack: ['blue', 'red'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.'], abilities: ['Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.'] },
-    act2Master: { speed: 4, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Gift: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Abzug der Schildsymbole), wird das Ziel vergiftet.'], abilities: ['Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.'] },
+    act2Normal: { speed: 4, health: 6, defense: ['black'], attack: ['blue', 'red'], surges: ['Gift: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel vergiftet.'], abilities: ['Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.'] },
+    act2Master: { speed: 4, health: 8, defense: ['black'], attack: ['blue', 'red', 'yellow'], surges: ['Gift: Falls dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), ist das Ziel vergiftet.'], abilities: ['Hexerei 3: Nach einem seiner Angriffswürfe kann dieses Monster bis zu 3 Reichweite in Herzen oder bis zu 3 Herzen in Reichweite umwandeln.'] },
   },
   // ─── Scherben von Everdark ────────────────────────────────────────────────
   {
