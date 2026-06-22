@@ -139,6 +139,26 @@ export interface ClassFamiliar {
   imageUrl?: string
 }
 
+/**
+ * Eine Startausrüstungs-Karte einer Klasse (das Item, mit dem die Klasse beginnt).
+ * Aus den deutschen Original-Karten erfasst; `nameEn`/`rulesEn` optional, da nicht
+ * für jede Karte eine verlässliche EN-Quelle vorliegt.
+ */
+export interface ClassStartingItem {
+  id: string
+  nameDe: string
+  nameEn?: string
+  /** Kartentyp / Ausrüstungsslot laut Karte, z. B. 'Kleinod', 'Magie-Stab', 'Trank' */
+  type?: string
+  rulesDe: string
+  rulesEn?: string
+  /** Lokales DE-Kartenbild (public/cards/de/classes/...) */
+  imageUrl?: string
+}
+
+/** Art einer Klasse: reguläre Standard-Klasse oder Hybrid-Klasse. */
+export type HeroClassKind = 'standard' | 'hybrid'
+
 export interface HeroClass {
   id: string
   nameEn: string
@@ -147,6 +167,17 @@ export interface HeroClass {
   expansionId: string
   skills: ClassSkill[]
   familiar?: ClassFamiliar
+  /** Startausrüstung der Klasse (Items, mit denen sie beginnt). */
+  startingEquipment?: ClassStartingItem[]
+  /** 'standard' (Default) oder 'hybrid'. */
+  kind?: HeroClassKind
+  /**
+   * Bei Hybrid-Klassen: der Archetyp des Standard-Klassendecks, mit dem die
+   * Hybrid-Klasse laut ihrer Startkarte kombiniert wird.
+   */
+  hybridArchetype?: HeroArchetype
+  /** Lokales DE-Kartenrückseiten-Bild der Klasse (public/cards/de/classes/...). */
+  backImageUrl?: string
 }
 
 // ── Overlord-Klassen & -Karten ───────────────────────────────────────────────
