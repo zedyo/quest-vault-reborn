@@ -1,10 +1,16 @@
 # Descent 2. Edition – Item-Shop-Karten & Relikte
 
 **Status:** Vollständig erfasst – 122 Shop-Karten + 54 Relikt-Seiten (27 Helden + 27 Overlord), zweisprachig EN+DE (2026-06-13) ✅  
-**Quelle:** any2cards/d2e `shop-items.js` + `relics.js`  
-**Sprachen:** EN-Original + DE-Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut)  
+**DE-Originalkarten (v1.3.3):** **Alle** deutschen Namen + Regeltexte sind jetzt **1:1 von den deutschen
+Original-Marktkarten (Akt 1 + Akt 2) und Relikt-Karten** erfasst (User-Scans) → siehe
+[`de-karten/items.md`](de-karten/items.md). Sie ersetzen die früheren groben Community-Übersetzungen
+(viele Namens-Korrekturen, z. B. Kettenhemd→Kettenrüstung, Flammenopfer→Feuersturm,
+Wächteraxt→Axt des Wächters, Eisenspeer→Eiserner Langspeer, Handschuhe der Macht→Armschienen der Macht,
+Ynfernael-Rune→Höllenrune).  
+**Quelle (EN/Kosten/Akt):** any2cards/d2e `shop-items.js` + `relics.js`  
+**Sprachen:** EN-Original + DE **von den Originalkarten** (zuvor Community-Übersetzung)  
 **Relikte:** doppelseitig erfasst – Helden-Seite (Held erbeutet das Relikt) und Overlord-Seite (Leutnant trägt das Relikt)  
-**Zuletzt aktualisiert:** 2026-06-13
+**Zuletzt aktualisiert:** 2026-06-22 (v1.3.3 – DE-Originalkarten)
 
 ---
 
