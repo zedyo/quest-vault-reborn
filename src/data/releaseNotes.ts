@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.2',
+    date: '2026-06-22',
+    title: 'Deutsche Original-Klassenkarten + Hybrid-Klassen',
+    highlights: [
+      'Alle 24 Helden-Klassen: Fertigkeitsnamen und Regeltexte wortgetreu von den deutschen Original-Klassenkarten neu erfasst (ersetzen die bisherigen groben Übersetzungen); zahlreiche Klassennamen an die Karten angepasst, u. a. Apothecarius, Seneschall, Fallensteller, Schwarzmagier, Nekromant, Waldläufer, Geistsprecher.',
+      'Neu: Startausrüstung jeder Klasse und die Begleiterkarten (Wolf, Belebter Stein, Schattenseele, Untoter Diener) werden jetzt kartengenau direkt bei der Klasse angezeigt.',
+      '12 brandneue Hybrid-Klassen aufgenommen: Wahrsager, Gauner, Häretiker, Kreuzritter, Bewahrer, Rächer, Plünderer, Verwüster (Unsterbliche Legenden) sowie Wächter, Mönch, Kampfmagier, Stahlmagier (Rostende Ketten) – jeweils mit Hinweis, mit welchem Standard-Deck sie kombiniert werden.',
+    ],
+  },
+  {
     version: '1.3.1',
     date: '2026-06-22',
     title: 'Deutsche Original-Monsterkarten',
