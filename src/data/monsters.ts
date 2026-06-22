@@ -1293,13 +1293,13 @@ export const MONSTERS: Monster[] = [
     traits: ['Dunkel', 'Gebäude'],
     normal: {
       speed: 5, health: 7, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
-      surges: ['Sterbliche Bindung: Das Ziel legt eine Wissen-Probe ab. Misslingt sie, lege seinen Heldenmarker auf diese Karte. Ein Held, dessen Marker auf dieser Karte liegt, kann keine Herzen heilen. Wird ein Monster dieser Gruppe besiegt oder ein Held kampfunfähig, lege alle Heldenmarker von dieser Karte ab.', '+1 Herz'],
-      abilities: ['Schattenschritt: Jedes Mal, wenn ein Held einen Angriff auf dieses Monster ausführt, darf er 1 Schub ausgeben. Tut er das nicht, erhält dieses Monster 5 Bewegungspunkte, nachdem der Angriff abgeschlossen ist.'],
+      surges: ['Tödliche Bindung: Das Ziel legt eine Wissen-Probe ab. Wenn die Probe misslingt, wird sein Heldenmarker auf diese Karte gelegt. Ein Held, dessen Marker sich auf dieser Karte befindet, kann keine Herzen zurückgewinnen, egal wodurch. Sobald ein Monster aus dieser Gruppe besiegt oder ein Held niedergestreckt wird, werden alle Heldenmarker von dieser Karte abgeworfen.', '+1 Herz'],
+      abilities: ['Schattenschritt: Jedes Mal wenn ein Held einen Angriff ausführt, der dieses Monster zum Ziel hat, darf er 1 Schub ausgeben. Wenn er dies nicht tut, erhält dieses Monster 5 Bewegungspunkte, nachdem der Angriff durchgeführt worden ist.'],
     },
     master: {
       speed: 5, health: 9, defense: ['gray', 'brown'], attack: ['blue', 'yellow'],
-      surges: ['Sterbliche Bindung: Das Ziel legt eine Wissen-Probe ab. Misslingt sie, lege seinen Heldenmarker auf diese Karte. Ein Held, dessen Marker auf dieser Karte liegt, kann keine Herzen heilen. Wird ein Monster dieser Gruppe besiegt oder ein Held kampfunfähig, lege alle Heldenmarker von dieser Karte ab.', '+1 Herz'],
-      abilities: ['Schattenschritt: Jedes Mal, wenn ein Held einen Angriff auf dieses Monster ausführt, darf er 1 Schub ausgeben. Tut er das nicht, erhält dieses Monster 5 Bewegungspunkte, nachdem der Angriff abgeschlossen ist.'],
+      surges: ['Tödliche Bindung: Das Ziel legt eine Wissen-Probe ab. Wenn die Probe misslingt, wird sein Heldenmarker auf diese Karte gelegt. Ein Held, dessen Marker sich auf dieser Karte befindet, kann keine Herzen zurückgewinnen, egal wodurch. Sobald ein Monster aus dieser Gruppe besiegt oder ein Held niedergestreckt wird, werden alle Heldenmarker von dieser Karte abgeworfen.', '+1 Herz'],
+      abilities: ['Schattenschritt: Jedes Mal wenn ein Held einen Angriff ausführt, der dieses Monster zum Ziel hat, darf er 1 Schub ausgeben. Wenn er dies nicht tut, erhält dieses Monster 5 Bewegungspunkte, nachdem der Angriff durchgeführt worden ist.'],
     },
     act2Normal: { speed: 5, health: 8, defense: ['gray', 'gray'], attack: ['blue', 'yellow', 'yellow'] },
     act2Master: { speed: 5, health: 10, defense: ['gray', 'gray'], attack: ['blue', 'yellow', 'yellow'] },
@@ -1314,14 +1314,14 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 3, health: 5, defense: ['black'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
-      abilities: ['Durchstoßen: Jeder Angriff dieses Monsters ignoriert 1 Schild für jeden Verteidigungswürfel, den das Ziel des Angriffs würfelt.'],
+      abilities: ['Durchstoßen: Jeder Angriff dieses Monsters ignoriert 1 Schild für jeden Verteidigungswürfel, den das Ziel dieses Angriffs geworfen hat.'],
     },
     master: {
       speed: 3, health: 8, defense: ['black'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
       abilities: [
-        'Durchstoßen: Jeder Angriff dieses Monsters ignoriert 1 Schild für jeden Verteidigungswürfel, den das Ziel des Angriffs würfelt.',
-        'Quälend: Jedes Mal, wenn ein Held innerhalb von 3 Feldern zu diesem Monster einen Angriff auf dieses Monster ausführt, legt dieser Held vor dem Würfeln eine Willenskraft-Probe ab. Misslingt sie, ist er verängstigt.',
+        'Durchstoßen: Jeder Angriff dieses Monsters ignoriert 1 Schild für jeden Verteidigungswürfel, den das Ziel dieses Angriffs geworfen hat.',
+        'Quälen: Jedes Mal wenn ein Held innerhalb von 3 Feldern zu diesem Monster einen Angriff ausführt, der dieses Monster zum Ziel hat, legt der Held vor dem Würfeln eine Willenskraft-Probe ab. Wenn die Probe misslingt, wird er verängstigt.',
       ],
     },
     act2Normal: { speed: 3, health: 7, defense: ['black'], attack: ['blue', 'red'], surges: ['+2 Herzen'] },
@@ -1337,16 +1337,16 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 2, health: 6, defense: ['gray'], attack: ['blue', 'yellow'],
       surges: ['+1 Herz'],
-      abilities: ['Ätherischer Griff: Zu Beginn des Overlord-Zuges darf dieses Monster 1 Heldenmarker von seinem Sockel ablegen. Tut es das, entferne es von der Karte und platziere es innerhalb von 3 Feldern zum entsprechenden Helden.'],
-      actions: ['Furchtmal: Wähle einen Helden in der Sichtlinie dieses Monsters und lege dessen Heldenmarker auf den Sockel dieses Monsters.'],
+      abilities: ['Ätherischer Griff: Zu Beginn jedes Zugs des Overlords darf dieses Monster 1 Heldenmarker von seiner Basis abwerfen. Wenn es dies tut, wird es vom Spielplan entfernt und innerhalb von 3 Feldern zu dem entsprechenden Helden gestellt.'],
+      actions: ['Mal der Furcht: Wähle einen Helden in der Sichtlinie dieses Monsters und lege den Heldenmarker dieses Helden auf die Basis dieses Monsters.'],
     },
     master: {
       speed: 2, health: 8, defense: ['gray'], attack: ['blue', 'yellow'],
-      surges: ['Verängstigen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel verängstigt.', '+1 Herz'],
-      abilities: ['Ätherischer Griff: Zu Beginn des Overlord-Zuges darf dieses Monster 1 Heldenmarker von seinem Sockel ablegen. Tut es das, entferne es von der Karte und platziere es innerhalb von 3 Feldern zum entsprechenden Helden.'],
-      actions: ['Furchtmal: Wähle einen Helden in der Sichtlinie dieses Monsters und lege dessen Heldenmarker auf den Sockel dieses Monsters.'],
+      surges: ['Verängstigen: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel verängstigt.', '+1 Herz'],
+      abilities: ['Ätherischer Griff: Zu Beginn jedes Zugs des Overlords darf dieses Monster 1 Heldenmarker von seiner Basis abwerfen. Wenn es dies tut, wird es vom Spielplan entfernt und innerhalb von 3 Feldern zu dem entsprechenden Helden gestellt.'],
+      actions: ['Mal der Furcht: Wähle einen Helden in der Sichtlinie dieses Monsters und lege den Heldenmarker dieses Helden auf die Basis dieses Monsters.'],
     },
     act2Normal: { speed: 2, health: 8, defense: ['gray', 'brown'], attack: ['blue', 'yellow'], surges: ['+2 Herzen'] },
-    act2Master: { speed: 2, health: 10, defense: ['gray', 'brown'], attack: ['blue', 'yellow', 'yellow'], surges: ['Verängstigen: Verursacht dieser Angriff mindestens 1 Herz (nach dem Verteidigungswurf), ist das Ziel verängstigt.', '+2 Herzen'] },
+    act2Master: { speed: 2, health: 10, defense: ['gray', 'brown'], attack: ['blue', 'yellow', 'yellow'], surges: ['Verängstigen: Wenn dieser Angriff mindestens 1 Herz zufügt (nach Verrechnung der Verteidigung), wird das Ziel verängstigt.', '+2 Herzen'] },
   },
 ]
