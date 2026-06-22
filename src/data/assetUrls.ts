@@ -87,3 +87,13 @@ export function tileImageUrl(tile: { id: string; expansionId: string }): string 
   const filename = tile.expansionId === 'base' ? `bg-${tile.id}` : tile.id
   return `${ANY2CARDS_IMAGES}/map-tiles/d2e/${folder}/${filename}.png`
 }
+
+/**
+ * Lokales deutsches Karten­bild eines Helden (aus den Original-Karten-Scans,
+ * `public/cards/de/heroes/<id>.webp`). `back=true` liefert die Rückseite
+ * (Flavor-Seite mit Heldenfähigkeit statt Heldentat). Der `BASE_URL`-Präfix
+ * sorgt für den korrekten Pfad unter GitHub Pages (`/quest-vault-reborn/`).
+ */
+export function heroCardDeUrl(id: string, back = false): string {
+  return `${import.meta.env.BASE_URL}cards/de/heroes/${id}${back ? '-back' : ''}.webp`
+}

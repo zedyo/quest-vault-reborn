@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.2.4 (2026-06-17)
+## Aktuelle Version: 1.3.0 (2026-06-22)
 
 ### Versionierungsregeln
 
@@ -36,10 +36,11 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.0.3 | ✅ Abgeschlossen | Vollständiger Daten-Validierungspass: 70+ Korrekturen an Monstern+Helden (Kartenscan-validiert) |
 | v1.1.0 | 🔄 In Arbeit (inkrementell ausgeliefert) | Datenvollständigkeit. Ausgeliefert: Monster-Gruppengrößen, Versionsanzeige+Release-Notes (1.1.0), Grundspiel-Helden-Klassen (1.1.1), Alle 16 Erweiterungs-Klassen (1.1.2), 122 Shop-Karten + Relikte (1.1.3), DE-Übersetzungen + doppelseitige Relikte (27 Helden + 27 Overlord) (1.1.4), Kartensymbole ❤⚡💧 (1.1.5), Safari-Fix (1.1.6), Würfel als 3D-Cubes + Bewegungs-/Verteidigungssymbole aus PSD-Vorlage (1.1.7), Bewegungs-/Verteidigungssymbol in Helden-/Monster-Statzeilen verbaut (1.1.8), Kartensymbole in Helden-/Klassentexten (1.1.9), Kartensymbole in Monster-Fähigkeiten + Quest-Editor-Texten (1.1.10), Aktions-Symbol ↻ in allen Kartentexten (1.1.11), Symbol-Einfügeleiste + Hinweis im Quest-Editor (1.1.12), Refactoring: geteilte UI-Bausteine (StatIcons, ModalOverlay, Filters) + zentrales Asset-URL-Modul (1.1.13), Bestätigungsdialog vor dem Löschen von Quests/Begegnungen (1.1.14), Dependency-Hygiene (react-router-dom 6.30.4 + localforage entfernt), Overlord-Karten Grundspiel: Basis-Deck + Magus/Saboteur/Kriegsherr + Universal, neue /overlord-Seite (1.1.15), Overlord-Erweiterungsklassen (1.1.16), Overlord-Belohnungskarten: 18 Karten aus 13 Erweiterungen → kompletter Overlord-Kartensatz 105 Karten (1.1.17), Leutnants Grundspiel: 6 Leutnants + neue /leutnants-Seite (1.1.18), **alle Erweiterungs-Leutnants → 21 Leutnants / 39 Formen, EN verifiziert (1.1.19), Agenten Grundspiel: 6 aufgewertete Leutnants + Plotdeck-Verweis, neue /agenten-Seite (1.1.20), Erweiterungs-Agenten → 16 Agenten (4 mit vertauschten Quelldaten ausgeschlossen) (1.1.21), Plotdeck-Karten Grundspiel Batch 1: 3 Decks / 30 Karten, neue /plotdecks-Seite (1.1.22), Plotdeck-Karten Grundspiel komplett: 6 Decks / 60 Karten (1.1.23), Erweiterungs-Plotdecks Batch 1 → 9 Decks/90 Karten (1.1.24), **Plotdecks Labyrinth komplett: +3 Decks (Verworrenes Netz/Gaunerei/Stiller Beschützer) → 12 Decks / 120 Karten, Karten-ID auf `deckId-xws` umgestellt (1.1.25), **Plotdecks Rabenfels+Bilehall: +3 Decks (Verworrene Seele/Lebensessenz/Ewige Qual) → 15 Decks / 150 Karten (1.1.26), **Plotdecks KOMPLETT: +5 Decks (Erste Legion/Bilehall + 4 Nerekhall) → 20 Decks / 200 Karten (1.1.27), **Leutnant↔Plotdeck-Verknüpfung: bidirektionale Deep-Links + Scroll/Highlight (1.1.28), **Agenten KOMPLETT: 4 vertauschte Agenten (Ardus/Kyndrithul/Zarihell/Skarn) kartenscan-validiert → 20 Agenten / 40 Formen (1.1.29), **Kampagnen-Überblick (9, faktisch) + 16 Advanced Quests, neue /kampagnen-Seite (1.1.30), **Reisekarten: 41 Reise-/Stadtereignis-Karten (faktische Metadaten + Bilder, kein Ereignistext), neue /reisekarten-Seite (1.1.31), **Overlays im Kartenbauer: 9 platzierbare Overlay-Marker (Gelände/Tür/Objekt/Marker) im MapBuilder + Quest-Editor (1.1.32)**. v1.1-Datenbasis damit abgeschlossen |
 | v1.2.0–1.2.4 | ✅ Abgeschlossen | Design-Feinschliff. Design-Fundament – warme, mystische Dungeon-Palette (Anthrazit/Braun + Gold/Pergament) statt Tech-Blau, Fonts Cinzel (Display) + Inter (Fließtext, offline self-hosted via @fontsource), Tastatur-Fokusringe (1.2.0); Navigation aufgeräumt – Werkzeuge oben, 10 Referenzseiten unter „📚 Daten"-Dropdown, mobiles Hamburger-Menü (1.2.1); Startseite-Hub aufgefrischt – Werkzeuge + 10 Übersichts-Kacheln, dynamische Zählwerte (1.2.2); durchgängiger Feinschliff (Scrollleisten, ::selection-Gold, prefers-reduced-motion) + iPad-Layout verifiziert (1.2.3); umschaltbare Themes (Verlies/Arkanblau/Schiefer) via CSS-Variablen + 🎨-Umschalter (1.2.4). Offen für v1.2: Tests/Security-Audit-Backlog |
-| v1.3.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – Planung zuerst |
-| v1.4.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
-| v1.5.0 | ⏳ Geplant | Overlord-Kommandozentrale |
-| v1.6.0 | ⏳ Geplant | Helden-Spieleransicht |
+| v1.3.0 | 🔄 In Arbeit | **Deutsche Originalkarten** aus User-Scans. Ausgeliefert: Helden – 60 deutsche Kartenbilder (Vorder+Rück) + 16 Namens-Korrekturen + Heldenfähigkeit/Heldentat 1:1 von den Karten; Raster-Schneider + OCR-Pipeline (Tesseract de) etabliert. Offen: restliche Kartenkategorien + Marker/Symbole + Regeln/Kampagnen |
+| v1.4.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – verschoben von 1.3.0 |
+| v1.5.0 | ⏳ Geplant | Kampagnen-Speicherstand – Planung zuerst |
+| v1.6.0 | ⏳ Geplant | Overlord-Kommandozentrale |
+| v1.7.0 | ⏳ Geplant | Helden-Spieleransicht |
 | v2.0.0 | ⏳ Zukunft | Backend-Migration + Sync (Major, User-Zustimmung nötig) |
 | v2.1.0 | ⏳ Zukunft | Englische Lokalisierung |
 | v2.2.0 | ⏳ Zukunft | Benutzerkonten, Cloud-Speicherung, Kampagnen-Sharing (User-Wunsch 2026-06-12) |
@@ -447,6 +448,19 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   - `fix(map-builder): Tile-Rotation bei b-Seiten korrigiert`
   - `docs(game-data): Monster-Gruppengrößen validiert und dokumentiert`
   - `chore(version): v1.1.0`
+- **Commit-Autor & Attribution (User-Vorgabe 2026-06-21):** Commits werden als
+  **`zedyo <46816354+zedyo@users.noreply.github.com>`** erstellt. Zu Beginn jeder
+  Session die Git-Identität setzen:
+  `git config user.name "zedyo" && git config user.email "46816354+zedyo@users.noreply.github.com"`.
+  **Keine** `Co-authored-by: Claude …`- und **keine** `Claude-Session:`-Trailer in
+  Commit-Nachrichten — der User soll als alleiniger Autor/Contributor erscheinen.
+
+### Roh-Scans / große Bilddateien – Ablage-Regeln (2026-06-21)
+- **Roh-Scans NIEMALS committen** (verursachten einmal 250 MB Historien-Bloat, per
+  `filter-branch` bereinigt). Sie liegen unter **`scans/`** (per `.gitignore` ausgeschlossen).
+- Aus den Scans erzeugen Skripte **klein-optimierte** Bilder (webp, ~500 px, <150 KB) nach
+  **`public/cards/…`** — **nur diese** werden committet und von der App ausgeliefert
+  (Vite servt `public/` unter `base: '/quest-vault-reborn/'`).
 
 ---
 

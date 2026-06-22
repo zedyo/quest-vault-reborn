@@ -7,6 +7,7 @@ import { MovementBadge, DefenseBadge, renderGameText } from '../components/GameS
 import { HealthIcon, StaminaIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle } from '../components/Filters'
+import { heroCardDeUrl } from '../data/assetUrls'
 import type { Hero } from '../types/game'
 
 // ── Attribute chips ───────────────────────────────────────────────────────────
@@ -61,11 +62,11 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
 
         {/* Full card image + stats */}
         <div className="flex flex-col sm:flex-row gap-4">
-          {/* Full landscape card */}
-          {!cardImgError && hero.imageUrl && (
+          {/* Full landscape card (deutsche Original-Karte) */}
+          {!cardImgError && (
             <div className="sm:w-72 flex-shrink-0">
               <img
-                src={hero.imageUrl}
+                src={heroCardDeUrl(hero.id)}
                 alt={hero.name}
                 className="w-full rounded border border-dungeon-700"
                 onError={() => setCardImgError(true)}
@@ -205,7 +206,7 @@ export default function HeroesPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
           {filtered.map((h) => {
             const exp = expansionMap[h.expansionId]
-            const hasImg = !!h.imageUrl && !imgErrors.has(h.id)
+            const hasImg = !imgErrors.has(h.id)
             return (
               <div
                 key={h.id}
@@ -216,7 +217,7 @@ export default function HeroesPage() {
                 <div className="w-full aspect-[3/4] bg-dungeon-800 relative overflow-hidden">
                   {hasImg ? (
                     <img
-                      src={h.imageUrl!}
+                      src={heroCardDeUrl(h.id)}
                       alt={h.name}
                       className="w-full h-full object-cover"
                       style={{ objectPosition: 'left center' }}

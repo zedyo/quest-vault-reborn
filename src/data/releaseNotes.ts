@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.0',
+    date: '2026-06-22',
+    title: 'Deutsche Original-Heldenkarten',
+    highlights: [
+      'Alle 60 Helden zeigen jetzt die deutschen Original-Kartenbilder (Vorder- und Rückseite) statt der bisherigen englischen Vorschau.',
+      'Heldenfähigkeit und Heldentat aller Helden wortgetreu von den deutschen Karten übernommen – die früheren groben Übersetzungen wurden ersetzt.',
+      '16 Heldennamen nach den Karten korrigiert, u. a. „Großmagier Cwellin", „Geistersprecher Mok", „Kundschafter Durik", „Leorik der Gelehrte", „Seherin Kel".',
+    ],
+  },
+  {
     version: '1.2.4',
     date: '2026-06-17',
     title: 'Themes zum Umschalten',
