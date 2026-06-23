@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.4',
+    date: '2026-06-23',
+    title: 'Gerücht-Karten – deutsche Originalkarten',
+    highlights: [
+      'Neue Seite „🗣️ Gerüchte" mit allen 41 Gerücht-Karten als deutsche Original-Kartenbilder – Akt I (25) und Akt II (16), umschaltbar und nach Sammlung filterbar.',
+      'Pro Karte: deutscher Kartenname, Erweiterung und die Reise-Geländetypen (direkt von den Karten abgelesen). Karte anklicken öffnet das große Bild.',
+      'Der Kartentext wird – wie bei Reise- und Kampagnenkarten – nicht abgetippt; das deutsche Kartenbild zeigt ihn vollständig.',
+    ],
+  },
+  {
     version: '1.3.3',
     date: '2026-06-22',
     title: 'Deutsche Original-Marktkarten + Relikte',

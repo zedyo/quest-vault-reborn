@@ -12,6 +12,7 @@ import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
+import { RUMORS } from '../rumors'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
@@ -527,6 +528,39 @@ describe('Reisekarten-Datenintegrität', () => {
     expect(TRAVEL_CARDS.length).toBe(41)
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'travel').length).toBe(31)
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'city').length).toBe(10)
+  })
+})
+
+describe('Gerücht-Karten-Datenintegrität', () => {
+  const TERRAINS = new Set(['Plain', 'Forest', 'Mountain', 'Road', 'Water'])
+
+  it('keine doppelten IDs', () => {
+    const ids = RUMORS.map((r) => r.id)
+    expect(new Set(ids).size, 'doppelte Gerücht-IDs').toBe(ids.length)
+  })
+
+  it('gültige Felder: Name, Erweiterung, Akt, Reise-Gelände', () => {
+    const errors: string[] = []
+    for (const r of RUMORS) {
+      if (!r.nameDe || !r.nameEn) errors.push(`${r.id}: Name fehlt`)
+      if (!EXPANSION_IDS.has(r.expansionId)) errors.push(`${r.id}: unbekannte expansionId '${r.expansionId}'`)
+      if (r.act !== 1 && r.act !== 2 && r.act !== null) errors.push(`${r.id}: ungültiger Akt '${r.act}'`)
+      for (const t of r.travel) if (!TERRAINS.has(t)) errors.push(`${r.id}: '${t}' kein Reise-Gelände`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('jedes deutsche Kartenbild ist vorhanden', () => {
+    const files = import.meta.glob('/public/cards/de/geruechte/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing = RUMORS.filter((r) => !present.has(r.id)).map((r) => r.id)
+    expect(missing, `fehlende Bilder: ${missing.join(', ')}`).toEqual([])
+  })
+
+  it('vollständig erfasst: 41 Karten (25 Akt I + 16 Akt II)', () => {
+    expect(RUMORS.length).toBe(41)
+    expect(RUMORS.filter((r) => r.act === 2).length).toBe(16)
+    expect(RUMORS.filter((r) => r.act !== 2).length).toBe(25)
   })
 })
 

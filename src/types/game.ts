@@ -363,6 +363,23 @@ export interface AdvancedQuest {
 }
 
 /**
+ * Eine Gerücht-Karte (Rumor) aus den kleinen Erweiterungs-Packs. Es werden NUR
+ * faktische Metadaten erfasst (deutscher Kartenname, Erweiterung, Akt, Reise-
+ * Geländetypen); der Kartentext wird NICHT reproduziert (FFG-IP). Das deutsche
+ * Kartenbild liegt unter `public/cards/de/geruechte/<id>.webp` (rumorCardDeUrl).
+ */
+export interface Rumor {
+  id: string
+  nameDe: string
+  nameEn: string
+  expansionId: string
+  /** Akt der Karte: 1, 2 oder null (akt-unabhängige Gerücht-Karte). */
+  act: 1 | 2 | null
+  /** Reise-Geländetypen (EN), z. B. ['Road','Forest']; kann leer sein. */
+  travel: string[]
+}
+
+/**
  * Eine Reise-/Stadtereignis-Karte. Quelle: any2cards travel-event-decks /
  * city-event-decks. Es werden NUR faktische Strukturdaten erfasst (Erweiterung,
  * Deck-Position, welche Gelände-Icons ein Ereignis tragen) + Kartenbild-Link;
