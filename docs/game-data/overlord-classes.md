@@ -240,7 +240,7 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 | Schrotthaufen | Hunk of Junk | Overlord | Bündnisse der Wildnis | Falle |
 | Feuerkristalle | Fire Gems | Overlord | Krone des Schicksals | Falle |
 | Vergessene Hexerei | Forgotten Sorcery | Overlord | Kreuzzug der Vergessenen | Magie |
-| Erdrückende Übezahl | Power in Numbers | Overlord | Wächter von Deephall | Ereignis |
+| Erdrückende Überzahl | Power in Numbers | Overlord | Wächter von Deephall | Ereignis |
 | Völlig am Boden | Down and Out | Overlord | Schloss Rabenfels | Ereignis |
 | Endlose Vorräte | Endless Supply | Overlord | Schloss Rabenfels | Ereignis |
 | Ungebrochen | Unbroken | Overlord | Schloss Rabenfels | Ereignis |

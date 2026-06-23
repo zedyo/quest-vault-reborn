@@ -1,8 +1,8 @@
 import type { OverlordDeck } from '../types/game'
 
 // Quelle: any2cards/d2e strukturierte Daten (data/overlord-decks.js).
-// Englischer Text = Originalwortlaut der Karten. Deutscher Text = Community-Übersetzung
-// (nicht zwingend identisch mit der offiziellen deutschen FFG-Edition).
+// Englischer Text = Originalwortlaut der Karten. Deutscher Name + Regeltext (nameDe/rulesDe)
+// = kartengenau von den deutschen Original-Karten transkribiert (v1.3.7).
 //
 // Umfang dieser Datei: VOLLSTÄNDIGER Overlord-Kartensatz aus overlord-decks.js –
 // Grundspiel (Basis + Magus/Saboteur/Kriegsherr + Universal), die Erweiterungs-Klassen
@@ -893,7 +893,7 @@ export const OVERLORD_DECKS: OverlordDeck[] = [
     expansionId: 'guardians-of-deephall',
     cards: [
       {
-        id: 'powerinnumbers', nameEn: 'Power in Numbers', nameDe: "Erdrückende Übezahl",
+        id: 'powerinnumbers', nameEn: 'Power in Numbers', nameDe: "Erdrückende Überzahl",
         cardType: 'Event', count: 1, xpCost: null,
         rulesEn: 'Play this card during your turn and choose a map tile. If there are more monsters on that map tile than heroes, each hero on that tile suffers 1 Heart and 2 Fatigue, and each monster on that tile recovers 2 Hearts.',
         rulesDe: "Spiele diese Karte während deines eigenen Zuges und wähle ein Spielplanteil. Falls mehr Monster als Helden auf diesem Spielplanteil sind, erleidet jeder Held auf diesem Teil 1 Herz und 2 Erschöpfung und jedes Monster auf diesem Teil gewinnt 2 Herz zurück.",
