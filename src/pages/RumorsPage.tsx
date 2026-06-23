@@ -182,13 +182,12 @@ export default function RumorsPage() {
                 className="card hover:border-gold-600 transition-colors flex flex-col gap-0 p-0 overflow-hidden cursor-pointer"
                 onClick={() => setLightbox(r)}
               >
-                <div className="w-full aspect-[3/4] bg-dungeon-800 relative overflow-hidden">
+                <div className="w-full aspect-[9/14] bg-dungeon-800 relative overflow-hidden">
                   {hasImg ? (
                     <img
                       src={rumorCardDeUrl(r.id)}
                       alt={r.nameDe}
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: 'center top' }}
+                      className="w-full h-full object-contain"
                       onError={() => setImgErrors((prev) => new Set(prev).add(r.id))}
                       loading="lazy"
                     />
