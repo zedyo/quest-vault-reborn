@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.6',
+    date: '2026-06-23',
+    title: 'Kartenbilder vollständig statt beschnitten',
+    highlights: [
+      'Die deutschen Kartenbilder (Marktkarten, Relikte und Gerücht-Karten) waren am Rand teils zu knapp zugeschnitten – jetzt wird jede Karte vollständig inklusive Rahmen angezeigt.',
+      'In der Gerücht-Übersicht wird die Karte in der Vorschau nicht mehr unten abgeschnitten.',
+    ],
+  },
+  {
     version: '1.3.5',
     date: '2026-06-23',
     title: 'Gerücht-Texte, deutsche Markt-/Reliktbilder & Item-Filter',
