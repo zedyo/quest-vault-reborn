@@ -4,8 +4,23 @@ import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
-import { rumorCardDeUrl } from '../data/assetUrls'
+import { rumorCardDeUrl, rumorCardBackDeUrl } from '../data/assetUrls'
+import { renderGameTextInline } from '../components/GameSymbols'
 import type { Rumor } from '../types/game'
+
+// Mehrzeiligen Kartentext (Absätze durch Leerzeile getrennt) mit Spielsymbolen rendern.
+function CardText({ text }: { text: string }) {
+  const paras = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+  return (
+    <div className="space-y-2">
+      {paras.map((p, i) => (
+        <p key={i} className="text-gray-300 text-sm leading-snug whitespace-pre-line">
+          {renderGameTextInline(p)}
+        </p>
+      ))}
+    </div>
+  )
+}
 
 // Reise-Geländetypen (EN) → deutsche Kurzlabels.
 const TERRAIN_DE: Record<string, string> = {
@@ -48,35 +63,47 @@ function RumorLightbox({ rumor, expansionName, onClose }: {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="sm:w-64 flex-shrink-0 mx-auto">
-          <img src={rumorCardDeUrl(rumor.id)} alt={rumor.nameDe} className="w-full rounded border border-dungeon-700" />
-        </div>
-        <div className="flex-1 space-y-2 text-sm min-w-0">
-          <div className="flex justify-between gap-2 border-b border-dungeon-700 pb-1.5">
-            <span className="text-gray-400">Erweiterung</span>
-            <span className="text-gray-100 text-right">{expansionName}</span>
+        <div className="sm:w-56 flex-shrink-0 mx-auto space-y-3">
+          <div>
+            {rumor.back && <p className="text-[11px] text-gray-500 mb-1 text-center">Vorderseite</p>}
+            <img src={rumorCardDeUrl(rumor.id)} alt={rumor.nameDe} className="w-full rounded border border-dungeon-700" />
           </div>
-          {act && (
-            <div className="flex justify-between gap-2 border-b border-dungeon-700 pb-1.5">
-              <span className="text-gray-400">Akt</span>
-              <span className="text-gray-100">{act}</span>
+          {rumor.back && (
+            <div>
+              <p className="text-[11px] text-gray-500 mb-1 text-center">Rückseite · Belohnungen</p>
+              <img src={rumorCardBackDeUrl(rumor.id)} alt={`${rumor.nameDe} – Rückseite`} className="w-full rounded border border-dungeon-700" />
             </div>
           )}
-          {rumor.travel.length > 0 && (
-            <div className="border-b border-dungeon-700 pb-1.5">
-              <span className="text-gray-400 block mb-1">Reise-Gelände</span>
-              <div className="flex flex-wrap gap-1">
-                {rumor.travel.map((t, i) => (
-                  <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-dungeon-800 border border-dungeon-700 text-gray-300">
-                    {TERRAIN_DE[t] ?? t}
-                  </span>
-                ))}
+        </div>
+        <div className="flex-1 space-y-3 text-sm min-w-0">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 border-b border-dungeon-700 pb-2 text-xs">
+            <span><span className="text-gray-500">Erweiterung:</span> <span className="text-gray-200">{expansionName}</span></span>
+            {act && <span><span className="text-gray-500">Akt:</span> <span className="text-gray-200">{act}</span></span>}
+            {rumor.travel.length > 0 && (
+              <span className="flex items-center gap-1">
+                <span className="text-gray-500">Reise:</span>
+                <span className="text-gray-300">{rumor.travel.map((t) => TERRAIN_DE[t] ?? t).join(' · ')}</span>
+              </span>
+            )}
+          </div>
+
+          {rumor.textDe && <CardText text={rumor.textDe} />}
+
+          {rumor.back && (
+            <div className="space-y-2 pt-1">
+              <div className="rounded border border-red-900/40 bg-red-950/20 p-2">
+                <p className="text-[11px] uppercase tracking-wide text-red-300/90 font-semibold mb-1">Overlord-Belohnung</p>
+                <CardText text={rumor.back.overlordDe} />
+              </div>
+              <div className="rounded border border-purple-900/40 bg-purple-950/20 p-2">
+                <p className="text-[11px] uppercase tracking-wide text-purple-300/90 font-semibold mb-1">Helden-Belohnung</p>
+                <CardText text={rumor.back.heroDe} />
               </div>
             </div>
           )}
-          <p className="text-xs text-gray-500 pt-1">
-            Gerücht-Karte (Rumor). Der Kartentext wird hier aus Urheberrechtsgründen nicht
-            wiedergegeben – er ist dem deutschen Kartenbild zu entnehmen.
+
+          <p className="text-[11px] text-gray-600 pt-1">
+            Deutscher Original-Kartentext (FFG). Werte ggf. dem Kartenbild entnehmen.
           </p>
         </div>
       </div>

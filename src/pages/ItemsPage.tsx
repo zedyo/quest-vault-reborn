@@ -5,7 +5,8 @@ import { useGameStore } from '../store/useGameStore'
 import { renderGameText, DiceSymbol } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
-import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide } from '../types/game'
+import { itemCardDeUrl, relicCardDeUrl } from '../data/assetUrls'
+import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide, AttackType } from '../types/game'
 
 const EQUIP_DE: Record<ItemEquip, string> = {
   'one-hand':  '1 Hand',
@@ -13,6 +14,19 @@ const EQUIP_DE: Record<ItemEquip, string> = {
   'armor':     'Rüstung',
   'other':     'Zubehör',
 }
+
+// Additive Filter: Ausrüstungs-Slot (ODER innerhalb der Gruppe) UND Angriffsart
+// (ODER innerhalb der Gruppe). Leere Gruppe = keine Einschränkung.
+const SLOT_FILTERS: { value: ItemEquip; label: string }[] = [
+  { value: 'one-hand',  label: '1 Hand' },
+  { value: 'two-hands', label: '2 Hände' },
+  { value: 'armor',     label: 'Rüstung' },
+  { value: 'other',     label: 'Zubehör' },
+]
+const ATTACK_FILTERS: { value: AttackType; label: string }[] = [
+  { value: 'melee', label: 'Nahkampf' },
+  { value: 'range', label: 'Fernkampf' },
+]
 
 const SIDE_LABEL: Record<RelicSide, string> = {
   hero:     'Helden-Seite',
@@ -30,11 +44,40 @@ function DiceRow({ dice }: { dice: DieColor[] }) {
   )
 }
 
+// Additiver Filter-Chip (an/aus). Mehrere gleichzeitig aktivierbar.
+function FilterChip<T extends string>({ value, label, active, onToggle }: {
+  value: T; label: string; active: boolean; onToggle: (v: T) => void
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={() => onToggle(value)}
+      className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
+        active
+          ? 'bg-gold-700 border-gold-600 text-gray-900 font-medium'
+          : 'bg-dungeon-800 border-dungeon-600 text-gray-400 hover:text-gray-200 hover:border-dungeon-500'
+      }`}
+    >
+      {label}
+    </button>
+  )
+}
+
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 
-interface LightboxState { imageUrl: string; name: string }
+// Bevorzugt das deutsche Kartenbild; fällt bei Ladefehler auf das englische
+// any2cards-Bild zurück (srcs in Reihenfolge durchprobieren).
+function useFallbackSrc(srcs: string[]): [string | undefined, () => void] {
+  const [idx, setIdx] = useState(0)
+  const next = () => setIdx((i) => i + 1)
+  return [srcs[idx], next]
+}
 
-function ItemLightbox({ imageUrl, name, onClose }: LightboxState & { onClose: () => void }) {
+interface LightboxState { srcs: string[]; name: string }
+
+function ItemLightbox({ srcs, name, onClose }: LightboxState & { onClose: () => void }) {
+  const [src, onError] = useFallbackSrc(srcs)
   return (
     <ModalOverlay
       onClose={onClose}
@@ -48,20 +91,23 @@ function ItemLightbox({ imageUrl, name, onClose }: LightboxState & { onClose: ()
       >
         ✕ Schließen
       </button>
-      <img
-        src={imageUrl}
-        alt={name}
-        className="w-full rounded-lg shadow-2xl border border-dungeon-600"
-      />
+      {src && (
+        <img
+          src={src}
+          alt={name}
+          onError={onError}
+          className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+        />
+      )}
     </ModalOverlay>
   )
 }
 
 // ── Item-Karten ───────────────────────────────────────────────────────────────
 
-function ItemThumbnail({ imageUrl, name, onOpen }: { imageUrl?: string; name: string; onOpen: () => void }) {
-  const [imgError, setImgError] = useState(false)
-  if (!imageUrl || imgError) return null
+function ItemThumbnail({ srcs, name, onOpen }: { srcs: string[]; name: string; onOpen: () => void }) {
+  const [src, onError] = useFallbackSrc(srcs)
+  if (!src) return null
   return (
     <button
       className="shrink-0 w-14 self-stretch flex items-start rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 transition-colors focus:outline-none focus:border-gold-400"
@@ -69,14 +115,21 @@ function ItemThumbnail({ imageUrl, name, onOpen }: { imageUrl?: string; name: st
       title="Karte vergrößern"
     >
       <img
-        src={imageUrl}
+        src={src}
         alt={name}
         className="w-full h-auto"
-        onError={() => setImgError(true)}
+        onError={onError}
         loading="lazy"
       />
     </button>
   )
+}
+
+function shopImgSrcs(item: ShopItem): string[] {
+  return [itemCardDeUrl(item.id), item.imageUrl].filter(Boolean) as string[]
+}
+function relicImgSrcs(item: Relic): string[] {
+  return [relicCardDeUrl(item.id), item.imageUrl].filter(Boolean) as string[]
 }
 
 function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onImageOpen: () => void }) {
@@ -86,7 +139,7 @@ function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onI
   return (
     <div className="card text-xs space-y-1.5">
       <div className="flex items-stretch gap-2">
-        <ItemThumbnail imageUrl={item.imageUrl} name={item.nameEn} onOpen={onImageOpen} />
+        <ItemThumbnail srcs={shopImgSrcs(item)} name={item.nameDe} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
@@ -123,7 +176,7 @@ function RelicCard({ item, lang, onImageOpen }: { item: Relic; lang: Lang; onIma
   return (
     <div className={`card text-xs space-y-1.5 ${isHero ? 'border-purple-900/30' : 'border-red-900/30'}`}>
       <div className="flex items-stretch gap-2">
-        <ItemThumbnail imageUrl={item.imageUrl} name={item.nameEn} onOpen={onImageOpen} />
+        <ItemThumbnail srcs={relicImgSrcs(item)} name={item.nameDe} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
@@ -168,8 +221,22 @@ export default function ItemsPage() {
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [search, setSearch] = useState('')
   const [actFilter, setActFilter] = useState<ActFilter>('all')
+  const [slotSel, setSlotSel] = useState<Set<ItemEquip>>(new Set())
+  const [atkSel, setAtkSel] = useState<Set<AttackType>>(new Set())
   const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
+
+  const toggleSlot = (v: ItemEquip) =>
+    setSlotSel((prev) => { const n = new Set(prev); n.has(v) ? n.delete(v) : n.add(v); return n })
+  const toggleAtk = (v: AttackType) =>
+    setAtkSel((prev) => { const n = new Set(prev); n.has(v) ? n.delete(v) : n.add(v); return n })
+
+  // ODER innerhalb Gruppe, UND zwischen den Gruppen; leere Gruppe = keine Einschränkung.
+  const matchesEquip = (item: { equip: ItemEquip; attack?: AttackType }) => {
+    if (slotSel.size > 0 && !slotSel.has(item.equip)) return false
+    if (atkSel.size > 0 && (!item.attack || !atkSel.has(item.attack))) return false
+    return true
+  }
 
   const expansionMap = useMemo(
     () => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])),
@@ -190,16 +257,20 @@ export default function ItemsPage() {
     return SHOP_ITEMS.filter((item) => {
       if (onlyOwned && !ownedIds.includes(item.expansionId)) return false
       if (actFilter !== 'all' && item.act !== Number(actFilter)) return false
+      if (!matchesEquip(item)) return false
       return matchesSearch(item.nameEn, item.nameDe, item.traits)
     })
-  }, [onlyOwned, ownedIds, search, actFilter])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onlyOwned, ownedIds, search, actFilter, slotSel, atkSel])
 
   const filteredRelics = useMemo(() => {
     return RELICS.filter((item) => {
       if (onlyOwned && !ownedIds.includes(item.expansionId)) return false
+      if (!matchesEquip(item)) return false
       return matchesSearch(item.nameEn, item.nameDe, item.traits)
     })
-  }, [onlyOwned, ownedIds, search])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onlyOwned, ownedIds, search, slotSel, atkSel])
 
   const shopByExpansion = useMemo(() => {
     const map = new Map<string, ShopItem[]>()
@@ -223,15 +294,15 @@ export default function ItemsPage() {
 
   const totalVisible = tab === 'shop' ? filteredShop.length : filteredRelics.length
 
-  const openLightbox = (imageUrl: string | undefined, name: string) => {
-    if (imageUrl) setLightbox({ imageUrl, name })
+  const openLightbox = (srcs: string[], name: string) => {
+    if (srcs.length) setLightbox({ srcs, name })
   }
 
   return (
     <div className="space-y-6">
       {lightbox && (
         <ItemLightbox
-          imageUrl={lightbox.imageUrl}
+          srcs={lightbox.srcs}
           name={lightbox.name}
           onClose={() => setLightbox(null)}
         />
@@ -290,6 +361,27 @@ export default function ItemsPage() {
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
       </div>
 
+      {/* Additive Ausrüstungs-/Angriffsart-Filter (Shop + Relikte) */}
+      <div className="flex flex-wrap items-center gap-1.5 -mt-2">
+        <span className="text-[11px] text-gray-500 mr-1">Filter:</span>
+        {SLOT_FILTERS.map((f) => (
+          <FilterChip key={f.value} value={f.value} label={f.label} active={slotSel.has(f.value)} onToggle={toggleSlot} />
+        ))}
+        <span className="w-px h-4 bg-dungeon-600 mx-1" />
+        {ATTACK_FILTERS.map((f) => (
+          <FilterChip key={f.value} value={f.value} label={f.label} active={atkSel.has(f.value)} onToggle={toggleAtk} />
+        ))}
+        {(slotSel.size > 0 || atkSel.size > 0) && (
+          <button
+            type="button"
+            onClick={() => { setSlotSel(new Set()); setAtkSel(new Set()) }}
+            className="ml-1 text-[11px] text-gray-500 hover:text-gold-400 underline underline-offset-2"
+          >
+            zurücksetzen
+          </button>
+        )}
+      </div>
+
       <p className="text-[11px] text-gray-600 -mt-3">
         {lang === 'de'
           ? 'Deutsche Kartentexte sind Community-Übersetzungen (nicht zwingend offizieller FFG-Wortlaut). Original via „English". '
@@ -323,7 +415,7 @@ export default function ItemsPage() {
                             key={item.id}
                             item={item}
                             lang={lang}
-                            onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                            onImageOpen={() => openLightbox(shopImgSrcs(item), lang === 'de' ? item.nameDe : item.nameEn)}
                           />
                         ))}
                       </div>
@@ -338,7 +430,7 @@ export default function ItemsPage() {
                             key={item.id}
                             item={item}
                             lang={lang}
-                            onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                            onImageOpen={() => openLightbox(shopImgSrcs(item), lang === 'de' ? item.nameDe : item.nameEn)}
                           />
                         ))}
                       </div>
@@ -383,7 +475,7 @@ export default function ItemsPage() {
                               key={item.id}
                               item={item}
                               lang={lang}
-                              onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                              onImageOpen={() => openLightbox(relicImgSrcs(item), lang === 'de' ? item.nameDe : item.nameEn)}
                             />
                           ))}
                         </div>
@@ -398,7 +490,7 @@ export default function ItemsPage() {
                               key={item.id}
                               item={item}
                               lang={lang}
-                              onImageOpen={() => openLightbox(item.imageUrl, lang === 'de' ? item.nameDe : item.nameEn)}
+                              onImageOpen={() => openLightbox(relicImgSrcs(item), lang === 'de' ? item.nameDe : item.nameEn)}
                             />
                           ))}
                         </div>

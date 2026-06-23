@@ -8,6 +8,13 @@
 
 **Bestand:** 122 Marktkarten (65 Akt 1 + 57 Akt 2) + 54 Relikt-Seiten (27 Helden + 27 Overlord).
 
+> **Kartenbilder (v1.3.5):** Die deutschen Original-Kartenbilder liegen unter
+> `public/cards/de/items/<id>.webp` (Markt) bzw. `public/cards/de/relics/<id>.webp` (Relikte,
+> Overlord-Seiten mit `-ol`-Suffix). Zuordnung per Kartentitel→nameDe (Umlaut-Kollation beachtet;
+> 2 Duplikat-Scans Eisenschild/Lederrüstung auf der Akt-1-Marktseite ignoriert). ItemsPage zeigt
+> diese Bilder mit Fallback auf das englische any2cards-Bild. Zusätzlich: additiver
+> Ausrüstungs-/Angriffsart-Filter (1 Hand / 2 Hände / Rüstung / Zubehör + Nahkampf / Fernkampf).
+
 
 ## Marktkarten – Akt 1
 
