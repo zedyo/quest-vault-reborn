@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.5',
+    date: '2026-06-23',
+    title: 'Gerücht-Texte, deutsche Markt-/Reliktbilder & Item-Filter',
+    highlights: [
+      'Gerücht-Karten zeigen jetzt den deutschen Kartentext. Akt-II-Gerüchte sind doppelseitig: Vorder- und Rückseite werden angezeigt, die Rückseite mit aufgeschlüsselter Overlord- und Helden-Belohnung.',
+      'Marktkarten und Relikte erscheinen jetzt als deutsche Original-Kartenbilder (zuvor englisch); Relikte mit Helden- und Overlord-Seite.',
+      'Neuer Ausrüstungs-Filter bei Items und Relikten: nach 1 Hand, 2 Hände, Rüstung, Zubehör sowie Nahkampf/Fernkampf – mehrere Filter lassen sich kombinieren.',
+    ],
+  },
+  {
     version: '1.3.4',
     date: '2026-06-23',
     title: 'Gerücht-Karten – deutsche Originalkarten',

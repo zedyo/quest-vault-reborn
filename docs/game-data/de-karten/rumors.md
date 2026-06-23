@@ -1,17 +1,20 @@
 # Descent 2. Edition – Gerücht-Karten (Rumor) · Deutsche Originalkarten
 
-> **Status:** ✅ erfasst (v1.3.4) – deutsche Original-Kartenbilder + faktische Metadaten.
+> **Status:** ✅ erfasst (v1.3.4), Kartentext + Akt-II-Rückseiten ergänzt (v1.3.5).
 > **Quelle:** eingescannte **deutsche** Original-Gerücht-Karten (Akt I + Akt II): Name DE 1:1
 > vom Kartentitel, Akt-Badge (I/II) und Reise-Symbole direkt von den Karten gelesen. EN-Name +
 > Erweiterung: Akt I aus any2cards `rumors.js`; Akt II aus der verknüpften Advanced Quest
 > (`campaigns.ts`, EN-Name = Quest-Name). Daten: `src/data/rumors.ts`, Bilder:
-> `public/cards/de/geruechte/<id>.webp`, Seite: `/geruechte`.
+> `public/cards/de/geruechte/<id>.webp` (+ `<id>-back.webp` für Akt-II-Rückseiten), Seite: `/geruechte`.
 
 ## Umfang
 
 - **41 Karten** = 25 Akt I + 16 Akt II, aus 13 Erweiterungen/Packs.
-- Der **Kartentext** wird **bewusst NICHT** reproduziert (FFG-IP, konsistent zu Reise-/
-  Kampagnenkarten); das deutsche Kartenbild zeigt ihn ohnehin vollständig.
+- **Kartentext (v1.3.5):** `textDe` = deutscher Vorderseiten-Text (Auslöser + Flavor), 1:1 von
+  den Karten transkribiert. **Akt-II-Karten sind doppelseitig** – `back` enthält die
+  Rückseiten-Belohnungen (Overlord-Belohnung + Helden-Belohnung) + ein eigenes Kartenbild.
+  Akt-I-Karten haben eine generische Rückseite (kein eigener Inhalt). Spielsymbole stehen im
+  Text als Wort (Herz/Schub/Erschöpfung/Aktion) und werden in der App als Symbol gerendert.
 - **Ausgeschlossen:** Erweiterung „Sands of the Past" (nicht in `expansions.ts`,
   halluzinationsverdächtig – s. CLAUDE.md) → deren 3 Rumor-Karten entfallen.
 

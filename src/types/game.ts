@@ -368,6 +368,12 @@ export interface AdvancedQuest {
  * Geländetypen); der Kartentext wird NICHT reproduziert (FFG-IP). Das deutsche
  * Kartenbild liegt unter `public/cards/de/geruechte/<id>.webp` (rumorCardDeUrl).
  */
+export interface RumorReward {
+  /** Overlord-Belohnung (deutscher Kartentext). */
+  overlordDe: string
+  /** Helden-Belohnung (deutscher Kartentext). */
+  heroDe: string
+}
 export interface Rumor {
   id: string
   nameDe: string
@@ -377,6 +383,14 @@ export interface Rumor {
   act: 1 | 2 | null
   /** Reise-Geländetypen (EN), z. B. ['Road','Forest']; kann leer sein. */
   travel: string[]
+  /** Deutscher Vorderseiten-Kartentext (Auslöser + Flavor), 1:1 von der Karte. */
+  textDe: string
+  /**
+   * Rückseite – nur Akt-II-Karten sind doppelseitig. Enthält die beiden
+   * Belohnungs-Abschnitte (Overlord/Helden) + ein eigenes Kartenbild
+   * (`rumorCardBackDeUrl(id)`). Akt-I-Karten haben eine generische Rückseite.
+   */
+  back?: RumorReward
 }
 
 /**

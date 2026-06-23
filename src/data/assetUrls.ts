@@ -114,3 +114,28 @@ export function monsterCardDeUrl(id: string, act: 1 | 2 = 1, back = false): stri
 export function rumorCardDeUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/geruechte/${id}.webp`
 }
+
+/**
+ * Rückseiten-Bild einer Akt-II-Gerücht-Karte (Belohnungs-Seite,
+ * `public/cards/de/geruechte/<id>-back.webp`). Nur für doppelseitige Karten.
+ */
+export function rumorCardBackDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/geruechte/${id}-back.webp`
+}
+
+/**
+ * Lokales deutsches Marktkarten-Bild (aus den Original-Karten-Scans,
+ * `public/cards/de/items/<id>.webp`).
+ */
+export function itemCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/items/${id}.webp`
+}
+
+/**
+ * Lokales deutsches Relikt-Kartenbild – Helden-Seite (`id`) bzw. Overlord-Seite
+ * (`id` endet auf `-ol`), aus den Original-Karten-Scans
+ * (`public/cards/de/relics/<id>.webp`).
+ */
+export function relicCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/relics/${id}.webp`
+}

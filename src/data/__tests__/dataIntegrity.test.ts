@@ -550,10 +550,29 @@ describe('Gerücht-Karten-Datenintegrität', () => {
     expect(errors, errors.join('\n')).toEqual([])
   })
 
-  it('jedes deutsche Kartenbild ist vorhanden', () => {
+  it('Kartentext + Akt-II-Rückseite konsistent', () => {
+    const errors: string[] = []
+    for (const r of RUMORS) {
+      if (!r.textDe || r.textDe.trim().length < 10) errors.push(`${r.id}: textDe fehlt/zu kurz`)
+      if (r.act === 2) {
+        if (!r.back) errors.push(`${r.id}: Akt-II-Karte ohne back`)
+        else if (!r.back.overlordDe.trim() || !r.back.heroDe.trim())
+          errors.push(`${r.id}: back-Belohnung leer`)
+      } else if (r.back) {
+        errors.push(`${r.id}: back nur bei Akt II erlaubt`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('jedes deutsche Kartenbild (Vorder- + Akt-II-Rückseite) ist vorhanden', () => {
     const files = import.meta.glob('/public/cards/de/geruechte/*.webp')
     const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
-    const missing = RUMORS.filter((r) => !present.has(r.id)).map((r) => r.id)
+    const missing: string[] = []
+    for (const r of RUMORS) {
+      if (!present.has(r.id)) missing.push(r.id)
+      if (r.back && !present.has(`${r.id}-back`)) missing.push(`${r.id}-back`)
+    }
     expect(missing, `fehlende Bilder: ${missing.join(', ')}`).toEqual([])
   })
 
@@ -561,6 +580,7 @@ describe('Gerücht-Karten-Datenintegrität', () => {
     expect(RUMORS.length).toBe(41)
     expect(RUMORS.filter((r) => r.act === 2).length).toBe(16)
     expect(RUMORS.filter((r) => r.act !== 2).length).toBe(25)
+    expect(RUMORS.filter((r) => r.back).length).toBe(16)
   })
 })
 
