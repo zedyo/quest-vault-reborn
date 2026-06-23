@@ -106,3 +106,11 @@ export function heroCardDeUrl(id: string, back = false): string {
 export function monsterCardDeUrl(id: string, act: 1 | 2 = 1, back = false): string {
   return `${import.meta.env.BASE_URL}cards/de/monsters/${id}-act${act}${back ? '-back' : ''}.webp`
 }
+
+/**
+ * Lokales deutsches Gerücht-Kartenbild (aus den Original-Karten-Scans,
+ * `public/cards/de/geruechte/<id>.webp`).
+ */
+export function rumorCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/geruechte/${id}.webp`
+}
