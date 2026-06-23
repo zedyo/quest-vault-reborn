@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.7',
+    date: '2026-06-23',
+    title: 'Overlord-Karten als deutsche Originalkarten',
+    highlights: [
+      'Alle 105 Overlord-Karten zeigen jetzt die deutschen Original-Kartenbilder (Basis-Deck, alle Klassen, Universal- und Belohnungskarten).',
+      'Kartennamen und Regeltexte wurden wortgetreu von den deutschen Karten neu erfasst – u. a. Teuflisches Ritual (statt Unheiliges Ritual), Wiederkehr (statt Wiederauferstehung), Erfahrener Kämpfer, Unheilige Stärke.',
+    ],
+  },
+  {
     version: '1.3.6',
     date: '2026-06-23',
     title: 'Kartenbilder vollständig statt beschnitten',

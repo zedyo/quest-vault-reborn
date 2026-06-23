@@ -2,9 +2,19 @@
 
 **Status:** VOLLSTÄNDIG ✅ (v1.1.15–v1.1.17): Grundspiel + alle Erweiterungs-Klassen + alle
 Belohnungskarten. 105 Karten in 27 Decks, EN wortgetreu gegen Quelle verifiziert (105/105).
-**Quelle:** any2cards/d2e, `data/overlord-decks.js` (englischer Originaltext)
-**Übersetzung:** Deutsch = Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut)
-**Zuletzt aktualisiert:** 2026-06-14
+**Deutsche Originalkarten ✅ (v1.3.7):** alle 105 Karten als deutsche Original-Kartenbilder
+(`public/cards/de/overlord/<id>.webp`, `overlordCardDeUrl`, OverlordPage zeigt DE-Bild mit
+EN-Fallback) + **offizielle Kartennamen** + **kartengenaue Regeltexte** (`nameDe`/`rulesDe` in
+`overlordClasses.ts` ersetzt). Die früheren Community-`nameDe` wichen von den Karten ab
+(z. B. Unheiliges Ritual → **Teuflisches Ritual**, Diabolische Macht → **Teuflische Macht**,
+Wiederauferstehung → **Wiederkehr**, Wort → **Worte** des Schmerzes/der Verzweiflung). Mapping
+pro Deck über die englischen Namen/Regeln (dt. Klassen-Sheets Hexer/Schurke/Heermeister/Gebieter/
+Vergelter/Verseucher/Verzauberer/Schattenmagier/Seelenbinder ↔ magus/saboteur/warlord/unkindness/
+punisher/infector/enchanter/shadowmancer/soulbinder; Arsenal=Basis, Arsenal II=Basis II,
+Alle Klassen=Universal, Belohnung=Belohnungen).
+**Quelle:** Kartennamen/-texte deutsch von den Original-Karten-Scans; EN-Struktur any2cards/d2e
+`data/overlord-decks.js`.
+**Zuletzt aktualisiert:** 2026-06-23
 
 ---
 
@@ -64,54 +74,54 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Kritischer Schlag | Critical Blow | Ereignis | 1 | 0 |
-| Dunkler Zauber | Dark Charm | Magie | 1 | 0 |
-| Dunkles Schicksal | Dark Fortune | Ereignis | 2 | 0 |
+| Wuchtiger Schlag | Critical Blow | Ereignis | 1 | 0 |
+| Dunkle Bezauberung | Dark Charm | Magie | 1 | 0 |
+| Dunkles Karma | Dark Fortune | Ereignis | 2 | 0 |
 | Dunkle Macht | Dark Might | Magie | 2 | 0 |
-| Sprint | Dash | Ereignis | 2 | 0 |
-| Raserei | Frenzy | Ereignis | 2 | 0 |
+| Rennen | Dash | Ereignis | 2 | 0 |
+| Wutausbruch | Frenzy | Ereignis | 2 | 0 |
 | Fallgrube | Pit Trap | Falle | 1 | 0 |
 | Giftpfeil | Poison Dart | Falle | 1 | 0 |
 | Stolperdraht | Tripwire | Falle | 2 | 0 |
-| Wort des Elends | Word of Misery | Magie | 1 | 0 |
+| Worte der Qual | Word of Misery | Magie | 1 | 0 |
 
 ### Magus
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Unheiliges Ritual | Unholy Ritual *(Errata)* | Magie | 2 | 1 |
-| Wort des Schmerzes | Word of Pain | Magie | 2 | 1 |
-| Wiederauferstehung | Rise Again | Magie | 1 | 2 |
-| Wort der Verzweiflung | Word of Despair | Magie | 1 | 2 |
-| Diabolische Macht | Diabolic Power | Magie | 1 | 3 |
+| Teuflisches Ritual | Unholy Ritual *(Errata)* | Magie | 2 | 1 |
+| Worte des Schmerzes | Word of Pain | Magie | 2 | 1 |
+| Wiederkehr | Rise Again | Magie | 1 | 2 |
+| Worte der Verzweiflung | Word of Despair | Magie | 1 | 2 |
+| Teuflische Macht | Diabolic Power | Magie | 1 | 3 |
 
 ### Saboteur
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Explosive Runen | Explosive Runes | Falle | 2 | 1 |
+| Explodierende Runen | Explosive Runes | Falle | 2 | 1 |
 | Netzfalle | Web Trap | Falle | 2 | 1 |
 | Fluch des Affengottes | Curse of the Monkey God | Falle | 1 | 2 |
-| Boshaftes Gelächter | Wicked Laughter | Ereignis | 1 | 2 |
-| Uthuk-Dämonenfalle | Uthuk Demon Trap | Falle | 1 | 3 |
+| Hämisches Gelächter | Wicked Laughter | Ereignis | 1 | 2 |
+| Dämonenfalle der Uthuk | Uthuk Demon Trap | Falle | 1 | 3 |
 
 ### Kriegsherr (Warlord)
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
 | Blutrausch | Blood Rage | Ereignis | 2 | 1 |
-| Dunkle Standhaftigkeit | Dark Fortitude | Ereignis | 2 | 1 |
+| Unheilige Stärke | Dark Fortitude | Ereignis | 2 | 1 |
 | Blutdurst | Bloodlust *(Errata)* | Ereignis | 1 | 2 |
-| Meisterhafter Schlag | Expert Blow | Ereignis | 1 | 2 |
-| Verstärkung | Reinforce *(Errata)* | Ereignis | 1 | 3 |
+| Erfahrener Kämpfer | Expert Blow | Ereignis | 1 | 2 |
+| Verstärkung rufen | Reinforce *(Errata)* | Ereignis | 1 | 3 |
 
 ### Universal (Grundspiel)
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Dunkle Widerstandskraft | Dark Resilience | Magie | 1 | 1 |
-| Vorausplanung | Plan Ahead | Ereignis | 2 | 1 |
-| Ränke | Schemes | Ereignis | 1 | 1 |
+| Dunkle Heilkraft | Dark Resilience | Magie | 1 | 1 |
+| Vorausplanen | Plan Ahead | Ereignis | 2 | 1 |
+| Finstere Pläne | Schemes | Ereignis | 1 | 1 |
 
 ---
 
@@ -122,74 +132,74 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
 | Verwirren | Befuddle | Magie | 2 | 0 |
-| Blendende Geschwindigkeit | Blinding Speed | Magie | 2 | 0 |
-| Hinterhältiger Kampf | Dirty Fighting | Ereignis | 2 | 0 |
-| Schlaghagel | Flurry | Ereignis | 1 | 0 |
-| Schmierfalle | Grease Trap | Falle | 1 | 0 |
+| Blitzschnell | Blinding Speed | Magie | 2 | 0 |
+| Harte Bandagen | Dirty Fighting | Ereignis | 2 | 0 |
+| Zerfleischen | Flurry | Ereignis | 1 | 0 |
+| Rutschiger Boden | Grease Trap | Falle | 1 | 0 |
 | Denkfehler | Mental Error | Ereignis | 1 | 0 |
-| Mimik | Mimic | Falle | 1 | 0 |
-| Überwältigen | Overwhelm | Ereignis | 1 | 0 |
-| Reflektierender Bann | Reflective Ward | Magie | 1 | 0 |
+| Mimikry | Mimic | Falle | 1 | 0 |
+| Überwältigende Meute | Overwhelm | Ereignis | 1 | 0 |
+| Auge um Auge | Reflective Ward | Magie | 1 | 0 |
 | Zeichen der Schwäche | Sign of Weakness | Falle | 1 | 0 |
-| Unkontrollierte Macht | Uncontrolled Power | Magie | 2 | 0 |
+| Ungezügelte Kraft | Uncontrolled Power | Magie | 2 | 0 |
 
 ### Peiniger (Punisher) – Höhle des Lindwurms
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Keine Ruhe für die Bösen | No Rest for the Wicked | Ereignis | 2 | 1 |
-| Geteilter Schmerz | Trading Pains | Ereignis | 2 | 1 |
-| Schwäche ausnutzen | Exploit Weakness | Ereignis | 1 | 2 |
-| Preis der Vorbeugung | Price of Prevention | Ereignis | 1 | 2 |
-| Bluthandel | Blood Bargaining | Ereignis | 1 | 3 |
+| Keine Atempause | No Rest for the Wicked | Ereignis | 2 | 1 |
+| Schmerzensbande | Trading Pains | Ereignis | 2 | 1 |
+| Die Schwachen zuerst | Exploit Weakness | Ereignis | 1 | 2 |
+| Alles hat seinen Preis | Price of Prevention | Ereignis | 1 | 2 |
+| Blutsbande | Blood Bargaining | Ereignis | 1 | 3 |
 
 ### Seuchenbringer (Infector) – Die Trollsümpfe
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Anpassungsfähige Seuche | Adaptive Contagion | Magie | 1 | 1 |
-| Luftübertragung | Airborne | Magie | 1 | 1 |
+| Adaptive Ansteckung | Adaptive Contagion | Magie | 1 | 1 |
+| Pestwolke | Airborne | Magie | 1 | 1 |
 | Kontaminiert | Contaminated | Magie | 1 | 1 |
-| Bösartige Infektion | Virulent Infection | Ereignis | 1 | 1 |
+| Heftige Infektion | Virulent Infection | Ereignis | 1 | 1 |
 | Ausbruch | Outbreak | Falle | 1 | 2 |
-| Vergifteter Schlag | Tainted Blow | Ereignis | 1 | 2 |
+| Seuchenhieb | Tainted Blow | Ereignis | 1 | 2 |
 | Dunkler Wirt | Dark Host | Magie | 1 | 3 |
 
 ### Verzauberer (Enchanter) – Schloss Rabenfels
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Drachenknochen-Anhänger | Dragonbone Pendant | Magie | 1 | 1 |
-| Elixier des Steins | Elixir of Stone | Magie | 1 | 1 |
-| Ringe von Zhol'alam | Rings of Zhol'alam | Magie | 1 | 1 |
-| Windarmreif | Wristlet of Wind | Magie | 1 | 1 |
-| Rune des Phönix | Rune of the Phoenix | Magie | 1 | 2 |
-| Bann des Friedens | Ward of Peace | Magie | 1 | 2 |
+| Drachenbein-Amulett | Dragonbone Pendant | Magie | 1 | 1 |
+| Steinelixier | Elixir of Stone | Magie | 1 | 1 |
+| Zhol'alam-Ringe | Rings of Zhol'alam | Magie | 1 | 1 |
+| Windarmbänder | Wristlet of Wind | Magie | 1 | 1 |
+| Phönixrune | Rune of the Phoenix | Magie | 1 | 2 |
+| Zauber des Friedens | Ward of Peace | Magie | 1 | 2 |
 | Zeichen des letzten Zenits | Sign of the Last Zenith | Magie | 1 | 3 |
 
 ### Bosheit (Unkindness) – Schloss Rabenfels
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Unter dem Schatten | Beneath the Shadow | Magie | 1 | 1 |
-| Hab Acht | Beware | Ereignis | 1 | 1 |
+| Im Schatten | Beneath the Shadow | Magie | 1 | 1 |
+| Obacht | Beware | Ereignis | 1 | 1 |
 | Ruf der Raben | Call of the Ravens | Ereignis | 1 | 1 |
-| Festmahl | Feast | Ereignis | 1 | 1 |
+| Schmaus | Feast | Ereignis | 1 | 1 |
 | Böses Omen | Ill Omen | Magie | 1 | 1 |
-| Nachahmung | Imitation | Falle | 1 | 2 |
-| Plötzlicher Schlaghagel | Sudden Flurry | Ereignis | 1 | 2 |
-| Umhüllen | Envelop | Ereignis | 1 | 3 |
+| Imitation | Imitation | Falle | 1 | 2 |
+| Plötzlicher Ausbruch | Sudden Flurry | Ereignis | 1 | 2 |
+| Eingehüllt | Envelop | Ereignis | 1 | 3 |
 
 ### Schattenmagier (Shadowmancer) – Schatten von Nerekhall
 
 | Karte (DE) | Karte (EN) | Typ | Anzahl | XP |
 |---|---|---|---|---|
-| Implodierender Riss | Imploding Rift | Falle | 1 | 1 |
+| Implodierender Graben | Imploding Rift | Falle | 1 | 1 |
 | Misstrauen | Mistrust | Ereignis | 1 | 1 |
 | Aus der Dunkelheit | Out of Darkness | Ereignis | 1 | 1 |
-| Schatten des Zweifels | Shadow of Doubt | Magie | 1 | 1 |
-| Verdunkelung | Black Out | Magie | 1 | 2 |
-| Schattengang | Shadow Walk | Magie | 1 | 2 |
+| Zaghaftigkeit | Shadow of Doubt | Magie | 1 | 1 |
+| Dunkelheit | Black Out | Magie | 1 | 2 |
+| Schattenflug | Shadow Walk | Magie | 1 | 2 |
 | Tückische Schatten | Treacherous Shadows | Magie | 1 | 3 |
 
 ### Seelenbinder (Soulbinder) – Die rostenden Ketten
@@ -200,9 +210,9 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 | Grotesk | Grotesque | Magie | 1 | 1 |
 | Besitzergreifend | Possessive | Falle | 1 | 1 |
 | Ruheloser Geist | Restless Spirit | Ereignis | 1 | 1 |
-| Bindende Fesseln | Ties That Bind | Ereignis | 1 | 1 |
-| Spukende Schritte | Haunted Steps | Falle | 1 | 2 |
-| Ohne zu blinzeln | Unblinking | Ereignis | 1 | 2 |
+| Fesselnde Bande | Ties That Bind | Ereignis | 1 | 1 |
+| Geisterhafte Schritte | Haunted Steps | Falle | 1 | 2 |
+| Unerschrocken | Unblinking | Ereignis | 1 | 2 |
 | Totentanz | Danse Macabre | Magie | 1 | 3 |
 
 ### Universal – Erweiterungen
@@ -211,10 +221,10 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 |---|---|---|---|---|---|
 | Dunkles Heilmittel | Dark Remedy | Labyrinth des Verderbens | Magie | 2 | 1 |
 | Placebo | Placebo | Schatten von Nerekhall | Ereignis | 1 | 1 |
-| Auffrischen | Refresh | Schatten von Nerekhall | Ereignis | 1 | 1 |
+| Neuanfang | Refresh | Schatten von Nerekhall | Ereignis | 1 | 1 |
 | Solidarität | Solidarity | Schatten von Nerekhall | Ereignis | 1 | 1 |
-| Aufwertung | Upgrade | Schatten von Nerekhall | Ereignis | 1 | 1 |
-| Vielfältige Mittel | Diverse Means *(Errata)* | Schatten von Nerekhall | Ereignis | 1 | 2 |
+| Alternative | Upgrade | Schatten von Nerekhall | Ereignis | 1 | 1 |
+| Vielseitigkeit | Diverse Means *(Errata)* | Schatten von Nerekhall | Ereignis | 1 | 2 |
 
 ---
 
@@ -225,22 +235,22 @@ Deck-Objekt (eigene `expansionId`), der Deckname bleibt „Universal".
 | Karte (DE) | Karte (EN) | Belohnungs-Art | Erweiterung | Typ |
 |---|---|---|---|---|
 | Spligs Rache | Splig's Revenge | Quest | Labyrinth des Verderbens | Ereignis |
-| Zwillingsseelen | Twin Souls | Quest | Labyrinth des Verderbens | Magie |
-| Die Gunst der Wyrm-Königin | The Wyrm Queen's Favor | Gerücht | Höhle des Lindwurms | Spezial |
+| Zwillingsseele | Twin Souls | Quest | Labyrinth des Verderbens | Magie |
+| Gunst der Lindwurmkönigin | The Wyrm Queen's Favor | Gerücht | Höhle des Lindwurms | Spezial |
 | Schrotthaufen | Hunk of Junk | Overlord | Bündnisse der Wildnis | Falle |
-| Feueredelsteine | Fire Gems | Overlord | Krone des Schicksals | Falle |
-| Vergessene Zauberei | Forgotten Sorcery | Overlord | Kreuzzug der Vergessenen | Magie |
-| Macht der Vielen | Power in Numbers | Overlord | Wächter von Deephall | Ereignis |
-| Am Boden | Down and Out | Overlord | Schloss Rabenfels | Ereignis |
-| Endloser Nachschub | Endless Supply | Overlord | Schloss Rabenfels | Ereignis |
+| Feuerkristalle | Fire Gems | Overlord | Krone des Schicksals | Falle |
+| Vergessene Hexerei | Forgotten Sorcery | Overlord | Kreuzzug der Vergessenen | Magie |
+| Erdrückende Übezahl | Power in Numbers | Overlord | Wächter von Deephall | Ereignis |
+| Völlig am Boden | Down and Out | Overlord | Schloss Rabenfels | Ereignis |
+| Endlose Vorräte | Endless Supply | Overlord | Schloss Rabenfels | Ereignis |
 | Ungebrochen | Unbroken | Overlord | Schloss Rabenfels | Ereignis |
-| Ungesehene Schwingen | Unseen Wings | Overlord | Eid des Ausgestoßenen | Ereignis |
+| Unsichtbare Schwingen | Unseen Wings | Overlord | Eid des Ausgestoßenen | Ereignis |
 | Spott | Mockery | Overlord | Splitter der Ewigen Dunkelheit | Ereignis |
-| Verschmelzung | Splice | Overlord | Hüter des Geheimnisses | Magie |
-| Opfergabe des Leids | Offertory Affliction | Overlord | Die Trollsümpfe | Ereignis |
-| Geheimnisse des Fleisches | Secrets of Flesh | Overlord | Die Trollsümpfe | Magie |
-| Giftige Vergeltung | Toxic Reprisal | Overlord | Die Trollsümpfe | Falle |
-| Hunger der Hexe | Hag's Hunger | Overlord | Vertrag der Champions | Ereignis |
+| Spleissen | Splice | Overlord | Hüter des Geheimnisses | Magie |
+| Wandelndes Gebrechen | Offertory Affliction | Overlord | Die Trollsümpfe | Ereignis |
+| Geheimnis des Fleisches | Secrets of Flesh | Overlord | Die Trollsümpfe | Magie |
+| Toxische Vergeltung | Toxic Reprisal | Overlord | Die Trollsümpfe | Falle |
+| Hexenhunger | Hag's Hunger | Overlord | Vertrag der Champions | Ereignis |
 | Harte Schläge | Hard Knocks | Overlord | Visionen der Dämmerung | Ereignis |
 
 ---

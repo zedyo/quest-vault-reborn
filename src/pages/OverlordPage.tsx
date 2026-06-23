@@ -5,7 +5,17 @@ import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { overlordCardDeUrl } from '../data/assetUrls'
 import type { OverlordCard, OverlordDeck, OverlordDeckKind, OverlordCardType } from '../types/game'
+
+// Bevorzugt das deutsche Kartenbild; fällt bei Ladefehler auf das englische zurück.
+function useFallbackSrc(srcs: string[]): [string | undefined, () => void] {
+  const [idx, setIdx] = useState(0)
+  return [srcs[idx], () => setIdx((i) => i + 1)]
+}
+function cardImgSrcs(card: OverlordCard): string[] {
+  return [overlordCardDeUrl(card.id), card.imageUrl].filter(Boolean) as string[]
+}
 
 const KIND_LABEL: Record<OverlordDeckKind, string> = {
   basic: 'Basis-Deck',
@@ -50,9 +60,9 @@ function XpBadge({ xp }: { xp: number | null }) {
   )
 }
 
-function CardThumb({ imageUrl, name, onOpen }: { imageUrl: string; name: string; onOpen: () => void }) {
-  const [imgError, setImgError] = useState(false)
-  if (imgError) return null
+function CardThumb({ srcs, name, onOpen }: { srcs: string[]; name: string; onOpen: () => void }) {
+  const [src, onError] = useFallbackSrc(srcs)
+  if (!src) return null
   return (
     <button
       className="shrink-0 w-12 self-stretch flex items-start rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 transition-colors focus:outline-none focus:border-gold-400"
@@ -60,10 +70,10 @@ function CardThumb({ imageUrl, name, onOpen }: { imageUrl: string; name: string;
       title="Karte vergrößern"
     >
       <img
-        src={imageUrl}
+        src={src}
         alt={name}
         className="w-full h-auto"
-        onError={() => setImgError(true)}
+        onError={onError}
         loading="lazy"
       />
     </button>
@@ -77,7 +87,7 @@ function CardRow({ card, lang, onImageOpen }: { card: OverlordCard; lang: Lang; 
   return (
     <div className="card text-xs space-y-1.5">
       <div className="flex items-stretch gap-2">
-        <CardThumb imageUrl={card.imageUrl} name={card.nameEn} onOpen={onImageOpen} />
+        <CardThumb srcs={cardImgSrcs(card)} name={card.nameDe} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
@@ -128,7 +138,20 @@ function DeckBlock({ deck, lang, onImageOpen }: { deck: OverlordDeck; lang: Lang
   )
 }
 
-interface LightboxState { imageUrl: string; name: string }
+interface LightboxState { srcs: string[]; name: string }
+
+function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
+  const [src, onError] = useFallbackSrc(srcs)
+  if (!src) return null
+  return (
+    <img
+      src={src}
+      alt={name}
+      onError={onError}
+      className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+    />
+  )
+}
 
 export default function OverlordPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -178,7 +201,7 @@ export default function OverlordPage() {
   const totalCards = filteredDecks.reduce((sum, d) => sum + d.cards.length, 0)
 
   const openLightbox = (card: OverlordCard) => {
-    setLightbox({ imageUrl: card.imageUrl, name: lang === 'de' ? card.nameDe : card.nameEn })
+    setLightbox({ srcs: cardImgSrcs(card), name: lang === 'de' ? card.nameDe : card.nameEn })
   }
 
   return (
@@ -196,11 +219,7 @@ export default function OverlordPage() {
           >
             ✕ Schließen
           </button>
-          <img
-            src={lightbox.imageUrl}
-            alt={lightbox.name}
-            className="w-full rounded-lg shadow-2xl border border-dungeon-600"
-          />
+          <LightboxImg srcs={lightbox.srcs} name={lightbox.name} />
         </ModalOverlay>
       )}
 

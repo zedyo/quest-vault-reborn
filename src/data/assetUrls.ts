@@ -139,3 +139,11 @@ export function itemCardDeUrl(id: string): string {
 export function relicCardDeUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/relics/${id}.webp`
 }
+
+/**
+ * Lokales deutsches Overlord-Kartenbild (aus den Original-Karten-Scans,
+ * `public/cards/de/overlord/<id>.webp`).
+ */
+export function overlordCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/overlord/${id}.webp`
+}
