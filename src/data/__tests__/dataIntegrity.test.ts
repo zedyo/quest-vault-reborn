@@ -274,6 +274,14 @@ describe('Overlord-Klassen-Datenintegrität', () => {
     }
     expect(errors, errors.join('\n')).toEqual([])
   })
+
+  it('jede Karte hat ein deutsches Kartenbild (105)', () => {
+    const files = import.meta.glob('/public/cards/de/overlord/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing = allCards.filter((c) => !present.has(c.id)).map((c) => c.id)
+    expect(missing, `fehlende Overlord-Bilder: ${missing.join(', ')}`).toEqual([])
+    expect(allCards.length).toBe(105)
+  })
 })
 
 describe('Leutnant-Datenintegrität', () => {
