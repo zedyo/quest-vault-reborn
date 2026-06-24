@@ -147,3 +147,11 @@ export function relicCardDeUrl(id: string): string {
 export function overlordCardDeUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/overlord/${id}.webp`
 }
+
+/**
+ * Lokales deutsches Hauptmann-(Leutnant-)Kartenbild je Akt-Form
+ * (`public/cards/de/lieutenants/<id>-act<1|2>.webp`).
+ */
+export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
+  return `${import.meta.env.BASE_URL}cards/de/lieutenants/${id}-act${act}.webp`
+}

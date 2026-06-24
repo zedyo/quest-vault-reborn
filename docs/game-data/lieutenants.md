@@ -3,8 +3,13 @@
 **Status:** VOLLSTÄNDIG ✅ (v1.1.18 Grundspiel + v1.1.19 Erweiterungen): 21 Leutnants, 39 Formen,
 EN 1:1 aus Quelle + maschinell verifiziert (0 Abweichungen, Regelpaarung geprüft).
 **Quelle:** any2cards/d2e, `data/lieutenants.js` (englischer Originaltext)
-**Übersetzung:** Deutsch = Community-Übersetzung (nicht zwingend offizieller FFG-Wortlaut)
-**Zuletzt aktualisiert:** 2026-06-14
+**Deutsche Originalkarten ✅ (v1.3.8):** alle 39 Formen als deutsche Original-Hauptmannkarten
+(`public/cards/de/lieutenants/<id>-act<1|2>.webp`, `lieutenantCardDeUrl`, LieutenantsPage-Lightbox mit
+EN-Fallback) + offizielle Namen + kartengenaue Fähigkeits-Labels/Regeltexte (Labels von den Vorderseiten,
+volle Regeltexte von den Rückseiten transkribiert). Namens-Korrekturen: Verminous → **Der Rattenkönig**,
+Mirklace/Gargan Mirklace → **Sinistrael**.
+**Quelle:** Namen/Texte deutsch von den Original-Karten-Scans; EN-Struktur + numerische Werte any2cards/d2e.
+**Zuletzt aktualisiert:** 2026-06-24
 
 ---
 
