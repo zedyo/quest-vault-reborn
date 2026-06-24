@@ -394,11 +394,17 @@ export interface Rumor {
 }
 
 /**
- * Eine Reise-/Stadtereignis-Karte. Quelle: any2cards travel-event-decks /
- * city-event-decks. Es werden NUR faktische Strukturdaten erfasst (Erweiterung,
- * Deck-Position, welche Gelände-Icons ein Ereignis tragen) + Kartenbild-Link;
- * der Ereignistext selbst wird NICHT reproduziert.
+ * Eine Reise-/Stadtereignis-Karte. Quelle: Strukturdaten any2cards travel-event-decks /
+ * city-event-decks (Erweiterung, Deck-Position, Gelände-Icons) + Kartenbild. Der
+ * deutsche Ereignistext (`eventsDe`) ist 1:1 von den deutschen Original-Karten
+ * transkribiert (Bild: `travelCardDeUrl(id)`).
  */
+export interface TravelEvent {
+  /** Gelände dieses Abschnitts (EN, aus eventTerrains). */
+  terrainEn: string
+  /** Deutscher Ereignistext dieses Gelände-Abschnitts, 1:1 von der Karte. */
+  textDe: string
+}
 export interface TravelCard {
   id: string
   expansionId: string
@@ -410,6 +416,8 @@ export interface TravelCard {
   /** Gelände-Icons, die auf dieser Karte ein Ereignis auslösen (EN). */
   eventTerrains: string[]
   imageUrl: string
+  /** Deutscher Ereignistext je Gelände-Abschnitt (von der deutschen Original-Karte). */
+  eventsDe?: TravelEvent[]
 }
 
 export interface Hero {

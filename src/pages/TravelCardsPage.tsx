@@ -5,6 +5,8 @@ import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import ModalOverlay from '../components/ModalOverlay'
 import { OwnedToggle, LangToggle, SegmentedControl, type Lang } from '../components/Filters'
+import { travelCardDeUrl } from '../data/assetUrls'
+import { renderGameTextInline } from '../components/GameSymbols'
 import type { TravelCard } from '../types/game'
 
 // Faktische Gelände-Icons je Deck-Typ → DE-Label + Symbol.
@@ -25,8 +27,21 @@ const TERRAIN_ORDER: Record<'travel' | 'city', string[]> = {
   city: ['Street', 'Tower', 'Building', 'Sewer', 'Hazard'],
 }
 
+// Bevorzugt das deutsche Kartenbild; fällt bei Ladefehler auf das englische zurück.
+function TravelImg({ card, className, onClick }: { card: TravelCard; className?: string; onClick?: () => void }) {
+  const [idx, setIdx] = useState(0)
+  const srcs = [travelCardDeUrl(card.id), card.imageUrl]
+  const src = srcs[idx]
+  if (!src) return null
+  const img = (
+    <img src={src} alt={`${card.deckType} event ${card.position}`} className={className ?? 'w-full h-auto'} loading="lazy" onError={() => setIdx((i) => i + 1)} />
+  )
+  return onClick
+    ? <button onClick={onClick} className="block w-full rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 focus:outline-none focus:border-gold-400 transition-colors" title="Karte vergrößern">{img}</button>
+    : img
+}
+
 function CardTile({ card, lang, onOpen }: { card: TravelCard; lang: Lang; onOpen: () => void }) {
-  const [err, setErr] = useState(false)
   const events = new Set(card.eventTerrains)
   return (
     <div className="card space-y-2">
@@ -35,11 +50,7 @@ function CardTile({ card, lang, onOpen }: { card: TravelCard; lang: Lang; onOpen
           {(card.deckType === 'city' ? (lang === 'de' ? 'Stadt-Ereignis' : 'City event') : (lang === 'de' ? 'Reise-Ereignis' : 'Travel event'))} {card.position}/{card.total}
         </span>
       </div>
-      {!err && (
-        <button onClick={onOpen} className="block w-full rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 focus:outline-none focus:border-gold-400 transition-colors" title="Karte vergrößern">
-          <img src={card.imageUrl} alt={`${card.deckType} event ${card.position}`} className="w-full h-auto" loading="lazy" onError={() => setErr(true)} />
-        </button>
-      )}
+      <TravelImg card={card} onClick={onOpen} />
       <div className="flex flex-wrap gap-1">
         {TERRAIN_ORDER[card.deckType].map((t) => {
           const has = events.has(t)
@@ -59,7 +70,7 @@ function CardTile({ card, lang, onOpen }: { card: TravelCard; lang: Lang; onOpen
   )
 }
 
-interface LightboxState { imageUrl: string; name: string }
+type LightboxState = TravelCard
 
 export default function TravelCardsPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -90,9 +101,36 @@ export default function TravelCardsPage() {
   return (
     <div className="space-y-6">
       {lightbox && (
-        <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={lightbox.name} backdropClassName="bg-black/85" className="relative max-w-md w-full">
-          <button onClick={() => setLightbox(null)} className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm">✕ Schließen</button>
-          <img src={lightbox.imageUrl} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+        <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={`${lightbox.deckType} event ${lightbox.position}`} backdropClassName="bg-black/85" className="bg-dungeon-900 border border-dungeon-700 rounded-lg shadow-2xl max-w-2xl w-full overflow-y-auto max-h-[90vh] p-4 flex flex-col sm:flex-row gap-4">
+          <div className="sm:w-56 flex-shrink-0 mx-auto">
+            <TravelImg card={lightbox} className="w-full rounded border border-dungeon-700" />
+          </div>
+          <div className="flex-1 min-w-0 space-y-3">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="font-display text-lg text-gold-400 font-bold">
+                {lightbox.deckType === 'city' ? 'Stadt-Ereignis' : 'Reise-Ereignis'} {lightbox.position}/{lightbox.total}
+              </h3>
+              <button onClick={() => setLightbox(null)} className="text-gray-400 hover:text-gray-100 text-2xl leading-none flex-shrink-0">×</button>
+            </div>
+            {lightbox.eventsDe?.length ? (
+              <div className="space-y-2">
+                {lightbox.eventsDe.map((ev, i) => {
+                  const info = TERRAIN[ev.terrainEn]
+                  return (
+                    <div key={i} className="border-b border-dungeon-700/60 pb-2 last:border-0">
+                      <p className="text-xs font-semibold text-emerald-300 mb-0.5">
+                        {info?.icon ?? '•'} {info ? info.de : ev.terrainEn}
+                      </p>
+                      <p className="text-gray-300 text-sm leading-snug">{renderGameTextInline(ev.textDe)}</p>
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-sm">Kein Ereignistext erfasst.</p>
+            )}
+            <p className="text-[11px] text-gray-600">Deutscher Original-Kartentext (FFG).</p>
+          </div>
         </ModalOverlay>
       )}
 
@@ -134,7 +172,7 @@ export default function TravelCardsPage() {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {cards.map((c) => (
-                  <CardTile key={c.id} card={c} lang={lang} onOpen={() => setLightbox({ imageUrl: c.imageUrl, name: `${c.deckType} event ${c.position}/${c.total}` })} />
+                  <CardTile key={c.id} card={c} lang={lang} onOpen={() => setLightbox(c)} />
                 ))}
               </div>
             </div>
