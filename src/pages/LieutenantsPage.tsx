@@ -9,7 +9,23 @@ import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { lieutenantCardDeUrl } from '../data/assetUrls'
 import type { Lieutenant, LieutenantForm, LieutenantPerPlayerStats } from '../types/game'
+
+// Bevorzugt das deutsche Kartenbild; fällt bei Ladefehler auf das englische zurück.
+function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
+  const [idx, setIdx] = useState(0)
+  const src = srcs[idx]
+  if (!src) return null
+  return (
+    <img
+      src={src}
+      alt={name}
+      onError={() => setIdx((i) => i + 1)}
+      className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+    />
+  )
+}
 
 const ATTR: { key: 'might' | 'knowledge' | 'willpower' | 'awareness'; de: string; en: string; cls: string }[] = [
   { key: 'might',     de: 'Stärke',       en: 'Might',     cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
@@ -102,7 +118,7 @@ function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: Lieutena
   )
 }
 
-function LieutenantCard({ lt, lang, expansionName, onImageOpen, highlighted }: { lt: Lieutenant; lang: Lang; expansionName: (id: string) => string; onImageOpen: (url: string, name: string) => void; highlighted?: boolean }) {
+function LieutenantCard({ lt, lang, expansionName, onImageOpen, highlighted }: { lt: Lieutenant; lang: Lang; expansionName: (id: string) => string; onImageOpen: (srcs: string[], name: string) => void; highlighted?: boolean }) {
   const deck = plotDeckForLieutenant(lt)
   return (
     <div id={`lt-${lt.id}`} className={`card space-y-2 scroll-mt-24 transition-shadow ${highlighted ? 'ring-2 ring-gold-400' : ''}`}>
@@ -128,7 +144,7 @@ function LieutenantCard({ lt, lang, expansionName, onImageOpen, highlighted }: {
             form={f}
             lang={lang}
             otherExpansion={f.expansionId !== lt.expansionId ? expansionName(f.expansionId) : undefined}
-            onImageOpen={() => onImageOpen(f.imageUrl, `${lang === 'de' ? lt.nameDe : lt.nameEn} – Akt ${f.act === 1 ? 'I' : 'II'}`)}
+            onImageOpen={() => onImageOpen([lieutenantCardDeUrl(lt.id, f.act), f.imageUrl], `${lang === 'de' ? lt.nameDe : lt.nameEn} – Akt ${f.act === 1 ? 'I' : 'II'}`)}
           />
         ))}
       </div>
@@ -136,7 +152,7 @@ function LieutenantCard({ lt, lang, expansionName, onImageOpen, highlighted }: {
   )
 }
 
-interface LightboxState { imageUrl: string; name: string }
+interface LightboxState { srcs: string[]; name: string }
 
 export default function LieutenantsPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -192,7 +208,7 @@ export default function LieutenantsPage() {
           >
             ✕ Schließen
           </button>
-          <img src={lightbox.imageUrl} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+          <LightboxImg srcs={lightbox.srcs} name={lightbox.name} />
         </ModalOverlay>
       )}
 
@@ -233,7 +249,7 @@ export default function LieutenantsPage() {
                     lt={lt}
                     lang={lang}
                     expansionName={(id) => expansionMap[id]?.nameDe ?? id}
-                    onImageOpen={(url, name) => setLightbox({ imageUrl: url, name })}
+                    onImageOpen={(srcs, name) => setLightbox({ srcs, name })}
                     highlighted={lt.id === highlightId}
                   />
                 ))}

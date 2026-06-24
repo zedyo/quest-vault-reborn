@@ -430,6 +430,20 @@ describe('Plotdeck-Datenintegrität', () => {
     }
     expect(errors, errors.join('\n')).toEqual([])
   })
+
+  it('jede Akt-Form hat ein deutsches Hauptmann-Kartenbild (39)', () => {
+    const files = import.meta.glob('/public/cards/de/lieutenants/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing: string[] = []
+    let forms = 0
+    for (const l of LIEUTENANTS)
+      for (const f of l.forms) {
+        forms++
+        if (!present.has(`${l.id}-act${f.act}`)) missing.push(`${l.id}-act${f.act}`)
+      }
+    expect(missing, `fehlende Hauptmann-Bilder: ${missing.join(', ')}`).toEqual([])
+    expect(forms).toBe(39)
+  })
 })
 
 describe('Leutnant ↔ Plotdeck-Verknüpfung', () => {

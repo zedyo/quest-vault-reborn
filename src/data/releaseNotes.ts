@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.8',
+    date: '2026-06-24',
+    title: 'Hauptmänner (Leutnants) als deutsche Originalkarten',
+    highlights: [
+      'Alle Leutnant-Formen (Akt I + II) zeigen jetzt die deutschen Original-Hauptmannkarten.',
+      'Namen und Fähigkeitstexte wortgetreu von den Karten erfasst – u. a. heißt „Verminous" auf der Karte „Der Rattenkönig" und der Nerekhall-Ettin „Sinistrael"; die vollständigen Fähigkeits-Regeltexte stammen von den Kartenrückseiten.',
+    ],
+  },
+  {
     version: '1.3.7',
     date: '2026-06-23',
     title: 'Overlord-Karten als deutsche Originalkarten',
