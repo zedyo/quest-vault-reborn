@@ -1,8 +1,16 @@
 # Descent 2. Edition – Reisekarten & Nebenszenarien
 
 **Status:** Reisekarten erfasst ✅ (v1.1.31) – `src/data/travelCards.ts` + `/reisekarten`-Seite  
-**Quelle:** any2cards `travel-event-decks.js` + `city-event-decks.js`  
-**Zuletzt aktualisiert:** 2026-06-17
+**Deutsche Originalkarten + Ereignistext ✅ (v1.3.9):** alle 41 Karten als deutsche Original-Kartenbilder
+(`public/cards/de/reisekarten/<id>.webp`, `travelCardDeUrl`, TravelCardsPage zeigt DE-Bild mit EN-Fallback) +
+**ausgeschriebener deutscher Ereignistext** (`eventsDe: {terrainEn,textDe}[]` je Gelände-Abschnitt, inkl.
+„Nichts passiert"-Abschnitt) 1:1 von den Karten transkribiert. Reise-Sheet 7×5 (660×1030), Stadt-Sheet 4×3
+(475×740). Mapping per Deck-Reihenfolge (base-1 + alle Stadtkarten terrain-verifiziert). Hinweis: das gelesene
+Karten-Gelände (`eventsDe[].terrainEn`) weicht bei einigen Karten von den any2cards-`eventTerrains` ab —
+`eventsDe` ist die kartengenaue Quelle.  
+**Quelle:** Ereignistext + Bilder von den deutschen Original-Karten-Scans; Struktur (Position/Gelände)
+any2cards `travel-event-decks.js` + `city-event-decks.js`.  
+**Zuletzt aktualisiert:** 2026-06-24
 
 ---
 

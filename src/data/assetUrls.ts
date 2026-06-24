@@ -155,3 +155,11 @@ export function overlordCardDeUrl(id: string): string {
 export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
   return `${import.meta.env.BASE_URL}cards/de/lieutenants/${id}-act${act}.webp`
 }
+
+/**
+ * Lokales deutsches Reise-/Stadtereignis-Kartenbild
+ * (`public/cards/de/reisekarten/<id>.webp`).
+ */
+export function travelCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/reisekarten/${id}.webp`
+}

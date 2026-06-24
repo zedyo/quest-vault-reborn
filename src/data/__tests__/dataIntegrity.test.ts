@@ -551,6 +551,22 @@ describe('Reisekarten-Datenintegrität', () => {
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'travel').length).toBe(31)
     expect(TRAVEL_CARDS.filter((c) => c.deckType === 'city').length).toBe(10)
   })
+
+  it('deutsches Kartenbild + Ereignistext (eventsDe) für alle 41', () => {
+    const files = import.meta.glob('/public/cards/de/reisekarten/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const allTerr = new Set([...TERRAINS.travel, ...TERRAINS.city])
+    const errors: string[] = []
+    for (const c of TRAVEL_CARDS) {
+      if (!present.has(c.id)) errors.push(`${c.id}: deutsches Bild fehlt`)
+      if (!c.eventsDe || c.eventsDe.length === 0) { errors.push(`${c.id}: eventsDe fehlt`); continue }
+      for (const e of c.eventsDe) {
+        if (!allTerr.has(e.terrainEn)) errors.push(`${c.id}: '${e.terrainEn}' kein Gelände`)
+        if (!e.textDe.trim()) errors.push(`${c.id}: leerer Ereignistext`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
 })
 
 describe('Gerücht-Karten-Datenintegrität', () => {

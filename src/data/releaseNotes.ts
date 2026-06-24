@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.9',
+    date: '2026-06-24',
+    title: 'Reisekarten mit deutschem Ereignistext',
+    highlights: [
+      'Alle 41 Reise- und Stadtereignis-Karten zeigen jetzt die deutschen Original-Kartenbilder.',
+      'Neu: Der vollständige Ereignistext jeder Karte ist ausgeschrieben – pro Geländetyp ein Abschnitt. Karte anklicken öffnet das Bild samt aufgeschlüsseltem Text.',
+    ],
+  },
+  {
     version: '1.3.8',
     date: '2026-06-24',
     title: 'Hauptmänner (Leutnants) als deutsche Originalkarten',
