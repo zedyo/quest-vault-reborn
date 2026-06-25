@@ -22,6 +22,7 @@ const DATA = [
   { to: '/kampagnen', label: '🏰 Kampagnen' },
   { to: '/reisekarten', label: '🧭 Reisekarten' },
   { to: '/geruechte', label: '🗣️ Gerüchte' },
+  { to: '/zustaende', label: '🩹 Zustände' },
 ]
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

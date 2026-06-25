@@ -163,3 +163,10 @@ export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
 export function travelCardDeUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/reisekarten/${id}.webp`
 }
+
+/**
+ * Lokales deutsches Zustandskarten-Bild (`public/cards/de/zustand/<id>.webp`).
+ */
+export function conditionCardDeUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/zustand/${id}.webp`
+}

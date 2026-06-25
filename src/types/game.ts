@@ -420,6 +420,20 @@ export interface TravelCard {
   eventsDe?: TravelEvent[]
 }
 
+/**
+ * Eine Zustandskarte (Condition). Quelle: deutsche Original-Karten (Name + Effekttext
+ * 1:1 transkribiert), Erweiterungszuordnung aus any2cards (Ordnerstruktur). Bild:
+ * `conditionCardDeUrl(id)` -> public/cards/de/zustand/<id>.webp.
+ */
+export interface Condition {
+  id: string
+  nameEn: string
+  nameDe: string
+  expansionId: string
+  /** Deutscher Effekt-/Regeltext der Zustandskarte, 1:1 von der Karte. */
+  textDe: string
+}
+
 export interface Hero {
   id: string
   name: string
