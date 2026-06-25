@@ -15,6 +15,7 @@ import PlotDecksPage from './pages/PlotDecksPage'
 import CampaignsPage from './pages/CampaignsPage'
 import TravelCardsPage from './pages/TravelCardsPage'
 import RumorsPage from './pages/RumorsPage'
+import ConditionsPage from './pages/ConditionsPage'
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="kampagnen" element={<CampaignsPage />} />
         <Route path="reisekarten" element={<TravelCardsPage />} />
         <Route path="geruechte" element={<RumorsPage />} />
+        <Route path="zustaende" element={<ConditionsPage />} />
       </Route>
     </Routes>
   )

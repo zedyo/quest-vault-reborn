@@ -13,6 +13,7 @@ import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
 import { RUMORS } from '../rumors'
+import { CONDITIONS } from '../conditions'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
@@ -619,6 +620,31 @@ describe('Gerücht-Karten-Datenintegrität', () => {
     expect(RUMORS.filter((r) => r.act === 2).length).toBe(16)
     expect(RUMORS.filter((r) => r.act !== 2).length).toBe(25)
     expect(RUMORS.filter((r) => r.back).length).toBe(16)
+  })
+})
+
+describe('Zustands-Datenintegrität', () => {
+  it('keine doppelten IDs + vollständig (10)', () => {
+    const ids = CONDITIONS.map((c) => c.id)
+    expect(new Set(ids).size, 'doppelte Zustands-IDs').toBe(ids.length)
+    expect(CONDITIONS.length).toBe(10)
+  })
+
+  it('Pflichtfelder, gültige Erweiterung, Effekttext', () => {
+    const errors: string[] = []
+    for (const c of CONDITIONS) {
+      if (!c.nameDe || !c.nameEn) errors.push(`${c.id}: Name fehlt`)
+      if (!EXPANSION_IDS.has(c.expansionId)) errors.push(`${c.id}: unbekannte expansionId '${c.expansionId}'`)
+      if (!c.textDe || c.textDe.trim().length < 10) errors.push(`${c.id}: textDe fehlt/zu kurz`)
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('jede Zustandskarte hat ein deutsches Kartenbild', () => {
+    const files = import.meta.glob('/public/cards/de/zustand/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing = CONDITIONS.filter((c) => !present.has(c.id)).map((c) => c.id)
+    expect(missing, `fehlende Zustands-Bilder: ${missing.join(', ')}`).toEqual([])
   })
 })
 

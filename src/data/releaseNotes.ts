@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.10',
+    date: '2026-06-24',
+    title: 'Zustandskarten',
+    highlights: [
+      'Neue Seite „🩹 Zustände" mit allen 10 Zustandskarten (Betäubt, Blutend, Brennend, Erkrankt, Gelähmt, Geschwächt, Todgeweiht, Verängstigt, Verflucht, Vergiftet) als deutsche Original-Karten.',
+      'Pro Zustand der vollständige Effekttext, Erweiterungszuordnung und das deutsche Kartenbild.',
+    ],
+  },
+  {
     version: '1.3.9',
     date: '2026-06-24',
     title: 'Reisekarten mit deutschem Ereignistext',
