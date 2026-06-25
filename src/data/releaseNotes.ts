@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.11',
+    date: '2026-06-25',
+    title: 'Echte Spielmarker im Kartenbauer',
+    highlights: [
+      'Die Overlay-Marker im Kartenbauer und Quest-Editor sind jetzt die echten Descent-Token als transparente Original-Bilder – Türen, Fallgitter, Gelände (Wasser, Heiß, Eis, Überwucherung …), Ziel- und Suchmarker sowie Dorfbewohner.',
+      'Neuer visueller Token-Auswahldialog: nach Kategorie gruppiert mit Vorschaubildern statt nur Text.',
+    ],
+  },
+  {
     version: '1.3.10',
     date: '2026-06-24',
     title: 'Zustandskarten',

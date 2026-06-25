@@ -649,13 +649,14 @@ describe('Zustands-Datenintegrität', () => {
 })
 
 describe('Overlay-Datenintegrität', () => {
-  const CATS = new Set(['terrain', 'passage', 'object', 'marker'])
+  const CATS = new Set(['terrain', 'passage', 'object', 'marker', 'figure'])
 
   it('keine doppelten IDs und OVERLAY_BY_ID deckt alle ab', () => {
     const ids = OVERLAYS.map((o) => o.id)
     expect(new Set(ids).size, 'doppelte Overlay-IDs').toBe(ids.length)
     expect(Object.keys(OVERLAY_BY_ID).length).toBe(OVERLAYS.length)
     for (const o of OVERLAYS) expect(OVERLAY_BY_ID[o.id]).toBe(o)
+    expect(OVERLAYS.length, 'Overlay-Anzahl').toBe(16)
   })
 
   it('Pflichtfelder, gültige Kategorie/Erweiterung, plausibler Footprint', () => {
@@ -669,6 +670,13 @@ describe('Overlay-Datenintegrität', () => {
         errors.push(`${o.id}: Footprint ${o.cols}×${o.rows} unplausibel`)
     }
     expect(errors, errors.join('\n')).toEqual([])
+  })
+
+  it('jedes Overlay hat ein transparentes Token-Bild (public/cards/de/overlays/<id>.png)', () => {
+    const files = import.meta.glob('/public/cards/de/overlays/*.png')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.png', '')))
+    const missing = OVERLAYS.filter((o) => !present.has(o.id)).map((o) => o.id)
+    expect(missing, `fehlende Overlay-Token-Bilder: ${missing.join(', ')}`).toEqual([])
   })
 })
 

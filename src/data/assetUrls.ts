@@ -170,3 +170,11 @@ export function travelCardDeUrl(id: string): string {
 export function conditionCardDeUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/zustand/${id}.webp`
 }
+
+/**
+ * Transparentes Overlay-/Marker-Token für den Kartenbauer
+ * (`public/cards/de/overlays/<id>.png`, Original-Token aus any2cards).
+ */
+export function overlayTokenUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/overlays/${id}.png`
+}

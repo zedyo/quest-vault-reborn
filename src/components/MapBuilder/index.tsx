@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from 'react'
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import {
   DndContext,
   DragEndEvent,
@@ -14,8 +14,18 @@ import MapGrid, { effectiveDims } from './MapGrid'
 import type { PlacedMapTile, Rotation } from './types'
 import { MAP_TILES, getTilePartner, tileImageUrl } from '../../data/mapTiles'
 import { OVERLAYS } from '../../data/overlays'
-import type { Monster, PlacedMonster, PlacedOverlay } from '../../types/game'
+import { overlayTokenUrl } from '../../data/assetUrls'
+import type { Monster, PlacedMonster, PlacedOverlay, OverlayType } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS } from './constants'
+
+// Overlay-Auswahl: Token nach Kategorie gruppiert (Reihenfolge + Überschriften).
+const OVERLAY_GROUPS: { category: OverlayType['category']; label: string }[] = [
+  { category: 'passage', label: 'Durchgänge' },
+  { category: 'terrain', label: 'Gelände' },
+  { category: 'marker', label: 'Marker' },
+  { category: 'object', label: 'Objekte' },
+  { category: 'figure', label: 'Figuren' },
+]
 
 function nextRotation(r: Rotation): Rotation {
   const map: Record<Rotation, Rotation> = { 0: 90, 90: 180, 180: 270, 270: 0 }
@@ -182,6 +192,25 @@ export default function MapBuilder({
   const [selectedOverlayToPlace, setSelectedOverlayToPlace] = useState<string | null>(null)
   const overlayToPlaceRef = useRef(selectedOverlayToPlace)
   overlayToPlaceRef.current = selectedOverlayToPlace
+
+  // Visueller Overlay-Token-Picker (Popover).
+  const [overlayPickerOpen, setOverlayPickerOpen] = useState(false)
+  const overlayPickerRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!overlayPickerOpen) return
+    const onClick = (e: MouseEvent) => {
+      if (overlayPickerRef.current && !overlayPickerRef.current.contains(e.target as Node)) {
+        setOverlayPickerOpen(false)
+      }
+    }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOverlayPickerOpen(false) }
+    document.addEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [overlayPickerOpen])
 
   const [internalOverlays, setInternalOverlays] = useState<PlacedOverlay[]>([])
   const placedOverlays = overlays ?? internalOverlays
@@ -440,31 +469,73 @@ export default function MapBuilder({
               <div className="w-px h-5 bg-dungeon-600 self-center mx-1 shrink-0" />
               {selectedOverlayToPlace ? (
                 <span className="flex items-center gap-1.5 text-sm text-purple-300 shrink-0">
-                  <span>{OVERLAYS.find((o) => o.id === selectedOverlayToPlace)?.icon}</span>
+                  <img
+                    src={overlayTokenUrl(selectedOverlayToPlace)}
+                    alt=""
+                    className="w-5 h-5 object-contain"
+                    draggable={false}
+                  />
                   <span className="text-xs">{OVERLAYS.find((o) => o.id === selectedOverlayToPlace)?.nameDe}</span>
                   <span className="text-gray-500 text-xs">– auf Karte klicken</span>
                   <button onClick={() => setSelectedOverlayToPlace(null)} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
                 </span>
               ) : (
-                <span className="flex items-center gap-1.5 shrink-0">
-                  <select
-                    value=""
-                    onChange={(e) => {
-                      if (!e.target.value) return
-                      setSelectedTileId(null)
-                      setSelectedInstanceId(null)
-                      setSelectedMonsterToPlace(null)
-                      setSelectedOverlayToPlace(e.target.value)
-                    }}
-                    className="bg-dungeon-800 text-gray-300 border border-dungeon-600 rounded text-xs px-2 py-1 max-w-40"
+                <span className="relative flex items-center gap-1.5 shrink-0" ref={overlayPickerRef}>
+                  <button
+                    onClick={() => setOverlayPickerOpen((o) => !o)}
+                    aria-haspopup="menu"
+                    aria-expanded={overlayPickerOpen}
+                    className={`flex items-center gap-1 border rounded text-xs px-2 py-1 transition-colors ${
+                      overlayPickerOpen
+                        ? 'bg-dungeon-700 text-gray-100 border-gold-600'
+                        : 'bg-dungeon-800 text-gray-300 border-dungeon-600 hover:border-gray-500'
+                    }`}
                   >
-                    <option value="">+ Overlay setzen</option>
-                    {OVERLAYS.map((o) => (
-                      <option key={o.id} value={o.id}>{o.icon} {o.nameDe}</option>
-                    ))}
-                  </select>
+                    + Overlay setzen <span className={`text-[9px] transition-transform ${overlayPickerOpen ? 'rotate-180' : ''}`}>▾</span>
+                  </button>
                   {placedOverlays.length > 0 && (
                     <span className="text-gray-600 text-xs">{placedOverlays.length} Overlay</span>
+                  )}
+                  {overlayPickerOpen && (
+                    <div
+                      role="menu"
+                      className="absolute left-0 top-full mt-1 w-72 max-h-[60vh] overflow-y-auto bg-dungeon-850 border border-dungeon-600 rounded-lg shadow-xl shadow-black/50 p-2 z-50"
+                    >
+                      {OVERLAY_GROUPS.map((g) => {
+                        const items = OVERLAYS.filter((o) => o.category === g.category)
+                        if (items.length === 0) return null
+                        return (
+                          <div key={g.category} className="mb-2 last:mb-0">
+                            <p className="px-1 text-[10px] uppercase tracking-wider text-gray-500 mb-1">{g.label}</p>
+                            <div className="grid grid-cols-4 gap-1">
+                              {items.map((o) => (
+                                <button
+                                  key={o.id}
+                                  role="menuitem"
+                                  title={`${o.nameDe} – ${o.descriptionDe}`}
+                                  onClick={() => {
+                                    setSelectedTileId(null)
+                                    setSelectedInstanceId(null)
+                                    setSelectedMonsterToPlace(null)
+                                    setSelectedOverlayToPlace(o.id)
+                                    setOverlayPickerOpen(false)
+                                  }}
+                                  className="flex flex-col items-center gap-0.5 p-1 rounded hover:bg-dungeon-700 transition-colors group"
+                                >
+                                  <img
+                                    src={overlayTokenUrl(o.id)}
+                                    alt=""
+                                    className="w-9 h-9 object-contain"
+                                    draggable={false}
+                                  />
+                                  <span className="text-[9px] leading-tight text-center text-gray-400 group-hover:text-gold-300 line-clamp-2">{o.nameDe}</span>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
                   )}
                 </span>
               )}
