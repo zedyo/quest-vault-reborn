@@ -507,14 +507,14 @@ export interface OverlayType {
   id: string
   nameEn: string
   nameDe: string
-  category: 'terrain' | 'passage' | 'object' | 'marker'
+  category: 'terrain' | 'passage' | 'object' | 'marker' | 'figure'
   /** Footprint in Feldern (Annotation: 1×1 pro Feld). */
   cols: number
   rows: number
   expansionId: string
-  /** Anzeigefarbe des Markers. */
+  /** Akzentfarbe des Markers (Auswahlmenü / Bild-Fallback). */
   color: string
-  /** Symbol (Emoji) für den Marker. */
+  /** Symbol (Emoji) – Fallback, falls das Token-Bild fehlt. */
   icon: string
   descriptionDe: string
 }

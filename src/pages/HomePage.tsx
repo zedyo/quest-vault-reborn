@@ -125,7 +125,7 @@ export default function HomePage() {
             </h4>
             <ul className="space-y-2">
               {[
-                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen platzieren, drehen und mit Overlays (Türen, Truhen, Gelände) markieren' },
+                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen platzieren, drehen und mit Overlay-Token (Türen, Gelände, Marker, Figuren) markieren' },
                 { icon: '📜', text: 'Quest-Editor – eigene Abenteuer erstellen, speichern und exportieren' },
                 { icon: '👹', text: `Alle ${MONSTERS.length} Monstergruppen mit vollständigen Spielwerten (Akt 1 & Akt 2)` },
                 { icon: '🧙', text: `${HEROES.length} Helden und ${HERO_CLASSES.length} Klassen aus allen Erweiterungen` },

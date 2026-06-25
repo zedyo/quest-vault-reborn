@@ -749,8 +749,8 @@ export default function QuestEditorPage() {
             <div className="px-4 py-2 border-b border-dungeon-700">
               <h3 className="font-display text-sm text-gold-400 font-bold">Karte</h3>
               <p className="text-gray-500 text-xs">
-                Plättchen platzieren, drehen und verschieben; Monster &amp; Overlays (Tür, Truhe,
-                Wasser, Lava …) setzen – wird mit der Begegnung gespeichert.
+                Plättchen platzieren, drehen und verschieben; Monster &amp; Overlays (Türen,
+                Gelände, Marker, Figuren …) setzen – wird mit der Begegnung gespeichert.
               </p>
             </div>
             <MapBuilder

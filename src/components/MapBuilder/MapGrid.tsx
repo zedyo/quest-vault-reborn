@@ -3,6 +3,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { MAP_TILES, tileImageUrl } from '../../data/mapTiles'
 import { OVERLAY_BY_ID } from '../../data/overlays'
+import { overlayTokenUrl } from '../../data/assetUrls'
 import type { PlacedMapTile } from './types'
 import type { PlacedMonster, PlacedOverlay } from '../../types/game'
 import { CELL_SIZE, GRID_COLS, GRID_ROWS, CONNECTOR_INSET_FRAC } from './constants'
@@ -232,7 +233,15 @@ function MonsterToken({
 }
 
 function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove: (id: string) => void }) {
-  const def = OVERLAY_BY_ID[overlay.overlayType]
+  // hasOwnProperty-Guard: verhindert, dass ein manipulierter overlayType (z. B.
+  // "constructor"/"toString" aus importiertem JSON) einen Prototyp-Wert liefert.
+  const def = Object.prototype.hasOwnProperty.call(OVERLAY_BY_ID, overlay.overlayType)
+    ? OVERLAY_BY_ID[overlay.overlayType]
+    : undefined
+  // Transparentes Original-Token-Bild; bei Fehler (z. B. unbekannte id aus einem
+  // Alt-Quest) auf das Emoji im farbigen Kästchen zurückfallen.
+  const [imgError, setImgError] = useState(false)
+  const showImg = !!def && !imgError
   return (
     <div
       style={{
@@ -242,8 +251,8 @@ function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove:
         width: CELL_SIZE - 8,
         height: CELL_SIZE - 8,
         borderRadius: 6,
-        backgroundColor: (def?.color ?? '#374151') + 'cc',
-        border: `2px solid ${def?.color ?? '#6b7280'}`,
+        backgroundColor: showImg ? 'transparent' : (def?.color ?? '#374151') + 'cc',
+        border: showImg ? 'none' : `2px solid ${def?.color ?? '#6b7280'}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -254,7 +263,23 @@ function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove:
       title={`${def?.nameDe ?? overlay.overlayType} – ✕ entfernen`}
       onClick={(e) => e.stopPropagation()}
     >
-      <span style={{ fontSize: 16, lineHeight: 1, pointerEvents: 'none' }}>{def?.icon ?? '◆'}</span>
+      {showImg ? (
+        <img
+          src={overlayTokenUrl(def.id)}
+          alt={def.nameDe}
+          onError={() => setImgError(true)}
+          draggable={false}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            pointerEvents: 'none',
+            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.6))',
+          }}
+        />
+      ) : (
+        <span style={{ fontSize: 16, lineHeight: 1, pointerEvents: 'none' }}>{def?.icon ?? '◆'}</span>
+      )}
       <button
         onClick={(e) => { e.stopPropagation(); onRemove(overlay.id) }}
         style={{
