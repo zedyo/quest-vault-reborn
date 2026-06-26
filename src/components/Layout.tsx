@@ -23,6 +23,7 @@ const DATA = [
   { to: '/reisekarten', label: '🧭 Reisekarten' },
   { to: '/geruechte', label: '🗣️ Gerüchte' },
   { to: '/zustaende', label: '🩹 Zustände' },
+  { to: '/regeln', label: '📖 Regeln & Referenz' },
 ]
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

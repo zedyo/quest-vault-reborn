@@ -16,6 +16,7 @@ import CampaignsPage from './pages/CampaignsPage'
 import TravelCardsPage from './pages/TravelCardsPage'
 import RumorsPage from './pages/RumorsPage'
 import ConditionsPage from './pages/ConditionsPage'
+import RulesReferencePage from './pages/RulesReferencePage'
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="reisekarten" element={<TravelCardsPage />} />
         <Route path="geruechte" element={<RumorsPage />} />
         <Route path="zustaende" element={<ConditionsPage />} />
+        <Route path="regeln" element={<RulesReferencePage />} />
       </Route>
     </Routes>
   )
