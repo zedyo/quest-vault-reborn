@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.12',
+    date: '2026-06-26',
+    title: 'Regeln & Referenz',
+    highlights: [
+      'Neue Seite „📖 Regeln & Referenz": ein Schnellnachschlag für die Spielsymbole (Herz, Schub, Erschöpfung, Aktion, Bewegung, Verteidigung), die Angriffs- und Verteidigungswürfel und den Spielablauf.',
+      'Dazu ein kleines Begriffs-Glossar (Zustände, Durchsuchen, Bedrohung, Gelände …) mit Verweisen auf die passenden Übersichtsseiten – alles in eigenen, knappen Worten zusammengefasst.',
+    ],
+  },
+  {
     version: '1.3.11',
     date: '2026-06-25',
     title: 'Echte Spielmarker im Kartenbauer',

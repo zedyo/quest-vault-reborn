@@ -27,6 +27,7 @@ const OVERVIEWS = [
   { icon: '🧭', title: 'Reisekarten', href: '/reisekarten' },
   { icon: '🗣️', title: 'Gerüchte', href: '/geruechte' },
   { icon: '🩹', title: 'Zustände', href: '/zustaende' },
+  { icon: '📖', title: 'Regeln & Referenz', href: '/regeln' },
 ]
 
 export default function HomePage() {

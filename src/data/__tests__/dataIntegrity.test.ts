@@ -14,6 +14,13 @@ import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
 import { TRAVEL_CARDS } from '../travelCards'
 import { RUMORS } from '../rumors'
 import { CONDITIONS } from '../conditions'
+import {
+  GAME_SYMBOLS,
+  ATTACK_DICE as REF_ATTACK_DICE,
+  DEFENSE_DICE as REF_DEFENSE_DICE,
+  GAMEPLAY_STEPS,
+  GLOSSARY,
+} from '../rulesReference'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
@@ -677,6 +684,52 @@ describe('Overlay-Datenintegrität', () => {
     const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.png', '')))
     const missing = OVERLAYS.filter((o) => !present.has(o.id)).map((o) => o.id)
     expect(missing, `fehlende Overlay-Token-Bilder: ${missing.join(', ')}`).toEqual([])
+  })
+})
+
+describe('Regeln-Referenz-Datenintegrität', () => {
+  const VALID_SYMBOLS = new Set(['heart', 'surge', 'fatigue', 'action', 'movement', 'defense'])
+  const ATTACK_COLORS = new Set<DieColor>(['blue', 'red', 'yellow', 'green'])
+  const DEFENSE_COLORS = new Set<DieColor>(['gray', 'brown', 'black'])
+  // Interne App-Routen, auf die Glossar-Einträge verweisen dürfen.
+  const VALID_LINKS = new Set(['/zustaende', '/karte', '/monster', '/overlord', '/items', '/helden', '/klassen'])
+
+  it('Symbole: eindeutige IDs, gültiger Symbol-Schlüssel, Pflichttexte', () => {
+    const ids = GAME_SYMBOLS.map((s) => s.id)
+    expect(new Set(ids).size, 'doppelte Symbol-IDs').toBe(ids.length)
+    expect(GAME_SYMBOLS.length).toBeGreaterThanOrEqual(6)
+    for (const s of GAME_SYMBOLS) {
+      expect(VALID_SYMBOLS.has(s.symbol), `${s.id}: ungültiger Symbol-Schlüssel '${s.symbol}'`).toBe(true)
+      expect(s.nameDe && s.nameEn, `${s.id}: Name fehlt`).toBeTruthy()
+      expect(s.descriptionDe.length, `${s.id}: descriptionDe zu kurz`).toBeGreaterThan(15)
+    }
+  })
+
+  it('Würfel: korrekte Angriffs-/Verteidigungsfarben, Texte vorhanden', () => {
+    for (const d of REF_ATTACK_DICE) {
+      expect(ATTACK_COLORS.has(d.color), `${d.color} ist keine Angriffsfarbe`).toBe(true)
+      expect(d.descriptionDe.length).toBeGreaterThan(10)
+    }
+    for (const d of REF_DEFENSE_DICE) {
+      expect(DEFENSE_COLORS.has(d.color), `${d.color} ist keine Verteidigungsfarbe`).toBe(true)
+      expect(d.descriptionDe.length).toBeGreaterThan(10)
+    }
+  })
+
+  it('Spielablauf + Glossar: eindeutige IDs, Pflichttexte, gültige Links', () => {
+    const stepIds = GAMEPLAY_STEPS.map((g) => g.id)
+    expect(new Set(stepIds).size).toBe(stepIds.length)
+    for (const g of GAMEPLAY_STEPS) {
+      expect(g.title, `${g.id}: Titel fehlt`).toBeTruthy()
+      expect(g.textDe.length, `${g.id}: textDe zu kurz`).toBeGreaterThan(20)
+    }
+    const termIds = GLOSSARY.map((t) => t.id)
+    expect(new Set(termIds).size).toBe(termIds.length)
+    for (const t of GLOSSARY) {
+      expect(t.term, `${t.id}: term fehlt`).toBeTruthy()
+      expect(t.textDe.length, `${t.id}: textDe zu kurz`).toBeGreaterThan(20)
+      if (t.link) expect(VALID_LINKS.has(t.link), `${t.id}: unbekannter Link '${t.link}'`).toBe(true)
+    }
   })
 })
 
