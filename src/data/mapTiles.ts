@@ -206,22 +206,26 @@ export const MAP_TILES: MapTileDefinition[] = [
   // Ausführung vorhanden. Indoor- und Outdoor-Seite je als eigenes Plättchen.
   // Quelle: any2cards map-tiles (bg-/sn-/mb- … extension/end-cap/entrance/exit/transition).
   // ── Grundspiel ──
-  { id: 'extension-indoor',  label: 'Korridor (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
-  { id: 'extension-outdoor', label: 'Korridor (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
-  { id: 'end-cap-indoor',    label: 'Endkappe (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
-  { id: 'end-cap-outdoor',   label: 'Endkappe (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  // 2×1 (2 breit, 1 hoch): verbinden über die HÖHE (oben/unten) – die 2-Felder-
+  // breite Öffnung liegt waagerecht. (Pixel-Überstand 150×112 = oben/unten.)
+  { id: 'extension-indoor',  label: 'Korridor (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
+  { id: 'extension-outdoor', label: 'Korridor (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
+  { id: 'end-cap-indoor',    label: 'Endkappe (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: false, right: false, bottom: true, left: false } },
+  { id: 'end-cap-outdoor',   label: 'Endkappe (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: false, right: false, bottom: true, left: false } },
   { id: 'entrance-indoor',   label: 'Eingang (innen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
   { id: 'entrance-outdoor',  label: 'Eingang (außen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a3a2a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
   { id: 'exit-indoor',       label: 'Ausgang (innen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
   { id: 'exit-outdoor',      label: 'Ausgang (außen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a3a2a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
   { id: 'transition-outdoor-indoor', label: 'Übergang innen/außen', expansionId: 'base', cols: 2, rows: 2, color: '#33402a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
   // ── Schatten von Nerekhall ──
-  { id: 'sn-end-cap-indoor',     label: 'SN Endkappe (innen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: true, right: false, bottom: false, left: false } },
-  { id: 'sn-end-cap-outdoor',    label: 'SN Endkappe (außen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: true, right: false, bottom: false, left: false } },
-  { id: 'sn-extension-indoor-a', label: 'SN Korridor (innen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
-  { id: 'sn-extension-indoor-b', label: 'SN Korridor (innen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
-  { id: 'sn-extension-outdoor-a', label: 'SN Korridor (außen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
-  { id: 'sn-extension-outdoor-b', label: 'SN Korridor (außen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
+  // 1×2 (1 breit, 2 hoch): verbinden über die BREITE (links/rechts) – die
+  // 2-Felder-breite Öffnung liegt senkrecht. (Pixel-Überstand 112×150 = links/rechts.)
+  { id: 'sn-end-cap-indoor',     label: 'SN Endkappe (innen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'sn-end-cap-outdoor',    label: 'SN Endkappe (außen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'sn-extension-indoor-a', label: 'SN Korridor (innen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-indoor-b', label: 'SN Korridor (innen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-outdoor-a', label: 'SN Korridor (außen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-outdoor-b', label: 'SN Korridor (außen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
   { id: 'sn-transition-a', label: 'SN Übergang A', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#22302a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
   { id: 'sn-transition-b', label: 'SN Übergang B', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#22302a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
   // (Nebel über Bilehall: mb-entrance-indoor/outdoor sind weiter unten bereits
