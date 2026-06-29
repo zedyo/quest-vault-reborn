@@ -24,12 +24,12 @@ export const OVERLAYS: OverlayType[] = [
   // ── Gelände-Overlay-Token (echte lose Plättchen-Overlays) ──────────────────
   // Hinweis: Wasser/Lava/Eis/Grube sind in Descent 2e auf die PLÄTTCHEN GEDRUCKT
   // (farbige Linien), es gibt keine losen Token dafür → bewusst NICHT im Katalog.
-  { id: 'overgrowth', nameEn: 'Overgrowth', nameDe: 'Überwucherung', category: 'terrain', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#15803d', icon: '🌿',
-    descriptionDe: 'Überwucherung – Geländeplättchen aus „Labyrinth des Schreckens", markiert ein zugewuchertes Feld.' },
+  { id: 'overgrowth', nameEn: 'Overgrowth', nameDe: 'Überwucherung', category: 'terrain', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#15803d', icon: '🌿', render: 'bar',
+    descriptionDe: 'Überwucherung – längliche Geländeleiste (wie eine Tür-Absperrung) aus „Labyrinth des Schreckens"; per ↻ auf die Feldkante drehen.' },
   { id: 'crumbling', nameEn: 'Crumbling Terrain', nameDe: 'Brüchiges Gelände', category: 'terrain', cols: 1, rows: 1, expansionId: 'mists-of-bilehall', color: '#78716c', icon: '🪨',
     descriptionDe: 'Brüchiges Gelände – Geländeplättchen aus „Nebel über Bilehall".' },
-  { id: 'old-wall', nameEn: 'Old Wall', nameDe: 'Alte Mauer', category: 'terrain', cols: 1, rows: 1, expansionId: 'mists-of-bilehall', color: '#57534e', icon: '🧱',
-    descriptionDe: 'Alte Mauer – Geländeplättchen aus „Nebel über Bilehall"; blockiert wie eine Wand.' },
+  { id: 'old-wall', nameEn: 'Old Wall', nameDe: 'Alte Mauer', category: 'terrain', cols: 1, rows: 1, expansionId: 'mists-of-bilehall', color: '#57534e', icon: '🧱', render: 'bar',
+    descriptionDe: 'Alte Mauer – längliche Mauerleiste (wie eine Tür-Absperrung); blockiert wie eine Wand. Per ↻ auf die Feldkante drehen.' },
   // ── Marker ────────────────────────────────────────────────────────────────
   { id: 'objective', nameEn: 'Objective Token (Red)', nameDe: 'Zielmarker (rot)', category: 'marker', cols: 1, rows: 1, expansionId: 'base', color: '#dc2626', icon: '🎯',
     descriptionDe: 'Zielmarker – kennzeichnet ein Missionsziel auf der Karte.' },

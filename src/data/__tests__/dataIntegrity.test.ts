@@ -674,10 +674,12 @@ describe('Overlay-Datenintegrität', () => {
     }
   })
 
-  it('Passagen (Türen/Fallgitter) werden als Balken-Absperrung gerendert', () => {
+  it('Passagen werden als Balken-Absperrung gerendert; Balken sind Passage oder Gelände', () => {
     for (const o of OVERLAYS) {
       if (o.category === 'passage') expect(o.render, `${o.id}`).toBe('bar')
-      if (o.render === 'bar') expect(o.category, `${o.id}`).toBe('passage')
+      // Balken-Darstellung gibt es für Türen/Fallgitter (passage) sowie für
+      // längliche Geländeleisten (Überwucherung/Alte Mauer, terrain).
+      if (o.render === 'bar') expect(['passage', 'terrain'], `${o.id}`).toContain(o.category)
     }
   })
 

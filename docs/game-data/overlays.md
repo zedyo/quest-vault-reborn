@@ -25,6 +25,16 @@
 - **Standalone-Kartenbauer (/karte) persistiert** den Entwurf jetzt (eigener
   localStorage-Key `qvr-builder-draft`, `src/utils/builderDraft.ts` – kein Persist-Schema-Bump).
 
+## Änderung v1.3.15 (Geländeleisten)
+
+- **Überwucherung** und **Alte Mauer** werden jetzt mit `render: 'bar'` als längliche
+  Leiste (wie eine Tür-Absperrung) auf der Feldkante dargestellt (drehbar), statt als
+  1×1-Bild. Damit gibt es jetzt Balken in `category: 'passage'` (Tür/Fallgitter) UND
+  `category: 'terrain'` (Überwucherung/Alte Mauer); der Datenintegritäts-Test erlaubt
+  beides. (Brüchiges Gelände bleibt ein 1×1-Bild-Token.)
+- *(Parallel in `mapTiles.ts`, v1.3.15: die unnummerierten **Verbindungsstücke** als
+  neue Tile-Art `kind: 'connector'` – siehe `docs/game-data/map-tiles.md`.)*
+
 ## Änderung v1.3.14 (nummerierte Marker)
 
 - **`PlacedOverlay.label`** (optional, 1–3 Zeichen): bildet die NUMMERIERTEN Ziel-/

@@ -391,6 +391,35 @@ Das Originalsystem nummeriert Kacheln so:
 
 ---
 
+## Verbindungsstücke (unnummeriert, mehrfach legbar) – v1.3.15
+
+In Descent gibt es **unnummerierte Korridor-/Übergangs-Plättchen**, die NICHT der
+`NNa/NNb`-Nummerierung folgen und in **mehrfacher** Ausführung vorliegen. Sie fehlten
+zuvor komplett im Katalog (genau weil sie keine Tile-Nummer haben). Jetzt erfasst als
+`kind: 'connector'` (neues Feld in `MapTileDefinition`); im Kartenbauer erscheinen sie
+in einer eigenen Gruppe **„🧩 Verbindungsstücke" ganz oben** und dürfen **mehrfach**
+platziert werden (Auswahl bleibt nach dem Setzen aktiv; keine a/b-Partnerwarnung).
+Indoor- und Outdoor-Seite je als eigenes Plättchen. Quelle: any2cards `map-tiles`.
+
+| id | Maße | Erweiterung | any2cards-Datei |
+|---|---|---|---|
+| `extension-indoor` / `extension-outdoor` | 2×1 | base | `bg-extension-indoor/outdoor` |
+| `end-cap-indoor` / `end-cap-outdoor` | 2×1 | base | `bg-end-cap-indoor/outdoor` |
+| `entrance-indoor` / `entrance-outdoor` | 2×2 | base | `bg-entrance-indoor/outdoor` |
+| `exit-indoor` / `exit-outdoor` | 2×2 | base | `bg-exit-indoor/outdoor` |
+| `transition-outdoor-indoor` | 2×2 | base | `bg-transition-outdoor-indoor` |
+| `sn-entrance` / `sn-exit` | 2×2 | shadow-of-nerekhall | (vorhanden, jetzt `connector`) |
+| `sn-end-cap-indoor` / `sn-end-cap-outdoor` | 1×2 | shadow-of-nerekhall | `sn-end-cap-indoor/outdoor` |
+| `sn-extension-indoor-a/-b`, `sn-extension-outdoor-a/-b` | 1×2 | shadow-of-nerekhall | `sn-extension-…-a/b` |
+| `sn-transition-a` / `sn-transition-b` | 2×2 | shadow-of-nerekhall | `sn-transition-a/b` |
+| `mb-entrance-indoor` / `mb-entrance-outdoor` | 2×2 | mists-of-bilehall | (vorhanden, jetzt `connector`) |
+
+`connectors`-Kanten sind funktionsgerecht gesetzt (Extension = beide Enden, End-Cap/
+Eingang/Ausgang = ein Ende, Übergang = beide Enden). Bilder werden – wie alle Tiles –
+zur Laufzeit aus any2cards geladen (keine lokalen Assets).
+
+---
+
 ## Digitale Referenzen für Kacheln
 
 | Ressource | Format | URL |

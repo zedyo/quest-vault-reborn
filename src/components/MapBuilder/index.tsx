@@ -360,7 +360,10 @@ export default function MapBuilder({
   }, []) // empty deps — reads zoom via zoomRef
 
   const handleSelectPalette = useCallback((id: string) => {
-    const partner = getTilePartner(id)
+    // Verbindungsstücke (kind 'connector') haben keine eindeutige a/b-Partnerseite
+    // und dürfen mehrfach gelegt werden → keine Partnerwarnung.
+    const isConnector = MAP_TILES.find((t) => t.id === id)?.kind === 'connector'
+    const partner = isConnector ? null : getTilePartner(id)
     if (partner && placedTileIds.has(partner)) {
       setPartnerWarningId(id)
     } else {
@@ -383,7 +386,9 @@ export default function MapBuilder({
         ...prev,
         { instanceId: newId(), tileId: selectedTileId, col: newCol, row: newRow, rotation: 0 },
       ])
-      setSelectedTileId(null)
+      // Verbindungsstücke bleiben ausgewählt → man kann mehrere hintereinander
+      // platzieren (Abbrechen über „✕ Abbrechen"). Normale Plättchen deselektieren.
+      if (def.kind !== 'connector') setSelectedTileId(null)
       setPartnerWarningId(null)
     },
     [selectedTileId],
