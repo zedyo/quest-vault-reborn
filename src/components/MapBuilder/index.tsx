@@ -32,6 +32,35 @@ function nextRotation(r: Rotation): Rotation {
   return map[r]
 }
 
+/** Vorschau eines Overlay-Typs im Picker/Toolbar: Balken-Swatch für „Absperrung"
+ *  (Türen) bzw. das transparente Token-Bild für alle anderen. */
+function OverlayIcon({ overlayId, sizePx }: { overlayId: string; sizePx: number }) {
+  const def = OVERLAYS.find((o) => o.id === overlayId)
+  if (def?.render === 'bar') {
+    return (
+      <span
+        style={{ width: sizePx, height: sizePx }}
+        className="inline-flex items-center justify-center"
+        aria-hidden
+      >
+        <span
+          style={{ background: def.color, width: sizePx, height: Math.max(4, Math.round(sizePx * 0.36)) }}
+          className="rounded-full border border-black/50"
+        />
+      </span>
+    )
+  }
+  return (
+    <img
+      src={overlayTokenUrl(overlayId)}
+      alt=""
+      style={{ width: sizePx, height: sizePx }}
+      className="object-contain"
+      draggable={false}
+    />
+  )
+}
+
 let counter = 0
 const newId = () => `tile-${++counter}-${Date.now()}`
 
@@ -241,6 +270,14 @@ export default function MapBuilder({
 
   const handleRemoveOverlay = useCallback((id: string) => {
     setPlacedOverlays((prev) => prev.filter((o) => o.id !== id))
+  }, [setPlacedOverlays])
+
+  const handleRotateOverlay = useCallback((id: string) => {
+    setPlacedOverlays((prev) =>
+      prev.map((o) =>
+        o.id === id ? { ...o, rotation: nextRotation((o.rotation ?? 0) as Rotation) } : o,
+      ),
+    )
   }, [setPlacedOverlays])
 
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
@@ -469,12 +506,7 @@ export default function MapBuilder({
               <div className="w-px h-5 bg-dungeon-600 self-center mx-1 shrink-0" />
               {selectedOverlayToPlace ? (
                 <span className="flex items-center gap-1.5 text-sm text-purple-300 shrink-0">
-                  <img
-                    src={overlayTokenUrl(selectedOverlayToPlace)}
-                    alt=""
-                    className="w-5 h-5 object-contain"
-                    draggable={false}
-                  />
+                  <OverlayIcon overlayId={selectedOverlayToPlace} sizePx={20} />
                   <span className="text-xs">{OVERLAYS.find((o) => o.id === selectedOverlayToPlace)?.nameDe}</span>
                   <span className="text-gray-500 text-xs">– auf Karte klicken</span>
                   <button onClick={() => setSelectedOverlayToPlace(null)} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
@@ -522,12 +554,7 @@ export default function MapBuilder({
                                   }}
                                   className="flex flex-col items-center gap-0.5 p-1 rounded hover:bg-dungeon-700 transition-colors group"
                                 >
-                                  <img
-                                    src={overlayTokenUrl(o.id)}
-                                    alt=""
-                                    className="w-9 h-9 object-contain"
-                                    draggable={false}
-                                  />
+                                  <OverlayIcon overlayId={o.id} sizePx={36} />
                                   <span className="text-[9px] leading-tight text-center text-gray-400 group-hover:text-gold-300 line-clamp-2">{o.nameDe}</span>
                                 </button>
                               ))}
@@ -599,6 +626,7 @@ export default function MapBuilder({
             overlayPlaceMode={!!selectedOverlayToPlace}
             onPlaceOverlay={handlePlaceOverlayOnGrid}
             onRemoveOverlay={handleRemoveOverlay}
+            onRotateOverlay={handleRotateOverlay}
           />
         </div>
       </div>

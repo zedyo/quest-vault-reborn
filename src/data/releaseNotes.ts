@@ -20,6 +20,18 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.13',
+    date: '2026-06-29',
+    title: 'Kartenbauer: Karten wie im Buch nachbauen',
+    highlights: [
+      'Türen, verschlossene Türen und Fallgitter erscheinen jetzt als farbige Absperrung (rot/gelb/grau) auf der Feldkante zwischen zwei Kartenteilen – genau wie auf den Quest-Buch-Diagrammen, statt als Tür-Symbol.',
+      'Alle Overlays lassen sich jetzt drehen (↻): Türen auf die richtige Kante (oben/rechts/unten/links), Marker und Figuren frei.',
+      'Neue platzierbare Elemente: Helden-Start/Eingang sowie Verbündete und NSC-Figuren (Verbündeter, Dorfbewohnerin, Raythen, Serena, Geißel, Rabenschwarm).',
+      'Aufgeräumt: Wasser/Lava/Eis sind als platzierbare Marker entfernt – dieses Gelände ist in Descent auf die Plättchen gedruckt und kommt so nicht als loser Marker auf den Karten vor.',
+      'Der Kartenbauer speichert deinen Entwurf jetzt automatisch im Browser – er ist beim nächsten Besuch wieder da.',
+    ],
+  },
+  {
     version: '1.3.12',
     date: '2026-06-26',
     title: 'Regeln & Referenz',
