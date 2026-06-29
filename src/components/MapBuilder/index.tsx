@@ -280,6 +280,16 @@ export default function MapBuilder({
     )
   }, [setPlacedOverlays])
 
+  const handleLabelOverlay = useCallback((id: string) => {
+    const current = placedOverlaysRef.current.find((o) => o.id === id)
+    const input = window.prompt('Nummer oder Beschriftung des Markers (1–3 Zeichen, leer = entfernen):', current?.label ?? '')
+    if (input === null) return // Abbruch
+    const label = input.trim().slice(0, 3)
+    setPlacedOverlays((prev) =>
+      prev.map((o) => (o.id === id ? { ...o, label: label || undefined } : o)),
+    )
+  }, [setPlacedOverlays])
+
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null)
   const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null)
   const [partnerWarningId, setPartnerWarningId] = useState<string | null>(null)
@@ -627,6 +637,7 @@ export default function MapBuilder({
             onPlaceOverlay={handlePlaceOverlayOnGrid}
             onRemoveOverlay={handleRemoveOverlay}
             onRotateOverlay={handleRotateOverlay}
+            onLabelOverlay={handleLabelOverlay}
           />
         </div>
       </div>

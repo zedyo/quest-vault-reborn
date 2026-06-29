@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.14',
+    date: '2026-06-29',
+    title: 'Nummerierte Zielmarker im Kartenbauer',
+    highlights: [
+      'Ziel- und Suchmarker lassen sich jetzt mit einer Nummer oder einem Zeichen beschriften (z. B. „1"–„4" oder „★") – genau wie die nummerierten Marker auf den Kampagnenbuch-Karten. Klick auf das „#" am Marker setzt die Beschriftung.',
+      'Damit lassen sich konkrete Buch-Karten (getestet an einer Karte aus „Schatten von Nerekhall") originalgetreu nachbauen.',
+    ],
+  },
+  {
     version: '1.3.13',
     date: '2026-06-29',
     title: 'Kartenbauer: Karten wie im Buch nachbauen',

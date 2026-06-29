@@ -45,7 +45,9 @@ function sanitizeOverlay(v: unknown): PlacedOverlay | null {
   const overlayType = str(v.overlayType, 50)
   if (!overlayType) return null
   const rotation = v.rotation === 90 || v.rotation === 180 || v.rotation === 270 ? v.rotation : 0
-  return { id: uid(), overlayType, x: num(v.x, 0, 200, 0), y: num(v.y, 0, 200, 0), rotation }
+  const o: PlacedOverlay = { id: uid(), overlayType, x: num(v.x, 0, 200, 0), y: num(v.y, 0, 200, 0), rotation }
+  if (typeof v.label === 'string' && v.label.trim()) o.label = v.label.slice(0, 3)
+  return o
 }
 
 function sanitizeMonster(v: unknown): PlacedMonster | null {

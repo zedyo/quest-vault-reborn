@@ -25,6 +25,17 @@
 - **Standalone-Kartenbauer (/karte) persistiert** den Entwurf jetzt (eigener
   localStorage-Key `qvr-builder-draft`, `src/utils/builderDraft.ts` – kein Persist-Schema-Bump).
 
+## Änderung v1.3.14 (nummerierte Marker)
+
+- **`PlacedOverlay.label`** (optional, 1–3 Zeichen): bildet die NUMMERIERTEN Ziel-/
+  Suchmarker der Quest-Diagramme ab (z. B. „1"–„4", „★"). Wird als Badge mittig auf dem
+  Token gerendert; per „#"-Knopf am Token gesetzt (window.prompt). Import-Sanitizer +
+  Builder-Draft-Sanitizer akzeptieren `label` (gekürzt). Abwärtskompatibel (fehlt = kein Badge).
+- **Validiert per 1:1-Nachbau** einer konkreten Karte aus „Schatten von Nerekhall" (Plättchen
+  sn-51a/54a/55a/56a/58a/60a/62a/sn-entrance + Basis 03a/05a, gelbe+rote Tür-Absperrungen,
+  grüne nummerierte Zielmarker 3/2/2/4/★, Suchmarker, Eingang) – per Playwright mit echten
+  Plättchen-Bildern gerendert und mit der Buchseite verglichen.
+
 ---
 
 ## Umsetzung im Kartenbauer

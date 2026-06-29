@@ -502,6 +502,12 @@ export interface PlacedOverlay {
    * Quest-Maps horizontal oder vertikal liegen.
    */
   rotation?: 0 | 90 | 180 | 270
+  /**
+   * Optionale kurze Beschriftung (1–3 Zeichen), die als Badge auf dem Token
+   * erscheint. Bildet die NUMMERIERTEN Ziel-/Suchmarker der Quest-Diagramme ab
+   * (z. B. „1"–„4"). Abwärtskompatibel (fehlt = keine Beschriftung).
+   */
+  label?: string
 }
 
 /**

@@ -32,13 +32,15 @@ function sanitizeOverlay(v: unknown): PlacedOverlay | null {
   const r = v as Record<string, unknown>
   if (typeof r.overlayType !== 'string') return null
   const rotation = ROTATIONS.includes(r.rotation as Rotation) ? (r.rotation as Rotation) : 0
-  return {
+  const o: PlacedOverlay = {
     id: typeof r.id === 'string' ? r.id : `o-${Math.random().toString(36).slice(2)}`,
     overlayType: r.overlayType.slice(0, 50),
     x: typeof r.x === 'number' && Number.isFinite(r.x) ? Math.floor(r.x) : 0,
     y: typeof r.y === 'number' && Number.isFinite(r.y) ? Math.floor(r.y) : 0,
     rotation: rotation as PlacedOverlay['rotation'],
   }
+  if (typeof r.label === 'string' && r.label.trim()) o.label = r.label.slice(0, 3)
+  return o
 }
 
 export function loadBuilderDraft(): BuilderDraft {

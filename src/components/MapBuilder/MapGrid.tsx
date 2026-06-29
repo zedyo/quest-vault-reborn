@@ -236,10 +236,12 @@ function OverlayToken({
   overlay,
   onRemove,
   onRotate,
+  onLabel,
 }: {
   overlay: PlacedOverlay
   onRemove: (id: string) => void
   onRotate: (id: string) => void
+  onLabel: (id: string) => void
 }) {
   // hasOwnProperty-Guard: verhindert, dass ein manipulierter overlayType (z. B.
   // "constructor"/"toString" aus importiertem JSON) einen Prototyp-Wert liefert.
@@ -377,8 +379,31 @@ function OverlayToken({
           }}
         >{def?.icon ?? '◆'}</span>
       )}
+      {/* Nummern-/Buchstaben-Badge (z. B. Zielmarker „1"–„4") */}
+      {overlay.label && (
+        <span
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            fontWeight: 800,
+            fontSize: CELL_SIZE * 0.4,
+            color: '#fff',
+            textShadow: '0 0 3px #000, 0 0 3px #000, 0 1px 2px #000',
+          }}
+        >{overlay.label}</span>
+      )}
       {rotateBtn}
       {removeBtn}
+      {/* Beschriftung setzen (Nummer/Buchstabe) */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onLabel(overlay.id) }}
+        title="Nummer/Beschriftung setzen"
+        style={{ ...btnStyle('right'), top: 'auto', bottom: -5 }}
+      >#</button>
     </div>
   )
 }
@@ -401,6 +426,7 @@ interface Props {
   onPlaceOverlay?: (col: number, row: number) => void
   onRemoveOverlay?: (id: string) => void
   onRotateOverlay?: (id: string) => void
+  onLabelOverlay?: (id: string) => void
 }
 
 export default function MapGrid({
@@ -421,6 +447,7 @@ export default function MapGrid({
   onPlaceOverlay,
   onRemoveOverlay,
   onRotateOverlay,
+  onLabelOverlay,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -543,6 +570,7 @@ export default function MapGrid({
                 overlay={o}
                 onRemove={onRemoveOverlay ?? (() => {})}
                 onRotate={onRotateOverlay ?? (() => {})}
+                onLabel={onLabelOverlay ?? (() => {})}
               />
             ))}
             {(monsters ?? []).map((m) => (
