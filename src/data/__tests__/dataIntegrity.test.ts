@@ -663,7 +663,22 @@ describe('Overlay-Datenintegrität', () => {
     expect(new Set(ids).size, 'doppelte Overlay-IDs').toBe(ids.length)
     expect(Object.keys(OVERLAY_BY_ID).length).toBe(OVERLAYS.length)
     for (const o of OVERLAYS) expect(OVERLAY_BY_ID[o.id]).toBe(o)
-    expect(OVERLAYS.length, 'Overlay-Anzahl').toBe(16)
+    expect(OVERLAYS.length, 'Overlay-Anzahl').toBe(20)
+  })
+
+  it('redundante Gelände-Trait-Marker (water/hot/ice) sind NICHT im Katalog', () => {
+    // Wasser/Lava/Eis sind auf die Plättchen gedruckt, kein loses Token (v1.3.13).
+    const ids = new Set(OVERLAYS.map((o) => o.id))
+    for (const gone of ['water', 'hot', 'ice', 'lava', 'pit', 'sludge', 'rubble']) {
+      expect(ids.has(gone), `${gone} sollte entfernt sein`).toBe(false)
+    }
+  })
+
+  it('Passagen (Türen/Fallgitter) werden als Balken-Absperrung gerendert', () => {
+    for (const o of OVERLAYS) {
+      if (o.category === 'passage') expect(o.render, `${o.id}`).toBe('bar')
+      if (o.render === 'bar') expect(o.category, `${o.id}`).toBe('passage')
+    }
   })
 
   it('Pflichtfelder, gültige Kategorie/Erweiterung, plausibler Footprint', () => {

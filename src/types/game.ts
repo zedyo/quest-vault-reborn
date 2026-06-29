@@ -496,6 +496,18 @@ export interface PlacedOverlay {
   overlayType: string
   x: number
   y: number
+  /**
+   * Drehung des Overlays in Grad. Optional/abwärtskompatibel (fehlt = 0).
+   * Relevant für gerichtete Token (Türen, Fallgitter, Mauern), die auf den
+   * Quest-Maps horizontal oder vertikal liegen.
+   */
+  rotation?: 0 | 90 | 180 | 270
+  /**
+   * Optionale kurze Beschriftung (1–3 Zeichen), die als Badge auf dem Token
+   * erscheint. Bildet die NUMMERIERTEN Ziel-/Suchmarker der Quest-Diagramme ab
+   * (z. B. „1"–„4"). Abwärtskompatibel (fehlt = keine Beschriftung).
+   */
+  label?: string
 }
 
 /**
@@ -512,11 +524,19 @@ export interface OverlayType {
   cols: number
   rows: number
   expansionId: string
-  /** Akzentfarbe des Markers (Auswahlmenü / Bild-Fallback). */
+  /** Akzentfarbe des Markers (Auswahlmenü / Bild-Fallback / Balkenfarbe). */
   color: string
   /** Symbol (Emoji) – Fallback, falls das Token-Bild fehlt. */
   icon: string
   descriptionDe: string
+  /**
+   * Darstellung auf der Karte:
+   * - undefined/'image' → transparentes Token-Bild (Standard).
+   * - 'bar' → farbige Absperrung (~2×0,5 Felder) auf der Feldkante zwischen zwei
+   *   Kartenteilen (Türen/Fallgitter; Rotation bestimmt die Kante). So sehen
+   *   Türen wie auf den Quest-Buch-Diagrammen aus (kein Tür-Symbol).
+   */
+  render?: 'image' | 'bar'
 }
 
 export interface PlacedMonster {

@@ -11,20 +11,19 @@ import type { OverlayType } from '../types/game'
 // Modell: pro Feld ein Marker (1×1) – passend für die Karten-Annotation, nicht als
 // exakte physische Plättchengröße gedacht.
 export const OVERLAYS: OverlayType[] = [
-  // ── Durchgänge ────────────────────────────────────────────────────────────
-  { id: 'door', nameEn: 'Door', nameDe: 'Tür', category: 'passage', cols: 1, rows: 1, expansionId: 'base', color: '#b45309', icon: '🚪',
-    descriptionDe: 'Tür – blockiert Bewegung und Sichtlinie, bis eine Figur sie als Aktion öffnet.' },
-  { id: 'locked-door', nameEn: 'Locked Door', nameDe: 'Verschlossene Tür', category: 'passage', cols: 1, rows: 1, expansionId: 'base', color: '#92400e', icon: '🔒',
-    descriptionDe: 'Verschlossene Tür – lässt sich erst nach Erfüllen einer Quest-Bedingung öffnen.' },
-  { id: 'portcullis', nameEn: 'Portcullis', nameDe: 'Fallgitter', category: 'passage', cols: 1, rows: 1, expansionId: 'shadow-of-nerekhall', color: '#6b7280', icon: '⛩️',
-    descriptionDe: 'Fallgitter – blockiert das Feld wie eine Wand, bis es ausgelöst/geöffnet wird.' },
-  // ── Gelände ───────────────────────────────────────────────────────────────
-  { id: 'water', nameEn: 'Water Terrain', nameDe: 'Wasser', category: 'terrain', cols: 1, rows: 1, expansionId: 'base', color: '#1d4ed8', icon: '💧',
-    descriptionDe: 'Wasser-Geländemarker (Eigenschaft „Wasser") – kennzeichnet Wasserfelder für Karten-/Quest-Effekte.' },
-  { id: 'hot', nameEn: 'Hot Terrain', nameDe: 'Heißes Gelände', category: 'terrain', cols: 1, rows: 1, expansionId: 'base', color: '#dc2626', icon: '🔥',
-    descriptionDe: 'Hitze-Geländemarker (Eigenschaft „Heiß") – kennzeichnet Lava-/Feuerfelder für entsprechende Effekte.' },
-  { id: 'ice', nameEn: 'Ice Terrain', nameDe: 'Eis', category: 'terrain', cols: 1, rows: 1, expansionId: 'base', color: '#0891b2', icon: '❄️',
-    descriptionDe: 'Eis-Geländemarker (Eigenschaft „Eis") – kennzeichnet vereiste Felder für entsprechende Effekte.' },
+  // ── Durchgänge (als farbige Absperrung auf der Feldkante gerendert) ─────────
+  // Türen liegen in Descent auf der KANTE zwischen vier Feldern (2 davor, 2
+  // dahinter) und werden auf den Quest-Buch-Diagrammen als farbiger Balken über
+  // die 2-Felder-Öffnung gezeichnet – daher `render: 'bar'` + Rotation (Kante).
+  { id: 'door', nameEn: 'Door', nameDe: 'Tür', category: 'passage', cols: 1, rows: 1, expansionId: 'base', color: '#dc2626', icon: '🚪', render: 'bar',
+    descriptionDe: 'Tür – rote Absperrung über die 2-Felder-Öffnung zwischen zwei Kartenteilen; per ↻ auf die richtige Kante drehen.' },
+  { id: 'locked-door', nameEn: 'Locked Door', nameDe: 'Verschlossene Tür', category: 'passage', cols: 1, rows: 1, expansionId: 'base', color: '#d97706', icon: '🔒', render: 'bar',
+    descriptionDe: 'Verschlossene Tür – gelbe/orange Absperrung; öffnet erst nach Erfüllen einer Quest-Bedingung. Per ↻ auf die Kante drehen.' },
+  { id: 'portcullis', nameEn: 'Portcullis', nameDe: 'Fallgitter', category: 'passage', cols: 1, rows: 1, expansionId: 'shadow-of-nerekhall', color: '#64748b', icon: '⛩️', render: 'bar',
+    descriptionDe: 'Fallgitter – graue Absperrung; blockiert die Öffnung wie eine Wand, bis es ausgelöst/geöffnet wird. Per ↻ auf die Kante drehen.' },
+  // ── Gelände-Overlay-Token (echte lose Plättchen-Overlays) ──────────────────
+  // Hinweis: Wasser/Lava/Eis/Grube sind in Descent 2e auf die PLÄTTCHEN GEDRUCKT
+  // (farbige Linien), es gibt keine losen Token dafür → bewusst NICHT im Katalog.
   { id: 'overgrowth', nameEn: 'Overgrowth', nameDe: 'Überwucherung', category: 'terrain', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#15803d', icon: '🌿',
     descriptionDe: 'Überwucherung – Geländeplättchen aus „Labyrinth des Schreckens", markiert ein zugewuchertes Feld.' },
   { id: 'crumbling', nameEn: 'Crumbling Terrain', nameDe: 'Brüchiges Gelände', category: 'terrain', cols: 1, rows: 1, expansionId: 'mists-of-bilehall', color: '#78716c', icon: '🪨',
@@ -44,9 +43,23 @@ export const OVERLAYS: OverlayType[] = [
     descriptionDe: 'Suchmarker – durchsuchbarer Punkt; eine Figur zieht beim Durchsuchen eine Suchkarte.' },
   { id: 'search-unique', nameEn: 'Unique Search Token', nameDe: 'Besonderer Suchmarker', category: 'marker', cols: 1, rows: 1, expansionId: 'base', color: '#ca8a04', icon: '⭐',
     descriptionDe: 'Besonderer Suchmarker – durchsuchbarer Punkt mit einem questspezifischen Fund.' },
-  // ── Figuren ───────────────────────────────────────────────────────────────
-  { id: 'villager', nameEn: 'Villager', nameDe: 'Dorfbewohner', category: 'figure', cols: 1, rows: 1, expansionId: 'base', color: '#a16207', icon: '🧍',
+  { id: 'hero-start', nameEn: 'Hero Start / Entrance', nameDe: 'Helden-Start / Eingang', category: 'marker', cols: 1, rows: 1, expansionId: 'base', color: '#16a34a', icon: '🏁',
+    descriptionDe: 'Helden-Startgebiet / Eingang – markiert, wo die Helden die Begegnung beginnen (auf den Quest-Diagrammen als hervorgehobenes Startfeld gezeigt; hier eigener Builder-Marker).' },
+  // ── Figuren (echte NSC-/Verbündeten-Token, any2cards) ──────────────────────
+  { id: 'villager', nameEn: 'Villager (male)', nameDe: 'Dorfbewohner', category: 'figure', cols: 1, rows: 1, expansionId: 'base', color: '#a16207', icon: '🧍',
     descriptionDe: 'Dorfbewohner – neutrale Figur, z. B. zum Eskortieren oder Beschützen in einer Quest.' },
+  { id: 'villager-female', nameEn: 'Villager (female)', nameDe: 'Dorfbewohnerin', category: 'figure', cols: 1, rows: 1, expansionId: 'base', color: '#a16207', icon: '🧍‍♀️',
+    descriptionDe: 'Dorfbewohnerin – neutrale Figur (zweite Dorfbewohner-Variante).' },
+  { id: 'ally', nameEn: 'Ally', nameDe: 'Verbündeter', category: 'figure', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#0d9488', icon: '🤝',
+    descriptionDe: 'Verbündeter – generische Verbündeten-Figur, die in manchen Quests an der Seite der Helden kämpft.' },
+  { id: 'raythen', nameEn: 'Raythen', nameDe: 'Raythen', category: 'figure', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#0d9488', icon: '🧝',
+    descriptionDe: 'Raythen – benannter Verbündeter aus „Labyrinth des Schreckens".' },
+  { id: 'serena', nameEn: 'Serena', nameDe: 'Serena', category: 'figure', cols: 1, rows: 1, expansionId: 'labyrinth-of-ruin', color: '#0d9488', icon: '🧝‍♀️',
+    descriptionDe: 'Serena – benannte Verbündete aus „Labyrinth des Schreckens".' },
+  { id: 'scourge', nameEn: 'Scourge', nameDe: 'Geißel', category: 'figure', cols: 1, rows: 1, expansionId: 'the-chains-that-rust', color: '#7c3aed', icon: '👹',
+    descriptionDe: 'Geißel – Diener-/NSC-Figur aus „Die rostenden Ketten".' },
+  { id: 'raven-flock', nameEn: 'Raven Flock', nameDe: 'Rabenschwarm', category: 'figure', cols: 1, rows: 1, expansionId: 'the-trollfens', color: '#475569', icon: '🐦‍⬛',
+    descriptionDe: 'Rabenschwarm – Diener-/NSC-Figur aus „Die Trollsümpfe".' },
 ]
 
 /** Schneller Zugriff auf einen Overlay-Typ per id. */

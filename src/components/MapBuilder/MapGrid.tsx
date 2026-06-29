@@ -232,7 +232,17 @@ function MonsterToken({
   )
 }
 
-function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove: (id: string) => void }) {
+function OverlayToken({
+  overlay,
+  onRemove,
+  onRotate,
+  onLabel,
+}: {
+  overlay: PlacedOverlay
+  onRemove: (id: string) => void
+  onRotate: (id: string) => void
+  onLabel: (id: string) => void
+}) {
   // hasOwnProperty-Guard: verhindert, dass ein manipulierter overlayType (z. B.
   // "constructor"/"toString" aus importiertem JSON) einen Prototyp-Wert liefert.
   const def = Object.prototype.hasOwnProperty.call(OVERLAY_BY_ID, overlay.overlayType)
@@ -242,6 +252,86 @@ function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove:
   // Alt-Quest) auf das Emoji im farbigen Kästchen zurückfallen.
   const [imgError, setImgError] = useState(false)
   const showImg = !!def && !imgError
+  const rot = overlay.rotation ?? 0
+
+  const btnStyle = (side: 'left' | 'right'): CSSProperties => ({
+    position: 'absolute',
+    top: -5,
+    [side]: -5,
+    width: 14,
+    height: 14,
+    borderRadius: '50%',
+    backgroundColor: '#1f2937',
+    border: '1px solid #4b5563',
+    color: '#9ca3af',
+    fontSize: 9,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    lineHeight: 1,
+    padding: 0,
+    zIndex: 1,
+  })
+  const rotateBtn = (
+    <button onClick={(e) => { e.stopPropagation(); onRotate(overlay.id) }} title="Drehen" style={btnStyle('left')}>↻</button>
+  )
+  const removeBtn = (
+    <button onClick={(e) => { e.stopPropagation(); onRemove(overlay.id) }} title="Entfernen" style={btnStyle('right')}>✕</button>
+  )
+
+  // ── Türen/Fallgitter: als farbige Absperrung (~2×0,5 Felder) auf der Feldkante ──
+  // In Descent liegt eine Tür auf der Kante zwischen vier Feldern (2 davor, 2
+  // dahinter); auf den Quest-Diagrammen ist sie ein farbiger Balken über die
+  // 2-Felder-Öffnung. Rotation bestimmt die Kante (0 oben, 90 rechts, 180 unten,
+  // 270 links). Der Balken ist 2 Felder lang und liegt mittig auf der Gitterlinie.
+  if (def?.render === 'bar') {
+    const thickness = Math.round(CELL_SIZE * 0.5)
+    const length = CELL_SIZE * 2
+    const horizontal = rot === 0 || rot === 180
+    const baseX = overlay.x * CELL_SIZE
+    const baseY = overlay.y * CELL_SIZE
+    let left: number
+    let top: number
+    let width: number
+    let height: number
+    if (horizontal) {
+      width = length
+      height = thickness
+      left = baseX
+      top = (rot === 180 ? baseY + CELL_SIZE : baseY) - thickness / 2
+    } else {
+      width = thickness
+      height = length
+      top = baseY
+      left = (rot === 90 ? baseX + CELL_SIZE : baseX) - thickness / 2
+    }
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          left,
+          top,
+          width,
+          height,
+          borderRadius: thickness / 2,
+          backgroundColor: def.color,
+          border: '2px solid rgba(0,0,0,0.55)',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.6)',
+          zIndex: 22,
+          cursor: 'default',
+          userSelect: 'none',
+        }}
+        title={`${def.nameDe} – ↻ drehen · ✕ entfernen`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {rotateBtn}
+        {removeBtn}
+      </div>
+    )
+  }
+
+  // ── Standard: transparentes Token-Bild (Marker/Figuren/Gelände) ────────────
   return (
     <div
       style={{
@@ -275,34 +365,45 @@ function OverlayToken({ overlay, onRemove }: { overlay: PlacedOverlay; onRemove:
             objectFit: 'contain',
             pointerEvents: 'none',
             filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.6))',
+            transform: rot ? `rotate(${rot}deg)` : undefined,
+            transition: 'transform 0.12s ease',
           }}
         />
       ) : (
-        <span style={{ fontSize: 16, lineHeight: 1, pointerEvents: 'none' }}>{def?.icon ?? '◆'}</span>
+        <span
+          style={{
+            fontSize: 16,
+            lineHeight: 1,
+            pointerEvents: 'none',
+            transform: rot ? `rotate(${rot}deg)` : undefined,
+          }}
+        >{def?.icon ?? '◆'}</span>
       )}
+      {/* Nummern-/Buchstaben-Badge (z. B. Zielmarker „1"–„4") */}
+      {overlay.label && (
+        <span
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            fontWeight: 800,
+            fontSize: CELL_SIZE * 0.4,
+            color: '#fff',
+            textShadow: '0 0 3px #000, 0 0 3px #000, 0 1px 2px #000',
+          }}
+        >{overlay.label}</span>
+      )}
+      {rotateBtn}
+      {removeBtn}
+      {/* Beschriftung setzen (Nummer/Buchstabe) */}
       <button
-        onClick={(e) => { e.stopPropagation(); onRemove(overlay.id) }}
-        style={{
-          position: 'absolute',
-          top: -5,
-          right: -5,
-          width: 14,
-          height: 14,
-          borderRadius: '50%',
-          backgroundColor: '#1f2937',
-          border: '1px solid #4b5563',
-          color: '#9ca3af',
-          fontSize: 9,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          lineHeight: 1,
-          padding: 0,
-        }}
-      >
-        ✕
-      </button>
+        onClick={(e) => { e.stopPropagation(); onLabel(overlay.id) }}
+        title="Nummer/Beschriftung setzen"
+        style={{ ...btnStyle('right'), top: 'auto', bottom: -5 }}
+      >#</button>
     </div>
   )
 }
@@ -324,6 +425,8 @@ interface Props {
   overlayPlaceMode?: boolean
   onPlaceOverlay?: (col: number, row: number) => void
   onRemoveOverlay?: (id: string) => void
+  onRotateOverlay?: (id: string) => void
+  onLabelOverlay?: (id: string) => void
 }
 
 export default function MapGrid({
@@ -343,6 +446,8 @@ export default function MapGrid({
   overlayPlaceMode,
   onPlaceOverlay,
   onRemoveOverlay,
+  onRotateOverlay,
+  onLabelOverlay,
 }: Props) {
   const gridRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -460,7 +565,13 @@ export default function MapGrid({
               />
             ))}
             {(overlays ?? []).map((o) => (
-              <OverlayToken key={o.id} overlay={o} onRemove={onRemoveOverlay ?? (() => {})} />
+              <OverlayToken
+                key={o.id}
+                overlay={o}
+                onRemove={onRemoveOverlay ?? (() => {})}
+                onRotate={onRotateOverlay ?? (() => {})}
+                onLabel={onLabelOverlay ?? (() => {})}
+              />
             ))}
             {(monsters ?? []).map((m) => (
               <MonsterToken
