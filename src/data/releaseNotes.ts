@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.16',
+    date: '2026-06-29',
+    title: 'Verbindungsstücke greifen sauber ineinander',
+    highlights: [
+      'Die Verbindungsstücke (Korridore, Endkappen, Eingang/Ausgang, Übergang) werden jetzt unverzerrt und im richtigen Seitenverhältnis dargestellt und haken korrekt in die angrenzenden Kartenplättchen ein – die Tabs stehen über und greifen in die Nachbarn.',
+      '1×2-Stücke verbinden über die Breite (links/rechts), 2×1-Stücke über die Höhe (oben/unten); per Drehen auf die passende Kante ausrichtbar.',
+    ],
+  },
+  {
     version: '1.3.15',
     date: '2026-06-29',
     title: 'Verbindungsstücke + Geländeleisten im Kartenbauer',

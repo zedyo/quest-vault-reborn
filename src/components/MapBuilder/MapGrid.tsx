@@ -27,6 +27,9 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
   const def = MAP_TILES.find((t) => t.id === tile.tileId)
   const { cols, rows } = effectiveDims(tile)
   const [imgError, setImgError] = useState(false)
+  // Echte Pixelmaße des geladenen Tile-Bilds (für Verbindungsstücke nötig, deren
+  // Canvas GRÖSSER als cols×75 ist – der Tab liegt dort außerhalb der Spielfläche).
+  const [imgNat, setImgNat] = useState<{ w: number; h: number } | null>(null)
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: tile.instanceId,
@@ -66,10 +69,44 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
   // stretch only the axis whose connector side(s) carry an inset
   const sx = dCols / Math.max(0.5, dCols - iL - iR)
   const sy = dRows / Math.max(0.5, dRows - iT - iB)
-  const imgW = footW * sx
-  const imgH = footH * sy
-  const imgLeft = -(iL * CELL_SIZE) * sx
-  const imgTop = -(iT * CELL_SIZE) * sy
+  let imgW = footW * sx
+  let imgH = footH * sy
+  let imgLeft = -(iL * CELL_SIZE) * sx
+  let imgTop = -(iT * CELL_SIZE) * sy
+
+  // ── Verbindungsstücke (kind 'connector') ───────────────────────────────────
+  // Anders als die nummerierten Plättchen (Canvas = cols×75, Tab INNEN, per Inset
+  // herausgestreckt) haben die Korridor-/Endkappen-Stücke einen Canvas, der auf
+  // der Verbindungsachse GRÖSSER als cols×75 ist – der Tab liegt dort AUSSERHALB
+  // der Spielfläche. Die Inset-Streckung oben würde sie verzerren. Für solche
+  // Achsen rendern wir das Bild stattdessen 1:1 maßstäblich (75 px → CELL, kein
+  // Verzerren) und versetzen den Überstand auf die Connector-Kante(n). Achsen ohne
+  // Überstand (z. B. Eingang/Übergang 2×2 = exakt cols×75) behalten die Inset-
+  // Streckung. Nummerierte Plättchen sind NICHT betroffen (kein 'connector').
+  if (def?.kind === 'connector') {
+    if (imgNat) {
+      const UNIT = 75
+      const scale = CELL_SIZE / UNIT
+      const ovX = imgNat.w - dCols * UNIT
+      const ovY = imgNat.h - dRows * UNIT
+      if (ovX > 1) {
+        imgW = imgNat.w * scale
+        const leftShare = conn?.left && conn?.right ? ovX / 2 : conn?.left ? ovX : 0
+        imgLeft = -leftShare * scale
+      }
+      if (ovY > 1) {
+        imgH = imgNat.h * scale
+        const topShare = conn?.top && conn?.bottom ? ovY / 2 : conn?.top ? ovY : 0
+        imgTop = -topShare * scale
+      }
+    } else {
+      // Vor dem Laden der echten Maße: neutral auf den Footprint (kein Verzerren).
+      imgW = footW
+      imgH = footH
+      imgLeft = 0
+      imgTop = 0
+    }
+  }
 
   const style: CSSProperties = {
     position: 'absolute',
@@ -134,6 +171,10 @@ function DraggableTile({ tile, isSelected, placingMode, onSelect, zoom }: Dragga
           src={imgUrl}
           alt={def?.label}
           onError={() => setImgError(true)}
+          onLoad={(e) => {
+            const im = e.currentTarget
+            if (im.naturalWidth && im.naturalHeight) setImgNat({ w: im.naturalWidth, h: im.naturalHeight })
+          }}
           style={imgStyle}
         />
       ) : (
