@@ -14,6 +14,14 @@ export interface MapTileDefinition {
   color: string
   /** Edges with a puzzle connector (tab/notch). Undefined = plain rectangle. */
   connectors?: TileConnectors
+  /**
+   * Plättchen-Art. `'room'` (Default) = nummeriertes Raum-/Gang-Plättchen.
+   * `'connector'` = unnummeriertes Verbindungsstück (Korridor/Extension, Endkappe,
+   * Eingang/Ausgang, Übergang). Diese liegen in Descent in MEHRFACHER Ausführung
+   * vor und dürfen daher mehrfach platziert werden; sie erscheinen im Kartenbauer
+   * in einer eigenen „Verbindungsstücke"-Gruppe (zuerst) ohne a/b-Partnerwarnung.
+   */
+  kind?: 'room' | 'connector'
 }
 
 /** Rotate a connector map clockwise by the given tile rotation. */
@@ -190,8 +198,38 @@ export const MAP_TILES: MapTileDefinition[] = [
   { id: 'sn-68b', label: 'SN 68b', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#1a1a3a', connectors: { top: false, right: false, bottom: false, left: true } },
   { id: 'sn-69a', label: 'SN 69a', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#1a1a3a' },
   { id: 'sn-69b', label: 'SN 69b', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#1a1a3a' },
-  { id: 'sn-entrance', label: 'SN Eingang', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#2a2a5a' },
-  { id: 'sn-exit',     label: 'SN Ausgang', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#2a2a5a' },
+  { id: 'sn-entrance', label: 'SN Eingang', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector' },
+  { id: 'sn-exit',     label: 'SN Ausgang', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector' },
+
+  // ─── Verbindungsstücke (unnummeriert, mehrfach legbar) ─────────────────────
+  // Korridor-/Übergangs-Plättchen ohne Tile-Nummer; in Descent in mehrfacher
+  // Ausführung vorhanden. Indoor- und Outdoor-Seite je als eigenes Plättchen.
+  // Quelle: any2cards map-tiles (bg-/sn-/mb- … extension/end-cap/entrance/exit/transition).
+  // ── Grundspiel ──
+  // 2×1 (2 breit, 1 hoch): verbinden über die HÖHE (oben/unten) – die 2-Felder-
+  // breite Öffnung liegt waagerecht. (Pixel-Überstand 150×112 = oben/unten.)
+  { id: 'extension-indoor',  label: 'Korridor (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
+  { id: 'extension-outdoor', label: 'Korridor (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: true, right: false, bottom: true, left: false } },
+  { id: 'end-cap-indoor',    label: 'Endkappe (innen)',  expansionId: 'base', cols: 2, rows: 1, color: '#3a3320', kind: 'connector', connectors: { top: false, right: false, bottom: true, left: false } },
+  { id: 'end-cap-outdoor',   label: 'Endkappe (außen)',  expansionId: 'base', cols: 2, rows: 1, color: '#2f3a24', kind: 'connector', connectors: { top: false, right: false, bottom: true, left: false } },
+  { id: 'entrance-indoor',   label: 'Eingang (innen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'entrance-outdoor',  label: 'Eingang (außen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a3a2a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'exit-indoor',       label: 'Ausgang (innen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a2a5a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'exit-outdoor',      label: 'Ausgang (außen)',   expansionId: 'base', cols: 2, rows: 2, color: '#2a3a2a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'transition-outdoor-indoor', label: 'Übergang innen/außen', expansionId: 'base', cols: 2, rows: 2, color: '#33402a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  // ── Schatten von Nerekhall ──
+  // 1×2 (1 breit, 2 hoch): verbinden über die BREITE (links/rechts) – die
+  // 2-Felder-breite Öffnung liegt senkrecht. (Pixel-Überstand 112×150 = links/rechts.)
+  { id: 'sn-end-cap-indoor',     label: 'SN Endkappe (innen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'sn-end-cap-outdoor',    label: 'SN Endkappe (außen)', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: false } },
+  { id: 'sn-extension-indoor-a', label: 'SN Korridor (innen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-indoor-b', label: 'SN Korridor (innen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a1a3a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-outdoor-a', label: 'SN Korridor (außen) A', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-extension-outdoor-b', label: 'SN Korridor (außen) B', expansionId: 'shadow-of-nerekhall', cols: 1, rows: 2, color: '#1a2a1a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-transition-a', label: 'SN Übergang A', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#22302a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  { id: 'sn-transition-b', label: 'SN Übergang B', expansionId: 'shadow-of-nerekhall', cols: 2, rows: 2, color: '#22302a', kind: 'connector', connectors: { top: false, right: true, bottom: false, left: true } },
+  // (Nebel über Bilehall: mb-entrance-indoor/outdoor sind weiter unten bereits
+  //  als Plättchen vorhanden und dort als kind:'connector' markiert.)
   // ─── Schloss Rabenfels (mr-70 – mr-77) ────────────────────────────────────
   { id: 'mr-70a', label: 'SR 70a', expansionId: 'manor-of-ravens', cols: 6, rows: 6, color: '#2a1a00', connectors: { top: true, right: true, bottom: true, left: true } },
   { id: 'mr-70b', label: 'SR 70b', expansionId: 'manor-of-ravens', cols: 6, rows: 6, color: '#2a1a00', connectors: { top: true, right: true, bottom: true, left: true } },
@@ -230,8 +268,8 @@ export const MAP_TILES: MapTileDefinition[] = [
   { id: 'mb-86b', label: 'NvB 86b', expansionId: 'mists-of-bilehall', cols: 8, rows: 3, color: '#1a2a3a', connectors: { top: true, right: true, bottom: false, left: true } },
   { id: 'mb-87a', label: 'NvB 87a', expansionId: 'mists-of-bilehall', cols: 8, rows: 8, color: '#1a2a3a', connectors: { top: true, right: true, bottom: true, left: false } },
   { id: 'mb-87b', label: 'NvB 87b', expansionId: 'mists-of-bilehall', cols: 8, rows: 8, color: '#1a2a3a', connectors: { top: true, right: true, bottom: true, left: false } },
-  { id: 'mb-entrance-indoor',  label: 'NvB Eingang I', expansionId: 'mists-of-bilehall', cols: 2, rows: 2, color: '#1a2a3a' },
-  { id: 'mb-entrance-outdoor', label: 'NvB Eingang A', expansionId: 'mists-of-bilehall', cols: 2, rows: 2, color: '#1a2a3a' },
+  { id: 'mb-entrance-indoor',  label: 'NvB Eingang I', expansionId: 'mists-of-bilehall', cols: 2, rows: 2, color: '#1a2a3a', kind: 'connector' },
+  { id: 'mb-entrance-outdoor', label: 'NvB Eingang A', expansionId: 'mists-of-bilehall', cols: 2, rows: 2, color: '#1a2a3a', kind: 'connector' },
   // ─── Rostende Ketten (cr-78/79, cr-88 – cr-98) ───────────────────────────
   { id: 'cr-78a', label: 'RK 78a', expansionId: 'the-chains-that-rust', cols: 2, rows: 2, color: '#3a1a00', connectors: { top: true, right: false, bottom: false, left: false } },
   { id: 'cr-78b', label: 'RK 78b', expansionId: 'the-chains-that-rust', cols: 2, rows: 2, color: '#3a1a00', connectors: { top: false, right: false, bottom: false, left: true } },

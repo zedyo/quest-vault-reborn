@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.15',
+    date: '2026-06-29',
+    title: 'Verbindungsstücke + Geländeleisten im Kartenbauer',
+    highlights: [
+      'Neu: die unnummerierten Verbindungsstücke (Korridor-/Extension-Stücke, Endkappen, Eingang/Ausgang, Übergang innen↔außen) aus Grundspiel, Schatten von Nerekhall und Nebel über Bilehall – bisher fehlten sie komplett. Sie stehen in einer eigenen „Verbindungsstücke"-Gruppe ganz oben in der Plättchen-Auswahl.',
+      'Diese Verbindungsstücke dürfen – anders als die nummerierten Plättchen – mehrfach platziert werden (die Auswahl bleibt nach dem Setzen aktiv).',
+      'Überwucherung und Alte Mauer werden jetzt als längliche Leiste (wie eine Tür-Absperrung) auf der Feldkante dargestellt und sind drehbar.',
+    ],
+  },
+  {
     version: '1.3.14',
     date: '2026-06-29',
     title: 'Nummerierte Zielmarker im Kartenbauer',

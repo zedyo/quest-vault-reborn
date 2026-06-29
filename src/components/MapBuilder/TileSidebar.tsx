@@ -155,12 +155,17 @@ interface Props {
 
 export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }: Props) {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
-  const [openExpansions, setOpenExpansions] = useState<Set<string>>(new Set(['base']))
+  const [openExpansions, setOpenExpansions] = useState<Set<string>>(new Set(['__connectors', 'base']))
   const [hoverPreview, setHoverPreview] = useState<HoverPreview | null>(null)
 
   const ownedExpansions = EXPANSIONS.filter(
-    (e) => ownedIds.includes(e.id) && MAP_TILES.some((t) => t.expansionId === e.id),
+    (e) => ownedIds.includes(e.id) && MAP_TILES.some((t) => t.expansionId === e.id && t.kind !== 'connector'),
   )
+
+  // Verbindungsstücke (unnummeriert, mehrfach legbar) aller besessenen Erweiterungen,
+  // als eigene Gruppe ganz oben.
+  const connectorTiles = MAP_TILES.filter((t) => t.kind === 'connector' && ownedIds.includes(t.expansionId))
+  const connectorsOpen = openExpansions.has('__connectors')
 
   const toggle = (id: string) => {
     setOpenExpansions((prev) => {
@@ -178,8 +183,41 @@ export default function TileSidebar({ selectedTileId, placedTileIds, onSelect }:
       </div>
 
       <div className="flex-1 overflow-y-auto">
+        {/* Verbindungsstücke zuerst – unnummeriert, mehrfach legbar */}
+        {connectorTiles.length > 0 && (
+          <div className="border-b border-dungeon-800">
+            <button
+              onClick={() => toggle('__connectors')}
+              className="w-full text-left px-3 py-2 flex items-center justify-between hover:bg-dungeon-800 transition-colors"
+            >
+              <span className="text-xs font-semibold text-gold-400 truncate pr-1">
+                🧩 Verbindungsstücke <span className="text-gray-500 font-normal">(mehrfach)</span>
+              </span>
+              <span className="text-gray-500 text-xs">{connectorsOpen ? '▲' : '▼'}</span>
+            </button>
+            {connectorsOpen && (
+              <div className="px-2 pb-2 grid grid-cols-2 gap-1.5">
+                {connectorTiles.map((tile) => (
+                  <SidebarTile
+                    key={tile.id}
+                    tileId={tile.id}
+                    label={tile.label}
+                    cols={tile.cols}
+                    rows={tile.rows}
+                    color={tile.color}
+                    isSelected={selectedTileId === tile.id}
+                    partnerPlaced={false}
+                    partner={null}
+                    onSelect={onSelect}
+                    onHover={setHoverPreview}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         {ownedExpansions.map((exp) => {
-          const tiles = MAP_TILES.filter((t) => t.expansionId === exp.id)
+          const tiles = MAP_TILES.filter((t) => t.expansionId === exp.id && t.kind !== 'connector')
           const open = openExpansions.has(exp.id)
           return (
             <div key={exp.id}>
