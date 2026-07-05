@@ -121,10 +121,16 @@ function fromCands(key: string, cands: Cand[]): Resolved {
   return NONE
 }
 
+// Bekannte Schreibvarianten (CRRG ↔ Datenbank), die die Fuzzy-Suche nicht
+// abdeckt (Edit-Distanz > 1). Schlüssel + Wert sind normalisiert.
+const HERO_ALIASES: Record<string, string> = {
+  augurgrimson: 'augurgrisom', // CRRG „Augur Grimson" = Held „Augur Grisom"
+}
+
 function resolve(entry: ErrataEntry): Resolved {
   const key = norm(entry.nameDe)
   switch (entry.scope) {
-    case 'hero': return fromIndexFuzzy(heroIdx, key)
+    case 'hero': return fromIndexFuzzy(heroIdx, HERO_ALIASES[key] ?? key)
     case 'class': return fromIndex(classIdx, key)
     case 'item': return fromIndex(itemIdx, key)
     case 'overlord': return fromIndex(overlordIdx, key)
@@ -160,8 +166,53 @@ export function hasErrata(scope: ErrataScope, targetId: string | null | undefine
   return getErrata(scope, targetId).length > 0
 }
 
-/** Monsterfähigkeiten-Errata (keine Karten-Zuordnung – eigene Sektion). */
+/** Monsterfähigkeiten-Errata (Schlagwort-basiert, z. B. „Feuerodem", „Durchbohren"). */
 export const MONSTER_ABILITY_ERRATA: LinkedErrata[] = LINKED_ERRATA.filter((e) => e.scope === 'monster-ability')
+
+// ── Monsterfähigkeiten-Errata je Monster ─────────────────────────────────────
+//
+// Monsterfähigkeiten sind keiner einzelnen Monsterkarte zugeordnet, sondern
+// Schlagwörter. Hier wird jede Fähigkeits-Errata den Monstern zugeordnet, die
+// diese Fähigkeit tatsächlich besitzen (Fähigkeitsname = Text vor dem „:" in
+// surges/abilities/actions, ohne angehängte Zahl), damit sie auch direkt am
+// Monster erscheint – nicht nur in der durchsuchbaren Übersicht.
+
+function monsterAbilityKeys(m: (typeof MONSTERS)[number]): string[] {
+  const keys = new Set<string>()
+  for (const b of [m.normal, m.master, m.act2Normal, m.act2Master]) {
+    if (!b) continue
+    for (const arr of [b.surges, b.abilities, b.actions]) {
+      for (const s of arr ?? []) {
+        const head = s.split(':')[0].replace(/\s+\d+\s*$/, '').trim() // „Aura 1" → „Aura"
+        const k = norm(head)
+        if (k) keys.add(k)
+      }
+    }
+  }
+  return [...keys]
+}
+
+const abilityErrataByKey = new Map<string, LinkedErrata>()
+for (const e of MONSTER_ABILITY_ERRATA) abilityErrataByKey.set(norm(e.nameDe), e)
+
+const monsterAbilityErrataById = new Map<string, LinkedErrata[]>()
+for (const m of MONSTERS) {
+  const out: LinkedErrata[] = []
+  const seen = new Set<string>()
+  for (const k of monsterAbilityKeys(m)) {
+    const e = abilityErrataByKey.get(k)
+    if (e && !seen.has(e.id)) {
+      seen.add(e.id)
+      out.push(e)
+    }
+  }
+  if (out.length) monsterAbilityErrataById.set(m.id, out)
+}
+
+/** Monsterfähigkeiten-Errata für ein konkretes Monster (aufgrund seiner Fähigkeiten). */
+export function getMonsterAbilityErrata(monsterId: string): LinkedErrata[] {
+  return monsterAbilityErrataById.get(monsterId) ?? []
+}
 
 /** Anteil der auflösbaren Einträge (für Datenintegritäts-Tests / Diagnose). */
 export const ERRATA_LINK_STATS = {

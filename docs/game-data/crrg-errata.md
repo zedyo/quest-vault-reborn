@@ -48,7 +48,7 @@ Teil 2 unterteilt sich in die Abschnitte 2.1 Helden & Verbündete, 2.2 Klassenka
 |---|---|
 | `src/data/ruleClarifications.ts` | Teil 1 – alle Regelklärungen (generiert). Exportiert außerdem `CRRG_SOURCE` + `CRRG_URL`. |
 | `src/data/errata.ts` | Teil 2 – alle komponentenbezogenen Errata/FAQ (generiert). |
-| `src/data/errataLinks.ts` | Laufzeit-Verknüpfung Errata ↔ Komponente. `getErrata(scope, id)`, `hasErrata`, `LINKED_ERRATA`, `MONSTER_ABILITY_ERRATA`, `ERRATA_LINK_STATS`. |
+| `src/data/errataLinks.ts` | Laufzeit-Verknüpfung Errata ↔ Komponente. `getErrata(scope, id)`, `getMonsterAbilityErrata(monsterId)`, `hasErrata`, `LINKED_ERRATA`, `MONSTER_ABILITY_ERRATA`, `ERRATA_LINK_STATS`. |
 | `src/components/ErrataBox.tsx` | Aufklappbare (default-eingeklappte) Zusatzbox pro Karte. |
 | `src/pages/RulesClarificationsPage.tsx` | Durchsuchbare Sektion (`/klarstellungen`): Tab „Regelklärungen" (Teil 1) + Tab „Errata & FAQ" (Teil 2). |
 
@@ -69,8 +69,16 @@ zusätzlich ein Edit-Distanz-≤1-Rückfall (fängt Schreibvarianten wie „Jain
   Übersicht – **es geht keine Information verloren**.
 
 Angebunden an: HeroesPage (Lightbox), ClassesPage, ItemsPage (Shop + Relikte),
-OverlordPage, PlotDecksPage (Deck-Ebene), MonstersPage (Lightbox), RumorsPage (Lightbox),
-CampaignsPage (Kampagnen-Karte, mehrere Abenteuer-Einträge mit Szenarionamen).
+OverlordPage, PlotDecksPage (Deck-Ebene), MonstersPage (Grid-Karte **und** Lightbox:
+Monster-Errata + Monsterfähigkeiten-Errata je Monster, plus ein Sammel-Panel aller 34
+Monsterfähigkeiten oben auf der Seite), RumorsPage (Lightbox), CampaignsPage
+(Kampagnen-Karte, mehrere Abenteuer-Einträge mit Szenarionamen).
+
+Monsterfähigkeiten (`monster-ability`, Schlagwörter wie „Feuerodem"/„Durchbohren") werden
+über `getMonsterAbilityErrata(monsterId)` jedem Monster zugeordnet, das die Fähigkeit
+besitzt (Match über den Fähigkeitsnamen vor dem „:" in surges/abilities/actions, ohne
+angehängte Zahl). Bekannte Schreibvarianten werden per Alias aufgelöst (`HERO_ALIASES`),
+z. B. CRRG „Augur Grimson" → Held „Augur Grisom".
 
 ## Extraktion (Verfahren)
 
@@ -92,13 +100,17 @@ Das PDF hat einen echten Textlayer (InDesign). Extraktion via PyMuPDF:
 ## Bekannte Grenzen / bewusste Auslassungen
 
 - **Teil 3** (visuelle Beispiele) ist nicht reproduziert.
-- `monster-ability`-Errata (2.7) sind keiner einzelnen Karte zugeordnet (Fähigkeits-
-  Schlagwörter) → nur in der durchsuchbaren Übersicht.
+- `monster-ability`-Errata (2.7) werden über den Fähigkeitsnamen jedem Monster zugeordnet,
+  das die Fähigkeit besitzt (erscheinen am Monster) **und** in einem Sammel-Panel im
+  Monster-Bereich. Fähigkeiten ohne passendes Monster (z. B. Leutnants-Fähigkeiten wie
+  Beförderung/Beherrschung/Bezaubern) sind über das Panel + die Übersicht erreichbar.
 - Einzelne Abenteuer-Szenarien sind in der DB nicht als eigene Objekte vorhanden;
-  Abenteuer-Errata hängen daher an der **Kampagne** (mit Szenarioname als Zwischenzeile).
-- Heldenscans außerhalb der 60-Helden-DB (z. B. „(UK)"-Promo-Helden) bleiben unverknüpft.
+  Abenteuer-Errata hängen daher an der **Kampagne** (mit Szenarioname als Zwischenzeile)
+  und sind so in der Kampagnen-/Szenarienübersicht zu finden.
+- Heldenscans außerhalb der 60-Helden-DB (z. B. „(UK)"-Promo-Helden) bleiben unverknüpft;
+  bekannte Schreibvarianten löst `HERO_ALIASES` auf (z. B. „Augur Grimson" → „Augur Grisom").
 
-## Umfang (Stand v1.3.17)
+## Umfang (Stand v1.3.18)
 
 - Teil 1: **164** Regelklärungen.
 - Teil 2: **250** komponentenbezogene Errata/FAQ-Einträge über 10 Abschnitte (Helden 35, Klassen 27, Items/Relikte 27, Overlord 40, Plotdecks 14, Monster 10, Monsterfähigkeiten 34, Abenteuer 59, Gerüchte 3, Geheimkammer 1).
