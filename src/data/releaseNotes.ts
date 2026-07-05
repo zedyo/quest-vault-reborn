@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.20',
+    date: '2026-07-05',
+    title: 'Nahkampf/Fernkampf bei Monstern + Suchfeld-Feinschliff',
+    highlights: [
+      'Monster-Übersicht: Hinter den Angriffswürfeln zeigt jetzt ein Icon die Angriffsart – eine rote Kriegsaxt für Nahkämpfer, ein grüner Bogen für Fernkämpfer (für alle 56 Monstergruppen, in Diener- und Meister-Werten).',
+      'Alle Suchfelder haben nun ein festes Lupen-Icon links im Feld; der Platzhaltertext wird etwas dezenter dargestellt, damit er sich besser vom eingegebenen Text abhebt.',
+    ],
+  },
+  {
     version: '1.3.19',
     date: '2026-07-05',
     title: 'UI-Feinschliff: Begriffe, Filter & Klassenübersicht',

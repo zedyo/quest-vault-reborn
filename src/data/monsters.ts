@@ -18,6 +18,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Barghest',
     nameEn: 'Barghest',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Wildnis', 'Dunkel'],
     normal: {
@@ -39,6 +40,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höhlenspinne',
     nameEn: 'Cave Spider',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Höhle'],
     normal: {
@@ -58,6 +60,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Elementar',
     nameEn: 'Elemental',
     expansionId: 'base',
+    attackType: 'range',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Kalt', 'Heiß'],
     normal: {
@@ -86,6 +89,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ettin',
     nameEn: 'Ettin',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
@@ -107,6 +111,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Sarkomant',
     nameEn: 'Flesh Moulder',
     expansionId: 'base',
+    attackType: 'range',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Verflucht', 'Zivilisiert'],
     normal: {
@@ -126,6 +131,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Bogenschütze',
     nameEn: 'Goblin Archer',
     expansionId: 'base',
+    attackType: 'range',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
@@ -149,6 +155,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Merriod',
     nameEn: 'Merriod',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Wasser'],
     normal: {
@@ -172,6 +179,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schattendrache',
     nameEn: 'Shadow Dragon',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
@@ -192,6 +200,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Zombie',
     nameEn: 'Zombie',
     expansionId: 'base',
+    attackType: 'melee',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Gebäude'],
     normal: {
@@ -214,6 +223,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Feuerteufel',
     nameEn: 'Fire Imps',
     expansionId: 'lair-of-the-wyrm',
+    attackType: 'range',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [3, 2] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
@@ -237,6 +247,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Halbdrachenkrieger',
     nameEn: 'Hybrid Sentinel',
     expansionId: 'lair-of-the-wyrm',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
@@ -264,6 +275,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Arachyura',
     nameEn: 'Arachyura',
     expansionId: 'labyrinth-of-ruin',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Verflucht'],
     normal: {
@@ -285,6 +297,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Aas-Drache',
     nameEn: 'Carrion Drake',
     expansionId: 'labyrinth-of-ruin',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Dunkel'],
     normal: {
@@ -308,6 +321,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Goblin-Schamane',
     nameEn: 'Goblin Witcher',
     expansionId: 'labyrinth-of-ruin',
+    attackType: 'range',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Verflucht'],
     normal: {
@@ -327,6 +341,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Volucrix-Jäger',
     nameEn: 'Volucrix Reaver',
     expansionId: 'labyrinth-of-ruin',
+    attackType: 'melee',
     groupSizes: { p2: [2, 0], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Gebirge'],
     normal: {
@@ -349,6 +364,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Harpyie',
     nameEn: 'Harpy',
     expansionId: 'the-trollfens',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Wildnis', 'Gebirge'],
     normal: {
@@ -370,6 +386,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Pestwurm',
     nameEn: 'Plague Worm',
     expansionId: 'the-trollfens',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Höhle'],
     normal: {
@@ -392,6 +409,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Bandit',
     nameEn: 'Bandit',
     expansionId: 'manor-of-ravens',
+    attackType: 'range',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Gebäude'],
     normal: {
@@ -412,6 +430,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Geist',
     nameEn: 'Wraith',
     expansionId: 'manor-of-ravens',
+    attackType: 'range',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
@@ -434,6 +453,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wechselbalg',
     nameEn: 'Changeling',
     expansionId: 'shadow-of-nerekhall',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
@@ -461,6 +481,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eherner Wächter',
     nameEn: 'Ironbound',
     expansionId: 'shadow-of-nerekhall',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Zivilisiert', 'Gebäude'],
     normal: {
@@ -489,6 +510,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Rattenschwarm',
     nameEn: 'Rat Swarm',
     expansionId: 'shadow-of-nerekhall',
+    attackType: 'melee',
     groupSizes: { p2: [2, 0], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebäude', 'Dunkel'],
     normal: {
@@ -518,6 +540,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höllenkoloss',
     nameEn: 'Ynfernael Hulk',
     expansionId: 'shadow-of-nerekhall',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Verflucht', 'Heiß'],
     normal: {
@@ -542,6 +565,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Mörderspinne',
     nameEn: 'Bane Spider',
     expansionId: 'oath-of-the-outcast',
+    attackType: 'range',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
@@ -567,6 +591,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiermensch',
     nameEn: 'Beastman',
     expansionId: 'oath-of-the-outcast',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Gebirge', 'Wildnis'],
     normal: {
@@ -590,6 +615,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Rasierklingenflügler',
     nameEn: 'Razorwing',
     expansionId: 'oath-of-the-outcast',
+    attackType: 'melee',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Wildnis', 'Höhle'],
     normal: {
@@ -614,6 +640,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Chaosbiest',
     nameEn: 'Chaos Beast',
     expansionId: 'crown-of-destiny',
+    attackType: 'range',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Verflucht'],
     normal: {
@@ -637,6 +664,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Riese',
     nameEn: 'Giant',
     expansionId: 'crown-of-destiny',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Wildnis'],
     normal: {
@@ -658,6 +686,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Lavakäfer',
     nameEn: 'Lava Beetle',
     expansionId: 'crown-of-destiny',
+    attackType: 'range',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Heiß', 'Höhle'],
     normal: {
@@ -678,6 +707,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Golem',
     nameEn: 'Golem',
     expansionId: 'crusade-of-the-forgotten',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Gebäude'],
     normal: {
@@ -701,6 +731,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Medusa',
     nameEn: 'Medusa',
     expansionId: 'crusade-of-the-forgotten',
+    attackType: 'range',
     groupSizes: { p2: [2, 0], p3: [1, 1], p4: [2, 1] },
     traits: ['Verflucht', 'Gebäude'],
     normal: {
@@ -726,6 +757,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Hexenmeister',
     nameEn: 'Sorcerer',
     expansionId: 'crusade-of-the-forgotten',
+    attackType: 'range',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Gebäude'],
     normal: {
@@ -750,6 +782,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Unterweltdrache',
     nameEn: 'Crypt Dragon',
     expansionId: 'guardians-of-deephall',
+    attackType: 'range',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Verflucht'],
     normal: {
@@ -778,6 +811,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dunkler Priester',
     nameEn: 'Dark Priest',
     expansionId: 'guardians-of-deephall',
+    attackType: 'range',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
@@ -809,6 +843,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wendigo',
     nameEn: 'Wendigo',
     expansionId: 'guardians-of-deephall',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Kalt', 'Höhle'],
     normal: {
@@ -837,6 +872,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Mantikor',
     nameEn: 'Manticore',
     expansionId: 'visions-of-dawn',
+    attackType: 'range',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Wildnis', 'Dunkel'],
     normal: {
@@ -861,6 +897,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Oger',
     nameEn: 'Ogre',
     expansionId: 'visions-of-dawn',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
@@ -880,6 +917,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Troll',
     nameEn: 'Troll',
     expansionId: 'visions-of-dawn',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Gebirge', 'Höhle'],
     normal: {
@@ -906,6 +944,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Tiefenelf',
     nameEn: 'Deep Elf',
     expansionId: 'bonds-of-the-wild',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Höhle'],
     normal: {
@@ -933,6 +972,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Höllenhund',
     nameEn: 'Hellhound',
     expansionId: 'bonds-of-the-wild',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
@@ -958,6 +998,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Kobold',
     nameEn: 'Kobold',
     expansionId: 'bonds-of-the-wild',
+    attackType: 'melee',
     groupSizes: { p2: [4, 2], p3: [8, 2], p4: [9, 3] },
     traits: ['Gebäude', 'Höhle'],
     normal: {
@@ -985,6 +1026,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Krähenhexe',
     nameEn: 'Crow Hag',
     expansionId: 'treaty-of-champions',
+    attackType: 'range',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Zivilisiert'],
     normal: {
@@ -1011,6 +1053,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Dämonenfürst',
     nameEn: 'Demon Lord',
     expansionId: 'treaty-of-champions',
+    attackType: 'range',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Heiß', 'Verflucht'],
     normal: {
@@ -1034,6 +1077,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Skelett-Bogenschütze',
     nameEn: 'Skeleton Archer',
     expansionId: 'treaty-of-champions',
+    attackType: 'range',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Zivilisiert'],
     normal: {
@@ -1061,6 +1105,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Blutaffe',
     nameEn: 'Blood Ape',
     expansionId: 'stewards-of-the-secret',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Höhle', 'Heiß'],
     normal: {
@@ -1082,6 +1127,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Ferrox',
     nameEn: 'Ferrox',
     expansionId: 'stewards-of-the-secret',
+    attackType: 'melee',
     groupSizes: { p2: [1, 1], p3: [2, 1], p4: [3, 1] },
     traits: ['Höhle', 'Wasser'],
     normal: {
@@ -1107,6 +1153,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Naga',
     nameEn: 'Naga',
     expansionId: 'stewards-of-the-secret',
+    attackType: 'range',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wasser', 'Höhle'],
     normal: {
@@ -1129,6 +1176,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Finsterer Minotaurus',
     nameEn: 'Dark Minotaur',
     expansionId: 'shards-of-everdark',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Zivilisiert', 'Dunkel'],
     normal: {
@@ -1157,6 +1205,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Eiswyrm',
     nameEn: 'Ice Wyrm',
     expansionId: 'shards-of-everdark',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Kalt', 'Höhle'],
     normal: {
@@ -1182,6 +1231,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schatten',
     nameEn: 'Shade',
     expansionId: 'shards-of-everdark',
+    attackType: 'melee',
     groupSizes: { p2: [2, 1], p3: [3, 1], p4: [4, 1] },
     traits: ['Verflucht', 'Kalt'],
     normal: {
@@ -1205,6 +1255,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Knochenschrecken',
     nameEn: 'Bone Horror',
     expansionId: 'mists-of-bilehall',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Höhle', 'Verflucht'],
     normal: {
@@ -1234,6 +1285,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Gezüchtwandler',
     nameEn: 'Broodwalker',
     expansionId: 'mists-of-bilehall',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Dunkel', 'Gebäude'],
     normal: {
@@ -1261,6 +1313,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Wiederbelebte',
     nameEn: 'Reanimate',
     expansionId: 'mists-of-bilehall',
+    attackType: 'melee',
     groupSizes: { p2: [3, 1], p3: [3, 2], p4: [4, 2] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {
@@ -1289,6 +1342,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Markpriester',
     nameEn: 'Marrow Priest',
     expansionId: 'the-chains-that-rust',
+    attackType: 'melee',
     groupSizes: { p2: [1, 0], p3: [0, 1], p4: [1, 1] },
     traits: ['Dunkel', 'Gebäude'],
     normal: {
@@ -1309,6 +1363,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Schlurfender Koloss',
     nameEn: 'Shambling Colossus',
     expansionId: 'the-chains-that-rust',
+    attackType: 'melee',
     groupSizes: { p2: [0, 1], p3: [1, 1], p4: [2, 1] },
     traits: ['Wildnis', 'Verflucht'],
     normal: {
@@ -1332,6 +1387,7 @@ export const MONSTERS: Monster[] = [
     nameDe: 'Die Verlorenen',
     nameEn: 'The Dispossessed',
     expansionId: 'the-chains-that-rust',
+    attackType: 'melee',
     groupSizes: { p2: [2, 0], p3: [1, 1], p4: [2, 1] },
     traits: ['Zivilisiert', 'Verflucht'],
     normal: {

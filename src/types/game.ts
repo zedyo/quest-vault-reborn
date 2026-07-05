@@ -98,6 +98,8 @@ export interface Monster {
   nameEn: string
   expansionId: string
   traits?: string[]
+  /** Angriffsart der Gruppe: Nahkampf ('melee') oder Fernkampf ('range') – von den Karten (any2cards) */
+  attackType?: AttackType
   groupSizes?: MonsterGroupSizes
   normal?: MonsterStats
   master?: MonsterStats
