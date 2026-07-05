@@ -62,7 +62,7 @@
 | Krieger | Warrior | Archetyp |
 | Heiler | Healer | Archetyp |
 | Magier | Mage | Archetyp |
-| Späher | Scout | Archetyp |
+| Kundschafter | Scout | Archetyp |
 | Quest | Quest | Spieleinheit (nicht übersetzt) |
 | Kampagne | Campaign | Mehrere verknüpfte Quests |
 | Begegnung | Encounter | Teil einer Quest |
@@ -211,12 +211,12 @@
 | Hexer | Hexer | Magier | Labyrinth des Verderbens |
 | Beschwörer | Conjurer | Magier | Schatten von Nerekhall |
 | Elementalist | Elementalist | Magier | Unsterbliche Legenden |
-| Dieb | Thief | Späher | Grundspiel |
-| Wildläufer | Wildlander | Späher | Grundspiel |
-| Jäger | Stalker | Späher | Die Trollsümpfe |
-| Schatzjäger | Treasure Hunter | Späher | Labyrinth des Verderbens |
-| Kopfgeldjäger | Bounty Hunter | Späher | Schloss Rabenfels |
-| Schattengeher | Shadow Walker | Späher | Schatten von Nerekhall |
+| Dieb | Thief | Kundschafter | Grundspiel |
+| Wildläufer | Wildlander | Kundschafter | Grundspiel |
+| Jäger | Stalker | Kundschafter | Die Trollsümpfe |
+| Schatzjäger | Treasure Hunter | Kundschafter | Labyrinth des Verderbens |
+| Kopfgeldjäger | Bounty Hunter | Kundschafter | Schloss Rabenfels |
+| Schattengeher | Shadow Walker | Kundschafter | Schatten von Nerekhall |
 
 ---
 

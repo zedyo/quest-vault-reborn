@@ -8,7 +8,7 @@ import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
-import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import type { PlotCard, PlotDeck } from '../types/game'
 
 function CostBadge({ label, value, cls }: { label: string; value: number; cls: string }) {
@@ -96,6 +96,7 @@ export default function PlotDecksPage() {
   const [params] = useSearchParams()
   const focusDeckId = params.get('deck')
   const [search, setSearch] = useState('')
+  const [source, setSource] = useState<Source>('all')
   // Beim Aufruf über einen Leutnant-Link das fokussierte Deck immer zeigen.
   const [onlyOwned, setOnlyOwned] = useState(() => !focusDeckId)
   const [lang, setLang] = useState<Lang>('de')
@@ -114,7 +115,7 @@ export default function PlotDecksPage() {
   const filteredDecks = useMemo(() => {
     const q = search.trim().toLowerCase()
     return PLOT_DECKS
-      .filter((d) => !onlyOwned || ownedIds.includes(d.expansionId))
+      .filter((d) => (!onlyOwned || ownedIds.includes(d.expansionId)) && matchesSource(source, d.expansionId))
       .map((deck) => {
         if (!q) return deck
         const deckMatch = deck.nameDe.toLowerCase().includes(q) || deck.nameEn.toLowerCase().includes(q)
@@ -126,7 +127,7 @@ export default function PlotDecksPage() {
         return cards.length ? { ...deck, cards } : null
       })
       .filter((d): d is PlotDeck => d !== null)
-  }, [search, onlyOwned, ownedIds])
+  }, [search, onlyOwned, ownedIds, source])
 
   const byExpansion = useMemo(() => {
     const map = new Map<string, PlotDeck[]>()
@@ -159,6 +160,7 @@ export default function PlotDecksPage() {
       <div className="flex flex-wrap items-center gap-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Karte, Deck oder Agent suchen…" className="w-60" />
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <SourceFilter value={source} onChange={setSource} />
         <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>
 

@@ -9,6 +9,7 @@ import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle } from '../components/Filters'
+import { ArchetypeIcon } from '../components/ArchetypeIcon'
 import { heroCardDeUrl } from '../data/assetUrls'
 import type { Hero } from '../types/game'
 
@@ -18,7 +19,7 @@ const ATTR_STYLE = {
   might:     { label: 'Stärke',       cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
   knowledge: { label: 'Wissen',       cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
   willpower: { label: 'Willenskraft', cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
-  awareness: { label: 'Gespür',       cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
+  awareness: { label: 'Geistesgegenwart', cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
 } as const
 
 function AttributeChips({ hero, compact = true }: { hero: Hero; compact?: boolean }) {
@@ -83,13 +84,13 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {hero.speed != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <MovementBadge size={18} circle="#15552c" /><span className="text-gray-400">Bewegung</span>
+                    <MovementBadge size={18} circle="#15552c" /><span className="text-gray-400">Geschwindigkeit</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.speed}</span>
                   </div>
                 )}
                 {hero.health != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <HealthIcon size={18} /><span className="text-gray-400">Leben</span>
+                    <HealthIcon size={18} /><span className="text-gray-400">Lebenskraft</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.health}</span>
                   </div>
                 )}
@@ -187,7 +188,7 @@ export default function HeroesPage() {
             <button
               key={a}
               onClick={() => setFilterArchetype(a)}
-              className={`px-3 py-1.5 rounded text-sm transition-colors border font-medium ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors border font-medium ${
                 filterArchetype === a
                   ? a === 'alle'
                     ? 'bg-gold-500 text-dungeon-950 border-gold-600'
@@ -195,6 +196,7 @@ export default function HeroesPage() {
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
             >
+              {a !== 'alle' && <ArchetypeIcon archetype={a as Hero['archetype']} size={15} />}
               {a === 'alle' ? 'Alle' : ARCHETYPE_LABELS[a as Hero['archetype']]}
             </button>
           ))}

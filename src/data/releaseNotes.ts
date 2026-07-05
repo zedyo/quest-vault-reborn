@@ -20,6 +20,20 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.19',
+    date: '2026-07-05',
+    title: 'UI-Feinschliff: Begriffe, Filter & Klassenübersicht',
+    highlights: [
+      'Klassenübersicht: Begleiter und Startausrüstung stehen jetzt oben (vor den Fähigkeitskarten) – jeweils mit dem Kartenbild von Begleiter und Startgegenstand.',
+      'Neuer Archetyp-Filter (Krieger/Heiler/Magier/Kundschafter) mit runden Symbol-Icons – jetzt auch in der Klassenübersicht, nicht nur bei den Helden.',
+      'Neuer „Grundspiel/Erweiterungen"-Filter bei Monster, Overlord, Leutnants, Agenten, Plotdecks und Reisekarten.',
+      'Errata & FAQ: nach Kategorie filterbar; die Kapitelnummern wurden aus den Kategorienamen entfernt.',
+      'Begriffe an das Regelbuch angeglichen: „Geistesgegenwart" (statt Gespür), „Kundschafter" (statt Späher), bei Helden „Geschwindigkeit"/„Lebenskraft"; bei Monstern heißen die Spalten jetzt „Diener" und „Meister".',
+      'Ausgewählte Umschalter (z. B. Shop-Karten/Relikte) werden jetzt hell hervorgehoben statt abgedunkelt.',
+      'Mobil: In der Monster-Übersicht überlappen die Angriffswürfel den Kartenrand nicht mehr.',
+    ],
+  },
+  {
     version: '1.3.18',
     date: '2026-07-05',
     title: 'Errata & FAQ jetzt auch bei Monsterfähigkeiten und Szenarien',

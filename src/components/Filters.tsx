@@ -79,7 +79,7 @@ export function SegmentedControl<T extends string | number>({
           onClick={() => onChange(o.value)}
           className={`px-3 py-1.5 text-sm font-medium transition-colors ${
             value === o.value
-              ? 'bg-gold-700 text-gray-900'
+              ? 'bg-gold-500 text-dungeon-950'
               : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
           }`}
         >
@@ -87,6 +87,41 @@ export function SegmentedControl<T extends string | number>({
         </button>
       ))}
     </div>
+  )
+}
+
+// ── SourceFilter (Grundspiel / Erweiterung) ──────────────────────────────────
+
+export type Source = 'all' | 'base' | 'expansion'
+
+/** true, wenn `expansionId` zur gewählten Quelle passt (Grundspiel = 'base'). */
+export function matchesSource(source: Source, expansionId: string): boolean {
+  if (source === 'base') return expansionId === 'base'
+  if (source === 'expansion') return expansionId !== 'base'
+  return true
+}
+
+/** Grundspiel/Erweiterung-Umschalter (Monster, Overlord, Leutnants, Agenten, …). */
+export function SourceFilter({
+  value,
+  onChange,
+  className = '',
+}: {
+  value: Source
+  onChange: (s: Source) => void
+  className?: string
+}) {
+  return (
+    <SegmentedControl<Source>
+      className={className}
+      value={value}
+      onChange={onChange}
+      options={[
+        { value: 'all', label: 'Alle' },
+        { value: 'base', label: 'Grundspiel' },
+        { value: 'expansion', label: 'Erweiterungen' },
+      ]}
+    />
   )
 }
 

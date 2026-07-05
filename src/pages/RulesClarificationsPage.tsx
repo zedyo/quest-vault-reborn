@@ -33,6 +33,16 @@ function norm(s: string): string {
   return s.toLowerCase().replace(/ß/g, 'ss')
 }
 
+// Kapitelnummer („2.1 ") aus der Abschnitts-/Kategorie-Bezeichnung entfernen.
+function stripSection(s: string): string {
+  return s.replace(/^\d+(?:\.\d+)?\s+/, '')
+}
+// Nach Kapitelnummer sortieren (2.1, 2.2, … 2.10).
+function sectionOrder(s: string): number {
+  const m = s.match(/^(\d+)\.(\d+)/)
+  return m ? Number(m[1]) * 100 + Number(m[2]) : 999
+}
+
 // Sucht in Begriff/Name + allen Aufzählungspunkten + Notizen.
 function clarificationMatches(c: RuleClarification, q: string): boolean {
   if (!q) return true
@@ -134,9 +144,15 @@ function ErrataCard({ e }: { e: LinkedErrata }) {
   )
 }
 
+// Alle Errata-Kategorien (Abschnitte) in Kapitelreihenfolge – für den Kategorie-Filter.
+const ERRATA_SECTIONS = Array.from(new Set(LINKED_ERRATA.map((e) => e.sectionDe))).sort(
+  (a, b) => sectionOrder(a) - sectionOrder(b),
+)
+
 export default function RulesClarificationsPage() {
   const [tab, setTab] = useState<Tab>('rules')
   const [search, setSearch] = useState('')
+  const [sectionFilter, setSectionFilter] = useState<string>('all')
   const [highlightId, setHighlightId] = useState<string | null>(null)
   const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -146,17 +162,22 @@ export default function RulesClarificationsPage() {
     () => RULE_CLARIFICATIONS.filter((c) => clarificationMatches(c, q)),
     [q],
   )
+  const errataFiltered = useMemo(
+    () => LINKED_ERRATA.filter(
+      (e) => (sectionFilter === 'all' || e.sectionDe === sectionFilter) && errataMatches(e, q),
+    ),
+    [q, sectionFilter],
+  )
   const errataBySection = useMemo(() => {
-    const filtered = LINKED_ERRATA.filter((e) => errataMatches(e, q))
     const map = new Map<string, LinkedErrata[]>()
-    for (const e of filtered) {
+    for (const e of errataFiltered) {
       const arr = map.get(e.sectionDe) ?? []
       arr.push(e)
       map.set(e.sectionDe, arr)
     }
     return map
-  }, [q])
-  const errataCount = useMemo(() => LINKED_ERRATA.filter((e) => errataMatches(e, q)).length, [q])
+  }, [errataFiltered])
+  const errataCount = errataFiltered.length
 
   const jumpTo = (id: string) => {
     setTab('rules')
@@ -191,7 +212,7 @@ export default function RulesClarificationsPage() {
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 text-sm font-medium transition-colors ${
-              tab === t ? 'bg-gold-700 text-gray-900' : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
+              tab === t ? 'bg-gold-500 text-dungeon-950' : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
             }`}
           >
             {label}
@@ -227,25 +248,47 @@ export default function RulesClarificationsPage() {
       )}
 
       {tab === 'errata' && (
-        errataCount === 0 ? (
-          <div className="card text-center text-gray-500 py-12">Kein Errata-/FAQ-Eintrag gefunden.</div>
-        ) : (
-          <div className="space-y-8">
-            <p className="text-xs text-gray-500">{errataCount} Einträge</p>
-            {Array.from(errataBySection.entries()).map(([section, entries]) => (
-              <section key={section}>
-                <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
-                  {section} <span className="text-gray-600 normal-case">({entries.length})</span>
-                </h3>
+        <>
+          {/* Kategorie-Filter (ohne Kapitelnummer) */}
+          <div className="flex flex-wrap gap-1.5">
+            {(['all', ...ERRATA_SECTIONS] as string[]).map((s) => {
+              const activeChip = sectionFilter === s
+              return (
+                <button
+                  key={s}
+                  onClick={() => setSectionFilter(s)}
+                  className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
+                    activeChip
+                      ? 'bg-gold-500 border-gold-400 text-dungeon-950 font-medium'
+                      : 'bg-dungeon-800 border-dungeon-600 text-gray-400 hover:text-gray-200 hover:border-dungeon-500'
+                  }`}
+                >
+                  {s === 'all' ? 'Alle Kategorien' : stripSection(s)}
+                </button>
+              )
+            })}
+          </div>
+
+          {errataCount === 0 ? (
+            <div className="card text-center text-gray-500 py-12">Kein Errata-/FAQ-Eintrag gefunden.</div>
+          ) : (
+            <div className="space-y-8">
+              <p className="text-xs text-gray-500">{errataCount} Einträge</p>
+              {Array.from(errataBySection.entries()).map(([section, entries]) => (
+                <section key={section}>
+                  <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
+                    {stripSection(section)} <span className="text-gray-600 normal-case">({entries.length})</span>
+                  </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
                   {entries.map((e) => (
                     <ErrataCard key={e.id} e={e} />
                   ))}
                 </div>
-              </section>
-            ))}
-          </div>
-        )
+                </section>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   )

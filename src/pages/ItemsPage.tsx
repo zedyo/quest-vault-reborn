@@ -57,7 +57,7 @@ function FilterChip<T extends string>({ value, label, active, onToggle }: {
       onClick={() => onToggle(value)}
       className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
         active
-          ? 'bg-gold-700 border-gold-600 text-gray-900 font-medium'
+          ? 'bg-gold-500 border-gold-400 text-dungeon-950 font-medium'
           : 'bg-dungeon-800 border-dungeon-600 text-gray-400 hover:text-gray-200 hover:border-dungeon-500'
       }`}
     >
@@ -329,7 +329,7 @@ export default function ItemsPage() {
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 text-sm font-medium transition-colors ${
               tab === t
-                ? 'bg-gold-700 text-gray-900'
+                ? 'bg-gold-500 text-dungeon-950'
                 : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
             }`}
           >
@@ -350,7 +350,7 @@ export default function ItemsPage() {
                 onClick={() => setActFilter(v)}
                 className={`px-3 py-1.5 text-sm transition-colors ${
                   actFilter === v
-                    ? 'bg-dungeon-600 text-gray-100'
+                    ? 'bg-gold-500 text-dungeon-950 font-medium'
                     : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
                 }`}
               >

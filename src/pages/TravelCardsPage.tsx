@@ -4,7 +4,7 @@ import { TRAVEL_CARDS } from '../data/travelCards'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import ModalOverlay from '../components/ModalOverlay'
-import { OwnedToggle, LangToggle, SegmentedControl, type Lang } from '../components/Filters'
+import { OwnedToggle, LangToggle, SegmentedControl, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import { travelCardDeUrl } from '../data/assetUrls'
 import { renderGameTextInline } from '../components/GameSymbols'
 import type { TravelCard } from '../types/game'
@@ -77,6 +77,7 @@ export default function TravelCardsPage() {
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [lang, setLang] = useState<Lang>('de')
   const [deckFilter, setDeckFilter] = useState<'all' | 'travel' | 'city'>('all')
+  const [source, setSource] = useState<Source>('all')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
   const expansionMap = useMemo(() => Object.fromEntries(EXPANSIONS.map((e) => [e.id, e])), [])
@@ -85,8 +86,10 @@ export default function TravelCardsPage() {
   const filtered = useMemo(() => TRAVEL_CARDS.filter((c) => {
     if (onlyOwned && !ownedIds.includes(c.expansionId)) return false
     if (deckFilter !== 'all' && c.deckType !== deckFilter) return false
+    // Grundspiel/Erweiterung-Filter gilt nur für Reisekarten, nicht für Stadtkarten.
+    if (c.deckType === 'travel' && !matchesSource(source, c.expansionId)) return false
     return true
-  }), [onlyOwned, ownedIds, deckFilter])
+  }), [onlyOwned, ownedIds, deckFilter, source])
 
   const byExpansion = useMemo(() => {
     const map = new Map<string, TravelCard[]>()
@@ -151,6 +154,7 @@ export default function TravelCardsPage() {
             { value: 'city', label: lang === 'de' ? 'Stadt' : 'City' },
           ]}
         />
+        {deckFilter !== 'city' && <SourceFilter value={source} onChange={setSource} />}
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
         <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>

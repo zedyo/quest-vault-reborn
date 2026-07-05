@@ -8,7 +8,7 @@
 
 ## Wichtige Hinweise
 
-- Jede Klasse gehört zu einem Archetyp (Krieger, Heiler, Magier, Späher)
+- Jede Klasse gehört zu einem Archetyp (Krieger, Heiler, Magier, Kundschafter)
 - Jede Klasse hat ein Startdeck (enthält immer mindestens eine Startkarte, die kostenlos ist)
 - Weitere Fähigkeiten werden mit XP erworben
 - Beschwörungs-Begleiter (Summoned Companions) haben eigene Werte-Karten und werden wie kleine Monster behandelt
@@ -38,12 +38,12 @@
 | Hexer | Hexer | Magier | Labyrinth des Verderbens | – | ✅ |
 | Beschwörer | Conjurer | Magier | Schatten von Nerekhall | – | ✅ |
 | Elementalist | Elementalist | Magier | Unsterbliche Legenden | – | ✅ |
-| Dieb | Thief | Späher | Grundspiel | – | ✅ |
-| Wildläufer | Wildlander | Späher | Grundspiel | – | ✅ |
-| Jäger | Stalker | Späher | Die Trollsümpfe | – | ✅ |
-| Schatzsucher | Treasure Hunter | Späher | Labyrinth des Verderbens | – | ✅ |
-| Kopfgeldjäger | Bounty Hunter | Späher | Schloss Rabenfels | – | ✅ |
-| Schattenwandler | Shadow Walker | Späher | Schatten von Nerekhall | Schattenwesenheit | ✅ |
+| Dieb | Thief | Kundschafter | Grundspiel | – | ✅ |
+| Wildläufer | Wildlander | Kundschafter | Grundspiel | – | ✅ |
+| Jäger | Stalker | Kundschafter | Die Trollsümpfe | – | ✅ |
+| Schatzsucher | Treasure Hunter | Kundschafter | Labyrinth des Verderbens | – | ✅ |
+| Kopfgeldjäger | Bounty Hunter | Kundschafter | Schloss Rabenfels | – | ✅ |
+| Schattenwandler | Shadow Walker | Kundschafter | Schatten von Nerekhall | Schattenwesenheit | ✅ |
 
 ---
 
@@ -421,11 +421,11 @@
 
 ---
 
-## Archetyp: Späher
+## Archetyp: Kundschafter
 
 ### Dieb (Thief) – Grundspiel
 
-**Archetyp:** Späher | **Erweiterung:** base  
+**Archetyp:** Kundschafter | **Erweiterung:** base  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
@@ -444,7 +444,7 @@
 
 ### Wildläufer (Wildlander) – Grundspiel
 
-**Archetyp:** Späher | **Erweiterung:** base  
+**Archetyp:** Kundschafter | **Erweiterung:** base  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
@@ -463,7 +463,7 @@
 
 ### Jäger (Stalker) – Die Trollsümpfe
 
-**Archetyp:** Späher | **Erweiterung:** the-trollfens  
+**Archetyp:** Kundschafter | **Erweiterung:** the-trollfens  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
@@ -482,7 +482,7 @@
 
 ### Schatzsucher (Treasure Hunter) – Labyrinth des Verderbens
 
-**Archetyp:** Späher | **Erweiterung:** labyrinth-of-ruin  
+**Archetyp:** Kundschafter | **Erweiterung:** labyrinth-of-ruin  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
@@ -501,7 +501,7 @@
 
 ### Kopfgeldjäger (Bounty Hunter) – Schloss Rabenfels
 
-**Archetyp:** Späher | **Erweiterung:** manor-of-ravens  
+**Archetyp:** Kundschafter | **Erweiterung:** manor-of-ravens  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
@@ -520,7 +520,7 @@
 
 ### Schattenwandler (Shadow Walker) – Schatten von Nerekhall
 
-**Archetyp:** Späher | **Erweiterung:** shadow-of-nerekhall  
+**Archetyp:** Kundschafter | **Erweiterung:** shadow-of-nerekhall  
 ✅ Kartendaten vollständig (v1.1.2, any2cards-Strukturdaten; DE = Community-Übersetzung)
 
 | Karte (DE) | Karte (EN) | XP | Ausdauer | Kartentext (DE) |
