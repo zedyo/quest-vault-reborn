@@ -20,6 +20,18 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.5.0',
+    date: '2026-07-05',
+    title: 'Session-Tracker – Szenario-Protokoll (Teil 2)',
+    highlights: [
+      'Neuer Tab „Szenarien" im Session-Tracker: Halte fest, welches Szenario deine Gruppe gespielt hat – aus einer Titel-Liste je Kampagne (alle 9 offiziellen Kampagnen), aus den Nebenquests/Gerüchten oder als Freitext, jeweils mit Akt und Ausgang.',
+      'Pro Szenario trägst du die Belohnungen ein: Erfahrung je Held, Overlord-XP, Partei-Gold sowie erhaltene Gegenstände, Relikte und Overlord-Belohnungskarten.',
+      'Einkauf & Ausbildung: gekaufte und verkaufte Gegenstände (auch Startausrüstung), neu gelernte Klassen-Fähigkeiten und vom Overlord gekaufte Klassenkarten.',
+      'Alles wird automatisch auf den aktuellen Stand angerechnet – die Übersicht (Akt, Partei-Gold, Overlord-XP, Fähigkeiten/Gegenstände je Held) aktualisiert sich sofort. Ein Szenario löschen macht seine Belohnungen exakt wieder rückgängig.',
+      'Nur Szenario-Titel + Akt werden gespeichert (keine Questbuch-Inhalte); der komplette Verlauf bleibt im JSON-Export enthalten.',
+    ],
+  },
+  {
     version: '1.4.0',
     date: '2026-07-05',
     title: 'Session-Tracker – laufende Kampagne festhalten (Teil 1: Setup)',

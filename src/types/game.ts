@@ -347,6 +347,24 @@ export interface Campaign {
 }
 
 /**
+ * Ein Szenario/Quest einer offiziellen Kampagne – BEWUSST NUR faktische Metadaten:
+ * offizieller Titel (DE/EN) + Akt + nominale Reihenfolge. KEINE Questbuch-Inhalte
+ * (Ziele/Monster/Aufbauten/Story = FFG-Urheberrecht). Quelle: offizielle deutsche
+ * Questhandbücher (Titel) + Community-DBs (EN-Anker), siehe campaignScenarios.ts.
+ */
+export interface CampaignScenario {
+  /** kebab-case, eindeutig INNERHALB der Kampagne (dient als Referenz-ID). */
+  id: string
+  /** Offizieller deutscher Questbuch-Titel. */
+  titleDe: string
+  /** Offizieller englischer Titel (Community-Anker); fehlt, wo nicht verlässlich belegt. */
+  titleEn?: string
+  act: 1 | 2
+  /** Nominale Anzeigereihenfolge innerhalb der Kampagne. */
+  order: number
+}
+
+/**
  * Eine „Advanced Quest" (Rumor-Quest) aus den kleinen Erweiterungs-Packs.
  * Quelle: any2cards `advanced-quests.js`. Es werden NUR faktische Metadaten
  * erfasst (Titel, Erweiterung, Akt, Reise-Geländetypen) + Kartenbild-Links;

@@ -2,7 +2,14 @@
 // Helden, Seeding von Start-Skills/-Ausrüstung aus der Klasse, sowie ID→Name-
 // Auflösung für die Anzeige (statische Daten). Keine React-Abhängigkeit.
 
-import type { HeroClass, ShopItem, Relic, Hero, ClassStartingItem } from '../../types/game'
+import type {
+  HeroClass,
+  ShopItem,
+  Relic,
+  Hero,
+  ClassStartingItem,
+  ClassSkill,
+} from '../../types/game'
 import type { CampaignSession, ItemRef, TrackedHero, TrackedOverlord } from '../../types/session'
 import { HERO_CLASSES } from '../../data/heroClasses'
 import { SHOP_ITEMS, RELICS } from '../../data/items'
@@ -104,4 +111,27 @@ export function withClass(hero: TrackedHero, cls: HeroClass | null): TrackedHero
     startingSkillIds: classStartingSkillIds(cls),
     startingItemRefs: classStartingItemRefs(cls),
   }
+}
+
+// ── Kosten-Helfer (Phase 2: Szenario-Belohnungen/-Einkauf) ────────────────────
+
+/** Marktpreis eines Gegenstands (Marktkarte); Relikte/eigene Gegenstände = 0. */
+export function itemBaseCost(ref: ItemRef): number {
+  return ref.source === 'shop' ? SHOP_BY_ID[ref.dataId]?.cost ?? 0 : 0
+}
+
+/** Standard-Verkaufserlös = halber Marktpreis, abgerundet. */
+export function sellRefund(ref: ItemRef): number {
+  return Math.floor(itemBaseCost(ref) / 2)
+}
+
+/** XP-Kosten einer Fähigkeit als Zahl ('elemental' → 0). */
+export function skillCost(skill: ClassSkill): number {
+  return typeof skill.xpCost === 'number' ? skill.xpCost : 0
+}
+
+/** Anzeige-Label eines getrackten Helden: „Heldenname (Spieler)". */
+export function heroDisplayName(hero: TrackedHero): string {
+  const name = HERO_BY_ID[hero.heroId]?.name ?? hero.heroId
+  return hero.playerName.trim() ? `${name} (${hero.playerName.trim()})` : name
 }
