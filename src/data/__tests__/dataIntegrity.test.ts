@@ -237,6 +237,19 @@ describe('Helden-Klassen-Datenintegrität', () => {
     }
     expect(errors, errors.join('\n')).toEqual([])
   })
+
+  it('jede Startausrüstung + jeder Begleiter hat ein deutsches Kartenbild (public/cards/de/classes)', () => {
+    const files = import.meta.glob('/public/cards/de/classes/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing: string[] = []
+    for (const c of HERO_CLASSES) {
+      for (const it of c.startingEquipment ?? []) {
+        if (!present.has(it.id)) missing.push(`item ${it.id}`)
+      }
+      if (c.familiar && !present.has(`familiar-${c.id}`)) missing.push(`familiar-${c.id}`)
+    }
+    expect(missing, `fehlende Klassen-Kartenbilder: ${missing.join(', ')}`).toEqual([])
+  })
 })
 
 describe('Overlord-Klassen-Datenintegrität', () => {

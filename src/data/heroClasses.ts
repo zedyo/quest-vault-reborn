@@ -14,7 +14,7 @@ export const HERO_CLASSES: HeroClass[] = [
     expansionId: 'base',
     startingEquipment: [
       {
-        id: 'berserker-axt', nameDe: 'Axt', nameEn: 'Axe',
+        id: 'berserker-axt', nameDe: 'Schartige Kriegsaxt', nameEn: 'Axe',
         type: 'Axt',
         rulesDe: 'Schub: +1 Herz. Schub: +1 Herz.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/warriors/berserker/bg-chipped-greataxe.png',
@@ -687,7 +687,7 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lair-of-the-wyrm/warriors/champion/lw-horn-of-courage.png',
       },
       {
-        id: 'champion-zweihaender', nameDe: 'Zweihänder', nameEn: 'Worn Greatsword',
+        id: 'champion-zweihaender', nameDe: 'Schartiger Zweihänder', nameEn: 'Worn Greatsword',
         type: 'Klinge',
         rulesDe: 'Vor einem eigenen Angriffswurf kannst du 1 Erschöpfung erleiden, um dem Angriff +1 Schub zu geben. Schub: +1 Herz.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lair-of-the-wyrm/warriors/champion/lw-worn-greatsword.png',
@@ -1459,7 +1459,7 @@ export const HERO_CLASSES: HeroClass[] = [
     expansionId: 'labyrinth-of-ruin',
     startingEquipment: [
       {
-        id: 'hexer-stab-des-grabes', nameDe: 'Stab des Grabes', nameEn: 'Staff of the Grave',
+        id: 'hexer-stab-des-grabes', nameDe: 'Grabesstab', nameEn: 'Staff of the Grave',
         type: 'Magie, Stab',
         rulesDe: 'Schub: +1 Reichweite. Schub: +1 Herz und du gewinnst 1 Herz zurück.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/mages/hexer/lr-staff-of-the-grave.png',
@@ -1992,13 +1992,13 @@ export const HERO_CLASSES: HeroClass[] = [
     expansionId: 'shadow-of-nerekhall',
     startingEquipment: [
       {
-        id: 'shadowwalker-gefiederte-axt', nameDe: 'Gefiederte Axt', nameEn: 'Feathered Hatchet',
+        id: 'shadowwalker-gefiederte-axt', nameDe: 'Gefiedertes Beil', nameEn: 'Feathered Hatchet',
         type: 'Axt, Exotisch',
         rulesDe: 'Schub: +1 Reichweite. Schub: Blutung.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-feathered-hatchet.png',
       },
       {
-        id: 'shadowwalker-umhang', nameDe: 'Umhang', nameEn: 'Tribal Cloak',
+        id: 'shadowwalker-umhang', nameDe: 'Eingeborenen-Umhang', nameEn: 'Tribal Cloak',
         type: 'Umhang',
         rulesDe: 'Erschöpfe diese Karte, wenn du eine Aktion Ausruhen ausführst. Solange diese Karte erschöpft ist, kannst du 1 zusätzlichen braunen Würfel bei der Verteidigung werfen.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-tribal-cloak.png',

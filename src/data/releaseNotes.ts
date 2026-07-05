@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.21',
+    date: '2026-07-05',
+    title: 'Deutsche Kartenbilder für Klassen-Startausrüstung & Begleiter',
+    highlights: [
+      'Klassenübersicht: Startausrüstung und Begleiter zeigen jetzt die deutschen Original-Kartenbilder (37 Startgegenstände + 4 Begleiter – Wolf, Untoter Diener, Belebter Stein, Schattenseele). Klick vergrößert die Karte.',
+      'Einige Startgegenstände tragen jetzt ihren vollständigen Kartennamen (z. B. „Schartige Kriegsaxt" statt „Axt", „Gefiedertes Beil", „Eingeborenen-Umhang", „Grabesstab").',
+    ],
+  },
+  {
     version: '1.3.20',
     date: '2026-07-05',
     title: 'Nahkampf/Fernkampf bei Monstern + Suchfeld-Feinschliff',

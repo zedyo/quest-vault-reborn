@@ -8,6 +8,7 @@ import { ArchetypeIcon } from '../components/ArchetypeIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
+import { classItemDeUrl, classFamiliarDeUrl } from '../data/assetUrls'
 import type { HeroClass, ClassSkill, HeroArchetype } from '../types/game'
 
 const ARCHETYPE_DE: Record<HeroArchetype, string> = {
@@ -29,11 +30,14 @@ const ARCHETYPE_ACTIVE: Record<HeroArchetype, string> = {
 
 // ── Kartenbild-Vorschau + Lightbox ──────────────────────────────────────────
 
-interface LightboxState { src: string; name: string }
+interface LightboxState { srcs: string[]; name: string }
 
-function CardThumb({ src, name, onOpen }: { src: string; name: string; onOpen: () => void }) {
-  const [err, setErr] = useState(false)
-  if (err) return null
+// Bevorzugt das deutsche Original-Kartenbild; fällt bei Ladefehler auf das
+// englische any2cards-Bild zurück, sonst wird die Vorschau ausgeblendet.
+function CardThumb({ srcs, name, onOpen }: { srcs: string[]; name: string; onOpen: () => void }) {
+  const [idx, setIdx] = useState(0)
+  const src = srcs[idx]
+  if (!src) return null
   return (
     <button
       type="button"
@@ -41,8 +45,18 @@ function CardThumb({ src, name, onOpen }: { src: string; name: string; onOpen: (
       onClick={(e) => { e.stopPropagation(); onOpen() }}
       title="Karte vergrößern"
     >
-      <img src={src} alt={name} className="w-full h-auto" onError={() => setErr(true)} loading="lazy" />
+      <img src={src} alt={name} className="w-full h-auto" onError={() => setIdx((i) => i + 1)} loading="lazy" />
     </button>
+  )
+}
+
+// Bild im Lightbox mit demselben Fallback (DE → EN).
+function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
+  const [idx, setIdx] = useState(0)
+  const src = srcs[idx]
+  if (!src) return null
+  return (
+    <img src={src} alt={name} onError={() => setIdx((i) => i + 1)} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
   )
 }
 
@@ -96,7 +110,10 @@ function FamiliarBlock({ cls, lang, onImageOpen }: { cls: HeroClass; lang: 'de' 
         Begleiter: {name}
       </div>
       <div className="flex gap-2">
-        {f.imageUrl && <CardThumb src={f.imageUrl} name={name} onOpen={() => onImageOpen({ src: f.imageUrl!, name })} />}
+        {(() => {
+          const srcs = [classFamiliarDeUrl(cls.id), f.imageUrl].filter(Boolean) as string[]
+          return srcs.length ? <CardThumb srcs={srcs} name={name} onOpen={() => onImageOpen({ srcs, name })} /> : null
+        })()}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-xs text-gray-400 mb-1">
             {f.speed != null && <span>Bewegung: <span className="text-gray-200">{f.speed}</span></span>}
@@ -124,7 +141,10 @@ function StartingEquipmentBlock({ cls, lang, onImageOpen }: { cls: HeroClass; la
           const rules = lang === 'en' && it.rulesEn ? it.rulesEn : it.rulesDe
           return (
             <div key={it.id} className="flex gap-2">
-              {it.imageUrl && <CardThumb src={it.imageUrl} name={name} onOpen={() => onImageOpen({ src: it.imageUrl!, name })} />}
+              {(() => {
+                const srcs = [classItemDeUrl(it.id), it.imageUrl].filter(Boolean) as string[]
+                return srcs.length ? <CardThumb srcs={srcs} name={name} onOpen={() => onImageOpen({ srcs, name })} /> : null
+              })()}
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs font-semibold text-gray-200">{name}</span>
@@ -220,7 +240,7 @@ export default function ClassesPage() {
       {lightbox && (
         <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={lightbox.name} backdropClassName="bg-black/85" className="relative max-w-xs w-full">
           <button onClick={() => setLightbox(null)} className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm">✕ Schließen</button>
-          <img src={lightbox.src} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+          <LightboxImg srcs={lightbox.srcs} name={lightbox.name} />
         </ModalOverlay>
       )}
 

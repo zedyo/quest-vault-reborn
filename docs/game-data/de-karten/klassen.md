@@ -438,3 +438,24 @@ Hybrid-Klassen tragen eine Startkarte, die sie mit einem Standard-Klassendeck ei
 - **Archetyp-Filter:** Krieger/Heiler/Magier/**Kundschafter** (mit runden `ArchetypeIcon`-Symbolen)
   jetzt auch in der Klassenübersicht. Archetyp „Späher" heißt projektweit „Kundschafter"
   (`ARCHETYPE_LABELS`, Regelbuch-Begriff).
+
+---
+
+## v1.3.21 – Deutsche Kartenbilder für Startausrüstung + Begleiter
+
+Alle **37 Startausrüstungs-Karten** + **4 Begleiter** liegen jetzt als deutsche Original-Kartenbilder
+lokal vor (`public/cards/de/classes/<item-id>.webp` bzw. `familiar-<class-id>.webp`, webp ~475 px, ≤150 KB).
+ClassesPage bevorzugt das DE-Bild, fällt bei Ladefehler auf das any2cards-EN-Bild zurück
+(`classItemDeUrl`/`classFamiliarDeUrl` in `assetUrls.ts`).
+
+- **Quelle:** `Descent.Scans.zip` (Release `scans-transfer`, s. `scan-sources.md`). Grundspiel + die meisten
+  Erweiterungs-Standardklassen aus den 4 `Klassenkarten`-Blättern (10×7-Raster, per Position zugeschnitten,
+  jede Karte per Montage visuell verifiziert). Elementarmagier (Runenspeicher/Energiebündel) + Seelenschnitter
+  (Seelenernter) aus den einzelnen `Klasse …`-PNGs.
+- **5 Namens-Korrekturen** (Anzeigename an den Kartentitel angeglichen; `id` unverändert):
+  - `berserker-axt`: „Axt" → **Schartige Kriegsaxt**
+  - `champion-zweihaender`: „Zweihänder" → **Schartiger Zweihänder**
+  - `shadowwalker-gefiederte-axt`: „Gefiederte Axt" → **Gefiedertes Beil**
+  - `shadowwalker-umhang`: „Umhang" → **Eingeborenen-Umhang**
+  - `hexer-stab-des-grabes`: „Stab des Grabes" → **Grabesstab**
+- **Test:** `dataIntegrity.test.ts` prüft, dass jede Startausrüstung + jeder Begleiter ein DE-Bild hat.
