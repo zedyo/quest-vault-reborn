@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.18',
+    date: '2026-07-05',
+    title: 'Errata & FAQ jetzt auch bei Monsterfähigkeiten und Szenarien',
+    highlights: [
+      'Monsterfähigkeiten-Errata (z. B. Feuerodem, Durchbohren, Netz, Beschützen) erscheinen jetzt direkt am jeweiligen Monster in der Monster-Übersicht – aufklappbar an der Monsterkarte. Zusätzlich gibt es oben auf der Monster-Seite ein durchsuchbares Sammel-Panel mit allen Fähigkeits-Klarstellungen.',
+      'Szenario-Errata sind in der Kampagnen-Übersicht bei der jeweiligen Kampagne aufklappbar (mit Szenarionamen) – so gehen sie nicht nur in den Regelklärungen unter.',
+      'Der Held Augur Grisom zeigt jetzt korrekt seine Errata (Namensvariante „Augur Grimson" aus dem CRRG verknüpft).',
+    ],
+  },
+  {
     version: '1.3.17',
     date: '2026-07-05',
     title: 'Errata & FAQ aus dem Community Rules Reference Guide',

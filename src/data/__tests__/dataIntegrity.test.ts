@@ -25,7 +25,7 @@ import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
 import { ERRATA } from '../errata'
 import { RULE_CLARIFICATIONS, CRRG_SOURCE } from '../ruleClarifications'
-import { LINKED_ERRATA, getErrata, ERRATA_LINK_STATS } from '../errataLinks'
+import { LINKED_ERRATA, getErrata, getMonsterAbilityErrata, MONSTER_ABILITY_ERRATA, ERRATA_LINK_STATS } from '../errataLinks'
 import type { DieColor, MonsterStats, OverlordCardType, ErrataScope } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
@@ -1002,5 +1002,33 @@ describe('CRRG – Verknüpfung an Karten (errataLinks)', () => {
     const cwellin = getErrata('hero', 'high-mage-quellen')
     expect(cwellin.length).toBeGreaterThan(0)
     expect(cwellin.some((e) => e.nameDe.includes('Cwellin'))).toBe(true)
+  })
+
+  it('Alias: „Augur Grimson" (CRRG) ist an Held „Augur Grisom" verknüpft', () => {
+    const augur = getErrata('hero', 'augur-grisom')
+    expect(augur.some((e) => e.nameDe.includes('Augur'))).toBe(true)
+  })
+})
+
+describe('CRRG – Monsterfähigkeiten-Errata je Monster', () => {
+  it('ordnet Fähigkeits-Errata den Monstern zu, die die Fähigkeit besitzen', () => {
+    // Schattendrache hat „Feuerodem", Arachyura „Durchbohren", Höhlenspinne „Netz"
+    expect(getMonsterAbilityErrata('shadow-dragon').some((e) => e.nameDe === 'Feuerodem')).toBe(true)
+    expect(getMonsterAbilityErrata('arachyura').some((e) => e.nameDe === 'Durchbohren')).toBe(true)
+    expect(getMonsterAbilityErrata('cave-spider').some((e) => e.nameDe === 'Netz')).toBe(true)
+  })
+
+  it('viele Monster haben zugeordnete Fähigkeits-Errata', () => {
+    const withAbility = MONSTERS.filter((m) => getMonsterAbilityErrata(m.id).length > 0)
+    expect(withAbility.length).toBeGreaterThan(8)
+  })
+
+  it('zugeordnete Fähigkeits-Errata stammen aus der monster-ability-Menge', () => {
+    const abilityIds = new Set(MONSTER_ABILITY_ERRATA.map((e) => e.id))
+    for (const m of MONSTERS) {
+      for (const e of getMonsterAbilityErrata(m.id)) {
+        expect(abilityIds.has(e.id), `${m.id}: ${e.id} nicht in monster-ability`).toBe(true)
+      }
+    }
   })
 })

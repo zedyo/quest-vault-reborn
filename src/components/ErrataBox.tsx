@@ -73,12 +73,15 @@ export default function ErrataBox({
   entries,
   className = '',
   showEntryNames = false,
+  title = 'Errata & FAQ',
 }: {
   entries: ErrataEntry[]
   className?: string
   /** Zeigt pro Eintrag den Komponentennamen als Zwischenüberschrift (z. B. bei
    *  Kampagnen mit mehreren Abenteuer-Errata). */
   showEntryNames?: boolean
+  /** Überschrift der Box (Default „Errata & FAQ"). */
+  title?: string
 }) {
   if (!entries.length) return null
   return (
@@ -87,7 +90,7 @@ export default function ErrataBox({
     >
       <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[11px] hover:bg-amber-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500">
         <span aria-hidden>📖</span>
-        <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Errata &amp; FAQ</span>
+        <span className="font-semibold text-amber-300/90 uppercase tracking-wide">{title}</span>
         {entries.length > 1 && <span className="text-amber-400/70">({entries.length})</span>}
         <span className="text-gray-500 normal-case tracking-normal">· CRRG V1.15</span>
         <span className="ml-auto text-gray-500 text-[9px] transition-transform group-open:rotate-180" aria-hidden>

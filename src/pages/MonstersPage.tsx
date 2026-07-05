@@ -7,8 +7,9 @@ import { DicePip } from '../components/DiceDisplay'
 import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
-import ErrataBox from '../components/ErrataBox'
-import { getErrata } from '../data/errataLinks'
+import ErrataBox, { ErrataEntryBody } from '../components/ErrataBox'
+import { getErrata, getMonsterAbilityErrata, MONSTER_ABILITY_ERRATA } from '../data/errataLinks'
+import { CRRG_SOURCE } from '../data/ruleClarifications'
 import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
@@ -395,14 +396,64 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
           </div>
         </div>
 
-        <div className="px-4 pb-4">
+        <div className="px-4 pb-4 space-y-2">
           <ErrataBox entries={getErrata('monster', monster.id)} />
+          <ErrataBox
+            entries={getMonsterAbilityErrata(monster.id)}
+            showEntryNames
+            title="Fähigkeiten – Errata & FAQ"
+          />
         </div>
     </ModalOverlay>
   )
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
+
+/**
+ * Sammel-Panel aller Monsterfähigkeiten-Errata/FAQ (CRRG). Monsterfähigkeiten
+ * sind Schlagwörter ohne eigene Karte – hier sind sie im Monster-Bereich
+ * durchsuchbar gebündelt (zusätzlich erscheinen sie am jeweiligen Monster).
+ */
+function AbilityErrataPanel({ search }: { search: string }) {
+  const q = search.trim().toLowerCase().replace(/ß/g, 'ss')
+  const list = useMemo(() => {
+    if (!q) return MONSTER_ABILITY_ERRATA
+    return MONSTER_ABILITY_ERRATA.filter((e) => {
+      if (e.nameDe.toLowerCase().replace(/ß/g, 'ss').includes(q)) return true
+      return e.groups.some((g) => g.points.some((p) => p.toLowerCase().replace(/ß/g, 'ss').includes(q)))
+    })
+  }, [q])
+  if (!list.length) return null
+  return (
+    <details className="group rounded border border-amber-800/40 bg-amber-950/15 open:bg-amber-950/25">
+      <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-3 py-2 text-xs hover:bg-amber-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500">
+        <span aria-hidden>📖</span>
+        <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Monsterfähigkeiten – Errata &amp; FAQ</span>
+        <span className="text-amber-400/70">({list.length})</span>
+        <span className="text-gray-500 normal-case tracking-normal">· CRRG V1.15</span>
+        <span className="ml-auto text-gray-500 text-[9px] transition-transform group-open:rotate-180" aria-hidden>▾</span>
+      </summary>
+      <div className="px-3 pb-3 pt-1 border-t border-amber-900/30">
+        <p className="text-[11px] text-gray-500 mb-2">
+          Fähigkeits-Schlagwörter (Feuerodem, Durchbohren, Netz …). Am jeweiligen Monster erscheinen zusätzlich nur die dort vorhandenen Fähigkeiten.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
+          {list.map((e) => (
+            <div key={e.id} className="rounded bg-dungeon-900/40 border border-dungeon-700 p-2 space-y-1">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="text-gray-100 font-semibold text-sm">{e.nameDe}</span>
+                <span className="text-[10px] text-gray-600">S. {e.page}</span>
+              </div>
+              <ErrataEntryBody entry={e} />
+            </div>
+          ))}
+        </div>
+        <p className="text-[10px] text-gray-600 italic mt-2">Quelle: {CRRG_SOURCE}</p>
+      </div>
+    </details>
+  )
+}
 
 export default function MonstersPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -552,6 +603,8 @@ export default function MonstersPage() {
         </div>
       )}
 
+      <AbilityErrataPanel search={search} />
+
       {grouped.size === 0 ? (
         <div className="card text-center text-gray-500 py-12">
           Keine Monster gefunden. Passe deine Suche oder Sammlung an.
@@ -617,6 +670,12 @@ export default function MonstersPage() {
                               {masterStats && <StatBlock stats={masterStats} label="Elite" isElite compact />}
                             </div>
                             {m.groupSizes && <GroupSizeBlock groupSizes={m.groupSizes} />}
+                            <ErrataBox entries={getErrata('monster', m.id)} />
+                            <ErrataBox
+                              entries={getMonsterAbilityErrata(m.id)}
+                              showEntryNames
+                              title="Fähigkeiten – Errata & FAQ"
+                            />
                           </div>
                         </div>
                       </div>
