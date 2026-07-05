@@ -4,14 +4,14 @@ import { EXPANSIONS } from '../data/expansions'
 import { monsterCardDeUrl } from '../data/assetUrls'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
+import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, MeleeIcon, RangedIcon, renderGameTextInline } from '../components/GameSymbols'
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox, { ErrataEntryBody } from '../components/ErrataBox'
 import { getErrata, getMonsterAbilityErrata, MONSTER_ABILITY_ERRATA } from '../data/errataLinks'
 import { CRRG_SOURCE } from '../data/ruleClarifications'
 import { SearchInput, OwnedToggle, SegmentedControl, SourceFilter, matchesSource, type Source } from '../components/Filters'
-import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
+import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition, AttackType } from '../types/game'
 
 /**
  * Returns merged stats for the requested act:
@@ -201,11 +201,13 @@ interface StatBlockProps {
   stats: MonsterStats
   label: string
   isElite?: boolean
+  /** Angriffsart der Gruppe – als Icon hinter den Angriffswürfeln (Nahkampf/Fernkampf) */
+  attackType?: AttackType
   /** compact=true uses smaller sizes (for grid cards); false uses lightbox sizes */
   compact?: boolean
 }
 
-function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
+function StatBlock({ stats, label, isElite, attackType, compact = true }: StatBlockProps) {
   const textCls = compact ? 'text-xs' : 'text-sm'
   const sectionHeaderCls = compact ? 'text-[10px]' : 'text-xs'
   const sectionTextCls = compact ? 'text-[10px]' : 'text-xs'
@@ -242,8 +244,10 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
           <AttackIcon size={iconSize} /><span className={labelCls}>Angriff</span>
         </span>
-        <div className="flex gap-0.5 flex-wrap">
+        <div className="flex items-center gap-0.5 flex-wrap">
           {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
+          {attackType === 'melee' && <span className="ml-1 inline-flex" title="Nahkampf"><MeleeIcon size={iconSize + 2} /></span>}
+          {attackType === 'range' && <span className="ml-1 inline-flex" title="Fernkampf"><RangedIcon size={iconSize + 2} /></span>}
         </div>
       </div>
 
@@ -389,10 +393,10 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
 
           <div className="flex-1 space-y-3">
             {normalStats && (
-              <StatBlock stats={normalStats} label="Diener" compact={false} />
+              <StatBlock stats={normalStats} label="Diener" attackType={monster.attackType} compact={false} />
             )}
             {masterStats && (
-              <StatBlock stats={masterStats} label="Meister" isElite compact={false} />
+              <StatBlock stats={masterStats} label="Meister" isElite attackType={monster.attackType} compact={false} />
             )}
             {monster.groupSizes && (
               <GroupSizeBlock groupSizes={monster.groupSizes} compact={false} />
@@ -673,8 +677,8 @@ export default function MonstersPage() {
                               </div>
                             )}
                             <div className="flex gap-2">
-                              {normalStats && <StatBlock stats={normalStats} label="Diener" compact />}
-                              {masterStats && <StatBlock stats={masterStats} label="Meister" isElite compact />}
+                              {normalStats && <StatBlock stats={normalStats} label="Diener" attackType={m.attackType} compact />}
+                              {masterStats && <StatBlock stats={masterStats} label="Meister" isElite attackType={m.attackType} compact />}
                             </div>
                             {m.groupSizes && <GroupSizeBlock groupSizes={m.groupSizes} />}
                             <ErrataBox entries={getErrata('monster', m.id)} />

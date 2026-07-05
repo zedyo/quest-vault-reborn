@@ -138,6 +138,18 @@ describe('Monster-Datenintegrität', () => {
     }
     expect(errors, errors.join('\n')).toEqual([])
   })
+
+  it('Angriffsart (attackType) vollständig und gültig (melee | range)', () => {
+    const errors: string[] = []
+    for (const m of MONSTERS) {
+      if (m.attackType == null) {
+        errors.push(`${m.id}: attackType fehlt`)
+      } else if (m.attackType !== 'melee' && m.attackType !== 'range') {
+        errors.push(`${m.id}: attackType '${m.attackType}' ungültig`)
+      }
+    }
+    expect(errors, errors.join('\n')).toEqual([])
+  })
 })
 
 describe('Helden-Datenintegrität', () => {

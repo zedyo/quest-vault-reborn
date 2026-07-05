@@ -6,6 +6,19 @@ export type Lang = 'de' | 'en'
 
 // ── SearchInput ───────────────────────────────────────────────────────────────
 
+/** Lupen-Icon (fest links im Suchfeld). */
+function MagnifierIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      width="15" height="15" viewBox="0 0 24 24" fill="none"
+      className={className} aria-hidden
+    >
+      <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" strokeWidth="2" />
+      <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export function SearchInput({
   value,
   onChange,
@@ -17,14 +30,19 @@ export function SearchInput({
   placeholder?: string
   className?: string
 }) {
+  // Wrapper trägt die Breiten-Klasse; das Input füllt ihn und lässt links Platz
+  // für das feste Lupen-Icon.
   return (
-    <input
-      type="search"
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className={`bg-dungeon-800 border border-dungeon-700 text-gray-100 rounded px-3 py-2 text-sm focus:outline-none focus:border-gold-500 ${className}`}
-    />
+    <div className={`relative inline-flex items-center ${className}`}>
+      <MagnifierIcon className="pointer-events-none absolute left-3 text-gray-500" />
+      <input
+        type="search"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full bg-dungeon-800 border border-dungeon-700 text-gray-100 placeholder:text-gray-500 rounded pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-gold-500"
+      />
+    </div>
   )
 }
 

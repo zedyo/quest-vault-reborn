@@ -2027,3 +2027,20 @@ Ettin, Riese) haben kleinere Gruppen, Schwärme (z. B. Kobold) deutlich größer
 | Unkindness | Bosheit | Schloss Rabenfels |
 | Shadowmancer | Schattenmagier | Schatten von Nerekhall |
 | Soulbinder | Seelenbinder | Rostende Ketten |
+
+---
+
+## v1.3.20 – Angriffsart (Nahkampf/Fernkampf)
+
+Neues Feld `attackType: 'melee' | 'range'` im `Monster`-Typ (`src/types/game.ts`),
+für **alle 56 Monstergruppen** gesetzt (37 Nahkampf, 19 Fernkampf).
+
+- **Quelle:** any2cards `data/monsters.js` (Feld `attack`: `Melee`/`Range`), je Monster
+  über den englischen Namen zugeordnet. Die Angriffsart ist pro Gruppe eindeutig
+  (Diener + Meister, Akt 1 + Akt 2 identisch) – keine Konflikte in der Quelle.
+- **Anzeige:** In der Monster-Übersicht erscheint hinter den Angriffswürfeln ein Icon –
+  **rote Kriegsaxt** = Nahkampf, **grüner Bogen** = Fernkampf (`MeleeIcon`/`RangedIcon`
+  in `GameSymbols.tsx`), angelehnt an die Kartensymbole. Sowohl in den Grid-Karten als
+  auch in der Lightbox, für Diener- und Meister-Block.
+- **Test:** `dataIntegrity.test.ts` prüft, dass jede Monstergruppe ein gültiges
+  `attackType` (`melee`|`range`) hat.
