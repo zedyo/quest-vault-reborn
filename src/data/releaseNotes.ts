@@ -20,6 +20,18 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.4.0',
+    date: '2026-07-05',
+    title: 'Session-Tracker – laufende Kampagne festhalten (Teil 1: Setup)',
+    highlights: [
+      'Neuer Session-Tracker: Lege eine benannte Session zu einer Kampagne an und halte deinen laufenden Spielstand fest.',
+      'Helden-Setup: Für jeden Helden Spieler, Klasse, Start-Fähigkeiten und Startausrüstung wählen – Startausrüstung und Begleiter werden automatisch aus der Klasse vorbelegt.',
+      'Overlord-Setup: gewählte Decks und besessene Karten, Leutnant mit passendem Plotdeck und Plotkarten, aktive Gerüchte, Overlord-Relikte und Start-XP.',
+      'Alles bleibt offline im Browser gespeichert und lässt sich als JSON-Datei sichern und wieder importieren – so geht kein Spielstand verloren.',
+      'Als Nächstes folgt das Szenario-Protokoll: XP, Gold, Items und Einkauf pro gespieltem Szenario automatisch mitführen.',
+    ],
+  },
+  {
     version: '1.3.21',
     date: '2026-07-05',
     title: 'Deutsche Kartenbilder für Klassen-Startausrüstung & Begleiter',

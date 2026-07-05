@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
+import { useSessionStore } from '../store/useSessionStore'
 import { HEROES } from '../data/heroes'
 import { MONSTERS } from '../data/monsters'
 import { HERO_CLASSES } from '../data/heroClasses'
@@ -10,6 +11,7 @@ import ReleaseNotesModal from '../components/ReleaseNotesModal'
 const TOOLS = [
   { icon: '🗺️', title: 'Kartenbauer', description: 'Spielplan-Plättchen platzieren, drehen und mit Overlays kennzeichnen.', href: '/karte' },
   { icon: '📜', title: 'Quest-Editor', description: 'Quests mit Begegnungen, Zielen, Monstern und Erzähltext erstellen.', href: '/quest' },
+  { icon: '🎲', title: 'Session-Tracker', description: 'Laufende Kampagne festhalten: Helden, Klassen, Ausrüstung und Overlord-Setup.', href: '/session' },
   { icon: '👜', title: 'Meine Sammlung', description: 'Erweiterungen wählen – alle Werkzeuge passen sich an.', href: '/sammlung' },
 ]
 
@@ -34,6 +36,7 @@ const OVERVIEWS = [
 export default function HomePage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const questCount = useGameStore((s) => s.quests.length)
+  const sessionCount = useSessionStore((s) => s.sessions.length)
   const [showReleaseNotes, setShowReleaseNotes] = useState(false)
 
   const ownedMonsters = MONSTERS.filter((m) => ownedIds.includes(m.expansionId)).length
@@ -55,12 +58,13 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto">
         {[
           { label: 'Erweiterungen', value: ownedIds.length },
           { label: 'Monster', value: ownedMonsters },
           { label: 'Helden', value: ownedHeroes },
           { label: 'Quests', value: questCount },
+          { label: 'Sessions', value: sessionCount },
         ].map((s) => (
           <div key={s.label} className="card text-center">
             <p className="text-2xl font-bold text-gold-400">{s.value}</p>
@@ -135,6 +139,7 @@ export default function HomePage() {
                 { icon: '🏰', text: 'Kampagnen-Überblick, Advanced Quests und Reisekarten' },
                 { icon: '📋', text: 'Errata & FAQ aus dem Community Rules Reference Guide – aufklappbar an jeder Karte + durchsuchbare Regelklärungen' },
                 { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
+                { icon: '🎲', text: 'Session-Tracker – laufende Kampagne festhalten: Helden mit Klasse, Fähigkeiten und Ausrüstung + Overlord-Setup; als JSON exportier- und importierbar' },
               ].map((item) => (
                 <li key={item.text} className="flex gap-2 text-sm text-gray-400">
                   <span className="shrink-0 text-base leading-5">{item.icon}</span>
@@ -151,7 +156,7 @@ export default function HomePage() {
             <ul className="space-y-2">
               {[
                 { icon: '❤️', text: 'Monster-Lebenspunkte live tracken – kein Plättchen-Chaos mehr auf dem Tisch' },
-                { icon: '📖', text: 'Komplette Kampagne speichern – Spielstand pausieren und Wochen später weitermachen' },
+                { icon: '📖', text: 'Szenario-Protokoll im Session-Tracker – XP, Gold, Items und Einkauf pro Szenario automatisch mitführen' },
                 { icon: '⚔️', text: 'Overlord-Zentrale – eigenes Deck verwalten, Leutnanten steuern, Helden im Blick behalten' },
                 { icon: '🛡️', text: 'Spieler-Ansicht – jeder Held hat seine eigene Übersicht am Tisch' },
                 { icon: '🔄', text: 'Geräte-Synchronisation – Overlord und Spieler teilen sich denselben Spielstand' },
