@@ -25,9 +25,15 @@ Wichtig: Azure/Blob liefert **501** bei Suffix-Ranges → immer **explizite** Ra
 
 ## Relevanz für offene Aufgaben
 
-- **Klassen-Startausrüstung + Fähigkeiten (DE):** `Karten/Klassenkarten 1..4.jpg` (Grundspiel-Klassenblätter)
-  + `Karten/Klasse <Name> N.png` (Erweiterungsklassen, einzeln).
-- **Begleiter/Vertraute (DE):** `Karten/Vertraute und Gefährtenfähigkeiten.jpg` + `Karten/Gefährten.jpg`.
+- ✅ **Klassen-Startausrüstung + Begleiter (DE) – erledigt (v1.3.21):** aus `Karten/Klassenkarten 1..4.jpg`
+  (**10×7-Raster**, Zellgröße 475×740, je Karte per Position zugeschnitten) + `Karten/Klasse Elementarmagier 1/2.png`
+  (Runenspeicher/Energiebündel) + `Karten/Klasse Seelenschnitter 1.png` (Seelenernter). Begleiter
+  (Wolf/Untoter Diener/Belebter Stein/Schattenseele) liegen ebenfalls auf den `Klassenkarten`-Blättern.
+  Ergebnis: `public/cards/de/classes/<item-id>.webp` + `familiar-<class-id>.webp`.
+  **Fallen:** die einzelnen `Klasse <Name> N.png` von Bewahrer/Gauner/Häretiker/Kreuzritter/Plünderer/
+  Rächer/Verwüster/Wahrsaager sind **Hybrid-Klassen** (Karte 1 = Archetyp-Wahlkarte, KEIN Startgegenstand);
+  `Vertraute und Gefährtenfähigkeiten.jpg` + `Gefährten.jpg` enthalten HELDEN-Vertraute/NSC-Gefährten
+  (Pico/Skye/Raythen/Serena …), NICHT die Klassen-Begleiter.
 - (Weiteres bereits verarbeitet: Helden, Monster, Markt/Relikte, Overlord, Hauptmann, Reise, Gerüchte, Zustände, Overlay-Token.)
 
 ## Vollständiges Datei-Manifest (235 Einträge)

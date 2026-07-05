@@ -178,3 +178,19 @@ export function conditionCardDeUrl(id: string): string {
 export function overlayTokenUrl(id: string): string {
   return `${import.meta.env.BASE_URL}cards/de/overlays/${id}.png`
 }
+
+/**
+ * Lokales deutsches Original-Kartenbild einer Klassen-Startausrüstung
+ * (`public/cards/de/classes/<item-id>.webp`, aus den Klassenkarten-Scans).
+ */
+export function classItemDeUrl(itemId: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/classes/${itemId}.webp`
+}
+
+/**
+ * Lokales deutsches Original-Kartenbild des Klassen-Begleiters
+ * (`public/cards/de/classes/familiar-<class-id>.webp`).
+ */
+export function classFamiliarDeUrl(classId: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/classes/familiar-${classId}.webp`
+}
