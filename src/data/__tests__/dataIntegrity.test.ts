@@ -23,7 +23,10 @@ import {
 } from '../rulesReference'
 import { THEMES, DEFAULT_THEME } from '../../theme'
 import { OVERLAYS, OVERLAY_BY_ID } from '../overlays'
-import type { DieColor, MonsterStats, OverlordCardType } from '../../types/game'
+import { ERRATA } from '../errata'
+import { RULE_CLARIFICATIONS, CRRG_SOURCE } from '../ruleClarifications'
+import { LINKED_ERRATA, getErrata, ERRATA_LINK_STATS } from '../errataLinks'
+import type { DieColor, MonsterStats, OverlordCardType, ErrataScope } from '../../types/game'
 
 const EXPANSION_IDS = new Set(EXPANSIONS.map((e) => e.id))
 
@@ -889,5 +892,115 @@ describe('Erweiterungs-Datenintegrität', () => {
       expect(e.nameEn, `${e.id}: nameEn`).toBeTruthy()
       expect(e.year, `${e.id}: year`).toBeGreaterThan(2010)
     }
+  })
+})
+
+// ── CRRG: Errata, FAQ & Regelklärungen (Community Rules Reference Guide V1.15) ──
+
+const SYMBOL_GLYPHS = /[∏≥±įİĮĲĳĴĵķπμ]/
+
+function errataText(groups: { label: string | null; points: string[] }[], notes: { title: string; points: string[] }[]): string {
+  return [
+    ...groups.flatMap((g) => [g.label ?? '', ...g.points]),
+    ...notes.flatMap((n) => [n.title, ...n.points]),
+  ].join(' ')
+}
+
+describe('CRRG – Regelklärungen (Teil 1)', () => {
+  it('hat keine doppelten IDs', () => {
+    const ids = RULE_CLARIFICATIONS.map((c) => c.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('vollständiger Umfang (164 Begriffe)', () => {
+    expect(RULE_CLARIFICATIONS.length).toBe(164)
+  })
+
+  it('Pflichtfelder + plausible Seiten + Inhalt vorhanden', () => {
+    for (const c of RULE_CLARIFICATIONS) {
+      expect(c.term, `${c.id}: term`).toBeTruthy()
+      expect(c.page, `${c.id}: page`).toBeGreaterThanOrEqual(3)
+      expect(c.page, `${c.id}: page`).toBeLessThanOrEqual(46)
+      expect(c.groups.length + c.notes.length, `${c.id}: kein Inhalt`).toBeGreaterThan(0)
+    }
+  })
+
+  it('keine unübersetzten Symbol-Glyphen im Text', () => {
+    for (const c of RULE_CLARIFICATIONS) {
+      expect(SYMBOL_GLYPHS.test(errataText(c.groups, c.notes)), `${c.id}: rohes Symbol-Glyph`).toBe(false)
+    }
+  })
+})
+
+describe('CRRG – Errata & FAQ (Teil 2)', () => {
+  const VALID_SCOPES = new Set<ErrataScope>([
+    'hero', 'class', 'item', 'overlord', 'plot', 'monster',
+    'monster-ability', 'adventure', 'rumor', 'secret-room', 'other',
+  ])
+
+  it('hat keine doppelten IDs', () => {
+    const ids = ERRATA.map((e) => e.id)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('plausibler Umfang', () => {
+    expect(ERRATA.length).toBeGreaterThan(200)
+  })
+
+  it('gültige scopes, Pflichtfelder, Seiten 47–84, Inhalt vorhanden', () => {
+    for (const e of ERRATA) {
+      expect(VALID_SCOPES.has(e.scope), `${e.id}: scope ${e.scope}`).toBe(true)
+      expect(e.nameDe, `${e.id}: nameDe`).toBeTruthy()
+      expect(e.sectionDe, `${e.id}: sectionDe`).toBeTruthy()
+      expect(e.page, `${e.id}: page`).toBeGreaterThanOrEqual(47)
+      expect(e.page, `${e.id}: page`).toBeLessThanOrEqual(84)
+      expect(e.groups.length + e.notes.length, `${e.id}: leer`).toBeGreaterThan(0)
+    }
+  })
+
+  it('keine unübersetzten Symbol-Glyphen im Text', () => {
+    for (const e of ERRATA) {
+      expect(SYMBOL_GLYPHS.test(errataText(e.groups, e.notes)), `${e.id}: rohes Symbol-Glyph`).toBe(false)
+    }
+  })
+})
+
+describe('CRRG – Verknüpfung an Karten (errataLinks)', () => {
+  it('Quelle nennt Version 1.15', () => {
+    expect(CRRG_SOURCE).toContain('1.15')
+  })
+
+  it('LINKED_ERRATA deckt sich mit ERRATA', () => {
+    expect(LINKED_ERRATA.length).toBe(ERRATA.length)
+    expect(ERRATA_LINK_STATS.total).toBe(ERRATA.length)
+  })
+
+  it('ein Großteil der Einträge ist an eine Karte verknüpft', () => {
+    expect(ERRATA_LINK_STATS.linked).toBeGreaterThan(120)
+  })
+
+  it('jede aufgelöste targetId existiert in der Zieldatenmenge', () => {
+    const sets: Partial<Record<ErrataScope, Set<string>>> = {
+      hero: new Set(HEROES.map((h) => h.id)),
+      class: new Set(HERO_CLASSES.map((c) => c.id)),
+      item: new Set([...SHOP_ITEMS, ...RELICS].map((i) => i.id)),
+      overlord: new Set(OVERLORD_DECKS.flatMap((d) => d.cards.map((c) => c.id))),
+      monster: new Set(MONSTERS.map((m) => m.id)),
+      rumor: new Set(RUMORS.map((r) => r.id)),
+      plot: new Set(PLOT_DECKS.map((d) => d.id)),
+      adventure: new Set(CAMPAIGNS.map((c) => c.id)),
+    }
+    for (const e of LINKED_ERRATA) {
+      if (e.targetId == null) continue
+      const set = sets[e.scope]
+      expect(set, `${e.id}: scope ${e.scope} ohne Zielmenge`).toBeTruthy()
+      expect(set!.has(e.targetId), `${e.id}: targetId '${e.targetId}' fehlt in ${e.scope}`).toBe(true)
+    }
+  })
+
+  it('Beispiel Cwellin: Held-Errata ist an den Helden verknüpft', () => {
+    const cwellin = getErrata('hero', 'high-mage-quellen')
+    expect(cwellin.length).toBeGreaterThan(0)
+    expect(cwellin.some((e) => e.nameDe.includes('Cwellin'))).toBe(true)
   })
 })

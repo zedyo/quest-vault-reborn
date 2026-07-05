@@ -3,6 +3,8 @@ import { CAMPAIGNS, ADVANCED_QUESTS } from '../data/campaigns'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
 import type { Campaign, AdvancedQuest } from '../types/game'
 
@@ -36,6 +38,7 @@ function CampaignCard({ c, lang, expansionName }: { c: Campaign; lang: Lang; exp
         </span>
       </div>
       <p className="text-gray-400 text-xs leading-snug">{c.descriptionDe}</p>
+      <ErrataBox entries={getErrata('adventure', c.id)} showEntryNames />
     </div>
   )
 }

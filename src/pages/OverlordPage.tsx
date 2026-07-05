@@ -4,6 +4,8 @@ import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
 import { overlordCardDeUrl } from '../data/assetUrls'
 import type { OverlordCard, OverlordDeck, OverlordDeckKind, OverlordCardType } from '../types/game'
@@ -109,6 +111,7 @@ function CardRow({ card, lang, onImageOpen }: { card: OverlordCard; lang: Lang; 
         </div>
       </div>
       <div className="text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 13)}</div>
+      <ErrataBox entries={getErrata('overlord', card.id)} />
     </div>
   )
 }

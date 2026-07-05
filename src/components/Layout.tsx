@@ -24,6 +24,7 @@ const DATA = [
   { to: '/geruechte', label: '🗣️ Gerüchte' },
   { to: '/zustaende', label: '🩹 Zustände' },
   { to: '/regeln', label: '📖 Regeln & Referenz' },
+  { to: '/klarstellungen', label: '📋 Errata & FAQ' },
 ]
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

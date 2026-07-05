@@ -6,6 +6,8 @@ import { lieutenantForDeck } from '../data/lieutenantPlotLinks'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
 import type { PlotCard, PlotDeck } from '../types/game'
 
@@ -82,6 +84,7 @@ function DeckBlock({ deck, lang, onImageOpen, highlighted }: { deck: PlotDeck; l
           <PlotCardRow key={c.id} card={c} lang={lang} onImageOpen={() => onImageOpen(c)} />
         ))}
       </div>
+      <ErrataBox entries={getErrata('plot', deck.id)} className="mt-3" />
     </div>
   )
 }

@@ -20,6 +20,17 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.3.17',
+    date: '2026-07-05',
+    title: 'Errata & FAQ aus dem Community Rules Reference Guide',
+    highlights: [
+      'Neu: An Helden, Klassen, Items/Relikten, Overlord-, Plot- und Monster-Karten, Gerüchten und Kampagnen gibt es jetzt eine aufklappbare „Errata & FAQ"-Box (standardmäßig eingeklappt). Sie zeigt offizielle Errata und Regelklärungen aus dem frei verfügbaren Community Rules Reference Guide (CRRG V1.15) – z. B. wie eine Karte genau gemeint ist oder welche offizielle Anpassung es gab.',
+      'Diese Zusatzinfos erweitern die Karten nur als optionale Variante – der Original-Kartentext bleibt unverändert.',
+      'Neue Seite „Errata & FAQ": durchsuchbare Regelklärungen (164 Begriffe alphabetisch) und alle komponentenbezogenen Errata/FAQ nach Schlagwort – mit Verweis auf die jeweilige Karte.',
+      'Quelle jeweils klar angegeben: Community Rules Reference Guide V1.15 (crrg.descent-community.org).',
+    ],
+  },
+  {
     version: '1.3.16',
     date: '2026-06-29',
     title: 'Verbindungsstücke greifen sauber ineinander',

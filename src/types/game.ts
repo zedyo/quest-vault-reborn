@@ -546,3 +546,84 @@ export interface PlacedMonster {
   x: number
   y: number
 }
+
+// ── CRRG: Community Rules Reference Guide (Errata & FAQ) ──────────────────────
+//
+// Zusatzinformationen aus dem frei verfügbaren, von der Community erstellten
+// „Community Rules Reference Guide (CRRG) V1.15" (deutsche Ausgabe,
+// crrg.descent-community.org). Er bündelt die offizielle FFG-Errata + FAQ sowie
+// ~400 inoffizielle Community-FAQs. Diese Daten sind ADDITIV: Sie erweitern die
+// Original-Karten-/Spieldaten als optionale Zusatzinfo/Variante und ersetzen den
+// Original-Kartentext NICHT. Immer als Quelle gekennzeichnet.
+
+/** Anwendungsbereich eines Errata-Eintrags (bestimmt, an welche Datenseite er andockt). */
+export type ErrataScope =
+  | 'hero'
+  | 'class'
+  | 'item'
+  | 'overlord'
+  | 'plot'
+  | 'monster'
+  | 'monster-ability'
+  | 'adventure'
+  | 'rumor'
+  | 'secret-room'
+  | 'other'
+
+/**
+ * Ein thematischer Block innerhalb eines Errata-/Regel-Eintrags. Bei Klassen ist
+ * `label` z. B. der Name der Fertigkeitskarte; `label: null` = allgemeiner Block
+ * ohne Zwischenüberschrift. Jeder `points`-Eintrag ist ein Aufzählungspunkt.
+ */
+export interface ErrataGroup {
+  label: string | null
+  points: string[]
+}
+
+/**
+ * Eine Sonderbox innerhalb eines Eintrags – im CRRG die „Wege zum Ruhm"-/
+ * „Die Anderswelt"-/„Prüfungen von Frostgate"-Kästen (Regeln für die
+ * App-Kampagne Road to Legend), als eigene Notiz erhalten.
+ */
+export interface ErrataNote {
+  title: string
+  points: string[]
+}
+
+/**
+ * Ein komponentenbezogener Errata-/FAQ-Eintrag aus Teil 2 des CRRG (Errata & FAQ
+ * zu konkreten Spielkomponenten: Helden, Klassenkarten, Items, Overlordkarten,
+ * Monster, Abenteuer …). Wird – wo eine passende Komponente in der Datenbank
+ * existiert – als aufklappbare Zusatzbox an deren Karte gezeigt; alle Einträge
+ * sind zusätzlich in der durchsuchbaren Errata-Übersicht verfügbar.
+ */
+export interface ErrataEntry {
+  id: string
+  scope: ErrataScope
+  /** CRRG-Abschnitt, z. B. „2.1 Helden & Verbündete". */
+  sectionDe: string
+  /** Feinere Gruppierung (z. B. Kampagnenname bei Abenteuern). */
+  subgroupDe?: string
+  /** Komponentenname genau wie im CRRG. */
+  nameDe: string
+  groups: ErrataGroup[]
+  notes: ErrataNote[]
+  /** Seite im CRRG V1.15. */
+  page: number
+}
+
+/**
+ * Ein alphabetischer Regelklärungs-Eintrag aus Teil 1 des CRRG (Referenz-Regel-
+ * Guide). Bildet die durchsuchbare Regelklärungs-Sektion (nach Schlagwörtern).
+ */
+export interface RuleClarification {
+  id: string
+  /** Schlagwort/Begriff (alphabetisch), z. B. „Sichtlinie", „Betäubt". */
+  term: string
+  groups: ErrataGroup[]
+  notes: ErrataNote[]
+  /** Querverweise („Verwandte Themen") auf andere Begriffe. */
+  related: string[]
+  /** Seite im CRRG V1.15. */
+  page: number
+}
