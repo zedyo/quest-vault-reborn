@@ -503,7 +503,7 @@ export const ARCHETYPE_LABELS: Record<Hero['archetype'], string> = {
   krieger: 'Krieger',
   heiler: 'Heiler',
   magier: 'Magier',
-  spaeher: 'Späher',
+  spaeher: 'Kundschafter',
 }
 
 export const ARCHETYPE_COLORS: Record<Hero['archetype'], string> = {

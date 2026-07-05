@@ -10,7 +10,7 @@ import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox, { ErrataEntryBody } from '../components/ErrataBox'
 import { getErrata, getMonsterAbilityErrata, MONSTER_ABILITY_ERRATA } from '../data/errataLinks'
 import { CRRG_SOURCE } from '../data/ruleClarifications'
-import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
+import { SearchInput, OwnedToggle, SegmentedControl, SourceFilter, matchesSource, type Source } from '../components/Filters'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
 /**
@@ -210,35 +210,39 @@ function StatBlock({ stats, label, isElite, compact = true }: StatBlockProps) {
   const sectionHeaderCls = compact ? 'text-[10px]' : 'text-xs'
   const sectionTextCls = compact ? 'text-[10px]' : 'text-xs'
   const iconSize = compact ? 14 : 16
+  // Kompakte Grid-Karten: Wort-Labels erst ab sm einblenden (Mobil nur Icons).
+  const labelCls = compact ? 'hidden sm:inline' : 'inline'
 
   return (
     <div className={`rounded p-2 flex-1 min-w-0 ${isElite ? 'bg-yellow-950/40 border border-yellow-800/30' : 'bg-dungeon-800/50'}`}>
       <div className={`${textCls} font-semibold mb-1.5 ${isElite ? 'text-gold-400' : 'text-gray-400'}`}>
         {label}
       </div>
-      {/* CSS grid: label column auto-sizes to widest label so all word labels align */}
+      {/* CSS grid: label column auto-sizes to widest label so all word labels align.
+          In der kompakten Grid-Ansicht (Mobil) werden die Wort-Labels ausgeblendet
+          (nur Icons) – so überlaufen die Angriffswürfel den Kartenrand nicht mehr. */}
       <div className="grid gap-y-1 items-center" style={{ gridTemplateColumns: 'auto 1fr', columnGap: 6 }}>
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <MovementBadge size={iconSize} circle="#15552c" />Bewegung
+          <MovementBadge size={iconSize} circle="#15552c" /><span className={labelCls}>Bewegung</span>
         </span>
         <span className={`text-gray-200 font-medium ${textCls}`}>{stats.speed}</span>
 
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <HealthIcon size={iconSize} />Leben
+          <HealthIcon size={iconSize} /><span className={labelCls}>Leben</span>
         </span>
         <span className={`text-gray-200 font-medium ${textCls}`}>{stats.health}</span>
 
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <DefenseBadge size={iconSize} circle="#1f6fb2" />Verteid.
+          <DefenseBadge size={iconSize} circle="#1f6fb2" /><span className={labelCls}>Verteid.</span>
         </span>
-        <div className="flex gap-0.5">
+        <div className="flex gap-0.5 flex-wrap">
           {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
 
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <AttackIcon size={iconSize} />Angriff
+          <AttackIcon size={iconSize} /><span className={labelCls}>Angriff</span>
         </span>
-        <div className="flex gap-0.5">
+        <div className="flex gap-0.5 flex-wrap">
           {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
       </div>
@@ -385,10 +389,10 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
 
           <div className="flex-1 space-y-3">
             {normalStats && (
-              <StatBlock stats={normalStats} label="Normal" compact={false} />
+              <StatBlock stats={normalStats} label="Diener" compact={false} />
             )}
             {masterStats && (
-              <StatBlock stats={masterStats} label="Elite" isElite compact={false} />
+              <StatBlock stats={masterStats} label="Meister" isElite compact={false} />
             )}
             {monster.groupSizes && (
               <GroupSizeBlock groupSizes={monster.groupSizes} compact={false} />
@@ -460,6 +464,7 @@ export default function MonstersPage() {
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
   const [act, setAct] = useState<1 | 2>(1)
+  const [source, setSource] = useState<Source>('all')
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set())
   const [lightboxMonster, setLightboxMonster] = useState<Monster | null>(null)
   const [selectedTraits, setSelectedTraits] = useState<Set<string>>(new Set())
@@ -473,9 +478,10 @@ export default function MonstersPage() {
   const ownedFiltered = useMemo(() => {
     return MONSTERS.filter((m) => {
       if (onlyOwned && !ownedIds.includes(m.expansionId)) return false
+      if (!matchesSource(source, m.expansionId)) return false
       return true
     })
-  }, [onlyOwned, ownedIds])
+  }, [onlyOwned, ownedIds, source])
 
   // All traits that appear in the owned pool, sorted
   const availableTraits = useMemo(() => {
@@ -555,6 +561,7 @@ export default function MonstersPage() {
       <div className="flex flex-wrap items-center gap-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Suche nach Name…" />
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <SourceFilter value={source} onChange={setSource} />
 
         {/* Act toggle */}
         <SegmentedControl<1 | 2>
@@ -666,8 +673,8 @@ export default function MonstersPage() {
                               </div>
                             )}
                             <div className="flex gap-2">
-                              {normalStats && <StatBlock stats={normalStats} label="Normal" compact />}
-                              {masterStats && <StatBlock stats={masterStats} label="Elite" isElite compact />}
+                              {normalStats && <StatBlock stats={normalStats} label="Diener" compact />}
+                              {masterStats && <StatBlock stats={masterStats} label="Meister" isElite compact />}
                             </div>
                             {m.groupSizes && <GroupSizeBlock groupSizes={m.groupSizes} />}
                             <ErrataBox entries={getErrata('monster', m.id)} />

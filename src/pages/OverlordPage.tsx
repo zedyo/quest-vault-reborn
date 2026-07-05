@@ -6,7 +6,7 @@ import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
-import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import { overlordCardDeUrl } from '../data/assetUrls'
 import type { OverlordCard, OverlordDeck, OverlordDeckKind, OverlordCardType } from '../types/game'
 
@@ -160,6 +160,7 @@ export default function OverlordPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
+  const [source, setSource] = useState<Source>('all')
   const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
@@ -172,7 +173,7 @@ export default function OverlordPage() {
   const filteredDecks = useMemo(() => {
     const q = search.trim().toLowerCase()
     return OVERLORD_DECKS
-      .filter((d) => !onlyOwned || ownedIds.includes(d.expansionId))
+      .filter((d) => (!onlyOwned || ownedIds.includes(d.expansionId)) && matchesSource(source, d.expansionId))
       .map((deck) => {
         if (!q) return deck
         const deckMatches =
@@ -188,7 +189,7 @@ export default function OverlordPage() {
         return cards.length ? { ...deck, cards } : null
       })
       .filter((d): d is OverlordDeck => d !== null)
-  }, [search, onlyOwned, ownedIds])
+  }, [search, onlyOwned, ownedIds, source])
 
   // Nach Erweiterung gruppieren (aktuell nur Grundspiel, aber zukunftssicher)
   const byExpansion = useMemo(() => {
@@ -236,6 +237,7 @@ export default function OverlordPage() {
       <div className="flex flex-wrap items-center gap-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Karte oder Klasse suchen…" className="w-56" />
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <SourceFilter value={source} onChange={setSource} />
         <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>
 

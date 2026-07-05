@@ -6,7 +6,7 @@ import { DicePip } from '../components/DiceDisplay'
 import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
-import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import type { Agent, AgentForm, LieutenantPerPlayerStats } from '../types/game'
 
 function PerPlayerTable({ form, lang }: { form: AgentForm; lang: Lang }) {
@@ -93,6 +93,7 @@ export default function AgentsPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
+  const [source, setSource] = useState<Source>('all')
   const [lang, setLang] = useState<Lang>('de')
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
@@ -102,11 +103,12 @@ export default function AgentsPage() {
     const q = search.trim().toLowerCase()
     return AGENTS.filter((a) => {
       if (onlyOwned && !ownedIds.includes(a.expansionId)) return false
+      if (!matchesSource(source, a.expansionId)) return false
       if (q && !a.nameDe.toLowerCase().includes(q) && !a.nameEn.toLowerCase().includes(q)
         && !a.plotDeckDe.toLowerCase().includes(q) && !a.plotDeckEn.toLowerCase().includes(q)) return false
       return true
     })
-  }, [search, onlyOwned, ownedIds])
+  }, [search, onlyOwned, ownedIds, source])
 
   const byExpansion = useMemo(() => {
     const map = new Map<string, Agent[]>()
@@ -137,6 +139,7 @@ export default function AgentsPage() {
       <div className="flex flex-wrap items-center gap-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Agent oder Plotdeck suchen…" className="w-56" />
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <SourceFilter value={source} onChange={setSource} />
         <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>
 

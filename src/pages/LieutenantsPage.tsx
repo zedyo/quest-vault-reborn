@@ -8,7 +8,7 @@ import { DicePip } from '../components/DiceDisplay'
 import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
-import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
+import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import { lieutenantCardDeUrl } from '../data/assetUrls'
 import type { Lieutenant, LieutenantForm, LieutenantPerPlayerStats } from '../types/game'
 
@@ -31,7 +31,7 @@ const ATTR: { key: 'might' | 'knowledge' | 'willpower' | 'awareness'; de: string
   { key: 'might',     de: 'Stärke',       en: 'Might',     cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
   { key: 'knowledge', de: 'Wissen',       en: 'Knowledge', cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
   { key: 'willpower', de: 'Willenskraft', en: 'Willpower', cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
-  { key: 'awareness', de: 'Gespür',       en: 'Awareness', cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
+  { key: 'awareness', de: 'Geistesgegenwart', en: 'Awareness', cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
 ]
 
 function PerPlayerTable({ form, lang }: { form: LieutenantForm; lang: Lang }) {
@@ -159,6 +159,7 @@ export default function LieutenantsPage() {
   const [params] = useSearchParams()
   const focusId = params.get('lt')
   const [search, setSearch] = useState('')
+  const [source, setSource] = useState<Source>('all')
   // Beim Aufruf über einen Plotdeck-Link den fokussierten Leutnant immer zeigen.
   const [onlyOwned, setOnlyOwned] = useState(() => !focusId)
   const [lang, setLang] = useState<Lang>('de')
@@ -178,10 +179,11 @@ export default function LieutenantsPage() {
     const q = search.trim().toLowerCase()
     return LIEUTENANTS.filter((lt) => {
       if (onlyOwned && !ownedIds.includes(lt.expansionId)) return false
+      if (!matchesSource(source, lt.expansionId)) return false
       if (q && !lt.nameDe.toLowerCase().includes(q) && !lt.nameEn.toLowerCase().includes(q)) return false
       return true
     })
-  }, [search, onlyOwned, ownedIds])
+  }, [search, onlyOwned, ownedIds, source])
 
   const byExpansion = useMemo(() => {
     const map = new Map<string, Lieutenant[]>()
@@ -222,6 +224,7 @@ export default function LieutenantsPage() {
       <div className="flex flex-wrap items-center gap-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Leutnant suchen…" className="w-56" />
         <OwnedToggle checked={onlyOwned} onChange={setOnlyOwned} />
+        <SourceFilter value={source} onChange={setSource} />
         <LangToggle value={lang} onChange={setLang} className="ml-auto" />
       </div>
 

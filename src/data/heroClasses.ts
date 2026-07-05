@@ -17,6 +17,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'berserker-axt', nameDe: 'Axt', nameEn: 'Axe',
         type: 'Axt',
         rulesDe: 'Schub: +1 Herz. Schub: +1 Herz.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/warriors/berserker/bg-chipped-greataxe.png',
       },
     ],
     skills: [
@@ -96,11 +97,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'knight-eisernes-langschwert', nameDe: 'Eisernes Langschwert', nameEn: 'Iron Longsword',
         type: 'Klinge',
         rulesDe: 'Schub: Du kannst das Ziel zwingen, 1 Verteidigungswürfel neu zu werfen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/warriors/knight/bg-iron-longsword.png',
       },
       {
         id: 'knight-holzschild', nameDe: 'Holzschild', nameEn: 'Wooden Shield',
         type: 'Schild',
         rulesDe: 'Erschöpfe diese Karte nach einem eigenen Verteidigungswurf: Du erhältst 1 zusätzliches Schild.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/warriors/knight/bg-wooden-shield.png',
       },
     ],
     skills: [
@@ -180,11 +183,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'disciple-eiserner-streitkolben', nameDe: 'Eiserner Streitkolben', nameEn: 'Iron Mace',
         type: 'Hammer',
         rulesDe: 'Schub: Betäubung.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/healers/disciple/bg-iron-mace.png',
       },
       {
         id: 'disciple-holzschild', nameDe: 'Holzschild', nameEn: 'Wooden Shield',
         type: 'Schild',
         rulesDe: 'Erschöpfe diese Karte nach einem eigenen Verteidigungswurf: Du erhältst 1 zusätzliches Schild.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/healers/disciple/bg-wooden-shield.png',
       },
     ],
     skills: [
@@ -264,6 +269,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'spirit-eichenstab', nameDe: 'Eichenstab', nameEn: 'Oak Staff',
         type: 'Stab',
         rulesDe: 'Weitreichend. Schub: +1 Herz.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/healers/spiritspeaker/bg-oak-staff.png',
       },
     ],
     skills: [
@@ -343,6 +349,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'necromancer-schnittersense', nameDe: 'Schnittersense', nameEn: 'Reaper\'s Scythe',
         type: 'Magie, Stab',
         rulesDe: 'Jedes Mal, wenn du mit dieser Waffe ein Monster besiegst, gewinnst du 1 Herz zurück. Schub: +1 Reichweite.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/mages/necromancer/bg-reapers-scythe.png',
       },
     ],
     skills: [
@@ -429,6 +436,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'runemaster-arkanes-geschoss', nameDe: 'Arkanes Geschoss', nameEn: 'Arcane Bolt',
         type: 'Magie, Rune',
         rulesDe: 'Schub: +1 Reichweite. Schub: Durchbohren 2.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/mages/runemaster/bg-arcane-bolt.png',
       },
     ],
     skills: [
@@ -508,11 +516,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'thief-gluecksbringer', nameDe: 'Glücksbringer', nameEn: 'Lucky Charm',
         type: 'Kleinod',
         rulesDe: 'Erschöpfe diese Karte, um eine Attributsprobe neu zu würfeln. Das neue Ergebnis gilt.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/scouts/thief/bg-lucky-charm.png',
       },
       {
         id: 'thief-wurfmesser', nameDe: 'Wurfmesser', nameEn: 'Throwing Knives',
         type: 'Klinge',
         rulesDe: 'Jeder Angriff auf ein Nachbarfeld hat +1 Herz. Schub: +1 Reichweite.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/scouts/thief/bg-throwing-knives.png',
       },
     ],
     skills: [
@@ -592,6 +602,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'wildlander-eiben-kurzbogen', nameDe: 'Eiben-Kurzbogen', nameEn: 'Yew Shortbow',
         type: 'Bogen',
         rulesDe: 'Schub: +2 Reichweite. Schub: +1 Herz.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/base-game/scouts/wildlander/bg-yew-shortbow.png',
       },
     ],
     skills: [
@@ -673,11 +684,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'champion-horn-der-tapferkeit', nameDe: 'Horn der Tapferkeit', nameEn: 'Horn of Courage',
         type: 'Kleinod',
         rulesDe: 'Während deines Zuges kannst du diese Karte erschöpfen, um einen anderen Helden innerhalb von 3 Feldern zu dir zu wählen. Der gewählte Held erhält 1 Tapferkeitsmarker.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lair-of-the-wyrm/warriors/champion/lw-horn-of-courage.png',
       },
       {
         id: 'champion-zweihaender', nameDe: 'Zweihänder', nameEn: 'Worn Greatsword',
         type: 'Klinge',
         rulesDe: 'Vor einem eigenen Angriffswurf kannst du 1 Erschöpfung erleiden, um dem Angriff +1 Schub zu geben. Schub: +1 Herz.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lair-of-the-wyrm/warriors/champion/lw-worn-greatsword.png',
       },
     ],
     skills: [
@@ -758,11 +771,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'beastmaster-hautemesser', nameDe: 'Hautemesser', nameEn: 'Skinning Knife',
         type: 'Klinge',
         rulesDe: 'Wenn das Ziel mindestens 1 Schadensmarker hat, hat der Angriff: Schub: +3 Herzen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/warriors/beastmaster/lr-skinning-knife.png',
       },
       {
         id: 'beastmaster-jagdspeer', nameDe: 'Jagdspeer', nameEn: 'Hunting Spear',
         type: 'Exotisch',
         rulesDe: 'Weitreichend. Schub: Durchbohren 1.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/warriors/beastmaster/lr-hunting-spear.png',
       },
     ],
     skills: [
@@ -849,11 +864,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'marshal-siegelring', nameDe: 'Siegelring', nameEn: 'Signet Ring',
         type: 'Ring',
         rulesDe: 'Erschöpfe diese Karte vor einem eigenen Verteidigungswurf oder dem eines benachbarten Helden, um 1 Schild zum Ergebnis hinzuzufügen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/manor-of-ravens/warriors/marshal/mr-signet-ring.png',
       },
       {
         id: 'marshal-streithammer', nameDe: 'Streithammer', nameEn: 'War Hammer',
         type: 'Hammer',
         rulesDe: 'Weitreichend. Du kannst keine Erschöpfung ausgeben, um Ausdauer zurückzugewinnen. Schub: +2 Herzen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/manor-of-ravens/warriors/marshal/mr-war-hammer.png',
       },
     ],
     skills: [
@@ -933,11 +950,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'skirmisher-saegezahnbeil', nameDe: 'Sägezahnbeil', nameEn: 'Jagged Handaxe',
         type: 'Axt',
         rulesDe: 'Vor einem eigenen Angriffswurf kannst du 1 Erschöpfung erleiden, um statt dem gelben einen roten Machtwürfel zu werfen. Schub: Durchbohren 1.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/warriors/skirmisher/sn-jagged-handaxe.png',
       },
       {
         id: 'skirmisher-rostiges-beil', nameDe: 'Rostiges Beil', nameEn: 'Rusted Handaxe',
         type: 'Axt',
         rulesDe: 'Nach einem eigenen Angriffswurf kannst du 1 Erschöpfung erleiden, um 1 Machtwürfel neu zu werfen. Schub: +2 Herzen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/warriors/skirmisher/sn-rusted-handaxe.png',
       },
     ],
     skills: [
@@ -1017,11 +1036,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'prophet-buch-der-weisen', nameDe: 'Buch der Weisen', nameEn: 'Book of Sages',
         type: 'Buch',
         rulesDe: 'Erschöpfe diese Karte vor deinem Wurf für eine Attributsprobe, um 1 Schild vom Würfelergebnis abzuziehen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/the-trollfens/healers/prophet/tf-sages-tome.png',
       },
       {
         id: 'prophet-eiserner-streitflegel', nameDe: 'Eiserner Streitflegel', nameEn: 'Iron Flail',
         type: 'Hammer, Exotisch',
         rulesDe: 'Weitreichend. Wenn deine andere Hand frei ist, haben deine Angriffe +1 Herz. Schub: Schwächung.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/the-trollfens/healers/prophet/tf-iron-flail.png',
       },
     ],
     skills: [
@@ -1101,6 +1122,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'apo-rauchende-phiolen', nameDe: 'Rauchende Phiolen', nameEn: 'Smoking Vials',
         type: 'Exotisch',
         rulesDe: 'Schub Schub: +3 Herzen. Schub: Gift.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/healers/apothecary/lr-smoking-vials.png',
       },
     ],
     skills: [
@@ -1180,11 +1202,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'bard-klinge-des-wanderers', nameDe: 'Klinge des Wanderers', nameEn: 'Wayfarer Blade',
         type: 'Klinge',
         rulesDe: 'Schub: Durchbohren 1. Schub: Du erhältst 1 Bewegungspunkt.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/healers/bard/sn-travelers-blade.png',
       },
       {
         id: 'bard-laute', nameDe: 'Laute', nameEn: 'Lute',
         type: 'Kleinod',
         rulesDe: 'Während deines Zuges kannst du diese Karte erschöpfen, um 1 Erschöpfung zu erleiden und einen Helden innerhalb von 3 Feldern zu dir auszuwählen. Dieser Held gewinnt 2 Herzen zurück.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/healers/bard/sn-lute.png',
       },
     ],
     skills: [
@@ -1264,6 +1288,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'soulreaper-seelenernter', nameDe: 'Seelenernter', nameEn: 'Harvester Scythe',
         type: 'Klinge, Magie, Stab',
         rulesDe: 'Nachdem du ein Monster mit dieser Waffe besiegt hast, gewinnst du 1 Herz zurück. Schub: Durchbohren 1.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lost-legends/healers/soul-reaper/ll-harvester-scythe.png',
       },
     ],
     skills: [
@@ -1350,6 +1375,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'geomancer-stasis-rune', nameDe: 'Stasis-Rune', nameEn: 'Stasis Rune',
         type: 'Magie, Rune',
         rulesDe: 'Schub: +1 Herz. Schub Schub: Lähmung.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lair-of-the-wyrm/mages/geomancer/lw-stasis-rune.png',
       },
     ],
     skills: [
@@ -1436,6 +1462,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'hexer-stab-des-grabes', nameDe: 'Stab des Grabes', nameEn: 'Staff of the Grave',
         type: 'Magie, Stab',
         rulesDe: 'Schub: +1 Reichweite. Schub: +1 Herz und du gewinnst 1 Herz zurück.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/mages/hexer/lr-staff-of-the-grave.png',
       },
     ],
     skills: [
@@ -1515,6 +1542,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'conjurer-prismatischer-stab', nameDe: 'Prismatischer Stab', nameEn: 'Prismatic Staff',
         type: 'Magie, Stab',
         rulesDe: 'Schub: +1 Herz. Schub: +1 Herz. Schub: Betäubung.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/mages/conjurer/sn-prismatic-staff.png',
       },
     ],
     skills: [
@@ -1601,11 +1629,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'elementalist-runenspeicher', nameDe: 'Runenspeicher', nameEn: 'Runeshard Cache',
         type: 'Kleinod',
         rulesDe: 'Erschöpfe diese Karte, nachdem du ein Monster mit einer Magiewaffe besiegt hast. Solange diese Karte erschöpft ist, ist sie eine erschöpfte Element-Karte.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lost-legends/mages/elementalist/ll-runeshard-cache.png',
       },
       {
         id: 'elementalist-energiebuendel', nameDe: 'Energiebündel', nameEn: 'Spire of Conflux',
         type: 'Magie, Stab',
         rulesDe: 'Schub: +1 Reichweite. Schub: Falls 2 oder mehr deiner Element-Karten erschöpft sind, +2 Herzen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/lost-legends/mages/elementalist/ll-spire-of-conflux.png',
       },
     ],
     skills: [
@@ -1713,11 +1743,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'stalker-jagdmesser', nameDe: 'Jagdmesser', nameEn: 'Hunting Knife',
         type: 'Klinge',
         rulesDe: 'Schub: +1 Herz. Schub: Du gewinnst 1 Erschöpfung zurück.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/the-trollfens/scouts/stalker/tf-hunting-knife.png',
       },
       {
         id: 'stalker-schwarze-witwe', nameDe: 'Netz der Schwarzen Witwe', nameEn: 'Black Widow\'s Web',
         type: 'Exotisch',
         rulesDe: 'Schub: Lähmung. Schub: +1 Herz.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/the-trollfens/scouts/stalker/tf-black-widows-web.png',
       },
     ],
     skills: [
@@ -1797,11 +1829,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'treasurehunter-lederpeitsche', nameDe: 'Lederpeitsche', nameEn: 'Leather Whip',
         type: 'Exotisch',
         rulesDe: 'Weitreichend. Schub: Durchbohren 1. Schub: Bewege das Ziel um 1 Feld.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/scouts/treasure-hunter/lr-leather-whip.png',
       },
       {
         id: 'treasurehunter-totenmanns-kompass', nameDe: 'Totenmanns Kompass', nameEn: 'The Dead Man\'s Compass',
         type: 'Kleinod',
         rulesDe: 'Erschöpfe diese Karte in deinem Zug. Wenn du innerhalb von 3 Feldern zu einem Suchmarker stehst, erhältst du 1 Bewegungspunkt.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/labyrinth-of-ruin/scouts/treasure-hunter/lr-the-dead-mans-compass.png',
       },
     ],
     skills: [
@@ -1881,6 +1915,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'bountyhunter-doppel-armbrust', nameDe: 'Doppel-Armbrust', nameEn: 'Double Crossbow',
         type: 'Bogen, Exotisch',
         rulesDe: 'Schub: Durchbohren 1. Schub: +1 Reichweite.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/manor-of-ravens/scouts/bounty-hunter/mr-double-crossbow.png',
       },
     ],
     skills: [
@@ -1960,11 +1995,13 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'shadowwalker-gefiederte-axt', nameDe: 'Gefiederte Axt', nameEn: 'Feathered Hatchet',
         type: 'Axt, Exotisch',
         rulesDe: 'Schub: +1 Reichweite. Schub: Blutung.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-feathered-hatchet.png',
       },
       {
         id: 'shadowwalker-umhang', nameDe: 'Umhang', nameEn: 'Tribal Cloak',
         type: 'Umhang',
         rulesDe: 'Erschöpfe diese Karte, wenn du eine Aktion Ausruhen ausführst. Solange diese Karte erschöpft ist, kannst du 1 zusätzlichen braunen Würfel bei der Verteidigung werfen.',
+        imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-items/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-tribal-cloak.png',
       },
     ],
     skills: [

@@ -423,3 +423,18 @@ Hybrid-Klassen tragen eine Startkarte, die sie mit einem Standard-Klassendeck ei
 - **Planare Waffe** (1 EP, Erschöpfung 1): Jede Runenwaffe, mit der du ausgerüstet bist, verliert das Symbol für Fernkampf; erhält das Symbol für Nahkampf und die Merkmale Klinge, Hammer, Axt und Exotisch; und darf 1 Handsymbol verlieren (selbst, solange diese Karte erschöpft ist). Erschöpfe diese Karte vor dem Würfelwurf, sobald du einen Angriff mit einer Runenwaffe ausführst. Füge dem Ergebnis 1 Schub hinzu.
 - **Runengewebe** (2 EP, Erschöpfung 0): Füge deiner Lebenskraft für jede Rune, mit der du ausgerüstet bist, 2 hinzu (selbst, solange diese Karte erschöpft ist). Sobald du einen Umhang oder Schild, mit dem du ausgerüstet bist, erschöpfen würdest, darfst du stattdessen diese Karte erschöpfen.
 - **Todessog** (3 EP, Erschöpfung 0): Jedes Mal wenn ein zu dir benachbartes Monster besiegt wird, gewinnst du 1 Herz oder 1 Erschöpfung zurück. Erschöpfe diese Karte, sobald du Herzen in Höhe deiner Lebenskraft erleidest, bevor du niedergestreckt wirst. Führe sofort einen Angriff aus. Wird das Ziel besiegt, gewinnst du 1 Herz zurück.
+---
+
+## v1.3.19 – UI-Feinschliff Klassenübersicht
+
+- **Reihenfolge:** Begleiter (`familiar`) + Startausrüstung (`startingEquipment`) werden in der
+  ClassesPage jetzt **vor** den Fähigkeitskarten angezeigt (zuvor am Ende).
+- **Kartenbilder:** Begleiter-Bilder nutzen die bereits vorhandene any2cards-`imageUrl`. Für alle
+  **37 Startausrüstungs-Items** wurde eine any2cards-Bild-URL (`data/class-items.js`,
+  Vorderseite = Bild ohne `-back`) ergänzt – gematcht über Klassen-`nameEn` + Item-`nameEn`
+  (35 direkt, 2 Synonyme: „Book of Sages" = *Sage's Tome*, „Wayfarer Blade" = *Traveler's Blade*).
+  Anzeige als anklickbares Vorschaubild (Lightbox) neben Begleiter/Item; fehlt ein Bild, wird die
+  Vorschau ausgeblendet (Text bleibt).
+- **Archetyp-Filter:** Krieger/Heiler/Magier/**Kundschafter** (mit runden `ArchetypeIcon`-Symbolen)
+  jetzt auch in der Klassenübersicht. Archetyp „Späher" heißt projektweit „Kundschafter"
+  (`ARCHETYPE_LABELS`, Regelbuch-Begriff).

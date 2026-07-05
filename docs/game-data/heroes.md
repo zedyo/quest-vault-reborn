@@ -16,7 +16,7 @@
 | Warrior | Krieger |
 | Healer | Heiler |
 | Mage | Magier |
-| Scout | Späher |
+| Scout | Kundschafter |
 
 ---
 
@@ -28,8 +28,8 @@
 | Ashrian | Heiler | Healer |
 | Leoric of the Book | Magier | Mage |
 | Widow Tarha | Magier | Mage |
-| Jain Fairwood | Späher | Scout |
-| Tomble Burrowell | Späher | Scout |
+| Jain Fairwood | Kundschafter | Scout |
+| Tomble Burrowell | Kundschafter | Scout |
 | Grisban the Thirsty | Krieger | Warrior |
 | Syndrael | Krieger | Warrior |
 
@@ -89,7 +89,7 @@
 
 ## Jain Fairwood
 
-**Archetyp:** Späher | **Erweiterung:** Grundspiel
+**Archetyp:** Kundschafter | **Erweiterung:** Grundspiel
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -102,7 +102,7 @@
 
 ## Tomble Burrowell
 
-**Archetyp:** Späher | **Erweiterung:** Grundspiel
+**Archetyp:** Kundschafter | **Erweiterung:** Grundspiel
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -181,8 +181,8 @@
 | Serena | Heiler |
 | Ulma Grimstone | Heiler |
 | Dezra the Vile | Magier |
-| Logan Lashley | Späher |
-| Raythen | Späher |
+| Logan Lashley | Kundschafter |
+| Raythen | Kundschafter |
 | Pathfinder Durik | Krieger |
 
 ---
@@ -228,7 +228,7 @@
 
 ## Logan Lashley
 
-**Archetyp:** Späher | **Erweiterung:** Labyrinth des Verderbens
+**Archetyp:** Kundschafter | **Erweiterung:** Labyrinth des Verderbens
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -241,7 +241,7 @@
 
 ## Raythen
 
-**Archetyp:** Späher | **Erweiterung:** Labyrinth des Verderbens
+**Archetyp:** Kundschafter | **Erweiterung:** Labyrinth des Verderbens
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -270,7 +270,7 @@
 | Held | Archetyp (DE) |
 |------|--------------|
 | Augur Grisom | Heiler |
-| Roganna the Shade | Späher |
+| Roganna the Shade | Kundschafter |
 
 ---
 
@@ -289,7 +289,7 @@
 
 ## Roganna der Schatten
 
-**Archetyp:** Späher | **Erweiterung:** Die Trollsümpfe
+**Archetyp:** Kundschafter | **Erweiterung:** Die Trollsümpfe
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -306,7 +306,7 @@
 |------|--------------|
 | Rendiel | Heiler |
 | Ravaella Lightfoot | Magier |
-| Tinashi the Wanderer | Späher |
+| Tinashi the Wanderer | Kundschafter |
 | Orkell the Swift | Krieger |
 
 ---
@@ -342,7 +342,7 @@
 
 ## Tinashi die Wanderin
 
-**Archetyp:** Späher | **Erweiterung:** Schatten von Nerekhall
+**Archetyp:** Kundschafter | **Erweiterung:** Schatten von Nerekhall
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -370,14 +370,14 @@
 
 | Held | Archetyp (DE) |
 |------|--------------|
-| Thaiden Mistpeak | Späher |
+| Thaiden Mistpeak | Kundschafter |
 | Alys Raine | Krieger |
 
 ---
 
 ## Thaiden Nebelgipfel
 
-**Archetyp:** Späher | **Erweiterung:** Schloss Rabenfels
+**Archetyp:** Kundschafter | **Erweiterung:** Schloss Rabenfels
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -407,7 +407,7 @@
 |------|--------------|
 | Elder Mok | Heiler |
 | Shiver | Magier |
-| Laurel of Bloodwood | Späher |
+| Laurel of Bloodwood | Kundschafter |
 | Trenloe the Strong | Krieger |
 
 ---
@@ -440,7 +440,7 @@
 
 ## Laurel von Blutholz
 
-**Archetyp:** Späher | **Erweiterung:** Schwur der Verbannten
+**Archetyp:** Kundschafter | **Erweiterung:** Schwur der Verbannten
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -470,7 +470,7 @@
 |------|--------------|
 | Brother Gherinn | Heiler |
 | Jaes the Exile | Magier |
-| Lindel | Späher |
+| Lindel | Kundschafter |
 | Corbin | Krieger |
 
 ---
@@ -503,7 +503,7 @@
 
 ## Lindel
 
-**Archetyp:** Späher | **Erweiterung:** Krone des Schicksals
+**Archetyp:** Kundschafter | **Erweiterung:** Krone des Schicksals
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -533,7 +533,7 @@
 |------|--------------|
 | Andira Runehand | Heiler |
 | Astarra | Magier |
-| Tetherys | Späher |
+| Tetherys | Kundschafter |
 | Tahlia | Krieger |
 
 ---
@@ -566,7 +566,7 @@
 
 ## Tetherys
 
-**Archetyp:** Späher | **Erweiterung:** Kreuzzug der Vergessenen
+**Archetyp:** Kundschafter | **Erweiterung:** Kreuzzug der Vergessenen
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -595,7 +595,7 @@
 | Held | Archetyp (DE) |
 |------|--------------|
 | Sahla | Heiler |
-| Silhouette | Späher |
+| Silhouette | Kundschafter |
 | Lord Hawthorne | Krieger |
 | Mordrog | Krieger |
 
@@ -616,7 +616,7 @@
 
 ## Silhouette
 
-**Archetyp:** Späher | **Erweiterung:** Wächter von Deephall
+**Archetyp:** Kundschafter | **Erweiterung:** Wächter von Deephall
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -722,8 +722,8 @@
 |------|--------------|
 | Challara | Magier |
 | Lyssa | Magier |
-| Ronan of the Wild | Späher |
-| Vyrah the Falconer | Späher |
+| Ronan of the Wild | Kundschafter |
+| Vyrah the Falconer | Kundschafter |
 
 ---
 
@@ -755,7 +755,7 @@
 
 ## Ronan von der Wildnis
 
-**Archetyp:** Späher | **Erweiterung:** Erwachen der Wildnis
+**Archetyp:** Kundschafter | **Erweiterung:** Erwachen der Wildnis
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -768,7 +768,7 @@
 
 ## Vyrah der Falkner
 
-**Archetyp:** Späher | **Erweiterung:** Erwachen der Wildnis
+**Archetyp:** Kundschafter | **Erweiterung:** Erwachen der Wildnis
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -785,7 +785,7 @@
 |------|--------------|
 | Jonas the Kind | Heiler |
 | Zyla | Magier |
-| Grey Ker | Späher |
+| Grey Ker | Kundschafter |
 | Krutzbeck | Krieger |
 
 ---
@@ -818,7 +818,7 @@
 
 ## Grey Ker
 
-**Archetyp:** Späher | **Erweiterung:** Kontrakt der Unbesiegten
+**Archetyp:** Kundschafter | **Erweiterung:** Kontrakt der Unbesiegten
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -848,7 +848,7 @@
 |------|--------------|
 | Okaluk and Rakash | Heiler |
 | Seer Kel | Magier |
-| Tatianna | Späher |
+| Tatianna | Kundschafter |
 | Nanok of the Blade | Krieger |
 
 ---
@@ -881,7 +881,7 @@
 
 ## Tatianna
 
-**Archetyp:** Späher | **Erweiterung:** Hüter des Geheimnisses
+**Archetyp:** Kundschafter | **Erweiterung:** Hüter des Geheimnisses
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -909,7 +909,7 @@
 
 | Held | Archetyp (DE) |
 |------|--------------|
-| Arvel Worldwalker | Späher |
+| Arvel Worldwalker | Kundschafter |
 | Karnon | Krieger |
 | One Fist | Krieger |
 | Steelhorns | Krieger |
@@ -918,7 +918,7 @@
 
 ## Arvel Weltenwanderer
 
-**Archetyp:** Späher | **Erweiterung:** Scherben von Everdark
+**Archetyp:** Kundschafter | **Erweiterung:** Scherben von Everdark
 
 | Bewegung | LP | Ausdauer | Verteidigung | Stärke | Wissen | Willenskraft | Gespür |
 |----------|----|----------|-------------|--------|--------|-------------|--------|
@@ -975,7 +975,7 @@
 
 **Heiler:** Andira Runehand, Aurim, Brother Gherinn, Brother Glyr, Elder Mok, Ispher, Jonas the Kind, Okaluk and Rakash, Sahla  
 **Magier:** Astarra, Challara, Jaes the Exile, Landrec the Wise, Lyssa, Mad Carthos, Master Thorn, Shiver, Truthseer Kel, Zyla  
-**Späher:** Arvel Worldwalker, Bogran the Shadow, Grey Ker, Kirga, Laurel of Bloodwood, Lindel, Red Scorpion, Ronan of the Wild, Silhouette, Tatianna, Tetherys, Tobin Farslayer, Vyrah the Falconer  
+**Kundschafter:** Arvel Worldwalker, Bogran the Shadow, Grey Ker, Kirga, Laurel of Bloodwood, Lindel, Red Scorpion, Ronan of the Wild, Silhouette, Tatianna, Tetherys, Tobin Farslayer, Vyrah the Falconer  
 **Krieger:** Corbin, Eliam, Hugo the Glorious, Karnon, Krutzbeck, Laughin Buldar, Lord Hawthorne, Mordrog, Nanok of the Blade, Nara the Fang, One Fist, Sir Valadir, Steelhorns, Tahlia, Trenloe the Strong, Varikas the Dead  
 
 ---
@@ -1039,7 +1039,7 @@
 | Conjurer | Beschwörer | Schatten von Nerekhall |
 | Elementalist | Elementalist | Unsterbliche Legenden (Lost Legends) |
 
-### Späher-Klassen
+### Kundschafter-Klassen
 
 | Klasse (EN) | Klasse (DE) | Erweiterung |
 |-------------|-------------|-------------|
