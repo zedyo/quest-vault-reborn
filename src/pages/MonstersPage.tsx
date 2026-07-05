@@ -7,6 +7,8 @@ import { DicePip } from '../components/DiceDisplay'
 import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
 import type { Monster, MonsterStats, MonsterGroupSizes, GroupComposition } from '../types/game'
 
@@ -391,6 +393,10 @@ function MonsterLightbox({ monster, imgUrl, act, onClose }: LightboxProps) {
               <GroupSizeBlock groupSizes={monster.groupSizes} compact={false} />
             )}
           </div>
+        </div>
+
+        <div className="px-4 pb-4">
+          <ErrataBox entries={getErrata('monster', monster.id)} />
         </div>
     </ModalOverlay>
   )

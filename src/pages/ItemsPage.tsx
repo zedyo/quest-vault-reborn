@@ -4,6 +4,8 @@ import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText, DiceSymbol } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, LangToggle, type Lang } from '../components/Filters'
 import { itemCardDeUrl, relicCardDeUrl } from '../data/assetUrls'
 import type { ShopItem, Relic, DieColor, ItemEquip, RelicSide, AttackType } from '../types/game'
@@ -164,6 +166,7 @@ function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onI
         </div>
       </div>
       <div className="text-gray-400 leading-snug space-y-0.5">{renderGameText(rules)}</div>
+      <ErrataBox entries={getErrata('item', item.id)} />
     </div>
   )
 }
@@ -206,6 +209,7 @@ function RelicCard({ item, lang, onImageOpen }: { item: Relic; lang: Lang; onIma
         </div>
       </div>
       <div className="text-gray-400 leading-snug space-y-0.5">{renderGameText(rules)}</div>
+      <ErrataBox entries={getErrata('item', item.id)} />
     </div>
   )
 }

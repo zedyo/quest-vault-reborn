@@ -4,6 +4,8 @@ import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText } from '../components/GameSymbols'
 import { SearchInput, OwnedToggle, LangToggle } from '../components/Filters'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import type { HeroClass, ClassSkill, HeroArchetype } from '../types/game'
 
 const ARCHETYPE_DE: Record<HeroArchetype, string> = {
@@ -133,6 +135,7 @@ function ClassCard({ cls, lang }: { cls: HeroClass; lang: 'de' | 'en' }) {
       </div>
       <FamiliarBlock cls={cls} lang={lang} />
       <StartingEquipmentBlock cls={cls} lang={lang} />
+      <ErrataBox entries={getErrata('class', cls.id)} />
     </div>
   )
 }

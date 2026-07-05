@@ -3,6 +3,8 @@ import { RUMORS } from '../data/rumors'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle, SegmentedControl } from '../components/Filters'
 import { rumorCardDeUrl, rumorCardBackDeUrl } from '../data/assetUrls'
 import { renderGameTextInline } from '../components/GameSymbols'
@@ -105,6 +107,8 @@ function RumorLightbox({ rumor, expansionName, onClose }: {
           <p className="text-[11px] text-gray-600 pt-1">
             Deutscher Original-Kartentext (FFG). Werte ggf. dem Kartenbild entnehmen.
           </p>
+
+          <ErrataBox entries={getErrata('rumor', rumor.id)} />
         </div>
       </div>
     </ModalOverlay>

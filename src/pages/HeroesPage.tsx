@@ -6,6 +6,8 @@ import { DicePip } from '../components/DiceDisplay'
 import { MovementBadge, DefenseBadge, renderGameText } from '../components/GameSymbols'
 import { HealthIcon, StaminaIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
+import ErrataBox from '../components/ErrataBox'
+import { getErrata } from '../data/errataLinks'
 import { SearchInput, OwnedToggle } from '../components/Filters'
 import { heroCardDeUrl } from '../data/assetUrls'
 import type { Hero } from '../types/game'
@@ -131,6 +133,8 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
             )}
           </div>
         </div>
+
+        <ErrataBox entries={getErrata('hero', hero.id)} />
     </ModalOverlay>
   )
 }

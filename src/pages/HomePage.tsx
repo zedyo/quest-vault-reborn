@@ -28,6 +28,7 @@ const OVERVIEWS = [
   { icon: '🗣️', title: 'Gerüchte', href: '/geruechte' },
   { icon: '🩹', title: 'Zustände', href: '/zustaende' },
   { icon: '📖', title: 'Regeln & Referenz', href: '/regeln' },
+  { icon: '📋', title: 'Errata & FAQ', href: '/klarstellungen' },
 ]
 
 export default function HomePage() {
@@ -132,6 +133,7 @@ export default function HomePage() {
                 { icon: '🧙', text: `${HEROES.length} Helden und ${HERO_CLASSES.length} Klassen aus allen Erweiterungen` },
                 { icon: '🃏', text: 'Karten-Datenbank: Items & Relikte, Overlord, Leutnants, Agenten und alle Plotdecks' },
                 { icon: '🏰', text: 'Kampagnen-Überblick, Advanced Quests und Reisekarten' },
+                { icon: '📋', text: 'Errata & FAQ aus dem Community Rules Reference Guide – aufklappbar an jeder Karte + durchsuchbare Regelklärungen' },
                 { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
               ].map((item) => (
                 <li key={item.text} className="flex gap-2 text-sm text-gray-400">
