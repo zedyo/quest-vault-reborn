@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSessionStore } from '../store/useSessionStore'
 import { useGameStore } from '../store/useGameStore'
-import type { CampaignSession, TrackedHero, TrackedOverlord } from '../types/session'
+import type { CampaignSession, PlayedScenario, TrackedHero, TrackedOverlord } from '../types/session'
 import { deriveLiveState } from '../store/sessionDerive'
 import { CAMPAIGNS } from '../data/campaigns'
 import { exportSessionAsJSON, parseImportedSession, MAX_IMPORT_BYTES } from '../utils/sessionImport'
@@ -9,15 +9,17 @@ import { newSession, newTrackedHero, nowISO, HERO_BY_ID } from '../components/se
 import SetupTab from '../components/session/SetupTab'
 import HeroesTab from '../components/session/HeroesTab'
 import OverlordTab from '../components/session/OverlordTab'
+import ScenariosTab from '../components/session/ScenariosTab'
 import ConfirmDialog from '../components/ConfirmDialog'
 
 const CAMPAIGN_BY_ID = Object.fromEntries(CAMPAIGNS.map((c) => [c.id, c]))
 
-type Tab = 'setup' | 'helden' | 'overlord'
+type Tab = 'setup' | 'helden' | 'overlord' | 'szenarien'
 const TABS: { id: Tab; label: string }[] = [
   { id: 'setup', label: '⚙️ Setup' },
   { id: 'helden', label: '🧙 Helden' },
   { id: 'overlord', label: '👑 Overlord' },
+  { id: 'szenarien', label: '📖 Szenarien' },
 ]
 
 export default function SessionsPage() {
@@ -31,7 +33,10 @@ export default function SessionsPage() {
 
   const [tab, setTab] = useState<Tab>('setup')
   const [pendingDelete, setPendingDelete] = useState<
-    { type: 'session'; id: string; name: string } | { type: 'hero'; id: string; name: string } | null
+    | { type: 'session'; id: string; name: string }
+    | { type: 'hero'; id: string; name: string }
+    | { type: 'scenario'; id: string; name: string }
+    | null
   >(null)
 
   const session = sessions.find((s) => s.id === activeSessionId) ?? null
@@ -62,6 +67,18 @@ export default function SessionsPage() {
   function patchOverlord(patch: Partial<TrackedOverlord>) {
     if (!session) return
     persist({ ...session, overlord: { ...session.overlord, ...patch } })
+  }
+  function saveScenario(sc: PlayedScenario) {
+    if (!session) return
+    const exists = session.scenarios.some((s) => s.id === sc.id)
+    persist({
+      ...session,
+      scenarios: exists ? session.scenarios.map((s) => (s.id === sc.id ? sc : s)) : [...session.scenarios, sc],
+    })
+  }
+  function removeScenario(id: string) {
+    if (!session) return
+    persist({ ...session, scenarios: session.scenarios.filter((s) => s.id !== id) })
   }
 
   function handleCreate() {
@@ -98,24 +115,37 @@ export default function SessionsPage() {
   function confirmDelete() {
     if (!pendingDelete) return
     if (pendingDelete.type === 'session') deleteSession(pendingDelete.id)
-    else removeHero(pendingDelete.id)
+    else if (pendingDelete.type === 'hero') removeHero(pendingDelete.id)
+    else removeScenario(pendingDelete.id)
     setPendingDelete(null)
   }
 
+  const DELETE_COPY: Record<string, { title: string; noun: string; effect: string; confirm: string }> = {
+    session: {
+      title: 'Session löschen?',
+      noun: 'Die Session',
+      effect: 'wird mit allen Helden, dem Overlord-Setup und dem Verlauf dauerhaft gelöscht.',
+      confirm: 'Session löschen',
+    },
+    hero: { title: 'Held entfernen?', noun: 'Der Held', effect: 'wird aus der Session entfernt.', confirm: 'Held entfernen' },
+    scenario: {
+      title: 'Szenario löschen?',
+      noun: 'Das Szenario',
+      effect: 'wird aus dem Verlauf entfernt; seine Belohnungen werden vom Live-Stand abgezogen.',
+      confirm: 'Szenario löschen',
+    },
+  }
   const confirmDialog = pendingDelete && (
     <ConfirmDialog
-      title={pendingDelete.type === 'session' ? 'Session löschen?' : 'Held entfernen?'}
+      title={DELETE_COPY[pendingDelete.type].title}
       message={
         <>
-          {pendingDelete.type === 'session' ? 'Die Session ' : 'Der Held '}
-          <strong className="text-gray-100">„{pendingDelete.name}"</strong>{' '}
-          {pendingDelete.type === 'session'
-            ? 'wird mit allen Helden, dem Overlord-Setup und dem Verlauf dauerhaft gelöscht.'
-            : 'wird aus der Session entfernt.'}{' '}
-          Das kann nicht rückgängig gemacht werden.
+          {DELETE_COPY[pendingDelete.type].noun}{' '}
+          <strong className="text-gray-100">„{pendingDelete.name}"</strong> {DELETE_COPY[pendingDelete.type].effect} Das kann
+          nicht rückgängig gemacht werden.
         </>
       }
-      confirmLabel={pendingDelete.type === 'session' ? 'Session löschen' : 'Held entfernen'}
+      confirmLabel={DELETE_COPY[pendingDelete.type].confirm}
       onConfirm={confirmDelete}
       onCancel={() => setPendingDelete(null)}
     />
@@ -296,6 +326,15 @@ export default function SessionsPage() {
           live={live.overlord}
           ownedExpansionIds={ownedExpansionIds}
           onPatch={patchOverlord}
+        />
+      )}
+      {tab === 'szenarien' && live && (
+        <ScenariosTab
+          session={session}
+          live={live}
+          ownedExpansionIds={ownedExpansionIds}
+          onSaveScenario={saveScenario}
+          onRequestDelete={(id, name) => setPendingDelete({ type: 'scenario', id, name })}
         />
       )}
     </div>

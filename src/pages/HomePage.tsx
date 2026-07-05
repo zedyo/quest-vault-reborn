@@ -140,6 +140,7 @@ export default function HomePage() {
                 { icon: '📋', text: 'Errata & FAQ aus dem Community Rules Reference Guide – aufklappbar an jeder Karte + durchsuchbare Regelklärungen' },
                 { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
                 { icon: '🎲', text: 'Session-Tracker – laufende Kampagne festhalten: Helden mit Klasse, Fähigkeiten und Ausrüstung + Overlord-Setup; als JSON exportier- und importierbar' },
+                { icon: '📖', text: 'Szenario-Protokoll im Session-Tracker – je Szenario XP, Gold, Items und Einkauf eintragen; wird automatisch auf den aktuellen Stand angerechnet' },
               ].map((item) => (
                 <li key={item.text} className="flex gap-2 text-sm text-gray-400">
                   <span className="shrink-0 text-base leading-5">{item.icon}</span>
@@ -156,7 +157,6 @@ export default function HomePage() {
             <ul className="space-y-2">
               {[
                 { icon: '❤️', text: 'Monster-Lebenspunkte live tracken – kein Plättchen-Chaos mehr auf dem Tisch' },
-                { icon: '📖', text: 'Szenario-Protokoll im Session-Tracker – XP, Gold, Items und Einkauf pro Szenario automatisch mitführen' },
                 { icon: '⚔️', text: 'Overlord-Zentrale – eigenes Deck verwalten, Leutnanten steuern, Helden im Blick behalten' },
                 { icon: '🛡️', text: 'Spieler-Ansicht – jeder Held hat seine eigene Übersicht am Tisch' },
                 { icon: '🔄', text: 'Geräte-Synchronisation – Overlord und Spieler teilen sich denselben Spielstand' },

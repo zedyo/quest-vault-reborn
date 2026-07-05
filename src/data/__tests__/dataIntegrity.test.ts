@@ -11,6 +11,7 @@ import { AGENTS } from '../agents'
 import { PLOT_DECKS } from '../plotDecks'
 import { plotDeckForLieutenant, lieutenantForDeck } from '../lieutenantPlotLinks'
 import { CAMPAIGNS, ADVANCED_QUESTS } from '../campaigns'
+import { CAMPAIGN_SCENARIOS, scenariosForCampaign } from '../campaignScenarios'
 import { TRAVEL_CARDS } from '../travelCards'
 import { RUMORS } from '../rumors'
 import { CONDITIONS } from '../conditions'
@@ -1053,6 +1054,55 @@ describe('CRRG – Monsterfähigkeiten-Errata je Monster', () => {
     for (const m of MONSTERS) {
       for (const e of getMonsterAbilityErrata(m.id)) {
         expect(abilityIds.has(e.id), `${m.id}: ${e.id} nicht in monster-ability`).toBe(true)
+      }
+    }
+  })
+})
+
+describe('Kampagnen-Szenario-Datenintegrität', () => {
+  const CAMPAIGN_IDS = new Set(CAMPAIGNS.map((c) => c.id))
+  // Erlaubte Keys je Szenario — schützt die IP-Grenze (keine Ziele/Monster/Story).
+  const ALLOWED_KEYS = new Set(['id', 'titleDe', 'titleEn', 'act', 'order'])
+
+  it('alle Schlüssel sind gültige Kampagnen-IDs', () => {
+    for (const cid of Object.keys(CAMPAIGN_SCENARIOS)) {
+      expect(CAMPAIGN_IDS.has(cid), `${cid} ist keine Kampagne`).toBe(true)
+    }
+  })
+
+  it('jede Kampagne hat mindestens ein Szenario', () => {
+    for (const c of CAMPAIGNS) {
+      expect(scenariosForCampaign(c.id).length, `${c.id} ohne Szenarien`).toBeGreaterThan(0)
+    }
+  })
+
+  it('Szenario-IDs sind je Kampagne eindeutig + kebab-case', () => {
+    for (const [cid, list] of Object.entries(CAMPAIGN_SCENARIOS)) {
+      const ids = list.map((s) => s.id)
+      expect(new Set(ids).size, `${cid}: doppelte Szenario-ID`).toBe(ids.length)
+      for (const id of ids) {
+        expect(/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id), `${cid}: '${id}' nicht kebab-case`).toBe(true)
+      }
+    }
+  })
+
+  it('order ist je Kampagne eindeutig, act ∈ {1,2}, titleDe vorhanden', () => {
+    for (const [cid, list] of Object.entries(CAMPAIGN_SCENARIOS)) {
+      const orders = list.map((s) => s.order)
+      expect(new Set(orders).size, `${cid}: doppelte order`).toBe(orders.length)
+      for (const s of list) {
+        expect(s.act === 1 || s.act === 2, `${cid}/${s.id}: act ${s.act}`).toBe(true)
+        expect(typeof s.titleDe === 'string' && s.titleDe.trim().length > 0, `${cid}/${s.id}: titleDe fehlt`).toBe(true)
+      }
+    }
+  })
+
+  it('IP-Grenze: Szenarien tragen NUR erlaubte Felder (keine Questbuch-Inhalte)', () => {
+    for (const [cid, list] of Object.entries(CAMPAIGN_SCENARIOS)) {
+      for (const s of list) {
+        for (const key of Object.keys(s)) {
+          expect(ALLOWED_KEYS.has(key), `${cid}/${s.id}: unerlaubtes Feld '${key}'`).toBe(true)
+        }
       }
     }
   })
