@@ -9,6 +9,7 @@ import ThemeSwitcher from './ThemeSwitcher'
 const TOOLS = [
   { to: '/karte', label: '🗺️ Kartenbauer' },
   { to: '/quest', label: '📜 Quest-Editor' },
+  { to: '/session', label: '🎲 Session-Tracker' },
 ]
 const DATA = [
   { to: '/monster', label: '👹 Monster' },

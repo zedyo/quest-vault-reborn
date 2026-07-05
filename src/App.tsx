@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import MapBuilderPage from './pages/MapBuilderPage'
 import QuestEditorPage from './pages/QuestEditorPage'
+import SessionsPage from './pages/SessionsPage'
 import CollectionPage from './pages/CollectionPage'
 import MonstersPage from './pages/MonstersPage'
 import HeroesPage from './pages/HeroesPage'
@@ -26,6 +27,7 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path="karte" element={<MapBuilderPage />} />
         <Route path="quest" element={<QuestEditorPage />} />
+        <Route path="session" element={<SessionsPage />} />
         <Route path="sammlung" element={<CollectionPage />} />
         <Route path="monster" element={<MonstersPage />} />
         <Route path="helden" element={<HeroesPage />} />
