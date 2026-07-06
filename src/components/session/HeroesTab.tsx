@@ -3,8 +3,8 @@
 
 import { useMemo, useState } from 'react'
 import type { HeroClass } from '../../types/game'
-import type { ItemRef, TrackedHero } from '../../types/session'
-import type { HeroLiveState } from '../../store/sessionDerive'
+import type { CampaignSession, ItemRef, TrackedHero } from '../../types/session'
+import type { HeroLiveState, LiveState } from '../../store/sessionDerive'
 import { HEROES, ARCHETYPE_COLORS, ARCHETYPE_LABELS } from '../../data/heroes'
 import { HERO_CLASSES } from '../../data/heroClasses'
 import ModalOverlay from '../ModalOverlay'
@@ -12,7 +12,7 @@ import ArchetypeIcon from '../ArchetypeIcon'
 import { OwnedToggle } from '../Filters'
 import { renderGameText } from '../GameSymbols'
 import { CLASS_BY_ID, HERO_BY_ID, resolveItemName, withClass } from './sessionHelpers'
-import { ChipToggle, TextInput, SubHeading } from './ui'
+import { ChipToggle, NumberInput, TextInput, SubHeading } from './ui'
 import ItemPicker from './ItemPicker'
 
 const MAX_HEROES = 4
@@ -118,6 +118,9 @@ function HeroSetupCard({
 
   const startingSkills = new Set(hero.startingSkillIds)
   const ownedItems = live?.ownedItemRefs ?? hero.startingItemRefs
+  // Nur Start-/manuell hinzugefügte Gegenstände sind hier entfernbar; Szenario-erlangte
+  // Items (nicht in startingItemRefs) werden im Szenario-Protokoll verwaltet.
+  const startingRefIds = new Set(hero.startingItemRefs.map((r) => r.refId))
 
   function toggleSkill(skillId: string) {
     onPatch({
@@ -259,36 +262,39 @@ function HeroSetupCard({
 
       {/* Ausrüstung */}
       <div>
-        <div className="flex items-center justify-between mb-2">
-          <SubHeading hint="Startausrüstung der Klasse ist vorbelegt – hinzufügen/entfernen möglich.">
-            Ausrüstung
-          </SubHeading>
-          <button onClick={() => setItemPicker(true)} className="btn-secondary text-xs shrink-0">
-            + Item
-          </button>
-        </div>
+        <SubHeading hint="Startausrüstung ist vorbelegt; weitere Gegenstände kommen aus den Szenarien (Einkauf/Belohnung).">
+          Ausrüstung
+        </SubHeading>
         {ownedItems.length === 0 ? (
           <p className="text-gray-500 text-xs">Keine Gegenstände.</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
-            {ownedItems.map((ref) => (
-              <span
-                key={ref.refId}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-dungeon-800 border border-dungeon-600 text-gray-200"
-              >
-                {resolveItemName(ref)}
-                {ref.source === 'class-start' && <span className="text-[9px] text-gold-500/80">Start</span>}
-                <button
-                  onClick={() => removeItem(ref.refId)}
-                  title="Entfernen"
-                  className="text-gray-500 hover:text-red-400 leading-none"
+            {ownedItems.map((ref) => {
+              const removable = startingRefIds.has(ref.refId)
+              return (
+                <span
+                  key={ref.refId}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-dungeon-800 border border-dungeon-600 text-gray-200"
                 >
-                  ×
-                </button>
-              </span>
-            ))}
+                  {resolveItemName(ref)}
+                  {ref.source === 'class-start' && <span className="text-[9px] text-gold-500/80">Start</span>}
+                  {removable && (
+                    <button
+                      onClick={() => removeItem(ref.refId)}
+                      title="Entfernen"
+                      className="text-gray-500 hover:text-red-400 leading-none"
+                    >
+                      ×
+                    </button>
+                  )}
+                </span>
+              )
+            })}
           </div>
         )}
+        <button onClick={() => setItemPicker(true)} className="btn-secondary text-xs mt-2">
+          ＋ Weitere Items/Relikte manuell hinzufügen
+        </button>
       </div>
     </div>
   )
@@ -297,21 +303,24 @@ function HeroSetupCard({
 // ── HeroesTab ─────────────────────────────────────────────────────────────────
 
 export default function HeroesTab({
-  heroes,
+  session,
   live,
   ownedExpansionIds,
   onAddHero,
   onRemoveHero,
   onPatchHero,
+  onPatchSession,
 }: {
-  heroes: TrackedHero[]
-  live: Record<string, HeroLiveState>
+  session: CampaignSession
+  live: LiveState
   ownedExpansionIds: string[]
   onAddHero: (heroId: string) => void
   onRemoveHero: (localId: string) => void
   onPatchHero: (localId: string, patch: Partial<TrackedHero>) => void
+  onPatchSession: (patch: Partial<CampaignSession>) => void
 }) {
   const [adding, setAdding] = useState(false)
+  const heroes = session.heroes
 
   return (
     <div className="space-y-4">
@@ -323,6 +332,37 @@ export default function HeroesTab({
           onClose={() => setAdding(false)}
         />
       )}
+
+      {/* Partei: Schicksalsmarker + gemeinsame Ausrüstung */}
+      <div className="card space-y-3">
+        <SubHeading hint="Gemeinsam für die ganze Gruppe.">Partei</SubHeading>
+        <NumberInput
+          label="Schicksalsmarker (aktuell)"
+          value={session.partyFateTokens}
+          onChange={(v) => onPatchSession({ partyFateTokens: v })}
+          min={0}
+          max={100000}
+        />
+        <div>
+          <p className="text-[10px] uppercase tracking-wider text-gray-600 mb-1">Gemeinsame Ausrüstung</p>
+          {live.partyItemRefs.length === 0 ? (
+            <p className="text-gray-600 text-xs">
+              Keine gemeinsamen Gegenstände. (Items aus Szenario-Belohnungen/-Käufen, die keinem Helden zugewiesen wurden.)
+            </p>
+          ) : (
+            <div className="flex flex-wrap gap-1.5">
+              {live.partyItemRefs.map((ref) => (
+                <span
+                  key={ref.refId}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-dungeon-800 border border-dungeon-600 text-gray-200"
+                >
+                  {resolveItemName(ref)}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className="flex items-center justify-between gap-3">
         <p className="text-gray-400 text-sm">
@@ -347,7 +387,7 @@ export default function HeroesTab({
             <HeroSetupCard
               key={hero.localId}
               hero={hero}
-              live={live[hero.localId]}
+              live={live.heroes[hero.localId]}
               ownedExpansionIds={ownedExpansionIds}
               onPatch={(patch) => onPatchHero(hero.localId, patch)}
               onRemove={() => onRemoveHero(hero.localId)}

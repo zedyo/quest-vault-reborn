@@ -25,7 +25,10 @@ export interface OverlordLiveState {
   xpEarned: number
   xpSpent: number
   xpAvailable: number
+  /** Eindeutige besessene Karten-Schlüssel (deckId:cardId), dedupliziert. */
   ownedCardIds: string[]
+  /** Anzahl besessener Exemplare je Karten-Schlüssel (Mehrfach-Karten mit count>1). */
+  ownedCardCounts: Record<string, number>
   ownedRelicIds: string[]
 }
 
@@ -118,18 +121,23 @@ export function deriveLiveState(session: CampaignSession): LiveState {
     }
   }
 
-  // 6) Overlord-Stand.
+  // 6) Overlord-Stand. Karten als Multiset (Mehrfach-Exemplare, count>1) — jede
+  //    Instanz (Startkarte / Belohnungskarte / Kauf) zählt eine Kopie. Map statt
+  //    Objekt-Literal, damit ein manipulierter Schlüssel wie `__proto__` nicht den
+  //    Prototyp verbiegt (Object.fromEntries legt am Ende eigene Properties an).
   let olXpEarned = session.overlord.startingXp
   let olXpSpent = 0
-  const olCardIds = new Set(session.overlord.startingCardIds)
+  const olCardCounts = new Map<string, number>()
+  const bumpCard = (key: string) => olCardCounts.set(key, (olCardCounts.get(key) ?? 0) + 1)
   const olRelicIds = new Set(session.overlord.relicIds)
+  for (const cid of session.overlord.startingCardIds) bumpCard(cid)
   for (const sc of scenarios) {
     olXpEarned += sc.rewards.overlordXp
-    for (const cid of sc.rewards.overlordCardIds) olCardIds.add(cid)
+    for (const cid of sc.rewards.overlordCardIds) bumpCard(cid)
     for (const rid of sc.rewards.overlordRelicIds) olRelicIds.add(rid)
     for (const bought of sc.shopping.overlordCardsBought) {
       olXpSpent += bought.xpCost
-      olCardIds.add(bought.cardId)
+      bumpCard(bought.cardId)
     }
   }
 
@@ -144,7 +152,8 @@ export function deriveLiveState(session: CampaignSession): LiveState {
       xpEarned: olXpEarned,
       xpSpent: olXpSpent,
       xpAvailable: olXpEarned - olXpSpent,
-      ownedCardIds: [...olCardIds],
+      ownedCardIds: [...olCardCounts.keys()],
+      ownedCardCounts: Object.fromEntries(olCardCounts),
       ownedRelicIds: [...olRelicIds],
     },
     currentScenario,

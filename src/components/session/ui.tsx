@@ -97,6 +97,41 @@ export function ChipToggle({
   )
 }
 
+/** Mengen-Stepper (−/Wert/+), z. B. für Mehrfach-Exemplare von Karten (0..max). */
+export function QtyStepper({
+  value,
+  max,
+  onChange,
+  label,
+  title,
+}: {
+  value: number
+  max: number
+  onChange: (n: number) => void
+  label: ReactNode
+  title?: string
+}) {
+  const btn =
+    'w-5 h-5 flex items-center justify-center rounded text-sm leading-none disabled:opacity-30 disabled:cursor-not-allowed hover:bg-dungeon-700'
+  return (
+    <span
+      title={title}
+      className={`inline-flex items-center gap-1 rounded-full border pl-2.5 pr-1 py-0.5 text-xs ${
+        value > 0 ? 'border-gold-500 bg-dungeon-800 text-gold-200' : 'border-dungeon-600 bg-dungeon-800 text-gray-300'
+      }`}
+    >
+      <span className="truncate max-w-[12rem]">{label}</span>
+      <button type="button" onClick={() => onChange(Math.max(0, value - 1))} disabled={value <= 0} className={btn} aria-label="weniger">
+        −
+      </button>
+      <span className="w-4 text-center tabular-nums">{value}</span>
+      <button type="button" onClick={() => onChange(Math.min(max, value + 1))} disabled={value >= max} className={btn} aria-label="mehr">
+        +
+      </button>
+    </span>
+  )
+}
+
 /** Überschrift eines Unterabschnitts innerhalb eines Tabs. */
 export function SubHeading({ children, hint }: { children: ReactNode; hint?: ReactNode }) {
   return (

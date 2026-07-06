@@ -10,7 +10,8 @@ import { PLOT_DECKS } from '../../data/plotDecks'
 import { plotDeckForLieutenant } from '../../data/lieutenantPlotLinks'
 import { RUMORS } from '../../data/rumors'
 import { RELICS } from '../../data/items'
-import { ChipToggle, NumberInput, SubHeading } from './ui'
+import { ChipToggle, NumberInput, QtyStepper, SubHeading } from './ui'
+import { countOf, setCount } from './sessionHelpers'
 
 const DECK_KIND_LABEL: Record<string, string> = {
   basic: 'Basisdeck',
@@ -55,12 +56,14 @@ export default function OverlordTab({
         startingCardIds: overlord.startingCardIds.filter((c) => !keys.has(c)),
       })
     } else {
-      // Basis-/Startkarten (xpCost === 0) sind zu Beginn im Deck; Klassenkarten
-      // (xpCost > 0) kauft der Overlord erst über die Kampagne (Phase 2).
-      const seed = deck.cards.filter((c) => c.xpCost === 0).map((c) => cardKey(deck.id, c.id))
+      // Basis-/Startkarten (xpCost === 0) sind zu Beginn im Deck – mit ALLEN Exemplaren
+      // (count). Klassenkarten (xpCost > 0) kauft der Overlord erst über die Kampagne.
+      const seed = deck.cards
+        .filter((c) => c.xpCost === 0)
+        .flatMap((c) => Array<string>(Math.max(1, c.count)).fill(cardKey(deck.id, c.id)))
       onPatch({
         deckIds: [...overlord.deckIds, deck.id],
-        startingCardIds: [...new Set([...overlord.startingCardIds, ...seed])],
+        startingCardIds: [...overlord.startingCardIds, ...seed],
       })
     }
   }
@@ -108,34 +111,48 @@ export default function OverlordTab({
             Besessene Karten
           </SubHeading>
           <div className="space-y-2">
-            {selectedDecks.map((deck) => (
-              <details key={deck.id} className="rounded border border-dungeon-700 bg-dungeon-900/50">
-                <summary className="cursor-pointer px-3 py-2 text-sm text-gray-200 select-none">
-                  {deck.nameDe}
-                  <span className="text-gray-500 text-xs">
-                    {' '}
-                    ({deck.cards.filter((c) => overlord.startingCardIds.includes(cardKey(deck.id, c.id))).length}/
-                    {deck.cards.length})
-                  </span>
-                </summary>
-                <div className="px-3 pb-3 flex flex-wrap gap-1.5">
-                  {deck.cards.map((c) => {
-                    const key = cardKey(deck.id, c.id)
-                    return (
-                      <ChipToggle
-                        key={key}
-                        active={overlord.startingCardIds.includes(key)}
-                        onClick={() => onPatch({ startingCardIds: toggleId(overlord.startingCardIds, key) })}
-                        title={c.rulesDe}
-                      >
-                        {c.nameDe}
-                        {c.xpCost && c.xpCost > 0 ? <span className="opacity-60"> · {c.xpCost} XP</span> : null}
-                      </ChipToggle>
-                    )
-                  })}
-                </div>
-              </details>
-            ))}
+            {selectedDecks.map((deck) => {
+              const totalCopies = deck.cards.reduce((n, c) => n + Math.max(1, c.count), 0)
+              const ownedCopies = deck.cards.reduce((n, c) => n + countOf(overlord.startingCardIds, cardKey(deck.id, c.id)), 0)
+              return (
+                <details key={deck.id} className="rounded border border-dungeon-700 bg-dungeon-900/50">
+                  <summary className="cursor-pointer px-3 py-2 text-sm text-gray-200 select-none">
+                    {deck.nameDe}
+                    <span className="text-gray-500 text-xs"> ({ownedCopies}/{totalCopies})</span>
+                  </summary>
+                  <div className="px-3 pb-3 flex flex-wrap gap-1.5">
+                    {deck.cards.map((c) => {
+                      const key = cardKey(deck.id, c.id)
+                      const max = Math.max(1, c.count)
+                      const xp = c.xpCost && c.xpCost > 0 ? ` · ${c.xpCost} XP` : ''
+                      if (max > 1) {
+                        return (
+                          <QtyStepper
+                            key={key}
+                            value={countOf(overlord.startingCardIds, key)}
+                            max={max}
+                            onChange={(n) => onPatch({ startingCardIds: setCount(overlord.startingCardIds, key, n) })}
+                            title={c.rulesDe}
+                            label={`${c.nameDe}${xp}`}
+                          />
+                        )
+                      }
+                      return (
+                        <ChipToggle
+                          key={key}
+                          active={countOf(overlord.startingCardIds, key) > 0}
+                          onClick={() => onPatch({ startingCardIds: toggleId(overlord.startingCardIds, key) })}
+                          title={c.rulesDe}
+                        >
+                          {c.nameDe}
+                          {xp ? <span className="opacity-60">{xp}</span> : null}
+                        </ChipToggle>
+                      )
+                    })}
+                  </div>
+                </details>
+              )
+            })}
           </div>
         </div>
       )}
@@ -220,9 +237,9 @@ export default function OverlordTab({
         </div>
       )}
 
-      {/* Relikte + XP */}
+      {/* Relikte + XP + Bedrohung */}
       <div className="card space-y-3">
-        <SubHeading>Overlord-Relikte & XP</SubHeading>
+        <SubHeading>Overlord-Relikte, XP & Bedrohung</SubHeading>
         {overlordRelics.length > 0 && (
           <details>
             <summary className="cursor-pointer text-sm text-gray-300 select-none mb-2">
@@ -242,13 +259,22 @@ export default function OverlordTab({
             </div>
           </details>
         )}
-        <NumberInput
-          label="Start-XP des Overlords"
-          value={overlord.startingXp}
-          onChange={(v) => onPatch({ startingXp: v })}
-          min={0}
-          max={100000}
-        />
+        <div className="flex flex-wrap gap-3">
+          <NumberInput
+            label="Start-XP des Overlords"
+            value={overlord.startingXp}
+            onChange={(v) => onPatch({ startingXp: v })}
+            min={0}
+            max={100000}
+          />
+          <NumberInput
+            label="Bedrohungsmarker (aktuell)"
+            value={overlord.threatTokens}
+            onChange={(v) => onPatch({ threatTokens: v })}
+            min={0}
+            max={100000}
+          />
+        </div>
       </div>
     </div>
   )

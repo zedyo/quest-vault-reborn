@@ -112,6 +112,7 @@ function sanitizeOverlord(v: unknown): TrackedOverlord {
     activeRumorIds: idList(r.activeRumorIds),
     relicIds: idList(r.relicIds),
     startingXp: num(r.startingXp, 0, 1_000_000, 0),
+    threatTokens: num(r.threatTokens, 0, 1_000_000, 0),
   }
 }
 
@@ -220,6 +221,7 @@ export function sanitizeSession(raw: unknown, keepId: boolean): CampaignSession 
     campaignId,
     playerCount: raw.playerCount === 3 ? 3 : raw.playerCount === 4 ? 4 : 2,
     startingGold: num(raw.startingGold, 0, 1_000_000, 0),
+    partyFateTokens: num(raw.partyFateTokens, 0, 1_000_000, 0),
     createdAt: str(raw.createdAt, 40) || nowIso,
     updatedAt: str(raw.updatedAt, 40) || nowIso,
     heroes: Array.isArray(raw.heroes)

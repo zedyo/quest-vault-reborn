@@ -62,6 +62,7 @@ export function emptyOverlord(): TrackedOverlord {
     activeRumorIds: [],
     relicIds: [],
     startingXp: 0,
+    threatTokens: 0,
   }
 }
 
@@ -73,6 +74,7 @@ export function newSession(campaignId: string): CampaignSession {
     campaignId,
     playerCount: 2,
     startingGold: 0,
+    partyFateTokens: 0,
     createdAt: now,
     updatedAt: now,
     heroes: [],
@@ -134,4 +136,17 @@ export function skillCost(skill: ClassSkill): number {
 export function heroDisplayName(hero: TrackedHero): string {
   const name = HERO_BY_ID[hero.heroId]?.name ?? hero.heroId
   return hero.playerName.trim() ? `${name} (${hero.playerName.trim()})` : name
+}
+
+// ── Mengen-Helfer für Mehrfach-Exemplare (Overlord-Karten als Multiset) ───────
+
+/** Anzahl der Vorkommen von `key` in `arr`. */
+export function countOf(arr: string[], key: string): number {
+  return arr.reduce((n, x) => (x === key ? n + 1 : n), 0)
+}
+
+/** Setzt die Anzahl der Vorkommen von `key` in `arr` auf `n` (übrige Einträge bleiben). */
+export function setCount(arr: string[], key: string, n: number): string[] {
+  const rest = arr.filter((x) => x !== key)
+  return [...rest, ...Array<string>(Math.max(0, n)).fill(key)]
 }

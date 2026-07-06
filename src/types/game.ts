@@ -362,6 +362,11 @@ export interface CampaignScenario {
   act: 1 | 2
   /** Nominale Anzeigereihenfolge innerhalb der Kampagne. */
   order: number
+  /**
+   * Feste Sonderrolle im Szenariobaum (Einführung / Zwischenspiel / Finale). Fehlt bei
+   * den regulären, aus dem Pool wählbaren Szenarien. Rein strukturelle Metadaten.
+   */
+  role?: 'intro' | 'interlude' | 'finale'
 }
 
 /**

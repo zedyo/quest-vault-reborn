@@ -63,6 +63,8 @@ export interface TrackedOverlord {
   relicIds: string[]
   /** Start-XP des Overlords (meist 0). */
   startingXp: number
+  /** Aktuelle Bedrohungsmarker des Overlords (Live-Zähler, jederzeit editierbar). */
+  threatTokens: number
 }
 
 // ── Szenario-Protokoll (Payloads: Schema in Phase 1, UI in Phase 2) ──────────
@@ -148,6 +150,8 @@ export interface CampaignSession {
   playerCount: 2 | 3 | 4
   /** Start-Gold der Partei (meist 0). */
   startingGold: number
+  /** Aktuelle Schicksalsmarker der Partei (gemeinsamer Live-Zähler, jederzeit editierbar). */
+  partyFateTokens: number
   createdAt: string
   updatedAt: string
   /** Max. 4 Helden. */

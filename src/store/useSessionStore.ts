@@ -21,7 +21,7 @@ interface SessionStore {
 
 // Persist-Schema-Version. Bei JEDER Änderung an der Struktur der persistierten
 // Felder hochzählen und in migrate() einen Migrationsschritt ergänzen.
-const PERSIST_VERSION = 1
+const PERSIST_VERSION = 2
 
 /** Schützt vor manipuliertem/korruptem localStorage (Crash beim Rendern). */
 function sanitizePersisted(persisted: unknown): Partial<SessionStore> {
@@ -59,7 +59,9 @@ export const useSessionStore = create<SessionStore>()(
       name: 'qvr-sessions',
       version: PERSIST_VERSION,
       migrate: (persisted, _version) => {
-        // v1: initiale Version. Künftige Migrationen hier als Kette ergänzen.
+        // v1 → v2: neue Live-Zähler (threatTokens/partyFateTokens) ergänzt. sanitizeSession
+        // defaultet fehlende Felder auf 0 → v1-Stände laden verlustfrei. Künftige
+        // Migrationen hier als Kette ergänzen (if (version < 3) {...}).
         return sanitizePersisted(persisted)
       },
       merge: (persisted, current) => ({

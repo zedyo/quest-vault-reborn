@@ -274,7 +274,7 @@
 **Heldentat:** Setze diese Heldentat ein, sobald du besiegt wirst, um 1 Nahkampfangriff auszuführen. Für jedes Monster, das du mit dieser Heldentat besiegst, darfst du 1 weiteren Nahkampfangriff ausführen. Anschließend bist du niedergestreckt.  
 **Bild:** `cards/de/heroes/one-fist.webp` · Rückseite `one-fist-back.webp`
 
-### Stahlhörner
+### Stahlhorn
 *Scherben von Everdark* · `steelhorns`  
 **Werte:** Bewegung 4 · Leben 14 · Ausdauer 3 · Verteidigung Grau  
 **Attribute:** Stärke 5 · Wissen 1 · Willenskraft 3 · Gespür 2  

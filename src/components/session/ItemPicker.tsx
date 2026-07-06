@@ -15,11 +15,14 @@ export default function ItemPicker({
   onPick,
   onClose,
   title = 'Gegenstand hinzufügen',
+  actFilter,
 }: {
   ownedExpansionIds: string[]
   onPick: (ref: ItemRef) => void
   onClose: () => void
   title?: string
+  /** Kauf-Kontext: nur Items des gewählten Akts (1|2), 'both' = Akt 1+2 getrennt. Ohne = alle. */
+  actFilter?: 1 | 2 | 'both'
 }) {
   const [search, setSearch] = useState('')
   const [onlyOwned, setOnlyOwned] = useState(true)
@@ -31,20 +34,42 @@ export default function ItemPicker({
       SHOP_ITEMS.filter(
         (i) =>
           (!onlyOwned || ownedExpansionIds.includes(i.expansionId)) &&
+          (actFilter === undefined || actFilter === 'both' || i.act === actFilter) &&
           (!q || i.nameDe.toLowerCase().includes(q) || i.nameEn.toLowerCase().includes(q)),
       ),
-    [q, onlyOwned, ownedExpansionIds],
+    [q, onlyOwned, ownedExpansionIds, actFilter],
   )
+  // Relikte kauft man nicht im Markt → nur ohne Akt-Filter (Belohnung/manuell) anbieten.
   const relics = useMemo(
     () =>
-      RELICS.filter(
-        (r) =>
-          r.side === 'hero' &&
-          (!onlyOwned || ownedExpansionIds.includes(r.expansionId)) &&
-          (!q || r.nameDe.toLowerCase().includes(q) || r.nameEn.toLowerCase().includes(q)),
-      ),
-    [q, onlyOwned, ownedExpansionIds],
+      actFilter !== undefined
+        ? []
+        : RELICS.filter(
+            (r) =>
+              r.side === 'hero' &&
+              (!onlyOwned || ownedExpansionIds.includes(r.expansionId)) &&
+              (!q || r.nameDe.toLowerCase().includes(q) || r.nameEn.toLowerCase().includes(q)),
+          ),
+    [q, onlyOwned, ownedExpansionIds, actFilter],
   )
+
+  const pickShop = (id: string) => {
+    onPick({ refId: uid(), source: 'shop', dataId: id })
+    onClose()
+  }
+  const shopGroup = (label: string, items: typeof shop) =>
+    items.length > 0 && (
+      <div>
+        <p className="text-xs uppercase tracking-wider text-gray-600 mb-1.5">{label}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {items.map((i) => (
+            <ChipToggle key={i.id} active={false} title={`${i.nameDe} · Akt ${i.act} · ${i.cost} Gold`} onClick={() => pickShop(i.id)}>
+              {i.nameDe} <span className="opacity-60">· {i.cost}G</span>
+            </ChipToggle>
+          ))}
+        </div>
+      </div>
+    )
 
   return (
     <ModalOverlay
@@ -75,25 +100,13 @@ export default function ItemPicker({
           </button>
         </div>
 
-        {shop.length > 0 && (
-          <div>
-            <p className="text-xs uppercase tracking-wider text-gray-600 mb-1.5">Marktkarten</p>
-            <div className="flex flex-wrap gap-1.5">
-              {shop.map((i) => (
-                <ChipToggle
-                  key={i.id}
-                  active={false}
-                  title={`${i.nameDe} · Akt ${i.act} · ${i.cost} Gold`}
-                  onClick={() => {
-                    onPick({ refId: uid(), source: 'shop', dataId: i.id })
-                    onClose()
-                  }}
-                >
-                  {i.nameDe} <span className="opacity-60">· {i.cost}G</span>
-                </ChipToggle>
-              ))}
-            </div>
-          </div>
+        {actFilter === 'both' ? (
+          <>
+            {shopGroup('Marktkarten · Akt 1', shop.filter((i) => i.act === 1))}
+            {shopGroup('Marktkarten · Akt 2', shop.filter((i) => i.act === 2))}
+          </>
+        ) : (
+          shopGroup(actFilter ? `Marktkarten · Akt ${actFilter}` : 'Marktkarten', shop)
         )}
 
         {relics.length > 0 && (

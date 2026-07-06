@@ -955,7 +955,7 @@
 
 ---
 
-## Stahlhörner
+## Stahlhorn
 
 **Archetyp:** Krieger | **Erweiterung:** Scherben von Everdark
 

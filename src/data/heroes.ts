@@ -490,7 +490,7 @@ export const HEROES: Hero[] = [
     heroicFeat: 'Setze diese Heldentat ein, sobald du besiegt wirst, um 1 Nahkampfangriff auszuführen. Für jedes Monster, das du mit dieser Heldentat besiegst, darfst du 1 weiteren Nahkampfangriff ausführen. Anschließend bist du niedergestreckt.',
   },
   {
-    id: 'steelhorns', name: 'Stahlhörner', archetype: 'krieger', expansionId: 'shards-of-everdark',
+    id: 'steelhorns', name: 'Stahlhorn', archetype: 'krieger', expansionId: 'shards-of-everdark',
     speed: 4, health: 14, stamina: 3, defense: ['gray'],
     might: 5, knowledge: 1, willpower: 3, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/shards-of-everdark/warriors/se-steelhorns.png',

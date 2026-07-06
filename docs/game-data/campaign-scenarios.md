@@ -9,12 +9,29 @@ Szenario je Kampagne". Eingeführt in **v1.5.0**.
 Erfasst werden **ausschließlich faktische Metadaten** je Szenario:
 
 - `id` (kebab-case, je Kampagne eindeutig), `titleDe` (offizieller dt. Titel),
-  `titleEn?` (offizieller/Community-EN-Titel, Anker), `act` (1 | 2), `order` (Reihenfolge).
+  `titleEn?` (offizieller/Community-EN-Titel, Anker), `act` (1 | 2), `order` (Reihenfolge),
+  `role?` (feste Sonderrolle: `intro` / `interlude` / `finale` — rein strukturell).
 
 **NICHT enthalten (FFG-Urheberrecht):** Questbuch-Inhalte — Ziele, Monsterlisten,
 Aufbauten, Sonderregeln, Story/Erzähltext. Ein Datenintegritäts-Test (**IP-Shape-Guard**)
-lässt den Build fehlschlagen, sobald ein Szenario ein anderes als die fünf erlaubten Felder
+lässt den Build fehlschlagen, sobald ein Szenario ein anderes als die sechs erlaubten Felder
 trägt (verhindert versehentliches Einpflegen von Quest-Inhalten).
+
+### `role` — feste Sonderszenarien (v1.5.1)
+
+Markiert die **festen** Szenarien (nicht Teil des verzweigenden Pools), damit der
+Szenario-Editor sie hervorheben kann (eigene Optgroup „★ Feste Szenarien" + Badge) und der
+Akt-abhängige Einkaufsfilter das Zwischenspiel erkennt (dort Akt 1 **und** 2):
+
+- `intro` = Einführung (erstes Szenario) — bei jeder Kampagne außer **Rostende Ketten**
+  (reine Akt-II-Fortsetzung von Nebel von Bilehall, kein eigenes Intro).
+- `interlude` = Zwischenspiel am Übergang Akt 1 → 2 (immer `act: 1`). Nur die verzweigenden
+  Großkampagnen haben ein formales Zwischenspiel: Schattenrune (`the-overlord-revealed`),
+  Blutvermächtnis (**zwei:** `der-lockvogel` + `die-tiefen-des-klosters`), Labyrinth
+  (`fortune-and-glory`), Nerekhall (`traitors-among-us`). Mini-Kampagnen + Bilehall/Ketten
+  haben keins.
+- `finale` = letztes Szenario — bei jeder Kampagne außer **Nebel von Bilehall** (läuft in
+  Rostende Ketten weiter; das echte Finale ist dort `profane-nexus`).
 
 ## Quellen (2026-07-05)
 
