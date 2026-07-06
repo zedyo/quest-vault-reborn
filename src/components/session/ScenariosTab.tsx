@@ -19,7 +19,7 @@ import { RELICS } from '../../data/items'
 import { OVERLORD_DECKS } from '../../data/overlordClasses'
 import { SegmentedControl } from '../Filters'
 import ItemPicker from './ItemPicker'
-import { ChipToggle, NumberInput, SubHeading, TextInput } from './ui'
+import { ChipToggle, NumberInput, QtyStepper, SubHeading, TextInput } from './ui'
 import {
   CLASS_BY_ID,
   heroDisplayName,
@@ -38,6 +38,12 @@ const SOURCE_OPTIONS: { value: ScenarioSource; label: string }[] = [
 ]
 
 const cardKey = (deckId: string, cardId: string) => `${deckId}:${cardId}`
+
+/** Feste Sonderszenarien (Einführung/Zwischenspiel/Finale) – Anzeige + Symbol. */
+type ScenarioRole = 'intro' | 'interlude' | 'finale'
+const ROLE_LABEL: Record<ScenarioRole, string> = { intro: 'Einführung', interlude: 'Zwischenspiel', finale: 'Finale' }
+const ROLE_SYMBOL: Record<ScenarioRole, string> = { intro: '▶', interlude: '◆', finale: '★' }
+
 const INPUT =
   'w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500'
 
@@ -94,9 +100,16 @@ function ScenarioEditor({
   const overlordRelics = RELICS.filter((r) => r.side === 'overlord' && owns(r.expansionId))
   const classDecks = OVERLORD_DECKS.filter((d) => session.overlord.deckIds.includes(d.id))
 
-  const patch = (p: Partial<PlayedScenario>) => setDraft({ ...draft, ...p })
-  const patchRewards = (p: Partial<PlayedScenario['rewards']>) => setDraft({ ...draft, rewards: { ...draft.rewards, ...p } })
-  const patchShopping = (p: Partial<PlayedScenario['shopping']>) => setDraft({ ...draft, shopping: { ...draft.shopping, ...p } })
+  // Rolle des gewählten Kampagnen-Szenarios (Einführung/Zwischenspiel/Finale) – u. a. für den Akt-Filter beim Kauf.
+  const selectedCampaignScenario =
+    draft.scenario.source === 'campaign' ? campaignScenarios.find((s) => s.id === draft.scenario.dataId) : undefined
+  const buyActFilter: 1 | 2 | 'both' =
+    selectedCampaignScenario?.role === 'interlude' ? 'both' : draft.scenario.act
+
+  // Funktionale Updates → keine Stale-Closure, wenn der ItemPicker onPick aufruft.
+  const patch = (p: Partial<PlayedScenario>) => setDraft((d) => ({ ...d, ...p }))
+  const patchRewards = (p: Partial<PlayedScenario['rewards']>) => setDraft((d) => ({ ...d, rewards: { ...d.rewards, ...p } }))
+  const patchShopping = (p: Partial<PlayedScenario['shopping']>) => setDraft((d) => ({ ...d, shopping: { ...d.shopping, ...p } }))
 
   function setSource(source: ScenarioSource) {
     patch({ scenario: { source, dataId: '', title: source === 'custom' ? draft.scenario.title : '', act: draft.scenario.act } })
@@ -108,7 +121,7 @@ function ScenarioEditor({
   function ownerSelect(value: string | null, onChange: (v: string | null) => void) {
     return (
       <select value={value ?? ''} onChange={(e) => onChange(e.target.value || null)} className={`${INPUT} w-40`}>
-        <option value="">Partei-Pool</option>
+        <option value="">Gemeinsame Ausrüstung</option>
         {heroes.map((h) => (
           <option key={h.localId} value={h.localId}>
             {heroDisplayName(h)}
@@ -126,10 +139,12 @@ function ScenarioEditor({
         <ItemPicker
           ownedExpansionIds={ownedExpansionIds}
           title={picker === 'grant' ? 'Erhaltenen Gegenstand wählen' : 'Gekauften Gegenstand wählen'}
-          onPick={(item) => {
-            if (picker === 'grant') patchRewards({ grantedItems: [...draft.rewards.grantedItems, { toHeroLocalId: null, item }] })
-            else patchShopping({ bought: [...draft.shopping.bought, { toHeroLocalId: null, item, price: itemBaseCost(item) }] })
-          }}
+          actFilter={picker === 'buy' ? buyActFilter : undefined}
+          onPick={(item) =>
+            picker === 'grant'
+              ? setDraft((d) => ({ ...d, rewards: { ...d.rewards, grantedItems: [...d.rewards.grantedItems, { toHeroLocalId: null, item }] } }))
+              : setDraft((d) => ({ ...d, shopping: { ...d.shopping, bought: [...d.shopping.bought, { toHeroLocalId: null, item, price: itemBaseCost(item) }] } }))
+          }
           onClose={() => setPicker(null)}
         />
       )}
@@ -163,11 +178,22 @@ function ScenarioEditor({
             }}
           >
             <option value="">– Szenario wählen –</option>
+            {campaignScenarios.some((s) => s.role) && (
+              <optgroup label="★ Feste Szenarien">
+                {campaignScenarios
+                  .filter((s) => s.role)
+                  .map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {ROLE_SYMBOL[s.role as ScenarioRole]} {ROLE_LABEL[s.role as ScenarioRole]}: {s.titleDe}
+                    </option>
+                  ))}
+              </optgroup>
+            )}
             {[1, 2].map((act) => {
-              const list = campaignScenarios.filter((s) => s.act === act)
+              const list = campaignScenarios.filter((s) => s.act === act && !s.role)
               if (!list.length) return null
               return (
-                <optgroup key={act} label={`Akt ${act}`}>
+                <optgroup key={act} label={`Akt ${act} · weitere Szenarien`}>
                   {list.map((s) => (
                     <option key={s.id} value={s.id}>{s.titleDe}</option>
                   ))}
@@ -350,7 +376,12 @@ function ScenarioEditor({
         {/* Kaufen */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <p className="text-[10px] uppercase tracking-wider text-gray-600">Gekauft</p>
+            <p className="text-[10px] uppercase tracking-wider text-gray-600">
+              Gekauft
+              <span className="normal-case tracking-normal text-gray-600">
+                {' '}· Markt {buyActFilter === 'both' ? 'Akt 1 + 2 (Zwischenspiel)' : `Akt ${buyActFilter}`}
+              </span>
+            </p>
             <button onClick={() => setPicker('buy')} className="btn-secondary text-xs">+ Kaufen</button>
           </div>
           {draft.shopping.bought.length === 0 ? (
@@ -482,20 +513,26 @@ function ScenarioEditor({
                     <div className="flex flex-wrap gap-1.5 mt-1">
                       {buyable.map((c) => {
                         const key = cardKey(deck.id, c.id)
-                        const active = draft.shopping.overlordCardsBought.some((x) => x.cardId === key)
+                        const max = Math.max(1, c.count)
+                        const cur = draft.shopping.overlordCardsBought.filter((x) => x.cardId === key).length
+                        const setN = (n: number) =>
+                          setDraft((d) => ({
+                            ...d,
+                            shopping: {
+                              ...d.shopping,
+                              overlordCardsBought: [
+                                ...d.shopping.overlordCardsBought.filter((x) => x.cardId !== key),
+                                ...Array.from({ length: Math.max(0, n) }, () => ({ cardId: key, xpCost: c.xpCost as number })),
+                              ],
+                            },
+                          }))
+                        if (max > 1) {
+                          return (
+                            <QtyStepper key={key} value={cur} max={max} onChange={setN} title={c.rulesDe} label={`${c.nameDe} · ${c.xpCost} XP`} />
+                          )
+                        }
                         return (
-                          <ChipToggle
-                            key={key}
-                            active={active}
-                            title={c.rulesDe}
-                            onClick={() =>
-                              patchShopping({
-                                overlordCardsBought: active
-                                  ? draft.shopping.overlordCardsBought.filter((x) => x.cardId !== key)
-                                  : [...draft.shopping.overlordCardsBought, { cardId: key, xpCost: c.xpCost as number }],
-                              })
-                            }
-                          >
+                          <ChipToggle key={key} active={cur > 0} title={c.rulesDe} onClick={() => setN(cur > 0 ? 0 : 1)}>
                             {c.nameDe} <span className="opacity-60">· {c.xpCost} XP</span>
                           </ChipToggle>
                         )
@@ -547,6 +584,11 @@ export default function ScenariosTab({
   const [editing, setEditing] = useState<PlayedScenario | null>(null)
   const sorted = useMemo(() => [...session.scenarios].sort((a, b) => a.order - b.order), [session.scenarios])
   const nextOrder = sorted.length ? sorted[sorted.length - 1].order + 1 : 1
+  const campaignScenarios = scenariosForCampaign(session.campaignId)
+  const roleOf = (sc: PlayedScenario): ScenarioRole | undefined =>
+    sc.scenario.source === 'campaign'
+      ? (campaignScenarios.find((x) => x.id === sc.scenario.dataId)?.role as ScenarioRole | undefined)
+      : undefined
 
   if (editing) {
     return (
@@ -586,6 +628,11 @@ export default function ScenariosTab({
                 <div className="flex items-center gap-2">
                   <h4 className="text-gold-300 font-semibold truncate">{sc.scenario.title || 'Unbenannt'}</h4>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-dungeon-700 text-gray-400 shrink-0">Akt {sc.scenario.act}</span>
+                  {roleOf(sc) && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-600/40 shrink-0">
+                      {ROLE_SYMBOL[roleOf(sc)!]} {ROLE_LABEL[roleOf(sc)!]}
+                    </span>
+                  )}
                 </div>
                 <p className="text-gray-500 text-xs truncate">{OUTCOME_LABEL[sc.outcome]} · {scenarioSummary(sc)}</p>
               </div>

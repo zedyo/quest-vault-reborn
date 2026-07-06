@@ -17,6 +17,7 @@ function overlord(over: Partial<TrackedOverlord> = {}): TrackedOverlord {
     activeRumorIds: [],
     relicIds: [],
     startingXp: 0,
+    threatTokens: 0,
     ...over,
   }
 }
@@ -38,6 +39,7 @@ function session(over: Partial<CampaignSession> = {}): CampaignSession {
     campaignId: 'the-shadow-rune',
     playerCount: 2,
     startingGold: 0,
+    partyFateTokens: 0,
     createdAt: '',
     updatedAt: '',
     heroes: [],
@@ -185,6 +187,27 @@ describe('deriveLiveState – Overlord & Reihenfolge', () => {
     expect(live.overlord.xpAvailable).toBe(4)
     expect(live.overlord.ownedCardIds.sort()).toEqual(['basic:c1', 'magus:m1', 'reward:r1'])
     expect(live.overlord.ownedRelicIds).toEqual(['relic1'])
+  })
+
+  it('zählt Mehrfach-Exemplare von Karten (count>1) korrekt', () => {
+    // basic:c1 zweimal im Startdeck; magus:m1 einmal Setup + zweimal im Szenario gekauft.
+    const s = session({ overlord: overlord({ startingCardIds: ['basic:c1', 'basic:c1', 'magus:m1'] }) })
+    const sc = scenario('sc', {
+      shopping: {
+        bought: [],
+        sold: [],
+        skillsLearned: [],
+        overlordCardsBought: [
+          { cardId: 'magus:m1', xpCost: 1 },
+          { cardId: 'magus:m1', xpCost: 1 },
+        ],
+      },
+    })
+    const live = deriveLiveState({ ...s, scenarios: [sc] })
+    expect(live.overlord.ownedCardCounts['basic:c1']).toBe(2)
+    expect(live.overlord.ownedCardCounts['magus:m1']).toBe(3)
+    expect(live.overlord.ownedCardIds.sort()).toEqual(['basic:c1', 'magus:m1'])
+    expect(live.overlord.xpSpent).toBe(2)
   })
 
   it('nimmt das Szenario mit dem höchsten order als aktuelles', () => {

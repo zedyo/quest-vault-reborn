@@ -1062,7 +1062,8 @@ describe('CRRG – Monsterfähigkeiten-Errata je Monster', () => {
 describe('Kampagnen-Szenario-Datenintegrität', () => {
   const CAMPAIGN_IDS = new Set(CAMPAIGNS.map((c) => c.id))
   // Erlaubte Keys je Szenario — schützt die IP-Grenze (keine Ziele/Monster/Story).
-  const ALLOWED_KEYS = new Set(['id', 'titleDe', 'titleEn', 'act', 'order'])
+  const ALLOWED_KEYS = new Set(['id', 'titleDe', 'titleEn', 'act', 'order', 'role'])
+  const ROLES = new Set(['intro', 'interlude', 'finale'])
 
   it('alle Schlüssel sind gültige Kampagnen-IDs', () => {
     for (const cid of Object.keys(CAMPAIGN_SCENARIOS)) {
@@ -1104,6 +1105,24 @@ describe('Kampagnen-Szenario-Datenintegrität', () => {
           expect(ALLOWED_KEYS.has(key), `${cid}/${s.id}: unerlaubtes Feld '${key}'`).toBe(true)
         }
       }
+    }
+  })
+
+  it('role (falls gesetzt) ∈ {intro,interlude,finale}; ≤1 intro + ≤1 finale, Zwischenspiele in Akt 1', () => {
+    for (const [cid, list] of Object.entries(CAMPAIGN_SCENARIOS)) {
+      let intros = 0
+      let finales = 0
+      for (const s of list) {
+        if (s.role === undefined) continue
+        expect(ROLES.has(s.role), `${cid}/${s.id}: ungültige role '${s.role}'`).toBe(true)
+        if (s.role === 'intro') intros++
+        if (s.role === 'finale') finales++
+        if (s.role === 'interlude') {
+          expect(s.act, `${cid}/${s.id}: Zwischenspiel nicht in Akt 1`).toBe(1)
+        }
+      }
+      expect(intros, `${cid}: mehr als eine Einführung`).toBeLessThanOrEqual(1)
+      expect(finales, `${cid}: mehr als ein Finale`).toBeLessThanOrEqual(1)
     }
   })
 })

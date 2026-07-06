@@ -271,15 +271,14 @@ export default function SessionsPage() {
 
       {/* Live-Stand-Streifen */}
       {live && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {[
             { label: 'Akt', value: live.currentAct },
             { label: 'Partei-Gold', value: live.partyGold },
             { label: 'Helden', value: session.heroes.length },
-            {
-              label: 'Overlord-XP',
-              value: live.overlord.xpAvailable,
-            },
+            { label: 'Overlord-XP', value: live.overlord.xpAvailable },
+            { label: 'Bedrohung', value: session.overlord.threatTokens },
+            { label: 'Schicksal', value: session.partyFateTokens },
           ].map((stat) => (
             <div key={stat.label} className="card text-center py-3">
               <p className="text-2xl font-bold text-gold-400">{stat.value}</p>
@@ -309,8 +308,8 @@ export default function SessionsPage() {
       {tab === 'setup' && <SetupTab session={session} onPatch={patchSession} />}
       {tab === 'helden' && live && (
         <HeroesTab
-          heroes={session.heroes}
-          live={live.heroes}
+          session={session}
+          live={live}
           ownedExpansionIds={ownedExpansionIds}
           onAddHero={addHero}
           onRemoveHero={(localId) => {
@@ -318,6 +317,7 @@ export default function SessionsPage() {
             setPendingDelete({ type: 'hero', id: localId, name: HERO_BY_ID[h?.heroId ?? '']?.name ?? 'Held' })
           }}
           onPatchHero={patchHero}
+          onPatchSession={patchSession}
         />
       )}
       {tab === 'overlord' && live && (

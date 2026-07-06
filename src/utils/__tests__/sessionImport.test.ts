@@ -11,6 +11,7 @@ function fullSession(): CampaignSession {
     campaignId: 'the-shadow-rune',
     playerCount: 3,
     startingGold: 12,
+    partyFateTokens: 3,
     createdAt: '2026-07-05T10:00:00.000Z',
     updatedAt: '2026-07-05T11:00:00.000Z',
     heroes: [
@@ -29,13 +30,15 @@ function fullSession(): CampaignSession {
     ],
     overlord: {
       deckIds: ['basic', 'magus'],
-      startingCardIds: ['basic:c1', 'magus:m1'],
+      // Doppelter Karten-Schlüssel = zwei Exemplare (Mehrfach-Karte) → muss erhalten bleiben.
+      startingCardIds: ['basic:c1', 'basic:c1', 'magus:m1'],
       lieutenantId: 'baronzachareth',
       plotDeckId: 'seeds-of-betrayal',
       ownedPlotCardIds: ['pc1'],
       activeRumorIds: ['rudeawakening'],
       relicIds: ['relicX'],
       startingXp: 1,
+      threatTokens: 2,
     },
     scenarios: [
       {
@@ -81,6 +84,11 @@ describe('parseImportedSession – Round-Trip', () => {
     expect(parsed.scenarios[0].shopping.sold[0].refId).toBe('ref-1')
     expect(parsed.scenarios[0].shopping.bought[0].item.refId).toBe('b1')
     expect(parsed.scenarios[0].rewards.heroXp['h-local-1']).toBe(1)
+
+    // Marker + Mehrfach-Karten (doppelte Schlüssel) bleiben erhalten.
+    expect(parsed.partyFateTokens).toBe(3)
+    expect(parsed.overlord.threatTokens).toBe(2)
+    expect(parsed.overlord.startingCardIds.filter((c) => c === 'basic:c1')).toHaveLength(2)
   })
 })
 

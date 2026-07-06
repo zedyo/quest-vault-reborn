@@ -20,6 +20,20 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.5.1',
+    date: '2026-07-06',
+    title: 'Session-Tracker: Feinschliff, Marker & Korrekturen',
+    highlights: [
+      'Held „Stahlhörner" heißt jetzt korrekt „Stahlhorn".',
+      'Szenario-Auswahl: Einführung, Zwischenspiel und Finale sind als „Feste Szenarien" klar hervorgehoben – in der Auswahlliste und als Kennzeichnung im Protokoll.',
+      'Neue Marker-Zähler: Bedrohungsmarker beim Overlord und ein gemeinsamer Schicksalsmarker der Partei – jederzeit anpassbar und in der Übersicht sichtbar.',
+      'Einkauf berücksichtigt jetzt den Akt: In einem Akt-1-Szenario werden nur Akt-1-Gegenstände angeboten, nach dem Zwischenspiel Akt 1 und 2 getrennt, in Akt 2 nur noch Akt-2-Gegenstände.',
+      'Overlord-Karten, die es mehrfach gibt, lassen sich jetzt in der richtigen Anzahl (Exemplare) besitzen und kaufen.',
+      'Gekaufte und erhaltene Gegenstände erscheinen sofort in der Szenario-Übersicht; der Partei-Vorrat („Gemeinsame Ausrüstung") ist im Helden-Bereich sichtbar.',
+      'Helden-Bereich zeigt standardmäßig nur die tatsächlich besessenen Gegenstände; der vollständige Item-/Relikt-Katalog lässt sich per Button einblenden.',
+    ],
+  },
+  {
     version: '1.5.0',
     date: '2026-07-05',
     title: 'Session-Tracker – Szenario-Protokoll (Teil 2)',
