@@ -652,7 +652,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'fleetoffoot', nameEn: 'Fleet of Foot', nameDe: 'Leichtfüssig',
         xpCost: 2, fatigueCost: 0,
         rulesEn: 'Each time you suffer 1 Fatigue to gain 1 movement point, you instead receive 2 movement points. Each time you use Nimble, you may move 2 spaces instead of 1.',
-        rulesDe: 'Jedes Mal, wenn du 1 Herz erleidest, um 1 Bewegungspunkt zu erhalten, erhältst du stattdessen 2 Bewegungspunkte. Jedes Mal, wenn du Flink einsetzt, darfst du dich 1 zusätzliches Feld bewegen.',
+        rulesDe: 'Jedes Mal, wenn du 1 Erschöpfung erleidest, um 1 Bewegungspunkt zu erhalten, erhältst du stattdessen 2 Bewegungspunkte. Jedes Mal, wenn du Flink einsetzt, darfst du dich 1 zusätzliches Feld bewegen.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/scouts/wildlander/bg-fleet-of-foot.png',
       },
       {
@@ -1230,7 +1230,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'bardpeacefulrest', nameEn: 'Peaceful Rest', nameDe: 'Friedvolle Rast',
         xpCost: 1, fatigueCost: 0,
         rulesEn: 'If a hero within 3 spaces of you recovers Fatigue as the result of a rest action, he recovers 2 Hearts in addition to the Fatigue.',
-        rulesDe: 'Wenn ein Held innerhalb von 3 Feldern zu dir durch eine Aktion Ausruhen Erschöpfung zurückgewinnt, gewinnt er zusätzlich 2 Erschöpfung zurück.',
+        rulesDe: 'Wenn ein Held innerhalb von 3 Feldern zu dir durch eine Aktion Ausruhen Erschöpfung zurückgewinnt, gewinnt er zusätzlich 2 Herzen zurück.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/shadow-of-nerekhall/healers/bard/sn-peaceful-rest.png',
       },
       {
@@ -1979,7 +1979,7 @@ export const HERO_CLASSES: HeroClass[] = [
         id: 'bhrapidfire', nameEn: 'Rapid Fire', nameDe: 'Schnellfeuer',
         xpCost: 3, fatigueCost: 1,
         rulesEn: 'Use this card after you use a Bow weapon to defeat a tracked monster to move up to 2 spaces. Then, choose 1 monster in your line of sight. Perform an additional attack that targets that monster. Then, if you do not defeat that monster, track that monster.',
-        rulesDe: 'Setze diese Karte ein, nachdem du ein anvisiertes Monster mit einem Bogen besiegt hast, um dich um bis zu 2 Felder zu bewegen. Wähle 1 Monster in deiner Sichtlinie. Führe einen weiteren Angriff durch, der auf dieses Monster zielt. Wenn du dieses besiegst, visierst du es an.',
+        rulesDe: 'Setze diese Karte ein, nachdem du ein anvisiertes Monster mit einem Bogen besiegt hast, um dich um bis zu 2 Felder zu bewegen. Wähle 1 Monster in deiner Sichtlinie. Führe einen weiteren Angriff durch, der auf dieses Monster zielt. Wenn du dieses Monster nicht besiegst, visierst du es an.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/manor-of-ravens/scouts/bounty-hunter/mr-rapid-fire.png',
       },
     ],

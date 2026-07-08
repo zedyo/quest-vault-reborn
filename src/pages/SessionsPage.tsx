@@ -80,6 +80,28 @@ export default function SessionsPage() {
     if (!session) return
     persist({ ...session, scenarios: session.scenarios.filter((s) => s.id !== id) })
   }
+  /** Weist einen Gegenstand aus der gemeinsamen Ausrüstung einem Helden (oder null) zu. */
+  function reassignItemOwner(refId: string, toHeroLocalId: string | null) {
+    if (!session) return
+    persist({
+      ...session,
+      scenarios: session.scenarios.map((sc) => ({
+        ...sc,
+        rewards: {
+          ...sc.rewards,
+          grantedItems: sc.rewards.grantedItems.map((g) =>
+            g.item.refId === refId ? { ...g, toHeroLocalId } : g,
+          ),
+        },
+        shopping: {
+          ...sc.shopping,
+          bought: sc.shopping.bought.map((b) =>
+            b.item.refId === refId ? { ...b, toHeroLocalId } : b,
+          ),
+        },
+      })),
+    })
+  }
 
   function handleCreate() {
     addSession(newSession(CAMPAIGNS[0].id))
@@ -318,6 +340,7 @@ export default function SessionsPage() {
           }}
           onPatchHero={patchHero}
           onPatchSession={patchSession}
+          onReassignItem={reassignItemOwner}
         />
       )}
       {tab === 'overlord' && live && (

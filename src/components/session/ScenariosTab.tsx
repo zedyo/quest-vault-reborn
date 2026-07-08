@@ -19,7 +19,7 @@ import { RELICS } from '../../data/items'
 import { OVERLORD_DECKS } from '../../data/overlordClasses'
 import { SegmentedControl } from '../Filters'
 import ItemPicker from './ItemPicker'
-import { ChipToggle, NumberInput, QtyStepper, SubHeading, TextInput } from './ui'
+import { ChipToggle, ItemThumb, NumberInput, QtyStepper, SubHeading, TextInput } from './ui'
 import {
   CLASS_BY_ID,
   heroDisplayName,
@@ -273,26 +273,25 @@ function ScenarioEditor({
             <p className="text-[10px] uppercase tracking-wider text-gray-600 mb-1">Helden-XP</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {heroes.map((h) => (
-                <label key={h.localId} className="block">
+                <div key={h.localId} className="block">
                   <span className="block text-[11px] text-gray-400 mb-0.5 truncate">{heroDisplayName(h)}</span>
-                  <input
-                    type="number"
-                    min={0}
-                    max={99}
+                  <QtyStepper
                     value={draft.rewards.heroXp[h.localId] ?? 0}
-                    onChange={(e) =>
-                      patchRewards({ heroXp: { ...draft.rewards.heroXp, [h.localId]: clampInt(e.target.value, 99) } })
-                    }
-                    className={INPUT}
+                    max={99}
+                    title={`XP für ${heroDisplayName(h)}`}
+                    onChange={(v) => patchRewards({ heroXp: { ...draft.rewards.heroXp, [h.localId]: v } })}
                   />
-                </label>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        <div className="flex flex-wrap gap-3">
-          <NumberInput label="Overlord-XP" value={draft.rewards.overlordXp} onChange={(v) => patchRewards({ overlordXp: v })} max={99} />
+        <div className="flex flex-wrap items-end gap-4">
+          <div>
+            <span className="block text-xs font-semibold text-gold-400 mb-1">Overlord-XP</span>
+            <QtyStepper value={draft.rewards.overlordXp} max={99} title="Overlord-XP" onChange={(v) => patchRewards({ overlordXp: v })} />
+          </div>
           <NumberInput label="Partei-Gold" value={draft.rewards.partyGold} onChange={(v) => patchRewards({ partyGold: v })} max={100000} />
         </div>
 
@@ -305,21 +304,27 @@ function ScenarioEditor({
           {draft.rewards.grantedItems.length === 0 ? (
             <p className="text-gray-600 text-xs">Keine.</p>
           ) : (
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {draft.rewards.grantedItems.map((g) => (
-                <div key={g.item.refId} className="flex items-center gap-2 text-sm">
-                  <span className="flex-1 truncate text-gray-200">{resolveItemName(g.item)}</span>
-                  {ownerSelect(g.toHeroLocalId, (owner) =>
-                    patchRewards({
-                      grantedItems: draft.rewards.grantedItems.map((x) =>
-                        x.item.refId === g.item.refId ? { ...x, toHeroLocalId: owner } : x,
-                      ),
-                    }),
-                  )}
-                  <button
-                    onClick={() => patchRewards({ grantedItems: draft.rewards.grantedItems.filter((x) => x.item.refId !== g.item.refId) })}
-                    className="text-gray-500 hover:text-red-400"
-                  >×</button>
+                <div key={g.item.refId} className="flex items-start gap-2">
+                  <ItemThumb item={g.item} />
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <p className="font-medium text-gray-100 text-sm break-words">{resolveItemName(g.item)}</p>
+                    <div className="flex items-center gap-2">
+                      {ownerSelect(g.toHeroLocalId, (owner) =>
+                        patchRewards({
+                          grantedItems: draft.rewards.grantedItems.map((x) =>
+                            x.item.refId === g.item.refId ? { ...x, toHeroLocalId: owner } : x,
+                          ),
+                        }),
+                      )}
+                      <button
+                        onClick={() => patchRewards({ grantedItems: draft.rewards.grantedItems.filter((x) => x.item.refId !== g.item.refId) })}
+                        className="text-gray-500 hover:text-red-400 text-lg leading-none ml-auto"
+                        title="Entfernen"
+                      >×</button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -387,25 +392,33 @@ function ScenarioEditor({
           {draft.shopping.bought.length === 0 ? (
             <p className="text-gray-600 text-xs">Nichts gekauft.</p>
           ) : (
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {draft.shopping.bought.map((b) => (
-                <div key={b.item.refId} className="flex items-center gap-2 text-sm">
-                  <span className="flex-1 truncate text-gray-200">{resolveItemName(b.item)}</span>
-                  {ownerSelect(b.toHeroLocalId, (owner) =>
-                    patchShopping({ bought: draft.shopping.bought.map((x) => (x.item.refId === b.item.refId ? { ...x, toHeroLocalId: owner } : x)) }),
-                  )}
-                  <input
-                    type="number"
-                    min={0}
-                    max={100000}
-                    value={b.price}
-                    onChange={(e) =>
-                      patchShopping({ bought: draft.shopping.bought.map((x) => (x.item.refId === b.item.refId ? { ...x, price: clampInt(e.target.value, 100000) } : x)) })
-                    }
-                    className={`${INPUT} w-20`}
-                    title="Preis (Gold)"
-                  />
-                  <button onClick={() => patchShopping({ bought: draft.shopping.bought.filter((x) => x.item.refId !== b.item.refId) })} className="text-gray-500 hover:text-red-400">×</button>
+                <div key={b.item.refId} className="flex items-start gap-2">
+                  <ItemThumb item={b.item} />
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <p className="font-medium text-gray-100 text-sm break-words">{resolveItemName(b.item)}</p>
+                    <div className="flex items-center gap-2">
+                      {ownerSelect(b.toHeroLocalId, (owner) =>
+                        patchShopping({ bought: draft.shopping.bought.map((x) => (x.item.refId === b.item.refId ? { ...x, toHeroLocalId: owner } : x)) }),
+                      )}
+                      <label className="flex items-center gap-1 text-[11px] text-gray-500">
+                        Preis
+                        <input
+                          type="number"
+                          min={0}
+                          max={100000}
+                          value={b.price}
+                          onChange={(e) =>
+                            patchShopping({ bought: draft.shopping.bought.map((x) => (x.item.refId === b.item.refId ? { ...x, price: clampInt(e.target.value, 100000) } : x)) })
+                          }
+                          className={`${INPUT} w-20`}
+                          title="Preis (Gold)"
+                        />
+                      </label>
+                      <button onClick={() => patchShopping({ bought: draft.shopping.bought.filter((x) => x.item.refId !== b.item.refId) })} className="text-gray-500 hover:text-red-400 text-lg leading-none ml-auto" title="Entfernen">×</button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -431,24 +444,35 @@ function ScenarioEditor({
               ))}
           </select>
           {draft.shopping.sold.length > 0 && (
-            <div className="space-y-1.5">
-              {draft.shopping.sold.map((s) => (
-                <div key={s.refId} className="flex items-center gap-2 text-sm">
-                  <span className="flex-1 truncate text-gray-200">{ownedRefs.get(s.refId) ? resolveItemName(ownedRefs.get(s.refId)!) : s.refId}</span>
-                  <input
-                    type="number"
-                    min={0}
-                    max={100000}
-                    value={s.refund}
-                    onChange={(e) =>
-                      patchShopping({ sold: draft.shopping.sold.map((x) => (x.refId === s.refId ? { ...x, refund: clampInt(e.target.value, 100000) } : x)) })
-                    }
-                    className={`${INPUT} w-20`}
-                    title="Erlös (Gold)"
-                  />
-                  <button onClick={() => patchShopping({ sold: draft.shopping.sold.filter((x) => x.refId !== s.refId) })} className="text-gray-500 hover:text-red-400">×</button>
-                </div>
-              ))}
+            <div className="space-y-2">
+              {draft.shopping.sold.map((s) => {
+                const ref = ownedRefs.get(s.refId)
+                return (
+                  <div key={s.refId} className="flex items-start gap-2">
+                    {ref && <ItemThumb item={ref} />}
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <p className="font-medium text-gray-100 text-sm break-words">{ref ? resolveItemName(ref) : s.refId}</p>
+                      <div className="flex items-center gap-2">
+                        <label className="flex items-center gap-1 text-[11px] text-gray-500">
+                          Erlös
+                          <input
+                            type="number"
+                            min={0}
+                            max={100000}
+                            value={s.refund}
+                            onChange={(e) =>
+                              patchShopping({ sold: draft.shopping.sold.map((x) => (x.refId === s.refId ? { ...x, refund: clampInt(e.target.value, 100000) } : x)) })
+                            }
+                            className={`${INPUT} w-20`}
+                            title="Erlös (Gold)"
+                          />
+                        </label>
+                        <button onClick={() => patchShopping({ sold: draft.shopping.sold.filter((x) => x.refId !== s.refId) })} className="text-gray-500 hover:text-red-400 text-lg leading-none ml-auto" title="Entfernen">×</button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           )}
         </div>
