@@ -11,8 +11,8 @@ import ModalOverlay from '../ModalOverlay'
 import ArchetypeIcon from '../ArchetypeIcon'
 import { OwnedToggle } from '../Filters'
 import { renderGameText } from '../GameSymbols'
-import { CLASS_BY_ID, HERO_BY_ID, resolveItemName, withClass } from './sessionHelpers'
-import { ChipToggle, NumberInput, TextInput, SubHeading } from './ui'
+import { CLASS_BY_ID, HERO_BY_ID, heroDisplayName, resolveItemName, withClass } from './sessionHelpers'
+import { ChipToggle, ItemThumb, NumberInput, TextInput, SubHeading } from './ui'
 import ItemPicker from './ItemPicker'
 
 const MAX_HEROES = 4
@@ -292,7 +292,10 @@ function HeroSetupCard({
             })}
           </div>
         )}
-        <button onClick={() => setItemPicker(true)} className="btn-secondary text-xs mt-2">
+        <button
+          onClick={() => setItemPicker(true)}
+          className="mt-2 text-xs text-gray-500 hover:text-gold-400 underline decoration-dotted underline-offset-2"
+        >
           ＋ Weitere Items/Relikte manuell hinzufügen
         </button>
       </div>
@@ -310,6 +313,7 @@ export default function HeroesTab({
   onRemoveHero,
   onPatchHero,
   onPatchSession,
+  onReassignItem,
 }: {
   session: CampaignSession
   live: LiveState
@@ -318,6 +322,7 @@ export default function HeroesTab({
   onRemoveHero: (localId: string) => void
   onPatchHero: (localId: string, patch: Partial<TrackedHero>) => void
   onPatchSession: (patch: Partial<CampaignSession>) => void
+  onReassignItem: (refId: string, toHeroLocalId: string | null) => void
 }) {
   const [adding, setAdding] = useState(false)
   const heroes = session.heroes
@@ -350,14 +355,23 @@ export default function HeroesTab({
               Keine gemeinsamen Gegenstände. (Items aus Szenario-Belohnungen/-Käufen, die keinem Helden zugewiesen wurden.)
             </p>
           ) : (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-1.5">
               {live.partyItemRefs.map((ref) => (
-                <span
-                  key={ref.refId}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-dungeon-800 border border-dungeon-600 text-gray-200"
-                >
-                  {resolveItemName(ref)}
-                </span>
+                <div key={ref.refId} className="flex items-center gap-2">
+                  <ItemThumb item={ref} />
+                  <span className="flex-1 min-w-0 font-medium text-gray-100 text-sm break-words">{resolveItemName(ref)}</span>
+                  <select
+                    value=""
+                    onChange={(e) => onReassignItem(ref.refId, e.target.value || null)}
+                    className="bg-dungeon-900 border border-dungeon-700 rounded px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-gold-500 w-44 shrink-0"
+                    title="Diesen Gegenstand einem Helden zuweisen"
+                  >
+                    <option value="">— einem Helden zuweisen —</option>
+                    {heroes.map((h) => (
+                      <option key={h.localId} value={h.localId}>{heroDisplayName(h)}</option>
+                    ))}
+                  </select>
+                </div>
               ))}
             </div>
           )}

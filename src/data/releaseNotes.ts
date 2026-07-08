@@ -20,6 +20,18 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.5.2',
+    date: '2026-07-08',
+    title: 'Session-Tracker: Item-Bilder, XP-Stepper & Feinschliff',
+    highlights: [
+      'Gekaufte und erhaltene Gegenstände im Szenario zeigen jetzt Name und Kartenbild direkt in der Liste – man erkennt sofort, welches Item es ist.',
+      'Erfahrung (Helden- und Overlord-XP) stellst du bequem mit + / − -Schaltflächen ein.',
+      'Einheitliche Auswahl-Optik: einzeln und mehrfach vorhandene Karten (z. B. Overlord-Karten) werden jetzt gleich hervorgehoben.',
+      'Gemeinsame Ausrüstung: Gegenstände aus dem Partei-Vorrat lassen sich im Helden-Bereich direkt einem Helden zuweisen.',
+      'Kartentext-Korrekturen: Friedvolle Rast (Barde), Leichtfüssig und Schnellfeuer (Kopfgeldjäger) zeigen jetzt die richtigen Symbole und Regeltexte.',
+    ],
+  },
+  {
     version: '1.5.1',
     date: '2026-07-06',
     title: 'Session-Tracker: Feinschliff, Marker & Korrekturen',

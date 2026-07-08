@@ -2,7 +2,9 @@
 // Chips) in der App-Goldoptik. Bewusst schlank – größere Bausteine kommen aus
 // src/components (ModalOverlay, ConfirmDialog, Filters …).
 
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
+import type { ItemRef } from '../../types/session'
+import { itemCardUrl, resolveItemName } from './sessionHelpers'
 
 const INPUT_CLASS =
   'w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500'
@@ -97,7 +99,12 @@ export function ChipToggle({
   )
 }
 
-/** Mengen-Stepper (−/Wert/+), z. B. für Mehrfach-Exemplare von Karten (0..max). */
+/**
+ * Mengen-Stepper (−/Wert/+) – für Mehrfach-Exemplare von Karten (0..max) und für
+ * XP-Belohnungen (ohne `label`). Der Aktiv-Zustand (Wert > 0) ist bewusst
+ * IDENTISCH zum aktiven `ChipToggle` (gold gefüllt), damit Auswahl-Chips und
+ * Mengen-Chips ein und dieselbe visuelle Sprache haben.
+ */
 export function QtyStepper({
   value,
   max,
@@ -108,19 +115,21 @@ export function QtyStepper({
   value: number
   max: number
   onChange: (n: number) => void
-  label: ReactNode
+  label?: ReactNode
   title?: string
 }) {
-  const btn =
-    'w-5 h-5 flex items-center justify-center rounded text-sm leading-none disabled:opacity-30 disabled:cursor-not-allowed hover:bg-dungeon-700'
+  const active = value > 0
+  const btn = `w-5 h-5 flex items-center justify-center rounded text-sm leading-none disabled:opacity-30 disabled:cursor-not-allowed ${
+    active ? 'hover:bg-gold-400/70' : 'hover:bg-dungeon-700'
+  }`
   return (
     <span
       title={title}
-      className={`inline-flex items-center gap-1 rounded-full border pl-2.5 pr-1 py-0.5 text-xs ${
-        value > 0 ? 'border-gold-500 bg-dungeon-800 text-gold-200' : 'border-dungeon-600 bg-dungeon-800 text-gray-300'
+      className={`inline-flex items-center gap-1 rounded-full border pl-2.5 pr-1 py-0.5 text-xs font-medium ${
+        active ? 'bg-gold-500 text-dungeon-950 border-gold-500' : 'bg-dungeon-800 text-gray-300 border-dungeon-600'
       }`}
     >
-      <span className="truncate max-w-[12rem]">{label}</span>
+      {label != null && label !== '' && <span className="truncate max-w-[12rem]">{label}</span>}
       <button type="button" onClick={() => onChange(Math.max(0, value - 1))} disabled={value <= 0} className={btn} aria-label="weniger">
         −
       </button>
@@ -129,6 +138,27 @@ export function QtyStepper({
         +
       </button>
     </span>
+  )
+}
+
+/**
+ * Kleines deutsches Original-Kartenbild einer Gegenstands-Instanz (Marktkarte/
+ * Relikt/Startausrüstung). Bei fehlendem Bild oder eigenem Gegenstand wird nichts
+ * gerendert (sanfter Fallback via onError).
+ */
+export function ItemThumb({ item }: { item: ItemRef }) {
+  const url = itemCardUrl(item)
+  const [ok, setOk] = useState(true)
+  if (!url || !ok) return null
+  return (
+    <img
+      src={url}
+      alt={resolveItemName(item)}
+      title={resolveItemName(item)}
+      loading="lazy"
+      onError={() => setOk(false)}
+      className="w-10 h-[3.8rem] object-contain rounded border border-dungeon-700 bg-dungeon-800 shrink-0"
+    />
   )
 }
 

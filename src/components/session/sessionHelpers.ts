@@ -14,6 +14,7 @@ import type { CampaignSession, ItemRef, TrackedHero, TrackedOverlord } from '../
 import { HERO_CLASSES } from '../../data/heroClasses'
 import { SHOP_ITEMS, RELICS } from '../../data/items'
 import { HEROES } from '../../data/heroes'
+import { itemCardDeUrl, relicCardDeUrl, classItemDeUrl } from '../../data/assetUrls'
 
 export const uid = (): string =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -47,6 +48,23 @@ export function resolveItemName(ref: ItemRef): string {
       return CLASS_START_ITEM_BY_ID[ref.dataId]?.nameDe ?? ref.dataId
     default:
       return ref.dataId
+  }
+}
+
+/**
+ * Deutsches Original-Kartenbild einer Gegenstands-Instanz (oder null bei eigenem
+ * Gegenstand). Fehlt die Datei, blendet `<img onError>` das Bild aus.
+ */
+export function itemCardUrl(ref: ItemRef): string | null {
+  switch (ref.source) {
+    case 'shop':
+      return itemCardDeUrl(ref.dataId)
+    case 'relic':
+      return relicCardDeUrl(ref.dataId)
+    case 'class-start':
+      return classItemDeUrl(ref.dataId)
+    default:
+      return null
   }
 }
 
