@@ -17,6 +17,12 @@ import ItemPicker from './ItemPicker'
 
 const MAX_HEROES = 4
 
+// Aktions-Dropdown (Item zuweisen/verschieben). `[&>option]:text-sm` gleicht die
+// Schriftgröße von geschlossenem Feld und aufgeklapptem Menü an; feste, ausreichend
+// breite Größe, damit der Platzhaltertext nicht abgeschnitten wirkt.
+const REASSIGN_SELECT =
+  'shrink-0 w-48 max-w-[55vw] bg-dungeon-900 border border-dungeon-700 rounded px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-gold-500 [&>option]:text-sm'
+
 // ── Add-Hero-Modal (Portrait-Grid) ────────────────────────────────────────────
 
 function AddHeroModal({
@@ -92,15 +98,19 @@ function AddHeroModal({
 function HeroSetupCard({
   hero,
   live,
+  heroes,
   ownedExpansionIds,
   onPatch,
   onRemove,
+  onReassign,
 }: {
   hero: TrackedHero
   live: HeroLiveState | undefined
+  heroes: TrackedHero[]
   ownedExpansionIds: string[]
   onPatch: (patch: Partial<TrackedHero>) => void
   onRemove: () => void
+  onReassign: (refId: string, toHeroLocalId: string | null) => void
 }) {
   const [itemPicker, setItemPicker] = useState(false)
   const heroData = HERO_BY_ID[hero.heroId]
@@ -268,26 +278,50 @@ function HeroSetupCard({
         {ownedItems.length === 0 ? (
           <p className="text-gray-500 text-xs">Keine Gegenstände.</p>
         ) : (
-          <div className="flex flex-wrap gap-1.5">
+          <div className="space-y-1.5">
             {ownedItems.map((ref) => {
-              const removable = startingRefIds.has(ref.refId)
+              const isStarting = startingRefIds.has(ref.refId)
               return (
-                <span
-                  key={ref.refId}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-dungeon-800 border border-dungeon-600 text-gray-200"
-                >
-                  {resolveItemName(ref)}
-                  {ref.source === 'class-start' && <span className="text-[9px] text-gold-500/80">Start</span>}
-                  {removable && (
+                <div key={ref.refId} className="flex items-center gap-2">
+                  <ItemThumb item={ref} />
+                  <span className="flex-1 min-w-0 text-sm text-gray-100 break-words">
+                    {resolveItemName(ref)}
+                    {ref.source === 'class-start' && (
+                      <span className="ml-1 align-middle text-[9px] text-gold-500/80">Start</span>
+                    )}
+                  </span>
+                  {isStarting ? (
                     <button
                       onClick={() => removeItem(ref.refId)}
                       title="Entfernen"
-                      className="text-gray-500 hover:text-red-400 leading-none"
+                      className="shrink-0 text-gray-500 hover:text-red-400 text-lg leading-none"
                     >
                       ×
                     </button>
+                  ) : (
+                    // Szenario-Gegenstand: einem anderen Helden zuweisen oder in die
+                    // gemeinsame Ausrüstung zurücklegen (setzt `toHeroLocalId`).
+                    <select
+                      value=""
+                      onChange={(e) => {
+                        const v = e.target.value
+                        if (v) onReassign(ref.refId, v === '__party__' ? null : v)
+                      }}
+                      className={REASSIGN_SELECT}
+                      title="Diesen Gegenstand verschieben"
+                    >
+                      <option value="">verschieben zu…</option>
+                      <option value="__party__">↩ Gemeinsame Ausrüstung</option>
+                      {heroes
+                        .filter((h) => h.localId !== hero.localId)
+                        .map((h) => (
+                          <option key={h.localId} value={h.localId}>
+                            {heroDisplayName(h)}
+                          </option>
+                        ))}
+                    </select>
                   )}
-                </span>
+                </div>
               )
             })}
           </div>
@@ -363,10 +397,10 @@ export default function HeroesTab({
                   <select
                     value=""
                     onChange={(e) => onReassignItem(ref.refId, e.target.value || null)}
-                    className="bg-dungeon-900 border border-dungeon-700 rounded px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-gold-500 w-44 shrink-0"
+                    className={REASSIGN_SELECT}
                     title="Diesen Gegenstand einem Helden zuweisen"
                   >
-                    <option value="">— einem Helden zuweisen —</option>
+                    <option value="">einem Helden zuweisen…</option>
                     {heroes.map((h) => (
                       <option key={h.localId} value={h.localId}>{heroDisplayName(h)}</option>
                     ))}
@@ -402,9 +436,11 @@ export default function HeroesTab({
               key={hero.localId}
               hero={hero}
               live={live.heroes[hero.localId]}
+              heroes={heroes}
               ownedExpansionIds={ownedExpansionIds}
               onPatch={(patch) => onPatchHero(hero.localId, patch)}
               onRemove={() => onRemoveHero(hero.localId)}
+              onReassign={onReassignItem}
             />
           ))}
         </div>

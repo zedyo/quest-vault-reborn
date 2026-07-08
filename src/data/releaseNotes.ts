@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.5.3',
+    date: '2026-07-08',
+    title: 'Session-Tracker: Gegenstände verschieben & Kartenbilder vergrößern',
+    highlights: [
+      'Gemeinsame Ausrüstung, die einem Helden zugewiesen wurde, lässt sich jederzeit wieder in den Partei-Vorrat zurücklegen oder einem anderen Helden geben.',
+      'Ein Klick auf ein Item-Kartenbild öffnet die Karte jetzt groß und gut lesbar in einem Fenster.',
+      'Die Auswahl-Menüs zum Zuweisen von Gegenständen sind besser lesbar und einheitlich gestaltet.',
+    ],
+  },
+  {
     version: '1.5.2',
     date: '2026-07-08',
     title: 'Session-Tracker: Item-Bilder, XP-Stepper & Feinschliff',
