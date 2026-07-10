@@ -2,197 +2,257 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { useSessionStore } from '../store/useSessionStore'
+import { deriveLiveState } from '../store/sessionDerive'
 import { HEROES } from '../data/heroes'
 import { MONSTERS } from '../data/monsters'
-import { HERO_CLASSES } from '../data/heroClasses'
 import ReleaseNotesModal from '../components/ReleaseNotesModal'
+import { Icon, type IconName } from '../components/QvIcons'
 
-// Werkzeuge zum Erstellen/Verwalten – mit Beschreibung prominent.
-const TOOLS = [
-  { icon: '🗺️', title: 'Kartenbauer', description: 'Spielplan-Plättchen platzieren, drehen und mit Overlays kennzeichnen.', href: '/karte' },
-  { icon: '📜', title: 'Quest-Editor', description: 'Quests mit Begegnungen, Zielen, Monstern und Erzähltext erstellen.', href: '/quest' },
-  { icon: '🎲', title: 'Session-Tracker', description: 'Laufende Kampagne festhalten: Helden, Klassen, Ausrüstung und Overlord-Setup.', href: '/session' },
-  { icon: '👜', title: 'Meine Sammlung', description: 'Erweiterungen wählen – alle Werkzeuge passen sich an.', href: '/sammlung' },
+// Würfelfarben (theme-unabhängig, wie im Design-System).
+const DIE: Record<string, string> = {
+  blue: '#3d84c6', red: '#c23a2d', yellow: '#e0a92b', green: '#4a9d5b',
+  white: '#e8e2d5', gray: '#9a9088', brown: '#7c5a3a', black: '#2a2622', silver: '#c6ccd2',
+}
+
+const LIBRARY: { to: string; label: string; icon: IconName }[] = [
+  { to: '/monster', label: 'Monster', icon: 'monster' },
+  { to: '/helden', label: 'Helden', icon: 'hero' },
+  { to: '/klassen', label: 'Klassen', icon: 'class' },
+  { to: '/items', label: 'Items', icon: 'item' },
+  { to: '/overlord', label: 'Overlord', icon: 'overlord' },
+  { to: '/leutnants', label: 'Leutnants', icon: 'lieutenant' },
+  { to: '/agenten', label: 'Agenten', icon: 'agent' },
+  { to: '/plotdecks', label: 'Plotdecks', icon: 'deck' },
+  { to: '/kampagnen', label: 'Kampagnen', icon: 'campaign' },
+  { to: '/reisekarten', label: 'Reisekarten', icon: 'compass' },
+  { to: '/geruechte', label: 'Gerüchte', icon: 'rumor' },
+  { to: '/zustaende', label: 'Zustände', icon: 'condition' },
+  { to: '/regeln', label: 'Regeln', icon: 'rules' },
+  { to: '/klarstellungen', label: 'Errata & FAQ', icon: 'errata' },
 ]
 
-// Nachschlage-/Datenseiten – kompakte Kacheln (Symbol + Titel).
-const OVERVIEWS = [
-  { icon: '👹', title: 'Monster', href: '/monster' },
-  { icon: '🧙', title: 'Helden', href: '/helden' },
-  { icon: '⚔️', title: 'Klassen', href: '/klassen' },
-  { icon: '🛒', title: 'Items', href: '/items' },
-  { icon: '👑', title: 'Overlord', href: '/overlord' },
-  { icon: '🗡️', title: 'Leutnants', href: '/leutnants' },
-  { icon: '🎭', title: 'Agenten', href: '/agenten' },
-  { icon: '📜', title: 'Plotdecks', href: '/plotdecks' },
-  { icon: '🏰', title: 'Kampagnen', href: '/kampagnen' },
-  { icon: '🧭', title: 'Reisekarten', href: '/reisekarten' },
-  { icon: '🗣️', title: 'Gerüchte', href: '/geruechte' },
-  { icon: '🩹', title: 'Zustände', href: '/zustaende' },
-  { icon: '📖', title: 'Regeln & Referenz', href: '/regeln' },
-  { icon: '📋', title: 'Errata & FAQ', href: '/klarstellungen' },
+const QUICKSTART: { to: string; label: string; desc: string; icon: IconName }[] = [
+  { to: '/karte', label: 'Kartenbauer', desc: 'Spielplan legen & drehen', icon: 'map' },
+  { to: '/quest', label: 'Quest-Editor', desc: 'Begegnungen & Erzähltext', icon: 'quest' },
+  { to: '/session', label: 'Session-Tracker', desc: 'Kampagne festhalten', icon: 'session' },
 ]
+
+function initials(name: string): string {
+  return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase()
+}
+
+const eyebrow = 'font-mono text-[10px] tracking-[0.16em] uppercase text-accent-bright'
 
 export default function HomePage() {
-  const ownedIds = useGameStore((s) => s.ownedExpansionIds)
-  const questCount = useGameStore((s) => s.quests.length)
-  const sessionCount = useSessionStore((s) => s.sessions.length)
-  const [showReleaseNotes, setShowReleaseNotes] = useState(false)
+  const sessions = useSessionStore((s) => s.sessions)
+  const activeSessionId = useSessionStore((s) => s.activeSessionId)
+  const setActiveSession = useSessionStore((s) => s.setActiveSession)
+  const quests = useGameStore((s) => s.quests)
+  const [showNotes, setShowNotes] = useState(false)
 
-  const ownedMonsters = MONSTERS.filter((m) => ownedIds.includes(m.expansionId)).length
-  const ownedHeroes = HEROES.filter((h) => ownedIds.includes(h.expansionId)).length
+  const activeSession = sessions.find((s) => s.id === activeSessionId) ?? sessions[0] ?? null
+  const live = activeSession ? deriveLiveState(activeSession) : null
+  const party = activeSession
+    ? activeSession.heroes.map((th) => HEROES.find((h) => h.id === th.heroId)?.name ?? th.playerName)
+    : []
+
+  const recentQuests = [...quests].reverse().slice(0, 4)
+
+  // Monster des Tages – deterministisch, wechselt täglich.
+  const daily = MONSTERS[Math.floor(Date.now() / 86_400_000) % MONSTERS.length]
 
   return (
-    <div className="space-y-10">
-      {showReleaseNotes && <ReleaseNotesModal onClose={() => setShowReleaseNotes(false)} />}
+    <div className="p-5 md:p-6 flex flex-col gap-[18px] max-w-[1240px]">
+      {showNotes && <ReleaseNotesModal onClose={() => setShowNotes(false)} />}
 
-      <div className="text-center py-6 space-y-3">
-        <h2 className="font-display text-4xl text-gold-400 font-bold">Quest Vault Reborn</h2>
-        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-          Das Community-Tool für{' '}
-          <strong className="text-gold-300">Descent – Die Reise ins Dunkel 2. Edition</strong>.
-          Erstelle Quests, baue Spielpläne und verwalte deine Kampagne.
-        </p>
-        <p className="text-gray-600 text-sm">
-          Wiedergeburt des originalen Quest Vault von Fantasy Flight Games (2013–2020)
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto">
-        {[
-          { label: 'Erweiterungen', value: ownedIds.length },
-          { label: 'Monster', value: ownedMonsters },
-          { label: 'Helden', value: ownedHeroes },
-          { label: 'Quests', value: questCount },
-          { label: 'Sessions', value: sessionCount },
-        ].map((s) => (
-          <div key={s.label} className="card text-center">
-            <p className="text-2xl font-bold text-gold-400">{s.value}</p>
-            <p className="text-gray-500 text-xs mt-0.5">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Werkzeuge */}
       <div>
-        <h3 className="font-display text-lg text-gray-200 font-semibold mb-3">Werkzeuge</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {TOOLS.map((f) => (
-            <Link
-              key={f.href}
-              to={f.href}
-              className="card hover:border-gold-500 hover:-translate-y-0.5 transition-all duration-150 group"
-            >
-              <div className="text-2xl mb-2">{f.icon}</div>
-              <h4 className="text-gold-300 font-semibold group-hover:text-gold-400 transition-colors">
-                {f.title}
-              </h4>
-              <p className="text-gray-400 text-sm mt-1">{f.description}</p>
-            </Link>
-          ))}
-        </div>
+        <h2 className="font-head font-bold text-2xl text-fg">Übersicht</h2>
+        <p className="mt-1 text-sm text-muted">Willkommen zurück, Spielleiter — der Kerker wartet.</p>
       </div>
 
-      {/* Übersichten & Referenz */}
-      <div>
-        <h3 className="font-display text-lg text-gray-200 font-semibold mb-1">Übersichten &amp; Referenz</h3>
-        <p className="text-gray-600 text-xs mb-3">Vollständige Spieldaten – filtern sich nach deiner Sammlung.</p>
-        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
-          {OVERVIEWS.map((o) => (
-            <Link
-              key={o.href}
-              to={o.href}
-              className="card flex flex-col items-center justify-center gap-1.5 py-4 text-center hover:border-gold-500 hover:-translate-y-0.5 transition-all duration-150 group"
-            >
-              <span className="text-2xl">{o.icon}</span>
-              <span className="text-xs font-medium text-gray-300 group-hover:text-gold-300 transition-colors">{o.title}</span>
-            </Link>
-          ))}
-        </div>
-      </div>
+      {/* Reihe A: Weiter im Spiel + Monster des Tages */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-stretch">
+        {activeSession ? (
+          <section className="relative overflow-hidden border border-accent-line rounded-card bg-surface p-5">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className={eyebrow}>Weiter im Spiel</div>
+                <h3 className="mt-1.5 font-head font-bold text-2xl leading-tight text-fg">{activeSession.name}</h3>
+                <p className="mt-1 text-sm text-muted">
+                  {live?.currentScenario
+                    ? `${live.currentScenario.scenario.title} · Szenario ${activeSession.scenarios.length}`
+                    : 'Aufstellung — noch kein Szenario gespielt'}
+                </p>
+              </div>
+              <span className="shrink-0 px-2.5 py-1 rounded-pill bg-accent-soft border border-accent-line font-mono text-[10px] text-accent-bright">
+                AKT {live?.currentAct === 2 ? 'II' : 'I'}
+              </span>
+            </div>
 
-      {/* Projekt-Status für Fans */}
-      <div className="rounded-lg border border-dungeon-600 overflow-hidden">
-        <div className="bg-dungeon-800 px-4 py-3 flex items-center gap-2 border-b border-dungeon-600">
-          <span className="text-lg">🛠️</span>
-          <div>
-            <p className="text-amber-400 font-semibold text-sm">Hobbyprojekt in aktiver Entwicklung</p>
-            <p className="text-gray-500 text-xs mt-0.5">
-              Quest Vault Reborn wird von einer einzelnen Person in der Freizeit entwickelt und laufend erweitert.
-              Kein kommerzielles Produkt – sondern Leidenschaft für Descent.
+            <div className="mt-4 flex items-center gap-4 flex-wrap">
+              <div className="flex items-center">
+                {party.slice(0, 5).map((name, i) => (
+                  <span
+                    key={i}
+                    title={name}
+                    className="w-[34px] h-[34px] rounded-full bg-accent-soft border border-accent-line flex items-center justify-center font-head font-semibold text-xs text-accent-bright"
+                    style={{ marginLeft: i === 0 ? 0 : -8 }}
+                  >
+                    {initials(name)}
+                  </span>
+                ))}
+                <span className="ml-2.5 text-xs text-muted">{party.length} {party.length === 1 ? 'Held' : 'Helden'}</span>
+              </div>
+              <div className="w-px h-6 bg-line" />
+              <div className="flex gap-5">
+                <Stat label="BEDROHUNG" value={activeSession.overlord.threatTokens} />
+                <Stat label="GOLD" value={live?.partyGold ?? 0} />
+                <Stat label="SCHICKSAL" value={activeSession.partyFateTokens} />
+              </div>
+            </div>
+
+            <div className="mt-[18px] flex gap-2.5">
+              <Link
+                to="/session"
+                onClick={() => setActiveSession(activeSession.id)}
+                className="btn-primary"
+              >
+                Session fortsetzen
+              </Link>
+              <Link to="/session" className="btn-secondary">Alle Sessions</Link>
+            </div>
+          </section>
+        ) : (
+          <section className="border border-line rounded-card bg-surface p-5 flex flex-col justify-center">
+            <div className={eyebrow}>Weiter im Spiel</div>
+            <h3 className="mt-1.5 font-head font-bold text-2xl text-fg">Noch keine Kampagne aktiv</h3>
+            <p className="mt-1 text-sm text-muted max-w-md">
+              Lege im Session-Tracker deinen ersten Kampagnen-Spielstand an — Helden, Klassen,
+              Ausrüstung und Overlord-Setup. Der aktuelle Stand landet dann hier.
             </p>
-          </div>
-        </div>
+            <div className="mt-4"><Link to="/session" className="btn-primary">Session starten</Link></div>
+          </section>
+        )}
 
-        <div className="p-4 grid sm:grid-cols-2 gap-6">
-          <div>
-            <h4 className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
-              <span className="text-green-500">✓</span> Bereits verfügbar
-            </h4>
-            <ul className="space-y-2">
-              {[
-                { icon: '🗺️', text: 'Spielplan-Baukasten – Plättchen platzieren, drehen und mit Overlay-Token (Türen, Gelände, Marker, Figuren) markieren' },
-                { icon: '📜', text: 'Quest-Editor – eigene Abenteuer erstellen, speichern und exportieren' },
-                { icon: '👹', text: `Alle ${MONSTERS.length} Monstergruppen mit vollständigen Spielwerten (Akt 1 & Akt 2)` },
-                { icon: '🧙', text: `${HEROES.length} Helden und ${HERO_CLASSES.length} Klassen aus allen Erweiterungen` },
-                { icon: '🃏', text: 'Karten-Datenbank: Items & Relikte, Overlord, Leutnants, Agenten und alle Plotdecks' },
-                { icon: '🏰', text: 'Kampagnen-Überblick, Advanced Quests und Reisekarten' },
-                { icon: '📋', text: 'Errata & FAQ aus dem Community Rules Reference Guide – aufklappbar an jeder Karte + durchsuchbare Regelklärungen' },
-                { icon: '💾', text: 'Quests automatisch im Browser speichern – auch offline nutzbar' },
-                { icon: '🎲', text: 'Session-Tracker – laufende Kampagne festhalten: Helden mit Klasse, Fähigkeiten und Ausrüstung + Overlord-Setup; als JSON exportier- und importierbar' },
-                { icon: '📖', text: 'Szenario-Protokoll im Session-Tracker – je Szenario XP, Gold, Items und Einkauf eintragen; wird automatisch auf den aktuellen Stand angerechnet' },
-              ].map((item) => (
-                <li key={item.text} className="flex gap-2 text-sm text-gray-400">
-                  <span className="shrink-0 text-base leading-5">{item.icon}</span>
-                  <span>{item.text}</span>
-                </li>
+        {/* Monster des Tages */}
+        <section className="relative border border-line rounded-card bg-surface p-4 flex flex-col">
+          <div className="relative h-[126px] rounded-control overflow-hidden border border-line flex items-end justify-between p-3"
+            style={{ backgroundImage: 'repeating-linear-gradient(45deg, var(--qv-surface-2) 0 11px, var(--qv-bg) 11px 22px)' }}>
+            <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 40%, var(--qv-accent-soft), transparent 66%)' }} />
+            <span className="relative font-mono text-[9.5px] tracking-wider text-faint">MONSTER DES TAGES</span>
+            <span className="relative px-2 py-0.5 rounded-md font-mono text-[9.5px]" style={{ background: 'rgba(0,0,0,.4)', color: '#e8e2d5' }}>
+              {daily.attackType === 'range' ? 'FERN' : 'NAH'}
+            </span>
+          </div>
+          <div className="mt-3">
+            <h3 className="font-head font-bold text-xl leading-tight text-fg">{daily.nameDe}</h3>
+            <p className="mt-0.5 text-xs text-muted">{(daily.traits ?? []).join(' · ')}</p>
+          </div>
+          <div className="mt-3 flex gap-2">
+            <div className="flex-1 rounded-chip bg-surface-2 px-2.5 py-2">
+              <div className="font-mono text-[8.5px] tracking-wider text-faint">TEMPO</div>
+              <div className="font-head font-semibold text-lg text-fg mt-0.5">{daily.normal?.speed ?? '–'}</div>
+            </div>
+            <div className="flex-[1.6] rounded-chip bg-surface-2 px-2.5 py-2">
+              <div className="font-mono text-[8.5px] tracking-wider text-faint">LEBEN · D / M</div>
+              <div className="font-head font-semibold text-lg text-fg mt-0.5">{daily.normal?.health ?? '–'} · <span className="text-accent-bright">{daily.master?.health ?? '–'}</span></div>
+            </div>
+          </div>
+          <div className="mt-2.5 flex items-center gap-2">
+            <span className="font-mono text-[8.5px] tracking-wider text-faint">ANGRIFF</span>
+            <span className="flex gap-1">
+              {(daily.normal?.attack ?? []).map((c, i) => (
+                <span key={i} className="w-3.5 h-3.5 rounded-[3px]" style={{ background: DIE[c] ?? '#888', boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.3)' }} />
               ))}
-            </ul>
+            </span>
           </div>
+          <Link to="/monster" className="mt-auto pt-3 font-head font-semibold text-sm text-accent-bright hover:brightness-110">Im Kompendium ansehen ›</Link>
+        </section>
+      </div>
 
-          <div>
-            <h4 className="text-gold-400 font-semibold text-sm mb-3 flex items-center gap-1.5">
-              <span className="text-amber-500">◎</span> Geplant & in Arbeit
-            </h4>
-            <ul className="space-y-2">
-              {[
-                { icon: '❤️', text: 'Monster-Lebenspunkte live tracken – kein Plättchen-Chaos mehr auf dem Tisch' },
-                { icon: '⚔️', text: 'Overlord-Zentrale – eigenes Deck verwalten, Leutnanten steuern, Helden im Blick behalten' },
-                { icon: '🛡️', text: 'Spieler-Ansicht – jeder Held hat seine eigene Übersicht am Tisch' },
-                { icon: '🔄', text: 'Geräte-Synchronisation – Overlord und Spieler teilen sich denselben Spielstand' },
-              ].map((item) => (
-                <li key={item.text} className="flex gap-2 text-sm text-gray-500">
-                  <span className="shrink-0 text-base leading-5">{item.icon}</span>
-                  <span>{item.text}</span>
-                </li>
+      {/* Reihe B: Zuletzt bearbeitet + Schnellstart */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-start">
+        <section className="border border-line rounded-card bg-surface p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-head font-semibold text-lg text-fg">Zuletzt bearbeitet</h3>
+            <Link to="/quest" className="font-head font-semibold text-sm text-accent-bright">Alle Quests ›</Link>
+          </div>
+          {recentQuests.length > 0 ? (
+            <div className="flex flex-col">
+              {recentQuests.map((q) => (
+                <Link key={q.id} to="/quest" className="flex items-center gap-3 px-2.5 py-2.5 rounded-control border-b border-line hover:bg-accent-soft transition-colors">
+                  <span className="w-9 h-9 shrink-0 rounded-control bg-accent-soft border border-accent-line flex items-center justify-center font-head font-semibold text-xs text-accent-bright">
+                    {initials(q.title || 'Quest')}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-head font-semibold text-base text-fg truncate">{q.title || 'Unbenannte Quest'}</div>
+                    <div className="text-[11.5px] text-muted">{q.encounters?.length ?? 0} Begegnungen</div>
+                  </div>
+                  <span className="font-head font-semibold text-accent-bright">›</span>
+                </Link>
               ))}
-            </ul>
-          </div>
-        </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-sm text-muted">Noch keine Quests gespeichert.</p>
+              <Link to="/quest" className="inline-block mt-3 font-head font-semibold text-sm text-accent-bright">Erste Quest erstellen ›</Link>
+            </div>
+          )}
+        </section>
 
-        <div className="px-4 py-3 border-t border-dungeon-700 bg-dungeon-900/50 space-y-1.5">
-          <p className="text-xs text-gray-500 text-center">
-            Da sich das Projekt noch in aktiver Entwicklung befindet, können vereinzelt Fehler auftreten.
-            Gemeldete Fehler werden schnellstmöglich behoben.
-          </p>
-          <p className="text-xs text-gray-600 text-center">
-            Fehler gefunden oder einen Feature-Wunsch?{' '}
-            <a href="mailto:ze.d@me.com" className="text-gold-600 hover:text-gold-400 transition-colors">
-              ze.d@me.com
-            </a>
-          </p>
-          <p className="text-[11px] text-gray-700 text-center pt-1">
-            Quest Vault Reborn ·{' '}
-            <button
-              onClick={() => setShowReleaseNotes(true)}
-              className="text-gray-600 hover:text-gold-500 underline decoration-dotted underline-offset-2 transition-colors"
-              title="Was ist neu? Versionsverlauf anzeigen"
-            >
-              Version {__APP_VERSION__}
-            </button>
-          </p>
+        <div className="flex flex-col gap-3">
+          <div className="font-mono text-[10px] tracking-[0.16em] uppercase text-faint pl-0.5">Schnellstart</div>
+          {QUICKSTART.map((q) => (
+            <Link key={q.to} to={q.to} className="group flex items-center gap-3 border border-line rounded-card bg-surface p-3.5 hover:border-accent-line hover:-translate-y-0.5 transition-all">
+              <span className="w-10 h-10 shrink-0 rounded-control bg-accent-soft border border-accent-line flex items-center justify-center text-accent-bright"><Icon name={q.icon} size={20} /></span>
+              <div className="flex-1">
+                <div className="font-head font-semibold text-base text-fg">{q.label}</div>
+                <div className="text-[11.5px] text-muted">{q.desc}</div>
+              </div>
+              <span className="font-head font-semibold text-accent-bright">›</span>
+            </Link>
+          ))}
         </div>
       </div>
+
+      {/* Reihe C: Bibliothek */}
+      <section>
+        <div className="flex items-baseline justify-between mb-3">
+          <h3 className="font-head font-semibold text-lg text-fg">Bibliothek & Referenz</h3>
+          <span className="text-xs text-muted">Vollständige Spieldaten — filtern sich nach deiner Sammlung</span>
+        </div>
+        <div className="grid grid-cols-3 sm:grid-cols-5 xl:grid-cols-7 gap-2.5">
+          {LIBRARY.map((o) => (
+            <Link key={o.to} to={o.to} className="flex flex-col items-center justify-center gap-2 py-4 px-1.5 border border-line rounded-control bg-surface text-center hover:border-accent-line hover:-translate-y-0.5 transition-all">
+              <span className="text-accent-bright"><Icon name={o.icon} size={20} /></span>
+              <span className="text-xs font-medium text-fg">{o.label}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Reihe D: Projekt / Roadmap (dezent) */}
+      <section className="border border-line rounded-card bg-surface-2 flex items-center gap-3 px-4 py-3.5 flex-wrap">
+        <span className="w-6.5 h-6.5 shrink-0 rounded-md bg-accent-soft border border-accent-line flex items-center justify-center text-accent-bright" style={{ width: 26, height: 26 }}>
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 14 L14 4" /><path d="M10 4 H14 V8" /></svg>
+        </span>
+        <div className="flex-1 min-w-[220px]">
+          <span className="font-head font-semibold text-[15px] text-fg">Hobbyprojekt in aktiver Entwicklung</span>
+          <span className="text-xs text-muted"> — Roadmap: Monster-HP live · Overlord-Zentrale · Spieler-Ansicht · Geräte-Sync.</span>
+        </div>
+        <button onClick={() => setShowNotes(true)} className="font-mono text-[11px] text-faint hover:text-accent-bright underline decoration-dotted underline-offset-2 transition-colors">
+          Version {__APP_VERSION__}
+        </button>
+      </section>
+    </div>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <div className="font-mono text-[8.5px] tracking-wider text-faint">{label}</div>
+      <div className="font-head font-bold text-lg text-fg mt-px">{value}</div>
     </div>
   )
 }

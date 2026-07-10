@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Outlet } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import MapBuilderPage from './pages/MapBuilderPage'
@@ -21,30 +21,43 @@ import RulesReferencePage from './pages/RulesReferencePage'
 import RulesClarificationsPage from './pages/RulesClarificationsPage'
 import DesignSystemPage from './pages/DesignSystemPage'
 
+// Das Dashboard (Startseite) bringt sein eigenes Layout mit (full-bleed). Alle
+// übrigen Seiten laufen weiterhin in einem zentrierten, gepolsterten Container –
+// derselbe Rahmen wie in der alten Layout-Hülle, damit ihr Aufbau unverändert bleibt.
+function PagePadding() {
+  return (
+    <div className="mx-auto max-w-7xl w-full px-4 py-6">
+      <Outlet />
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
-        <Route path="karte" element={<MapBuilderPage />} />
-        <Route path="quest" element={<QuestEditorPage />} />
-        <Route path="session" element={<SessionsPage />} />
-        <Route path="sammlung" element={<CollectionPage />} />
-        <Route path="monster" element={<MonstersPage />} />
-        <Route path="helden" element={<HeroesPage />} />
-        <Route path="klassen" element={<ClassesPage />} />
-        <Route path="items" element={<ItemsPage />} />
-        <Route path="overlord" element={<OverlordPage />} />
-        <Route path="leutnants" element={<LieutenantsPage />} />
-        <Route path="agenten" element={<AgentsPage />} />
-        <Route path="plotdecks" element={<PlotDecksPage />} />
-        <Route path="kampagnen" element={<CampaignsPage />} />
-        <Route path="reisekarten" element={<TravelCardsPage />} />
-        <Route path="geruechte" element={<RumorsPage />} />
-        <Route path="zustaende" element={<ConditionsPage />} />
-        <Route path="regeln" element={<RulesReferencePage />} />
-        <Route path="klarstellungen" element={<RulesClarificationsPage />} />
-        <Route path="designsystem" element={<DesignSystemPage />} />
+        <Route element={<PagePadding />}>
+          <Route path="karte" element={<MapBuilderPage />} />
+          <Route path="quest" element={<QuestEditorPage />} />
+          <Route path="session" element={<SessionsPage />} />
+          <Route path="sammlung" element={<CollectionPage />} />
+          <Route path="monster" element={<MonstersPage />} />
+          <Route path="helden" element={<HeroesPage />} />
+          <Route path="klassen" element={<ClassesPage />} />
+          <Route path="items" element={<ItemsPage />} />
+          <Route path="overlord" element={<OverlordPage />} />
+          <Route path="leutnants" element={<LieutenantsPage />} />
+          <Route path="agenten" element={<AgentsPage />} />
+          <Route path="plotdecks" element={<PlotDecksPage />} />
+          <Route path="kampagnen" element={<CampaignsPage />} />
+          <Route path="reisekarten" element={<TravelCardsPage />} />
+          <Route path="geruechte" element={<RumorsPage />} />
+          <Route path="zustaende" element={<ConditionsPage />} />
+          <Route path="regeln" element={<RulesReferencePage />} />
+          <Route path="klarstellungen" element={<RulesClarificationsPage />} />
+          <Route path="designsystem" element={<DesignSystemPage />} />
+        </Route>
       </Route>
     </Routes>
   )
