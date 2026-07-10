@@ -74,7 +74,8 @@ export default function HomePage() {
       <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-stretch">
         {activeSession ? (
           <section className="relative overflow-hidden border border-accent-line rounded-card bg-surface p-5">
-            <div className="flex items-start justify-between gap-4">
+            <div className="pointer-events-none absolute -top-14 -right-8 w-[220px] h-[180px]" style={{ background: 'radial-gradient(circle at 60% 40%, var(--qv-accent-soft), transparent 68%)', filter: 'blur(18px)' }} />
+            <div className="relative flex items-start justify-between gap-4">
               <div>
                 <div className={eyebrow}>Weiter im Spiel</div>
                 <h3 className="mt-1.5 font-head font-bold text-2xl leading-tight text-fg">{activeSession.name}</h3>
