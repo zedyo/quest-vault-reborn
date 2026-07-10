@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.1',
+    date: '2026-07-10',
+    title: 'Design-System-Seite – der Stil zum Nachschlagen',
+    highlights: [
+      'Neue Seite „🎨 Design-System" (unter „📚 Daten") zeigt das komplette visuelle System auf einen Blick: Farben, Schriften, Buttons, Karten, Marker, Zustände, Tabellen und mehr.',
+      'Beide Designs lassen sich direkt auf der Seite umschalten – alles färbt sich live um.',
+      'Eine lebende Vorlage, die exakt den echten Stil der App wiedergibt.',
+    ],
+  },
+  {
     version: '1.6.0',
     date: '2026-07-10',
     title: 'Neues Design – zwei umschaltbare Looks: Overlord & Heldentum',
