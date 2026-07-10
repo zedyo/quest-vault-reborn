@@ -653,7 +653,7 @@ export default function ScenariosTab({
                   <h4 className="text-gold-300 font-semibold truncate">{sc.scenario.title || 'Unbenannt'}</h4>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-dungeon-700 text-gray-400 shrink-0">Akt {sc.scenario.act}</span>
                   {roleOf(sc) && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-600/40 shrink-0">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-soft text-gold-300 border border-gold-600/40 shrink-0">
                       {ROLE_SYMBOL[roleOf(sc)!]} {ROLE_LABEL[roleOf(sc)!]}
                     </span>
                   )}

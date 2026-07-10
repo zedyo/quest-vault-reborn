@@ -30,7 +30,7 @@ const DATA = [
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `px-2.5 py-1.5 rounded text-xs font-medium transition-colors whitespace-nowrap ${
-    isActive ? 'bg-gold-500 text-dungeon-950' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
+    isActive ? 'bg-accent text-onaccent' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
   }`
 
 export default function Layout() {
@@ -94,7 +94,7 @@ export default function Layout() {
                 aria-haspopup="menu"
                 aria-expanded={dataOpen}
                 className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors whitespace-nowrap flex items-center gap-1 ${
-                  isDataActive || dataOpen ? 'bg-gold-500 text-dungeon-950' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
+                  isDataActive || dataOpen ? 'bg-accent text-onaccent' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
                 }`}
               >
                 📚 Daten <span className={`text-[9px] transition-transform ${dataOpen ? 'rotate-180' : ''}`}>▾</span>
@@ -111,7 +111,7 @@ export default function Layout() {
                       role="menuitem"
                       className={({ isActive }) =>
                         `px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                          isActive ? 'bg-gold-500 text-dungeon-950' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
+                          isActive ? 'bg-accent text-onaccent' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
                         }`
                       }
                     >

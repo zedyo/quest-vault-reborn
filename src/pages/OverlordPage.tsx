@@ -56,7 +56,7 @@ function XpBadge({ xp }: { xp: number | null }) {
     )
   }
   return (
-    <span className="text-[10px] font-semibold bg-gold-900/50 text-gold-300 px-1.5 py-0.5 rounded shrink-0">
+    <span className="text-[10px] font-semibold bg-accent-soft text-gold-300 px-1.5 py-0.5 rounded shrink-0">
       {xp} XP
     </span>
   )

@@ -25,6 +25,19 @@ abgeschlossen:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter off
 
 ## Abgeschlossene Versionen
 
+> **Hinweis:** Die maßgebliche, laufend gepflegte Statusübersicht steht in `CLAUDE.md`
+> (Statustabelle). Die Versions-Nummerierung in *diesem* Roadmap-Dokument ist gegenüber
+> der tatsächlichen Auslieferung verschoben – im Zweifel gilt `CLAUDE.md`.
+
+### v1.6.0 – Design-System v2 ✅ (2026-07-10)
+
+- Zwei umschaltbare Designs: **Overlord** (dunkel/Blut, Standard) + **Heldentum** (hell/Gold),
+  aus dem in „Claude DESIGN" ausgearbeiteten Design-System (`export/theme.css` + `tailwind.config.js`).
+- Semantische Design-Tokens (`--qv-*`) in `src/theme.css`; die bestehenden Tailwind-Skalen
+  (`dungeon`/`gold`/`gray`) als theme-variablen-getriebene Brücke → komplettes UI wechselt live.
+- Neue self-hosted Schriften je Theme (Pirata One/Cormorant bzw. Cinzel/EB Garamond, IBM Plex Mono).
+- Details siehe `CLAUDE.md` (Statustabelle v1.6.0 + Designentscheidungen).
+
 ### v1.0.0 – Kern-MVP ✅ (2026-05-25)
 
 **Was ist drin:**

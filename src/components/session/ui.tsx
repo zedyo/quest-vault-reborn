@@ -91,7 +91,7 @@ export function ChipToggle({
       aria-pressed={active}
       className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${
         active
-          ? 'bg-gold-500 text-dungeon-950 border-gold-500'
+          ? 'bg-accent text-onaccent border-gold-500'
           : 'bg-dungeon-800 text-gray-300 border-dungeon-600 hover:border-gold-500'
       }`}
     >
@@ -121,13 +121,13 @@ export function QtyStepper({
 }) {
   const active = value > 0
   const btn = `w-5 h-5 flex items-center justify-center rounded text-sm leading-none disabled:opacity-30 disabled:cursor-not-allowed ${
-    active ? 'hover:bg-gold-400/70' : 'hover:bg-dungeon-700'
+    active ? 'hover:bg-accent/70' : 'hover:bg-dungeon-700'
   }`
   return (
     <span
       title={title}
       className={`inline-flex items-center gap-1 rounded-full border pl-2.5 pr-1 py-0.5 text-xs font-medium ${
-        active ? 'bg-gold-500 text-dungeon-950 border-gold-500' : 'bg-dungeon-800 text-gray-300 border-dungeon-600'
+        active ? 'bg-accent text-onaccent border-gold-500' : 'bg-dungeon-800 text-gray-300 border-dungeon-600'
       }`}
     >
       {label != null && label !== '' && <span className="truncate max-w-[12rem]">{label}</span>}

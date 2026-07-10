@@ -20,6 +20,17 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.0',
+    date: '2026-07-10',
+    title: 'Neues Design – zwei umschaltbare Looks: Overlord & Heldentum',
+    highlights: [
+      'Komplett überarbeitetes Design mit zwei Stimmungen: „Overlord" (dunkel, blutrot – für den Spielleiter) und „Heldentum" (hell, gold – für die Helden-Spieler).',
+      'Umschalten jederzeit über das 🎨-Symbol oben rechts; deine Wahl bleibt gespeichert.',
+      'Neue, thematisch passende Schriften – edle Fantasy-Serifen für Überschriften und ein gut lesbarer Fließtext, weiterhin komplett offline.',
+      'Beide Designs sind durchgängig auf gute Lesbarkeit abgestimmt und funktionieren auf allen Seiten (Karten, Filter, Session-Tracker, Kartenbauer).',
+    ],
+  },
+  {
     version: '1.5.3',
     date: '2026-07-08',
     title: 'Session-Tracker: Gegenstände verschieben & Kartenbilder vergrößern',

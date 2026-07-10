@@ -318,7 +318,7 @@ export default function SessionsPage() {
             onClick={() => setTab(t.id)}
             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
               tab === t.id
-                ? 'bg-gold-500 text-dungeon-950 border-gold-500'
+                ? 'bg-accent text-onaccent border-gold-500'
                 : 'bg-dungeon-700 text-gray-300 border-dungeon-600 hover:border-gold-500'
             }`}
           >

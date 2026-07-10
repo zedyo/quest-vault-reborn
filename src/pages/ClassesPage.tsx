@@ -76,7 +76,7 @@ function XpBadge({ xp }: { xp: number | 'elemental' }) {
     )
   }
   return (
-    <span className="text-[10px] font-semibold bg-gold-900/50 text-gold-300 px-1.5 py-0.5 rounded shrink-0">
+    <span className="text-[10px] font-semibold bg-accent-soft text-gold-300 px-1.5 py-0.5 rounded shrink-0">
       {xp} XP
     </span>
   )
@@ -261,7 +261,7 @@ export default function ClassesPage() {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors border font-medium ${
                 filterArchetype === a
                   ? a === 'alle'
-                    ? 'bg-gold-500 text-dungeon-950 border-gold-600'
+                    ? 'bg-accent text-onaccent border-gold-600'
                     : ARCHETYPE_ACTIVE[a]
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
