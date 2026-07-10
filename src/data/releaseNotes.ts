@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.2',
+    date: '2026-07-10',
+    title: 'Neue Startseite & Seitenleisten-Navigation',
+    highlights: [
+      'Die App hat jetzt eine feste Seitenleiste als Kommandozentrale (Werkzeuge + Bibliothek) statt der oberen Menüleiste – auf dem Handy klappt sie über das Menü-Symbol auf.',
+      'Die Startseite ist ein echtes Dashboard: „Weiter im Spiel" (deine aktive Session), „Zuletzt bearbeitet" (deine Quests), „Monster des Tages" und Schnellzugriffe.',
+      'Neue, schlanke Icons statt Emojis; alles folgt weiterhin dem gewählten Design (Overlord/Heldentum).',
+    ],
+  },
+  {
     version: '1.6.1',
     date: '2026-07-10',
     title: 'Design-System-Seite – der Stil zum Nachschlagen',
