@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Outlet, NavLink, useLocation } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
+import { Outlet, NavLink, Link, useLocation } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { EXPANSIONS } from '../data/expansions'
 import ThemeSwitcher from './ThemeSwitcher'
@@ -105,6 +105,68 @@ function SammlungBadge() {
   return <>{ownedCount}/{EXPANSIONS.length}</>
 }
 
+/** Aktives Theme aus `data-theme` (folgt jedem Wechsel via Kopf-/Sidebar-Switcher). */
+function useActiveTheme(): string {
+  const [theme, setTheme] = useState(
+    () => document.documentElement.getAttribute('data-theme') || 'overlord',
+  )
+  useEffect(() => {
+    const el = document.documentElement
+    const obs = new MutationObserver(() => setTheme(el.getAttribute('data-theme') || 'overlord'))
+    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [])
+  return theme
+}
+
+/**
+ * Atmosphäre hinter dem Inhalt (Design-System): aufsteigende Partikel je Theme
+ * (Overlord = Blut-Ember rot, Heldentum = Gold-Motes) + atmende Akzent-Vignette
+ * am unteren Rand. Liegt als absolute Ebene (z-0) hinter Kopfzeile/Inhalt;
+ * `motion-reduce` blendet sie aus.
+ */
+function Atmosphere() {
+  const held = useActiveTheme() === 'heldentum'
+  const particles = useMemo(
+    () =>
+      Array.from({ length: held ? 22 : 24 }, () => ({
+        left: `${(Math.random() * 100).toFixed(2)}%`,
+        size: held ? 2 + Math.random() * 2.5 : 2 + Math.random() * 3,
+        dur: held ? 9 + Math.random() * 8 : 6 + Math.random() * 7,
+        delay: -(Math.random() * 13),
+      })),
+    [held],
+  )
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-0 motion-reduce:hidden" aria-hidden>
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            bottom: -12,
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            opacity: 0,
+            background: held ? '#ecc879' : '#e0552b',
+            boxShadow: held ? '0 0 7px 1px rgba(226,190,110,.8)' : '0 0 8px 1px rgba(214,60,30,.85)',
+            animation: `${held ? 'qv-mote' : 'qv-ember'} ${p.dur.toFixed(1)}s linear ${p.delay.toFixed(1)}s infinite`,
+          }}
+        />
+      ))}
+      <div
+        className="absolute left-0 right-0 -bottom-10 h-[210px]"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 100%, var(--qv-accent-soft), transparent 72%)',
+          filter: 'blur(10px)',
+          animation: 'qv-breathe 7s ease-in-out infinite',
+        }}
+      />
+    </div>
+  )
+}
+
 export default function Layout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const location = useLocation()
@@ -130,8 +192,9 @@ export default function Layout() {
       )}
 
       {/* Hauptbereich */}
-      <div className="flex-1 min-w-0 flex flex-col">
-        <header className="h-[74px] shrink-0 flex items-center justify-between gap-3 px-4 md:px-6 border-b border-line bg-bg">
+      <div className="relative flex-1 min-w-0 flex flex-col">
+        <Atmosphere />
+        <header className="relative z-10 h-[74px] shrink-0 flex items-center justify-between gap-3 px-4 md:px-6 border-b border-line bg-bg">
           <div className="flex items-center gap-3 min-w-0">
             <button
               className="md:hidden p-2 rounded-control text-muted hover:bg-surface-2 transition-colors"
@@ -148,6 +211,12 @@ export default function Layout() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              to="/quest"
+              className="inline-flex items-center h-9 px-4 rounded-control bg-btn-primary text-onaccent border border-accent-deep shadow-btn font-head font-semibold text-sm whitespace-nowrap transition-all hover:brightness-110"
+            >
+              + Neue Quest
+            </Link>
             <NavLink to="/sammlung" className="hidden md:inline-flex items-center gap-1.5 px-3 h-9 rounded-pill bg-accent-soft border border-accent-line font-mono text-[11px] text-accent-bright">
               Sammlung <SammlungBadge />
             </NavLink>
@@ -155,7 +224,7 @@ export default function Layout() {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto">
+        <main className="relative z-[1] flex-1 overflow-y-auto">
           <Outlet />
         </main>
       </div>

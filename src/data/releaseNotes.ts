@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.3',
+    date: '2026-07-10',
+    title: 'Atmosphäre & Schnellzugriff auf der neuen Startseite',
+    highlights: [
+      'Stimmungsvolle Hintergrund-Effekte hinter dem Inhalt: aufsteigende Funken (Overlord) bzw. goldene Lichtpunkte (Heldentum) und ein sanft atmender Schein.',
+      'Neuer „+ Neue Quest"-Knopf oben in der Kopfzeile – von überall schnell eine Quest starten.',
+      'Bewegungseffekte werden bei aktivierter Systemeinstellung „Bewegung reduzieren" automatisch ausgeblendet.',
+    ],
+  },
+  {
     version: '1.6.2',
     date: '2026-07-10',
     title: 'Neue Startseite & Seitenleisten-Navigation',
