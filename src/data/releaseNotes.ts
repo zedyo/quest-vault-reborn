@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.4',
+    date: '2026-07-10',
+    title: 'Helles Design als Standard & aufgeräumte Kopfzeile',
+    highlights: [
+      'Neue Nutzer starten jetzt im hellen „Heldentum"-Design (Gold/Pergament). Eine zuvor getroffene eigene Design-Wahl bleibt erhalten.',
+      'Die Kopfzeile ist aufgeräumt: „Sammlung" und die Design-Auswahl liegen jetzt gebündelt unten in der Seitenleiste.',
+    ],
+  },
+  {
     version: '1.6.3',
     date: '2026-07-10',
     title: 'Atmosphäre & Schnellzugriff auf der neuen Startseite',

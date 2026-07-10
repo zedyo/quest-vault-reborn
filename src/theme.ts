@@ -16,7 +16,7 @@ export const THEMES: Theme[] = [
   { id: 'heldentum', label: 'Heldentum (Hell)', swatch: '#c69821' },
 ]
 
-export const DEFAULT_THEME = 'overlord'
+export const DEFAULT_THEME = 'heldentum'
 const STORAGE_KEY = 'qvr-theme'
 
 /** Gespeichertes Theme lesen (oder Standard), robust gegen fehlenden/ungültigen Wert. */
