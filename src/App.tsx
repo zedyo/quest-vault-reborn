@@ -19,6 +19,7 @@ import RumorsPage from './pages/RumorsPage'
 import ConditionsPage from './pages/ConditionsPage'
 import RulesReferencePage from './pages/RulesReferencePage'
 import RulesClarificationsPage from './pages/RulesClarificationsPage'
+import DesignSystemPage from './pages/DesignSystemPage'
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="zustaende" element={<ConditionsPage />} />
         <Route path="regeln" element={<RulesReferencePage />} />
         <Route path="klarstellungen" element={<RulesClarificationsPage />} />
+        <Route path="designsystem" element={<DesignSystemPage />} />
       </Route>
     </Routes>
   )

@@ -26,6 +26,7 @@ const DATA = [
   { to: '/zustaende', label: '🩹 Zustände' },
   { to: '/regeln', label: '📖 Regeln & Referenz' },
   { to: '/klarstellungen', label: '📋 Errata & FAQ' },
+  { to: '/designsystem', label: '🎨 Design-System' },
 ]
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
