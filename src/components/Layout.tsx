@@ -100,19 +100,14 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   )
 }
 
-function SammlungBadge() {
-  const ownedCount = useGameStore((s) => s.ownedExpansionIds.length)
-  return <>{ownedCount}/{EXPANSIONS.length}</>
-}
-
-/** Aktives Theme aus `data-theme` (folgt jedem Wechsel via Kopf-/Sidebar-Switcher). */
+/** Aktives Theme aus `data-theme` (folgt jedem Wechsel via Sidebar-Switcher). */
 function useActiveTheme(): string {
   const [theme, setTheme] = useState(
-    () => document.documentElement.getAttribute('data-theme') || 'overlord',
+    () => document.documentElement.getAttribute('data-theme') || 'heldentum',
   )
   useEffect(() => {
     const el = document.documentElement
-    const obs = new MutationObserver(() => setTheme(el.getAttribute('data-theme') || 'overlord'))
+    const obs = new MutationObserver(() => setTheme(el.getAttribute('data-theme') || 'heldentum'))
     obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] })
     return () => obs.disconnect()
   }, [])
@@ -217,10 +212,6 @@ export default function Layout() {
             >
               + Neue Quest
             </Link>
-            <NavLink to="/sammlung" className="hidden md:inline-flex items-center gap-1.5 px-3 h-9 rounded-pill bg-accent-soft border border-accent-line font-mono text-[11px] text-accent-bright">
-              Sammlung <SammlungBadge />
-            </NavLink>
-            <ThemeSwitcher />
           </div>
         </header>
 
