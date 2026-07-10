@@ -49,7 +49,7 @@ export default function ThemeSwitcher({ variant = 'dropdown' }: { variant?: 'dro
               key={t.id}
               onClick={() => choose(t.id)}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
-                current === t.id ? 'bg-gold-500 text-dungeon-950' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
+                current === t.id ? 'bg-accent text-onaccent' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
               }`}
             >
               <Swatch color={t.swatch} />
@@ -86,7 +86,7 @@ export default function ThemeSwitcher({ variant = 'dropdown' }: { variant?: 'dro
               aria-checked={current === t.id}
               onClick={() => choose(t.id)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                current === t.id ? 'bg-gold-500 text-dungeon-950' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
+                current === t.id ? 'bg-accent text-onaccent' : 'text-gray-300 hover:text-gray-50 hover:bg-dungeon-800'
               }`}
             >
               <Swatch color={t.swatch} />

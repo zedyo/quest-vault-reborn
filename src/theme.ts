@@ -12,12 +12,11 @@ export interface Theme {
 }
 
 export const THEMES: Theme[] = [
-  { id: 'dungeon', label: 'Verlies (Warm)', swatch: '#3a2c1d' },
-  { id: 'arcane', label: 'Arkanblau', swatch: '#0f3460' },
-  { id: 'slate', label: 'Schiefer (Neutral)', swatch: '#2c2c3c' },
+  { id: 'overlord', label: 'Overlord (Dunkel)', swatch: '#b52626' },
+  { id: 'heldentum', label: 'Heldentum (Hell)', swatch: '#c69821' },
 ]
 
-export const DEFAULT_THEME = 'dungeon'
+export const DEFAULT_THEME = 'overlord'
 const STORAGE_KEY = 'qvr-theme'
 
 /** Gespeichertes Theme lesen (oder Standard), robust gegen fehlenden/ungültigen Wert. */

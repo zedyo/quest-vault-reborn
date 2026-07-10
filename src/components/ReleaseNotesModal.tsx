@@ -48,7 +48,7 @@ export default function ReleaseNotesModal({ onClose }: Props) {
                 key={note.version}
                 className={`rounded-lg border p-3 ${
                   isCurrent
-                    ? 'border-gold-700/60 bg-gold-950/20'
+                    ? 'border-gold-700/60 bg-accent-soft'
                     : 'border-dungeon-700 bg-dungeon-800/40'
                 }`}
               >
@@ -57,7 +57,7 @@ export default function ReleaseNotesModal({ onClose }: Props) {
                     Version {note.version}
                   </span>
                   {isCurrent && (
-                    <span className="text-[10px] uppercase tracking-wide bg-gold-700 text-gray-900 px-1.5 py-0.5 rounded font-semibold">
+                    <span className="text-[10px] uppercase tracking-wide bg-accent-deep text-onaccent px-1.5 py-0.5 rounded font-semibold">
                       Aktuell
                     </span>
                   )}

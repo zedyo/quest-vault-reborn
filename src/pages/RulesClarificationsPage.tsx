@@ -212,7 +212,7 @@ export default function RulesClarificationsPage() {
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 text-sm font-medium transition-colors ${
-              tab === t ? 'bg-gold-500 text-dungeon-950' : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
+              tab === t ? 'bg-accent text-onaccent' : 'bg-dungeon-800 text-gray-400 hover:bg-dungeon-700 hover:text-gray-200'
             }`}
           >
             {label}
@@ -259,7 +259,7 @@ export default function RulesClarificationsPage() {
                   onClick={() => setSectionFilter(s)}
                   className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
                     activeChip
-                      ? 'bg-gold-500 border-gold-400 text-dungeon-950 font-medium'
+                      ? 'bg-accent border-gold-400 text-onaccent font-medium'
                       : 'bg-dungeon-800 border-dungeon-600 text-gray-400 hover:text-gray-200 hover:border-dungeon-500'
                   }`}
                 >

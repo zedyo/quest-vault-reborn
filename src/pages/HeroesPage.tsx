@@ -191,7 +191,7 @@ export default function HeroesPage() {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-sm transition-colors border font-medium ${
                 filterArchetype === a
                   ? a === 'alle'
-                    ? 'bg-gold-500 text-dungeon-950 border-gold-600'
+                    ? 'bg-accent text-onaccent border-gold-600'
                     : archetypeActiveCls[a]
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}

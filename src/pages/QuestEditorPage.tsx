@@ -325,8 +325,8 @@ function HeroPicker({
               </div>
               {/* Selected checkmark overlay */}
               {selected && (
-                <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-gold-400 flex items-center justify-center">
-                  <span className="text-dungeon-950 text-[9px] font-black leading-none">✓</span>
+                <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-accent flex items-center justify-center">
+                  <span className="text-onaccent text-[9px] font-black leading-none">✓</span>
                 </div>
               )}
             </button>
@@ -662,7 +662,7 @@ export default function QuestEditorPage() {
             onClick={() => setActiveEncounterId(e.id)}
             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
               e.id === encounter?.id
-                ? 'bg-gold-500 text-dungeon-950 border-gold-500'
+                ? 'bg-accent text-onaccent border-gold-500'
                 : 'bg-dungeon-700 text-gray-300 border-dungeon-600 hover:border-gold-500'
             }`}
           >

@@ -434,15 +434,15 @@ function AbilityErrataPanel({ search }: { search: string }) {
   }, [q])
   if (!list.length) return null
   return (
-    <details className="group rounded border border-amber-800/40 bg-amber-950/15 open:bg-amber-950/25">
-      <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-3 py-2 text-xs hover:bg-amber-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500">
+    <details className="group rounded border border-accent-line bg-accent-soft">
+      <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-3 py-2 text-xs hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
         <span aria-hidden>📖</span>
-        <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Monsterfähigkeiten – Errata &amp; FAQ</span>
-        <span className="text-amber-400/70">({list.length})</span>
-        <span className="text-gray-500 normal-case tracking-normal">· CRRG V1.15</span>
-        <span className="ml-auto text-gray-500 text-[9px] transition-transform group-open:rotate-180" aria-hidden>▾</span>
+        <span className="font-semibold text-gold-400 uppercase tracking-wide">Monsterfähigkeiten – Errata &amp; FAQ</span>
+        <span className="text-gold-300">({list.length})</span>
+        <span className="text-faint normal-case tracking-normal">· CRRG V1.15</span>
+        <span className="ml-auto text-faint text-[9px] transition-transform group-open:rotate-180" aria-hidden>▾</span>
       </summary>
-      <div className="px-3 pb-3 pt-1 border-t border-amber-900/30">
+      <div className="px-3 pb-3 pt-1 border-t border-accent-line">
         <p className="text-[11px] text-gray-500 mb-2">
           Fähigkeits-Schlagwörter (Feuerodem, Durchbohren, Netz …). Am jeweiligen Monster erscheinen zusätzlich nur die dort vorhandenen Fähigkeiten.
         </p>

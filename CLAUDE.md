@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.5.3 (2026-07-08)
+## Aktuelle Version: 1.6.0 (2026-07-10)
 
 ### Versionierungsregeln
 
@@ -42,8 +42,9 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.5.1 | ✅ Abgeschlossen | **Session-Tracker – Feinschliff, Marker & Korrekturen.** (1) Held „Stahlhörner"→**„Stahlhorn"** (nur `name`, `id` bleibt). (2) Neues optionales Feld **`CampaignScenario.role`** (`intro`/`interlude`/`finale`) — feste Szenarien werden im Szenario-Editor als **„★ Feste Szenarien"**-Optgroup + Badge hervorgehoben (Tagging-Logik + Bilehall/Ketten-Sonderfall in `campaignScenarios.ts`/`campaign-scenarios.md`; IP-Shape-Guard auf 6 Felder erweitert). (3) **Bedrohungsmarker** (Overlord) + **gemeinsamer Schicksalsmarker** (Partei) als Live-Zähler → neue Felder `TrackedOverlord.threatTokens` + `CampaignSession.partyFateTokens`; Store-`PERSIST_VERSION` **1→2** (migrate defaultet sie); Anzeige in der Live-Leiste. (4) **Akt-abhängiger Einkauf:** `ItemPicker` `actFilter` (Akt 1 → nur Akt-1-Items; Zwischenspiel → Akt 1+2 getrennt; Akt 2 → nur Akt-2). (5) **Overlord-Mehrfach-Karten** (19 Karten `count:2`): Mengen-Stepper (0..count) in Setup + Kauf; `deriveLiveState.ownedCardCounts` (Multiset, `__proto__`-sicher via Map). (6) Gekaufte/erhaltene Items sofort sichtbar (funktionales `setDraft`); **„Partei-Pool"→„Gemeinsame Ausrüstung"** + Partei-Vorrat im Helden-Tab sichtbar. (7) Helden-Tab zeigt nur Besitz; Vollkatalog per Button. Tests: 118 grün (role-Value-Test + Mehrfach-Karten-Derive + Marker-Round-Trip). |
 | v1.5.2 | ✅ Abgeschlossen | **Session-Tracker – Item-Bilder, XP-Stepper & Kartentext-Korrekturen.** (1) Gekaufte/erhaltene/verkaufte Gegenstände im Szenario-Editor + „Gemeinsame Ausrüstung" zeigen jetzt **Name prominent + deutsches Original-Kartenbild** (neue `ItemThumb`-Komponente in `session/ui.tsx` + `itemCardUrl()` in `sessionHelpers.ts`, nutzt `itemCardDeUrl`/`relicCardDeUrl`/`classItemDeUrl`; sanfter `onError`-Fallback). (2) Helden-XP + Overlord-XP als **`QtyStepper`** (+/−) statt Zahlenfeld; `QtyStepper` `label` optional. (3) **Vereinheitlichte Auswahl-Optik:** aktiver `QtyStepper` (Wert > 0) jetzt identisch zum aktiven `ChipToggle` (gold gefüllt). (4) **„Gemeinsame Ausrüstung"** im Helden-Tab: Partei-Items per Dropdown direkt einem Helden zuweisen (`onReassignItem` → `SessionsPage.reassignItemOwner`, mappt `grantedItems`/`bought` per `refId`). (5) **Drei Kartentext-Korrekturen** in `heroClasses.ts` + `de-karten/klassen.md`: Leichtfüssig (Waldläufer) „1 Herz"→**„1 Erschöpfung"** (EN „suffer 1 Fatigue"); Friedvolle Rast (Barde) „2 Erschöpfung"→**„2 Herzen"** (EN „recovers 2 Hearts"); Schnellfeuer (Kopfgeldjäger) „Wenn du dieses besiegst"→**„…nicht besiegst"** (EN „if you do not defeat"). Kein Schema-/Persist-Bump. Tests: 118 grün. |
 | v1.5.3 | ✅ Abgeschlossen | **Session-Tracker – Gegenstände verschieben, Bild-Lightbox & Dropdown-Feinschliff.** (1) **Reassign/Entfernen:** einem Helden zugewiesene Szenario-Gegenstände (grantedItems/bought, nicht Startausrüstung) haben im Helden-Card jetzt ein „verschieben zu…"-Dropdown → **↩ Gemeinsame Ausrüstung** (`onReassign(refId, null)`) oder **anderer Held** (`onReassign(refId, localId)`); nutzt den bestehenden `SessionsPage.reassignItemOwner` (mappt `grantedItems`/`bought` per `refId`, setzt `toHeroLocalId`). Startausrüstung behält das ×-Entfernen. Helden-Ausrüstungsliste von Pills auf vertikale Zeilen (Bild + Name + Steuerung) umgestellt. (2) **Bild-Lightbox:** `ItemThumb` (`session/ui.tsx`) ist jetzt ein Button → Klick öffnet das deutsche Original-Kartenbild groß + lesbar in `ModalOverlay` (gleicher Stil wie ItemsPage-Lightbox: `bg-black/85`, `max-w-xs`, ✕/Escape/Klick-außen); wirkt überall, wo `ItemThumb` genutzt wird (Szenario-Editor grant/kauf/verkauf, Helden-Tab, Gemeinsame Ausrüstung). (3) **Dropdown-Lesbarkeit:** gemeinsame `REASSIGN_SELECT`-Klasse (`text-sm` + `[&>option]:text-sm` → geschlossenes Feld und aufgeklapptes Menü gleich groß; feste Breite `w-48`/`max-w-[55vw]`), Platzhalter gekürzt (kein em-Dash). Kein Schema-/Persist-Bump. |
-| v1.6.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – verschoben von 1.4.0 |
-| v1.7.0 | ⏳ Geplant | Helden-Spieleransicht |
+| v1.6.0 | ✅ Abgeschlossen | **Design-System v2 – zwei umschaltbare Designs „Overlord" (dunkel/Blut, Standard) + „Heldentum" (hell/Gold).** Aus dem in „Claude DESIGN" ausgearbeiteten Design-System (`export/theme.css` + `tailwind.config.js` + README) übernommen. **Token-Architektur:** semantische Design-Tokens `--qv-*` (Flächen `bg`/`surface`/`surface-2`/`line`, Text `fg`/`muted`/`faint`, Akzent `accent`(+`.deep`/`.bright`/`.soft`/`.line`), `onaccent` = `--qv-btn-text`, Status `success`/`info`/`warning`/`danger`, Radien `card`/`control`/`chip`/`pill`, Schatten `btn`/`panel`, Ambient-Animationen `ember`/`mote`/`fog`/`breathe`/`sweep`) in `src/theme.css` je `data-theme`. **Migrationsstrategie (Brücke statt Massen-Umschreibung):** die bestehenden Tailwind-Skalen `dungeon`/`gold`/`gray` sind jetzt **variablen-getrieben** (`rgb(var(--c-…) / <alpha-value>)`) und pro Theme in `theme.css` eingefärbt → das komplette Bestands-UI (≈900 Klassenvorkommen in 37 Dateien) färbt sich beim Theme-Wechsel automatisch live um, ohne jede Komponente umzuschreiben. `gold` = Akzent-TEXT/Rahmen (helle Rottöne Overlord / lesbare Dunkelgoldtöne Heldentum); `gray` = neutraler Text (Overlord hell→dunkel, Heldentum invertiert dunkel→hell); `dungeon` = Flächen-Elevation (dunkle bzw. Pergament-Rampe). **Konflikt „dunkler Text auf Akzent" gelöst:** alle `bg-gold-*`-FÜLLUNGEN → semantisches `bg-accent`(/`-deep`/`-soft`), alle `text-dungeon-9xx`/`text-gray-900` (Text auf Gold) → `text-onaccent` (hell auf Rot / dunkel auf Gold, flippt korrekt je Theme). **Schriften** (self-hosted @fontsource, offline/PWA): Overlord = Pirata One (Display) + Cormorant Garamond (Text), Heldentum = Cinzel (Display) + EB Garamond (Text), Mono = IBM Plex Mono; `font-display`/`font-head`/`font-body`/`font-sans` via `--qv-font-*`. Inter entfernt. **Theme-Verwaltung:** `src/theme.ts` `THEMES` = overlord/heldentum (Standard overlord), Auswahl in eigenem `qvr-theme`-localStorage-Key (KEIN Persist-Bump; alte ids `dungeon`/`arcane`/`slate` fallen sauber auf overlord zurück); `ThemeSwitcher` unverändert. **ErrataBox + Monster-Errata-Panel** auf theme-aware Tokens (`accent-soft`/`gold`/`success`) umgestellt (waren als amber/emerald-Tint+Hell-Text im Hellmodus zu kontrastarm). **In beiden Themes per Playwright (echter Build) auf Home/Helden/Items/Overlord/Klassen/Session/Klarstellungen verifiziert.** Tests 118 grün. |
+| v1.7.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – verschoben von 1.4.0 |
+| v1.8.0 | ⏳ Geplant | Helden-Spieleransicht |
 | v2.0.0 | ⏳ Zukunft | Backend-Migration + Sync (Major, User-Zustimmung nötig) |
 | v2.1.0 | ⏳ Zukunft | Englische Lokalisierung |
 | v2.2.0 | ⏳ Zukunft | Benutzerkonten, Cloud-Speicherung, Kampagnen-Sharing (User-Wunsch 2026-06-12) |
@@ -444,7 +445,7 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
 | react-router-dom | Routing (HashRouter für GitHub Pages) |
 | @dnd-kit/core | Drag-and-Drop im MapBuilder |
 | vite-plugin-pwa | PWA / Service Worker |
-| @fontsource (Cinzel + Inter) | Self-hosted Fonts (offline, kein CDN) – v1.2.0 |
+| @fontsource (Cinzel, EB Garamond, Cormorant Garamond, Pirata One, IBM Plex Mono) | Self-hosted Fonts (offline, kein CDN) – Design-System v2 (v1.6.0); Schrift folgt dem aktiven Theme über `--qv-font-*` |
 | GitHub Actions | CI/CD → GitHub Pages |
 
 ---
@@ -578,6 +579,39 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
   jetzt `rgb(var(--c-dungeon-…))` und folgen dem Theme. `theme()`-Aufrufe in index.css für dungeon-Farben
   durch `rgb(var(--c-dungeon-…))` ersetzt (sonst ungültiges CSS mit `<alpha-value>`-Platzhalter). Neue
   Themes = nur ein Eintrag in `THEMES` + ein `[data-theme=…]`-Block.
+- **Design-System v2 (1.6.0) – „Overlord"/„Heldentum":** löst die drei 1.2.4-Themes (Verlies/Arkanblau/
+  Schiefer) durch die zwei Designs aus dem in „Claude DESIGN" ausgearbeiteten System ab. **Quelle:**
+  das ZIP `export/{theme.css,tailwind.config.js,README.md}` (2026-07-10). **Neue Dateien/Struktur:**
+  `src/index.css` importiert `./theme.css` ganz oben; `src/theme.css` hält je `data-theme` **(a)** die
+  semantischen `--qv-*`-Tokens (bg/surface/surface-2/border, text/muted/faint, accent(+deep/bright/soft/
+  line), btn/btn-text, font-display/head/body) **und (b)** die Legacy-Brücke `--c-dungeon/gold/gray-*`
+  (R G B-Kanäle). `tailwind.config.js` mappt beide Ebenen: neue semantische Utilities (`bg-bg`,
+  `bg-surface`, `text-fg`, `text-muted`, `bg-accent`, `text-onaccent`, `border-line`, `rounded-card/
+  control/chip/pill`, `shadow-btn/panel`, `bg-btn-primary`, `animate-ember/mote/fog/breathe/sweep`) +
+  die weiterhin nutzbaren Legacy-Skalen (`dungeon`/`gold`/`gray`), jetzt variablen-getrieben.
+  **Warum Brücke statt Voll-Migration:** ≈900 Klassenvorkommen in 37 Dateien; durch das Umlegen der
+  Skalen auf Theme-Variablen färbt sich das Bestands-UI beim Wechsel komplett live um, ohne jede
+  Komponente umzuschreiben (geringes Regressionsrisiko). **Semantik der Brücke:** `gold` = Akzent-TEXT/
+  Rahmen (in Overlord helle Rottöne, in Heldentum LESBARE Dunkelgoldtöne, weil hell auf Pergament sonst
+  zu kontrastarm); `gray` = neutraler Text (Overlord hell→dunkel; Heldentum invertiert, damit Text auf
+  Pergament dunkel ist); `dungeon` = Flächen-Elevation (dunkle bzw. helle Pergament-Rampe). **Wichtiger
+  Konflikt „dunkler Text auf hellem Akzent":** dieselbe Farbe kann nicht gleichzeitig hell (Fließtext auf
+  Dunkel) und dunkel (Text auf Gold) sein → **Füllflächen** wurden von `bg-gold-*` auf semantisches
+  `bg-accent`(/`-deep`/`-soft`) umgestellt und der Text darauf von `text-dungeon-950`/`text-gray-900`
+  auf **`text-onaccent`** (= `--qv-btn-text`, flippt korrekt: hell auf Rot / dunkel auf Gold). Skript-
+  gestützte, geordnete Ersetzung (`bg-gold-*`→accent 25×, `text-dungeon-9xx`/`text-gray-900`→onaccent
+  21×). **Nicht theme-fähig gebrückt:** die Default-Tailwind-Statusfarben (red/blue/purple/green als
+  Würfel-/Kategorie-Chips) bleiben — sie werden sowohl als solide Dunkel-Chips (helle Schrift) ALS AUCH
+  als Transluzent-Tints genutzt, ein Bridging bräche einen der beiden Fälle; im Hellmodus sind sie
+  akzeptabel. **ErrataBox + Monster-Errata-Panel** waren als amber/emerald-Tint+Hell-Text im Hellmodus
+  zu kontrastarm → auf theme-aware `accent-soft`/`gold`/`success` umgestellt. **Schriften** self-hosted
+  via @fontsource (offline/PWA), in `main.tsx`: Overlord Pirata One+Cormorant Garamond, Heldentum
+  Cinzel+EB Garamond, Mono IBM Plex Mono; Inter entfernt. **Theme-Verwaltung** unverändert
+  (`qvr-theme`-Key, kein Persist-Bump; alte ids fallen via `getStoredTheme`-Validierung auf `overlord`
+  zurück). Standard = `overlord` (dunkel), auch in `index.html` (`data-theme="overlord"` + theme-color).
+  **Verifiziert** im echten Build via Playwright in BEIDEN Themes (Home/Helden/Items/Overlord/Klassen/
+  Session/Klarstellungen + Nav-Dropdown). **Neues Theme künftig** = ein `[data-theme=…]`-Block in
+  `theme.css` (semantische + Brücken-Variablen) + ein `THEMES`-Eintrag.
 - **Session-Tracker (1.4.0):** eigener zustand-Store `src/store/useSessionStore.ts` mit **eigenem**
   localStorage-Key `qvr-sessions` (dritter Eigen-Key neben `qvr-theme`/`qvr-builder-draft`), bewusst
   GETRENNT von `useGameStore` (Key `quest-vault-reborn`) — so bleibt dessen Persist-Schema (Quests +

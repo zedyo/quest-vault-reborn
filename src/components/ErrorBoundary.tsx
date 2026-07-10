@@ -59,7 +59,7 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="flex flex-col gap-2">
             <button
               onClick={this.handleReset}
-              className="rounded bg-gold-600 hover:bg-gold-500 text-dungeon-900 font-semibold py-2 px-4 transition-colors"
+              className="rounded bg-accent hover:bg-accent text-onaccent font-semibold py-2 px-4 transition-colors"
             >
               Zur Startseite
             </button>

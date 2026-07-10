@@ -11,7 +11,7 @@ import { CRRG_SOURCE } from '../data/ruleClarifications'
 export function PointList({ points, size = 12 }: { points: string[]; size?: number }) {
   if (!points.length) return null
   return (
-    <ul className="list-disc pl-4 space-y-1 marker:text-gold-600/70">
+    <ul className="list-disc pl-4 space-y-1 marker:text-accent/60">
       {points.map((p, i) => (
         <li key={i} className="text-gray-300 leading-snug">
           {renderGameTextInline(p, size)}
@@ -32,8 +32,8 @@ export function GroupBlock({ group, size = 12 }: { group: ErrataGroup; size?: nu
 
 export function NoteBlock({ note, size = 12 }: { note: ErrataNote; size?: number }) {
   return (
-    <div className="rounded border border-emerald-900/50 bg-emerald-950/20 px-2 py-1.5 space-y-1">
-      <div className="text-[10px] font-semibold uppercase tracking-wide text-emerald-300/90">
+    <div className="rounded border-l-2 border border-success/40 bg-success/10 px-2 py-1.5 space-y-1">
+      <div className="text-[10px] font-semibold uppercase tracking-wide text-success">
         {note.title}
       </div>
       <PointList points={note.points} size={size} />
@@ -58,7 +58,7 @@ export function ErrataEntryBody({ entry, size = 12 }: { entry: ErrataEntry; size
 function SourceLine({ pages }: { pages: number[] }) {
   const uniq = Array.from(new Set(pages)).sort((a, b) => a - b)
   return (
-    <p className="text-[10px] text-gray-600 italic pt-0.5">
+    <p className="text-[10px] text-faint italic pt-0.5">
       Quelle: {CRRG_SOURCE}, S. {uniq.join(', ')}
     </p>
   )
@@ -86,22 +86,22 @@ export default function ErrataBox({
   if (!entries.length) return null
   return (
     <details
-      className={`mt-2 group rounded border border-amber-800/40 bg-amber-950/15 open:bg-amber-950/25 transition-colors ${className}`}
+      className={`mt-2 group rounded border border-accent-line bg-accent-soft transition-colors ${className}`}
     >
-      <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[11px] hover:bg-amber-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500">
+      <summary className="cursor-pointer select-none list-none marker:content-none [&::-webkit-details-marker]:hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[11px] hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent">
         <span aria-hidden>📖</span>
-        <span className="font-semibold text-amber-300/90 uppercase tracking-wide">{title}</span>
-        {entries.length > 1 && <span className="text-amber-400/70">({entries.length})</span>}
-        <span className="text-gray-500 normal-case tracking-normal">· CRRG V1.15</span>
-        <span className="ml-auto text-gray-500 text-[9px] transition-transform group-open:rotate-180" aria-hidden>
+        <span className="font-semibold text-gold-400 uppercase tracking-wide">{title}</span>
+        {entries.length > 1 && <span className="text-gold-300">({entries.length})</span>}
+        <span className="text-faint normal-case tracking-normal">· CRRG V1.15</span>
+        <span className="ml-auto text-faint text-[9px] transition-transform group-open:rotate-180" aria-hidden>
           ▾
         </span>
       </summary>
-      <div className="px-2.5 pb-2.5 pt-1 space-y-3 text-xs border-t border-amber-900/30">
+      <div className="px-2.5 pb-2.5 pt-1 space-y-3 text-xs border-t border-accent-line">
         {entries.map((e) => (
           <div key={e.id} className="space-y-1.5">
             {showEntryNames && (
-              <div className="text-amber-200/90 font-semibold border-l-2 border-amber-700/50 pl-2">
+              <div className="text-fg font-semibold border-l-2 border-accent-line pl-2">
                 {e.nameDe}
               </div>
             )}
