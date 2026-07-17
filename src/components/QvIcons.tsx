@@ -6,7 +6,7 @@ export type IconName =
   | 'dashboard' | 'map' | 'quest' | 'session'
   | 'monster' | 'hero' | 'class' | 'item' | 'overlord' | 'lieutenant'
   | 'agent' | 'deck' | 'campaign' | 'compass' | 'rumor' | 'condition'
-  | 'rules' | 'errata' | 'design'
+  | 'rules' | 'errata' | 'design' | 'search'
 
 const PATHS: Record<IconName, ReactNode> = {
   dashboard: (<><rect x="3" y="3" width="5.5" height="5.5" rx="1.2" /><rect x="9.5" y="3" width="5.5" height="5.5" rx="1.2" /><rect x="3" y="9.5" width="5.5" height="5.5" rx="1.2" /><rect x="9.5" y="9.5" width="5.5" height="5.5" rx="1.2" /></>),
@@ -28,6 +28,7 @@ const PATHS: Record<IconName, ReactNode> = {
   rules: (<><path d="M9 5 C7 4 4.5 4 3 4.6 V14 C4.5 13.4 7 13.4 9 14.4 C11 13.4 13.5 13.4 15 14 V4.6 C13.5 4 11 4 9 5 Z" /><line x1="9" y1="5" x2="9" y2="14.4" /></>),
   errata: (<><rect x="4" y="3.5" width="10" height="12" rx="1.5" /><rect x="6.5" y="2.5" width="5" height="2.4" rx="1" /><line x1="6.5" y1="8" x2="11.5" y2="8" /><line x1="6.5" y1="11" x2="10" y2="11" /></>),
   design: (<><circle cx="9" cy="9" r="6" /><circle cx="6.5" cy="7" r="1" fill="currentColor" stroke="none" /><circle cx="11" cy="6.5" r="1" fill="currentColor" stroke="none" /><circle cx="12" cy="10.8" r="1" fill="currentColor" stroke="none" /></>),
+  search: (<><circle cx="7.8" cy="7.8" r="4.3" /><line x1="11" y1="11" x2="15" y2="15" /></>),
 }
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
