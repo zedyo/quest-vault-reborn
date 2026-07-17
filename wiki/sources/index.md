@@ -11,3 +11,7 @@ Typischer `type`-Wert: `Source Summary`. Belege zur Ursprungsquelle gehören unt
 # Datenquellen
 
 * [any2cards / d2e (Community-Datensatz)](any2cards-d2e.md) - Strukturierte Spieldaten + Kartenbilder; Haupt-Asset des Projekts inkl. bekannter Fallstricke.
+
+# Kontext & Recherche
+
+* [Kontext — Original Quest Vault & Community-Alternativen](quest-vault-context.md) - Kurzfassung der Recherche zum Original-Tool und zu Nachbau-Versuchen.

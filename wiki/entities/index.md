@@ -10,3 +10,8 @@ Typische `type`-Werte: `Component`, `Module`, `Subsystem`, `Page`, `Data File`,
 # Komponenten
 
 * [MapGrid (Kartenraster-Renderer)](map-grid.md) - Rendert platzierte Descent-Plättchen im Kartenbauer inkl. Connector-Streckung.
+* [GameSymbols — Descent-Kartensymbole & renderGameText](game-symbols.md) - Zentrales Modul für Spielsymbole und die Text→Symbol-Helfer.
+
+# Subsysteme
+
+* [Session-Tracker (Kampagnen-Spielstand)](session-tracker.md) - Eigener Store + abgeleiteter Live-Stand, getrennt vom Spiel-Store.
