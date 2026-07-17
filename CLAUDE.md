@@ -171,7 +171,11 @@ quest-vault-reborn/
 │       ├── travel-cards.md                ← Reisekarten ✅ (41, v1.1.31)
 │       ├── campaigns.md                   ← Kampagnen-Überblick + Advanced Quests ✅ (v1.1.30)
 │       ├── campaign-scenarios.md          ← Kuratierte Szenario-Titel je Kampagne ✅ (v1.5.0)
-│       └── overlays.md                    ← Overlay-Token ✅ (20, v1.3.13)
+│       ├── overlays.md                    ← Overlay-Token ✅ (20, v1.3.13)
+│       ├── scan-sources.md                ← Scan-Quellen: Release-Manifest + Pull-Rezept + Import-Status ✅
+│       └── de-karten/
+│           ├── helden.md / items.md / klassen.md / monster.md / rumors.md   ← DE-Karten-Transkriptionen (v1.3.x)
+│           └── weitere-decks.md           ← Such/Geheimkammer/Befleckt/Korrumpiert/Vertraute/Gefährten/Aktivierung (2026-07-17, Doku-only)
 ├── wiki/                                  ← Projekt-Wiki (OKF-v0.1-Bundle) – kompoundierendes Gedächtnis, Gerüst seit 2026-07-17
 │   ├── index.md                          ← Wurzel-Katalog (einziger Ort mit okf_version)
 │   ├── log.md                            ← Chronologisches Wiki-Protokoll (neueste zuerst)
