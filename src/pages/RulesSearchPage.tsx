@@ -1,32 +1,26 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { SEARCH_INDEX, SEARCH_CATEGORIES, type SearchCategory } from '../data/rulesSearchIndex'
+import { useMemo, useState, useEffect } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { SEARCH_INDEX, SEARCH_CATEGORIES, searchEntries, type SearchCategory } from '../data/rulesSearchIndex'
 import { SearchInput } from '../components/Filters'
 import { renderGameText } from '../components/GameSymbols'
-
-// Suchnormalisierung: klein + ß→ss + Umlaut-Faltung, damit „staerke"/„Stärke" und
-// Eingaben ohne Umlaute trotzdem treffen.
-function norm(s: string): string {
-  return s.toLowerCase().replace(/ß/g, 'ss').replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u')
-}
-
-// Vorab normalisierter Suchtext je Eintrag (einmalig beim Modul-Laden).
-const HAYSTACK = SEARCH_INDEX.map((e) => ({ e, hay: norm(`${e.title} ${e.text}`) }))
 
 const CAP = 200
 const MIN = 2
 
 export default function RulesSearchPage() {
-  const [query, setQuery] = useState('')
+  const [params] = useSearchParams()
+  const qParam = params.get('q') ?? ''
+  const [query, setQuery] = useState(qParam)
   const [cats, setCats] = useState<Set<SearchCategory>>(new Set())
 
-  const words = useMemo(() => norm(query.trim()).split(/\s+/).filter(Boolean), [query])
+  // Query aus der URL (?q=) übernehmen – z. B. aus der Topbar-Suche „Alle Treffer".
+  useEffect(() => { setQuery(qParam) }, [qParam])
 
-  // Treffer OHNE Kategoriefilter (für die Chip-Zähler).
-  const matched = useMemo(() => {
-    if (query.trim().length < MIN || words.length === 0) return []
-    return HAYSTACK.filter(({ hay }) => words.every((w) => hay.includes(w))).map((x) => x.e)
-  }, [words, query])
+  // Gefuzzte, gerankte Treffer OHNE Kategoriefilter (für die Chip-Zähler).
+  const matched = useMemo(
+    () => (query.trim().length >= MIN ? searchEntries(query) : []),
+    [query],
+  )
 
   const counts = useMemo(() => {
     const m = new Map<SearchCategory, number>()
@@ -56,7 +50,7 @@ export default function RulesSearchPage() {
         <p className="text-gray-400 text-sm">
           Durchsucht {SEARCH_INDEX.length.toLocaleString('de-DE')} erfasste Regel- und Kartentexte auf einmal –
           CRRG-Regelklärungen &amp; Errata, die Regel-Referenz sowie alle funktionalen
-          Karten-/Fähigkeitstexte. Jeder Treffer verlinkt zur Quellseite.
+          Karten-/Fähigkeitstexte. Fuzzy-Suche; jeder Treffer verlinkt zur Quellseite.
         </p>
       </header>
 
