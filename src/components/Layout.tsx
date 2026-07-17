@@ -3,6 +3,7 @@ import { Outlet, NavLink, Link, useLocation } from 'react-router-dom'
 import { useGameStore } from '../store/useGameStore'
 import { EXPANSIONS } from '../data/expansions'
 import ThemeSwitcher from './ThemeSwitcher'
+import GlobalSearch from './GlobalSearch'
 import { Icon, type IconName } from './QvIcons'
 
 // Sidebar-Shell (Design-System v2, „1a Kommandozentrale"): feste Seitenleiste 238px,
@@ -201,9 +202,8 @@ export default function Layout() {
               <span className="block w-5 h-0.5 bg-current mb-1" />
               <span className="block w-5 h-0.5 bg-current" />
             </button>
-            <div className="hidden sm:flex items-center gap-2.5 h-10 w-[260px] px-3 rounded-control bg-surface border border-line text-faint">
-              <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="8" cy="8" r="4.4" /><line x1="11.4" y1="11.4" x2="14.5" y2="14.5" /></svg>
-              <span className="font-body italic text-sm">Monster, Held, Quest suchen …</span>
+            <div className="hidden sm:block">
+              <GlobalSearch />
             </div>
           </div>
           <div className="flex items-center gap-2">

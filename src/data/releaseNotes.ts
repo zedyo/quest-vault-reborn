@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.6',
+    date: '2026-07-17',
+    title: 'Sofortsuche in der Kopfzeile',
+    highlights: [
+      'Das Suchfeld oben in der Kopfzeile ist jetzt aktiv: Beim Tippen klappt eine Vorschau mit den besten Treffern auf (Regeln, Karten, Fähigkeiten, Zustände) – jeder Treffer führt direkt zur passenden Seite.',
+      'Fehlertolerante Fuzzy-Suche: findet das Richtige auch bei Tippfehlern oder ganz ohne Umlaute (z. B. „staerke", „uberlegenheit").',
+      'Mit den Pfeiltasten bedienbar, Enter öffnet den Treffer; „Alle Treffer anzeigen" führt zur vollständigen Regelsuche.',
+    ],
+  },
+  {
     version: '1.6.5',
     date: '2026-07-17',
     title: 'Regelsuche & deutsche Plotdeck-/Agenten-Karten',
