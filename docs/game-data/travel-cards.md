@@ -16,9 +16,10 @@ any2cards `travel-event-decks.js` + `city-event-decks.js`.
 
 ## Umfang & bewusste Abgrenzung (wichtig)
 
-Reisekarten lösen abhängig vom Reise-Geländetyp ein Ereignis aus. Der **Ereignistext** der
-Karten ist FFG-Material (Urheberrecht) und wird **bewusst NICHT reproduziert**. Erfasst werden
-nur **faktische Strukturdaten** je physischer Karte:
+Reisekarten lösen abhängig vom Reise-Geländetyp ein Ereignis aus. Seit **v1.3.9** wird der
+**deutsche Ereignistext** von den Original-Karten mit erfasst (`eventsDe` je Gelände-Abschnitt);
+dazu die **faktischen Strukturdaten** je physischer Karte (projektweite IP-Regel:
+`wiki/concepts/ffg-ip-boundary.md`):
 
 - Erweiterung
 - Deck-Typ (`travel` = Reise-Ereignisse, Wildnis-Gelände · `city` = Stadt-Ereignisse aus
@@ -85,7 +86,7 @@ den Nebenszenarien (Advanced Quests). Datenintegritäts-Tests sichern Count (41 
 
 ## Offen / später
 
-- Detaillierte Ereignistexte werden bewusst nicht erfasst (Urheberrecht); der Kartenbild-Link
-  liefert den Inhalt.
+- ✅ Erledigt (v1.3.9): der deutsche Ereignistext je Gelände ist als `eventsDe` erfasst
+  (siehe „Umfang & bewusste Abgrenzung" oben); der Kartenbild-Link zeigt zusätzlich das Original.
 - Geheimräume (`secret-rooms.js`) und Co-op-Karten (Explorations/Perils) sind weitere
   Event-Decktypen – bei Bedarf später als eigene, ebenfalls metadaten-basierte Übersicht.

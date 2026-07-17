@@ -15,7 +15,8 @@ Erfasst werden **ausschließlich faktische Metadaten** je Szenario:
 **NICHT enthalten (FFG-Urheberrecht):** Questbuch-Inhalte — Ziele, Monsterlisten,
 Aufbauten, Sonderregeln, Story/Erzähltext. Ein Datenintegritäts-Test (**IP-Shape-Guard**)
 lässt den Build fehlschlagen, sobald ein Szenario ein anderes als die sechs erlaubten Felder
-trägt (verhindert versehentliches Einpflegen von Quest-Inhalten).
+trägt (verhindert versehentliches Einpflegen von Quest-Inhalten). Projektweite IP-Regel:
+`wiki/concepts/ffg-ip-boundary.md`.
 
 ### `role` — feste Sonderszenarien (v1.5.1)
 

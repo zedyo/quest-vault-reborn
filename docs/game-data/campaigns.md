@@ -14,6 +14,7 @@ Monstergruppen nach Spielerzahl, Aufbauten, Spezialregeln) stehen **ausschließl
 FFG-Questbüchern** (urheberrechtlich geschützt) und liegen in **keiner zuverlässigen
 strukturierten Quelle** vor. Sie werden daher **bewusst NICHT reproduziert** – sowohl aus
 urheberrechtlichen Gründen als auch, um keine unbelegten/halluzinierten Daten einzutragen.
+(Projektweite IP-Regel: `wiki/concepts/ffg-ip-boundary.md`.)
 
 Erfasst werden:
 1. **Kampagnen-Überblick** – rein faktische Eckdaten je offizieller Kampagne.

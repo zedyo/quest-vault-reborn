@@ -12,8 +12,9 @@ Sie reproduziert **ausdrücklich NICHT** das FFG-Regelheft oder Questbuch (Urheb
 Texte sind **eigene, zusammenfassende Kurzbeschreibungen** allgemein bekannter Grundmechaniken,
 keine abgetippten Regelpassagen. Verbindlich bleiben die offiziellen Regelhefte/Questbücher.
 
-Damit verhält sie sich wie der bisherige Umgang mit FFG-IP im Projekt (Reise-, Kampagnen- und
-Gerücht-Texte werden ebenfalls nicht reproduziert).
+Damit folgt sie der **projektweiten FFG-IP-Regel** (faktische Metadaten + funktionale
+Kartentexte ja, kreative Prosa/Questbuch/Regelheft nein) — zentral dokumentiert in
+`wiki/concepts/ffg-ip-boundary.md`.
 
 ## Inhalt `src/data/rulesReference.ts`
 
