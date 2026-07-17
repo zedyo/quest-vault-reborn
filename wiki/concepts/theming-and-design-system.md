@@ -64,6 +64,11 @@ Löst die drei 1.2.4-Themes durch zwei Designs aus dem Projekt „Claude DESIGN"
 `src/theme.css`, `src/theme.ts`, `tailwind.config.js` (Implementierung). Der lebende
 Styleguide ist die App-Seite `/designsystem` (`src/pages/DesignSystemPage.tsx`).
 
+# Verwandt
+
+* [Geteilte UI-Bausteine](./shared-ui-building-blocks.md) - nutzen durchgängig die Theme-Tokens.
+* [GameSymbols](../entities/game-symbols.md) - Badge-/Symbolfarben (teils bewusst theme-unabhängig).
+
 # Citations
 
 [1] [CLAUDE.md](../../CLAUDE.md) — „Design-Fundament (1.2.0)", „Umschaltbare Themes (1.2.4)", „Design-System v2 (1.6.0)".

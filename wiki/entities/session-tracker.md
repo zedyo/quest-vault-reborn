@@ -36,6 +36,10 @@ timestamp: 2026-07-17T00:00:00Z
 Implementierung in `src/store/**` + `src/types/session.ts` + `src/components/session/**`.
 Diese Seite fasst die Architektur-Entscheidungen zusammen.
 
+# Verwandt
+
+* [Datenspeicherung, Assets, Hosting & Routing](../concepts/runtime-and-deployment.md) - localStorage/zustand-`persist` + Persist-Schutzregel (der Session-Store hält bewusst einen eigenen Key).
+
 # Citations
 
 [1] [CLAUDE.md](../../CLAUDE.md) — „Session-Tracker (1.4.0)" + Statustabelle v1.4.0–v1.5.3.

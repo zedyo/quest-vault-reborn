@@ -64,6 +64,11 @@ Versionsänderung nötig. Im echten App-Build per Playwright-Screenshot verifizi
 `src/data/overlays.ts` (Katalog, test-gelockt) + Wissensbasis
 `docs/game-data/overlays.md`. Diese Seite hält Architektur + Historie fest.
 
+# Verwandt
+
+* [MapGrid (Komponente)](../entities/map-grid.md) - rendert Overlays *und* Tiles (`OverlayToken`).
+* [Connector-Rendering-Modell](./connector-rendering.md) - dieselbe MapGrid-Render-Ebene (Plättchen).
+
 # Citations
 
 [1] [CLAUDE.md](../../CLAUDE.md) — Statustabelle v1.3.11 / v1.3.13 / v1.3.14 („20 platzierbare Elemente").
