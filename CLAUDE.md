@@ -320,6 +320,16 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
 - **Niemals** Persist-Schema ändern ohne `version`-Erhöhung + `migrate`-Schritt
   in `src/store/useGameStore.ts` (sonst Datenverlust bei Bestandsnutzern)
 - Importierte Fremddaten (JSON-Import) laufen IMMER durch `src/utils/questImport.ts`
+- **Kartentext = priorisierte Wahrheit (User-Vorgabe 2026-07-17, verbindlich):** Der Text
+  auf dem **Original-Kartenbild** ist die maßgebliche Quelle — **deutscher** Text von der
+  **deutschen** Karte, **englischer** von der **englischen**. Geratene/Community-Übersetzungen
+  sind zu **vermeiden** und nur zulässig, wenn nachweislich **kein** deutsches Kartenbild
+  existiert. Fällt eine **Diskrepanz** zwischen dokumentiertem/Daten-Text (`src/data/**`,
+  `docs/**`) und dem Kartentext auf, wird **immer zum Kartentext hin korrigiert** (priorisiert,
+  nicht aufgeschoben). Wird im UI eine **englische** Karte angezeigt/genutzt, ist die
+  **deutsche** zu suchen — alle aus dem `scans-transfer`-Release importierten Karten sollten
+  auffindbar sein (Pull-Rezept: `docs/game-data/scan-sources.md`). Details/Herkunft:
+  `wiki/concepts/card-text-priority.md`.
 
 ---
 
