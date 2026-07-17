@@ -26,8 +26,9 @@ Zusätzlich gibt es **Belohnungskarten** (Overlord/Quest/Rumor Reward), die übe
 Ereignisse erworben werden.
 
 Datenquelle `overlord-decks.js`: 110 Einträge gesamt. Die Kartenrückseite
-(`overlord-decks-back`) ist keine Spielkarte und wird ausgelassen. EN-Text aller erfassten
-Karten ist wortgetreu gegen die Quelle verifiziert (87/87, 0 Abweichungen).
+(`overlord-decks-back`) ist keine Spielkarte und wird ausgelassen. EN-Text wortgetreu gegen
+die Quelle verifiziert: Basis+Klassen+Universal **87/87**, mit den 18 Belohnungskarten (v1.1.17)
+**105/105** — 0 Abweichungen (vgl. Kopf).
 
 ### Erfassungsstand
 
@@ -269,7 +270,7 @@ interface OverlordCard {
   count: number         // Kopien im Deck
   xpCost: number        // 0 = Basis-/Startdeck
   rulesEn: string       // Originalwortlaut (wortgetreu gegen Quelle verifiziert)
-  rulesDe: string       // Community-Übersetzung
+  rulesDe: string       // kartengenaue offizielle DE-Regel (v1.3.7; früher Community-Übersetzung)
   imageUrl: string
 }
 

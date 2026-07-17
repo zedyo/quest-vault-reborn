@@ -418,27 +418,12 @@ Indoor- und Outdoor-Seite je als eigenes Plättchen. Quelle: any2cards `map-tile
 Eingang/Ausgang = ein Ende, Übergang = beide Enden). Bilder werden – wie alle Tiles –
 zur Laufzeit aus any2cards geladen (keine lokalen Assets).
 
-### Render-Geometrie der Verbindungsstücke (v1.3.16 – wichtig)
+### Render-Geometrie der Verbindungsstücke (v1.3.16)
 
-**Verbindungsrichtung:** Ein **1×2**-Stück (1 breit, 2 hoch) verbindet über die **Breite
-(links/rechts)**, ein **2×1**-Stück über die **Höhe (oben/unten)** – passend zur
-2-Felder-breiten Öffnung (senkrecht bzw. waagerecht).
-
-**Wichtiger Render-Unterschied zu den nummerierten Plättchen:** Die nummerierten Tiles
-haben einen Canvas von exakt `cols×75 × rows×75` px; der Connector-Tab liegt INNEN
-(Body-Wall ~18 px innen) und wird über `CONNECTOR_INSET_FRAC`-Streckung nach außen
-geschoben. Die **Verbindungsstücke** haben dagegen auf der Verbindungsachse einen Canvas
-**größer als cols×75** (der Tab liegt AUSSERHALB der Spielfläche): z. B. Extension 150×112
-(= 2×1 Felder + 37 px Tab-Überstand oben/unten), sn-Extension 112×150 (= 1×2 + Überstand
-links/rechts), Eingang/Übergang 150×150 (= exakt 2×2, Tab innen). Würde man hier die
-Inset-Streckung anwenden, würden die Stücke **verzerrt** (die Ursache des 1.3.15-Bugs).
-Lösung in `MapGrid.tsx` (`DraggableTile`): für `kind:'connector'` wird je Achse aus den
-ECHTEN Bildmaßen (`naturalWidth/Height`, via `onLoad`) der Überstand `ov = naturalPx −
-cols·75` bestimmt. Bei `ov>1` rendert die Achse **maßstäblich 1:1** (75 px → CELL, kein
-Verzerren) und der Überstand wird gemäß Connector-Flags auf die Kante(n) versetzt
-(beidseitig → je Hälfte; einseitig → ganz auf die gesetzte Kante). Achsen ohne Überstand
-(Eingang/Übergang 2×2) behalten die Inset-Streckung. **Nummerierte Plättchen sind nicht
-betroffen** (kein `kind:'connector'`; `CONNECTOR_INSET_FRAC` + maxWidth-Fix unangetastet).
+Verbindungsstücke rendern anders als die nummerierten Plättchen (Tab liegt außerhalb
+der Spielfläche → maßstäbliches 1:1-Rendering via `naturalWidth/Height` statt
+Inset-Streckung). **Details + Schutzregel:** `wiki/concepts/connector-rendering.md`
+(Abschnitt „Verbindungsstücke").
 
 ---
 

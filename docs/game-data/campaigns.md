@@ -72,12 +72,11 @@ sind Community-Übersetzungen. **16 Quests** (alle Akt II soweit auf der Karte a
 | Spreading Affliction | Sich ausbreitende Plage | Die Trollsümpfe | Straße/Berg/Berg |
 | Visions of Dawn | Visionen der Morgendämmerung | Prophezeiung eines neuen Anfangs | Straße/Ebene/Berg |
 
-**Ausgeschlossen:** „The Sunken Temple" (Quell-Erweiterung *„Sands of the Past"*). Diese
-Erweiterung ist **nicht** in der verbindlichen Produktliste (`expansions.ts`) und wurde in
-CLAUDE.md (DATEN-VORFALL 2026-06-12) als **nicht existentes/halluziniertes Produkt** markiert.
-Daher bewusst ausgelassen, statt eine ungültige `expansionId` einzutragen. → Falls „Sands of the
-Past" doch ein reales Produkt sein sollte, müsste es zuerst belegt in `expansions.ts` aufgenommen
-werden (offen, Validierung ausstehend).
+**Ausgeschlossen:** „The Sunken Temple" (Quell-Erweiterung *„Sands of the Past"*) — nicht in
+der verbindlichen Produktliste (`expansions.ts`), daher bewusst ausgelassen. Hintergrund/
+Rationale (Anti-Halluzinations-Regel aus dem Datenvorfall 2026-06-12):
+`wiki/concepts/fabricated-data-incident.md`. Falls doch real, zuerst belegt in `expansions.ts`
+aufnehmen (offen).
 
 ---
 

@@ -46,6 +46,26 @@ In `src/data/mapTiles.ts` als `connectors: { top, right, bottom, left: boolean }
 B-Seiten haben eigene Muster. Vollständige Connector-Tabelle in
 `docs/game-data/map-tiles.md`.
 
+# Verbindungsstücke (Connector-Plättchen) — eigene Render-Geometrie (v1.3.16)
+
+Die unnummerierten Verbindungsstücke (`kind:'connector'`, seit v1.3.15) rendern
+**anders** als die nummerierten Plättchen und dürfen mit deren Inset-Streckung nicht
+verwechselt werden:
+
+- Nummerierte Tiles: Canvas exakt `cols×75 × rows×75`, Tab liegt **innen** → per
+  `CONNECTOR_INSET_FRAC` nach außen gestreckt (oben).
+- Verbindungsstücke: Canvas auf der Verbindungsachse **größer** als `cols×75` (Tab liegt
+  **außerhalb** der Spielfläche), z. B. Extension 150×112 (2×1 + 37 px Überstand),
+  sn-Extension 112×150 (1×2 + Überstand), Eingang/Übergang 150×150 (2×2, Tab innen).
+- **Fix** (`MapGrid.tsx` `DraggableTile`): für `kind:'connector'` je Achse aus den
+  **echten** Bildmaßen (`naturalWidth/Height` via `onLoad`) den Überstand
+  `ov = naturalPx − cols·75` bestimmen. Bei `ov>1` maßstäblich **1:1** rendern (kein
+  Verzerren) und den Überstand gemäß Connector-Flags auf die Kante(n) versetzen; Achsen
+  ohne Überstand (2×2) behalten die Inset-Streckung. Inset-Streckung anzuwenden war die
+  Ursache des 1.3.15-Verzerrungs-Bugs. **Nummerierte Plättchen bleiben unberührt.**
+
+Richtung: 1×2 verbindet über die Breite (links/rechts), 2×1 über die Höhe (oben/unten).
+
 # Autoritative Quelle
 
 Die **Werte, Formeln und der Fix leben im Code** (`constants.ts`, `MapGrid.tsx`); die

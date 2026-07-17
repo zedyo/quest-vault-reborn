@@ -12,7 +12,10 @@
 - Jede Klasse hat ein Startdeck (enthält immer mindestens eine Startkarte, die kostenlos ist)
 - Weitere Fähigkeiten werden mit XP erworben
 - Beschwörungs-Begleiter (Summoned Companions) haben eigene Werte-Karten und werden wie kleine Monster behandelt
-- **Zweisprachig:** EN-Original (any2cards) + DE-Community-Übersetzung (kein offizieller FFG-Wortlaut)
+- **Zweisprachig:** EN-Original (any2cards) + DE-Community-Übersetzung (kein offizieller FFG-Wortlaut).
+  **Hinweis:** Die kartengenauen offiziellen DE-Klassennamen + -Fertigkeitstexte (v1.3.2, z. B.
+  „Rage"→**Kampfrausch**) stehen in `de-karten/klassen.md` und sind **maßgeblich**; die DE-Spalten
+  hier sind die älteren Community-Namen.
 
 ---
 

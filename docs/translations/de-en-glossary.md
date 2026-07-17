@@ -4,6 +4,13 @@
 **Status:** Abgeschlossen (Mai 2026)  
 **Zuletzt aktualisiert:** 2026-05-14
 
+> ⚠️ **Hinweis (kartengenaue Namen sind maßgeblich):** Die DE-Spalten für **Heldenklassen**,
+> **Overlord-Decks** und **Monster** enthalten teils ältere **Community-Übersetzungen**, die seit
+> v1.3.1/v1.3.2/v1.3.7 durch die **offiziellen Kartennamen** ersetzt wurden (z. B. Apotheker→
+> **Apothecarius**, Totenbeschwörer→**Nekromant**, „Magus"→**Hexer**). Autoritativ sind daher die
+> `docs/game-data/de-karten/*` (Klassen/Monster) bzw. `overlord-classes.md`; dieses Glossar dient
+> nur als grobe Nachschlaghilfe.
+
 ---
 
 ## Spieltitel und Produktbezeichnungen
