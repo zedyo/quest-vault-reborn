@@ -8,7 +8,7 @@
 ## 1. Spielplan-Tiles digital
 
 ### Offizielle Quellen (offline)
-- FFG betrieb bis ca. 2017 den **Descent Quest Vault** (`questbuilder.fantasyflightgames.com`) – offizielles Online-Tool zur Quest-Erstellung mit allen Tiles. Heute offline.
+- FFG betrieb bis **21. Januar 2020** den **Descent Quest Vault** (`tools.fantasyflightgames.com/descent/`) – offizielles Online-Tool zur Quest-Erstellung mit allen Tiles. Heute offline. (Shutdown-Datum + URL belegt in `quest-vault-original.md` §1/§4.)
 - **Road to Legend App** (Android/iOS/Steam, kostenlos) enthält intern tile-basierte Kartendarstellungen, aber Assets sind nicht als separate Dateien zugänglich.
 
 ### Community-Referenzen auf BoardGameGeek

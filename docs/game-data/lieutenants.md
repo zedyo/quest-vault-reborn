@@ -124,14 +124,10 @@ Werte je Spielerzahl, Fähigkeiten). Quelle: any2cards `data/agents.js`.
 **Status:** VOLLSTÄNDIG ✅ – **20 Agenten, 40 Formen** (v1.1.20 + v1.1.21: 16 saubere,
 EN 1:1 verifiziert; **v1.1.29: die 4 zuvor ausgeschlossenen kartenscan-validiert ergänzt**).
 
-> ✅ **Datenbefund behoben (v1.1.29, kartenscan-validiert):** Die any2cards-`agents.js`-Daten
-> für **Ardus Ix'Erebus, Kyndrithul, Zarihell und Skarn** sind **vertauscht** – xws/name/image/act
-> wurden den falschen Charakteren zugewiesen. Die Inhalte selbst sind aber in sich stimmig:
-> Front-Rows (`attack`/`abilities`/`characteristics`) und Back-Rows (`ability rules`/`deck`)
-> nennen je den **korrekten** Charakter. Über die any2cards-Kartenbilder (Namensbanner + Werte)
-> wurde jede Form 2026-06-16 ihrem Charakter + Akt **eindeutig zugeordnet und 1:1 verifiziert**
-> (Werte aus den Front-Cards, Regeltexte 1:1 aus den Back-Cards, Decks bestätigt:
-> Ardus→First Legion, Kyndrithul→Vital Essence, Zarihell→Eternal Agony, Skarn→Twisted Soul).
+> ✅ **Datenbefund behoben (v1.1.29):** In any2cards-`agents.js` sind die Label-Felder von
+> Ardus Ix'Erebus / Kyndrithul / Zarihell / Skarn vertauscht; per Kartenscan eindeutig
+> zugeordnet und 1:1 verifiziert. Ausführliche Provenienz: `wiki/sources/any2cards-d2e.md`
+> („Fallstricke").
 
 | Agent | Erweiterung | Plotdeck (DE / EN) |
 |---|---|---|

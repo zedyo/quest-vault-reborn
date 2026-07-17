@@ -156,8 +156,7 @@ quest-vault-reborn/
 │   ├── research/
 │   │   ├── quest-vault-original.md        ← Was das Original konnte
 │   │   ├── rebuild-attempts.md            ← Community-Nachbau-Versuche
-│   │   ├── digital-assets.md              ← Asset-Quellen (any2cards/d2e etc.)
-│   │   └── game-content.md               ← Spielinhalt Überblick
+│   │   └── digital-assets.md              ← Asset-Quellen (any2cards/d2e etc.)
 │   ├── translations/
 │   │   └── de-en-glossary.md              ← DE↔EN Begriffe
 │   └── game-data/                         ← Vollständige Spielwerte-Datenbank

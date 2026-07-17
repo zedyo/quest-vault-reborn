@@ -4,47 +4,11 @@
 `src/data/overlays.ts` + Platzierung im MapBuilder, Bilder `public/cards/de/overlays/<id>.png`
 **Zuletzt aktualisiert:** 2026-06-29
 
-## Änderungen v1.3.13 (Ziel: Buch-Karten 1:1 nachbauen)
+## Änderungshistorie
 
-- **Türen/Fallgitter als farbige Absperrung auf der Kante** (kein Tür-Symbol mehr):
-  In Descent liegt eine Tür auf der KANTE zwischen vier Feldern (2 davor, 2 dahinter)
-  und wird auf den Quest-Diagrammen als farbiger Balken über die 2-Felder-Öffnung
-  gezeichnet. Umgesetzt über `render: 'bar'` + `PlacedOverlay.rotation` (0 oben,
-  90 rechts, 180 unten, 270 links). Balken ≈ 2×0,5 Felder, mittig auf der Gitterlinie.
-  Farben: Tür rot, Verschlossene Tür gelb/orange, Fallgitter grau.
-- **Alle Overlays drehbar** (`PlacedOverlay.rotation`, optional/abwärtskompatibel,
-  ↻-Knopf je Token im MapGrid, Import-Sanitizer akzeptiert rotation).
-- **Entfernt (redundant):** `water`/`hot`/`ice`. Dieses Gelände ist in Descent 2e auf
-  die PLÄTTCHEN gedruckt (farbige Linien), es gibt KEINE losen Token dafür; die alten
-  Builder-Bilder stammten aus dem any2cards `traits/`-Ordner (Regions-Eigenschaften),
-  nicht aus Geländefeld-Token. Konsequent zur 1.3.11-Entfernung von lava/pit/sludge/rubble.
-- **Neu:** `hero-start` (Helden-Start/Eingang, eigener Builder-Marker – das Startgebiet
-  ist auf den Diagrammen eine Hervorhebung, kein universelles Token) + NSC-/Verbündeten-
-  Figuren `villager-female`, `ally`, `raythen`, `serena`, `scourge`, `raven-flock`
-  (echte any2cards-Token).
-- **Standalone-Kartenbauer (/karte) persistiert** den Entwurf jetzt (eigener
-  localStorage-Key `qvr-builder-draft`, `src/utils/builderDraft.ts` – kein Persist-Schema-Bump).
-
-## Änderung v1.3.15 (Geländeleisten)
-
-- **Überwucherung** und **Alte Mauer** werden jetzt mit `render: 'bar'` als längliche
-  Leiste (wie eine Tür-Absperrung) auf der Feldkante dargestellt (drehbar), statt als
-  1×1-Bild. Damit gibt es jetzt Balken in `category: 'passage'` (Tür/Fallgitter) UND
-  `category: 'terrain'` (Überwucherung/Alte Mauer); der Datenintegritäts-Test erlaubt
-  beides. (Brüchiges Gelände bleibt ein 1×1-Bild-Token.)
-- *(Parallel in `mapTiles.ts`, v1.3.15: die unnummerierten **Verbindungsstücke** als
-  neue Tile-Art `kind: 'connector'` – siehe `docs/game-data/map-tiles.md`.)*
-
-## Änderung v1.3.14 (nummerierte Marker)
-
-- **`PlacedOverlay.label`** (optional, 1–3 Zeichen): bildet die NUMMERIERTEN Ziel-/
-  Suchmarker der Quest-Diagramme ab (z. B. „1"–„4", „★"). Wird als Badge mittig auf dem
-  Token gerendert; per „#"-Knopf am Token gesetzt (window.prompt). Import-Sanitizer +
-  Builder-Draft-Sanitizer akzeptieren `label` (gekürzt). Abwärtskompatibel (fehlt = kein Badge).
-- **Validiert per 1:1-Nachbau** einer konkreten Karte aus „Schatten von Nerekhall" (Plättchen
-  sn-51a/54a/55a/56a/58a/60a/62a/sn-entrance + Basis 03a/05a, gelbe+rote Tür-Absperrungen,
-  grüne nummerierte Zielmarker 3/2/2/4/★, Suchmarker, Eingang) – per Playwright mit echten
-  Plättchen-Bildern gerendert und mit der Buchseite verglichen.
+> Die versionsweise Historie (v1.3.13 Türen als Kantenbalken + water/hot/ice entfernt +
+> hero-start/NSC-Figuren; v1.3.15 Geländeleisten; v1.3.14 nummerierte Marker) und die
+> „verworfenen Ansätze" sind ins Wiki übertragen: `wiki/concepts/mapbuilder-overlays.md`.
 
 ---
 
@@ -98,14 +62,9 @@ farbigen Kanten-Balken.
 Marker/Figuren-Footprint 1×1; Passagen (`render: 'bar'`) liegen 2×0,5 auf der Feldkante.
 `descriptionDe` ist eine kurze, eigene Mechanik-Notiz (kein Regelheft-Text).
 
-**Umstellung von v1.1.32 → v1.3.11:** Der frühere Kernsatz enthielt abstrakte Platzhalter ohne
-echtes Token-Bild (`lava`, `pit`, `sludge`, `rubble`, `chest`). In Descent 2e ist solches Gelände
-**auf die Plättchen gedruckt**, es existiert dafür keine separate Token-Komponente – daher gibt es
-keine belegte transparente Vorlage. Der Katalog wurde deshalb auf die **echten Token** umgestellt
-(Gelände-Eigenschaften Wasser/Heiß/Eis, Erweiterungs-Geländetoken, Tür/Fallgitter, Ziel-/Suchmarker,
-Dorfbewohner). Stabile IDs (`door`, `search`, `objective` …) bleiben erhalten; Alt-Quests mit
-entfallenen IDs (`lava` …; seit 1.3.13 auch `water`/`hot`/`ice`) degradieren grafisch sanft
-(Render-Fallback, kein Fehler).
+Zur Entfernung der abstrakten Platzhalter (`lava`/`pit`/… und water/hot/ice) und der
+Umstellung auf echte Token siehe `wiki/concepts/mapbuilder-overlays.md`. Stabile IDs bleiben;
+Alt-Quests mit entfallenen IDs degradieren grafisch sanft (Render-Fallback).
 
 ### Datenmodell
 

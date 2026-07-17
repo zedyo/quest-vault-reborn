@@ -30,85 +30,15 @@ Teil 2 unterteilt sich in die Abschnitte 2.1 Helden & Verbündete, 2.2 Klassenka
 2.6 Monster, 2.7 Monsterfähigkeiten, 2.8 Abenteuer (nach Kampagne gruppiert),
 2.9 Gerüchtekarten, 2.10 Geheimkammerkarten.
 
-## Datenmodell (`src/types/game.ts`)
+## Architektur, Verknüpfung & Extraktion
 
-- `RuleClarification` – ein alphabetischer Regelklärungs-Eintrag aus Teil 1
-  (`term`, `groups`, `notes`, `related`, `page`).
-- `ErrataEntry` – ein komponentenbezogener Errata-/FAQ-Eintrag aus Teil 2
-  (`scope`, `sectionDe`, `subgroupDe?`, `nameDe`, `groups`, `notes`, `page`).
-- `ErrataGroup` = `{ label, points[] }` (bei Klassen ist `label` der Fertigkeitskarten-
-  Name; `label: null` = allgemeiner Block).
-- `ErrataNote` = `{ title, points[] }` – die „Wege zum Ruhm"-/„Die Anderswelt"-/
-  „Prüfungen von Frostgate"-Kästen (Regeln für die App-Kampagne Road to Legend).
-- `ErrataScope` = `hero | class | item | overlord | plot | monster | monster-ability | adventure | rumor | secret-room | other`.
-
-## Dateien
-
-| Datei | Inhalt |
-|---|---|
-| `src/data/ruleClarifications.ts` | Teil 1 – alle Regelklärungen (generiert). Exportiert außerdem `CRRG_SOURCE` + `CRRG_URL`. |
-| `src/data/errata.ts` | Teil 2 – alle komponentenbezogenen Errata/FAQ (generiert). |
-| `src/data/errataLinks.ts` | Laufzeit-Verknüpfung Errata ↔ Komponente. `getErrata(scope, id)`, `getMonsterAbilityErrata(monsterId)`, `hasErrata`, `LINKED_ERRATA`, `MONSTER_ABILITY_ERRATA`, `ERRATA_LINK_STATS`. |
-| `src/components/ErrataBox.tsx` | Aufklappbare (default-eingeklappte) Zusatzbox pro Karte. |
-| `src/pages/RulesClarificationsPage.tsx` | Durchsuchbare Sektion (`/klarstellungen`): Tab „Regelklärungen" (Teil 1) + Tab „Errata & FAQ" (Teil 2). |
-
-## Verknüpfung an die Karten (`errataLinks.ts`)
-
-Die CRRG-Einträge nennen Komponenten nur beim **Namen**. `errataLinks.ts` löst den
-Namen **zur Laufzeit** gegen die echten Datensätze auf (bleibt so automatisch synchron
-mit den Datendateien). Normalisierung: Kleinschreibung, `ß`→`ss`, englisches „and"→„und",
-Klammer-Zusätze wie „(UK)"/„(Gefährte)" entfernt, Trennzeichen entfernt; für Held/Monster
-zusätzlich ein Edit-Distanz-≤1-Rückfall (fängt Schreibvarianten wie „Jain"↔„Jaine").
-
-- `hero` → `HEROES`, `class` → `HERO_CLASSES`, `item` → `SHOP_ITEMS`+`RELICS`,
-  `overlord` → alle `OVERLORD_DECKS`-Karten, `monster` → `MONSTERS`, `rumor` → `RUMORS`.
-- `plot` → `PLOT_DECKS` (CRRG-Name „Agent – Deckname", Teilstring-Treffer erlaubt).
-- `adventure` → Kampagne über die Untergruppe (`subgroupDe` = Kampagnenname).
-- Nicht auflösbare Einträge (Geheimkammerkarten, Sammel-Einträge, Komponenten außerhalb
-  der DB) behalten `targetId: null` und erscheinen **nur** in der durchsuchbaren
-  Übersicht – **es geht keine Information verloren**.
-
-Angebunden an: HeroesPage (Lightbox), ClassesPage, ItemsPage (Shop + Relikte),
-OverlordPage, PlotDecksPage (Deck-Ebene), MonstersPage (Grid-Karte **und** Lightbox:
-Monster-Errata + Monsterfähigkeiten-Errata je Monster, plus ein Sammel-Panel aller 34
-Monsterfähigkeiten oben auf der Seite), RumorsPage (Lightbox), CampaignsPage
-(Kampagnen-Karte, mehrere Abenteuer-Einträge mit Szenarionamen).
-
-Monsterfähigkeiten (`monster-ability`, Schlagwörter wie „Feuerodem"/„Durchbohren") werden
-über `getMonsterAbilityErrata(monsterId)` jedem Monster zugeordnet, das die Fähigkeit
-besitzt (Match über den Fähigkeitsnamen vor dem „:" in surges/abilities/actions, ohne
-angehängte Zahl). Bekannte Schreibvarianten werden per Alias aufgelöst (`HERO_ALIASES`),
-z. B. CRRG „Augur Grimson" → Held „Augur Grisom".
-
-## Extraktion (Verfahren)
-
-Das PDF hat einen echten Textlayer (InDesign). Extraktion via PyMuPDF:
-1. **Spaltenerkennung** (2-spaltig) + **Font-basierte Rollen**: `Windlass`-Font =
-   Überschriften (Größe 14 Eintrag / 16 Abschnitt / 9 „Wege zum Ruhm"), `GaramondPremrPro`
-   = Fließtext, `GaramondPremrPro-Bd` ≥ 11 pt = Fertigkeitskarten-Zwischenüberschrift.
-2. **Symbol-Mapping**: Die Descent-Symbole liegen im Font `GaraScenarioDescent` und
-   werden als Wörter hinterlegt (die App rendert sie über `GameSymbols` als Icons):
-   `∏`→Erschöpfung, `≥`→Herz, `±`/`į`→Schub, `İ`→Verteidigung, `Į`→Aktion, `Ĳ`→Bewegung,
-   `Ĵ`→Stärke, `ĵ`→Wissen, `ķ`/`π`→Willenskraft, `ĳ`/`μ`→Gespür.
-3. **Bild-Verifikation (adversarial)**: Section 2.2 (Klassen) und alle Teil-2-Seiten
-   nutzen teils breite Banner mit 2-spaltigem Fertigkeits-Layout, das reine Textlayer-
-   Heuristiken falsch zuordnen. Jede Teil-2-Seite wurde daher **gegen das gerenderte
-   Seitenbild verifiziert** (ein Agent je Seite): Wortlaut aus dem Textlayer (maßgeblich),
-   Struktur/Zuordnung aus dem Bild. Ergebnis: Wortlaut zu >99 % im PDF-Textlayer belegt,
-   Zuordnung bild-korrekt.
-
-## Bekannte Grenzen / bewusste Auslassungen
-
-- **Teil 3** (visuelle Beispiele) ist nicht reproduziert.
-- `monster-ability`-Errata (2.7) werden über den Fähigkeitsnamen jedem Monster zugeordnet,
-  das die Fähigkeit besitzt (erscheinen am Monster) **und** in einem Sammel-Panel im
-  Monster-Bereich. Fähigkeiten ohne passendes Monster (z. B. Leutnants-Fähigkeiten wie
-  Beförderung/Beherrschung/Bezaubern) sind über das Panel + die Übersicht erreichbar.
-- Einzelne Abenteuer-Szenarien sind in der DB nicht als eigene Objekte vorhanden;
-  Abenteuer-Errata hängen daher an der **Kampagne** (mit Szenarioname als Zwischenzeile)
-  und sind so in der Kampagnen-/Szenarienübersicht zu finden.
-- Heldenscans außerhalb der 60-Helden-DB (z. B. „(UK)"-Promo-Helden) bleiben unverknüpft;
-  bekannte Schreibvarianten löst `HERO_ALIASES` auf (z. B. „Augur Grimson" → „Augur Grisom").
+> Datenmodell (`ErrataEntry`/`RuleClarification`/`ErrataScope`), die namensbasierte
+> Laufzeit-Verknüpfung (`src/data/errataLinks.ts`, `getErrata`/`getMonsterAbilityErrata`,
+> Normalisierung + Edit-Distanz-Rückfall + `HERO_ALIASES`) und das PDF-Extraktions-
+> verfahren (PyMuPDF, font-basierte Rollen, `GaraScenarioDescent`-Symbol-Mapping,
+> adversariale Seitenbild-Verifikation) sowie die bekannten Grenzen sind ins Wiki
+> übertragen: `wiki/concepts/crrg-errata-integration.md`. Autoritativ bleiben die
+> Errata-Daten in `src/data/errata.ts` + `ruleClarifications.ts` (+ `errataLinks.ts`).
 
 ## Umfang (Stand v1.3.18)
 

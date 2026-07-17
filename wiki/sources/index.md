@@ -11,6 +11,7 @@ Typischer `type`-Wert: `Source Summary`. Belege zur Ursprungsquelle gehören unt
 # Datenquellen
 
 * [any2cards / d2e (Community-Datensatz)](any2cards-d2e.md) - Strukturierte Spieldaten + Kartenbilder; Haupt-Asset des Projekts inkl. bekannter Fallstricke.
+* [Kampagnen-Szenariotitel — Provenienz & Lokalisierungs-Fallen](campaign-scenario-titles.md) - Woher die 108 Szenariotitel stammen (DE-Questbücher + Community-DBs) und welche Fallen auftraten.
 
 # Kontext & Recherche
 
