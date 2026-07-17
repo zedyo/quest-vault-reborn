@@ -425,37 +425,21 @@ Hybrid-Klassen tragen eine Startkarte, die sie mit einem Standard-Klassendeck ei
 - **Todessog** (3 EP, Erschöpfung 0): Jedes Mal wenn ein zu dir benachbartes Monster besiegt wird, gewinnst du 1 Herz oder 1 Erschöpfung zurück. Erschöpfe diese Karte, sobald du Herzen in Höhe deiner Lebenskraft erleidest, bevor du niedergestreckt wirst. Führe sofort einen Angriff aus. Wird das Ziel besiegt, gewinnst du 1 Herz zurück.
 ---
 
-## v1.3.19 – UI-Feinschliff Klassenübersicht
+## Änderungshistorie (Klassen-UI & DE-Bilder)
 
-- **Reihenfolge:** Begleiter (`familiar`) + Startausrüstung (`startingEquipment`) werden in der
-  ClassesPage jetzt **vor** den Fähigkeitskarten angezeigt (zuvor am Ende).
-- **Kartenbilder:** Begleiter-Bilder nutzen die bereits vorhandene any2cards-`imageUrl`. Für alle
-  **37 Startausrüstungs-Items** wurde eine any2cards-Bild-URL (`data/class-items.js`,
-  Vorderseite = Bild ohne `-back`) ergänzt – gematcht über Klassen-`nameEn` + Item-`nameEn`
-  (35 direkt, 2 Synonyme: „Book of Sages" = *Sage's Tome*, „Wayfarer Blade" = *Traveler's Blade*).
-  Anzeige als anklickbares Vorschaubild (Lightbox) neben Begleiter/Item; fehlt ein Bild, wird die
-  Vorschau ausgeblendet (Text bleibt).
-- **Archetyp-Filter:** Krieger/Heiler/Magier/**Kundschafter** (mit runden `ArchetypeIcon`-Symbolen)
-  jetzt auch in der Klassenübersicht. Archetyp „Späher" heißt projektweit „Kundschafter"
-  (`ARCHETYPE_LABELS`, Regelbuch-Begriff).
+UI-Feinschliff (v1.3.19: Begleiter/Startausrüstung vor den Fähigkeiten, klickbare
+Vorschaubilder, Archetyp-Filter, „Späher"→„Kundschafter") und die Pipeline für die
+deutschen Startausrüstungs-/Begleiter-Kartenbilder (v1.3.21: aus `Descent.Scans.zip`,
+10×7-Raster, per Position zugeschnitten + montage-verifiziert) sind Memory → CLAUDE.md-
+Statustabelle bzw. `wiki/concepts/card-image-pipeline.md`. Bilder lokal unter
+`public/cards/de/classes/<item-id>.webp` / `familiar-<class-id>.webp` (`classItemDeUrl`/
+`classFamiliarDeUrl`), ClassesPage bevorzugt DE mit any2cards-EN-Fallback.
 
----
+**5 Namens-Korrekturen (v1.3.21, kartengenau; `id` unverändert):**
+- `berserker-axt`: „Axt" → **Schartige Kriegsaxt**
+- `champion-zweihaender`: „Zweihänder" → **Schartiger Zweihänder**
+- `shadowwalker-gefiederte-axt`: „Gefiederte Axt" → **Gefiedertes Beil**
+- `shadowwalker-umhang`: „Umhang" → **Eingeborenen-Umhang**
+- `hexer-stab-des-grabes`: „Stab des Grabes" → **Grabesstab**
 
-## v1.3.21 – Deutsche Kartenbilder für Startausrüstung + Begleiter
-
-Alle **37 Startausrüstungs-Karten** + **4 Begleiter** liegen jetzt als deutsche Original-Kartenbilder
-lokal vor (`public/cards/de/classes/<item-id>.webp` bzw. `familiar-<class-id>.webp`, webp ~475 px, ≤150 KB).
-ClassesPage bevorzugt das DE-Bild, fällt bei Ladefehler auf das any2cards-EN-Bild zurück
-(`classItemDeUrl`/`classFamiliarDeUrl` in `assetUrls.ts`).
-
-- **Quelle:** `Descent.Scans.zip` (Release `scans-transfer`, s. `scan-sources.md`). Grundspiel + die meisten
-  Erweiterungs-Standardklassen aus den 4 `Klassenkarten`-Blättern (10×7-Raster, per Position zugeschnitten,
-  jede Karte per Montage visuell verifiziert). Elementarmagier (Runenspeicher/Energiebündel) + Seelenschnitter
-  (Seelenernter) aus den einzelnen `Klasse …`-PNGs.
-- **5 Namens-Korrekturen** (Anzeigename an den Kartentitel angeglichen; `id` unverändert):
-  - `berserker-axt`: „Axt" → **Schartige Kriegsaxt**
-  - `champion-zweihaender`: „Zweihänder" → **Schartiger Zweihänder**
-  - `shadowwalker-gefiederte-axt`: „Gefiederte Axt" → **Gefiedertes Beil**
-  - `shadowwalker-umhang`: „Umhang" → **Eingeborenen-Umhang**
-  - `hexer-stab-des-grabes`: „Stab des Grabes" → **Grabesstab**
-- **Test:** `dataIntegrity.test.ts` prüft, dass jede Startausrüstung + jeder Begleiter ein DE-Bild hat.
+Test: `dataIntegrity.test.ts` prüft, dass jede Startausrüstung + jeder Begleiter ein DE-Bild hat.
