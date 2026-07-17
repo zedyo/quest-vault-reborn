@@ -11,8 +11,12 @@ timestamp: 2026-07-17T00:00:00Z
 
 Das any2cards/d2e-Repo liefert strukturierte `data/*.js`-Dateien (gültiges JSON)
 plus PNG-Bilder aller Karten und Tiles — zuverlässiger als reines Pixel-Lesen.
-Zugriff ohne API-Limit per Blobless-Clone; Einzeldateien direkt über
-`raw.githubusercontent.com/any2cards/d2e/master/data/<name>.js`.
+Zugriff ohne API-Limit per Blobless-Clone; die *aktuelle* Fassung einzelner Dateien
+über `raw.githubusercontent.com/any2cards/d2e/master/data/<name>.js`, eine
+*reproduzierbare* über den gepinnten Commit (siehe Stand unten).
+
+**Stand/Version:** Commit `83ff61596b03d296c3092832789e5fa0f2e1d54a` (Zugriff
+2026-07-17). Für reproduzierbaren Zugriff `master` durch diesen Hash ersetzen.
 
 # Nutzung im Projekt
 
@@ -33,5 +37,5 @@ Zugriff ohne API-Limit per Blobless-Clone; Einzeldateien direkt über
 # Citations
 
 [1] [CLAUDE.md](../../CLAUDE.md) — „any2cards-STRUKTURDATEN (Goldgrube, entdeckt 2026-06-13)" + „VERTAUSCHTE Quelldaten".
-[2] any2cards/d2e: <https://github.com/any2cards/d2e>
+[2] any2cards/d2e — Repo <https://github.com/any2cards/d2e>, validierte Fassung Commit `83ff61596b03d296c3092832789e5fa0f2e1d54a` (Zugriff 2026-07-17).
 [3] [src/data/assetUrls.ts](../../src/data/assetUrls.ts) — Asset-URL-Modul.

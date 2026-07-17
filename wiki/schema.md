@@ -284,6 +284,7 @@ Periodisch prüfen und in `log.md` (**Lint**) festhalten:
 - wichtige, aber seitenlose Konzepte,
 - fehlende Querverweise,
 - Datenlücken (ggf. per Websuche schließen),
+- tote / verschobene / veränderte Quellen (siehe „Quellen-Verfall & tote Links"),
 - Konformität gegen die Checkliste unten.
 
 ---
@@ -336,6 +337,40 @@ Wiki hält **nie** die verfälschten Daten selbst.
 
 ---
 
+# Quellen-Verfall & tote Links
+
+Externe Quellen verschwinden, ziehen um oder ändern ihren Inhalt. Das Wiki ist
+dagegen bewusst robust: Weil korrigierte Werte in eigenen Dateien eingefroren sind
+(Fall B oben), liegt die *Wahrheit* im Repo, nicht am Link. Verloren gehen kann nur
+die **Nachprüfbarkeit** und das **Live-Laden von Assets** — nicht die Daten.
+
+## Vorbeugen
+
+- **Zitate an eine stabile Version binden:** in `# Citations` und `sources/`-Seiten
+  nicht nur eine URL, sondern *Titel · Repo/Projekt · Datei · Commit-Hash oder
+  Release-Tag · Zugriffsdatum*. So bleibt die **Identität** der Quelle erhalten,
+  auch wenn die URL stirbt (Mirror/Archiv wird auffindbar). `master`/`HEAD` meiden
+  (bewegt sich).
+- **Tragende Assets lokalisieren:** kritische Bilder/Dateien ins Repo holen
+  (Projekt-Muster: optimierte `public/cards/**`-webp) statt zur Laufzeit von extern
+  zu laden. Je lokaler, desto weniger Abhängigkeit.
+- **Kritische Quelle spiegeln:** von einer *tragenden* externen Quelle den
+  essenziellen Auszug als eigenes Konzept nach `references/` kopieren (OKF §8 —
+  Zitat-Spiegel als First-Class-Konzepte).
+
+## Wenn es doch passiert (Lint-Behandlung)
+
+| Fall | Behandlung |
+|---|---|
+| Quelle **ändert Inhalt** (Werte weichen ab) | Gegen die gepinnte Version prüfen; bei echter Änderung `Correction`/`Update` + Daten an der eigenen Quelle nachziehen. |
+| Link **tot/verschoben** (404) | Link aktualisieren **oder** durch Archiv/Mirror ersetzen **oder** `Deprecation`-Vermerk — das verdichtete Wissen bleibt. OKF toleriert tote Links (§5.3/§9); sie brechen das Wiki nicht. |
+| Quelle **ganz weg** (Repo gelöscht) | Daten sind unberührt (eingefroren). `sources/`-Seite bewahrt Essenz + Provenienz; bei Bedarf Mirror nach `references/`. Nur bei tragenden Live-Assets droht echter Verlust → dann lokalisieren. |
+
+**Grundregel:** Ein toter Link ist ein Anlass, die Quelle zu ersetzen oder zu
+archivieren — **nie**, das daraus verdichtete Wissen zu löschen.
+
+---
+
 # Beziehung zu CLAUDE.md und docs/
 
 Das Wiki **ersetzt** die bestehenden Projekt-Artefakte nicht und **kopiert** sie
@@ -366,3 +401,4 @@ verändern. Verweise auf sie erfolgen über `resource` und `# Citations`.
 - [ ] `log.md`-Eintrag ergänzt.
 - [ ] Keine Rohquellen/Spielwerte dupliziert — nur verwiesen/synthetisiert.
 - [ ] Quellen-Korrektur? → an der autoritativen Quelle gefixt; `Correction`-Log-Eintrag (von → zu + Beleg); keine falschen Daten im Wiki.
+- [ ] Externe Zitate an Commit/Tag + Zugriffsdatum gebunden (nicht `master`/`HEAD`).
