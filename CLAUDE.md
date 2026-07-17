@@ -57,16 +57,8 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ## Was ist in v1.0.0 enthalten
 
-- **Map Builder:** Tiles platzieren, drehen, Connector-Rendering (INSET 0.269), Hover-Vorschau in Sidebar
-- **Quest-Editor:** Quests, Begegnungen, Ziele, Erzähltext, Monster-Positionierung
-- **Helden-Übersicht:** Alle Helden mit Filtern, vollständige Attributwerte
-- **Monster-Übersicht:** Alle Monster mit Filtern, vollständige Spielwerte
-- **Meine Sammlung:** Erweiterungs-Auswahl, alles filtert sich entsprechend
-- **Speichern/Laden:** localStorage via zustand persist
-- **Export/Import:** JSON, Druckansicht
-- **GitHub Actions Auto-Deploy:** Push → automatisch auf GitHub Pages
-- **PWA:** App ist offline-fähig (Service Worker, Manifest)
-- **Datenbasis:** 208 Tiles (Connectoren pixelverifiziert), 56 Monstergruppen (Akt 1+2 vollständig), 60 Helden
+> Historische Momentaufnahme ins Wiki verschoben: `wiki/sessions/v1.0.0-baseline.md`.
+> Der **aktuelle** Feature-/Datenstand steht in der Statustabelle oben (Version 1.6.4) und im übrigen Wiki.
 
 ---
 
@@ -80,7 +72,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
   Schutzregel: siehe „Schutzregeln".
 - **Datenvorfall 2026-06-12 (fabrizierte Helden) + Anti-Halluzinations-Regeln** →
   `wiki/concepts/fabricated-data-incident.md`. Korrekte Zahlen: 60 Helden, 56
-  Monstergruppen, 208 Tiles, 23 Erweiterungen (autoritativ: `src/data/expansions.ts` +
+  Monstergruppen, 23 Erweiterungen, 225 Map-Tiles (autoritativ: `src/data/expansions.ts` +
   Datenintegritäts-Tests).
 - **Kartenbild-Validierung (etabliertes Verfahren)** →
   `wiki/concepts/card-image-validation.md`.
@@ -170,17 +162,17 @@ quest-vault-reborn/
 │   │   └── de-en-glossary.md              ← DE↔EN Begriffe
 │   └── game-data/                         ← Vollständige Spielwerte-Datenbank
 │       ├── expansions.md                  ← Alle Erweiterungen ✅
-│       ├── monsters.md                    ← ~60 Monster mit Vollwerten ✅ (Gruppengrößen fehlen)
+│       ├── monsters.md                    ← ~60 Monster mit Vollwerten ✅
 │       ├── heroes.md                      ← ~68 Helden mit Vollwerten ✅
-│       ├── hero-classes.md                ← Helden-Klassen (Stub – v1.1)
-│       ├── map-tiles.md                   ← 208 Tiles mit Connectoren ✅
-│       ├── items.md                       ← Item-Shop + Relikte (Stub – v1.1)
-│       ├── overlord-classes.md            ← Overlord-Klassen + Karten (Grundspiel ✅ – v1.1.15)
-│       ├── lieutenants.md                 ← Leutnants/Hauptmänner (Grundspiel ✅ – v1.1.18)
-│       ├── travel-cards.md                ← Reisekarten + Nebenszenarien (Stub – v1.1)
+│       ├── hero-classes.md                ← Helden-Klassen ✅ (alle 24, v1.1.2)
+│       ├── map-tiles.md                   ← 225 Tiles (204 Räume + 21 Verbinder) ✅
+│       ├── items.md                       ← Item-Shop + Relikte ✅ (122 + 54, v1.1.3)
+│       ├── overlord-classes.md            ← Overlord-Klassen + Karten ✅ VOLLSTÄNDIG (105, v1.1.15–17)
+│       ├── lieutenants.md                 ← Leutnants/Hauptmänner ✅ VOLLSTÄNDIG (21/39, v1.1.18–19)
+│       ├── travel-cards.md                ← Reisekarten ✅ (41, v1.1.31)
 │       ├── campaigns.md                   ← Kampagnen-Überblick + Advanced Quests ✅ (v1.1.30)
 │       ├── campaign-scenarios.md          ← Kuratierte Szenario-Titel je Kampagne ✅ (v1.5.0)
-│       └── overlays.md                    ← Overlay-Plättchen (Stub)
+│       └── overlays.md                    ← Overlay-Token ✅ (20, v1.3.13)
 ├── wiki/                                  ← Projekt-Wiki (OKF-v0.1-Bundle) – kompoundierendes Gedächtnis, Gerüst seit 2026-07-17
 │   ├── index.md                          ← Wurzel-Katalog (einziger Ort mit okf_version)
 │   ├── log.md                            ← Chronologisches Wiki-Protokoll (neueste zuerst)
@@ -192,7 +184,7 @@ quest-vault-reborn/
 └── src/
     ├── data/
     │   ├── expansions.ts   ✅
-    │   ├── monsters.ts     ✅ (Gruppengrößen fehlen noch)
+    │   ├── monsters.ts     ✅ (Gruppengrößen vollständig)
     │   ├── heroes.ts       ✅
     │   ├── mapTiles.ts     ✅
     │   ├── heroClasses.ts  ✅
@@ -346,7 +338,7 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
 | TypeScript | Typsicherheit |
 | Tailwind CSS | Styling (ACHTUNG: `max-width: none` auf Tile-Images nötig!) |
 | zustand + persist | State Management + localStorage |
-| react-router-dom | Routing (HashRouter für GitHub Pages) |
+| react-router-dom | Routing (BrowserRouter mit `basename` + 404.html-SPA-Fallback für GitHub Pages) |
 | @dnd-kit/core | Drag-and-Drop im MapBuilder |
 | vite-plugin-pwa | PWA / Service Worker |
 | @fontsource (Cinzel, EB Garamond, Cormorant Garamond, Pirata One, IBM Plex Mono) | Self-hosted Fonts (offline, kein CDN) – Design-System v2 (v1.6.0); Schrift folgt dem aktiven Theme über `--qv-font-*` |
