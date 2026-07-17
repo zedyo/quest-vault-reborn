@@ -36,6 +36,96 @@ Wichtig: Azure/Blob liefert **501** bei Suffix-Ranges → immer **explizite** Ra
   (Pico/Skye/Raythen/Serena …), NICHT die Klassen-Begleiter.
 - (Weiteres bereits verarbeitet: Helden, Monster, Markt/Relikte, Overlord, Hauptmann, Reise, Gerüchte, Zustände, Overlay-Token.)
 
+## Operativer Zugriff — ein Einzelbild als Referenz ziehen
+
+> **Zweck:** Damit eine spätere Session **ohne Volldownload** ein einzelnes Quellblatt
+> (oder eine daraus zugeschnittene Karte) als visuelle Referenz für eine Aufgabe
+> heranziehen kann — auch nachdem der Release ggf. gelöscht/extern gesichert wurde.
+> Voraussetzung dann: die `Descent.Scans.zip` liegt an der dokumentierten URL **oder**
+> als externes Backup vor (Byte-Range-Verfahren identisch).
+
+**Wichtige Korrektur (2026-07-17):** Die Karten-/Marker-Dateien sind in der ZIP
+**deflate-komprimiert (Methode 8)**, **nicht** `store/0` wie frühere Doku behauptete
+(nur 5 der 235 Einträge sind `store`). Nach dem Range-Zug muss also **raw-inflate**
+(`zlib.decompress(raw, -15)`) erfolgen. Die Größen im Manifest unten sind die
+**unkomprimierten** Größen.
+
+Reproduzierbares Rezept (Python 3, nur `curl` + stdlib `zlib`):
+
+```python
+import subprocess, struct, zlib, json
+URL = "https://github.com/zedyo/quest-vault-reborn/releases/download/scans-transfer/Descent.Scans.zip"
+TOTAL, CD_OFF, CD_SIZE = 602542680, 602515548, 27110   # aus EOCD (siehe unten)
+
+def rng(a, b):  # HTTP-Range [a,b] (explizit! Suffix-Ranges -> 501 bei Azure/Blob)
+    return subprocess.run(["curl","-sSL","-r",f"{a}-{b}",URL],capture_output=True,check=True).stdout
+
+# 1) Central Directory einmal ziehen + parsen -> Einträge {name, method, comp, lho}
+cd = rng(CD_OFF, CD_OFF+CD_SIZE-1); i=0; ENTRIES={}
+while cd[i:i+4]==b'PK\x01\x02':
+    method=struct.unpack('<H',cd[i+10:i+12])[0]; comp=struct.unpack('<I',cd[i+20:i+24])[0]
+    nlen=struct.unpack('<H',cd[i+28:i+30])[0]; elen=struct.unpack('<H',cd[i+30:i+32])[0]
+    clen=struct.unpack('<H',cd[i+32:i+34])[0]; lho=struct.unpack('<I',cd[i+42:i+46])[0]
+    name=cd[i+46:i+46+nlen].decode('utf-8'); ENTRIES[name]={"method":method,"comp":comp,"lho":lho}
+    i+=46+nlen+elen+clen
+
+def pull(name, out):                     # Einzeldatei ziehen (Suffix-Match auf Basename ok)
+    e=ENTRIES.get(name) or next(v for k,v in ENTRIES.items() if k.endswith(name))
+    h=rng(e["lho"], e["lho"]+29)          # Local-File-Header: fixe 30 B + name + extra
+    ds=e["lho"]+30+struct.unpack('<H',h[26:28])[0]+struct.unpack('<H',h[28:30])[0]
+    raw=rng(ds, ds+e["comp"]-1)
+    if e["method"]==8: raw=zlib.decompress(raw,-15)   # deflate -> raw-inflate
+    open(out,"wb").write(raw)
+
+pull("Karten/Suchkarten.jpg", "/tmp/suchkarten.jpg")   # Beispiel
+```
+
+Die EOCD-Werte (`CD_OFF`/`CD_SIZE`) sind stabil, solange das Release-Asset unverändert
+bleibt (sha256 oben). Neu ermitteln: letzte 64 KB ziehen, `PK\x05\x06` suchen,
+Bytes 10–20 = `#Einträge` / `cd_size` / `cd_offset`.
+
+## Import-Status & Provenienz (welches App-Bild aus welchem Blatt)
+
+Stand 2026-07-17. „App-Ziel" = wohin die zugeschnittenen webp/png committet sind bzw.
+gehören. Raster = grobe Zellanordnung Spalten×Zeilen (der Autokorrelations-Schneider
+misst die exakte Pitch selbst; hier nur als Orientierung für den Re-Cut).
+
+**✅ Bereits importiert (Bild + i. d. R. Text):**
+
+| Quellblatt(er) | App-Ziel | Raster (ca.) |
+|---|---|---|
+| `Helden {Heiler,Krieger,Kundschafter,Magier}.jpg` (+R) | `public/cards/de/heroes/` | pro Archetyp-Blatt |
+| `Monsterkarten Akt {1,2}.jpg` (+R) | `public/cards/de/monsters/` | Akt 1/2, Front+Back |
+| `Marktkarten Akt {1,2}.jpg` | `public/cards/de/items/` | volle Pitch (Zelle ~472×732) |
+| `Relikte.jpg` (+R) | `public/cards/de/relics/` | doppelseitig (Held/Overlord) |
+| `Gerüchtekarten Akt {1,2}.jpg` (+R) | `public/cards/de/geruechte/` | Front + Akt-II-Rückseiten |
+| `Overlordkarten *.jpg` (13 Blätter) | `public/cards/de/overlord/` | je Deck ein Blatt |
+| `Hauptmannkarten Akt {1,2}.jpg` (+R) | `public/cards/de/lieutenants/` | Akt1 5×4, Akt2 6×4 |
+| `Reisekarten.jpg` / `Reisekarten Stadt.jpg` | `public/cards/de/reisekarten/` | 7×5 / 4×3 |
+| `Zustandskarten.jpg` (+R) | `public/cards/de/zustand/` | 4×3 (10) |
+| `Klassenkarten 1..4.jpg` + `Klasse {Elementarmagier,Seelenschnitter} N.png` | `public/cards/de/classes/` | 10×7 (Startausrüstung + Begleiter) |
+
+**⬜ Noch offen — game-relevant, Sicherung/Transkription in Arbeit (siehe unten):**
+
+| Quellblatt | Deck / Inhalt | Karten | Raster (ca.) | App-Datenlage |
+|---|---|---|---|---|
+| `Anführerkarten.jpg` (+R) | **Agenten**-Statkarten (Akt I+II) | 40 | 7×6 (Zelle ~660×1030) | `agents.ts` (Werte da), **DE-Bild fehlt** |
+| `Handlungskarten.jpg` (+R) | **Plotdecks Grundspiel** (6 Decks) | 60 | 10×6 (Zelle ~660×1030) | `plotDecks.ts` (Basis-Text da), **DE-Bild fehlt** |
+| `Geheimkammern.jpg` (+R) | **Geheimkammern** (Labyrinth d. Verderbens) | 12 | 5×3 (Zelle ~660×1030) | **fehlt komplett** |
+| `Beflecktkarten.jpg` (+R) | **Befleckt**-Karten (Nebel v. Belihall) | 12 | 5×3 (Zelle ~475×740) | **fehlt komplett** |
+| `Korrumpiertenkarten.jpg` (+R) | **Korrumpiert** (Elite-Wechselbalg, Belihall) | 9 | 4×3 (Zelle ~475×740) | **fehlt komplett** |
+| `Suchkarten.jpg` (+R) | **Suchkarten** (Suchstapel Grundspiel) | 13 | 5×3 (Zelle ~475×740) | **fehlt komplett** |
+| `Vertraute und Gefährtenfähigkeiten.jpg` (+R) | 5 **Vertraute** + 6 **Gefährten-Fähigkeiten** (Raythen/Serena) | 11 | gemischt (Vertraute quer, Fähigkeiten hoch) | Token da, Kartentext fehlt |
+| `Gefährten.jpg` (+R) | **NSC-Gefährten** Raythen/Serena (Statkarten) | 2 | 2 Karten oben | Token da, Statkarte fehlt |
+| `Aktivierungskarten.jpg` (+R) | **Heldenzug-Übersicht** (Referenzkarte je Farbe) | 4 | 4 Karten | **fehlt** (reine Regelreferenz) |
+
+**Nicht als Kartendeck (separat behandelt):** `Klasse {Bewahrer,Gauner,Häretiker,Kreuzritter,
+Plünderer,Rächer,Verwüster,Wahrsaager} N.png` = **Hybrid-Klassen-Fähigkeitskarten** (Text
+liegt textuell in `heroClasses.ts`; DE-Bild bewusst offen, ClassesPage ist textbasiert).
+`Marker/` + `Symbole/` = Token/Symbole (größtenteils bereits über any2cards-Overlays bzw.
+als SVG in `GameSymbols` abgedeckt). `Regelbücher PDF/` = 13 Handbücher (separater Task,
+CRRG-Errata bereits via `Community Hausregeln V 1.15.pdf` eingebunden).
+
 ## Vollständiges Datei-Manifest (235 Einträge)
 
 Format: `<uncompressed bytes>  @<local header offset>  <pfad>`
