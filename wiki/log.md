@@ -4,7 +4,9 @@ Chronologisches Protokoll der Wiki-Entwicklung — unveränderliche Historie,
 **neueste Einträge oben** (OKF §7). Datumsüberschriften im ISO-8601-Format
 `## YYYY-MM-DD`; jeder Eintrag beginnt mit einem fettgedruckten Leitwort
 (**Initialization**, **Ingest**, **Update**, **Query**, **Lint**,
-**Deprecation**). Die jüngsten Tage stehen oben und bleiben unix-parsebar,
+**Correction**, **Deprecation**). Eine **Correction** nennt immer
+*Quelle/Feld · von → zu · Beleg* und ist so der dauerhafte Prüfpfad für
+Korrekturen. Die jüngsten Tage stehen oben und bleiben unix-parsebar,
 z. B. `grep "^## " wiki/log.md | head`.
 
 ## 2026-07-17

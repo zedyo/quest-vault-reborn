@@ -237,12 +237,13 @@ timestamp: <ISO-8601>
 
 ```markdown
 ## 2026-07-17
+* **Correction**: <Quelle/Feld> — <von> → <zu> (Beleg: <Kartenscan/Karte/Regelheft>). Autoritativ gefixt in <Datei>.
 * **Ingest**: <was passiert ist> — verweist auf [Seite](/pfad.md).
 ```
 
 - Leitworte (Konvention): **Initialization**, **Ingest**, **Update**,
-  **Query**, **Lint**, **Deprecation**. `log.md` darf auf jeder Ebene der
-  Hierarchie liegen; zunächst genügt die Wurzel-`log.md`.
+  **Query**, **Lint**, **Correction**, **Deprecation**. `log.md` darf auf jeder
+  Ebene der Hierarchie liegen; zunächst genügt die Wurzel-`log.md`.
 
 ---
 
@@ -287,6 +288,54 @@ Periodisch prüfen und in `log.md` (**Lint**) festhalten:
 
 ---
 
+# Korrekturen wandern zur Quelle (nicht ins Wiki)
+
+Findet sich ein Fehler in einer Quelle, wird die **Korrektur an der autoritativen
+Quelle** vorgenommen — **nie** als Dauer-Patch im Wiki abgelegt. So bleibt es bei
+*einer* Wahrheit pro Fakt, und das Wiki sammelt keine „falsche Quelle +
+Korrekturnotiz, die man ewig neu anwendet".
+
+## Fall A — Quelle, die wir besitzen (`src/**`, `docs/**`, `CLAUDE.md`)
+
+Direkt an der Quelle korrigieren. Danach verweist das Wiki nur auf die korrigierte
+Fassung. Es gibt **keine** Dauer-Korrekturnotiz für etwas, das wir selbst ändern
+können.
+
+## Fall B — externe Quelle, die wir nicht ändern können (z. B. any2cards/d2e)
+
+Den Upstream können wir nicht dauerhaft fixen (ein Re-Clone bringt den Rohfehler
+zurück). Deshalb:
+
+1. Die korrigierten Werte **einmalig in eine Datei einfrieren, die wir besitzen**
+   (i. d. R. `src/data/*.ts`, z. B. als kartenscan-validiertes Literal). Ab da ist
+   **das** die autoritative Quelle; der rohe Upstream wird zur Laufzeit nicht mehr
+   gelesen.
+2. Im Wiki bleibt nur eine **Provenienz-/Warn-Notiz** in der `sources/`-Seite
+   („Upstream-Feld X ist vertauscht; korrekt liegt es in `agents.ts`") — als Schutz
+   vor einem künftigen Re-Ingest, **nicht** als Patch, den man wiederholt anwendet.
+
+## Nachvollziehbarkeit (Pflicht)
+
+Eine Korrektur wird **nie stillschweigend** angewandt — sie hinterlässt eine Spur,
+damit sie überprüfbar bleibt, falls sich später die *Korrektur selbst* als falsch
+herausstellt:
+
+1. **`wiki/log.md`** erhält einen **`Correction`**-Eintrag mit: betroffene
+   Quelle/Feld, **von → zu**, **Beleg/Grund** (Kartenscan, offizielle Karte,
+   Regelheft …) und Datum. Der Log ist der chronologische Prüfpfad
+   (`grep "Correction" wiki/log.md`) und erlaubt es, eine spätere Gegen-Korrektur
+   gegen die ursprüngliche Begründung abzuwägen.
+2. **An der Quelle** (bei Spieldaten die zugehörige `docs/game-data/*.md`) wird die
+   Korrektur mit `✅ validiert` + Datum vermerkt (bestehende Projekt-Regel).
+3. Bei größeren oder wiederkehrenden Fehlern zusätzlich eine `concepts/`-Seite
+   (`type: Decision`, Postmortem), die auf Log-Eintrag und Quelle verweist.
+
+Ergebnis: die **korrigierten Daten** liegen an ihrem autoritativen Ort; die
+**Tatsache + Begründung** der Korrektur ist im Log dauerhaft nachvollziehbar; das
+Wiki hält **nie** die verfälschten Daten selbst.
+
+---
+
 # Beziehung zu CLAUDE.md und docs/
 
 Das Wiki **ersetzt** die bestehenden Projekt-Artefakte nicht und **kopiert** sie
@@ -316,3 +365,4 @@ verändern. Verweise auf sie erfolgen über `resource` und `# Citations`.
 - [ ] Betroffene `index.md`-Kataloge aktualisiert (Link + description).
 - [ ] `log.md`-Eintrag ergänzt.
 - [ ] Keine Rohquellen/Spielwerte dupliziert — nur verwiesen/synthetisiert.
+- [ ] Quellen-Korrektur? → an der autoritativen Quelle gefixt; `Correction`-Log-Eintrag (von → zu + Beleg); keine falschen Daten im Wiki.
