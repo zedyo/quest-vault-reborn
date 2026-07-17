@@ -7,4 +7,6 @@ Datendateien und Assets. Jede Entität ist ein Konzept-Dokument, das meist an ei
 Typische `type`-Werte: `Component`, `Module`, `Subsystem`, `Page`, `Data File`,
 `Asset` (siehe [Schema](../schema.md)).
 
-*(Noch keine Einträge — wird beim ersten Ingest gefüllt.)*
+# Komponenten
+
+* [MapGrid (Kartenraster-Renderer)](map-grid.md) - Rendert platzierte Descent-Plättchen im Kartenbauer inkl. Connector-Streckung.

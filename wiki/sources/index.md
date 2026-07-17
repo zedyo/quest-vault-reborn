@@ -8,4 +8,6 @@ den betroffenen [Entitäten](../entities/) und [Konzepten](../concepts/).
 Typischer `type`-Wert: `Source Summary`. Belege zur Ursprungsquelle gehören unter
 `# Citations` (siehe [Schema](../schema.md)).
 
-*(Noch keine Einträge — wird beim ersten Ingest gefüllt.)*
+# Datenquellen
+
+* [any2cards / d2e (Community-Datensatz)](any2cards-d2e.md) - Strukturierte Spieldaten + Kartenbilder; Haupt-Asset des Projekts inkl. bekannter Fallstricke.
