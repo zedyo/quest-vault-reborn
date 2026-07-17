@@ -16,7 +16,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 
 ---
 
-## Aktuelle Version: 1.6.4 (2026-07-10)
+## Aktuelle Version: 1.6.5 (2026-07-17)
 
 ### Versionierungsregeln
 
@@ -47,6 +47,7 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
 | v1.6.2 | ✅ Abgeschlossen | **Dashboard „1a" + Sidebar-Shell (UI/UX-Redesign).** Aus dem Design-Handoff „Dashboard_UIUX_Redesign" umgesetzt: die bisherige obere Navbar wird durch eine **feste Seitenleisten-Kommandozentrale** ersetzt, die Emoji-Kachel-Startseite durch ein echtes **Arbeits-Dashboard**. **`src/components/Layout.tsx` (ersetzt):** App-Shell `h-screen flex` mit fester **Sidebar 238 px** (`bg-surface-2`, Marke „Quest Vault/REBORN", Gruppen WERKZEUGE/BIBLIOTHEK, aktive Nav mit Akzentbalken, Sammlung-Karte + `ThemeSwitcher variant="inline"` unten) + **Topbar 74 px** (Such-Optik, Sammlung-Pill, `ThemeSwitcher`) + scrollendem `<main>`; auf `<md` klappt die Sidebar als **Off-Canvas-Drawer** (264 px, `bg-black/60`-Overlay) über den Hamburger. FFG-Attribution (vorher Footer) in den Sidebar-Fuß übernommen. **`src/pages/HomePage.tsx` (ersetzt):** Dashboard mit „Weiter im Spiel" (aus `useSessionStore` + `deriveLiveState`: `session.name`, `currentScenario.scenario.title`, Akt, Helden-Avatare, BEDROHUNG/GOLD/SCHICKSAL; Empty-State „Session starten"), „Monster des Tages" (deterministisch aus `MONSTERS` via `Date.now()`, echte Werte, `daily.normal?`-guarded für Typsicherheit), „Zuletzt bearbeitet" (`useGameStore.quests`, Empty-State), „Schnellstart", „Bibliothek & Referenz"-Grid, dezente Roadmap-Leiste mit `ReleaseNotesModal`. **`src/components/QvIcons.tsx` (neu):** schlanke geometrische Inline-SVG-Icons (`currentColor`, keine Emoji/Icon-Lib). **`src/App.tsx`:** neuer `PagePadding`-Layout-Route-Wrapper (`mx-auto max-w-7xl px-4 py-6`) um ALLE Nicht-Dashboard-Routen → die 18 Bestandsseiten behalten ihr gepolstertes Layout (das Dashboard ist bewusst full-bleed). Routen/Stores/`ThemeSwitcher`/Persist-Schema unverändert. Nutzt ausschließlich vorhandene Tokens → beide Themes automatisch. In beiden Themes + mobil (Drawer) per Playwright verifiziert; Bestandsseiten (Monster) unbeschädigt. Tests 118 grün. Offen (Handoff „Nächste Schritte", optional): Monster-/Helden-Seiten im selben 1a-Split-Stil (Karten-Grid + 352-px-Detail-Panel) nachziehen. |
 | v1.6.3 | ✅ Abgeschlossen | **Dashboard-Feinschliff: Atmosphäre-Effekte + „+ Neue Quest".** Das v1.6.2-Handoff-Implementierungsfile hatte die in der README (Abschnitt „Interactions & Behavior") geforderten **Hintergrund-Effekte ausgelassen** (User-Befund: „sieht nicht so aus wie der Screenshot, Effekte fehlen"). Nachgezogen aus dem Prototyp `Quest Vault 1a Prototyp.dc.html`: **`Atmosphere`-Ebene in `Layout.tsx`** – absolute `z-0`-Schicht hinter Kopfzeile/Inhalt im Hauptbereich mit aufsteigenden Partikeln je Theme (Overlord = 24 Blut-Ember `#e0552b` via `qv-ember`, Heldentum = 22 Gold-Motes `#ecc879` via `qv-mote`; Größe/Dauer/Delay randomisiert wie im Prototyp) + atmender Akzent-Vignette am Unterrand (`qv-breathe 7s`, `radial-gradient(var(--qv-accent-soft))`). Header (`z-10`, opakes `bg-bg`) + `<main>` (`z-[1]`) liegen darüber; `motion-reduce:hidden`. Aktives Theme via `MutationObserver` auf `data-theme` (`useActiveTheme`-Hook). **`+ Neue Quest`-Primärbutton** (`bg-btn-primary`/`text-onaccent`/`shadow-btn`, → `/quest`) in die Topbar ergänzt (war im Handoff-File nicht enthalten). **Akzent-Radialglow** auf dem „Weiter im Spiel"-Panel (`HomePage.tsx`) wie im Prototyp. Beide Themes per Playwright verifiziert. Tests 118 grün. **Hinweis:** „Weiter im Spiel" zeigt ohne aktive Session bewusst den Empty-State (der Screenshot ist ein Mock mit Kampagnen-Beispieldaten); mit echter Session füllt sich das Panel. |
 | v1.6.4 | ✅ Abgeschlossen | **Standard-Theme „Heldentum" (hell) + aufgeräumte Topbar (User-Wunsch).** `DEFAULT_THEME` in `src/theme.ts` von `overlord`→**`heldentum`** umgestellt; `index.html` `data-theme="heldentum"` + `theme-color` `#e9dcc0`. Bestandsnutzer mit gespeicherter Wahl behalten diese (`getStoredTheme` liest `qvr-theme`; kein Persist-Bump). **Topbar entschlackt:** der „Sammlung"-Pill und der 🎨-`ThemeSwitcher` (Dropdown) wurden aus der Kopfzeile entfernt (nur noch „+ Neue Quest" rechts). **Funktion bleibt erhalten** – die **Sidebar** hat weiterhin die „Sammlung"-Karte + den DESIGN-Umschalter (`ThemeSwitcher variant="inline"`), auf Mobil über den Drawer. `SammlungBadge`-Helfer (nur in der Topbar genutzt) entfernt; `ThemeSwitcher`-Import bleibt (Sidebar). Beide Themes/Default per Playwright verifiziert (frischer localStorage → heldentum). Tests 118 grün. |
+| v1.6.5 | ✅ Abgeschlossen | **Scan-Materialien gesichert (Release löschbar) + Kartentext-Priorität + globale Regelsuche.** Aus dem `scans-transfer`-Release den **gesamten Zip-Inhalt außer den 13 Regelbuch-PDFs** als optimierte Einzelbilder ins Repo gesichert (damit der Release löschbar wird): 7 bislang offene Kartendecks (Such/Geheimkammer/Befleckt/Korrumpiert/Vertraute/Gefährten/Aktivierung – 63 Karten, inhaltlich IP-sicher in `docs/game-data/de-karten/weitere-decks.md` transkribiert), 40 Agenten-Bilder, 60 Plotdeck-Bilder, 62 Marker, 16 Symbole. **Neue verbindliche Regel „Kartentext = priorisierte Wahrheit"** (CLAUDE.md-Schutzregeln + `wiki/concepts/card-text-priority.md`): deutscher Text von der deutschen Karte, keine Rate-Übersetzungen; Diskrepanz → immer zur Karte korrigieren; EN-Karte im UI → deutsche suchen. Direkt angewandt: **6 Plotdecks (Handlungskarten) kartengenau korrigiert** – `plotDecks.ts` 5 Deck-Namen + 44 Karten-`nameDe` + 60 `rulesDe` an die deutschen Originalkarten angeglichen (z. B. „Stärke in der Zahl"→**Zahlenmässige Überlegenheit**, Deck „Saat des Verrats"→**Saat der Zwietracht**), DE-Bilder + `plotCardDeUrl`/`agentCardDeUrl`; PlotDecks-/Agenten-Seite zeigen jetzt das deutsche Bild mit EN-Fallback. **Neue globale Regelsuche `/suche`** (`RulesSearchPage` + `rulesSearchIndex.ts`): ein Feld durchsucht 1.589 Einträge (CRRG-Regelklärungen + Errata/FAQ + `/regeln`-Referenz + alle funktionalen Karten-/Fähigkeitstexte), Kategorie-Filter + Deep-Links – nur bereits vorhandene, IP-sichere Inhalte, kein wörtlicher FFG-Regelheft-/Questbuchtext. Operatives Byte-Range-Pull-Rezept + Provenienz in `docs/game-data/scan-sources.md`. Tests 122 grün; `daten-pruefer`/`sicherheits-pruefer` FREIGABE; im echten Build per Playwright verifiziert. |
 | v1.7.0 | ⏳ Geplant | Monster-Tracker (Live-HP) – verschoben von 1.4.0 |
 | v1.8.0 | ⏳ Geplant | Helden-Spieleransicht |
 | v2.0.0 | ⏳ Zukunft | Backend-Migration + Sync (Major, User-Zustimmung nötig) |
@@ -171,7 +172,11 @@ quest-vault-reborn/
 │       ├── travel-cards.md                ← Reisekarten ✅ (41, v1.1.31)
 │       ├── campaigns.md                   ← Kampagnen-Überblick + Advanced Quests ✅ (v1.1.30)
 │       ├── campaign-scenarios.md          ← Kuratierte Szenario-Titel je Kampagne ✅ (v1.5.0)
-│       └── overlays.md                    ← Overlay-Token ✅ (20, v1.3.13)
+│       ├── overlays.md                    ← Overlay-Token ✅ (20, v1.3.13)
+│       ├── scan-sources.md                ← Scan-Quellen: Release-Manifest + Pull-Rezept + Import-Status ✅
+│       └── de-karten/
+│           ├── helden.md / items.md / klassen.md / monster.md / rumors.md   ← DE-Karten-Transkriptionen (v1.3.x)
+│           └── weitere-decks.md           ← Such/Geheimkammer/Befleckt/Korrumpiert/Vertraute/Gefährten/Aktivierung (2026-07-17, Doku-only)
 ├── wiki/                                  ← Projekt-Wiki (OKF-v0.1-Bundle) – kompoundierendes Gedächtnis, Gerüst seit 2026-07-17
 │   ├── index.md                          ← Wurzel-Katalog (einziger Ort mit okf_version)
 │   ├── log.md                            ← Chronologisches Wiki-Protokoll (neueste zuerst)
@@ -316,6 +321,16 @@ Major-Versionssprünge brauchen weiterhin separate User-Bestätigung.
 - **Niemals** Persist-Schema ändern ohne `version`-Erhöhung + `migrate`-Schritt
   in `src/store/useGameStore.ts` (sonst Datenverlust bei Bestandsnutzern)
 - Importierte Fremddaten (JSON-Import) laufen IMMER durch `src/utils/questImport.ts`
+- **Kartentext = priorisierte Wahrheit (User-Vorgabe 2026-07-17, verbindlich):** Der Text
+  auf dem **Original-Kartenbild** ist die maßgebliche Quelle — **deutscher** Text von der
+  **deutschen** Karte, **englischer** von der **englischen**. Geratene/Community-Übersetzungen
+  sind zu **vermeiden** und nur zulässig, wenn nachweislich **kein** deutsches Kartenbild
+  existiert. Fällt eine **Diskrepanz** zwischen dokumentiertem/Daten-Text (`src/data/**`,
+  `docs/**`) und dem Kartentext auf, wird **immer zum Kartentext hin korrigiert** (priorisiert,
+  nicht aufgeschoben). Wird im UI eine **englische** Karte angezeigt/genutzt, ist die
+  **deutsche** zu suchen — alle aus dem `scans-transfer`-Release importierten Karten sollten
+  auffindbar sein (Pull-Rezept: `docs/game-data/scan-sources.md`). Details/Herkunft:
+  `wiki/concepts/card-text-priority.md`.
 
 ---
 

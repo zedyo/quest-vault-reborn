@@ -34,6 +34,7 @@ const LIBRARY: Entry[] = [
   { to: '/zustaende', label: 'Zustände', icon: 'condition' },
   { to: '/regeln', label: 'Regeln & Referenz', icon: 'rules' },
   { to: '/klarstellungen', label: 'Errata & FAQ', icon: 'errata' },
+  { to: '/suche', label: 'Regelsuche', icon: 'search' },
   { to: '/designsystem', label: 'Design-System', icon: 'design' },
 ]
 

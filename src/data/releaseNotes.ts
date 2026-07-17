@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.5',
+    date: '2026-07-17',
+    title: 'Regelsuche & deutsche Plotdeck-/Agenten-Karten',
+    highlights: [
+      'Neue globale Regelsuche: Ein Suchfeld durchsucht alle Regeln, Regelklärungen, Errata/FAQ und funktionalen Karten- und Fähigkeitstexte auf einmal – jeder Treffer verlinkt zur passenden Seite.',
+      'Deutsche Original-Kartenbilder für die Plotdecks (Handlungskarten) und die Agenten ergänzt.',
+      'Plotdeck-Karten an die offiziellen deutschen Originalkarten angeglichen: korrigierte Kartennamen und Regeltexte.',
+    ],
+  },
+  {
     version: '1.6.4',
     date: '2026-07-10',
     title: 'Helles Design als Standard & aufgeräumte Kopfzeile',

@@ -19,6 +19,7 @@ import RumorsPage from './pages/RumorsPage'
 import ConditionsPage from './pages/ConditionsPage'
 import RulesReferencePage from './pages/RulesReferencePage'
 import RulesClarificationsPage from './pages/RulesClarificationsPage'
+import RulesSearchPage from './pages/RulesSearchPage'
 import DesignSystemPage from './pages/DesignSystemPage'
 
 // Das Dashboard (Startseite) bringt sein eigenes Layout mit (full-bleed). Alle
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="zustaende" element={<ConditionsPage />} />
           <Route path="regeln" element={<RulesReferencePage />} />
           <Route path="klarstellungen" element={<RulesClarificationsPage />} />
+          <Route path="suche" element={<RulesSearchPage />} />
           <Route path="designsystem" element={<DesignSystemPage />} />
         </Route>
       </Route>

@@ -15,6 +15,7 @@ import { CAMPAIGN_SCENARIOS, scenariosForCampaign } from '../campaignScenarios'
 import { TRAVEL_CARDS } from '../travelCards'
 import { RUMORS } from '../rumors'
 import { CONDITIONS } from '../conditions'
+import { SEARCH_INDEX, SEARCH_CATEGORIES } from '../rulesSearchIndex'
 import {
   GAME_SYMBOLS,
   ATTACK_DICE as REF_ATTACK_DICE,
@@ -1124,5 +1125,38 @@ describe('Kampagnen-Szenario-Datenintegrität', () => {
       expect(intros, `${cid}: mehr als eine Einführung`).toBeLessThanOrEqual(1)
       expect(finales, `${cid}: mehr als ein Finale`).toBeLessThanOrEqual(1)
     }
+  })
+})
+
+describe('Globale Regelsuche (rulesSearchIndex)', () => {
+  const VALID_LINKS = new Set([
+    '/regeln', '/klarstellungen', '/monster', '/items', '/overlord', '/plotdecks',
+    '/zustaende', '/helden', '/klassen', '/leutnants', '/agenten', '/geruechte',
+    '/reisekarten', '/karte',
+  ])
+
+  it('Index hat substanziellen Umfang', () => {
+    expect(SEARCH_INDEX.length).toBeGreaterThan(500)
+  })
+
+  it('jede Kategorie ist vertreten', () => {
+    const byCat = new Map<string, number>()
+    for (const e of SEARCH_INDEX) byCat.set(e.category, (byCat.get(e.category) ?? 0) + 1)
+    for (const c of SEARCH_CATEGORIES) expect(byCat.get(c) ?? 0, c).toBeGreaterThan(0)
+  })
+
+  it('jeder Eintrag hat Titel, Text und gültigen internen Link', () => {
+    for (const e of SEARCH_INDEX) {
+      expect(e.title.trim().length, e.id).toBeGreaterThan(0)
+      expect(e.text.trim().length, e.id).toBeGreaterThan(0)
+      // Link ist eine interne Route (ggf. mit ?query)
+      const path = e.link.split('?')[0]
+      expect(VALID_LINKS.has(path), `${e.id}: ungültiger Link ${e.link}`).toBe(true)
+    }
+  })
+
+  it('Eintrags-IDs sind eindeutig', () => {
+    const ids = SEARCH_INDEX.map((e) => e.id)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })

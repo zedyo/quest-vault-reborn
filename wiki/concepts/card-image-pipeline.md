@@ -20,11 +20,19 @@ geladen; einzelne Dateien per HTTP-Range:
 1. Letzte ~64 KB ziehen → EOCD (`PK\x05\x06`) parsen → `cd_offset`/`cd_size` (ZIP
    ist **nicht** ZIP64; CD liegt im Tail).
 2. Central Directory parsen → je Datei `name`, uncompressed size, local-header-offset.
-3. Ab dem local-header-offset den Local-File-Header (`PK\x03\x04`) lesen (PNG/JPG i. d. R.
-   `store`/unkomprimiert → Bytes direkt nutzbar) und per Range ziehen.
+3. Ab dem local-header-offset den Local-File-Header (`PK\x03\x04`) lesen und die
+   Daten-Bytes per Range ziehen.
 
-**Gotcha:** Azure/Blob (die signierte Release-URL) liefert **`501` bei
+**Gotcha 1 — Kompression:** Die Karten-/Marker-Dateien sind **deflate (Methode 8)**,
+**nicht** `store/0` (nur 5 der 235 Einträge sind unkomprimiert). Nach dem Range-Zug
+also **raw-inflate**: `zlib.decompress(raw, -15)`. (Korrektur 2026-07-17 — frühere
+Fassung behauptete fälschlich „store/unkomprimiert".)
+
+**Gotcha 2 — Ranges:** Azure/Blob (die signierte Release-URL) liefert **`501` bei
 Suffix-Ranges** → immer **explizite** `start-end`-Ranges verwenden.
+
+Ein komplettes, reproduzierbares Pull-Rezept (CD-Parse + Einzeldatei-Inflate) steht in
+`docs/game-data/scan-sources.md` → „Operativer Zugriff".
 
 # Schritt 2 — Rasterbasierter Zuschnitt
 
