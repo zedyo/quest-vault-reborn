@@ -114,7 +114,12 @@ Vertraute, NSC-Gefährten + Gefährten-Fähigkeiten, Aktivierungskarten.
 **✅ Plotdecks/Handlungskarten korrigiert (Phase 3, 2026-07-17):** 6 Decks/60 Karten 1:1 von
 den dt. Karten → `plotDecks.ts` (5 Deck-Namen + 44 nameDe + 60 rulesDe), 60 Bilder unter
 `public/cards/de/plotdecks/`, `plotCardDeUrl` + Plot-/Agenten-Seite zeigen DE mit EN-Fallback.
-**⬜ Noch offen:** Marker/ + Symbole/ (Phase 4/5). Details in `de-karten/weitere-decks.md` §8/§9.
+**✅ Marker + Symbole gesichert (Phase 4/5, 2026-07-17):** 62 Marker → `public/cards/de/marker/`,
+16 Symbole → `public/cards/de/symbole/` (optimierte webp, reine Sicherung). Damit ist der
+**gesamte Zip-Inhalt außer den 13 Regelbuch-PDFs** im Repo gesichert → Release für Bild-/
+Kartenmaterial löschbar. Details: `de-karten/weitere-decks.md` §10/§11.
+**⬜ Offen:** nur noch `Regelbücher PDF/` (durchsuchbare Regeln, IP-sicher via CRRG + eigene
+Zusammenfassungen — separater Schritt).
 
 | Quellblatt | Deck / Inhalt | Karten | Raster (ca.) | App-Datenlage |
 |---|---|---|---|---|

@@ -291,6 +291,34 @@ je Deck genau 10, keine Duplikate.
 
 ---
 
+## 10. Marker (Spielmaterial-Token) — gesichert
+
+Quelle: `Marker/` im Release (62 Dateien). Als transparente/optimierte webp gesichert unter
+`public/cards/de/marker/<slug>.webp` (Slug = kebab-case, Umlaute→ae/oe/ue/ss; ≤34 KB, Alpha
+erhalten, 2-seitige Token zeigen beide Seiten gestapelt). **Reine Bild-Sicherung** — kein
+Kartentext; die App nutzt eigene `GameSymbols`-SVGs + any2cards-Overlay-Token, daher **kein
+Wiring**. Kategorien:
+
+- **Ziel-/Suchmarker:** `aufgabenmarker-{blau,gruen,rot,weiss}`, `suchmarker`, `besonderer-suchmarker`
+- **Overlord/Partei:** `bedrohungsmarker`, `schicksalsmarker`, `einflussmarker-{1,2,3,r}`
+- **Werte:** `herz`, `erschoepfung`
+- **Helden:** `heldenmarker-{gelb,grau,lila,orange}`
+- **Herausforderungsmarker (9):** `-{feuerteufel,geistesgegenwart,goblinschuetze,harpye,hoehlenspinne,staerke,willenskraft,wissen,zombie}`
+- **Klassen-Marker (9):** `klasse-{apothecarius-elixier,barde-harmonie,barde-melodie,beschwoerer-trugbild,champion-ruhm,fallensteller-fallen,kopfgeldjaeger-anversiert,prophet-erleuchtung,schwarzmagier-geisel}marker`
+- **Overlord-Diener:** `overlord-dienermarker-{geissel,rabenschwarm}`, `overlord-verseucher-infektionsmarker`
+- **Vertrautenmarker (7):** `-{belebter-stein,leuchtfeuer,pico,reanimierter,schattenseele,skye,wolf}`
+- **Zustandsmarker (10):** `zustand-{betaeubt,blutend,brennend,erkrankt,gelaehmt,geschwaecht,todgeweiht,verflucht,vergiftet,veraengstigt}`
+- **Sonstige:** `geheimtuer`, `zerfallenes-gelaende`, `sonnenstein-marker`, `inaktivmarker-fuer-monster`, `personenmarker-{frau,mann}`
+
+## 11. Symbole — gesichert
+
+Quelle: `Symbole/` im Release (16 Dateien) → `public/cards/de/symbole/<slug>.webp` (≤13 KB).
+Ebenfalls reine Sicherung (App hat eigene SVG-Nachbauten):
+
+- **Akt:** `akt-1`, `akt-2`
+- **Archetyp:** `archetyp-{heiler,krieger,kundschafter,magier}`
+- **Gelände-Merkmal (10):** `merkmal-{dunkel,gebaeude,gebirge,heiss,hoehle,kalt,verflucht,wasser,wildnis,zivilisiert}`
+
 ## Quellen & Provenienz
 
 Alle Transkriptionen aus den deutschen Original-Kartenbildern des `scans-transfer`-Release
