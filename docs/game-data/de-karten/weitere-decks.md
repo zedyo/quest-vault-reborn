@@ -239,23 +239,42 @@ HELDENZUG ÜBERSICHT
 
 ---
 
-## 8. Agenten & Plotdecks — bereits als App-Daten vorhanden
+## 8. Agenten (Anführerkarten) — Bilder gesichert
 
-Diese zwei großen Decks aus den Scans (`Karten/Anführerkarten.jpg` = **Agenten**, 40 Karten;
-`Karten/Handlungskarten.jpg` = **Plotdecks Grundspiel**, 60 Karten) sind hier **nicht** neu
-transkribiert, weil ihre Spieldaten bereits in der App liegen:
+`Karten/Anführerkarten.jpg` (Raster 7×6) = die **20 Agenten × Akt I/II = 40** Statkarten.
+Spieldaten liegen bereits in `src/data/agents.ts` (Werte/Fähigkeiten aus any2cards,
+kartenscan-validiert, CLAUDE.md v1.1.29). DE-Bilder seit 2026-07-17 committet unter
+**`public/cards/de/agents/<agentId>-act<1|2>.webp`** (Benennung wie Leutnants).
+Namens-Besonderheiten (Karte ↔ `agents.ts`-id): **Der Rattenkönig** = `averminous`,
+**Sinistrael** = `agarganmirklace`. Die *autoritativen* deutschen Fähigkeitstexte stehen
+auf den Karten-Rückseiten (`Anführerkarten R.jpg`) → optionaler Folgeschritt.
 
-- **Agenten:** `src/data/agents.ts` (20 Agenten / 40 Formen, Werte + Fähigkeiten aus
-  any2cards, kartenscan-validiert — CLAUDE.md v1.1.29). DE-Kartenbild = `Anführerkarten.jpg`
-  (Raster 7×6, Akt-I/II-Paare), per Rezept ziehbar.
-- **Plotdecks Grundspiel:** `src/data/plotDecks.ts` (6 Decks / 60 Karten: Die Erste Legion,
-  Dunkle Illusionen, Saat der Zwietracht, Gespaltene Loyalität, Grassierende Seuche, Legionen
-  der Unterstadt). DE-Kartenbild = `Handlungskarten.jpg` (Raster 10×6), per Rezept ziehbar.
+## 9. Plotdecks (Handlungskarten) — Sicherung/Transkription in Phase 3 (offen)
 
-**Optionaler Folgeschritt:** Eine *autoritative* Transkription des offiziellen deutschen
-Kartentexts dieser beiden Decks (statt der Community-Übersetzung) — analog zum Vorgehen bei
-Overlord (v1.3.7) und Hauptmännern (v1.3.8) — ist möglich, aber bewusst noch offen gelassen,
-da die funktionalen Daten bereits vorliegen.
+`Karten/Handlungskarten.jpg` (Raster 10×6 = 60 Karten) enthält **6 der 20 Plotdecks** —
+**nicht** „Grundspiel" (frühere Fehlannahme), sondern gemischt über mehrere Erweiterungen.
+Wichtige Befunde, die VOR einem Bild-/Text-Import zu klären sind:
+
+- **Deck-Identität + offizieller vs. Community-Name** (Kartentitel → `plotDecks.ts`):
+
+  | Kartentitel (offiziell) | plotDecks.ts `nameDe` | id | Erweiterung |
+  |---|---|---|---|
+  | Die Erste Legion | Erste Legion | `first-legion` | Bilehall |
+  | Dunkle Illusionen | Dunkle Illusionen | `dark-illusions` | Labyrinth |
+  | Saat der Zwietracht | **Saat des Verrats** | `seeds-of-betrayal` | Grundspiel |
+  | Gespaltene Loyalität | **Hybride Loyalität** | `hybrid-loyalty` | Grundspiel |
+  | Grassierende Seuche | **Wütende Infektion** | `raging-infection` | Trollsümpfe |
+  | Legionen der Unterstadt | **Ungesehene Legionen** | `unseen-legions` | Nerekhall |
+
+  → mehrere `nameDe` sind Community-Übersetzungen, die vom **offiziellen Kartentitel
+  abweichen** (fett) — Korrektur-Kandidaten für die autoritative Transkription (analog
+  Overlord v1.3.7 / Hauptmänner v1.3.8).
+- **Offene Frage „X/12":** Die Karten sind mit „1/12", „2/12" nummeriert, `plotDecks.ts`
+  führt aber **10** Karten/Deck. Vor dem Bild-Commit klären, ob die Decks physisch 12 Karten
+  haben (Scan zeigt nur 10 → evtl. 2 fehlend) oder ob „/12" eine Sammler-/Set-Nummer ist.
+
+Deshalb werden Plotdeck-Bilder + autoritative Texte **erst nach dieser Klärung** committet
+(Phase 3), um keine falsch benannten/unvollständigen Daten ins Repo zu bringen.
 
 ---
 

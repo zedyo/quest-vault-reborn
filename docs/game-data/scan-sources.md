@@ -109,8 +109,10 @@ misst die exakte Pitch selbst; hier nur als Orientierung für den Re-Cut).
 [`de-karten/weitere-decks.md`](de-karten/weitere-decks.md), Bilder unter
 `public/cards/de/<deck>/` (56 webp): Suchkarten, Geheimkammern, Befleckt, Korrumpiert,
 Vertraute, NSC-Gefährten + Gefährten-Fähigkeiten, Aktivierungskarten.
-**⬜ Noch offen:** Agenten (40) + Plotdecks Grundspiel (60) — Werte in `agents.ts`/`plotDecks.ts`,
-DE-Bild + autoritative Texttranskription in Arbeit (Phase 2/3). Marker/ + Symbole/ (Phase 4/5).
+**✅ Agenten-Bilder committet (Phase 2, 2026-07-17):** 40 webp unter `public/cards/de/agents/`
+(`<agentId>-act<1|2>.webp`); Werte in `agents.ts`. Autoritative dt. Rückseitentexte optional offen.
+**⬜ Noch offen:** Plotdecks/Handlungskarten (6 gemischte Decks, Namens-/„X/12"-Klärung nötig — Phase 3),
+Marker/ + Symbole/ (Phase 4/5). Details in `de-karten/weitere-decks.md` §9.
 
 | Quellblatt | Deck / Inhalt | Karten | Raster (ca.) | App-Datenlage |
 |---|---|---|---|---|
