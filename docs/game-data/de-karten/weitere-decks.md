@@ -249,11 +249,19 @@ Namens-Besonderheiten (Karte ↔ `agents.ts`-id): **Der Rattenkönig** = `avermi
 **Sinistrael** = `agarganmirklace`. Die *autoritativen* deutschen Fähigkeitstexte stehen
 auf den Karten-Rückseiten (`Anführerkarten R.jpg`) → optionaler Folgeschritt.
 
-## 9. Plotdecks (Handlungskarten) — Sicherung/Transkription in Phase 3 (offen)
+## 9. Plotdecks (Handlungskarten) — ✅ kartengenau korrigiert + Bilder gesichert
 
 `Karten/Handlungskarten.jpg` (Raster 10×6 = 60 Karten) enthält **6 der 20 Plotdecks** —
 **nicht** „Grundspiel" (frühere Fehlannahme), sondern gemischt über mehrere Erweiterungen.
-Wichtige Befunde, die VOR einem Bild-/Text-Import zu klären sind:
+
+**Erledigt (2026-07-17, nach Regel „Kartentext = priorisierte Wahrheit"):** Alle 60 Karten
+1:1 vom deutschen Original-Kartenbild transkribiert → `plotDecks.ts` korrigiert (5 Deck-Namen,
+44 Karten-`nameDe`, 60 `rulesDe` an die Karte angeglichen). DE-Bilder committet unter
+`public/cards/de/plotdecks/<cardId>.webp` (60 webp); `plotCardDeUrl` + PlotDecksPage zeigen sie
+mit EN-any2cards-Fallback. Die übrigen 14 Plotdecks haben **kein** deutsches Kartenbild im
+Release → dort bleibt die Community-`nameDe` (zulässig, s. Regel).
+
+Korrigierte Deck-Namen + Beispiel-Kartennamen (Karte → alt):
 
 - **Deck-Identität + offizieller vs. Community-Name** (Kartentitel → `plotDecks.ts`):
 
@@ -269,12 +277,17 @@ Wichtige Befunde, die VOR einem Bild-/Text-Import zu klären sind:
   → mehrere `nameDe` sind Community-Übersetzungen, die vom **offiziellen Kartentitel
   abweichen** (fett) — Korrektur-Kandidaten für die autoritative Transkription (analog
   Overlord v1.3.7 / Hauptmänner v1.3.8).
-- **Offene Frage „X/12":** Die Karten sind mit „1/12", „2/12" nummeriert, `plotDecks.ts`
-  führt aber **10** Karten/Deck. Vor dem Bild-Commit klären, ob die Decks physisch 12 Karten
-  haben (Scan zeigt nur 10 → evtl. 2 fehlend) oder ob „/12" eine Sammler-/Set-Nummer ist.
+- **„X/12"-Nummerierung geklärt (harmlos):** Die Karten tragen „1/12"…, das Deck hat aber
+  bestätigt **10** Karten (Scan-Reihe = 10, `plotDecks.ts` = 10, alle 60 IDs matchen
+  1:1 ohne Lücke/Duplikat). „/12" ist eine Sammler-/Set-Nummer, keine Deckgröße → keine
+  fehlenden Karten.
+- **Doppelter Titel (kartengetreu belegt):** „Ausgeklügelter Plan" erscheint auf ZWEI Karten
+  (`dark-illusions-intricateschemes` und `seeds-of-betrayal-meticulousplanning`) — beide
+  Kartenbilder tragen diesen Titel; unterschiedliche IDs/Regeltexte, daher kein Datenkonflikt.
 
-Deshalb werden Plotdeck-Bilder + autoritative Texte **erst nach dieser Klärung** committet
-(Phase 3), um keine falsch benannten/unvollständigen Daten ins Repo zu bringen.
+Zuordnung Karte→ID via 6 Subagenten (englischer Name als Anker, deutscher Titel/Regeltext
+verbatim von der Karte). Validierung: alle 60 `deckId-xws`-IDs existieren in `plotDecks.ts`,
+je Deck genau 10, keine Duplikate.
 
 ---
 

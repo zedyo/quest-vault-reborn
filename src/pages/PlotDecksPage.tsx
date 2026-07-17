@@ -8,6 +8,7 @@ import { renderGameText } from '../components/GameSymbols'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
+import { plotCardDeUrl } from '../data/assetUrls'
 import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import type { PlotCard, PlotDeck } from '../types/game'
 
@@ -19,18 +20,36 @@ function CostBadge({ label, value, cls }: { label: string; value: number; cls: s
   )
 }
 
-function CardThumb({ imageUrl, name, onOpen }: { imageUrl: string; name: string; onOpen: () => void }) {
-  const [err, setErr] = useState(false)
-  if (err) return null
+// Zeigt das deutsche Kartenbild bevorzugt; fällt bei Fehler auf das EN-any2cards-Bild zurück.
+function CardThumb({ srcs, name, onOpen }: { srcs: string[]; name: string; onOpen: () => void }) {
+  const [idx, setIdx] = useState(0)
+  if (idx >= srcs.length) return null
   return (
     <button
       className="shrink-0 w-12 self-stretch flex items-start rounded overflow-hidden border border-dungeon-700 hover:border-gold-500 transition-colors focus:outline-none focus:border-gold-400"
       onClick={onOpen}
       title="Karte vergrößern"
     >
-      <img src={imageUrl} alt={name} className="w-full h-auto" onError={() => setErr(true)} loading="lazy" />
+      <img src={srcs[idx]} alt={name} className="w-full h-auto" onError={() => setIdx((i) => i + 1)} loading="lazy" />
     </button>
   )
+}
+
+function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
+  const [idx, setIdx] = useState(0)
+  return (
+    <img
+      src={srcs[Math.min(idx, srcs.length - 1)]}
+      alt={name}
+      className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+      onError={() => setIdx((i) => i + 1)}
+    />
+  )
+}
+
+// Deutsches Plotkartenbild (nur für die 6 „Handlungskarten"-Decks) vor EN-Fallback.
+function plotCardSrcs(card: PlotCard): string[] {
+  return [plotCardDeUrl(card.id), card.imageUrl]
 }
 
 function PlotCardRow({ card, lang, onImageOpen }: { card: PlotCard; lang: Lang; onImageOpen: () => void }) {
@@ -40,7 +59,7 @@ function PlotCardRow({ card, lang, onImageOpen }: { card: PlotCard; lang: Lang; 
   return (
     <div className="card text-xs space-y-1.5">
       <div className="flex items-stretch gap-2">
-        <CardThumb imageUrl={card.imageUrl} name={card.nameEn} onOpen={onImageOpen} />
+        <CardThumb srcs={plotCardSrcs(card)} name={card.nameEn} onOpen={onImageOpen} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-1">
             <div className="flex-1 min-w-0">
@@ -89,7 +108,7 @@ function DeckBlock({ deck, lang, onImageOpen, highlighted }: { deck: PlotDeck; l
   )
 }
 
-interface LightboxState { imageUrl: string; name: string }
+interface LightboxState { srcs: string[]; name: string }
 
 export default function PlotDecksPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -146,7 +165,7 @@ export default function PlotDecksPage() {
       {lightbox && (
         <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={lightbox.name} backdropClassName="bg-black/85" className="relative max-w-xs w-full">
           <button onClick={() => setLightbox(null)} className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm">✕ Schließen</button>
-          <img src={lightbox.imageUrl} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+          <LightboxImg srcs={lightbox.srcs} name={lightbox.name} />
         </ModalOverlay>
       )}
 
@@ -178,7 +197,7 @@ export default function PlotDecksPage() {
               <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">{expansionMap[expId]?.nameDe ?? expId}</h3>
               <div className="space-y-6">
                 {decks.map((deck) => (
-                  <DeckBlock key={deck.id} deck={deck} lang={lang} highlighted={deck.id === highlightId} onImageOpen={(c) => setLightbox({ imageUrl: c.imageUrl, name: lang === 'de' ? c.nameDe : c.nameEn })} />
+                  <DeckBlock key={deck.id} deck={deck} lang={lang} highlighted={deck.id === highlightId} onImageOpen={(c) => setLightbox({ srcs: plotCardSrcs(c), name: lang === 'de' ? c.nameDe : c.nameEn })} />
                 ))}
               </div>
             </div>

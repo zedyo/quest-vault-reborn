@@ -157,6 +157,23 @@ export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
 }
 
 /**
+ * Lokales deutsches Agenten-(Anführer-)Kartenbild je Akt-Form
+ * (`public/cards/de/agents/<agentId>-act<1|2>.webp`).
+ */
+export function agentCardDeUrl(id: string, act: 1 | 2): string {
+  return `${import.meta.env.BASE_URL}cards/de/agents/${id}-act${act}.webp`
+}
+
+/**
+ * Lokales deutsches Plotkarten-(Handlungskarten-)Bild
+ * (`public/cards/de/plotdecks/<cardId>.webp`). Nur für die 6 Decks aus dem
+ * „Handlungskarten"-Scan vorhanden; sonst greift der EN-any2cards-Fallback.
+ */
+export function plotCardDeUrl(cardId: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/plotdecks/${cardId}.webp`
+}
+
+/**
  * Lokales deutsches Reise-/Stadtereignis-Kartenbild
  * (`public/cards/de/reisekarten/<id>.webp`).
  */

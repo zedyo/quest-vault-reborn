@@ -7,7 +7,21 @@ import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components
 import { HealthIcon, AttackIcon } from '../components/StatIcons'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
+import { agentCardDeUrl } from '../data/assetUrls'
 import type { Agent, AgentForm, LieutenantPerPlayerStats } from '../types/game'
+
+// Zeigt das deutsche Agentenbild bevorzugt; fällt bei Fehler auf das EN-any2cards-Bild zurück.
+function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
+  const [idx, setIdx] = useState(0)
+  return (
+    <img
+      src={srcs[Math.min(idx, srcs.length - 1)]}
+      alt={name}
+      className="w-full rounded-lg shadow-2xl border border-dungeon-600"
+      onError={() => setIdx((i) => i + 1)}
+    />
+  )
+}
 
 function PerPlayerTable({ form, lang }: { form: AgentForm; lang: Lang }) {
   const cols: { label: string; s: LieutenantPerPlayerStats }[] = [
@@ -64,7 +78,7 @@ function FormBlock({ form, lang, onImageOpen }: { form: AgentForm; lang: Lang; o
   )
 }
 
-function AgentCard({ ag, lang, onImageOpen }: { ag: Agent; lang: Lang; onImageOpen: (url: string, name: string) => void }) {
+function AgentCard({ ag, lang, onImageOpen }: { ag: Agent; lang: Lang; onImageOpen: (srcs: string[], name: string) => void }) {
   return (
     <div className="card space-y-2">
       <div className="flex items-start justify-between gap-2">
@@ -79,7 +93,7 @@ function AgentCard({ ag, lang, onImageOpen }: { ag: Agent; lang: Lang; onImageOp
             key={f.act}
             form={f}
             lang={lang}
-            onImageOpen={() => onImageOpen(f.imageUrl, `${lang === 'de' ? ag.nameDe : ag.nameEn} – Akt ${f.act === 1 ? 'I' : 'II'}`)}
+            onImageOpen={() => onImageOpen([agentCardDeUrl(ag.id, f.act), f.imageUrl], `${lang === 'de' ? ag.nameDe : ag.nameEn} – Akt ${f.act === 1 ? 'I' : 'II'}`)}
           />
         ))}
       </div>
@@ -87,7 +101,7 @@ function AgentCard({ ag, lang, onImageOpen }: { ag: Agent; lang: Lang; onImageOp
   )
 }
 
-interface LightboxState { imageUrl: string; name: string }
+interface LightboxState { srcs: string[]; name: string }
 
 export default function AgentsPage() {
   const ownedIds = useGameStore((s) => s.ownedExpansionIds)
@@ -125,7 +139,7 @@ export default function AgentsPage() {
       {lightbox && (
         <ModalOverlay onClose={() => setLightbox(null)} ariaLabel={lightbox.name} backdropClassName="bg-black/85" className="relative max-w-xs w-full">
           <button onClick={() => setLightbox(null)} className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm">✕ Schließen</button>
-          <img src={lightbox.imageUrl} alt={lightbox.name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
+          <LightboxImg srcs={lightbox.srcs} name={lightbox.name} />
         </ModalOverlay>
       )}
 
@@ -158,7 +172,7 @@ export default function AgentsPage() {
               <h3 className="text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">{expansionMap[expId]?.nameDe ?? expId}</h3>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
                 {ags.map((ag) => (
-                  <AgentCard key={ag.id} ag={ag} lang={lang} onImageOpen={(url, name) => setLightbox({ imageUrl: url, name })} />
+                  <AgentCard key={ag.id} ag={ag} lang={lang} onImageOpen={(srcs, name) => setLightbox({ srcs, name })} />
                 ))}
               </div>
             </div>

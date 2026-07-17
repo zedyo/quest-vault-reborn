@@ -111,8 +111,10 @@ misst die exakte Pitch selbst; hier nur als Orientierung für den Re-Cut).
 Vertraute, NSC-Gefährten + Gefährten-Fähigkeiten, Aktivierungskarten.
 **✅ Agenten-Bilder committet (Phase 2, 2026-07-17):** 40 webp unter `public/cards/de/agents/`
 (`<agentId>-act<1|2>.webp`); Werte in `agents.ts`. Autoritative dt. Rückseitentexte optional offen.
-**⬜ Noch offen:** Plotdecks/Handlungskarten (6 gemischte Decks, Namens-/„X/12"-Klärung nötig — Phase 3),
-Marker/ + Symbole/ (Phase 4/5). Details in `de-karten/weitere-decks.md` §9.
+**✅ Plotdecks/Handlungskarten korrigiert (Phase 3, 2026-07-17):** 6 Decks/60 Karten 1:1 von
+den dt. Karten → `plotDecks.ts` (5 Deck-Namen + 44 nameDe + 60 rulesDe), 60 Bilder unter
+`public/cards/de/plotdecks/`, `plotCardDeUrl` + Plot-/Agenten-Seite zeigen DE mit EN-Fallback.
+**⬜ Noch offen:** Marker/ + Symbole/ (Phase 4/5). Details in `de-karten/weitere-decks.md` §8/§9.
 
 | Quellblatt | Deck / Inhalt | Karten | Raster (ca.) | App-Datenlage |
 |---|---|---|---|---|
