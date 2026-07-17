@@ -10,9 +10,14 @@ faktische Metadaten**. Die kursiven **Flavor-/Erzähltext-Absätze** der Karten 
 bewusst **weggelassen** (FFG-Urheberrecht) — vgl.
 [`wiki/concepts/asset-sourcing-and-ip.md`](../../../wiki/concepts/asset-sourcing-and-ip.md).
 
-**Bilder:** Die zugehörigen DE-Kartenbilder sind (Stand 2026-07-17) **nicht** ins Repo
-committet (kein App-Consumer → kein toter Ballast). Sie sind jederzeit per Byte-Range
-aus dem Release ziehbar (Rezept in `scan-sources.md`); Quellblatt je Deck unten notiert.
+**Bilder:** Die zugehörigen DE-Kartenbilder sind (seit 2026-07-17) als optimierte webp
+(≤150 KB) ins Repo committet unter **`public/cards/de/<deck>/<slug>.webp`** — damit der
+Release-Scan gefahrlos gelöscht werden kann. Ordner: `suchkarten/` (9 distinkte Karten,
+Doubletten Heil-/Ausdauertrank nur einmal), `geheimkammern/` (12), `befleckt/` (12),
+`korrumpiert/` (9), `vertraute/` (5), `gefaehrten/` (2 Statkarten `raythen`/`serena` +
+6 Fähigkeits-Upgrades `raythen-…`/`serena-…`), `aktivierung/` (1 repräsentative Referenzkarte,
+4 farbgleiche Varianten). Slug = kebab-case des Kartennamens (Umlaute→ae/oe/ue/ss). Noch
+**kein** App-Consumer/`assetUrl`-Helfer — die Bilder sind reine Sicherung/Referenz.
 
 **Symbol-Konvention:** Spielsymbole stehen als Wort in eckigen Klammern
 (`[Herz]`, `[Schub]`, `[Erschöpfung]`, `[Aktion]`, `[Bewegung]`, `[Verteidigung]`,

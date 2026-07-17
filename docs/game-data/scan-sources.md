@@ -105,11 +105,12 @@ misst die exakte Pitch selbst; hier nur als Orientierung für den Re-Cut).
 | `Zustandskarten.jpg` (+R) | `public/cards/de/zustand/` | 4×3 (10) |
 | `Klassenkarten 1..4.jpg` + `Klasse {Elementarmagier,Seelenschnitter} N.png` | `public/cards/de/classes/` | 10×7 (Startausrüstung + Begleiter) |
 
-**📝 Inhaltlich transkribiert (2026-07-17) in [`de-karten/weitere-decks.md`](de-karten/weitere-decks.md)
-— DE-Bild noch nicht committet (per Rezept ziehbar):** Suchkarten, Geheimkammern, Befleckt,
-Korrumpiert, Vertraute, NSC-Gefährten + Gefährten-Fähigkeiten, Aktivierungskarten. Agenten &
-Plotdecks Grundspiel: Werte bereits in `agents.ts`/`plotDecks.ts` (autoritative DE-Text-
-Transkription optional offen).
+**✅ Transkribiert + Bild committet (2026-07-17)** — Text in
+[`de-karten/weitere-decks.md`](de-karten/weitere-decks.md), Bilder unter
+`public/cards/de/<deck>/` (56 webp): Suchkarten, Geheimkammern, Befleckt, Korrumpiert,
+Vertraute, NSC-Gefährten + Gefährten-Fähigkeiten, Aktivierungskarten.
+**⬜ Noch offen:** Agenten (40) + Plotdecks Grundspiel (60) — Werte in `agents.ts`/`plotDecks.ts`,
+DE-Bild + autoritative Texttranskription in Arbeit (Phase 2/3). Marker/ + Symbole/ (Phase 4/5).
 
 | Quellblatt | Deck / Inhalt | Karten | Raster (ca.) | App-Datenlage |
 |---|---|---|---|---|
