@@ -4,7 +4,12 @@
 dieser Datei erfüllt sind. Kriterien können vom User jederzeit ergänzt oder angepasst
 werden. Vor größeren Features werden die Kriterien dem User vorgelegt.
 
-**Letzte Aktualisierung:** 2026-05-25
+**Letzte Aktualisierung:** 2026-07-17
+
+> **Hinweis:** Diese Datei ist teils veraltet (v1.1/v1.2-Checkboxen wurden nicht
+> durchgehend nachgezogen). Maßgeblich für „was ist ausgeliefert" ist die
+> **CLAUDE.md-Statustabelle** (aktuell v1.6.4); das tatsächliche Versionsschema ab v1.3
+> weicht ab (v1.3 = deutsche Karten, v1.4/1.5 = Session-Tracker, v1.6 = Design-System v2).
 
 ---
 

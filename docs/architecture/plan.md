@@ -1,13 +1,13 @@
 # Quest Vault Reborn – Roadmap & Implementierungsplan
 
-**Aktuelle Version:** 1.2.4  
-**Letztes Update:** 2026-06-17  
+**Aktuelle Version:** 1.6.4  
+**Letztes Update:** 2026-07-17  
 **Status:** v1.0 ausgeliefert; v1.1-Datenbasis abgeschlossen (1.1.0–1.1.32: Daten/Kartensymbole,
 Overlord/Leutnants/Agenten/Plotdecks komplett, Kampagnen, Reisekarten, Overlays). **v1.2 (Design)
 abgeschlossen:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter offline, Fokusringe);
 1.2.1 = Navigation (Daten-Dropdown + mobiles Menü); 1.2.2 = Startseite-Hub; 1.2.3 = Feinschliff
 (Scrollleisten/::selection/reduced-motion) + iPad-Layout verifiziert; 1.2.4 = umschaltbare Themes
-(Verlies/Arkanblau/Schiefer via CSS-Variablen + 🎨-Umschalter). Offen für v1.2: Tests/Security-Audit
+(Verlies/Arkanblau/Schiefer via CSS-Variablen + 🎨-Umschalter). **Seither ausgeliefert:** v1.3 (deutsche Original-Karten), v1.4/1.5 (Session-Tracker), v1.6 (Design-System v2 + Dashboard). Maßgeblich ist die CLAUDE.md-Statustabelle
 
 ---
 
@@ -50,12 +50,18 @@ abgeschlossen:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter off
 - Export/Import (JSON), Druckansicht
 - GitHub Actions Auto-Deploy auf GitHub Pages
 - PWA (offline-fähig)
-- Datenbasis: 208 Tiles (mit Connectoren), ~60 Monster (Vollwerte Akt 1+2), ~68 Helden
+- Datenbasis: 208 Tiles (Stand v1.0.0; heute 225), 56 Monstergruppen (Vollwerte Akt 1+2), 60 Helden
 - Vollständige Spielwerte-Dokumentation in `docs/game-data/*.md`
 
 ---
 
 ## Geplante Versionen
+
+> ⚠️ **Veraltetes Versionsschema.** Die unten skizzierten Zuordnungen (v1.3 = Monster-
+> Tracker, v1.4 = Kampagnen-Speicherstand, v1.5 = Overlord-Kommandozentrale, v1.6 =
+> Helden-Spieleransicht) entsprechen **nicht** der tatsächlichen Auslieferung. Real:
+> v1.3 = deutsche Original-Karten, v1.4/1.5 = Session-Tracker, v1.6 = Design-System v2.
+> **Maßgeblich ist die CLAUDE.md-Statustabelle.** Der Monster-Tracker ist jetzt für **v1.7.0** geplant.
 
 ### v1.1.0 – Datenvollständigkeit 📋 (nächster Schritt)
 
@@ -65,11 +71,10 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 **Aufgaben:**
 - [x] Monster-Gruppengrößen pro Spieleranzahl (2/3/4) — alle 56 Gruppen (2026-06-13,
       von `-back.png`-Karten validiert; Feld `groupSizes`, UI-Anzeige, Integritäts-Test)
-- [~] Helden-Klassen: Grundspiel ✅ (1.1.1 – 8 Klassen, 72 Karten, zweisprachig EN+DE,
-      ClassesPage). Offen: Klassen der Erweiterungen (Champion, Beastmaster, Marshal, Prophet, …)
-- [ ] Beschwörungs-Begleiter (Companion-Karten mit eigenen Werten)
-- [ ] Item-Shop-Karten (alle Gegenstände, Typen, Kosten, Fähigkeiten, pro Erweiterung)
-- [ ] Reliktkarten (alle Relikte)
+- [x] Helden-Klassen: VOLLSTÄNDIG ✅ (1.1.2 – alle 24 Klassen, Grundspiel + Erweiterungen, zweisprachig EN+DE, ClassesPage)
+- [x] Beschwörungs-Begleiter ✅ (Begleiter + Startausrüstung je Klasse in heroClasses.ts)
+- [x] Item-Shop-Karten ✅ (1.1.3 – 122 Marktkarten)
+- [x] Reliktkarten ✅ (1.1.4 – 54 Relikt-Seiten, doppelseitig)
 - [x] Overlord-Klassen + Karten: VOLLSTÄNDIG ✅ (1.1.15 Grundspiel + 1.1.16 Erweiterungen +
       1.1.17 Belohnungskarten; 105 Karten in 27 Decks, EN 105/105 wortgetreu verifiziert)
 - [x] Overlord-Hauptmänner/Leutnants: VOLLSTÄNDIG ✅ (1.1.18 Grundspiel + 1.1.19 Erweiterungen;
@@ -80,7 +85,7 @@ Bevor Features auf Daten basieren, müssen diese korrekt sein.
 - [x] Reisekarten erfasst ✅ (1.1.31 – `src/data/travelCards.ts` + `/reisekarten`): 41 Reise-/
       Stadtereignis-Karten, nur faktische Strukturdaten (Erweiterung, Position, Gelände-Abdeckung) +
       Kartenbilder; Ereignistext bewusst nicht reproduziert. Nebenszenarien = Advanced Quests (v1.1.30).
-- [ ] Kampagnen (Grundspiel + Erweiterungen: alle Szenarien, Monster-Vorgaben)
+- [x] Kampagnen ✅ (1.1.30 – faktischer Überblick: 9 Kampagnen + 16 Advanced Quests; Szenario-Inhalte = FFG-IP, nicht reproduziert)
 - [x] Daten-Validierungspass: alle vorhandenen Monster- und Heldenwerte gegen offizielle Karten prüfen (v1.0.3: 70+ Korrekturen, alle 56 Monstergruppen + 60 Helden kartenscan-validiert)
 - [x] Overlay-Datenbasis ✅ (1.1.32 – `src/data/overlays.ts`): 9 platzierbare Overlay-Marker im
       MapBuilder (Quest-Editor + Kartenbauer), mit der Begegnung gespeichert. Kompakter Kernsatz.
@@ -294,10 +299,9 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 
 ## Nächste konkrete Schritte (jetzt)
 
-1. ✅ **erledigt (2026-06-13):** Monster-Gruppengrößen in monsters.ts + monsters.md
-   (alle 56 Gruppen aus `-back.png`-Karten abgelesen, UI + Test ergänzt)
-2. ✅ **erledigt (2026-06-13):** Daten-Validierungspass aller 56 Monstergruppen + 60 Helden
-   per Kartenbild-Analyse (v1.0.3, 70+ Korrekturen)
-3. **v1.1 weiter:** Helden-Klassen Dokumentationsstruktur füllen (validierte Daten)
-4. **v1.1 weiter:** Items / Overlord-Klassen / Leutnants / Kampagnen erfassen
-5. Audit-Backlog „Mittel" in v1.1/v1.2 abarbeiten
+> Maßgeblich ist die CLAUDE.md-Statustabelle + „Was noch fehlt". Aktueller Stand: v1.6.4.
+
+1. **v1.7.0 (geplant):** Monster-Tracker (Live-HP) — Planungssession mit User vor Umsetzung.
+2. **Audit-Backlog abarbeiten** (siehe „Audit-Backlog" oben): offene „Mittel/Niedrig"-Punkte,
+   u. a. Store-Aufteilung, Touch-Targets ≥44 px, Actions per Commit-SHA pinnen, CSP-Meta-Tag.
+3. **Projekt-Wiki** (`wiki/`) als kompoundierendes Gedächtnis weiter pflegen (Ingest/Query/Lint).
