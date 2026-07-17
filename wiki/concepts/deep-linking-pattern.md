@@ -26,6 +26,10 @@ ein Deck, alle 20 Decks einen Leutnant (per Datenintegritäts-Tests abgesichert)
 
 **Für künftige Quer-Verlinkungen wiederverwenden.**
 
+# Verwandt
+
+* [Geteilte UI-Bausteine](./shared-ui-building-blocks.md) - weitere zentral wiederverwendbare Muster (Filters/`useSearchParams`-Umfeld).
+
 # Citations
 
 [1] [CLAUDE.md](../../CLAUDE.md) — „Leutnant↔Plotdeck-Verknüpfung (1.1.28)".
