@@ -299,6 +299,14 @@ quest-vault-reborn/
 │       ├── campaigns.md                   ← Kampagnen-Überblick + Advanced Quests ✅ (v1.1.30)
 │       ├── campaign-scenarios.md          ← Kuratierte Szenario-Titel je Kampagne ✅ (v1.5.0)
 │       └── overlays.md                    ← Overlay-Plättchen (Stub)
+├── wiki/                                  ← Projekt-Wiki (OKF-v0.1-Bundle) – kompoundierendes Gedächtnis, Gerüst seit 2026-07-17
+│   ├── index.md                          ← Wurzel-Katalog (einziger Ort mit okf_version)
+│   ├── log.md                            ← Chronologisches Wiki-Protokoll (neueste zuerst)
+│   ├── schema.md                         ← Betriebsanleitung (Konzept-Typen, Frontmatter, Ingest/Query/Lint)
+│   ├── entities/                         ← leerer Katalog: greifbare Projektbausteine
+│   ├── concepts/                         ← leerer Katalog: abstraktes Wissen/Muster/Entscheidungen
+│   ├── sources/                          ← leerer Katalog: Zusammenfassungen ingestierter Quellen
+│   └── sessions/                         ← leerer Katalog: Session-Notizen (Kontext-Sicherung)
 └── src/
     ├── data/
     │   ├── expansions.ts   ✅
@@ -343,6 +351,16 @@ Bei Sitzungsstart oder nach Komprimierung: folgende Reihenfolge lesen:
 2. **docs/architecture/plan.md** — Roadmap, Versionen, nächste Schritte
 3. **docs/architecture/acceptance-criteria.md** — Akzeptanzkriterien pro Feature
 4. **docs/game-data/[relevante Datei]** — Spieldaten bei Korrekturen
+
+**Projekt-Wiki (seit 2026-07-17):** Unter `wiki/` liegt ein OKF-v0.1-konformes,
+LLM-gepflegtes Knowledge Bundle als **kompoundierende Erinnerungs-/Synthese-Schicht**
+(nach Karpathys „LLM-Wiki"-Konzept). Es ergänzt CLAUDE.md und `docs/`, ersetzt sie
+nicht. Einstieg über `wiki/index.md`; Konventionen, Konzept-Typen und die
+Ingest-/Query-/Lint-Workflows stehen in `wiki/schema.md`. Aktuell ein leeres Gerüst
+(Kataloge `entities/`/`concepts/`/`sources/`/`sessions/` füllen sich beim ersten
+Ingest). Die autoritativen Quellen bleiben CLAUDE.md, `docs/game-data/**` und
+`src/**`; das Wiki **verweist** darauf (`resource`/`# Citations`), statt Werte zu
+duplizieren.
 
 Ein **SessionStart-Hook** (`.claude/session-start.sh`) liefert jedem neuen Session
 automatisch Version, letzte Commits und offene Aufgaben — manuelles Antriggern
