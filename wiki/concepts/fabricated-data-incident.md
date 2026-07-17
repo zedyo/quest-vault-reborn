@@ -11,7 +11,9 @@ timestamp: 2026-07-17T00:00:00Z
 In `heroes.ts` fanden sich 8 frei erfundene Helden mit zwei nicht existierenden
 Erweiterungen („Maze of the Drakon", „Sands of the Past") — vermutlich in einer
 früheren Session halluziniert. Entfernt. Korrekte Zahlen: **60 Helden, 56
-Monstergruppen, 208 Tiles, 23 Erweiterungen**.
+Monstergruppen, 23 Erweiterungen** sowie **225 Map-Tiles** (204 Räume + 21
+Verbindungsstücke seit v1.3.15; per `dataIntegrity.test.ts` gelockt sind u. a. 20
+Agenten, 20 Plotdecks/200 Karten, 105 Overlord-Karten, 9 Kampagnen).
 
 # Abgeleitete Regeln (verbindlich)
 

@@ -29,9 +29,19 @@ timestamp: 2026-07-17T00:00:00Z
 - Beim Validieren: Datum + „✅ validiert" in der `.md`-Datei vermerken (siehe
   [Kartenbild-Validierung](./card-image-validation.md)).
 
+# IP & Lizenz-Analyse
+
+Die ausführliche Bewertung der Rechtslage (Grauzone, FFG-IP-Policy, Optionen A–D
+für den Umgang mit den Karten-/Regeldaten) steht in
+`docs/research/digital-assets.md` §5 „Lizenz-Status – Kritische Bewertung" + §6
+„Empfehlungen" (autoritativ). Kurzfazit für die Strategie: freiwillige Spende
+(Ko-Fi) statt Bezahl-Schranken; Konto/Sync als von den FFG-Daten trennbare
+Dienstleistung getrennt bewerten.
+
 # Verwandt
 
 * [Offene Entscheidungen](./open-decisions.md) - enthält u. a. IP-Rechte, Backend, Monetarisierung.
+* IP-/Lizenz-Recherche (autoritativ): `docs/research/digital-assets.md` §5/§6.
 
 # Citations
 

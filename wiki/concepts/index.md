@@ -11,6 +11,8 @@ Typische `type`-Werte: `Concept`, `Pattern`, `Procedure`, `Decision`,
 
 * [Connector-Rendering-Modell (Map-Tiles)](connector-rendering.md) - Warum Tile-Connectoren mit Inset-Streckung + maxWidth:none gerendert werden — und was NICHT wieder umgebaut werden darf.
 * [Kartenbild-Validierung von Spielwerten](card-image-validation.md) - Etabliertes Verfahren, um Spielwerte direkt aus any2cards-Kartenbildern zu prüfen.
+* [DE-Kartenbild-Pipeline (Scans → public/cards)](card-image-pipeline.md) - Byte-Range-Zugriff aufs Scans-Release + rasterbasierter Zuschnitt (inkl. Fallstricke).
+* [Kartentext-Transkription mit adversarialer Verifikation](card-text-transcription.md) - Kartentexte 1:1 übernehmen und per Verify-Pass gegen das Kartenbild absichern.
 * [Geteilte UI-Bausteine](shared-ui-building-blocks.md) - Wiederverwendbare UI-Muster (StatIcons, ModalOverlay, Filters, ConfirmDialog, assetUrls).
 * [Quer-Verlinkung mit Deep-Links](deep-linking-pattern.md) - Bidirektionale Deep-Links zwischen Referenzseiten inkl. Scroll + Highlight.
 
