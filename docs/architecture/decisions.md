@@ -32,7 +32,7 @@ Dieses Dokument hält alle wesentlichen technischen Entscheidungen fest.
 
 **Entscheidung:** GitHub Pages (Branch `gh-pages`)
 
-**Deployment:** GitHub Actions baut bei Push auf `claude/descent-quest-vault-DCYTY` und deployt nach `gh-pages`.  
+**Deployment:** GitHub Actions (`deploy.yml`) baut bei Push auf `main` und deployt nach `gh-pages` (peaceiris). Feature-Branches werden per PR nach `main` gemergt (siehe CLAUDE.md, Auto-PR-und-Merge).  
 **URL:** https://zedyo.github.io/quest-vault-reborn/
 
 ---
