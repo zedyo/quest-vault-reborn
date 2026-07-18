@@ -61,10 +61,45 @@ dasselbe.
 
 **Wie man „Original vs. Errata" erkennt** (falls je relevant): Datentext/​Scan gegen die
 CRRG-Errata-„sollte lauten"-Fassung vergleichen (bildunabhängig). Stimmt der Scan-Text
-mit der Errata-Korrektur überein → der Scan ist ein Errata-Nachdruck. **Monster mit
-Errata-Nachdruck-Text:** Schattendrache/Schatten, Goblin-Schamane/Verzaubern (Liste in
-`docs/game-data/de-karten/monster.md`). Nicht auf einen Erstdruck „zurücksetzen", außer
-der User gibt das ausdrücklich vor.
+mit der Errata-Korrektur überein → der Scan ist ein Errata-Nachdruck. Nicht auf einen
+Erstdruck „zurücksetzen", außer der User gibt das ausdrücklich vor.
+
+## Vollständige Liste: Karten mit Errata-Nachdruck-Text (Stand 2026-07-18)
+
+Über den bildunabhängigen Vergleich **aller** Text-Errata (54 „sollte lauten"-Einträge
+über Helden/Klassen/Items/Overlord/Plotdecks/Monster/Gerüchte) ermittelt und – wo ein
+Scan existiert – am Kartenbild bestätigt. Der Kartentext (Scan) entspricht hier der
+**Errata-Fassung** (= Errata-Nachdruck); wir behalten ihn (höchste Priorität).
+
+**Am Scan verifiziert (Kartenbild zeigt die Errata-Fassung):**
+
+| Typ | Karte | Fähigkeit/Feld |
+|---|---|---|
+| Monster | Schattendrache | Schatten |
+| Monster | Goblin-Schamane | Verzaubern |
+| Held | Grisban der Durstige | Heldenfähigkeit |
+| Overlord | Teuflisches Ritual | Regeltext |
+| Overlord | Vielseitigkeit | Regeltext |
+
+**Klassen — kein DE-Skill-Kartenbild im Repo, daher nur textueller Abgleich (Datentext == Errata):**
+
+| Typ | Karte | Fertigkeit | Anmerkung |
+|---|---|---|---|
+| Klasse | Geomant | Erdbeben | Datentext 1:1 = Errata |
+| Klasse | Schattenwandler | Schattenseele (Vertrauter) | 1. Satz = Errata; Quelle any2cards-EN war bereits errata'd |
+| Klasse | Geistsprecher | Geister der Ahnen | grenzwertig — einziger Unterschied Herz/Herzen (Symbol) |
+
+**Alle übrigen Text-Errata halten den Erstdruck** (Scan/Datentext ≠ Errata-Korrektur) und
+sind KEINE Nachdrucke, u. a.: Held Thaiden Nebelspitze; Overlord Blutdurst + Verstärkung
+Rufen; Klassen Ritter/Absichern, Nekromant/Letzter Befehl, Waldläufer, Apothecarius,
+Plänkler/Unerbittlich, Runenmeister, Seneschall, Berserker, Seelenschnitter (Unheiliges
+Band + Verderbter Entzug); Monster Krähenhexe/Todesomen, Riese (UK) + Troll (UK)/
+Rundumschlag, Elementar/Luft, Höllenkoloss/Sturmangriff, Wechselbalg. (Item- und
+Plotdeck-Text-Errata: Datentext = Erstdruck, kein Nachdruck.)
+
+**Nicht anwendbar:** Abenteuer-Errata (Szenariotext wird nicht gespeichert, FFG-IP) und
+Monsterfähigkeits-Schlagwort „Beherrschung" (kein Monster in den Daten trägt diese
+Fähigkeit).
 
 # Citations
 
