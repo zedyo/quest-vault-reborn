@@ -189,7 +189,7 @@ export const MONSTERS: Monster[] = [
     },
     master: {
       speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'red'],
-      surges: ['+2 Herzen', 'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern (inklusive Zielfeld) in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'],
+      surges: ['+2 Herzen', 'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'],
       abilities: ['Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.'],
     },
     act2Normal: { speed: 3, health: 8, defense: ['gray', 'black'], attack: ['blue', 'red', 'red'], surges: ['+2 Herzen'] },
@@ -376,7 +376,7 @@ export const MONSTERS: Monster[] = [
       speed: 5, health: 5, defense: ['gray'], attack: ['blue', 'red'],
       surges: ['Schwarm: Dieses Monster fügt pro anderem zum Ziel benachbarten Monster +1 Herz zu.'],
       abilities: ['Fliegen: Dieses Monster kann während der Bewegung feindliche Figuren und Terrain ignorieren. Es muss seine Bewegung nach den normalen Regeln auf einem leeren Feld beenden.'],
-      actions: ['Pulk: Jedes normale Monster dieser Gruppe innerhalb von 5 Feldern zu diesem Monster darf sich sofort bis zu 2 Felder bewegen.'],
+      actions: ['Pulk: Jedes normale Monster dieser Gruppe innerhalb von 5 Feldern zu diesem Monster darf sich sofort um bis zu 2 Felder bewegen.'],
     },
     act2Normal: { speed: 5, health: 4, defense: ['gray'], attack: ['blue', 'yellow', 'green'] },
     act2Master: { speed: 5, health: 6, defense: ['gray'], attack: ['blue', 'red', 'yellow'] },
@@ -552,7 +552,7 @@ export const MONSTERS: Monster[] = [
       speed: 3, health: 9, defense: ['gray'], attack: ['blue', 'red'],
       surges: [
         'Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.',
-        'Sturmangriff: Wenn dieses Monster zu Beginn seines Zuges nicht zum Ziel benachbart war, hat der Angriff +3 Herzen.',
+        'Sturmangriff: Wenn dieses Monster zu Beginn seines Zuges nicht zum Ziel dieses Angriffs benachbart war, hat der Angriff +3 Herzen.',
       ],
       actions: ['Blutgier: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens ein Mal pro Zug.'],
     },
@@ -604,7 +604,7 @@ export const MONSTERS: Monster[] = [
       surges: ['+2 Herzen'],
       abilities: [
         'Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.',
-        'Kommando: Jedes normale Monster innerhalb von 3 Feldern dieses Monsters darf beim Angriff 1 Würfel neu werfen. Jedes normale Monster kann nur einmal pro Angriff von der Fähigkeit Kommando profitieren.',
+        'Kommando: Jedes normale Monster innerhalb von 3 Feldern dieses Monsters kann beim Angriff 1 Würfel neu werfen. Jedes normale Monster kann nur einmal pro Angriff von der Fähigkeit Kommando profitieren.',
       ],
     },
     act2Normal: { speed: 5, health: 5, defense: ['gray'], attack: ['blue', 'red'], surges: ['+2 Herzen'] },
@@ -797,12 +797,12 @@ export const MONSTERS: Monster[] = [
     act2Normal: {
       speed: 3, health: 7, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'],
       surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
-      abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
+      abilities: ['Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).'],
     },
     act2Master: {
       speed: 3, health: 10, defense: ['gray', 'black'], attack: ['blue', 'red', 'yellow'],
       surges: ['Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.', '+2 Herzen'],
-      abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
+      abilities: ['Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).'],
       actions: ['Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held muss eine Willenskraft-Probe ablegen. Falls sie misslingt, wird er 2 Felder in gerader Richtung von diesem Monster wegbewegt und ist gelähmt.'],
     },
   },
@@ -831,7 +831,7 @@ export const MONSTERS: Monster[] = [
     act2Master: {
       speed: 4, health: 9, defense: ['brown'], attack: ['blue', 'yellow', 'yellow'],
       surges: ['+2 Herzen'],
-      abilities: ['Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).'],
+      abilities: ['Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).'],
       actions: [
         'Dunkles Gebet: Wähle einen Helden innerhalb von 5 Feldern Entfernung zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Falls sie misslingt, erleidet er 1 Erschöpfung.',
         'Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und wirf einen roten Machtwürfel. Das Monster gewinnt die gewürfelten Herzen zurück.',

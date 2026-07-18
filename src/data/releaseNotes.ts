@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.8',
+    date: '2026-07-18',
+    title: 'Kartentexte an die deutschen Originalkarten angeglichen',
+    highlights: [
+      'Vollständiger Abgleich aller Karten mit Errata-Hinweis gegen die deutschen Original-Kartenbilder: Die angezeigten Fähigkeits- und Regeltexte bleiben der Original-Kartentext – die Errata-Hinweise sind und bleiben reine Zusatz-Infoboxen und überschreiben den Kartentext nicht.',
+      'Dabei 18 kleine Abschreibfehler korrigiert (z. B. Fallen des Overlords prüfen „Gespür" statt „Wahrnehmung"; Krypten-/Unterweltdrache und Dunkler Priester nun „Grauenerregend"; einzelne fehlende oder zu viel abgeschriebene Wörter bei Helden-, Monster-, Item- und Overlordkarten).',
+    ],
+  },
+  {
     version: '1.6.7',
     date: '2026-07-18',
     title: 'Sofortsuche jetzt auch mobil',

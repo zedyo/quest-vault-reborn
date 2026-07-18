@@ -662,7 +662,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     traits: ["Trinket"],
     equip: 'other', dice: [],
     rulesEn: "Apply +1 to your Stamina. You cannot spend Surges to recover Fatigue.",
-    rulesDe: "Du erhältst +1 auf deine Ausdauer. Du kannst keine Schub ausgeben, um Ausdauer zurückzugewinnen.",
+    rulesDe: "Du erhältst +1 auf deine Ausdauer. Du kannst keine Schub ausgeben, um Ausdauer zurückgewinnen.",
     imageUrl: "https://raw.githubusercontent.com/any2cards/d2e/master/images/shop-items/d2e/manor-of-ravens/act1/mr-undying-skull.png",
   },
   {

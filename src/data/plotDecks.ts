@@ -942,7 +942,7 @@ export const PLOT_DECKS: PlotDeck[] = [
         "threatCost": 2,
         "triggerCost": 1,
         "rulesEn": "Exhaust this card at the start of your turn to choose 1 monster. Each hero in that monster's line of sight tests Willpower. If that monster has the Cursed monster trait, add 1 Shield to the results of each test. You may move each hero who fails 2 spaces.",
-        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges und wähle 1 Monster. Jeder Held in der Sichtlinie dieses Monsters legt eine [Geistesgegenwart]-Probe ab. Hat das Monster das Merkmal Verflucht, wird dem Ergebnis 1 [Verteidigung] hinzugefügt. Du kannst jeden Helden, dessen Probe misslingt, um bis zu 2 Felder bewegen.",
+        "rulesDe": "Erschöpfe diese Karte zu Beginn deines Zuges und wähle 1 Monster. Jeder Held in der Sichtlinie dieses Monsters legt eine [Willenskraft]-Probe ab. Hat das Monster das Merkmal Verflucht, wird dem Ergebnis 1 [Verteidigung] hinzugefügt. Du kannst jeden Helden, dessen Probe misslingt, um bis zu 2 Felder bewegen.",
         "imageUrl": "https://raw.githubusercontent.com/any2cards/d2e/master/images/plot-decks/d2e/labyrinth-of-ruin/dark-illusions/lr-enthrall.png"
       },
       {

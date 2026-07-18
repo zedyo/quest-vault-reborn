@@ -132,7 +132,7 @@
 **Werte:** Bewegung 2 · Leben 8 · Ausdauer 3 · Verteidigung Grau  
 **Attribute:** Stärke 3 · Wissen 2 · Willenskraft 3 · Gespür 3  
 **Heldenfähigkeit:** Zu Beginn deines Zuges erhältst du 4 Bewegungspunkte.  
-**Heldentat:** Setze diese Heldentat während deines Zuges ein, auch falls du niedergestreckt bist. Wirf 2 rote Machtwürfel. Du und jeder andere niedergestreckte Held innerhalb von 3 Feldern Entfernung zu dir gewinnt so viele Herzen zurück, wie du gewürfelt hast.  
+**Heldentat:** Setze diese Heldentat während deines Zuges ein, auch falls du niedergestreckt bist. Wirf 2 rote Machtwürfel. Du und jeder andere niedergestreckte Held innerhalb von 3 Feldern Entfernung zu dir gewinnt so viele Herzen zurück, wie du Herzen gewürfelt hast.  
 **Bild:** `cards/de/heroes/okaluk-and-rakash.webp` · Rückseite `okaluk-and-rakash-back.webp`
 
 
@@ -279,7 +279,7 @@
 **Werte:** Bewegung 4 · Leben 14 · Ausdauer 3 · Verteidigung Grau  
 **Attribute:** Stärke 5 · Wissen 1 · Willenskraft 3 · Gespür 2  
 **Heldenfähigkeit:** Jedes Mal, wenn du eine zu dir benachbarte Figur angreifst, die zu Beginn deines Zuges nicht benachbart zu dir war, erhält dieser Angriff +1 Herz.  
-**Heldentat:** Setze diese Heldentat während deines Zuges ein. Wirf 1 Machtwürfel deiner Wahl. Du und jede zu dir benachbarte Figur erleiden so viele Herzen, wie du gewürfelt hast. Falls du mindestens 1 Schub würfelst, darfst du jede betroffene Figur 1 Feld weit bewegen.  
+**Heldentat:** Setze diese Heldentat während deines Zuges ein. Wirf 1 Machtwürfel deiner Wahl. Du und jede zu dir benachbarte Figur erleiden so viele Herzen, wie du Herzen gewürfelt hast. Falls du mindestens 1 Schub würfelst, darfst du jede betroffene Figur 1 Feld weit bewegen.  
 **Bild:** `cards/de/heroes/steelhorns.webp` · Rückseite `steelhorns-back.webp`
 
 
@@ -421,7 +421,7 @@
 **Werte:** Bewegung 4 · Leben 14 · Ausdauer 4 · Verteidigung Braun  
 **Attribute:** Stärke 3 · Wissen 2 · Willenskraft 1 · Gespür 5  
 **Heldenfähigkeit:** Einmal pro Zug kannst du 1 Erschöpfung erleiden, um einen Helden auf deinem Spielplanteil eine Attributsprobe neu würfeln zu lassen. Er darf dafür deinen Attributwert benutzen.  
-**Heldentat:** Verwende diese Heldentat in deinem Zug, um einen Suchmarker auf einem Nachbarfeld eines anderen Helden aufzudecken. Das gilt nicht als Aktion.  
+**Heldentat:** In deinem Zug kannst du einen Suchmarker auf einem Nachbarfeld eines anderen Helden aufdecken. Das gilt nicht als Aktion.  
 **Bild:** `cards/de/heroes/raythen.webp` · Rückseite `raythen-back.webp`
 
 ### Roganna der Schemen
@@ -429,7 +429,7 @@
 **Werte:** Bewegung 5 · Leben 10 · Ausdauer 4 · Verteidigung Grau  
 **Attribute:** Stärke 2 · Wissen 2 · Willenskraft 4 · Gespür 3  
 **Heldenfähigkeit:** Alle deine Angriffe, die auf Monster zielen, die zu keinem anderen Helden benachbart sind, haben +1 Herz.  
-**Heldentat:** Nur am Ende deines Zugs einzusetzen. Bis zum Beginn deines nächsten Zuges können Helden innerhalb von 3 Feldern zu dir nur Ziel eines Monsterangriffs sein, wenn das Monster auf einem Nachbarfeld des Ziels steht.  
+**Heldentat:** Nur am Ende deines Zugs einzusetzbar. Bis zum Beginn deines nächsten Zuges können Helden innerhalb von 3 Feldern zu dir nur Ziel eines Monsterangriffs sein, wenn das Monster auf einem Nachbarfeld des Ziels steht.  
 **Bild:** `cards/de/heroes/roganna-the-shade.webp` · Rückseite `roganna-the-shade-back.webp`
 
 ### Tinashi die Wanderin
@@ -461,7 +461,7 @@
 **Werte:** Bewegung 5 · Leben 10 · Ausdauer 5 · Verteidigung Grau  
 **Attribute:** Stärke 3 · Wissen 3 · Willenskraft 3 · Gespür 3  
 **Heldenfähigkeit:** Bei Attributsproben wirfst du 2 graue Verteidigungswürfel statt einem grauen und einem schwarzen.  
-**Heldentat:** Aktion: Führe einen Angriff durch. Nach dem Angriffswurf kannst du 1 Kampfwürfel auf eine beliebige Seite drehen.  
+**Heldentat:** Aktion: Führe einen Angriff durch. Nach dem Angriffswurf kannst du den Kampfwürfel auf eine beliebige Seite drehen.  
 **Bild:** `cards/de/heroes/lindel.webp` · Rückseite `lindel-back.webp`
 
 ### Tetherys
