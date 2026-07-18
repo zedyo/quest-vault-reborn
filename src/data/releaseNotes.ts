@@ -20,6 +20,14 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.7',
+    date: '2026-07-18',
+    title: 'Sofortsuche jetzt auch mobil',
+    highlights: [
+      'Die Sofortsuche aus der Kopfzeile gibt es jetzt auch auf dem Smartphone: Ein Such-Symbol oben öffnet ein vollbreites Suchfeld mit derselben Live-Vorschau, Trefferliste und „Alle Treffer anzeigen".',
+    ],
+  },
+  {
     version: '1.6.6',
     date: '2026-07-17',
     title: 'Sofortsuche in der Kopfzeile',
