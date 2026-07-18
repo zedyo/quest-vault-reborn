@@ -59,7 +59,7 @@
 
 ### Schattendrache  *(EN: Shadow Dragon)* · `shadow-dragon`
 **Eigenschaften:** Dunkel, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [1, 0], p3: [0, 1], p4: [1, 1]
-- Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.
+- Schatten: Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl. *(Original-Kartentext; die Errata-Fassung „Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt …" steht nur in der ErrataBox.)*
 - Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.
 
 ### Zombie  *(EN: Zombie)* · `zombie`

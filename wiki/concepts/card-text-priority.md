@@ -41,6 +41,27 @@ Die Karte ist die einzige verlässliche, prüfbare Quelle; sie schlägt jede Sek
 - Offene Audit-Aufgabe: systematisch prüfen, wo das UI noch EN-Karten zeigt, obwohl ein
   deutsches Bild im Release vorliegt (→ ersetzen).
 
+# ⚠️ Caveat: Deutsche Scans können Errata-Nachdrucke sein (2026-07-18)
+
+Beim Errata-Overwrite-Audit (v1.6.8) stellte sich heraus: **Nicht jeder deutsche
+Repo-Scan zeigt den Erstdruck.** Einige `public/cards/de/**`-Bilder sind
+**Errata-korrigierte Nachdrucke**. Belegt am **Schattendrachen**:
+`shadow-dragon-act1-back.webp` druckt bereits die Errata-Fassung der Fähigkeit
+„Schatten" („Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff
+ansagt …"), NICHT den Erstdruck („Wenn ein Held dieses Monster von einem
+Nachbarfeld aus angreift …").
+
+**Konsequenz für Overwrite-Prüfungen:** Ein reiner *Daten↔Scan*-Vergleich kann einen
+Errata-Overwrite NICHT erkennen, wenn Daten == Scan == Errata. Um zu prüfen, ob der
+**Haupttext fälschlich die Errata-Fassung** statt des Erstdrucks enthält, muss der
+**Datentext direkt gegen die CRRG-Errata-„sollte lauten"-Fassung** verglichen werden
+(bildunabhängig). Stimmt der Datentext mit der Errata-Korrektur überein, ist der
+Erstdruck überschrieben → zum Erstdruck zurücksetzen (Original-Text aus verlässlicher
+Quelle, NICHT aus dem errata'd Scan; keine Rate-Übersetzung).
+
+Für die Wiederherstellung des Erstdrucks fehlt teils eine verlässliche DE-Quelle
+(Repo-Scans errata'd) → Original-Text vom User/aus Erstdruck-Quelle beziehen.
+
 # Citations
 
 [1] CLAUDE.md → „Schutzregeln" (Regel „Kartentext = priorisierte Wahrheit").
