@@ -41,26 +41,30 @@ Die Karte ist die einzige verlässliche, prüfbare Quelle; sie schlägt jede Sek
 - Offene Audit-Aufgabe: systematisch prüfen, wo das UI noch EN-Karten zeigt, obwohl ein
   deutsches Bild im Release vorliegt (→ ersetzen).
 
-# ⚠️ Caveat: Deutsche Scans können Errata-Nachdrucke sein (2026-07-18)
+# ⚠️ Zwei Druckauflagen: manche DE-Scans sind Errata-Nachdrucke (2026-07-18, geklärt)
 
-Beim Errata-Overwrite-Audit (v1.6.8) stellte sich heraus: **Nicht jeder deutsche
-Repo-Scan zeigt den Erstdruck.** Einige `public/cards/de/**`-Bilder sind
-**Errata-korrigierte Nachdrucke**. Belegt am **Schattendrachen**:
-`shadow-dragon-act1-back.webp` druckt bereits die Errata-Fassung der Fähigkeit
-„Schatten" („Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff
-ansagt …"), NICHT den Erstdruck („Wenn ein Held dieses Monster von einem
-Nachbarfeld aus angreift …").
+Von einigen Descent-2e-Karten existieren **zwei physische Druckauflagen**: ein
+**Erstdruck** (Original-Text) und ein **späterer Nachdruck**, der die offiziellen
+**FFG-Errata direkt auf die Karte** übernommen hat. Entsprechend zeigt **nicht jeder
+deutsche Repo-Scan den Erstdruck** — einige `public/cards/de/**`-Bilder sind der
+**Errata-Nachdruck**. Belegt am **Schattendrachen**: `shadow-dragon-act1-back.webp`
+druckt die Fähigkeit „Schatten" als „Sobald ein Held, der benachbart zu diesem
+Monster ist, einen Angriff ansagt …" (= Errata-Fassung). Es existieren aber auch
+Erstdruck-Exemplare mit „Wenn ein Held dieses Monster von einem Nachbarfeld aus
+angreift …" (User besitzt beide physisch).
 
-**Konsequenz für Overwrite-Prüfungen:** Ein reiner *Daten↔Scan*-Vergleich kann einen
-Errata-Overwrite NICHT erkennen, wenn Daten == Scan == Errata. Um zu prüfen, ob der
-**Haupttext fälschlich die Errata-Fassung** statt des Erstdrucks enthält, muss der
-**Datentext direkt gegen die CRRG-Errata-„sollte lauten"-Fassung** verglichen werden
-(bildunabhängig). Stimmt der Datentext mit der Errata-Korrektur überein, ist der
-Erstdruck überschrieben → zum Erstdruck zurücksetzen (Original-Text aus verlässlicher
-Quelle, NICHT aus dem errata'd Scan; keine Rate-Übersetzung).
+**Das ist KEIN Bug und wird NICHT „zurückkorrigiert".** Regel bleibt: der **vorliegende
+Scan = höchste Priorität**. Die Daten folgen dem Scan — auch wenn er die Errata-Fassung
+zeigt (die abgebildete Karte sagt genau das). Der Errata-Hinweis bleibt zusätzlich als
+additive ErrataBox; bei einem Errata-Nachdruck sagen Haupttext und ErrataBox schlicht
+dasselbe.
 
-Für die Wiederherstellung des Erstdrucks fehlt teils eine verlässliche DE-Quelle
-(Repo-Scans errata'd) → Original-Text vom User/aus Erstdruck-Quelle beziehen.
+**Wie man „Original vs. Errata" erkennt** (falls je relevant): Datentext/​Scan gegen die
+CRRG-Errata-„sollte lauten"-Fassung vergleichen (bildunabhängig). Stimmt der Scan-Text
+mit der Errata-Korrektur überein → der Scan ist ein Errata-Nachdruck. **Monster mit
+Errata-Nachdruck-Text:** Schattendrache/Schatten, Goblin-Schamane/Verzaubern (Liste in
+`docs/game-data/de-karten/monster.md`). Nicht auf einen Erstdruck „zurücksetzen", außer
+der User gibt das ausdrücklich vor.
 
 # Citations
 

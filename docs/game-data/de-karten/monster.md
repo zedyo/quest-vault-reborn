@@ -15,6 +15,38 @@
 - **Begriffe der Karten:** „normales Monster“ (Diener), „Elite-Monster“ (Meister), „niedergestreckt“, „Aufrappeln“, „gelähmt“, „erkrankt“, „verängstigt“.
 
 
+## Zwei Druckversionen (Errata-Nachdrucke) — 2026-07-18
+
+Von einigen Descent-2e-Karten gibt es **zwei physische Druckauflagen**: einen älteren
+**Erstdruck** (Original-Text) und einen späteren **Nachdruck**, der die offiziellen
+**FFG-Errata/FAQ direkt auf die Karte** übernommen hat (FFG korrigierte den Kartentext
+bei Neuauflagen so, dass er der FAQ entspricht). Manche unserer DE-Scans sind der
+**Errata-Nachdruck**. **Wir folgen dem vorliegenden Scan** (Kartentext = höchste
+Priorität) — das ist gewollt, kein Fehler. Der Errata-Hinweis bleibt zusätzlich als
+ErrataBox.
+
+**Monster, deren Rückseiten-Fähigkeitstext = die Errata-Fassung ist** (unser Scan ist
+also der Errata-Nachdruck):
+
+| Monster | Fähigkeit | Kartentext (= Errata-Nachdruck, im Projekt) | Erstdruck-Original (nur zur Info, NICHT im Projekt) |
+|---|---|---|---|
+| Schattendrache | Schatten | „Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.“ | „Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.“ |
+| Goblin-Schamane | Verzaubern | „Bewege jeden Verfluchten Helden auf Nachbarfeldern dieses Monsters um bis zu 2 Felder in beliebiger Richtung.“ | (Erstdruck-Wortlaut nicht belegt) |
+
+**Alle übrigen Monster-Text-Errata halten den Erstdruck** (Scan ≠ Errata-Korrektur),
+u. a.: Krähenhexe/Todesomen, Riese (UK)/Rundumschlag + Troll (UK)/Rundumschlag („alle
+**anderen** Figuren“), Elementar/Luft, Höllenkoloss/Sturmangriff („Beginn seines
+**Zuges**“), Wechselbalg/Höhnisches Lachen („(mindestens 1)“ statt „(bis zu einem
+Minimum von 1)“).
+
+**Hintergrund/Quellen:** FFG pflegt ein offizielles Errata-&-FAQ-Dokument (bis v1.6) mit
+Kartentext-Änderungen; bei Neuauflagen wurden die Karten entsprechend nachgedruckt. Die
+Fandom-/BGG-Community dokumentiert für den Schattendrachen genau die Errata-Fassung
+(„A hero adjacent to this monster that declares an attack must spend 1 [surge] …“).
+Belege: FFG FAQ v1.6 (fantasyflightgames.com), BGG-Threads „New Printings and Errata“ /
+„FAQ 1.6 – Errata Card changes“, Descent-Community CRRG, descent2e.fandom.com.
+
+
 ## Grundspiel
 
 ### Barghest  *(EN: Barghest)* · `barghest`
@@ -59,7 +91,7 @@
 
 ### Schattendrache  *(EN: Shadow Dragon)* · `shadow-dragon`
 **Eigenschaften:** Dunkel, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [1, 0], p3: [0, 1], p4: [1, 1]
-- Schatten: Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl. *(Original-Kartentext; die Errata-Fassung „Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt …" steht nur in der ErrataBox.)*
+- Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl. *(Text vom vorliegenden DE-Scan = Errata-Nachdruck; ältere Erstdruck-Karten drucken „Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift …". Wir folgen dem Scan — Kartentext = höchste Priorität. Siehe „Zwei Druckversionen" unten.)*
 - Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.
 
 ### Zombie  *(EN: Zombie)* · `zombie`

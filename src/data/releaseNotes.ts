@@ -24,7 +24,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
     date: '2026-07-18',
     title: 'Kartentexte an die deutschen Originalkarten angeglichen',
     highlights: [
-      'Kartentexte werden gegen die deutschen Karten geprüft: Der angezeigte Fähigkeits-/Regeltext soll immer der Original-Kartentext sein, die Errata-Hinweise bleiben reine Zusatz-Infoboxen. Wo im Haupttext versehentlich eine Errata-Fassung stand (z. B. beim Schattendrachen), wird sie auf den Original-Kartentext zurückgesetzt.',
+      'Kartentexte gegen die deutschen Kartenbilder geprüft: Die angezeigten Fähigkeits-/Regeltexte folgen dem vorliegenden deutschen Kartendruck, die Errata-Hinweise bleiben reine Zusatz-Infoboxen. (Hinweis: Von einigen Karten gibt es zwei Druckauflagen – einen älteren Erstdruck und einen neueren Nachdruck, der die offiziellen Errata bereits auf der Karte enthält; abgebildet wird die vorliegende Auflage.)',
       'Dabei 18 kleine Abschreibfehler korrigiert (z. B. Fallen des Overlords prüfen „Gespür" statt „Wahrnehmung"; Krypten-/Unterweltdrache und Dunkler Priester nun „Grauenerregend"; einzelne fehlende oder zu viel abgeschriebene Wörter bei Helden-, Monster-, Item- und Overlordkarten).',
     ],
   },

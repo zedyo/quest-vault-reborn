@@ -185,12 +185,12 @@ export const MONSTERS: Monster[] = [
     normal: {
       speed: 3, health: 6, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+1 Herz'],
-      abilities: ['Schatten: Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.'],
+      abilities: ['Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.'],
     },
     master: {
       speed: 3, health: 9, defense: ['gray', 'gray'], attack: ['blue', 'red'],
       surges: ['+2 Herzen', 'Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.'],
-      abilities: ['Schatten: Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.'],
+      abilities: ['Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.'],
     },
     act2Normal: { speed: 3, health: 8, defense: ['gray', 'black'], attack: ['blue', 'red', 'red'], surges: ['+2 Herzen'] },
     act2Master: { speed: 3, health: 10, defense: ['gray', 'black'], attack: ['blue', 'red', 'red'], surges: ['+3 Herzen'] },
