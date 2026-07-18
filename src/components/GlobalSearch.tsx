@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
+import { useState, useRef, useEffect, useMemo, useCallback, useId } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { searchEntries, type SearchEntry } from '../data/rulesSearchIndex'
 import { renderGameTextInline } from './GameSymbols'
@@ -12,12 +12,22 @@ function snippet(text: string): string {
   return t.length > 110 ? t.slice(0, 110) + '…' : t
 }
 
+interface Props {
+  /** Volle Breite (mobiles Overlay) statt fester Topbar-Breite. */
+  fullWidth?: boolean
+  /** Beim Einblenden fokussieren (mobiles Overlay). */
+  autoFocus?: boolean
+  /** Wird nach Navigation oder Escape aufgerufen – schließt das mobile Overlay. */
+  onClose?: () => void
+}
+
 /**
- * Globale Fuzzy-Suche in der Topbar: Live-Vorschau-Dropdown beim Tippen (Top-Treffer
- * quer über Regeln + alle Kartentexte), Tastatur-Navigation (↑/↓/Enter/Esc), „Alle
- * Treffer"-Fußzeile → /suche?q=. Nutzt denselben Index wie die /suche-Seite.
+ * Globale Fuzzy-Suche mit Live-Vorschau-Dropdown beim Tippen (Top-Treffer quer über
+ * Regeln + alle Kartentexte), Tastatur-Navigation (↑/↓/Enter/Esc), „Alle Treffer"-
+ * Fußzeile → /suche?q=. Desktop: fest in der Topbar. Mobil: `fullWidth`+`autoFocus`
+ * im Overlay. Nutzt denselben Index wie die /suche-Seite.
  */
-export default function GlobalSearch() {
+export default function GlobalSearch({ fullWidth = false, autoFocus = false, onClose }: Props) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(-1)
@@ -25,6 +35,8 @@ export default function GlobalSearch() {
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const location = useLocation()
+  // Eindeutige Panel-ID je Instanz (Desktop + mobiles Overlay existieren gleichzeitig im DOM).
+  const panelId = useId()
 
   const all = useMemo(() => (query.trim().length >= MIN ? searchEntries(query) : []), [query])
   const shown = all.slice(0, PREVIEW)
@@ -32,6 +44,11 @@ export default function GlobalSearch() {
   // Fußzeilen-Zeile („Alle N Treffer") ist Index `shown.length` in der Navigation.
   const footerIndex = shown.length
   const showPanel = open && query.trim().length >= MIN
+
+  // Optional beim Einblenden fokussieren (mobiles Overlay).
+  useEffect(() => {
+    if (autoFocus) { inputRef.current?.focus(); setOpen(true) }
+  }, [autoFocus])
 
   // Bei Navigationswechsel schließen.
   useEffect(() => { setOpen(false); setActive(-1) }, [location.key])
@@ -50,17 +67,19 @@ export default function GlobalSearch() {
     navigate(`/suche?q=${encodeURIComponent(query.trim())}`)
     setOpen(false)
     inputRef.current?.blur()
-  }, [navigate, query])
+    onClose?.()
+  }, [navigate, query, onClose])
 
   const openEntry = useCallback((e: SearchEntry) => {
     navigate(e.link)
     setOpen(false)
     setActive(-1)
     inputRef.current?.blur()
-  }, [navigate])
+    onClose?.()
+  }, [navigate, onClose])
 
   function onKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Escape') { setOpen(false); setActive(-1); inputRef.current?.blur(); return }
+    if (e.key === 'Escape') { setOpen(false); setActive(-1); inputRef.current?.blur(); onClose?.(); return }
     if (!showPanel || total === 0) {
       if (e.key === 'Enter' && query.trim().length >= MIN) goToFull()
       return
@@ -76,7 +95,7 @@ export default function GlobalSearch() {
 
   return (
     <div ref={rootRef} className="relative">
-      <div className="flex items-center gap-2.5 h-10 w-[240px] lg:w-[320px] px-3 rounded-control bg-surface border border-line focus-within:border-accent-line transition-colors">
+      <div className={`flex items-center gap-2.5 h-10 ${fullWidth ? 'w-full' : 'w-[240px] lg:w-[320px]'} px-3 rounded-control bg-surface border border-line focus-within:border-accent-line transition-colors`}>
         <svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.7" className="shrink-0 text-faint" aria-hidden>
           <circle cx="8" cy="8" r="4.4" /><line x1="11.4" y1="11.4" x2="14.5" y2="14.5" />
         </svg>
@@ -91,16 +110,16 @@ export default function GlobalSearch() {
           aria-label="Globale Suche"
           role="combobox"
           aria-expanded={showPanel}
-          aria-controls="global-search-panel"
+          aria-controls={panelId}
           className="min-w-0 flex-1 bg-transparent border-0 outline-none font-body text-sm text-fg placeholder:text-faint placeholder:italic"
         />
       </div>
 
       {showPanel && (
         <div
-          id="global-search-panel"
+          id={panelId}
           role="listbox"
-          className="absolute z-30 mt-1.5 left-0 w-[min(92vw,420px)] max-h-[70vh] overflow-y-auto rounded-card border border-line bg-surface-2 shadow-panel py-1"
+          className={`absolute z-30 mt-1.5 max-h-[70vh] overflow-y-auto rounded-card border border-line bg-surface-2 shadow-panel py-1 ${fullWidth ? 'left-0 right-0' : 'left-0 w-[min(92vw,420px)]'}`}
         >
           {total === 0 ? (
             <div className="px-3 py-3 text-sm text-muted">Keine Treffer für „{query.trim()}".</div>

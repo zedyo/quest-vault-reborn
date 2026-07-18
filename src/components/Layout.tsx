@@ -166,10 +166,11 @@ function Atmosphere() {
 
 export default function Layout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const location = useLocation()
 
-  // Drawer bei Navigationswechsel schließen.
-  useEffect(() => { setDrawerOpen(false) }, [location.pathname])
+  // Drawer + mobiles Such-Overlay bei Navigationswechsel schließen.
+  useEffect(() => { setDrawerOpen(false); setMobileSearchOpen(false) }, [location.pathname])
 
   return (
     <div className="h-screen flex overflow-hidden bg-bg text-fg">
@@ -185,6 +186,25 @@ export default function Layout() {
           <aside className="relative w-[264px] max-w-[80%] flex flex-col bg-surface-2 border-r border-line shadow-2xl">
             <SidebarContent onNavigate={() => setDrawerOpen(false)} />
           </aside>
+        </div>
+      )}
+
+      {/* Mobiles Such-Overlay (Top-Sheet) */}
+      {mobileSearchOpen && (
+        <div className="sm:hidden fixed inset-0 z-[60]">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setMobileSearchOpen(false)} />
+          <div className="relative bg-bg border-b border-line px-3 py-3 flex items-center gap-2 shadow-panel">
+            <div className="flex-1 min-w-0">
+              <GlobalSearch fullWidth autoFocus onClose={() => setMobileSearchOpen(false)} />
+            </div>
+            <button
+              onClick={() => setMobileSearchOpen(false)}
+              className="shrink-0 w-10 h-10 flex items-center justify-center rounded-control text-muted hover:bg-surface-2 transition-colors"
+              aria-label="Suche schließen"
+            >
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><line x1="4.5" y1="4.5" x2="13.5" y2="13.5" /><line x1="13.5" y1="4.5" x2="4.5" y2="13.5" /></svg>
+            </button>
+          </div>
         </div>
       )}
 
@@ -205,6 +225,13 @@ export default function Layout() {
             <div className="hidden sm:block">
               <GlobalSearch />
             </div>
+            <button
+              className="sm:hidden w-10 h-10 flex items-center justify-center rounded-control text-muted hover:bg-surface-2 transition-colors"
+              aria-label="Suche öffnen"
+              onClick={() => setMobileSearchOpen(true)}
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="8" cy="8" r="4.4" /><line x1="11.4" y1="11.4" x2="14.5" y2="14.5" /></svg>
+            </button>
           </div>
           <div className="flex items-center gap-2">
             <Link
