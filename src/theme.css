@@ -37,6 +37,9 @@
   --qv-btn-text:      #f3e6df;
   --qv-btn-border:    #7e1616;
   --qv-btn-shadow:    0 6px 18px -6px rgba(181, 38, 38, 0.9);
+  /* Weicher Akzent-Glow (aus der Akzentfarbe abgeleitet) – für hervorgehobene
+     „nur Meister"-Elemente. Keine neue Farbe, nur ein Schatten des Akzents. */
+  --qv-glow-accent:   0 0 8px rgba(181, 38, 38, 0.55);
 
   --qv-font-display:  'Pirata One', 'Cinzel', serif;
   --qv-font-head:     'Cormorant Garamond', 'EB Garamond', serif;
@@ -98,6 +101,7 @@
   --qv-btn-text:      #3a2b0d;
   --qv-btn-border:    #6e5210;
   --qv-btn-shadow:    0 6px 18px -6px rgba(150, 110, 20, 0.7);
+  --qv-glow-accent:   0 0 8px rgba(169, 129, 47, 0.5);
 
   --qv-font-display:  'Cinzel', serif;
   --qv-font-head:     'Cinzel', serif;

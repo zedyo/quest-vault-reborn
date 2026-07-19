@@ -20,6 +20,18 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.10',
+    date: '2026-07-19',
+    title: '„Monster des Tages" komplett neu',
+    highlights: [
+      'Das Widget auf der Startseite zeigt jetzt ein täglich wechselndes Monster mit vollständigen Diener- und Meister-Werten, Akt-I/II-Umschalter, Kartenbild und allen Fähigkeiten je Rang.',
+      'Fähigkeiten sind sauber nach Diener/Meister aufgeschlüsselt (inkl. unterschiedlicher Stufen, z. B. Naga „Hexerei 1/2") und Bonus-Energie („+N Herz/Reichweite") steht vorn.',
+      'Im Akt II markieren kleine Pfeile, welche Werte gegenüber Akt I stärker geworden sind – ohne dass die Tabelle springt.',
+      'Fähigkeiten mit passendem Errata-/FAQ-Eintrag verlinken direkt zur Errata-Seite; „Im Kompendium ansehen" springt gefiltert zum Monster.',
+      'Die tägliche Auswahl ist jetzt gleichmäßig gemischt – jedes Monster kommt einmal an die Reihe, bevor sich etwas wiederholt.',
+    ],
+  },
+  {
     version: '1.6.9',
     date: '2026-07-19',
     title: 'Deutsche Klassen-Fertigkeitskarten als Bilder',

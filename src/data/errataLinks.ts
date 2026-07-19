@@ -214,6 +214,17 @@ export function getMonsterAbilityErrata(monsterId: string): LinkedErrata[] {
   return monsterAbilityErrataById.get(monsterId) ?? []
 }
 
+/**
+ * Monsterfähigkeiten-Errata zu EINEM Fähigkeitsnamen (z. B. „Durchbohren 2:…"
+ * oder „Feuerodem"). Der Basisname (Text vor dem „:", ohne angehängte
+ * Stufenzahl) wird normalisiert und gegen die CRRG-Schlagwörter abgeglichen.
+ * Rückgabe: der passende Errata-Eintrag oder `undefined`.
+ */
+export function getAbilityErrataByName(name: string): LinkedErrata | undefined {
+  const head = name.split(':')[0].replace(/\s+\d+\s*$/, '').trim()
+  return abilityErrataByKey.get(norm(head))
+}
+
 /** Anteil der auflösbaren Einträge (für Datenintegritäts-Tests / Diagnose). */
 export const ERRATA_LINK_STATS = {
   total: LINKED_ERRATA.length,
