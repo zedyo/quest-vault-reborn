@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { RULE_CLARIFICATIONS, CRRG_SOURCE, CRRG_URL } from '../data/ruleClarifications'
 import { LINKED_ERRATA, type LinkedErrata } from '../data/errataLinks'
 import { ErrataEntryBody } from '../components/ErrataBox'
@@ -117,11 +117,14 @@ function ClarificationCard({
   )
 }
 
-function ErrataCard({ e }: { e: LinkedErrata }) {
+function ErrataCard({ e, highlighted }: { e: LinkedErrata; highlighted?: boolean }) {
   const link = e.targetId ? SCOPE_LINK[e.scope] : null
   const to = link ? (e.scope === 'plot' ? `${link.path}?deck=${e.targetId}` : link.path) : null
   return (
-    <div className="card space-y-1.5">
+    <div
+      id={`err-${e.id}`}
+      className={`card space-y-1.5 scroll-mt-24 transition-shadow ${highlighted ? 'ring-2 ring-gold-400' : ''}`}
+    >
       <div className="flex items-baseline justify-between gap-2">
         <h4 className="text-gray-100 font-semibold text-sm leading-snug">
           {e.nameDe}
@@ -150,13 +153,34 @@ const ERRATA_SECTIONS = Array.from(new Set(LINKED_ERRATA.map((e) => e.sectionDe)
 )
 
 export default function RulesClarificationsPage() {
+  const [searchParams] = useSearchParams()
   const [tab, setTab] = useState<Tab>('rules')
   const [search, setSearch] = useState('')
   const [sectionFilter, setSectionFilter] = useState<string>('all')
   const [highlightId, setHighlightId] = useState<string | null>(null)
+  const [errataHighlightId, setErrataHighlightId] = useState<string | null>(null)
   const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const errataHighlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const q = norm(search.trim())
+
+  // Deep-Link `/klarstellungen?errata=<id>` (z. B. aus dem „Monster des Tages"-
+  // Widget): Errata-Tab öffnen, Filter zurücksetzen, Eintrag anspringen + kurz
+  // hervorheben. Gleiche Mechanik wie die interne „Verwandt"-Sprungmarke.
+  const errataParam = searchParams.get('errata')
+  useEffect(() => {
+    if (!errataParam) return
+    setTab('errata')
+    setSectionFilter('all')
+    setSearch('')
+    setErrataHighlightId(errataParam)
+    requestAnimationFrame(() => {
+      document.getElementById(`err-${errataParam}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    })
+    if (errataHighlightTimer.current) clearTimeout(errataHighlightTimer.current)
+    errataHighlightTimer.current = setTimeout(() => setErrataHighlightId(null), 2500)
+  }, [errataParam])
+  useEffect(() => () => { if (errataHighlightTimer.current) clearTimeout(errataHighlightTimer.current) }, [])
 
   const clarifications = useMemo(
     () => RULE_CLARIFICATIONS.filter((c) => clarificationMatches(c, q)),
@@ -281,7 +305,7 @@ export default function RulesClarificationsPage() {
                   </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
                   {entries.map((e) => (
-                    <ErrataCard key={e.id} e={e} />
+                    <ErrataCard key={e.id} e={e} highlighted={e.id === errataHighlightId} />
                   ))}
                 </div>
                 </section>

@@ -4,15 +4,9 @@ import { useGameStore } from '../store/useGameStore'
 import { useSessionStore } from '../store/useSessionStore'
 import { deriveLiveState } from '../store/sessionDerive'
 import { HEROES } from '../data/heroes'
-import { MONSTERS } from '../data/monsters'
 import ReleaseNotesModal from '../components/ReleaseNotesModal'
+import MonsterOfTheDay from '../components/MonsterOfTheDay'
 import { Icon, type IconName } from '../components/QvIcons'
-
-// Würfelfarben (theme-unabhängig, wie im Design-System).
-const DIE: Record<string, string> = {
-  blue: '#3d84c6', red: '#c23a2d', yellow: '#e0a92b', green: '#4a9d5b',
-  white: '#e8e2d5', gray: '#9a9088', brown: '#7c5a3a', black: '#2a2622', silver: '#c6ccd2',
-}
 
 const LIBRARY: { to: string; label: string; icon: IconName }[] = [
   { to: '/monster', label: 'Monster', icon: 'monster' },
@@ -58,9 +52,6 @@ export default function HomePage() {
 
   const recentQuests = [...quests].reverse().slice(0, 4)
 
-  // Monster des Tages – deterministisch, wechselt täglich.
-  const daily = MONSTERS[Math.floor(Date.now() / 86_400_000) % MONSTERS.length]
-
   return (
     <div className="p-5 md:p-6 flex flex-col gap-[18px] max-w-[1240px]">
       {showNotes && <ReleaseNotesModal onClose={() => setShowNotes(false)} />}
@@ -71,7 +62,7 @@ export default function HomePage() {
       </div>
 
       {/* Reihe A: Weiter im Spiel + Monster des Tages */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-start">
         {activeSession ? (
           <section className="relative overflow-hidden border border-accent-line rounded-card bg-surface p-5">
             <div className="pointer-events-none absolute -top-14 -right-8 w-[220px] h-[180px]" style={{ background: 'radial-gradient(circle at 60% 40%, var(--qv-accent-soft), transparent 68%)', filter: 'blur(18px)' }} />
@@ -136,39 +127,7 @@ export default function HomePage() {
         )}
 
         {/* Monster des Tages */}
-        <section className="relative border border-line rounded-card bg-surface p-4 flex flex-col">
-          <div className="relative h-[126px] rounded-control overflow-hidden border border-line flex items-end justify-between p-3"
-            style={{ backgroundImage: 'repeating-linear-gradient(45deg, var(--qv-surface-2) 0 11px, var(--qv-bg) 11px 22px)' }}>
-            <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 40%, var(--qv-accent-soft), transparent 66%)' }} />
-            <span className="relative font-mono text-[9.5px] tracking-wider text-faint">MONSTER DES TAGES</span>
-            <span className="relative px-2 py-0.5 rounded-md font-mono text-[9.5px]" style={{ background: 'rgba(0,0,0,.4)', color: '#e8e2d5' }}>
-              {daily.attackType === 'range' ? 'FERN' : 'NAH'}
-            </span>
-          </div>
-          <div className="mt-3">
-            <h3 className="font-head font-bold text-xl leading-tight text-fg">{daily.nameDe}</h3>
-            <p className="mt-0.5 text-xs text-muted">{(daily.traits ?? []).join(' · ')}</p>
-          </div>
-          <div className="mt-3 flex gap-2">
-            <div className="flex-1 rounded-chip bg-surface-2 px-2.5 py-2">
-              <div className="font-mono text-[8.5px] tracking-wider text-faint">TEMPO</div>
-              <div className="font-head font-semibold text-lg text-fg mt-0.5">{daily.normal?.speed ?? '–'}</div>
-            </div>
-            <div className="flex-[1.6] rounded-chip bg-surface-2 px-2.5 py-2">
-              <div className="font-mono text-[8.5px] tracking-wider text-faint">LEBEN · D / M</div>
-              <div className="font-head font-semibold text-lg text-fg mt-0.5">{daily.normal?.health ?? '–'} · <span className="text-accent-bright">{daily.master?.health ?? '–'}</span></div>
-            </div>
-          </div>
-          <div className="mt-2.5 flex items-center gap-2">
-            <span className="font-mono text-[8.5px] tracking-wider text-faint">ANGRIFF</span>
-            <span className="flex gap-1">
-              {(daily.normal?.attack ?? []).map((c, i) => (
-                <span key={i} className="w-3.5 h-3.5 rounded-[3px]" style={{ background: DIE[c] ?? '#888', boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.3)' }} />
-              ))}
-            </span>
-          </div>
-          <Link to="/monster" className="mt-auto pt-3 font-head font-semibold text-sm text-accent-bright hover:brightness-110">Im Kompendium ansehen ›</Link>
-        </section>
+        <MonsterOfTheDay />
       </div>
 
       {/* Reihe B: Zuletzt bearbeitet + Schnellstart */}
