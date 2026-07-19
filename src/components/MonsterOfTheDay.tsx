@@ -218,7 +218,7 @@ export default function MonsterOfTheDay() {
   const hasAbilities = agg.passive.boxes.length + agg.surge.boxes.length + agg.surge.boosts.length + agg.action.boxes.length > 0
 
   return (
-    <article className="bg-surface border border-line rounded-card shadow-panel overflow-hidden flex flex-col">
+    <article className="bg-surface border border-line rounded-card overflow-hidden flex flex-col">
       {/* 1. Bild-Banner */}
       <div className="relative overflow-hidden" style={{ height: 176, borderBottom: '1px solid var(--qv-border)' }}>
         {!imgError ? (

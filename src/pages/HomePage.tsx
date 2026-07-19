@@ -61,8 +61,11 @@ export default function HomePage() {
         <p className="mt-1 text-sm text-muted">Willkommen zurück, Spielleiter — der Kerker wartet.</p>
       </div>
 
-      {/* Reihe A: Weiter im Spiel + Monster des Tages */}
+      {/* Hauptbereich: linke Spalte (Session · Zuletzt · Schnellstart) gestapelt
+          neben dem hohen „Monster des Tages"-Widget – so füllt die linke Spalte
+          die Höhe und es entsteht kein großer Leerraum. */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-start">
+        <div className="flex flex-col gap-4 min-w-0">
         {activeSession ? (
           <section className="relative overflow-hidden border border-accent-line rounded-card bg-surface p-5">
             <div className="pointer-events-none absolute -top-14 -right-8 w-[220px] h-[180px]" style={{ background: 'radial-gradient(circle at 60% 40%, var(--qv-accent-soft), transparent 68%)', filter: 'blur(18px)' }} />
@@ -126,12 +129,7 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Monster des Tages */}
-        <MonsterOfTheDay />
-      </div>
-
-      {/* Reihe B: Zuletzt bearbeitet + Schnellstart */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-4 items-start">
+        {/* Zuletzt bearbeitet */}
         <section className="border border-line rounded-card bg-surface p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-head font-semibold text-lg text-fg">Zuletzt bearbeitet</h3>
@@ -160,6 +158,7 @@ export default function HomePage() {
           )}
         </section>
 
+        {/* Schnellstart */}
         <div className="flex flex-col gap-3">
           <div className="font-mono text-[10px] tracking-[0.16em] uppercase text-faint pl-0.5">Schnellstart</div>
           {QUICKSTART.map((q) => (
@@ -173,6 +172,10 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+        </div>
+
+        {/* Monster des Tages */}
+        <MonsterOfTheDay />
       </div>
 
       {/* Reihe C: Bibliothek */}
