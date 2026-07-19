@@ -43,21 +43,21 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/warriors/berserker/bg-counter-attack.png',
       },
       {
-        id: 'cripple', nameEn: 'Cripple', nameDe: 'Verkrüppeln',
+        id: 'cripple', nameEn: 'Cripple', nameDe: 'Verstümmeln',
         xpCost: 1, fatigueCost: 2,
         rulesEn: 'Exhaust this card during your turn to choose a monster adjacent to you and test Might. If you pass, the monster is Immobilized.',
         rulesDe: 'Erschöpfe diese Karte zu einem beliebigen Zeitpunkt deines Zugs, wähle ein Monster auf einem deiner Nachbarfelder und lege eine Stärke-Probe ab. Wenn sie gelingt, ist das Monster gelähmt.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/warriors/berserker/bg-cripple.png',
       },
       {
-        id: 'charge', nameEn: 'Charge', nameDe: 'Ansturm',
+        id: 'charge', nameEn: 'Charge', nameDe: 'Sturmangriff',
         xpCost: 2, fatigueCost: 2,
         rulesEn: 'Action: Move up to your Speed and then perform an attack with a Melee weapon.',
         rulesDe: 'Aktion: Bewege dich gemäß deiner Geschwindigkeit, und führe einen Angriff mit einer Nahkampfwaffe durch.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/warriors/berserker/bg-charge.png',
       },
       {
-        id: 'weaponmastery', nameEn: 'Weapon Mastery', nameDe: 'Waffenmeisterschaft',
+        id: 'weaponmastery', nameEn: 'Weapon Mastery', nameDe: 'Waffen-Beherrschung',
         xpCost: 2, fatigueCost: 2,
         rulesEn: 'Each time you perform an attack with either 1 Melee weapon with 2 hand icons or 2 Melee weapons with 1 hand icon each, you may exhaust this card to add 1 Surge to the results.',
         rulesDe: 'Wenn du mit 1 Nahkampfwaffe mit 2 Handsymbolen oder mit 2 Nahkampfwaffen mit je 1 Handsymbol ausgerüstet bist, kannst du nach deinem Angriff diese Karte erschöpfen, um dem Würfelergebnis 1 Schub hinzuzufügen.',
@@ -71,14 +71,14 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/warriors/berserker/bg-whirlwind.png',
       },
       {
-        id: 'deathrage', nameEn: 'Death Rage', nameDe: 'Todeswut',
+        id: 'deathrage', nameEn: 'Death Rage', nameDe: 'Todesrausch',
         xpCost: 3, fatigueCost: 2,
         rulesEn: 'Action: Perform an attack with a Melee weapon. This attack gains: Surge: +1 Heart for every 2 Hearts on your Hero sheet.',
         rulesDe: 'Aktion: Führe einen Angriff mit einer Nahkampfwaffe durch. Der Angriff hat: Schub: +1 Herz pro 2 Herzen auf deinem Heldenbogen.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/base-game/warriors/berserker/bg-death-rage.png',
       },
       {
-        id: 'execute', nameEn: 'Execute', nameDe: 'Hinrichten',
+        id: 'execute', nameEn: 'Execute', nameDe: 'Todesstoss',
         xpCost: 3, fatigueCost: 'X',
         rulesEn: 'When performing an attack with a Melee weapon, after the dice are rolled, exhaust this card to gain +X Hearts, where X is the amount of Fatigue suffered to use this skill.',
         rulesDe: 'Wenn du mit einer Nahkampfwaffe angreifst, kannst du diese Karte nach dem Würfelwurf erschöpfen, damit der Angriff +X Herzen bekommt, wobei X gleich der Menge an Erschöpfung ist, die du für den Einsatz dieser Fertigkeit erlitten hast.',
@@ -1861,7 +1861,7 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/labyrinth-of-ruin/scouts/treasure-hunter/lr-gold-rush.png',
       },
       {
-        id: 'thsurvey', nameEn: 'Survey', nameDe: 'Erkundung',
+        id: 'thsurvey', nameEn: 'Survey', nameDe: 'Auskundschaften',
         xpCost: 1, fatigueCost: 1,
         rulesEn: 'You gain +1 Stamina, even while this card is exhausted. Exhaust this card during your turn to look at the top 3 cards of the Search deck. You may return the cards to the top of the Search deck in any order you choose.',
         rulesDe: 'Deine Ausdauer steigt um 1 Punkt, auch wenn diese Karte erschöpft ist. Erschöpfe diese Karte in deinem Zug, um dir die obersten 3 Karten des Suchstapels anzusehen. Lege sie dann in beliebiger Reihenfolge zurück.',
@@ -1889,7 +1889,7 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/labyrinth-of-ruin/scouts/treasure-hunter/lr-sleight-of-hand.png',
       },
       {
-        id: 'thfinderskeepers', nameEn: "Finder's Keepers", nameDe: 'Wer findet, der behält',
+        id: 'thfinderskeepers', nameEn: "Finder's Keepers", nameDe: 'Finderlohn',
         xpCost: 3, fatigueCost: 1,
         rulesEn: 'Action: Perform an attack with an Exotic weapon, adding 1 additional green power die to your attack pool. This attack gains: Surge: +1 Heart for each Search card you have (facedown or faceup), up to a maximum of +4 Hearts.',
         rulesDe: 'Aktion: Führe einen Angriff mit einer Exotischen Waffe durch und füge deinem Angriffswurf 1 grünen Machtwürfel hinzu. Der Angriff hat: Schub: +1 Herz pro Suchkarte, die du hast (benutzt und unbenutzt), höchstens jedoch +4 Herzen.',
@@ -2006,7 +2006,7 @@ export const HERO_CLASSES: HeroClass[] = [
     ],
     skills: [
       {
-        id: 'swsoulbound', nameEn: 'Soul Bound', nameDe: 'Seelengebunden',
+        id: 'swsoulbound', nameEn: 'Soul Bound', nameDe: 'Seelenverwandt',
         xpCost: 0, fatigueCost: 1,
         rulesEn: 'Use this card when you perform an attack that is not a miss. Place a Shadow Soul in any space adjacent to the target. Only 1 Shadow Soul can be on the map at any time.',
         rulesDe: 'Benutze diese Karte nach einem eigenen Angriff, der kein Fehlschlag ist. Lege den Vertrauten Schattenseele auf ein Nachbarfeld des Ziels.',
@@ -2020,7 +2020,7 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-dark-servant.png',
       },
       {
-        id: 'swfaithfulfriend', nameEn: 'Faithful Friend', nameDe: 'Treuer Gefährte',
+        id: 'swfaithfulfriend', nameEn: 'Faithful Friend', nameDe: 'Treuer Freund',
         xpCost: 1, fatigueCost: 0,
         rulesEn: 'Exhaust this card at the start of your turn to place a Shadow Soul in a space within 3 spaces of you.',
         rulesDe: 'Erschöpfe diese Karte zu Beginn deines Zuges, um den Vertrauten Schattenseele auf ein Feld innerhalb von 3 Feldern zu dir zu legen.',
@@ -2055,14 +2055,14 @@ export const HERO_CLASSES: HeroClass[] = [
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-otherworldly.png',
       },
       {
-        id: 'swshadowpuppet', nameEn: 'Shadow Puppet', nameDe: 'Schattenpuppe',
+        id: 'swshadowpuppet', nameEn: 'Shadow Puppet', nameDe: 'Schatten-Marionette',
         xpCost: 3, fatigueCost: 3,
         rulesEn: 'Action: Exhaust this card to choose a monster within 3 spaces of a Shadow Soul. Perform an attack with that Shadow Soul, using the attack type, dice, and surge abilities of that monster.',
         rulesDe: 'Aktion: Erschöpfe diese Karte, um ein Monster innerhalb von 3 Feldern zum Vertrauten Schattenseele zu wählen. Führe einen Angriff mit dem Vertrauten Schattenseele durch. Dabei benutzt du die Angriffsart, Würfel und Fähigkeiten des gewählten Monsters.',
         imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/class-skills/d2e/shadow-of-nerekhall/scouts/shadow-walker/sn-shadow-puppet.png',
       },
       {
-        id: 'swshadowstep', nameEn: 'Shadow Step', nameDe: 'Schattenschritt',
+        id: 'swshadowstep', nameEn: 'Shadow Step', nameDe: 'Schattensprung',
         xpCost: 3, fatigueCost: 1,
         rulesEn: 'Action: Exhaust this card to place your hero figure in a space that contains only a Shadow Soul. Then, you may discard that Shadow Soul to perform an attack. If you do, add 1 Surge to the results.',
         rulesDe: 'Aktion: Erschöpfe diese Karte, um deine Heldenfigur auf das Feld des Vertrauten Schattenseele zu stellen, sofern dort keine andere Figur steht. Dann kannst du den Vertrauten Schattenseele vom Spielplan nehmen, um einen Angriff durchzuführen. Dieser Angriff hat +1 Schub.',

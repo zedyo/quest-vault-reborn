@@ -252,6 +252,17 @@ describe('Helden-Klassen-Datenintegrität', () => {
     }
     expect(missing, `fehlende Klassen-Kartenbilder: ${missing.join(', ')}`).toEqual([])
   })
+
+  it('Klassen-Fertigkeitsbilder (de/classes/skills) sind gültig zugeordnet (keine Waisen)', () => {
+    const files = import.meta.glob('/public/cards/de/classes/skills/*.webp')
+    const present = Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', ''))
+    const valid = new Set<string>()
+    for (const c of HERO_CLASSES) for (const s of c.skills) valid.add(`${c.id}-${s.id}`)
+    const orphans = present.filter((k) => !valid.has(k))
+    expect(orphans, `Skill-Bilder ohne passende Klasse/Fertigkeit: ${orphans.join(', ')}`).toEqual([])
+    // Floor: der Import wächst inkrementell; darf nicht versehentlich schrumpfen.
+    expect(present.length, 'zu wenige Klassen-Fertigkeitsbilder').toBeGreaterThanOrEqual(209)
+  })
 })
 
 describe('Overlord-Klassen-Datenintegrität', () => {
