@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.9',
+    date: '2026-07-19',
+    title: 'Deutsche Klassen-Fertigkeitskarten als Bilder',
+    highlights: [
+      'Alle Klassen-Fertigkeiten zeigen jetzt ihr deutsches Original-Kartenbild (Vorschau + Großansicht) – 267 Karten quer über alle 36 Klassen, mit englischem Rückfall, wo (noch) kein deutsches Bild vorliegt.',
+      '11 Fertigkeitsnamen an den offiziellen Kartentitel angeglichen (z. B. Berserker „Ansturm" → „Sturmangriff", Schattenwandler „Schattenpuppe" → „Schatten-Marionette", Schatzjäger „Erkundung" → „Auskundschaften").',
+    ],
+  },
+  {
     version: '1.6.8',
     date: '2026-07-18',
     title: 'Kartentexte an die deutschen Originalkarten angeglichen',

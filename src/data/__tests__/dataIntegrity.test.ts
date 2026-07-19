@@ -253,15 +253,25 @@ describe('Helden-Klassen-Datenintegrität', () => {
     expect(missing, `fehlende Klassen-Kartenbilder: ${missing.join(', ')}`).toEqual([])
   })
 
-  it('Klassen-Fertigkeitsbilder (de/classes/skills) sind gültig zugeordnet (keine Waisen)', () => {
+  it('Klassen-Fertigkeitsbilder (de/classes/skills): vollständig außer bekannten Scan-Lücken, keine Waisen', () => {
     const files = import.meta.glob('/public/cards/de/classes/skills/*.webp')
-    const present = Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', ''))
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    // 3 Fertigkeiten haben KEIN deutsches Kartenbild (im Scan fehlend/dupliziert) → EN-Fallback:
+    //  - Elementarmagier „Sturmeswut"/„Zorn der Natur" (Scan enthält stattdessen Duplikate von
+    //    „Himmel und Erde"/„Umarmung der Natur"); Bewahrer „Interdisziplinär" (Karte 1 nicht im Scan).
+    const KNOWN_MISSING = new Set([
+      'elementalist-elemenstormsfury', 'elementalist-elemennatfury', 'lorekeeper-lkinterdisciplinary',
+    ])
     const valid = new Set<string>()
-    for (const c of HERO_CLASSES) for (const s of c.skills) valid.add(`${c.id}-${s.id}`)
-    const orphans = present.filter((k) => !valid.has(k))
+    const missing: string[] = []
+    for (const c of HERO_CLASSES) for (const s of c.skills) {
+      const key = `${c.id}-${s.id}`
+      valid.add(key)
+      if (!present.has(key) && !KNOWN_MISSING.has(key)) missing.push(key)
+    }
+    expect(missing, `Klassen-Fertigkeiten ohne DE-Bild: ${missing.join(', ')}`).toEqual([])
+    const orphans = [...present].filter((k) => !valid.has(k))
     expect(orphans, `Skill-Bilder ohne passende Klasse/Fertigkeit: ${orphans.join(', ')}`).toEqual([])
-    // Floor: der Import wächst inkrementell; darf nicht versehentlich schrumpfen.
-    expect(present.length, 'zu wenige Klassen-Fertigkeitsbilder').toBeGreaterThanOrEqual(209)
   })
 })
 
