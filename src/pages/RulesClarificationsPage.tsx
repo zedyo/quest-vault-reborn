@@ -159,14 +159,17 @@ export default function RulesClarificationsPage() {
   const [sectionFilter, setSectionFilter] = useState<string>('all')
   const [highlightId, setHighlightId] = useState<string | null>(null)
   const [errataHighlightId, setErrataHighlightId] = useState<string | null>(null)
+  const [pendingErrataScroll, setPendingErrataScroll] = useState<string | null>(null)
   const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const errataHighlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const q = norm(search.trim())
 
   // Deep-Link `/klarstellungen?errata=<id>` (z. B. aus dem „Monster des Tages"-
-  // Widget): Errata-Tab öffnen, Filter zurücksetzen, Eintrag anspringen + kurz
-  // hervorheben. Gleiche Mechanik wie die interne „Verwandt"-Sprungmarke.
+  // Widget): Errata-Tab öffnen, Filter zurücksetzen, Eintrag hervorheben und zum
+  // Scrollen vormerken. Das eigentliche Scrollen passiert in einem separaten
+  // Effekt, SOBALD die Errata-Liste im DOM steht (der Tab startet auf „rules",
+  // daher existiert das Ziel im ersten Render noch nicht).
   const errataParam = searchParams.get('errata')
   useEffect(() => {
     if (!errataParam) return
@@ -174,9 +177,7 @@ export default function RulesClarificationsPage() {
     setSectionFilter('all')
     setSearch('')
     setErrataHighlightId(errataParam)
-    requestAnimationFrame(() => {
-      document.getElementById(`err-${errataParam}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    })
+    setPendingErrataScroll(errataParam)
     if (errataHighlightTimer.current) clearTimeout(errataHighlightTimer.current)
     errataHighlightTimer.current = setTimeout(() => setErrataHighlightId(null), 2500)
   }, [errataParam])
@@ -202,6 +203,17 @@ export default function RulesClarificationsPage() {
     return map
   }, [errataFiltered])
   const errataCount = errataFiltered.length
+
+  // Scrollt zum vorgemerkten Errata-Eintrag, sobald er tatsächlich gerendert ist
+  // (Errata-Tab aktiv + Liste aufgebaut). `errataBySection` als Abhängigkeit sorgt
+  // dafür, dass es erneut versucht wird, wenn die Liste (neu) aufgebaut wird.
+  useEffect(() => {
+    if (!pendingErrataScroll || tab !== 'errata') return
+    const el = document.getElementById(`err-${pendingErrataScroll}`)
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    setPendingErrataScroll(null)
+  }, [pendingErrataScroll, tab, errataBySection])
 
   const jumpTo = (id: string) => {
     setTab('rules')
