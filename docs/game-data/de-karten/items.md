@@ -268,7 +268,7 @@ Du hast 1 zusätzlichen Lebenspunkt. Du bist immun gegen Durchbohren.
 
 ### Untoter Schädel  *(EN: Undying Skull)*
 **Schloss Rabenfels** · 75 Gold
-Du erhältst +1 auf deine Ausdauer. Du kannst keine Schub ausgeben, um Ausdauer zurückzugewinnen.
+Du erhältst +1 auf deine Ausdauer. Du kannst keine Schub ausgeben, um Ausdauer zurückgewinnen.
 
 ### Weißer Wolfsumhang  *(EN: White Wolf Cloak)*
 **Schloss Rabenfels** · 150 Gold

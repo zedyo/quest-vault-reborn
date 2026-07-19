@@ -211,3 +211,13 @@ export function classItemDeUrl(itemId: string): string {
 export function classFamiliarDeUrl(classId: string): string {
   return `${import.meta.env.BASE_URL}cards/de/classes/familiar-${classId}.webp`
 }
+
+/**
+ * Lokales deutsches Original-Kartenbild einer Klassen-Fertigkeitskarte
+ * (`public/cards/de/classes/skills/<classId>-<skillId>.webp`, aus den
+ * Klassenkarten-Scans). Nicht jede Fertigkeit hat (noch) ein DE-Bild → im UI
+ * fällt `CardThumb` auf das englische any2cards-Bild (`skill.imageUrl`) zurück.
+ */
+export function classSkillDeUrl(classId: string, skillId: string): string {
+  return `${import.meta.env.BASE_URL}cards/de/classes/skills/${classId}-${skillId}.webp`
+}

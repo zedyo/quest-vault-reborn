@@ -122,7 +122,7 @@ export const HEROES: Hero[] = [
     might: 3, knowledge: 2, willpower: 1, awareness: 5,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/labyrinth-of-ruin/scouts/lr-raythen.png',
     heroAbility: 'Einmal pro Zug kannst du 1 Erschöpfung erleiden, um einen Helden auf deinem Spielplanteil eine Attributsprobe neu würfeln zu lassen. Er darf dafür deinen Attributwert benutzen.',
-    heroicFeat: 'Verwende diese Heldentat in deinem Zug, um einen Suchmarker auf einem Nachbarfeld eines anderen Helden aufzudecken. Das gilt nicht als Aktion.',
+    heroicFeat: 'In deinem Zug kannst du einen Suchmarker auf einem Nachbarfeld eines anderen Helden aufdecken. Das gilt nicht als Aktion.',
   },
   {
     id: 'pathfinder-durik', name: 'Kundschafter Durik', archetype: 'krieger', expansionId: 'labyrinth-of-ruin',
@@ -147,7 +147,7 @@ export const HEROES: Hero[] = [
     might: 2, knowledge: 2, willpower: 4, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/the-trollfens/scouts/tf-roganna-the-shade.png',
     heroAbility: 'Alle deine Angriffe, die auf Monster zielen, die zu keinem anderen Helden benachbart sind, haben +1 Herz.',
-    heroicFeat: 'Nur am Ende deines Zugs einzusetzen. Bis zum Beginn deines nächsten Zuges können Helden innerhalb von 3 Feldern zu dir nur Ziel eines Monsterangriffs sein, wenn das Monster auf einem Nachbarfeld des Ziels steht.',
+    heroicFeat: 'Nur am Ende deines Zugs einzusetzbar. Bis zum Beginn deines nächsten Zuges können Helden innerhalb von 3 Feldern zu dir nur Ziel eines Monsterangriffs sein, wenn das Monster auf einem Nachbarfeld des Ziels steht.',
   },
   // ─── Schatten von Nerekhall ───────────────────────────────────────
   {
@@ -256,7 +256,7 @@ export const HEROES: Hero[] = [
     might: 3, knowledge: 3, willpower: 3, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/crown-of-destiny/scouts/cd-lindel.png',
     heroAbility: 'Bei Attributsproben wirfst du 2 graue Verteidigungswürfel statt einem grauen und einem schwarzen.',
-    heroicFeat: 'Aktion: Führe einen Angriff durch. Nach dem Angriffswurf kannst du 1 Kampfwürfel auf eine beliebige Seite drehen.',
+    heroicFeat: 'Aktion: Führe einen Angriff durch. Nach dem Angriffswurf kannst du den Kampfwürfel auf eine beliebige Seite drehen.',
   },
   {
     id: 'corbin', name: 'Corbin', archetype: 'krieger', expansionId: 'crown-of-destiny',
@@ -438,7 +438,7 @@ export const HEROES: Hero[] = [
     might: 3, knowledge: 2, willpower: 3, awareness: 3,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/stewards-of-the-secret/healers/ss-okaluk-and-rakash.png',
     heroAbility: 'Zu Beginn deines Zuges erhältst du 4 Bewegungspunkte.',
-    heroicFeat: 'Setze diese Heldentat während deines Zuges ein, auch falls du niedergestreckt bist. Wirf 2 rote Machtwürfel. Du und jeder andere niedergestreckte Held innerhalb von 3 Feldern Entfernung zu dir gewinnt so viele Herzen zurück, wie du gewürfelt hast.',
+    heroicFeat: 'Setze diese Heldentat während deines Zuges ein, auch falls du niedergestreckt bist. Wirf 2 rote Machtwürfel. Du und jeder andere niedergestreckte Held innerhalb von 3 Feldern Entfernung zu dir gewinnt so viele Herzen zurück, wie du Herzen gewürfelt hast.',
   },
   {
     id: 'seer-kel', name: 'Seherin Kel', archetype: 'magier', expansionId: 'stewards-of-the-secret',
@@ -495,7 +495,7 @@ export const HEROES: Hero[] = [
     might: 5, knowledge: 1, willpower: 3, awareness: 2,
     imageUrl: 'https://raw.githubusercontent.com/any2cards/d2e/master/images/heroes/d2e/shards-of-everdark/warriors/se-steelhorns.png',
     heroAbility: 'Jedes Mal, wenn du eine zu dir benachbarte Figur angreifst, die zu Beginn deines Zuges nicht benachbart zu dir war, erhält dieser Angriff +1 Herz.',
-    heroicFeat: 'Setze diese Heldentat während deines Zuges ein. Wirf 1 Machtwürfel deiner Wahl. Du und jede zu dir benachbarte Figur erleiden so viele Herzen, wie du gewürfelt hast. Falls du mindestens 1 Schub würfelst, darfst du jede betroffene Figur 1 Feld weit bewegen.',
+    heroicFeat: 'Setze diese Heldentat während deines Zuges ein. Wirf 1 Machtwürfel deiner Wahl. Du und jede zu dir benachbarte Figur erleiden so viele Herzen, wie du Herzen gewürfelt hast. Falls du mindestens 1 Schub würfelst, darfst du jede betroffene Figur 1 Feld weit bewegen.',
   },
 ]
 

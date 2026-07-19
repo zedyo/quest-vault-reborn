@@ -8,7 +8,7 @@ import { ArchetypeIcon } from '../components/ArchetypeIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
-import { classItemDeUrl, classFamiliarDeUrl } from '../data/assetUrls'
+import { classItemDeUrl, classFamiliarDeUrl, classSkillDeUrl } from '../data/assetUrls'
 import type { HeroClass, ClassSkill, HeroArchetype } from '../types/game'
 
 const ARCHETYPE_DE: Record<HeroArchetype, string> = {
@@ -82,19 +82,25 @@ function XpBadge({ xp }: { xp: number | 'elemental' }) {
   )
 }
 
-function SkillRow({ skill, lang }: { skill: ClassSkill; lang: 'de' | 'en' }) {
+function SkillRow({ skill, classId, lang, onImageOpen }: { skill: ClassSkill; classId: string; lang: 'de' | 'en'; onImageOpen: (l: LightboxState) => void }) {
   const name = lang === 'de' ? skill.nameDe : skill.nameEn
   const rules = lang === 'de' ? skill.rulesDe : skill.rulesEn
+  const srcs = [classSkillDeUrl(classId, skill.id), skill.imageUrl].filter(Boolean) as string[]
   return (
     <div className="py-2 border-t border-dungeon-700/70 first:border-t-0">
-      <div className="flex items-center gap-2 mb-0.5">
-        <XpBadge xp={skill.xpCost} />
-        <span className="text-sm font-semibold text-gray-200">{name}</span>
-        <span className="text-[10px] text-gray-500 ml-auto shrink-0" title="Ausdauer-Kosten">
-          Ausdauer: {skill.fatigueCost}
-        </span>
+      <div className="flex gap-2">
+        {srcs.length ? <CardThumb srcs={srcs} name={name} onOpen={() => onImageOpen({ srcs, name })} /> : null}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <XpBadge xp={skill.xpCost} />
+            <span className="text-sm font-semibold text-gray-200">{name}</span>
+            <span className="text-[10px] text-gray-500 ml-auto shrink-0" title="Ausdauer-Kosten">
+              Ausdauer: {skill.fatigueCost}
+            </span>
+          </div>
+          <div className="text-xs text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 12)}</div>
+        </div>
       </div>
-      <div className="text-xs text-gray-400 leading-snug space-y-0.5">{renderGameText(rules, 12)}</div>
     </div>
   )
 }
@@ -190,7 +196,7 @@ function ClassCard({ cls, lang, onImageOpen }: { cls: HeroClass; lang: 'de' | 'e
       <StartingEquipmentBlock cls={cls} lang={lang} onImageOpen={onImageOpen} />
       <div>
         {skills.map((s) => (
-          <SkillRow key={s.id} skill={s} lang={lang} />
+          <SkillRow key={s.id} skill={s} classId={cls.id} lang={lang} onImageOpen={onImageOpen} />
         ))}
       </div>
       <ErrataBox entries={getErrata('class', cls.id)} />

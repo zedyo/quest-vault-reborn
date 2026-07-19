@@ -20,6 +20,24 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.9',
+    date: '2026-07-19',
+    title: 'Deutsche Klassen-Fertigkeitskarten als Bilder',
+    highlights: [
+      'Alle Klassen-Fertigkeiten zeigen jetzt ihr deutsches Original-Kartenbild (Vorschau + Großansicht) – 267 Karten quer über alle 36 Klassen, mit englischem Rückfall, wo (noch) kein deutsches Bild vorliegt.',
+      '11 Fertigkeitsnamen an den offiziellen Kartentitel angeglichen (z. B. Berserker „Ansturm" → „Sturmangriff", Schattenwandler „Schattenpuppe" → „Schatten-Marionette", Schatzjäger „Erkundung" → „Auskundschaften").',
+    ],
+  },
+  {
+    version: '1.6.8',
+    date: '2026-07-18',
+    title: 'Kartentexte an die deutschen Originalkarten angeglichen',
+    highlights: [
+      'Kartentexte gegen die deutschen Kartenbilder geprüft: Die angezeigten Fähigkeits-/Regeltexte folgen dem vorliegenden deutschen Kartendruck, die Errata-Hinweise bleiben reine Zusatz-Infoboxen. (Hinweis: Von einigen Karten gibt es zwei Druckauflagen – einen älteren Erstdruck und einen neueren Nachdruck, der die offiziellen Errata bereits auf der Karte enthält; abgebildet wird die vorliegende Auflage.)',
+      'Dabei 18 kleine Abschreibfehler korrigiert (z. B. Fallen des Overlords prüfen „Gespür" statt „Wahrnehmung"; Krypten-/Unterweltdrache und Dunkler Priester nun „Grauenerregend"; einzelne fehlende oder zu viel abgeschriebene Wörter bei Helden-, Monster-, Item- und Overlordkarten).',
+    ],
+  },
+  {
     version: '1.6.7',
     date: '2026-07-18',
     title: 'Sofortsuche jetzt auch mobil',

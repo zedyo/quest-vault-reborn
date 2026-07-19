@@ -133,9 +133,15 @@ Zusammenfassungen — separater Schritt).
 | `Gefährten.jpg` (+R) | **NSC-Gefährten** Raythen/Serena (Statkarten) | 2 | 2 Karten oben | Token da, Statkarte fehlt |
 | `Aktivierungskarten.jpg` (+R) | **Heldenzug-Übersicht** (Referenzkarte je Farbe) | 4 | 4 Karten | **fehlt** (reine Regelreferenz) |
 
-**Nicht als Kartendeck (separat behandelt):** `Klasse {Bewahrer,Gauner,Häretiker,Kreuzritter,
-Plünderer,Rächer,Verwüster,Wahrsaager} N.png` = **Hybrid-Klassen-Fähigkeitskarten** (Text
-liegt textuell in `heroClasses.ts`; DE-Bild bewusst offen, ClassesPage ist textbasiert).
+**Klassen-Fertigkeitskarten (DE) – erledigt (v1.6.9):** ALLE Fertigkeitskarten importiert
+(nicht nur Startausrüstung/Begleiter): 267 Bilder aus `Klassenkarten 1..4.jpg` (Standard-
+Klassen) + Einzel-PNGs `Klasse {Elementarmagier,Seelenschnitter,Bewahrer,Gauner,Häretiker,
+Kreuzritter,Plünderer,Rächer,Verwüster,Wahrsaager} N.png` (Elementarmagier/Seelenschnitter +
+8 Unsterbliche-Legenden-Hybriden; die 4 Rostende-Ketten-Hybriden Wächter/Stahlmagier/Mönch/
+Kampfmagier liegen auf den Sheets). Ziel: `public/cards/de/classes/skills/<classId>-<skillId>.webp`.
+**Scan-Lücken (kein DE-Bild, EN-Fallback):** Elementarmagier `Sturmeswut`/`Zorn der Natur`
+(Einzel-PNGs enthalten stattdessen je ein Duplikat von `Himmel und Erde`/`Umarmung der Natur`),
+Bewahrer `Interdisziplinär` (keine `Klasse Bewahrer 1.png` im Manifest).
 `Marker/` + `Symbole/` = Token/Symbole (größtenteils bereits über any2cards-Overlays bzw.
 als SVG in `GameSymbols` abgedeckt). `Regelbücher PDF/` = 13 Handbücher (separater Task,
 CRRG-Errata bereits via `Community Hausregeln V 1.15.pdf` eingebunden).

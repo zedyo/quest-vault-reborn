@@ -41,6 +41,66 @@ Die Karte ist die einzige verlässliche, prüfbare Quelle; sie schlägt jede Sek
 - Offene Audit-Aufgabe: systematisch prüfen, wo das UI noch EN-Karten zeigt, obwohl ein
   deutsches Bild im Release vorliegt (→ ersetzen).
 
+# ⚠️ Zwei Druckauflagen: manche DE-Scans sind Errata-Nachdrucke (2026-07-18, geklärt)
+
+Von einigen Descent-2e-Karten existieren **zwei physische Druckauflagen**: ein
+**Erstdruck** (Original-Text) und ein **späterer Nachdruck**, der die offiziellen
+**FFG-Errata direkt auf die Karte** übernommen hat. Entsprechend zeigt **nicht jeder
+deutsche Repo-Scan den Erstdruck** — einige `public/cards/de/**`-Bilder sind der
+**Errata-Nachdruck**. Belegt am **Schattendrachen**: `shadow-dragon-act1-back.webp`
+druckt die Fähigkeit „Schatten" als „Sobald ein Held, der benachbart zu diesem
+Monster ist, einen Angriff ansagt …" (= Errata-Fassung). Es existieren aber auch
+Erstdruck-Exemplare mit „Wenn ein Held dieses Monster von einem Nachbarfeld aus
+angreift …" (User besitzt beide physisch).
+
+**Das ist KEIN Bug und wird NICHT „zurückkorrigiert".** Regel bleibt: der **vorliegende
+Scan = höchste Priorität**. Die Daten folgen dem Scan — auch wenn er die Errata-Fassung
+zeigt (die abgebildete Karte sagt genau das). Der Errata-Hinweis bleibt zusätzlich als
+additive ErrataBox; bei einem Errata-Nachdruck sagen Haupttext und ErrataBox schlicht
+dasselbe.
+
+**Wie man „Original vs. Errata" erkennt** (falls je relevant): Datentext/​Scan gegen die
+CRRG-Errata-„sollte lauten"-Fassung vergleichen (bildunabhängig). Stimmt der Scan-Text
+mit der Errata-Korrektur überein → der Scan ist ein Errata-Nachdruck. Nicht auf einen
+Erstdruck „zurücksetzen", außer der User gibt das ausdrücklich vor.
+
+## Vollständige Liste: Karten mit Errata-Nachdruck-Text (Stand 2026-07-18)
+
+Über den bildunabhängigen Vergleich **aller** Text-Errata (54 „sollte lauten"-Einträge
+über Helden/Klassen/Items/Overlord/Plotdecks/Monster/Gerüchte) ermittelt und – wo ein
+Scan existiert – am Kartenbild bestätigt. Der Kartentext (Scan) entspricht hier der
+**Errata-Fassung** (= Errata-Nachdruck); wir behalten ihn (höchste Priorität).
+
+**Am Scan verifiziert (Kartenbild zeigt die Errata-Fassung):**
+
+| Typ | Karte | Fähigkeit/Feld |
+|---|---|---|
+| Monster | Schattendrache | Schatten |
+| Monster | Goblin-Schamane | Verzaubern |
+| Held | Grisban der Durstige | Heldenfähigkeit |
+| Overlord | Teuflisches Ritual | Regeltext |
+| Overlord | Vielseitigkeit | Regeltext |
+
+**Klassen — kein DE-Skill-Kartenbild im Repo, daher nur textueller Abgleich (Datentext == Errata):**
+
+| Typ | Karte | Fertigkeit | Anmerkung |
+|---|---|---|---|
+| Klasse | Geomant | Erdbeben | Datentext 1:1 = Errata |
+| Klasse | Schattenwandler | Schattenseele (Vertrauter) | 1. Satz = Errata; Quelle any2cards-EN war bereits errata'd |
+| Klasse | Geistsprecher | Geister der Ahnen | grenzwertig — einziger Unterschied Herz/Herzen (Symbol) |
+
+**Alle übrigen Text-Errata halten den Erstdruck** (Scan/Datentext ≠ Errata-Korrektur) und
+sind KEINE Nachdrucke, u. a.: Held Thaiden Nebelspitze; Overlord Blutdurst + Verstärkung
+Rufen; Klassen Ritter/Absichern, Nekromant/Letzter Befehl, Waldläufer, Apothecarius,
+Plänkler/Unerbittlich, Runenmeister, Seneschall, Berserker, Seelenschnitter (Unheiliges
+Band + Verderbter Entzug); Monster Krähenhexe/Todesomen, Riese (UK) + Troll (UK)/
+Rundumschlag, Elementar/Luft, Höllenkoloss/Sturmangriff, Wechselbalg. (Item- und
+Plotdeck-Text-Errata: Datentext = Erstdruck, kein Nachdruck.)
+
+**Nicht anwendbar:** Abenteuer-Errata (Szenariotext wird nicht gespeichert, FFG-IP) und
+Monsterfähigkeits-Schlagwort „Beherrschung" (kein Monster in den Daten trägt diese
+Fähigkeit).
+
 # Citations
 
 [1] CLAUDE.md → „Schutzregeln" (Regel „Kartentext = priorisierte Wahrheit").

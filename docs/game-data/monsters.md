@@ -1153,7 +1153,7 @@ Ettin, Riese) haben kleinere Gruppen, Schwärme (z. B. Kobold) deutlich größer
 
 **Normal – Energie:** +2 Herzen  
 **Meister – Energie:** +2 Herzen  
-**Meister – Fähigkeit:** Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).
+**Meister – Fähigkeit:** Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).
 
 ---
 
@@ -1182,9 +1182,9 @@ Ettin, Riese) haben kleinere Gruppen, Schwärme (z. B. Kobold) deutlich größer
 | Meister | 3 | 10 | Grau, Schwarz | Blau, Rot, Gelb |
 
 **Normal – Energie:** Druckwelle / +2 Herzen  
-**Normal – Fähigkeit:** Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).  
+**Normal – Fähigkeit:** Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).  
 **Meister – Energie:** Druckwelle / +2 Herzen  
-**Meister – Fähigkeit:** Schreckenerregend (wie Normal)  
+**Meister – Fähigkeit:** Grauenerregend (wie Normal)  
 **Meister – Aktion:** Furcht einflößen (wie Akt 1)
 
 ---

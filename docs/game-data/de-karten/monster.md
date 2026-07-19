@@ -15,6 +15,38 @@
 - **Begriffe der Karten:** „normales Monster“ (Diener), „Elite-Monster“ (Meister), „niedergestreckt“, „Aufrappeln“, „gelähmt“, „erkrankt“, „verängstigt“.
 
 
+## Zwei Druckversionen (Errata-Nachdrucke) — 2026-07-18
+
+Von einigen Descent-2e-Karten gibt es **zwei physische Druckauflagen**: einen älteren
+**Erstdruck** (Original-Text) und einen späteren **Nachdruck**, der die offiziellen
+**FFG-Errata/FAQ direkt auf die Karte** übernommen hat (FFG korrigierte den Kartentext
+bei Neuauflagen so, dass er der FAQ entspricht). Manche unserer DE-Scans sind der
+**Errata-Nachdruck**. **Wir folgen dem vorliegenden Scan** (Kartentext = höchste
+Priorität) — das ist gewollt, kein Fehler. Der Errata-Hinweis bleibt zusätzlich als
+ErrataBox.
+
+**Monster, deren Rückseiten-Fähigkeitstext = die Errata-Fassung ist** (unser Scan ist
+also der Errata-Nachdruck):
+
+| Monster | Fähigkeit | Kartentext (= Errata-Nachdruck, im Projekt) | Erstdruck-Original (nur zur Info, NICHT im Projekt) |
+|---|---|---|---|
+| Schattendrache | Schatten | „Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.“ | „Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.“ |
+| Goblin-Schamane | Verzaubern | „Bewege jeden Verfluchten Helden auf Nachbarfeldern dieses Monsters um bis zu 2 Felder in beliebiger Richtung.“ | (Erstdruck-Wortlaut nicht belegt) |
+
+**Alle übrigen Monster-Text-Errata halten den Erstdruck** (Scan ≠ Errata-Korrektur),
+u. a.: Krähenhexe/Todesomen, Riese (UK)/Rundumschlag + Troll (UK)/Rundumschlag („alle
+**anderen** Figuren“), Elementar/Luft, Höllenkoloss/Sturmangriff („Beginn seines
+**Zuges**“), Wechselbalg/Höhnisches Lachen („(mindestens 1)“ statt „(bis zu einem
+Minimum von 1)“).
+
+**Hintergrund/Quellen:** FFG pflegt ein offizielles Errata-&-FAQ-Dokument (bis v1.6) mit
+Kartentext-Änderungen; bei Neuauflagen wurden die Karten entsprechend nachgedruckt. Die
+Fandom-/BGG-Community dokumentiert für den Schattendrachen genau die Errata-Fassung
+(„A hero adjacent to this monster that declares an attack must spend 1 [surge] …“).
+Belege: FFG FAQ v1.6 (fantasyflightgames.com), BGG-Threads „New Printings and Errata“ /
+„FAQ 1.6 – Errata Card changes“, Descent-Community CRRG, descent2e.fandom.com.
+
+
 ## Grundspiel
 
 ### Barghest  *(EN: Barghest)* · `barghest`
@@ -59,8 +91,8 @@
 
 ### Schattendrache  *(EN: Shadow Dragon)* · `shadow-dragon`
 **Eigenschaften:** Dunkel, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [1, 0], p3: [0, 1], p4: [1, 1]
-- Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl.
-- Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern (inklusive Zielfeld) in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.
+- Schatten: Sobald ein Held, der benachbart zu diesem Monster ist, einen Angriff ansagt, muss er 1 Schub einsetzen oder der Angriff schlägt fehl. *(Text vom vorliegenden DE-Scan = Errata-Nachdruck; ältere Erstdruck-Karten drucken „Wenn ein Held dieses Monster von einem Nachbarfeld aus angreift …". Wir folgen dem Scan — Kartentext = höchste Priorität. Siehe „Zwei Druckversionen" unten.)*
+- Feuerodem: Ziehe vom Zielfeld aus einen Pfad von 4 Feldern in beliebiger Richtung. Alle Figuren auf diesen 4 Feldern sind vom Angriff betroffen. Jede Figur wirft ihre eigenen Verteidigungswürfel.
 
 ### Zombie  *(EN: Zombie)* · `zombie`
 **Eigenschaften:** Verflucht, Gebäude · **Gruppengrößen [Diener,Meister]:** p2: [2, 1], p3: [3, 1], p4: [4, 1]
@@ -120,7 +152,7 @@
 **Eigenschaften:** Wildnis, Gebirge · **Gruppengrößen [Diener,Meister]:** p2: [1, 1], p3: [2, 1], p4: [3, 1]
 - Schwarm: Dieses Monster fügt pro anderem zum Ziel benachbarten Monster +1 Herz zu.
 - Fliegen: Dieses Monster kann während der Bewegung feindliche Figuren und Terrain ignorieren. Es muss seine Bewegung nach den normalen Regeln auf einem leeren Feld beenden.
-- Pulk: Jedes normale Monster dieser Gruppe innerhalb von 5 Feldern zu diesem Monster darf sich sofort bis zu 2 Felder bewegen.
+- Pulk: Jedes normale Monster dieser Gruppe innerhalb von 5 Feldern zu diesem Monster darf sich sofort um bis zu 2 Felder bewegen.
 
 ### Pestwurm  *(EN: Plague Worm)* · `plague-worm`
 **Eigenschaften:** Wasser, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [1, 1], p3: [1, 1], p4: [2, 1]
@@ -170,7 +202,7 @@
 **Eigenschaften:** Verflucht, Heiß · **Gruppengrößen [Diener,Meister]:** p2: [1, 0], p3: [0, 1], p4: [1, 1]
 - Zurückstoßen: Nimm das Ziel vom Spielplan und stelle es auf ein leeres Feld innerhalb von 3 Feldern seines ursprünglichen Felds. Der Held betritt damit dieses Feld.
 - Blutgier: Dieses Monster erleidet 1 Herz und erhält 5 Bewegungspunkte. Höchstens ein Mal pro Zug.
-- Sturmangriff: Wenn dieses Monster zu Beginn seines Zuges nicht zum Ziel benachbart war, hat der Angriff +3 Herzen.
+- Sturmangriff: Wenn dieses Monster zu Beginn seines Zuges nicht zum Ziel dieses Angriffs benachbart war, hat der Angriff +3 Herzen.
 
 
 ## Schwur des Verstoßenen
@@ -186,7 +218,7 @@
 ### Tiermensch  *(EN: Beastman)* · `beastman`
 **Eigenschaften:** Gebirge, Wildnis · **Gruppengrößen [Diener,Meister]:** p2: [1, 1], p3: [2, 1], p4: [3, 1]
 - Aggressiv: Dieses Monster kann in seinem Zug 2 Aktionen für Angriffe verwenden.
-- Kommando: Jedes normale Monster innerhalb von 3 Feldern dieses Monsters darf beim Angriff 1 Würfel neu werfen. Jedes normale Monster kann nur einmal pro Angriff von der Fähigkeit Kommando profitieren.
+- Kommando: Jedes normale Monster innerhalb von 3 Feldern dieses Monsters kann beim Angriff 1 Würfel neu werfen. Jedes normale Monster kann nur einmal pro Angriff von der Fähigkeit Kommando profitieren.
 
 ### Rasierklingenflügler  *(EN: Razorwing)* · `razorwing`
 **Eigenschaften:** Wildnis, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [2, 1], p3: [3, 1], p4: [4, 1]
@@ -240,13 +272,13 @@
 **Eigenschaften:** Dunkel, Verflucht · **Gruppengrößen [Diener,Meister]:** p2: [1, 0], p3: [0, 1], p4: [1, 1]
 - Explosion: Dieser Angriff betrifft alle zum Zielfeld benachbarten Figuren.
 - Furcht einflößen: Wähle einen zu diesem Monster benachbarten Helden. Dieser Held muss eine Willenskraft-Probe ablegen. Falls sie misslingt, wird er 2 Felder in gerader Richtung von diesem Monster wegbewegt und ist gelähmt.
-- Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).
+- Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).
 
 ### Dunkler Priester  *(EN: Dark Priest)* · `dark-priest`
 **Eigenschaften:** Zivilisiert, Verflucht · **Gruppengrößen [Diener,Meister]:** p2: [1, 1], p3: [2, 1], p4: [3, 1]
 - Dunkles Gebet: Wähle einen Helden innerhalb von 5 Feldern Entfernung zu diesem Monster. Dieser Held legt eine Willenskraft-Probe ab. Falls sie misslingt, erleidet er 1 Erschöpfung.
 - Heilen: Wähle ein Monster innerhalb von 3 Feldern zu diesem Monster und wirf einen roten Machtwürfel. Das Monster gewinnt die gewürfelten Herzen zurück.
-- Schreckenerregend: Jeder Held, der zu 1 oder mehr Monstern mit Schreckenerregend benachbart ist, wendet -1 auf seine Willenskraft an (Minimum 1).
+- Grauenerregend: Jeder Held, der zu mindestens 1 grauenerregenden Monster benachbart ist, verringert seine Willenskraft um 1 (bis zu einem Minimum von 1).
 
 ### Wendigo  *(EN: Wendigo)* · `wendigo`
 **Eigenschaften:** Kalt, Höhle · **Gruppengrößen [Diener,Meister]:** p2: [0, 1], p3: [1, 1], p4: [2, 1]
