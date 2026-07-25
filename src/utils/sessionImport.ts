@@ -88,10 +88,32 @@ function idList(v: unknown, maxItems = MAX_LIST): string[] {
  * damit konsistent, weil jede ID genau einmal durch diese Funktion läuft.
  */
 const ID_SHAPE = /^[A-Za-z0-9_-]{1,100}$/
+
+/**
+ * Ersatz-ID für eine unbrauchbare Form. DETERMINISTISCH (djb2): derselbe
+ * Eingabewert ergibt überall dieselbe Ersatz-ID. Nur so bleiben die INNEREN
+ * VERWEISE heil, wenn eine ID ersetzt wird — `ItemSold.refId` findet weiter
+ * seinen `ItemRef.refId`, `toHeroLocalId`/`heroLocalId` weiter ihren Helden,
+ * `heroXp`-Schlüssel weiter ihre `localId`. Eine zufällige `uid()` je Fundstelle
+ * würde diese Paare auseinanderreißen.
+ */
+function replacementId(s: string): string {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0
+  return `x-${h.toString(36)}-${s.length.toString(36)}`
+}
+
 function safeId(v: unknown): string {
   if (typeof v !== 'string') return uid()
   const s = v.trim()
-  return ID_SHAPE.test(s) && !RESERVED_KEYS.has(s) ? s : uid()
+  if (!s) return uid() // ohne Eingabewert gibt es nichts zu verknüpfen
+  return ID_SHAPE.test(s) && !RESERVED_KEYS.has(s) ? s : replacementId(s)
+}
+
+/** Wie `safeId`, aber ohne Wert `null` (Verweise auf „gemeinsame Ausrüstung"). */
+function safeIdOrNull(v: unknown): string | null {
+  if (typeof v !== 'string' || !v.trim()) return null
+  return safeId(v)
 }
 
 /** Stabile Instanz-ID beibehalten (verlinkt via ItemSold.refId), sonst neu erzeugen. */
@@ -152,7 +174,8 @@ function sanitizeRumor(v: unknown): TrackedRumor | null {
     rumorId,
     status: RUMOR_STATUS.includes(v.status as TrackedRumorStatus) ? (v.status as TrackedRumorStatus) : 'in-play',
   }
-  const playedIn = str(v.playedInScenarioId, MAX_ID)
+  // Verweist auf `PlayedScenario.id` → gleiche Abbildung wie dort.
+  const playedIn = safeIdOrNull(v.playedInScenarioId)
   if (playedIn) out.playedInScenarioId = playedIn
   return out
 }
@@ -200,9 +223,9 @@ function sanitizeOverlord(v: unknown): TrackedOverlord {
   }
 }
 
-function optHeroLocalId(v: unknown): string | null {
-  return typeof v === 'string' && v.trim() ? v.slice(0, MAX_ID) : null
-}
+// Verweist auf `TrackedHero.localId` → dieselbe Abbildung wie dort, sonst zeigt
+// der Verweis nach einer Ersetzung ins Leere.
+const optHeroLocalId = safeIdOrNull
 
 function sanitizeGrant(v: unknown): ItemGrant | null {
   if (!isRecord(v)) return null
@@ -220,14 +243,15 @@ function sanitizeBought(v: unknown): ItemBought | null {
 
 function sanitizeSold(v: unknown): ItemSold | null {
   if (!isRecord(v)) return null
-  const rid = str(v.refId, MAX_ID)
+  // Verweist auf `ItemRef.refId` → gleiche Abbildung wie dort.
+  const rid = safeIdOrNull(v.refId)
   if (!rid) return null
   return { refId: rid, refund: num(v.refund, 0, 1_000_000, 0) }
 }
 
 function sanitizeSkillLearned(v: unknown): SkillLearned | null {
   if (!isRecord(v)) return null
-  const heroLocalId = str(v.heroLocalId, MAX_ID)
+  const heroLocalId = safeIdOrNull(v.heroLocalId) // verweist auf TrackedHero.localId
   const skillId = str(v.skillId, MAX_ID)
   if (!heroLocalId || !skillId) return null
   return { heroLocalId, skillId, xpCost: num(v.xpCost, 0, 1_000_000, 0) }
@@ -246,10 +270,11 @@ function sanitizeHeroXp(v: unknown): Record<string, number> {
   // Anzahl der Schlüssel begrenzen: eine Session hat höchstens 4 Helden. Ohne
   // Deckel könnte eine präparierte Datei hunderttausende Einträge einschleusen.
   for (const [k, val] of Object.entries(v).slice(0, MAX_HERO_XP_KEYS)) {
-    // Schlüssel sind Helden-`localId`s und müssen dieselbe Form haben (sonst
-    // stünde hier ein geerbtes Object-Member statt einer Zahl).
-    if (!ID_SHAPE.test(k) || RESERVED_KEYS.has(k)) continue
-    out[k] = num(val, -1_000_000, 1_000_000, 0)
+    // Schlüssel sind Helden-`localId`s: gleiche Abbildung wie dort, damit der
+    // Eintrag seinem Helden zugeordnet bleibt — und damit hier nie ein geerbtes
+    // Object-Member steht (`heroXp[id] ?? 0` würde sonst eine Funktion liefern).
+    if (!k.trim()) continue
+    out[safeId(k)] = num(val, -1_000_000, 1_000_000, 0)
   }
   return out
 }

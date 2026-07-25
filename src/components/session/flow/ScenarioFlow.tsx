@@ -160,9 +160,12 @@ export default function ScenarioFlow() {
   // Ein `?step=N`-Deep-Link (z. B. „XP jetzt ausgeben" im Heldenbogen) springt
   // einmalig in den gewünschten Schritt.
   useEffect(() => {
+    // Hooks laufen vor dem Early-Return: ohne diese Prüfung legte ein Link auf
+    // eine nicht existierende Kampagne einen Waisen-Entwurf im localStorage an.
+    if (!session) return
     if (wantedStep >= 1 && wantedStep <= 5) setStep(wantedStep)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wantedStep])
+  }, [wantedStep, session])
 
   // Live-Stand OHNE den Entwurf: „Stand vor dem Szenario" (auch beim Bearbeiten).
   const base = useMemo(() => {

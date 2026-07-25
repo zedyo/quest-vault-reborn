@@ -291,27 +291,81 @@ describe('ID-Form – nur URL- und schlüsselsichere IDs werden beibehalten', ()
     expect(s?.heroes[0].localId).toMatch(/^[A-Za-z0-9_-]+$/)
   })
 
-  it('lässt geerbte Object-Member nicht als XP-Schlüssel durch', () => {
+  it('bildet unbrauchbare Schlüssel ab, statt geerbte Object-Member zuzulassen', () => {
     const s = sanitizeSession(
       {
         id: 'ok',
         name: 'x',
         campaignId: 'c',
+        heroes: [{ heroId: 'h', localId: 'isPrototypeOf' }],
         scenarios: [
           {
             id: 'sc1',
             order: 1,
             scenario: { source: 'custom', dataId: '', title: 'T', act: 1 },
-            rewards: { heroXp: { isPrototypeOf: 3, 'a b': 2, good: 4 }, overlordXp: 0, partyGold: 0 },
+            rewards: { heroXp: { isPrototypeOf: 3, good: 4 }, overlordXp: 0, partyGold: 0 },
           },
         ],
       },
       true,
     )
-    const xp = s?.scenarios[0].rewards.heroXp ?? {}
-    expect(Object.keys(xp)).toEqual(['good'])
-    // Der kritische Fall: `xp[k] ?? 0` darf nie eine Funktion liefern.
-    expect(typeof (xp as Record<string, number>)['isPrototypeOf']).toBe('function')
+    const xp = (s?.scenarios[0].rewards.heroXp ?? {}) as Record<string, number>
+    const localId = s?.heroes[0].localId as string
+    // Der XP-Eintrag bleibt seinem Helden zugeordnet — beide wurden GLEICH abgebildet.
+    expect(localId).not.toBe('isPrototypeOf')
+    expect(localId).toMatch(/^[A-Za-z0-9_-]+$/)
+    expect(xp[localId]).toBe(3)
+    expect(xp.good).toBe(4)
+    // Der kritische Fall: `xp[id] ?? 0` darf nie eine geerbte Funktion liefern.
     expect(Object.prototype.hasOwnProperty.call(xp, 'isPrototypeOf')).toBe(false)
+    for (const k of Object.keys(xp)) expect(k).toMatch(/^[A-Za-z0-9_-]+$/)
+  })
+
+  it('hält innere Verweise heil, wenn eine ID ersetzt werden muss', () => {
+    const s = sanitizeSession(
+      {
+        id: 'ok',
+        name: 'x',
+        campaignId: 'c',
+        heroes: [{ heroId: 'h', localId: 'held/eins?x=1' }],
+        scenarios: [
+          {
+            id: 'sc/1',
+            order: 1,
+            scenario: { source: 'custom', dataId: '', title: 'T', act: 1 },
+            rewards: {
+              heroXp: {},
+              overlordXp: 0,
+              partyGold: 0,
+              grantedItems: [
+                { toHeroLocalId: 'held/eins?x=1', item: { refId: 'ref/1', source: 'shop', dataId: 'iron-shield' } },
+              ],
+            },
+            shopping: {
+              bought: [],
+              sold: [{ refId: 'ref/1', refund: 25 }],
+              skillsLearned: [{ heroLocalId: 'held/eins?x=1', skillId: 'sk1', xpCost: 1 }],
+              overlordCardsBought: [],
+            },
+          },
+        ],
+        rumors: [{ rumorId: 'ghosttown', status: 'played', playedInScenarioId: 'sc/1' }],
+      },
+      true,
+    )
+    const localId = s?.heroes[0].localId as string
+    const sc = s!.scenarios[0]
+    expect(localId).toMatch(/^[A-Za-z0-9_-]+$/)
+    expect(localId).not.toBe('held/eins?x=1')
+    // Alle drei Verweise zeigen weiterhin auf denselben Helden …
+    expect(sc.rewards.grantedItems[0].toHeroLocalId).toBe(localId)
+    expect(sc.shopping.skillsLearned[0].heroLocalId).toBe(localId)
+    // … und der Verkauf findet weiterhin seine Gegenstands-Instanz.
+    expect(sc.shopping.sold[0].refId).toBe(sc.rewards.grantedItems[0].item.refId)
+    expect(s!.rumors[0].playedInScenarioId).toBe(sc.id)
+
+    // Ein zweiter Durchlauf ändert nichts mehr (die Ersatz-ID ist selbst gültig)
+    // — sonst wanderten die IDs bei jedem Reload weiter.
+    expect(sanitizeSession(JSON.parse(JSON.stringify(s)), true)).toEqual(s)
   })
 })
