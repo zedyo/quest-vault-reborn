@@ -5,8 +5,9 @@ import { EXPANSIONS } from '../data/expansions'
 import { plotDeckForLieutenant } from '../data/lieutenantPlotLinks'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { MovementBadge, DefenseBadge, renderGameTextInline } from '../components/GameSymbols'
-import { HealthIcon, AttackIcon } from '../components/StatIcons'
+import { renderGameTextInline } from '../components/GameSymbols'
+import { HealthIcon, SpeedIcon, DefenseStatIcon, AttackTypeIcon } from '../components/StatIcons'
+import { GameIcon, type GameSymbolName } from '../components/icons/GameIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import { SearchInput, OwnedToggle, LangToggle, SourceFilter, matchesSource, type Lang, type Source } from '../components/Filters'
 import { lieutenantCardDeUrl } from '../data/assetUrls'
@@ -27,11 +28,11 @@ function LightboxImg({ srcs, name }: { srcs: string[]; name: string }) {
   )
 }
 
-const ATTR: { key: 'might' | 'knowledge' | 'willpower' | 'awareness'; de: string; en: string; cls: string }[] = [
-  { key: 'might',     de: 'Stärke',       en: 'Might',     cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
-  { key: 'knowledge', de: 'Wissen',       en: 'Knowledge', cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
-  { key: 'willpower', de: 'Willenskraft', en: 'Willpower', cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
-  { key: 'awareness', de: 'Geistesgegenwart', en: 'Awareness', cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
+const ATTR: { key: 'might' | 'knowledge' | 'willpower' | 'awareness'; de: string; en: string; icon: GameSymbolName; cls: string }[] = [
+  { key: 'might',     de: 'Stärke',       en: 'Might',     icon: 'staerke',      cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
+  { key: 'knowledge', de: 'Wissen',       en: 'Knowledge', icon: 'wissen',       cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
+  { key: 'willpower', de: 'Willenskraft', en: 'Willpower', icon: 'willenskraft', cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
+  { key: 'awareness', de: 'Geistesgegenwart', en: 'Awareness', icon: 'gespuer',  cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
 ]
 
 function PerPlayerTable({ form, lang }: { form: LieutenantForm; lang: Lang }) {
@@ -50,13 +51,13 @@ function PerPlayerTable({ form, lang }: { form: LieutenantForm; lang: Lang }) {
           <div key={label} className="flex-1 rounded bg-dungeon-900/60 px-1.5 py-1 text-center space-y-0.5">
             <div className="text-[10px] text-gray-500">{label} {lang === 'de' ? 'Sp.' : 'pl.'}</div>
             <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200">
-              <MovementBadge size={12} circle="#15552c" />{s.speed}
+              <SpeedIcon size={12} />{s.speed}
             </div>
             <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200">
               <HealthIcon size={12} />{s.health}
             </div>
             <div className="flex items-center justify-center gap-0.5">
-              <DefenseBadge size={12} circle="#1f6fb2" />
+              <DefenseStatIcon size={12} />
               {s.defense.map((d, i) => <DicePip key={i} color={d} />)}
             </div>
           </div>
@@ -86,14 +87,18 @@ function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: Lieutena
       {/* Angriff + Attribute */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-1 text-xs text-gray-400">
-          <AttackIcon size={14} />{lang === 'de' ? form.attackTypeDe : form.attackTypeEn}
+          <AttackTypeIcon type={form.attackTypeDe === 'Fernkampf' ? 'range' : 'melee'} size={15} />
+          {lang === 'de' ? form.attackTypeDe : form.attackTypeEn}
           <span className="flex gap-0.5 ml-0.5">{form.attackDice.map((d, i) => <DicePip key={i} color={d} />)}</span>
         </span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-0.5">
         {ATTR.map((a) => (
           <span key={a.key} className={`rounded flex items-center justify-between gap-1 text-[10px] px-1 py-0.5 ${a.cls}`}>
-            <span className="opacity-80 truncate">{lang === 'de' ? a.de : a.en}</span>
+            <span className="flex items-center gap-1 min-w-0">
+              <GameIcon kind="symbol" name={a.icon} variant="plain" size={13} className="-my-1" />
+              <span className="opacity-80 truncate">{lang === 'de' ? a.de : a.en}</span>
+            </span>
             <span className="font-bold">{form[a.key]}</span>
           </span>
         ))}

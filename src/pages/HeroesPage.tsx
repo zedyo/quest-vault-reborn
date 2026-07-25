@@ -3,8 +3,9 @@ import { HEROES, ARCHETYPE_LABELS, ARCHETYPE_COLORS } from '../data/heroes'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { MovementBadge, DefenseBadge, renderGameText } from '../components/GameSymbols'
-import { HealthIcon, StaminaIcon } from '../components/StatIcons'
+import { renderGameText } from '../components/GameSymbols'
+import { HealthIcon, StaminaIcon, SpeedIcon, DefenseStatIcon } from '../components/StatIcons'
+import { GameIcon, type GameSymbolName } from '../components/icons/GameIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
@@ -16,10 +17,10 @@ import type { Hero } from '../types/game'
 // ── Attribute chips ───────────────────────────────────────────────────────────
 
 const ATTR_STYLE = {
-  might:     { label: 'Stärke',       cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
-  knowledge: { label: 'Wissen',       cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
-  willpower: { label: 'Willenskraft', cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
-  awareness: { label: 'Geistesgegenwart', cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
+  might:     { label: 'Stärke',       icon: 'staerke' as GameSymbolName,      cls: 'bg-red-900/50 text-red-300 border border-red-800/50' },
+  knowledge: { label: 'Wissen',       icon: 'wissen' as GameSymbolName,       cls: 'bg-blue-900/50 text-blue-300 border border-blue-800/50' },
+  willpower: { label: 'Willenskraft', icon: 'willenskraft' as GameSymbolName, cls: 'bg-purple-900/50 text-purple-300 border border-purple-800/50' },
+  awareness: { label: 'Geistesgegenwart', icon: 'gespuer' as GameSymbolName,  cls: 'bg-green-900/50 text-green-300 border border-green-800/50' },
 } as const
 
 function AttributeChips({ hero, compact = true }: { hero: Hero; compact?: boolean }) {
@@ -29,10 +30,14 @@ function AttributeChips({ hero, compact = true }: { hero: Hero; compact?: boolea
       {(['might', 'knowledge', 'willpower', 'awareness'] as const).map((k) => {
         const v = hero[k]
         if (v == null) return null
-        const { label, cls } = ATTR_STYLE[k]
+        const { label, icon, cls } = ATTR_STYLE[k]
         return (
           <span key={k} className={`rounded flex items-center justify-between gap-1 ${cls} ${sz}`}>
-            <span className="opacity-80 truncate">{label}</span>
+            <span className="flex items-center gap-1 min-w-0">
+              {/* plain-Variante: Chip hat bereits einen farbigen Hintergrund */}
+              <GameIcon kind="symbol" name={icon} variant="plain" size={compact ? 12 : 16} className="-my-1" />
+              <span className="opacity-80 truncate">{label}</span>
+            </span>
             <span className="font-bold">{v}</span>
           </span>
         )
@@ -56,7 +61,8 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="font-display text-xl text-gold-400 font-bold">{hero.name}</h3>
-            <span className={`inline-flex items-center text-xs px-2 py-0.5 rounded-full border font-medium mt-1 ${ARCHETYPE_COLORS[hero.archetype]}`}>
+            <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-full border font-medium mt-1 ${ARCHETYPE_COLORS[hero.archetype]}`}>
+              <ArchetypeIcon archetype={hero.archetype} variant="plain" size={16} className="-my-1" />
               {ARCHETYPE_LABELS[hero.archetype]}
             </span>
           </div>
@@ -84,7 +90,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {hero.speed != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <MovementBadge size={18} circle="#15552c" /><span className="text-gray-400">Geschwindigkeit</span>
+                    <SpeedIcon size={18} /><span className="text-gray-400">Geschwindigkeit</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.speed}</span>
                   </div>
                 )}
@@ -102,7 +108,7 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
                 )}
                 {hero.defense && hero.defense.length > 0 && (
                   <div className="flex items-center gap-2 text-sm">
-                    <DefenseBadge size={18} circle="#1f6fb2" /><span className="text-gray-400">Verteidigung</span>
+                    <DefenseStatIcon size={18} /><span className="text-gray-400">Verteidigung</span>
                     <div className="flex gap-0.5 ml-auto">{hero.defense.map((d, i) => <DicePip key={i} color={d} />)}</div>
                   </div>
                 )}
@@ -196,7 +202,7 @@ export default function HeroesPage() {
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
             >
-              {a !== 'alle' && <ArchetypeIcon archetype={a as Hero['archetype']} size={15} />}
+              {a !== 'alle' && <ArchetypeIcon archetype={a as Hero['archetype']} size={20} className="-my-1" />}
               {a === 'alle' ? 'Alle' : ARCHETYPE_LABELS[a as Hero['archetype']]}
             </button>
           ))}
@@ -235,7 +241,8 @@ export default function HeroesPage() {
                       {h.archetype === 'heiler' ? '✚' : h.archetype === 'magier' ? '✦' : h.archetype === 'spaeher' ? '🏹' : '⚔️'}
                     </div>
                   )}
-                  <span className={`absolute bottom-1 right-1 text-[9px] px-1.5 py-0.5 rounded-full border font-medium ${ARCHETYPE_COLORS[h.archetype]}`}>
+                  <span className={`absolute bottom-1 right-1 inline-flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full border font-medium ${ARCHETYPE_COLORS[h.archetype]}`}>
+                    <ArchetypeIcon archetype={h.archetype} variant="plain" size={12} className="-my-1" />
                     {ARCHETYPE_LABELS[h.archetype]}
                   </span>
                 </div>
@@ -250,7 +257,7 @@ export default function HeroesPage() {
                     <div className="grid grid-cols-2 gap-x-1 gap-y-0.5 pt-1 border-t border-dungeon-700">
                       {h.speed != null && (
                         <div className="flex items-center gap-1">
-                          <MovementBadge size={12} circle="#15552c" />
+                          <SpeedIcon size={12} />
                           <span className="text-[10px] text-gray-300 font-medium">{h.speed}</span>
                         </div>
                       )}
@@ -268,7 +275,7 @@ export default function HeroesPage() {
                       )}
                       {h.defense && h.defense.length > 0 && (
                         <div className="flex items-center gap-0.5">
-                          <DefenseBadge size={12} circle="#1f6fb2" />
+                          <DefenseStatIcon size={12} />
                           {h.defense.map((d, i) => <DicePip key={i} color={d} />)}
                         </div>
                       )}

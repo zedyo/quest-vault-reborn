@@ -272,7 +272,7 @@ export default function ClassesPage() {
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
             >
-              {a !== 'alle' && <ArchetypeIcon archetype={a} size={15} />}
+              {a !== 'alle' && <ArchetypeIcon archetype={a} size={20} className="-my-1" />}
               {a === 'alle' ? 'Alle' : ARCHETYPE_DE[a]}
             </button>
           ))}
@@ -299,7 +299,7 @@ export default function ClassesPage() {
             return (
               <div key={arch}>
                 <h3 className="flex items-center gap-2 text-gold-500 text-sm font-semibold uppercase tracking-wider mb-3">
-                  <ArchetypeIcon archetype={arch} size={18} />
+                  <ArchetypeIcon archetype={arch} size={22} />
                   {ARCHETYPE_DE[arch]}
                 </h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">

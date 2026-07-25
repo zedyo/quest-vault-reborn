@@ -3,6 +3,7 @@ import { SHOP_ITEMS, RELICS } from '../data/items'
 import { EXPANSIONS } from '../data/expansions'
 import { useGameStore } from '../store/useGameStore'
 import { renderGameText, DiceSymbol } from '../components/GameSymbols'
+import { GameIcon } from '../components/icons/GameIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox from '../components/ErrataBox'
 import { getErrata } from '../data/errataLinks'
@@ -47,20 +48,21 @@ function DiceRow({ dice }: { dice: DieColor[] }) {
 }
 
 // Additiver Filter-Chip (an/aus). Mehrere gleichzeitig aktivierbar.
-function FilterChip<T extends string>({ value, label, active, onToggle }: {
-  value: T; label: string; active: boolean; onToggle: (v: T) => void
+function FilterChip<T extends string>({ value, label, icon, active, onToggle }: {
+  value: T; label: string; icon?: React.ReactNode; active: boolean; onToggle: (v: T) => void
 }) {
   return (
     <button
       type="button"
       aria-pressed={active}
       onClick={() => onToggle(value)}
-      className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full border transition-colors ${
         active
           ? 'bg-accent border-gold-400 text-onaccent font-medium'
           : 'bg-dungeon-800 border-dungeon-600 text-gray-400 hover:text-gray-200 hover:border-dungeon-500'
       }`}
     >
+      {icon}
       {label}
     </button>
   )
@@ -157,7 +159,8 @@ function ShopCard({ item, lang, onImageOpen }: { item: ShopItem; lang: Lang; onI
           <div className="flex items-center gap-3 mt-1">
             <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
             {item.attack && (
-              <span className="text-[10px] text-gray-500">
+              <span className="flex items-center gap-1 text-[10px] text-gray-500">
+                <GameIcon kind="symbol" name={item.attack === 'melee' ? 'nahkampf' : 'fernkampf'} variant="plain" size={13} className="-my-0.5" />
                 {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
               </span>
             )}
@@ -200,7 +203,8 @@ function RelicCard({ item, lang, onImageOpen }: { item: Relic; lang: Lang; onIma
           <div className="flex items-center gap-3 mt-1">
             <span className="text-[10px] text-gray-500">{EQUIP_DE[item.equip]}</span>
             {item.attack && (
-              <span className="text-[10px] text-gray-500">
+              <span className="flex items-center gap-1 text-[10px] text-gray-500">
+                <GameIcon kind="symbol" name={item.attack === 'melee' ? 'nahkampf' : 'fernkampf'} variant="plain" size={13} className="-my-0.5" />
                 {item.attack === 'melee' ? 'Nahkampf' : 'Fernkampf'}
               </span>
             )}
@@ -373,7 +377,14 @@ export default function ItemsPage() {
         ))}
         <span className="w-px h-4 bg-dungeon-600 mx-1" />
         {ATTACK_FILTERS.map((f) => (
-          <FilterChip key={f.value} value={f.value} label={f.label} active={atkSel.has(f.value)} onToggle={toggleAtk} />
+          <FilterChip
+            key={f.value}
+            value={f.value}
+            label={f.label}
+            icon={<GameIcon kind="symbol" name={f.value === 'melee' ? 'nahkampf' : 'fernkampf'} variant="plain" size={15} className="-my-1" />}
+            active={atkSel.has(f.value)}
+            onToggle={toggleAtk}
+          />
         ))}
         {(slotSel.size > 0 || atkSel.size > 0) && (
           <button

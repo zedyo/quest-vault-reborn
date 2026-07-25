@@ -5,8 +5,8 @@ import { EXPANSIONS } from '../data/expansions'
 import { monsterCardDeUrl } from '../data/assetUrls'
 import { useGameStore } from '../store/useGameStore'
 import { DicePip } from '../components/DiceDisplay'
-import { SurgeSymbol, ActionSymbol, MovementBadge, DefenseBadge, MeleeIcon, RangedIcon, renderGameTextInline } from '../components/GameSymbols'
-import { HealthIcon, AttackIcon } from '../components/StatIcons'
+import { SurgeSymbol, ActionSymbol, renderGameTextInline } from '../components/GameSymbols'
+import { HealthIcon, SpeedIcon, DefenseStatIcon, AttackTypeIcon } from '../components/StatIcons'
 import TraitIcon from '../components/TraitIcon'
 import ModalOverlay from '../components/ModalOverlay'
 import ErrataBox, { ErrataEntryBody } from '../components/ErrataBox'
@@ -53,7 +53,7 @@ function formatEntry(text: string, stripSchub = false): React.ReactNode {
   return <><strong className="text-gray-300 font-semibold">{name}</strong>{renderGameTextInline(rest, 12)}</>
 }
 
-// Stat-Icons (HealthIcon/AttackIcon) liegen zentral in ../components/StatIcons;
+// Stat-Icons (HealthIcon/SpeedIcon/DefenseStatIcon/AttackTypeIcon) liegen zentral in ../components/StatIcons;
 // SurgeSymbol & ActionSymbol in ../components/GameSymbols.
 // TraitIcon (Monster-Eigenschaften) liegt zentral in ../components/TraitIcon.
 
@@ -87,7 +87,7 @@ function StatBlock({ stats, label, isElite, attackType, compact = true }: StatBl
           (nur Icons) – so überlaufen die Angriffswürfel den Kartenrand nicht mehr. */}
       <div className="grid gap-y-1 items-center" style={{ gridTemplateColumns: 'auto 1fr', columnGap: 6 }}>
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <MovementBadge size={iconSize} circle="#15552c" /><span className={labelCls}>Bewegung</span>
+          <SpeedIcon size={iconSize} /><span className={labelCls}>Bewegung</span>
         </span>
         <span className={`text-gray-200 font-medium ${textCls}`}>{stats.speed}</span>
 
@@ -97,19 +97,21 @@ function StatBlock({ stats, label, isElite, attackType, compact = true }: StatBl
         <span className={`text-gray-200 font-medium ${textCls}`}>{stats.health}</span>
 
         <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <DefenseBadge size={iconSize} circle="#1f6fb2" /><span className={labelCls}>Verteid.</span>
+          <DefenseStatIcon size={iconSize} /><span className={labelCls}>Verteid.</span>
         </span>
         <div className="flex gap-0.5 flex-wrap">
           {stats.defense.map((d, i) => <DicePip key={i} color={d} />)}
         </div>
 
-        <span className={`flex items-center gap-1 text-gray-500 ${textCls}`}>
-          <AttackIcon size={iconSize} /><span className={labelCls}>Angriff</span>
+        {/* Angriffszeile: das Zeilen-Icon selbst zeigt die Angriffsart (Axt/Bogen) */}
+        <span
+          className={`flex items-center gap-1 text-gray-500 ${textCls}`}
+          title={attackType === 'range' ? 'Fernkampf' : 'Nahkampf'}
+        >
+          <AttackTypeIcon type={attackType} size={iconSize} /><span className={labelCls}>Angriff</span>
         </span>
         <div className="flex items-center gap-0.5 flex-wrap">
           {stats.attack.map((d, i) => <DicePip key={i} color={d} />)}
-          {attackType === 'melee' && <span className="ml-1 inline-flex" title="Nahkampf"><MeleeIcon size={iconSize + 2} /></span>}
-          {attackType === 'range' && <span className="ml-1 inline-flex" title="Fernkampf"><RangedIcon size={iconSize + 2} /></span>}
         </div>
       </div>
 
@@ -471,7 +473,8 @@ export default function MonstersPage() {
                   }`}
                 >
                   <span className="text-gray-300 text-xs">{trait}</span>
-                  <TraitIcon trait={trait} size={14} />
+                  {/* groß + negative Vertikal-Margin: füllt den Chip, ohne ihn zu vergrößern */}
+                  <TraitIcon trait={trait} size={20} className="-my-1" />
                 </button>
               )
             })}

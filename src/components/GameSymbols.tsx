@@ -158,68 +158,11 @@ export function DefenseSymbol({ size = 13, color = '#64748b' }: { size?: number;
   )
 }
 
-/** Bewegungs-Symbol weiß zentriert auf grünem Kreis */
-export function MovementBadge({ size = 28, circle = '#22c55e' }: { size?: number; circle?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" style={baseStyle}>
-      <circle cx="50" cy="50" r="48" fill={circle} />
-      <g transform="translate(23.16,19) scale(0.3464)">
-        <g transform="translate(0,180) scale(0.1,-0.1)" fill="#ffffff" stroke="none">
-          <path d={MOVEMENT_PATH} />
-        </g>
-      </g>
-    </svg>
-  )
-}
-
-/** Schild weiß zentriert auf grauem Kreis */
-export function DefenseBadge({ size = 28, circle = '#64748b' }: { size?: number; circle?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" style={baseStyle}>
-      <circle cx="50" cy="50" r="48" fill={circle} />
-      <g transform="translate(19.16,19) scale(0.3179)">
-        <g transform="translate(0,210) scale(0.1,-0.1)" fill="#ffffff" stroke="none">
-          <path d={DEFENSE_PATH} />
-        </g>
-      </g>
-    </svg>
-  )
-}
-
-// ── Angriffsart (Nahkampf / Fernkampf) ──────────────────────────────────────
-// Kennzeichnet hinter den Angriffswürfeln, ob eine Monstergruppe Nah- oder
-// Fernkämpfer sind – angelehnt an die Kartensymbole (rote Kriegsaxt / grüner Bogen).
-
-/** Rote Kriegsaxt = Nahkampf (Melee) – einschneidige Axt, kräftig/erkennbar bei ~16px */
-export function MeleeIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={baseStyle} aria-label="Nahkampf">
-      {/* Stiel (dunkelbraun, diagonal) */}
-      <polygon points="14.6,21.4 17,20.3 9.4,4.8 7,5.9" fill="#7c2d12" />
-      {/* Axtklinge (rot, bärtige Einzelklinge) */}
-      <polygon points="9.4,4.8 8.1,1.9 2.6,3.7 2.1,10.1 8.7,7.9" fill="#dc2626" />
-      {/* Schneide-Highlight */}
-      <polygon points="2.1,10.1 8.7,7.9 8.3,6.6 2.7,8.2" fill="#ef4444" />
-    </svg>
-  )
-}
-
-/** Grüner Bogen = Fernkampf (Range) */
-export function RangedIcon({ size = 15 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" style={baseStyle} aria-label="Fernkampf">
-      <g fill="none" stroke="#16a34a" strokeLinecap="round">
-        {/* Bogen */}
-        <path d="M6.5 3.2 A 12.5 12.5 0 0 1 6.5 20.8" strokeWidth="2.1" />
-        {/* Sehne */}
-        <line x1="6.5" y1="3.2" x2="6.5" y2="20.8" strokeWidth="1.2" />
-        {/* Pfeil */}
-        <line x1="5.2" y1="12" x2="20" y2="12" strokeWidth="1.7" />
-        <path d="M20 12 L16.6 9.4 M20 12 L16.6 14.6" strokeWidth="1.7" />
-      </g>
-    </svg>
-  )
-}
+// Hinweis: Die früheren Statzeilen-Badges (MovementBadge/DefenseBadge) und die
+// Angriffsart-Icons (MeleeIcon/RangedIcon) wurden in v1.6.12 durch die
+// gerasterten Icon-Set-Embleme ersetzt (SpeedIcon/DefenseStatIcon/AttackTypeIcon
+// in StatIcons.tsx). Die flachen Kartentext-Symbole hier bleiben maßgeblich für
+// renderGameText/renderGameTextInline und die Regelreferenz.
 
 // ── Würfel ────────────────────────────────────────────────────────────────────
 

@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom'
 import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { monsterCardDeUrl } from '../data/assetUrls'
-import {
-  DiceSymbol, SurgeSymbol, ActionSymbol, HeartSymbol,
-  MovementSymbol, DefenseSymbol, MeleeIcon, RangedIcon, renderGameTextInline,
-} from './GameSymbols'
+import { DiceSymbol, SurgeSymbol, ActionSymbol, HeartSymbol, renderGameTextInline } from './GameSymbols'
+import { HealthIcon, SpeedIcon, DefenseStatIcon, AttackTypeIcon } from './StatIcons'
+import { GameIcon } from './icons/GameIcon'
 import TraitIcon from './TraitIcon'
 import { pickIndexForDay, dayIndex } from '../utils/monsterOfDay'
 import {
@@ -213,7 +212,6 @@ export default function MonsterOfTheDay() {
   const diceUp = (cur: DieColor[], base: DieColor[]) => up && JSON.stringify(cur) !== JSON.stringify(base)
 
   const isRange = daily.attackType === 'range'
-  const AttackTypeIcon = isRange ? <RangedIcon size={14} /> : <MeleeIcon size={15} />
   const expName = EXP_NAME[daily.expansionId] ?? daily.expansionId
   const hasAbilities = agg.passive.boxes.length + agg.surge.boxes.length + agg.surge.boosts.length + agg.action.boxes.length > 0
 
@@ -241,7 +239,8 @@ export default function MonsterOfTheDay() {
 
         <div className="absolute" style={{ top: 12, right: 14 }}>
           <span className="inline-flex items-center gap-1 rounded-pill font-mono" style={{ fontSize: 9.5, padding: '3px 8px', background: 'rgba(0,0,0,.52)', color: '#efe8db' }}>
-            {AttackTypeIcon}
+            {/* plain-Variante: die Pill bringt ihren eigenen dunklen Hintergrund mit */}
+            <GameIcon kind="symbol" name={isRange ? 'fernkampf' : 'nahkampf'} variant="plain" size={14} className="-my-1" />
             {isRange ? 'Fernkampf' : 'Nahkampf'}
           </span>
         </div>
@@ -284,7 +283,7 @@ export default function MonsterOfTheDay() {
         <div className="flex flex-wrap gap-1.5" style={{ padding: '10px 17px 0' }}>
           {daily.traits.map((t) => (
             <span key={t} className="inline-flex items-center gap-1 rounded-chip bg-surface-2 border border-line text-fg" style={{ fontSize: 11, padding: '2px 8px' }}>
-              <TraitIcon trait={t} size={13} />{t}
+              <TraitIcon trait={t} size={18} className="-my-1" />{t}
             </span>
           ))}
         </div>
@@ -300,22 +299,22 @@ export default function MonsterOfTheDay() {
             <span className="font-mono uppercase text-accent-bright text-center" style={{ fontSize: 9.5, letterSpacing: '0.08em' }}>Meister</span>
           </div>
           <StatRow
-            icon={<MovementSymbol size={14} />} label="Tempo"
+            icon={<SpeedIcon size={15} />} label="Tempo"
             diener={<NumCell value={diener.speed} up={numUp(diener.speed, dienerBase.speed)} />}
             meister={<NumCell value={master.speed} master up={numUp(master.speed, masterBase.speed)} />}
           />
           <StatRow
-            icon={<HeartSymbol size={14} />} label="Leben"
+            icon={<HealthIcon size={15} />} label="Leben"
             diener={<NumCell value={diener.health} up={numUp(diener.health, dienerBase.health)} />}
             meister={<NumCell value={master.health} master up={numUp(master.health, masterBase.health)} />}
           />
           <StatRow
-            icon={<DefenseSymbol size={14} />} label="Verteidigung"
+            icon={<DefenseStatIcon size={15} />} label="Verteidigung"
             diener={<DiceCell dice={diener.defense} up={diceUp(diener.defense, dienerBase.defense)} />}
             meister={<DiceCell dice={master.defense} master up={diceUp(master.defense, masterBase.defense)} />}
           />
           <StatRow
-            icon={AttackTypeIcon} label="Angriff"
+            icon={<AttackTypeIcon type={daily.attackType} size={15} />} label="Angriff"
             diener={<DiceCell dice={diener.attack} up={diceUp(diener.attack, dienerBase.attack)} />}
             meister={<DiceCell dice={master.attack} master up={diceUp(master.attack, masterBase.attack)} />}
           />

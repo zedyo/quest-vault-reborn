@@ -18,15 +18,24 @@ export function ArchetypeIcon({
   archetype,
   size = 16,
   className = '',
+  variant = 'disc',
 }: {
   archetype: HeroArchetype
   size?: number
   className?: string
+  /** 'disc' = Klassenscheibe (Standard), 'plain' = Emblem in Klassenfarbe (für Pills mit eigenem Hintergrund) */
+  variant?: 'disc' | 'plain'
 }) {
   // hasOwnProperty-Guard: `archetype` kann aus importierten Session-Daten stammen
   if (!Object.prototype.hasOwnProperty.call(ICON_NAME, archetype)) return null
   return (
-    <GameIcon kind="archetype" name={ICON_NAME[archetype]} size={size} className={className} />
+    <GameIcon
+      kind="archetype"
+      name={ICON_NAME[archetype]}
+      variant={variant}
+      size={size}
+      className={className}
+    />
   )
 }
 

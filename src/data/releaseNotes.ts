@@ -20,6 +20,17 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.12',
+    date: '2026-07-25',
+    title: 'Descent-Embleme überall in den Statzeilen',
+    highlights: [
+      'Monster-, Helden-, Leutnants- und Agenten-Karten nutzen jetzt durchgängig die neuen Descent-Embleme: Bewegung, Leben, Ausdauer, Verteidigung sowie Nahkampf (Axt) / Fernkampf (Bogen) direkt in der Angriffszeile.',
+      'Die vier Attribute (Stärke, Wissen, Willenskraft, Geistesgegenwart) haben jetzt eigene Symbole (Faust, Buch, Sonne, Auge) in allen Attribut-Chips – bei Helden wie Leutnants.',
+      'Die Symbole in den Filter- und Merkmal-Pills sind deutlich größer und sauber zentriert – die Pills selbst behalten ihre Form.',
+      'Auch der Items-Filter und die Item-Karten zeigen die Nahkampf-/Fernkampf-Embleme; das „Monster des Tages" nutzt die neuen Symbole in Werte-Tabelle und Kopfzeile.',
+    ],
+  },
+  {
     version: '1.6.11',
     date: '2026-07-25',
     title: 'Neue Descent-Symbol-Grafiken (Icon-Set)',
