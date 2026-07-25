@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.11',
+    date: '2026-07-25',
+    title: 'Neue Descent-Symbol-Grafiken (Icon-Set)',
+    highlights: [
+      'Neues gerastertes Icon-Set mit 53 Descent-Emblemen: Kampfsymbole, Monster-Merkmale, Attribute, Archetypen, Würfel und Menü-Icons – jeweils passend zum aktiven Design („Overlord" dunkel/Glut, „Heldentum" hell/Gold).',
+      'Die Archetyp-Icons (Krieger/Heiler/Magier/Kundschafter) auf den Filter-Buttons der Helden- und Klassenübersicht sind jetzt echte farbige Klassenscheiben statt einfacher Strichgrafiken.',
+      'Die Monster-Merkmal-Symbole (Wildnis, Dunkel, Höhle, Heiß, Kalt …) auf der Monsterseite und im „Monster des Tages" zeigen die neuen Embleme im Stil des gewählten Designs.',
+    ],
+  },
+  {
     version: '1.6.10',
     date: '2026-07-19',
     title: '„Monster des Tages" komplett neu',
