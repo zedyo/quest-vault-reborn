@@ -7,6 +7,11 @@ export type IconName =
   | 'monster' | 'hero' | 'class' | 'item' | 'overlord' | 'lieutenant'
   | 'agent' | 'deck' | 'campaign' | 'compass' | 'rumor' | 'condition'
   | 'rules' | 'errata' | 'design' | 'search'
+  // Aktions-/Steuer-Glyphen (Session-Tracker-Redesign, v1.8.0)
+  | 'plus' | 'close' | 'check' | 'edit' | 'trash' | 'save'
+  | 'download' | 'upload' | 'print' | 'filter' | 'sort'
+  | 'info' | 'warning' | 'external' | 'more' | 'gold' | 'xp'
+  | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'chevron-down'
 
 const PATHS: Record<IconName, ReactNode> = {
   dashboard: (<><rect x="3" y="3" width="5.5" height="5.5" rx="1.2" /><rect x="9.5" y="3" width="5.5" height="5.5" rx="1.2" /><rect x="3" y="9.5" width="5.5" height="5.5" rx="1.2" /><rect x="9.5" y="9.5" width="5.5" height="5.5" rx="1.2" /></>),
@@ -29,6 +34,29 @@ const PATHS: Record<IconName, ReactNode> = {
   errata: (<><rect x="4" y="3.5" width="10" height="12" rx="1.5" /><rect x="6.5" y="2.5" width="5" height="2.4" rx="1" /><line x1="6.5" y1="8" x2="11.5" y2="8" /><line x1="6.5" y1="11" x2="10" y2="11" /></>),
   design: (<><circle cx="9" cy="9" r="6" /><circle cx="6.5" cy="7" r="1" fill="currentColor" stroke="none" /><circle cx="11" cy="6.5" r="1" fill="currentColor" stroke="none" /><circle cx="12" cy="10.8" r="1" fill="currentColor" stroke="none" /></>),
   search: (<><circle cx="7.8" cy="7.8" r="4.3" /><line x1="11" y1="11" x2="15" y2="15" /></>),
+
+  // ── Aktions-/Steuer-Glyphen (18×18-Raster, Strichstärke 1,6, currentColor) ──
+  plus: (<><line x1="9" y1="4" x2="9" y2="14" /><line x1="4" y1="9" x2="14" y2="9" /></>),
+  close: (<><line x1="4.6" y1="4.6" x2="13.4" y2="13.4" /><line x1="13.4" y1="4.6" x2="4.6" y2="13.4" /></>),
+  check: (<path d="M4 9.4 L7.4 12.8 L14 5.8" />),
+  edit: (<><path d="M12.2 3.6 L14.4 5.8 L6.6 13.6 L3.6 14.4 L4.4 11.4 Z" /><line x1="10.7" y1="5.1" x2="12.9" y2="7.3" /></>),
+  trash: (<><line x1="3.5" y1="5" x2="14.5" y2="5" /><path d="M5.5 5 L6.2 15 L11.8 15 L12.5 5" /><path d="M7 5 L7 3.2 L11 3.2 L11 5" /></>),
+  save: (<><path d="M3.5 3.5 H12 L14.5 6 V14.5 H3.5 Z" /><path d="M6 3.5 V7.5 H11.4 V3.5" /><rect x="6" y="10.2" width="6" height="4.3" /></>),
+  download: (<><line x1="9" y1="3.2" x2="9" y2="11.2" /><path d="M5.6 8 L9 11.4 L12.4 8" /><line x1="3.8" y1="14.6" x2="14.2" y2="14.6" /></>),
+  upload: (<><line x1="9" y1="11.4" x2="9" y2="3.4" /><path d="M5.6 6.8 L9 3.4 L12.4 6.8" /><line x1="3.8" y1="14.6" x2="14.2" y2="14.6" /></>),
+  print: (<><path d="M5.5 6.5 V3 H12.5 V6.5" /><rect x="3" y="6.5" width="12" height="5.5" rx="1.2" /><rect x="5.5" y="10.5" width="7" height="4.5" /></>),
+  filter: (<><line x1="3.2" y1="5" x2="14.8" y2="5" /><line x1="5.4" y1="9" x2="12.6" y2="9" /><line x1="7.4" y1="13" x2="10.6" y2="13" /></>),
+  sort: (<><path d="M5.4 4 V13.4 M3.2 11.2 L5.4 13.4 L7.6 11.2" /><path d="M12.6 14 V4.6 M10.4 6.8 L12.6 4.6 L14.8 6.8" /></>),
+  info: (<><circle cx="9" cy="9" r="6.2" /><line x1="9" y1="8.2" x2="9" y2="12.4" /><circle cx="9" cy="5.6" r=".9" fill="currentColor" stroke="none" /></>),
+  warning: (<><path d="M9 3 L15.4 14.4 H2.6 Z" /><line x1="9" y1="7.4" x2="9" y2="10.6" /><circle cx="9" cy="12.6" r=".9" fill="currentColor" stroke="none" /></>),
+  external: (<><path d="M10.4 3.6 H14.4 V7.6" /><line x1="14.4" y1="3.6" x2="8.6" y2="9.4" /><path d="M12.4 10.6 V14 H4 V5.6 H7.4" /></>),
+  more: (<><circle cx="4.4" cy="9" r="1.15" fill="currentColor" stroke="none" /><circle cx="9" cy="9" r="1.15" fill="currentColor" stroke="none" /><circle cx="13.6" cy="9" r="1.15" fill="currentColor" stroke="none" /></>),
+  gold: (<><ellipse cx="9" cy="5.6" rx="5.6" ry="2.4" /><path d="M3.4 5.6 V12.4 C3.4 13.7 5.9 14.8 9 14.8 C12.1 14.8 14.6 13.7 14.6 12.4 V5.6" /><path d="M3.4 9 C3.4 10.3 5.9 11.4 9 11.4 C12.1 11.4 14.6 10.3 14.6 9" /></>),
+  xp: (<><path d="M9 2.6 L11 6.9 L15.6 7.5 L12.3 10.8 L13.1 15.4 L9 13.2 L4.9 15.4 L5.7 10.8 L2.4 7.5 L7 6.9 Z" /></>),
+  'chevron-left': (<path d="M11.4 3.8 L5.8 9 L11.4 14.2" />),
+  'chevron-right': (<path d="M6.6 3.8 L12.2 9 L6.6 14.2" />),
+  'chevron-up': (<path d="M3.8 11.8 L9 6.2 L14.2 11.8" />),
+  'chevron-down': (<path d="M3.8 6.2 L9 11.8 L14.2 6.2" />),
 }
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {

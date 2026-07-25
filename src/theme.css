@@ -143,6 +143,12 @@
   --c-gray-950: 30 22 12;
 }
 
+/* Karten-Schatten (Design-System v2 „shadow-card"): dezente Kante unter Karten/
+   Panels. In beiden Designs identisch, deshalb einmal global. */
+:root {
+  --qv-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Status-Farben — semantisch fix über beide Designs. */
 :root {
   --qv-success: #4a9d5b;

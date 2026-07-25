@@ -21,7 +21,7 @@ interface SessionStore {
 
 // Persist-Schema-Version. Bei JEDER Änderung an der Struktur der persistierten
 // Felder hochzählen und in migrate() einen Migrationsschritt ergänzen.
-const PERSIST_VERSION = 2
+const PERSIST_VERSION = 3
 
 /** Schützt vor manipuliertem/korruptem localStorage (Crash beim Rendern). */
 function sanitizePersisted(persisted: unknown): Partial<SessionStore> {
@@ -59,9 +59,14 @@ export const useSessionStore = create<SessionStore>()(
       name: 'qvr-sessions',
       version: PERSIST_VERSION,
       migrate: (persisted, _version) => {
-        // v1 → v2: neue Live-Zähler (threatTokens/partyFateTokens) ergänzt. sanitizeSession
-        // defaultet fehlende Felder auf 0 → v1-Stände laden verlustfrei. Künftige
-        // Migrationen hier als Kette ergänzen (if (version < 3) {...}).
+        // Migrationskette – alle Schritte laufen über `sanitizeSession`, das die
+        // neuen Felder mit Defaults auffüllt und dabei nichts Bestehendes verliert:
+        //   v1 → v2: neue Live-Zähler (threatTokens/partyFateTokens); fehlende Felder → 0.
+        //   v2 → v3: archived/note/epic + rumors/advancedQuests + Helden-Start-XP/-Schicksal
+        //            + Szenario-Felder (playedAt/threatAfter/fateAfter/rumorPlayedId/market).
+        //            `overlord.activeRumorIds` wird dabei EINMALIG nach `rumors`
+        //            (status 'in-play') übertragen und geleert.
+        // Alle Schritte sind idempotent → ein Aufruf von sanitizePersisted genügt.
         return sanitizePersisted(persisted)
       },
       merge: (persisted, current) => ({

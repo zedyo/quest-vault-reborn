@@ -1,6 +1,15 @@
 import { describe, it, expect } from 'vitest'
 import { HERO_CLASSES } from '../../../data/heroClasses'
-import { classStartingSkillIds, classStartingItemRefs, withClass, newTrackedHero, newSession } from '../sessionHelpers'
+import {
+  classStartingSkillIds,
+  classStartingItemRefs,
+  withClass,
+  newTrackedHero,
+  newSession,
+  sellRefund,
+  isSellable,
+} from '../sessionHelpers'
+import { SHOP_ITEMS } from '../../../data/items'
 import { CAMPAIGNS } from '../../../data/campaigns'
 
 describe('sessionHelpers – Klassen-Seeding gegen echte Spieldaten', () => {
@@ -48,5 +57,28 @@ describe('sessionHelpers – Klassen-Seeding gegen echte Spieldaten', () => {
     expect(s.scenarios).toEqual([])
     expect(s.playerCount).toBe(2)
     expect(s.overlord.deckIds).toEqual([])
+  })
+})
+
+describe('sellRefund – Verkaufserlös nach Regel', () => {
+  // Regel: die Hälfte des aufgedruckten Wertes, auf das nächste Vielfache von 25
+  // ABGERUNDET; Startausrüstung pauschal 25; Relikte sind nicht verkäuflich.
+  it('rundet auf das nächste Vielfache von 25 ab', () => {
+    for (const item of SHOP_ITEMS) {
+      const refund = sellRefund({ refId: 'x', source: 'shop', dataId: item.id })
+      expect(refund % 25).toBe(0)
+      expect(refund).toBeLessThanOrEqual(item.cost / 2)
+      expect(refund).toBeGreaterThanOrEqual(item.cost / 2 - 24)
+    }
+  })
+
+  it('gibt für Startausrüstung pauschal 25 Gold', () => {
+    expect(sellRefund({ refId: 'x', source: 'class-start', dataId: 'berserker-axt' })).toBe(25)
+  })
+
+  it('schließt Relikte vom Verkauf aus', () => {
+    expect(isSellable({ refId: 'x', source: 'relic', dataId: 'anything' })).toBe(false)
+    expect(sellRefund({ refId: 'x', source: 'relic', dataId: 'anything' })).toBe(0)
+    expect(isSellable({ refId: 'x', source: 'shop', dataId: 'anything' })).toBe(true)
   })
 })

@@ -61,7 +61,7 @@ abgeschlossen:** 1.2.0 = Design-Fundament (warme Palette, Fonts Cinzel/Inter off
 > Tracker, v1.4 = Kampagnen-Speicherstand, v1.5 = Overlord-Kommandozentrale, v1.6 =
 > Helden-Spieleransicht) entsprechen **nicht** der tatsächlichen Auslieferung. Real:
 > v1.3 = deutsche Original-Karten, v1.4/1.5 = Session-Tracker, v1.6 = Design-System v2.
-> **Maßgeblich ist die CLAUDE.md-Statustabelle.** Der Monster-Tracker ist jetzt für **v1.7.0** geplant.
+> **Maßgeblich ist die CLAUDE.md-Statustabelle.** Der Monster-Tracker ist jetzt für **v1.9.0** geplant.
 
 ### v1.1.0 – Datenvollständigkeit 📋 (nächster Schritt)
 
@@ -299,9 +299,21 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 
 ## Nächste konkrete Schritte (jetzt)
 
-> Maßgeblich ist die CLAUDE.md-Statustabelle + „Was noch fehlt". Aktueller Stand: v1.6.4.
+> Maßgeblich ist die CLAUDE.md-Statustabelle + „Was noch fehlt". Aktueller Stand: **v1.8.0**.
 
-1. **v1.7.0 (geplant):** Monster-Tracker (Live-HP) — Planungssession mit User vor Umsetzung.
+**Erledigt mit v1.8.0 — Session-Tracker Redesign** (Design-Handoff, 16 Screens):
+neue Informationsarchitektur (Überblick/Helden/Overlord/Verlauf + dezente Einrichtung),
+geführter 5-Schritte-Abschluss-Flow auf einem eigenen Entwurf, Regeltext im Klartext
+auf jeder Karte (`CardTile`), Zuweisung per Heldenkürzel statt Dropdown, Gerüchte als
+geteilte Ansicht mit aus dem Kartentext geparsten Zeitfenstern, epische Variante,
+Archivieren, Persist-Migration v2→v3. Tippziele im Tracker sind mobil ≥ 44 px.
+
+1. **v1.9.0 (geplant):** Monster-Tracker (Live-HP) — Planungssession mit User vor Umsetzung.
+   Der Platz dafür ist im Überblick bereits reserviert (fünfter Abschnitt „Am Tisch",
+   nur während eines laufenden Szenarios). Hinweis: 1.7.0 wurde übersprungen, das
+   Session-Tracker-Redesign trägt auf Userwunsch die 1.8.0; die geplanten Vorhaben
+   rücken auf 1.9.0 (Monster-Tracker) und 1.10.0 (Helden-Spieleransicht).
 2. **Audit-Backlog abarbeiten** (siehe „Audit-Backlog" oben): offene „Mittel/Niedrig"-Punkte,
-   u. a. Store-Aufteilung, Touch-Targets ≥44 px, Actions per Commit-SHA pinnen, CSP-Meta-Tag.
+   u. a. Store-Aufteilung, Touch-Targets ≥44 px **außerhalb** des Session-Trackers
+   (Layout-Kopfzeile), Actions per Commit-SHA pinnen, CSP-Meta-Tag.
 3. **Projekt-Wiki** (`wiki/`) als kompoundierendes Gedächtnis weiter pflegen (Ingest/Query/Lint).

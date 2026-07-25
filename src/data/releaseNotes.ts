@@ -20,6 +20,25 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.8.0',
+    date: '2026-07-25',
+    title: 'Session-Tracker komplett neu: Kampagnen-Cockpit statt Formular',
+    highlights: [
+      'Neue Struktur: Überblick, Helden, Overlord und Verlauf — die Einrichtung liegt dezent hinten, weil sie nur einmal ausgefüllt wird.',
+      'Der Überblick zeigt auf einen Blick, was zählt: Partei-Gold groß, offene XP je Held, Bedrohungs- und Schicksalsmarker dort, wo sie hingehören.',
+      'Jede Fähigkeit, jeder Gegenstand und jede Overlord-, Plot- oder Gerüchtekarte zeigt jetzt ihren Regeltext im Klartext — der Kartenscan ist nur noch Miniatur zum Vergrößern.',
+      'Der Heldenbogen listet ausschließlich Fähigkeiten, die der Held wirklich besitzt; kaufbare erscheinen nur noch beim Ausgeben von Erfahrung.',
+      'Szenario nachtragen ist ein geführter Ablauf in fünf Schritten (Ergebnis → Belohnungen → Erfahrung → Markt → Overlord) mit laufender Bilanz und „Später fortsetzen".',
+      'Der Markt hat zwei Modi: Marktkarten aufdecken (Anzahl frei wählbar) oder von Hand suchen — inklusive der besonderen Wahl direkt nach dem Zwischenspiel.',
+      'Gerüchte werden beim Kampagnenstart gezogen und liegen in einer geteilten Ansicht: mit Zeitfenster, Spielberechtigung und Verfallshinweis, direkt aus dem deutschen Kartentext gelesen.',
+      'Gerüchteabenteuer und Zusatzabenteuer stehen im Verlauf gleichberechtigt neben den Szenarien des Kampagnenbogens.',
+      'Gegenstände werden per Klick auf ein Heldenkürzel zugewiesen — kein Dropdown mehr, auch auf dem Handy.',
+      'Neu: epische Variante mit Start-Erfahrung und Start-Schicksalsmarkern je Held, Kampagnen archivieren statt löschen, freie Spielstand-Notiz.',
+      'Heldenbereiche erscheinen im hellen Design „Heldentum", Overlord-Bereiche im dunklen „Overlord" — unabhängig vom gewählten Design.',
+      'Datenpflege: 12 der 16 Zusatzabenteuer trugen eine Community-Übersetzung als Titel — sie heißen jetzt wie auf der deutschen Originalkarte (z. B. „Die Waffenschmiede" statt „An der Schmiede").',
+    ],
+  },
+  {
     version: '1.6.13',
     date: '2026-07-25',
     title: 'Größere Symbole in den Statzeilen',

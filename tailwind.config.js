@@ -99,6 +99,7 @@ export default {
       },
       boxShadow: {
         btn:   'var(--qv-btn-shadow)',
+        card:  'var(--qv-shadow-card)',
         panel: '0 40px 90px -24px rgba(0,0,0,.75)',
       },
       backgroundImage: {

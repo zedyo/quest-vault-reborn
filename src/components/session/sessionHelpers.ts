@@ -98,6 +98,8 @@ export function newSession(campaignId: string): CampaignSession {
     heroes: [],
     overlord: emptyOverlord(),
     scenarios: [],
+    rumors: [],
+    advancedQuests: [],
   }
 }
 
@@ -140,9 +142,20 @@ export function itemBaseCost(ref: ItemRef): number {
   return ref.source === 'shop' ? SHOP_BY_ID[ref.dataId]?.cost ?? 0 : 0
 }
 
-/** Standard-Verkaufserlös = halber Marktpreis, abgerundet. */
+/**
+ * Verkaufserlös laut Regel: die Hälfte des aufgedruckten Wertes, auf das nächste
+ * Vielfache von 25 ABGERUNDET. Startausrüstung bringt pauschal 25 Goldstücke.
+ * Relikte können nicht verkauft werden (→ 0, siehe `isSellable`).
+ */
 export function sellRefund(ref: ItemRef): number {
-  return Math.floor(itemBaseCost(ref) / 2)
+  if (ref.source === 'class-start') return 25
+  if (ref.source === 'relic') return 0
+  return Math.floor(itemBaseCost(ref) / 2 / 25) * 25
+}
+
+/** Relikte sind laut Regel nicht verkäuflich; alles andere schon. */
+export function isSellable(ref: ItemRef): boolean {
+  return ref.source !== 'relic'
 }
 
 /** XP-Kosten einer Fähigkeit als Zahl ('elemental' → 0). */
@@ -154,6 +167,77 @@ export function skillCost(skill: ClassSkill): number {
 export function heroDisplayName(hero: TrackedHero): string {
   const name = HERO_BY_ID[hero.heroId]?.name ?? hero.heroId
   return hero.playerName.trim() ? `${name} (${hero.playerName.trim()})` : name
+}
+
+/** Voller Heldenname (ohne Spieler-Zusatz). */
+export function heroFullName(hero: TrackedHero): string {
+  return HERO_BY_ID[hero.heroId]?.name ?? hero.heroId
+}
+
+/** Kurzname für dichte Zeilen: erstes Wort („Grisban der Durstige" → „Grisban"). */
+export function heroShortName(hero: TrackedHero): string {
+  return heroFullName(hero).split(' ')[0]
+}
+
+/**
+ * Zwei-Buchstaben-Kürzel eines Helden (Heldenkacheln/HeroChipRow):
+ * mehrteilige Namen → Anfangsbuchstaben der ersten beiden Wörter
+ * („Grisban der Durstige" → „GD"), sonst die ersten zwei Buchstaben
+ * („Syndrael" → „SY").
+ */
+export function heroMono(hero: TrackedHero): string {
+  const name = heroFullName(hero).trim()
+  if (!name) return '??'
+  const words = name.split(/\s+/).filter(Boolean)
+  if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase()
+  return name.slice(0, 2).toUpperCase()
+}
+
+/** Regeltext eines Gegenstands (deutsche Karte) – Pflichtangabe jeder CardTile. */
+export function itemRulesText(ref: ItemRef): string {
+  switch (ref.source) {
+    case 'shop':
+      return SHOP_BY_ID[ref.dataId]?.rulesDe ?? ''
+    case 'relic':
+      return RELIC_BY_ID[ref.dataId]?.rulesDe ?? ''
+    case 'class-start':
+      return CLASS_START_ITEM_BY_ID[ref.dataId]?.rulesDe ?? ''
+    default:
+      return ''
+  }
+}
+
+/** Deutsche Slot-/Angriffsart-Bezeichnungen (die Daten führen die EN-Enums). */
+export const EQUIP_DE: Record<string, string> = {
+  'one-hand': '1 Hand',
+  'two-hands': '2 Hände',
+  armor: 'Rüstung',
+  other: 'Zubehör',
+}
+export const ATTACK_DE: Record<string, string> = { melee: 'Nahkampf', range: 'Fernkampf' }
+
+/** Slot-/Typ-Label eines Gegenstands („NAHKAMPF · 1 HAND", „RELIKT", „ZUBEHÖR"). */
+export function itemSlotLabel(ref: ItemRef): string {
+  switch (ref.source) {
+    case 'shop': {
+      const it = SHOP_BY_ID[ref.dataId]
+      if (!it) return 'MARKTKARTE'
+      const parts = [it.attack ? ATTACK_DE[it.attack] : '', it.equip ? EQUIP_DE[it.equip] : ''].filter(Boolean)
+      return (parts.length ? parts.join(' · ') : `Akt ${it.act}`).toUpperCase()
+    }
+    case 'relic': {
+      const r = RELIC_BY_ID[ref.dataId]
+      if (!r) return 'RELIKT'
+      const parts = [r.attack ? ATTACK_DE[r.attack] : '', r.equip ? EQUIP_DE[r.equip] : ''].filter(Boolean)
+      return `RELIKT${parts.length ? ` · ${parts.join(' · ')}` : ''}`.toUpperCase()
+    }
+    case 'class-start': {
+      const it = CLASS_START_ITEM_BY_ID[ref.dataId]
+      return (it?.type ?? 'Startausrüstung').toUpperCase()
+    }
+    default:
+      return 'EIGENER GEGENSTAND'
+  }
 }
 
 // ── Mengen-Helfer für Mehrfach-Exemplare (Overlord-Karten als Multiset) ───────

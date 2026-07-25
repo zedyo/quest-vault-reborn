@@ -2,10 +2,10 @@
 // Chips) in der App-Goldoptik. Bewusst schlank – größere Bausteine kommen aus
 // src/components (ModalOverlay, ConfirmDialog, Filters …).
 
-import { useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import type { ItemRef } from '../../types/session'
 import { itemCardUrl, resolveItemName } from './sessionHelpers'
-import ModalOverlay from '../ModalOverlay'
+import CardThumb from './ui/CardThumb'
 
 const INPUT_CLASS =
   'w-full bg-dungeon-900 border border-dungeon-700 rounded px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-gold-500'
@@ -149,41 +149,9 @@ export function QtyStepper({
  * Fallback via onError).
  */
 export function ItemThumb({ item }: { item: ItemRef }) {
-  const url = itemCardUrl(item)
-  const [ok, setOk] = useState(true)
-  const [zoom, setZoom] = useState(false)
-  if (!url || !ok) return null
-  const name = resolveItemName(item)
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setZoom(true)}
-        title={`${name} – Karte vergrößern`}
-        className="shrink-0 rounded border border-dungeon-700 bg-dungeon-800 overflow-hidden hover:border-gold-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 cursor-zoom-in"
-      >
-        <img
-          src={url}
-          alt={name}
-          loading="lazy"
-          onError={() => setOk(false)}
-          className="w-10 h-[3.8rem] object-contain block"
-        />
-      </button>
-      {zoom && (
-        <ModalOverlay onClose={() => setZoom(false)} ariaLabel={name} backdropClassName="bg-black/85" className="relative max-w-xs w-full">
-          <button
-            onClick={() => setZoom(false)}
-            className="absolute -top-8 right-0 text-gray-400 hover:text-white text-sm"
-          >
-            ✕ Schließen
-          </button>
-          <img src={url} alt={name} className="w-full rounded-lg shadow-2xl border border-dungeon-600" />
-          <p className="mt-2 text-center text-sm font-medium text-gray-200">{name}</p>
-        </ModalOverlay>
-      )}
-    </>
-  )
+  // Seit dem Redesign (v1.8.0) läuft die Miniatur + Lightbox über den geteilten
+  // `CardThumb` — eine Implementierung für alle Karten des Trackers.
+  return <CardThumb url={itemCardUrl(item)} name={resolveItemName(item)} size="market" hideOnMobile={false} />
 }
 
 /** Überschrift eines Unterabschnitts innerhalb eines Tabs. */

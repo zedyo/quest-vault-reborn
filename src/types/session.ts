@@ -28,6 +28,40 @@ export interface ItemRef {
   customName?: string
 }
 
+/**
+ * Zeitfenster einer Gerüchtekarte — ABGELEITET aus `Rumor.textDe`
+ * (`src/utils/rumorTiming.ts`), NICHT gespeichert.
+ */
+export type RumorTiming =
+  | 'campaign-phase-start' // „zu Beginn einer Kampagnenphase"
+  | 'travel-start' // „zu Beginn des Reiseschritts"
+  | 'travel-after' // „sofort nach dem Reiseschritt"
+  | 'travel-end' // „am Ende des Reiseschritts"
+  | 'shopping-start' // „zu Beginn des Einkaufsschritts"
+  | 'adventure-only' // kein Spielzeitpunkt, nur als nächstes Abenteuer wählbar
+
+/** Zustand einer beim Kampagnenstart gezogenen Gerüchtekarte. */
+export type TrackedRumorStatus = 'in-play' | 'played' | 'expired' | 'discarded'
+
+export interface TrackedRumor {
+  /** → RUMORS. */
+  rumorId: string
+  status: TrackedRumorStatus
+  /** PlayedScenario.id, in dessen Kampagnenphase die Karte gespielt wurde. */
+  playedInScenarioId?: string
+}
+
+/** Zustand einer Zusatzabenteuerkarte (Akt II, kein Teil des Gerüchtedecks). */
+export type TrackedAdvancedQuestStatus = 'not-in-play' | 'in-play' | 'played'
+
+export interface TrackedAdvancedQuest {
+  /** → ADVANCED_QUESTS. */
+  questId: string
+  status: TrackedAdvancedQuestStatus
+  /** Wodurch sie ins Spiel kam — `rumorId` oder Freitext. */
+  source?: string
+}
+
 /** Ein getrackter Held: welcher Spieler, welche Klasse, welche Start-Skills/-Items. */
 export interface TrackedHero {
   /** Stabiler Schlüssel (uid), unabhängig von `heroId`. */
@@ -43,6 +77,10 @@ export interface TrackedHero {
   /** Bei Session-Start besessene Gegenstände (Default = Startausrüstung der Klasse). */
   startingItemRefs: ItemRef[]
   note?: string
+  /** Epische Variante: Start-Erfahrung. Zählt in `xpEarned`. */
+  startingXp?: number
+  /** Epische Variante: Schicksalsmarker, die dieser Held zum Partei-Vorrat beiträgt. */
+  startingFateTokens?: number
 }
 
 /** Getrackter Overlord: Deck(s), besessene Karten, Leutnant, Plotdeck, Gerüchte. */
@@ -57,7 +95,12 @@ export interface TrackedOverlord {
   plotDeckId: string | null
   /** Besessene/gekaufte Plotkarten (→ PlotCard.id). */
   ownedPlotCardIds: string[]
-  /** → RUMORS: aktuell aktiv, noch nicht aktiviert (freier Toggle). */
+  /**
+   * @deprecated Abgelöst durch `CampaignSession.rumors` (v1.8.0): Gerüchte sind
+   * kein Overlord-Besitz, sondern beiden Seiten bekannt. Die Migration v2 → v3
+   * überträgt den Inhalt nach `rumors`; danach wird das Feld nicht mehr
+   * geschrieben (bleibt nur für den verlustfreien Import alter Dateien).
+   */
   activeRumorIds: string[]
   /** → RELICS mit side==='overlord'. */
   relicIds: string[]
@@ -139,6 +182,26 @@ export interface PlayedScenario {
     overlordCardsBought: OverlordCardBought[]
   }
   note?: string
+  /** ISO-Datum des Spielabends (Screen 8, Feld „gespielt am"). */
+  playedAt?: string
+  /** Bedrohungsmarker-Stand nach diesem Szenario (Screen 9). */
+  threatAfter?: number
+  /** Schicksalsmarker-Stand nach diesem Szenario, VOR dem Einkaufsschritt (Screen 9). */
+  fateAfter?: number
+  /** Die eine Gerüchtekarte, die in dieser Kampagnenphase gespielt wurde. */
+  rumorPlayedId?: string
+  /** Markt-Modus dieses Einkaufsschritts (Screens 11 / 11b). */
+  market?: ScenarioMarket
+}
+
+/** Markt-Modus eines Einkaufsschritts. */
+export interface ScenarioMarket {
+  mode: 'reveal' | 'manual'
+  act: 1 | 2
+  /** Nur bei mode==='reveal': wie viele Karten aufgedeckt wurden. */
+  revealCount?: number
+  /** Nur bei mode==='reveal': die gezogenen Marktkarten (→ SHOP_ITEMS). */
+  revealedItemIds?: string[]
 }
 
 /** Ein kompletter Kampagnen-Spielstand. */
@@ -159,4 +222,14 @@ export interface CampaignSession {
   overlord: TrackedOverlord
   /** Szenario-Protokoll (in Phase 1 leer; von deriveLiveState gefaltet). */
   scenarios: PlayedScenario[]
+  /** Archiviert = nicht mehr laufend, bleibt lesbar (Screen 1, Archiv-Liste). */
+  archived?: boolean
+  /** Freie Spielstand-Notiz (Screen 2, rechte Spalte). */
+  note?: string
+  /** Epische Variante (Screen 13): erlaubt Start-XP/-Schicksal je Held. */
+  epic?: boolean
+  /** Beim Kampagnenstart gezogene Gerüchtekarten (Screen 3b + 13). */
+  rumors: TrackedRumor[]
+  /** Zusatzabenteuerkarten, die im Spiel sind (Screen 3b). */
+  advancedQuests: TrackedAdvancedQuest[]
 }

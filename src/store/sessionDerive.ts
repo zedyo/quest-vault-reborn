@@ -42,6 +42,14 @@ export interface LiveState {
   /** Zuletzt gespieltes Szenario (nach order), oder null. */
   currentScenario: PlayedScenario | null
   currentAct: 1 | 2
+  /** Summe aller offenen Helden-XP (Screen 4, „6 XP insgesamt noch nicht ausgegeben"). */
+  heroXpOpenTotal: number
+  /**
+   * Wurde in der AKTUELLEN Kampagnenphase (= beim zuletzt protokollierten
+   * Szenario) bereits ein Gerücht gespielt? Setzt die Regel „höchstens 1 Gerücht
+   * pro Kampagnenphase" durch.
+   */
+  rumorPlayedInCurrentPhase: boolean
 }
 
 function uniq(ids: string[]): string[] {
@@ -89,7 +97,9 @@ export function deriveLiveState(session: CampaignSession): LiveState {
   // 4) Helden-Stand.
   const heroes: Record<string, HeroLiveState> = {}
   for (const h of session.heroes) {
-    let xpEarned = 0
+    // Epische Variante: Start-XP zählen in die verdiente Erfahrung (und dürfen
+    // schon vor dem ersten Szenario ausgegeben werden).
+    let xpEarned = h.startingXp ?? 0
     let xpSpent = 0
     const learnedSkillIds: string[] = []
     for (const sc of scenarios) {
@@ -143,6 +153,8 @@ export function deriveLiveState(session: CampaignSession): LiveState {
 
   const currentScenario = scenarios.length ? scenarios[scenarios.length - 1] : null
   const currentAct: 1 | 2 = currentScenario?.scenario.act ?? 1
+  const heroXpOpenTotal = Object.values(heroes).reduce((sum, h) => sum + h.xpAvailable, 0)
+  const rumorPlayedInCurrentPhase = !!currentScenario?.rumorPlayedId
 
   return {
     heroes,
@@ -158,5 +170,7 @@ export function deriveLiveState(session: CampaignSession): LiveState {
     },
     currentScenario,
     currentAct,
+    heroXpOpenTotal,
+    rumorPlayedInCurrentPhase,
   }
 }

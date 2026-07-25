@@ -52,26 +52,46 @@ geführt, statt „Heirs of Blood" pauschal als Grundspiel zu listen.
 ## Advanced Quests (Rumor-Quests der kleinen Packs)
 
 Quelle: any2cards `advanced-quests.js`. Es werden nur faktische Metadaten erfasst; die DE-Titel
-sind Community-Übersetzungen. **16 Quests** (alle Akt II soweit auf der Karte angegeben).
+sind seit **v1.8.0 kartengenau** (vorher Community-Übersetzungen): Zusatzabenteuerkarten
+liegen unter derselben ID auch in `src/data/rumors.ts` (Akt-II-Gerüchtekarten, 1:1 von den
+deutschen Scans transkribiert, v1.3.4). **12 der 16** Titel wichen ab und wurden zum
+Kartentitel hin korrigiert — Regel „Kartentext = priorisierte Wahrheit":
 
-| Quest (EN) | Quest (DE, Community) | Erweiterung | Reise-Gelände |
+| ID | vorher (Community) | jetzt (deutsche Karte) |
+|---|---|---|
+| `bondsofthewild` | Bande der Wildnis | **Erwachen der Wildnis** |
+| `shadowsidewatch` | Wacht der Schattenseite | **Schattenwacht** |
+| `attheforge` | An der Schmiede | **Die Waffenschmiede** |
+| `beneaththemanor` | Unter dem Herrenhaus | **Tief unterm Schloss** |
+| `wheretheheartis` | Wo das Herz wohnt | **Herzensangelegenheit** |
+| `wrongmanforthejob` | Der Falsche für den Auftrag | **Zur falschen Zeit am falschen Ort** |
+| `prisonoficeandlies` | Gefängnis aus Eis und Lügen | **Ein Käfig aus Eis und Lügen** |
+| `hostofeverdark` | Heerschar von Everdark | **Das Heer von Everdark** |
+| `bloodspireofdevis` | Blutspitze von Devis | **Devis' Blutturm** |
+| `sourceofsickness` | Quelle der Seuche | **Quell der Krankheit** |
+| `spreadingaffliction` | Sich ausbreitende Plage | **Ausbreitung der Pest** |
+| `visionsofdawn` | Visionen der Morgendämmerung | **Prophezeiung eines neuen Anfangs** |
+
+**16 Quests** (alle Akt II soweit auf der Karte angegeben).
+
+| Quest (EN) | Quest (DE, Karte) | Erweiterung | Reise-Gelände |
 |---|---|---|---|
-| Bonds of the Wild | Bande der Wildnis | Erwachen der Wildnis | Straße/Wald/Wald |
+| Bonds of the Wild | Erwachen der Wildnis | Erwachen der Wildnis | Straße/Wald/Wald |
 | Crown of Destiny | Krone des Schicksals | Krone des Schicksals | Ebene/Berg/Berg |
-| Shadowside Watch | Wacht der Schattenseite | Kreuzzug der Vergessenen | Wald/Wasser/Berg |
+| Shadowside Watch | Schattenwacht | Kreuzzug der Vergessenen | Wald/Wasser/Berg |
 | The Curse of Iona | Der Fluch von Iona | Wächter von Deephall | Straße/Berg/Berg |
 | Armed to the Teeth | Bis an die Zähne bewaffnet | Die Höhle des Lindwurms | Ebene/Wald/Berg/Straße |
-| At the Forge | An der Schmiede | Die Höhle des Lindwurms | Wald/Wald/Berg/Berg |
-| Beneath the Manor | Unter dem Herrenhaus | Schloss Rabenfels | Straße/Straße |
-| Where the Heart Is | Wo das Herz wohnt | Schloss Rabenfels | Straße/Straße |
-| Wrong Man for the Job | Der Falsche für den Auftrag | Schloss Rabenfels | Straße/Straße |
-| Prison of Ice and Lies | Gefängnis aus Eis und Lügen | Schwur der Verbannten | Wasser/Wald/Berg |
-| Host of Everdark | Heerschar von Everdark | Scherben von Everdark | – |
-| Bloodspire of Devis | Blutspitze von Devis | Hüter des Geheimnisses | Straße/Wasser/Berg |
+| At the Forge | Die Waffenschmiede | Die Höhle des Lindwurms | Wald/Wald/Berg/Berg |
+| Beneath the Manor | Tief unterm Schloss | Schloss Rabenfels | Straße/Straße |
+| Where the Heart Is | Herzensangelegenheit | Schloss Rabenfels | Straße/Straße |
+| Wrong Man for the Job | Zur falschen Zeit am falschen Ort | Schloss Rabenfels | Straße/Straße |
+| Prison of Ice and Lies | Ein Käfig aus Eis und Lügen | Schwur der Verbannten | Wasser/Wald/Berg |
+| Host of Everdark | Das Heer von Everdark | Scherben von Everdark | – |
+| Bloodspire of Devis | Devis' Blutturm | Hüter des Geheimnisses | Straße/Wasser/Berg |
 | Treaty of Champions | Kontrakt der Unbesiegten | Kontrakt der Unbesiegten | Wasser/Wald/Wasser |
-| Source of Sickness | Quelle der Seuche | Die Trollsümpfe | Wasser/Wald/Wasser |
-| Spreading Affliction | Sich ausbreitende Plage | Die Trollsümpfe | Straße/Berg/Berg |
-| Visions of Dawn | Visionen der Morgendämmerung | Prophezeiung eines neuen Anfangs | Straße/Ebene/Berg |
+| Source of Sickness | Quell der Krankheit | Die Trollsümpfe | Wasser/Wald/Wasser |
+| Spreading Affliction | Ausbreitung der Pest | Die Trollsümpfe | Straße/Berg/Berg |
+| Visions of Dawn | Prophezeiung eines neuen Anfangs | Prophezeiung eines neuen Anfangs | Straße/Ebene/Berg |
 
 **Ausgeschlossen:** „The Sunken Temple" (Quell-Erweiterung *„Sands of the Past"*) — nicht in
 der verbindlichen Produktliste (`expansions.ts`), daher bewusst ausgelassen. Hintergrund/
