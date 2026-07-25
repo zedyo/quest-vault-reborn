@@ -73,7 +73,7 @@ function StatBlock({ stats, label, isElite, attackType, compact = true }: StatBl
   const textCls = compact ? 'text-xs' : 'text-sm'
   const sectionHeaderCls = compact ? 'text-[10px]' : 'text-xs'
   const sectionTextCls = compact ? 'text-[10px]' : 'text-xs'
-  const iconSize = compact ? 14 : 16
+  const iconSize = compact ? 18 : 21
   // Kompakte Grid-Karten: Wort-Labels erst ab sm einblenden (Mobil nur Icons).
   const labelCls = compact ? 'hidden sm:inline' : 'inline'
 

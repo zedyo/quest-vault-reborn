@@ -20,6 +20,16 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.6.13',
+    date: '2026-07-25',
+    title: 'Größere Symbole in den Statzeilen',
+    highlights: [
+      'Die Werte-Symbole (Bewegung, Leben, Ausdauer, Verteidigung, Angriff) sind bei Monstern, Helden, Leutnants und Agenten sowie im „Monster des Tages" deutlich größer und besser erkennbar.',
+      'Auch die Attribut-Symbole (Stärke, Wissen, Willenskraft, Geistesgegenwart) in den Chips sind gewachsen.',
+      'Die Archetyp-Scheiben im Filter der Helden- und Klassenübersicht sind noch einmal größer – die Filter-Buttons behalten ihre Höhe.',
+    ],
+  },
+  {
     version: '1.6.12',
     date: '2026-07-25',
     title: 'Descent-Embleme überall in den Statzeilen',

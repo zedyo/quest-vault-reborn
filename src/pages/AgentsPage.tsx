@@ -38,9 +38,9 @@ function PerPlayerTable({ form, lang }: { form: AgentForm; lang: Lang }) {
         {cols.map(({ label, s }) => (
           <div key={label} className="flex-1 rounded bg-dungeon-900/60 px-1.5 py-1 text-center space-y-0.5">
             <div className="text-[10px] text-gray-500">{label} {lang === 'de' ? 'Sp.' : 'pl.'}</div>
-            <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200"><SpeedIcon size={12} />{s.speed}</div>
-            <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200"><HealthIcon size={12} />{s.health}</div>
-            <div className="flex items-center justify-center gap-0.5"><DefenseStatIcon size={12} />{s.defense.map((d, i) => <DicePip key={i} color={d} />)}</div>
+            <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200"><SpeedIcon size={16} />{s.speed}</div>
+            <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200"><HealthIcon size={16} />{s.health}</div>
+            <div className="flex items-center justify-center gap-0.5"><DefenseStatIcon size={16} />{s.defense.map((d, i) => <DicePip key={i} color={d} />)}</div>
           </div>
         ))}
       </div>
@@ -57,7 +57,7 @@ function FormBlock({ form, lang, onImageOpen }: { form: AgentForm; lang: Lang; o
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-1 text-xs text-gray-400">
-          <AttackTypeIcon type={form.attackTypeDe === 'Fernkampf' ? 'range' : 'melee'} size={15} />
+          <AttackTypeIcon type={form.attackTypeDe === 'Fernkampf' ? 'range' : 'melee'} size={19} />
           {lang === 'de' ? form.attackTypeDe : form.attackTypeEn}
           <span className="flex gap-0.5 ml-0.5">{form.attackDice.map((d, i) => <DicePip key={i} color={d} />)}</span>
         </span>

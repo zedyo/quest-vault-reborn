@@ -35,7 +35,7 @@ function AttributeChips({ hero, compact = true }: { hero: Hero; compact?: boolea
           <span key={k} className={`rounded flex items-center justify-between gap-1 ${cls} ${sz}`}>
             <span className="flex items-center gap-1 min-w-0">
               {/* plain-Variante: Chip hat bereits einen farbigen Hintergrund */}
-              <GameIcon kind="symbol" name={icon} variant="plain" size={compact ? 12 : 16} className="-my-1" />
+              <GameIcon kind="symbol" name={icon} variant="plain" size={compact ? 15 : 20} className="-my-1" />
               <span className="opacity-80 truncate">{label}</span>
             </span>
             <span className="font-bold">{v}</span>
@@ -90,25 +90,25 @@ function HeroLightbox({ hero, onClose }: { hero: Hero; onClose: () => void }) {
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {hero.speed != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <SpeedIcon size={18} /><span className="text-gray-400">Geschwindigkeit</span>
+                    <SpeedIcon size={22} /><span className="text-gray-400">Geschwindigkeit</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.speed}</span>
                   </div>
                 )}
                 {hero.health != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <HealthIcon size={18} /><span className="text-gray-400">Lebenskraft</span>
+                    <HealthIcon size={22} /><span className="text-gray-400">Lebenskraft</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.health}</span>
                   </div>
                 )}
                 {hero.stamina != null && (
                   <div className="flex items-center gap-2 text-sm">
-                    <StaminaIcon size={18} /><span className="text-gray-400">Ausdauer</span>
+                    <StaminaIcon size={22} /><span className="text-gray-400">Ausdauer</span>
                     <span className="text-gray-100 font-semibold ml-auto">{hero.stamina}</span>
                   </div>
                 )}
                 {hero.defense && hero.defense.length > 0 && (
                   <div className="flex items-center gap-2 text-sm">
-                    <DefenseStatIcon size={18} /><span className="text-gray-400">Verteidigung</span>
+                    <DefenseStatIcon size={22} /><span className="text-gray-400">Verteidigung</span>
                     <div className="flex gap-0.5 ml-auto">{hero.defense.map((d, i) => <DicePip key={i} color={d} />)}</div>
                   </div>
                 )}
@@ -202,7 +202,7 @@ export default function HeroesPage() {
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
             >
-              {a !== 'alle' && <ArchetypeIcon archetype={a as Hero['archetype']} size={20} className="-my-1" />}
+              {a !== 'alle' && <ArchetypeIcon archetype={a as Hero['archetype']} size={27} className="-my-1.5" />}
               {a === 'alle' ? 'Alle' : ARCHETYPE_LABELS[a as Hero['archetype']]}
             </button>
           ))}
@@ -257,25 +257,25 @@ export default function HeroesPage() {
                     <div className="grid grid-cols-2 gap-x-1 gap-y-0.5 pt-1 border-t border-dungeon-700">
                       {h.speed != null && (
                         <div className="flex items-center gap-1">
-                          <SpeedIcon size={12} />
+                          <SpeedIcon size={16} />
                           <span className="text-[10px] text-gray-300 font-medium">{h.speed}</span>
                         </div>
                       )}
                       {h.health != null && (
                         <div className="flex items-center gap-1">
-                          <HealthIcon size={12} />
+                          <HealthIcon size={16} />
                           <span className="text-[10px] text-gray-300 font-medium">{h.health}</span>
                         </div>
                       )}
                       {h.stamina != null && (
                         <div className="flex items-center gap-1">
-                          <StaminaIcon size={12} />
+                          <StaminaIcon size={16} />
                           <span className="text-[10px] text-gray-300 font-medium">{h.stamina}</span>
                         </div>
                       )}
                       {h.defense && h.defense.length > 0 && (
                         <div className="flex items-center gap-0.5">
-                          <DefenseStatIcon size={12} />
+                          <DefenseStatIcon size={16} />
                           {h.defense.map((d, i) => <DicePip key={i} color={d} />)}
                         </div>
                       )}

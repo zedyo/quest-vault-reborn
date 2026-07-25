@@ -299,22 +299,22 @@ export default function MonsterOfTheDay() {
             <span className="font-mono uppercase text-accent-bright text-center" style={{ fontSize: 9.5, letterSpacing: '0.08em' }}>Meister</span>
           </div>
           <StatRow
-            icon={<SpeedIcon size={15} />} label="Tempo"
+            icon={<SpeedIcon size={19} />} label="Tempo"
             diener={<NumCell value={diener.speed} up={numUp(diener.speed, dienerBase.speed)} />}
             meister={<NumCell value={master.speed} master up={numUp(master.speed, masterBase.speed)} />}
           />
           <StatRow
-            icon={<HealthIcon size={15} />} label="Leben"
+            icon={<HealthIcon size={19} />} label="Leben"
             diener={<NumCell value={diener.health} up={numUp(diener.health, dienerBase.health)} />}
             meister={<NumCell value={master.health} master up={numUp(master.health, masterBase.health)} />}
           />
           <StatRow
-            icon={<DefenseStatIcon size={15} />} label="Verteidigung"
+            icon={<DefenseStatIcon size={19} />} label="Verteidigung"
             diener={<DiceCell dice={diener.defense} up={diceUp(diener.defense, dienerBase.defense)} />}
             meister={<DiceCell dice={master.defense} master up={diceUp(master.defense, masterBase.defense)} />}
           />
           <StatRow
-            icon={<AttackTypeIcon type={daily.attackType} size={15} />} label="Angriff"
+            icon={<AttackTypeIcon type={daily.attackType} size={19} />} label="Angriff"
             diener={<DiceCell dice={diener.attack} up={diceUp(diener.attack, dienerBase.attack)} />}
             meister={<DiceCell dice={master.attack} master up={diceUp(master.attack, masterBase.attack)} />}
           />

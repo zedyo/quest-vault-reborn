@@ -272,7 +272,7 @@ export default function ClassesPage() {
                   : 'bg-dungeon-800 text-gray-400 hover:text-gray-200 border-dungeon-700'
               }`}
             >
-              {a !== 'alle' && <ArchetypeIcon archetype={a} size={20} className="-my-1" />}
+              {a !== 'alle' && <ArchetypeIcon archetype={a} size={27} className="-my-1.5" />}
               {a === 'alle' ? 'Alle' : ARCHETYPE_DE[a]}
             </button>
           ))}
