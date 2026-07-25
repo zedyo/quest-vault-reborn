@@ -487,8 +487,11 @@ export default function SetupSection() {
               <Switch checked={epicOn} onChange={(v) => patchSession({ epic: v })} label="Epische Variante" />
               <div>
                 <Head size="s">Epische Variante</Head>
-                <p className="mt-1 text-[13.5px] text-muted">
-                  Helden starten mit Erfahrung und Schicksalsmarkern. Aus bleibt der Block leer.
+                <p className="mt-1 text-[13.5px] leading-[1.5] text-muted">
+                  Helden starten mit Erfahrung und Gold: <strong className="font-semibold text-fg">Fortgeschrittene</strong>{' '}
+                  3 EP + 150 Gold je Held (Overlord 4 EP),{' '}
+                  <strong className="font-semibold text-fg">Experten</strong> 6 EP + 250 Gold je Held (Overlord 8 EP).
+                  Aus bleibt der Block leer.
                 </p>
               </div>
             </div>
@@ -538,7 +541,13 @@ export default function SetupSection() {
                 </div>
                 <p className="mt-2.5 text-[13px] leading-[1.55] text-muted">
                   Start-XP zählen in die verdiente Erfahrung des Helden und dürfen schon vor dem ersten Szenario
-                  ausgegeben werden. Die Schicksalsmarker füllen den gemeinsamen Vorrat der Partei.
+                  ausgegeben werden. Das <strong className="font-semibold text-fg">Schicksal</strong>-Feld ist ein freier
+                  Startwert für den gemeinsamen Vorrat — die epische Variante sieht keine Start-Schicksalsmarker vor
+                  (Schicksalsmarker entstehen im Spiel, wenn der Overlord Bedrohung ausgibt). Lass es auf 0, wenn ihr
+                  nach Regelbuch spielt.{' '}
+                  <Link to="/klarstellungen" className="underline text-accent">
+                    Regelklärungen ansehen
+                  </Link>
                 </p>
                 <Btn
                   variant="ghost"

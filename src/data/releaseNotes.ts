@@ -33,7 +33,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
       'Gerüchte werden beim Kampagnenstart gezogen und liegen in einer geteilten Ansicht: mit Zeitfenster, Spielberechtigung und Verfallshinweis, direkt aus dem deutschen Kartentext gelesen.',
       'Gerüchteabenteuer und Zusatzabenteuer stehen im Verlauf gleichberechtigt neben den Szenarien des Kampagnenbogens.',
       'Gegenstände werden per Klick auf ein Heldenkürzel zugewiesen — kein Dropdown mehr, auch auf dem Handy.',
-      'Neu: epische Variante mit Start-Erfahrung und Start-Schicksalsmarkern je Held, Kampagnen archivieren statt löschen, freie Spielstand-Notiz.',
+      'Neu: epische Variante mit Start-Erfahrung und Start-Gold je Held (die Regelwerte für „Fortgeschrittene" und „Experten" stehen dabei), Kampagnen archivieren statt löschen, freie Spielstand-Notiz.',
       'Heldenbereiche erscheinen im hellen Design „Heldentum", Overlord-Bereiche im dunklen „Overlord" — unabhängig vom gewählten Design.',
       'Datenpflege: 12 der 16 Zusatzabenteuer trugen eine Community-Übersetzung als Titel — sie heißen jetzt wie auf der deutschen Originalkarte (z. B. „Die Waffenschmiede" statt „An der Schmiede").',
     ],

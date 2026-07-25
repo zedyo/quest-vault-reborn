@@ -94,7 +94,9 @@ einmal einrichten, nach jedem Szenario nachtragen, das nächste vorbereiten.
 
 `PERSIST_VERSION` **3** (v1.8.0). Additiv ergänzt:
 `CampaignSession.archived/note/epic/rumors/advancedQuests`,
-`TrackedHero.startingXp/startingFateTokens`,
+`TrackedHero.startingXp` (epische Variante: belegt 3 EP „Fortgeschrittene" /
+6 EP „Experten") und `startingFateTokens` (**freier** Startwert, keine
+Regelvorgabe der Variante — Schicksalsmarker entstehen erst im Spiel),
 `PlayedScenario.playedAt/threatAfter/fateAfter/rumorPlayedId/market`.
 `TrackedOverlord.activeRumorIds` ist **@deprecated** — die Migration überträgt den
 Inhalt EINMALIG nach `CampaignSession.rumors` (Status `in-play`) und leert das

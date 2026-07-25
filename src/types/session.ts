@@ -77,9 +77,18 @@ export interface TrackedHero {
   /** Bei Session-Start besessene Gegenstände (Default = Startausrüstung der Klasse). */
   startingItemRefs: ItemRef[]
   note?: string
-  /** Epische Variante: Start-Erfahrung. Zählt in `xpEarned`. */
+  /**
+   * Epische Variante: Start-Erfahrung (belegt: 3 EP „Fortgeschrittene",
+   * 6 EP „Experten"). Zählt in `xpEarned`.
+   */
   startingXp?: number
-  /** Epische Variante: Schicksalsmarker, die dieser Held zum Partei-Vorrat beiträgt. */
+  /**
+   * Freier Startwert: Schicksalsmarker, die dieser Held zum gemeinsamen
+   * Partei-Vorrat beiträgt. **Keine Regelvorgabe der epischen Variante** — die
+   * kennt nur Start-EP und Start-Gold; Schicksalsmarker entstehen im Spiel,
+   * wenn der Overlord Bedrohung ausgibt. Nur als Hausregel/Wiedereinstieg
+   * gedacht, Standard ist 0.
+   */
   startingFateTokens?: number
 }
 

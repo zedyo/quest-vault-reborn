@@ -140,7 +140,7 @@ export default function Step4Market({ session, base, draft, setScenario, ownedEx
                     <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted">
                       {a === 1
                         ? 'Der komplette Akt-I-Stapel liegt offen — kein Zufall, freie Wahl, so oft ihr wollt. Nutze dafür „Manuell suchen".'
-                        : 'Zufällig einige Karten vom stärkeren Stapel — mehr Wirkung, weniger Auswahl. Nur wählen, wenn ihr in dieser Kampagnenphase bereits ein Akt-II-Abenteuer gespielt habt; sonst gilt weiter der Akt-I-Stapel.'}
+                        : 'Zufällig einige Karten vom stärkeren Stapel — mehr Wirkung, weniger Auswahl. Akt-II-Marktkarten können nicht gekauft werden, solange noch kein Akt-II-Abenteuer beendet ist; direkt nach dem Zwischenspiel gilt das nur für Mini-Kampagnen, die hier bereits Akt-II-Karten vorsehen.'}
                     </p>
                   </button>
                 )

@@ -58,7 +58,10 @@ export default function HistorySection() {
       meta: `${act1.length} Szenarien · ${wins(act1, 'Helden gewonnen')} Heldensiege`,
       rows: act1,
     })
-  if (interlude.length) groups.push({ label: 'Zwischenspiel', meta: 'Markt Akt I + II', rows: interlude })
+  // Neutral formuliert: nach dem Zwischenspiel wird der Akt-I-Stapel noch einmal
+  // benutzt und wandert danach in die Schachtel; Akt-II-Karten stehen erst ab
+  // dem ersten beendeten Akt-II-Abenteuer offen (Mini-Kampagnen ausgenommen).
+  if (interlude.length) groups.push({ label: 'Zwischenspiel', meta: 'Übergang zu Akt II', rows: interlude })
   if (act2.length)
     groups.push({
       label: 'Akt II',

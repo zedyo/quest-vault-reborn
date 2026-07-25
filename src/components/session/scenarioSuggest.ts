@@ -69,8 +69,10 @@ export function playedCampaignIds(session: CampaignSession): Set<string> {
 
 /**
  * Ist das Zwischenspiel gerade als nächstes Abenteuer wählbar? Das entscheidet
- * der Kampagnenbogen (Anzahl gewonnener Akt-I-Abenteuer) — diese Zahl liegt im
- * Repo NICHT vor. Deshalb wird hier nur der eine Fall bejaht, der sich sauber
+ * der Kampagnenbogen (Anzahl gewonnener Akt-I-Abenteuer). Für „Die Schattenrune"
+ * und „Das Blutvermächtnis" steht die Bedingung im Klartext in den
+ * Regelklärungen, für die übrigen sieben Kampagnen liegt sie NICHT maschinen-
+ * lesbar vor. Deshalb wird hier nur der eine Fall bejaht, der sich sauber
  * ableiten lässt: der reguläre Akt-I-Pool ist gespielt, das Zwischenspiel ist
  * der einzige verbliebene Kandidat. Sonst wird NICHT gesperrt — eine geratene
  * Sperre würde die zwölf Gerüchteabenteuer mit Intermezzo-Klausel praktisch den

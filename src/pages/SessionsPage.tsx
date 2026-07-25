@@ -27,7 +27,7 @@ import { Badge, Btn, Eyebrow, Head, Meta, Micro, Panel, Progress } from '../comp
 const CAMPAIGN_BY_ID = Object.fromEntries(CAMPAIGNS.map((c) => [c.id, c]))
 const EXP_BY_ID = Object.fromEntries(EXPANSIONS.map((e) => [e.id, e]))
 
-/** „Der Schatten der Rune · Großkampagne · Grundspiel" */
+/** „Die Schattenrune · Großkampagne · Grundspiel" */
 export function campaignSubtitle(session: CampaignSession): string {
   const c = CAMPAIGN_BY_ID[session.campaignId]
   if (!c) return session.campaignId
