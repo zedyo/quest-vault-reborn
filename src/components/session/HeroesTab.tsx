@@ -183,7 +183,7 @@ function HeroSetupCard({
             </h3>
             {heroData && (
               <span className="inline-flex items-center gap-1 text-[11px] text-gray-400">
-                <ArchetypeIcon archetype={heroData.archetype} size={14} />
+                <ArchetypeIcon archetype={heroData.archetype} size={17} className="-my-0.5" />
                 {ARCHETYPE_LABELS[heroData.archetype]}
               </span>
             )}

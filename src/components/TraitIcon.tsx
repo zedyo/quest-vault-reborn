@@ -22,8 +22,17 @@ export const TRAIT_SYMBOL: Record<string, GameSymbolName> = {
   'Wasser': 'wasser',
 }
 
-export default function TraitIcon({ trait, size = 14 }: { trait: string; size?: number }) {
+export default function TraitIcon({
+  trait,
+  size = 14,
+  className,
+}: {
+  trait: string
+  size?: number
+  /** z. B. negative Vertikal-Margin, damit große Icons die Pill-Höhe nicht sprengen */
+  className?: string
+}) {
   // hasOwnProperty-Guard: kein Lookup über die Prototype-Kette (z. B. 'constructor')
   if (!Object.prototype.hasOwnProperty.call(TRAIT_SYMBOL, trait)) return null
-  return <GameIcon kind="symbol" name={TRAIT_SYMBOL[trait]} size={size} />
+  return <GameIcon kind="symbol" name={TRAIT_SYMBOL[trait]} size={size} className={className} />
 }
