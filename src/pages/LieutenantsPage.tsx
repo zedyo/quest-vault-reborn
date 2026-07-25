@@ -51,13 +51,13 @@ function PerPlayerTable({ form, lang }: { form: LieutenantForm; lang: Lang }) {
           <div key={label} className="flex-1 rounded bg-dungeon-900/60 px-1.5 py-1 text-center space-y-0.5">
             <div className="text-[10px] text-gray-500">{label} {lang === 'de' ? 'Sp.' : 'pl.'}</div>
             <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200">
-              <SpeedIcon size={12} />{s.speed}
+              <SpeedIcon size={16} />{s.speed}
             </div>
             <div className="flex items-center justify-center gap-1 text-[11px] text-gray-200">
-              <HealthIcon size={12} />{s.health}
+              <HealthIcon size={16} />{s.health}
             </div>
             <div className="flex items-center justify-center gap-0.5">
-              <DefenseStatIcon size={12} />
+              <DefenseStatIcon size={16} />
               {s.defense.map((d, i) => <DicePip key={i} color={d} />)}
             </div>
           </div>
@@ -87,7 +87,7 @@ function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: Lieutena
       {/* Angriff + Attribute */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-1 text-xs text-gray-400">
-          <AttackTypeIcon type={form.attackTypeDe === 'Fernkampf' ? 'range' : 'melee'} size={15} />
+          <AttackTypeIcon type={form.attackTypeDe === 'Fernkampf' ? 'range' : 'melee'} size={19} />
           {lang === 'de' ? form.attackTypeDe : form.attackTypeEn}
           <span className="flex gap-0.5 ml-0.5">{form.attackDice.map((d, i) => <DicePip key={i} color={d} />)}</span>
         </span>
@@ -96,7 +96,7 @@ function FormBlock({ form, lang, otherExpansion, onImageOpen }: { form: Lieutena
         {ATTR.map((a) => (
           <span key={a.key} className={`rounded flex items-center justify-between gap-1 text-[10px] px-1 py-0.5 ${a.cls}`}>
             <span className="flex items-center gap-1 min-w-0">
-              <GameIcon kind="symbol" name={a.icon} variant="plain" size={13} className="-my-1" />
+              <GameIcon kind="symbol" name={a.icon} variant="plain" size={16} className="-my-1" />
               <span className="opacity-80 truncate">{lang === 'de' ? a.de : a.en}</span>
             </span>
             <span className="font-bold">{form[a.key]}</span>
