@@ -20,10 +20,15 @@ import type {
   ItemSource,
   OverlordCardBought,
   PlayedScenario,
+  ScenarioMarket,
   ScenarioSource,
   SkillLearned,
+  TrackedAdvancedQuest,
+  TrackedAdvancedQuestStatus,
   TrackedHero,
   TrackedOverlord,
+  TrackedRumor,
+  TrackedRumorStatus,
 } from '../types/session'
 
 // Maximalgrößen gegen localStorage-Quota-DoS durch manipulierte Import-Dateien
@@ -34,6 +39,19 @@ const MAX_ID = 100
 const MAX_HEROES = 4
 const MAX_SCENARIOS = 200
 const MAX_LIST = 500
+/** Deckel für `rewards.heroXp` – großzügig über den max. 4 Helden je Session. */
+const MAX_HERO_XP_KEYS = 32
+/**
+ * Schlüssel, die als Objekt-Property ein GEERBTES Member träfen (`obj[k]` wäre
+ * dann nicht `undefined`, `?? 0` griffe nicht → aus `0 + XP` würde ein String)
+ * bzw. den lokalen Prototyp verbögen. Werden als Helden-Schlüssel/`localId`
+ * konsequent verworfen. Die Liste wird aus `Object.prototype` ABGELEITET statt
+ * von Hand gepflegt — so fehlt garantiert kein Member (`isPrototypeOf`,
+ * `propertyIsEnumerable`, `__defineGetter__` …). Beide Schreibwege (JSON-Import
+ * und Hydrieren aus dem localStorage) laufen hier durch; App-interne IDs kommen
+ * ohnehin aus `uid()`.
+ */
+const RESERVED_KEYS = new Set<string>([...Object.getOwnPropertyNames(Object.prototype), 'prototype'])
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -61,9 +79,46 @@ function idList(v: unknown, maxItems = MAX_LIST): string[] {
     .map((x) => x.slice(0, MAX_ID))
 }
 
+/**
+ * Alle intern erzeugten IDs sind UUIDs bzw. `id-<zeit>-<zufall>` — also URL- und
+ * objektschlüsselsicher. Eine importierte ID wird nur BEIBEHALTEN, wenn sie
+ * dieser Form entspricht (sonst landet sie über `?edit=`/`/helden/:id` als
+ * Rohtext in einer Route bzw. als Objektschlüssel in `rewards.heroXp`);
+ * andernfalls bekommt der Eintrag eine frische ID. Die inneren Verweise bleiben
+ * damit konsistent, weil jede ID genau einmal durch diese Funktion läuft.
+ */
+const ID_SHAPE = /^[A-Za-z0-9_-]{1,100}$/
+
+/**
+ * Ersatz-ID für eine unbrauchbare Form. DETERMINISTISCH (djb2): derselbe
+ * Eingabewert ergibt überall dieselbe Ersatz-ID. Nur so bleiben die INNEREN
+ * VERWEISE heil, wenn eine ID ersetzt wird — `ItemSold.refId` findet weiter
+ * seinen `ItemRef.refId`, `toHeroLocalId`/`heroLocalId` weiter ihren Helden,
+ * `heroXp`-Schlüssel weiter ihre `localId`. Eine zufällige `uid()` je Fundstelle
+ * würde diese Paare auseinanderreißen.
+ */
+function replacementId(s: string): string {
+  let h = 5381
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0
+  return `x-${h.toString(36)}-${s.length.toString(36)}`
+}
+
+function safeId(v: unknown): string {
+  if (typeof v !== 'string') return uid()
+  const s = v.trim()
+  if (!s) return uid() // ohne Eingabewert gibt es nichts zu verknüpfen
+  return ID_SHAPE.test(s) && !RESERVED_KEYS.has(s) ? s : replacementId(s)
+}
+
+/** Wie `safeId`, aber ohne Wert `null` (Verweise auf „gemeinsame Ausrüstung"). */
+function safeIdOrNull(v: unknown): string | null {
+  if (typeof v !== 'string' || !v.trim()) return null
+  return safeId(v)
+}
+
 /** Stabile Instanz-ID beibehalten (verlinkt via ItemSold.refId), sonst neu erzeugen. */
 function refId(v: unknown): string {
-  return typeof v === 'string' && v.trim() ? v.slice(0, MAX_ID) : uid()
+  return safeId(v)
 }
 
 const ITEM_SOURCES: ItemSource[] = ['shop', 'relic', 'class-start', 'custom']
@@ -87,9 +142,8 @@ function sanitizeHero(v: unknown): TrackedHero | null {
   if (!isRecord(v)) return null
   const heroId = str(v.heroId, MAX_ID)
   if (!heroId) return null
-  const localId = typeof v.localId === 'string' && v.localId.trim() ? v.localId.slice(0, MAX_ID) : uid()
   const h: TrackedHero = {
-    localId,
+    localId: safeId(v.localId),
     heroId,
     playerName: str(v.playerName, MAX_NAME),
     classId: typeof v.classId === 'string' && v.classId.trim() ? v.classId.slice(0, MAX_ID) : null,
@@ -98,7 +152,60 @@ function sanitizeHero(v: unknown): TrackedHero | null {
   }
   const note = str(v.note, MAX_TEXT)
   if (note) h.note = note
+  // Epische Variante (v1.8.0) – optionale Felder nur setzen, wenn vorhanden/>0,
+  // damit der Round-Trip alter Stände byte-gleich bleibt.
+  const startingXp = num(v.startingXp, 0, 1_000_000, 0)
+  if (startingXp) h.startingXp = startingXp
+  const startingFate = num(v.startingFateTokens, 0, 1_000_000, 0)
+  if (startingFate) h.startingFateTokens = startingFate
   return h
+}
+
+// ── Gerüchte + Zusatzabenteuer (v1.8.0) ──────────────────────────────────────
+
+const RUMOR_STATUS: TrackedRumorStatus[] = ['in-play', 'played', 'expired', 'discarded']
+const QUEST_STATUS: TrackedAdvancedQuestStatus[] = ['not-in-play', 'in-play', 'played']
+
+function sanitizeRumor(v: unknown): TrackedRumor | null {
+  if (!isRecord(v)) return null
+  const rumorId = str(v.rumorId, MAX_ID)
+  if (!rumorId) return null
+  const out: TrackedRumor = {
+    rumorId,
+    status: RUMOR_STATUS.includes(v.status as TrackedRumorStatus) ? (v.status as TrackedRumorStatus) : 'in-play',
+  }
+  // Verweist auf `PlayedScenario.id` → gleiche Abbildung wie dort.
+  const playedIn = safeIdOrNull(v.playedInScenarioId)
+  if (playedIn) out.playedInScenarioId = playedIn
+  return out
+}
+
+function sanitizeAdvancedQuest(v: unknown): TrackedAdvancedQuest | null {
+  if (!isRecord(v)) return null
+  const questId = str(v.questId, MAX_ID)
+  if (!questId) return null
+  const out: TrackedAdvancedQuest = {
+    questId,
+    status: QUEST_STATUS.includes(v.status as TrackedAdvancedQuestStatus)
+      ? (v.status as TrackedAdvancedQuestStatus)
+      : 'not-in-play',
+  }
+  const source = str(v.source, MAX_NAME)
+  if (source) out.source = source
+  return out
+}
+
+function sanitizeMarket(v: unknown): ScenarioMarket | null {
+  if (!isRecord(v)) return null
+  const out: ScenarioMarket = {
+    mode: v.mode === 'manual' ? 'manual' : 'reveal',
+    act: v.act === 2 ? 2 : 1,
+  }
+  const revealCount = num(v.revealCount, 0, 99, 0)
+  if (revealCount) out.revealCount = revealCount
+  const revealed = idList(v.revealedItemIds, 60)
+  if (revealed.length) out.revealedItemIds = revealed
+  return out
 }
 
 function sanitizeOverlord(v: unknown): TrackedOverlord {
@@ -116,9 +223,9 @@ function sanitizeOverlord(v: unknown): TrackedOverlord {
   }
 }
 
-function optHeroLocalId(v: unknown): string | null {
-  return typeof v === 'string' && v.trim() ? v.slice(0, MAX_ID) : null
-}
+// Verweist auf `TrackedHero.localId` → dieselbe Abbildung wie dort, sonst zeigt
+// der Verweis nach einer Ersetzung ins Leere.
+const optHeroLocalId = safeIdOrNull
 
 function sanitizeGrant(v: unknown): ItemGrant | null {
   if (!isRecord(v)) return null
@@ -136,14 +243,15 @@ function sanitizeBought(v: unknown): ItemBought | null {
 
 function sanitizeSold(v: unknown): ItemSold | null {
   if (!isRecord(v)) return null
-  const rid = str(v.refId, MAX_ID)
+  // Verweist auf `ItemRef.refId` → gleiche Abbildung wie dort.
+  const rid = safeIdOrNull(v.refId)
   if (!rid) return null
   return { refId: rid, refund: num(v.refund, 0, 1_000_000, 0) }
 }
 
 function sanitizeSkillLearned(v: unknown): SkillLearned | null {
   if (!isRecord(v)) return null
-  const heroLocalId = str(v.heroLocalId, MAX_ID)
+  const heroLocalId = safeIdOrNull(v.heroLocalId) // verweist auf TrackedHero.localId
   const skillId = str(v.skillId, MAX_ID)
   if (!heroLocalId || !skillId) return null
   return { heroLocalId, skillId, xpCost: num(v.xpCost, 0, 1_000_000, 0) }
@@ -159,11 +267,21 @@ function sanitizeOverlordCardBought(v: unknown): OverlordCardBought | null {
 function sanitizeHeroXp(v: unknown): Record<string, number> {
   if (!isRecord(v)) return {}
   const out: Record<string, number> = {}
-  for (const [k, val] of Object.entries(v)) {
-    if (k === '__proto__') continue
-    out[k.slice(0, MAX_ID)] = num(val, -1_000_000, 1_000_000, 0)
+  // Anzahl der Schlüssel begrenzen: eine Session hat höchstens 4 Helden. Ohne
+  // Deckel könnte eine präparierte Datei hunderttausende Einträge einschleusen.
+  for (const [k, val] of Object.entries(v).slice(0, MAX_HERO_XP_KEYS)) {
+    // Schlüssel sind Helden-`localId`s: gleiche Abbildung wie dort, damit der
+    // Eintrag seinem Helden zugeordnet bleibt — und damit hier nie ein geerbtes
+    // Object-Member steht (`heroXp[id] ?? 0` würde sonst eine Funktion liefern).
+    if (!k.trim()) continue
+    out[safeId(k)] = num(val, -1_000_000, 1_000_000, 0)
   }
   return out
+}
+
+/** Validiert einen einzelnen Szenario-Eintrag (auch für den Flow-Entwurf genutzt). */
+export function sanitizePlayedScenario(v: unknown): PlayedScenario | null {
+  return sanitizeScenario(v)
 }
 
 function sanitizeScenario(v: unknown): PlayedScenario | null {
@@ -174,7 +292,7 @@ function sanitizeScenario(v: unknown): PlayedScenario | null {
   const arr = <T>(x: unknown, fn: (e: unknown) => T | null): T[] =>
     Array.isArray(x) ? x.slice(0, MAX_LIST).map(fn).filter((e): e is T => e !== null) : []
   const out: PlayedScenario = {
-    id: typeof v.id === 'string' && v.id.trim() ? v.id.slice(0, MAX_ID) : uid(),
+    id: safeId(v.id),
     order: num(v.order, 0, 1_000_000, 0),
     scenario: {
       source: SCENARIO_SOURCES.includes(sc.source as ScenarioSource) ? (sc.source as ScenarioSource) : 'custom',
@@ -200,6 +318,15 @@ function sanitizeScenario(v: unknown): PlayedScenario | null {
   }
   const note = str(v.note, MAX_TEXT)
   if (note) out.note = note
+  // Ergänzungen v1.8.0 (Abschluss-Flow) – optional, nur wenn vorhanden.
+  const playedAt = str(v.playedAt, 40)
+  if (playedAt) out.playedAt = playedAt
+  if (typeof v.threatAfter === 'number') out.threatAfter = num(v.threatAfter, 0, 1_000_000, 0)
+  if (typeof v.fateAfter === 'number') out.fateAfter = num(v.fateAfter, 0, 1_000_000, 0)
+  const rumorPlayedId = str(v.rumorPlayedId, MAX_ID)
+  if (rumorPlayedId) out.rumorPlayedId = rumorPlayedId
+  const market = sanitizeMarket(v.market)
+  if (market) out.market = market
   return out
 }
 
@@ -210,12 +337,29 @@ function sanitizeScenario(v: unknown): PlayedScenario | null {
  */
 export function sanitizeSession(raw: unknown, keepId: boolean): CampaignSession | null {
   if (!isRecord(raw)) return null
-  const name = str(raw.name, MAX_NAME)
   const campaignId = str(raw.campaignId, MAX_ID)
+  // Beim IMPORT bleibt die strikte Prüfung (eine Datei ohne Namen ist keine
+  // Session). Beim HYDRIEREN darf ein leerer Name den Spielstand NICHT
+  // verwerfen – sonst löscht ein leer gelassenes Namensfeld die Kampagne.
+  const name = str(raw.name, MAX_NAME) || (keepId ? 'Unbenannte Kampagne' : '')
   if (!name || !campaignId) return null
   const nowIso = new Date().toISOString()
-  const id = keepId && typeof raw.id === 'string' && raw.id.trim() ? raw.id.slice(0, MAX_ID) : uid()
-  return {
+  const id = keepId ? safeId(raw.id) : uid()
+  const overlord = sanitizeOverlord(raw.overlord)
+
+  // v2 → v3: Gerüchte sind kein Overlord-Besitz mehr. Fehlt das Feld `rumors`
+  // KOMPLETT (= Stand vor v1.8.0), werden die alten `activeRumorIds` einmalig
+  // übernommen und dort geleert. Ein vorhandenes (auch leeres) `rumors`-Array
+  // ist bereits v3 → dann wird nichts erneut übertragen.
+  let rumors: TrackedRumor[]
+  if (Array.isArray(raw.rumors)) {
+    rumors = raw.rumors.slice(0, MAX_LIST).map(sanitizeRumor).filter((r): r is TrackedRumor => r !== null)
+  } else {
+    rumors = overlord.activeRumorIds.map((rumorId) => ({ rumorId, status: 'in-play' as const }))
+    overlord.activeRumorIds = []
+  }
+
+  const session: CampaignSession = {
     id,
     name,
     campaignId,
@@ -227,11 +371,23 @@ export function sanitizeSession(raw: unknown, keepId: boolean): CampaignSession 
     heroes: Array.isArray(raw.heroes)
       ? raw.heroes.slice(0, MAX_HEROES).map(sanitizeHero).filter((h): h is TrackedHero => h !== null)
       : [],
-    overlord: sanitizeOverlord(raw.overlord),
+    overlord,
     scenarios: Array.isArray(raw.scenarios)
       ? raw.scenarios.slice(0, MAX_SCENARIOS).map(sanitizeScenario).filter((s): s is PlayedScenario => s !== null)
       : [],
+    rumors,
+    advancedQuests: Array.isArray(raw.advancedQuests)
+      ? raw.advancedQuests
+          .slice(0, MAX_LIST)
+          .map(sanitizeAdvancedQuest)
+          .filter((q): q is TrackedAdvancedQuest => q !== null)
+      : [],
   }
+  if (raw.archived === true) session.archived = true
+  if (raw.epic === true) session.epic = true
+  const sessionNote = str(raw.note, MAX_TEXT)
+  if (sessionNote) session.note = sessionNote
+  return session
 }
 
 /** Import einer Session-JSON-Datei (neue Top-Level-ID). Null bei ungültiger Datei. */

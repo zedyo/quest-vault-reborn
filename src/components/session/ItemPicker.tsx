@@ -8,6 +8,7 @@ import { SHOP_ITEMS, RELICS } from '../../data/items'
 import ModalOverlay from '../ModalOverlay'
 import { SearchInput, OwnedToggle } from '../Filters'
 import { ChipToggle, TextInput } from './ui'
+import { IconBtn } from './ui/controls'
 import { uid } from './sessionHelpers'
 
 export default function ItemPicker({
@@ -79,7 +80,7 @@ export default function ItemPicker({
     >
       <div className="p-4 border-b border-dungeon-700 flex items-center justify-between gap-3">
         <h3 className="font-display text-lg text-gold-300 font-bold">{title}</h3>
-        <button onClick={onClose} className="text-gray-500 hover:text-gray-200 text-xl leading-none">×</button>
+        <IconBtn icon="close" label="Schließen" onClick={onClose} />
       </div>
       <div className="p-4 flex flex-wrap items-center gap-3 border-b border-dungeon-800">
         <SearchInput value={search} onChange={setSearch} className="flex-1 min-w-[10rem]" />

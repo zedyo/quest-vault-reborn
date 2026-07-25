@@ -1181,3 +1181,19 @@ describe('Globale Regelsuche (rulesSearchIndex)', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 })
+
+describe('Zusatzabenteuer – deutsche Titel = Kartentitel', () => {
+  // Zusatzabenteuerkarten liegen unter DERSELBEN ID auch in rumors.ts (Akt-II-
+  // Gerüchtekarten, 1:1 von den deutschen Scans). Regel „Kartentext =
+  // priorisierte Wahrheit": ADVANCED_QUESTS.nameDe MUSS dem Kartentitel folgen.
+  it('stimmt für jede ID mit RUMORS.nameDe überein', () => {
+    let matched = 0
+    for (const q of ADVANCED_QUESTS) {
+      const card = RUMORS.find((r) => r.id === q.id)
+      if (!card) continue
+      matched++
+      expect(q.nameDe, `ADVANCED_QUESTS.${q.id}`).toBe(card.nameDe)
+    }
+    expect(matched).toBe(16)
+  })
+})

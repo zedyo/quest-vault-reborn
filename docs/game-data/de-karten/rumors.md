@@ -7,6 +7,14 @@
 > (`campaigns.ts`, EN-Name = Quest-Name). Daten: `src/data/rumors.ts`, Bilder:
 > `public/cards/de/geruechte/<id>.webp` (+ `<id>-back.webp` für Akt-II-Rückseiten), Seite: `/geruechte`.
 
+
+> **Seit v1.8.0 ist `Rumor.textDe` maschinenlesbare Regelquelle.** Der Session-Tracker
+> liest Zeitfenster, Akt-Beschränkung, Intermezzo-Sperre, Ausschlüsse, Verfall und die
+> eingebrachte Zusatzabenteuerkarte per Parser aus diesem Text
+> (`src/utils/rumorTiming.ts`, Unit-Tests in `src/utils/__tests__/rumorTiming.test.ts`).
+> Wer hier den Wortlaut korrigiert, ändert damit direkt das Spielverhalten der App —
+> nach jeder Textkorrektur bitte `npm test` laufen lassen.
+
 ## Umfang
 
 - **41 Karten** = 25 Akt I + 16 Akt II, aus 13 Erweiterungen/Packs.

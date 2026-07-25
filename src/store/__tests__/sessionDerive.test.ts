@@ -45,6 +45,8 @@ function session(over: Partial<CampaignSession> = {}): CampaignSession {
     heroes: [],
     overlord: overlord(),
     scenarios: [],
+    rumors: [],
+    advancedQuests: [],
     ...over,
   }
 }
@@ -85,6 +87,22 @@ describe('deriveLiveState – Baseline (Phase 1, keine Szenarien)', () => {
     expect(live.overlord.xpEarned).toBe(2)
     expect(live.overlord.ownedCardIds).toEqual(['basic:c1'])
     expect(live.overlord.ownedRelicIds).toEqual(['relicX'])
+  })
+})
+
+describe('deriveLiveState – Epische Variante (Start-XP)', () => {
+  it('zählt Start-XP in die verdiente Erfahrung und macht sie ausgebbar', () => {
+    const s = session({ heroes: [hero('a', { startingXp: 2 })] })
+    const before = deriveLiveState(s)
+    expect(before.heroes.a.xpEarned).toBe(2)
+    expect(before.heroes.a.xpAvailable).toBe(2)
+
+    const sc = scenario('sc', {
+      shopping: { bought: [], sold: [], skillsLearned: [{ heroLocalId: 'a', skillId: 'brute', xpCost: 2 }], overlordCardsBought: [] },
+    })
+    const after = deriveLiveState({ ...s, scenarios: [sc] })
+    expect(after.heroes.a.xpSpent).toBe(2)
+    expect(after.heroes.a.xpAvailable).toBe(0)
   })
 })
 
@@ -208,6 +226,25 @@ describe('deriveLiveState – Overlord & Reihenfolge', () => {
     expect(live.overlord.ownedCardCounts['magus:m1']).toBe(3)
     expect(live.overlord.ownedCardIds.sort()).toEqual(['basic:c1', 'magus:m1'])
     expect(live.overlord.xpSpent).toBe(2)
+  })
+
+  it('summiert die offenen Helden-XP für die Partei-Ansicht', () => {
+    const base = session({ heroes: [hero('a'), hero('b')] })
+    const sc = scenario('sc', {
+      rewards: { ...scenario('x').rewards, heroXp: { a: 3, b: 4 } },
+      shopping: { bought: [], sold: [], skillsLearned: [{ heroLocalId: 'b', skillId: 's', xpCost: 2 }], overlordCardsBought: [] },
+    })
+    const live = deriveLiveState({ ...base, scenarios: [sc] })
+    expect(live.heroXpOpenTotal).toBe(3 + 2)
+  })
+
+  it('meldet ein in der aktuellen Kampagnenphase gespieltes Gerücht', () => {
+    const base = session({ heroes: [hero('a')] })
+    expect(deriveLiveState(base).rumorPlayedInCurrentPhase).toBe(false)
+    const withPlain = deriveLiveState({ ...base, scenarios: [scenario('sc')] })
+    expect(withPlain.rumorPlayedInCurrentPhase).toBe(false)
+    const withRumor = deriveLiveState({ ...base, scenarios: [scenario('sc', { rumorPlayedId: 'ghosttown' })] })
+    expect(withRumor.rumorPlayedInCurrentPhase).toBe(true)
   })
 
   it('nimmt das Szenario mit dem höchsten order als aktuelles', () => {

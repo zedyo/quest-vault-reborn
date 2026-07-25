@@ -30,13 +30,19 @@ export const CAMPAIGNS: Campaign[] = [
 // ── Advanced Quests (Rumor-Quests der kleinen Packs) ─────────────────────────
 // Quelle: any2cards `advanced-quests.js`. NUR faktische Metadaten (Titel,
 // Erweiterung, Akt, Reise-Geländetypen) + Kartenbild-Links; Quest-Texte werden
-// NICHT reproduziert. DE-Titel sind Community-Übersetzungen. Ausgeschlossen:
-// „The Sunken Temple" (Erweiterung „Sands of the Past" nicht in expansions.ts).
+// NICHT reproduziert. Ausgeschlossen: „The Sunken Temple" (Erweiterung „Sands of
+// the Past" nicht in expansions.ts).
+// DE-Titel (v1.8.0): kartengenau vom deutschen Original — Zusatzabenteuerkarten
+// liegen unter DERSELBEN ID auch in `rumors.ts` (Akt II, aus den Scans
+// transkribiert, v1.3.4). 12 der 16 Community-Übersetzungen wichen davon ab und
+// wurden zum Kartentitel hin korrigiert (z. B. „An der Schmiede" → „Die
+// Waffenschmiede", „Wo das Herz wohnt" → „Herzensangelegenheit"). Regel:
+// „Kartentext = priorisierte Wahrheit".
 export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "bondsofthewild",
     "nameEn": "Bonds of the Wild",
-    "nameDe": "Bande der Wildnis",
+    "nameDe": "Erwachen der Wildnis",
     "expansionId": "bonds-of-the-wild",
     "travel": [
       "Road",
@@ -64,7 +70,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "shadowsidewatch",
     "nameEn": "Shadowside Watch",
-    "nameDe": "Wacht der Schattenseite",
+    "nameDe": "Schattenwacht",
     "expansionId": "crusade-of-the-forgotten",
     "travel": [
       "Forest",
@@ -107,7 +113,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "attheforge",
     "nameEn": "At the Forge",
-    "nameDe": "An der Schmiede",
+    "nameDe": "Die Waffenschmiede",
     "expansionId": "lair-of-the-wyrm",
     "travel": [
       "Forest",
@@ -122,7 +128,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "beneaththemanor",
     "nameEn": "Beneath the Manor",
-    "nameDe": "Unter dem Herrenhaus",
+    "nameDe": "Tief unterm Schloss",
     "expansionId": "manor-of-ravens",
     "travel": [
       "Road",
@@ -135,7 +141,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "wheretheheartis",
     "nameEn": "Where the Heart Is",
-    "nameDe": "Wo das Herz wohnt",
+    "nameDe": "Herzensangelegenheit",
     "expansionId": "manor-of-ravens",
     "travel": [
       "Road",
@@ -148,7 +154,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "wrongmanforthejob",
     "nameEn": "Wrong Man for the Job",
-    "nameDe": "Der Falsche für den Auftrag",
+    "nameDe": "Zur falschen Zeit am falschen Ort",
     "expansionId": "manor-of-ravens",
     "travel": [
       "Road",
@@ -161,7 +167,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "prisonoficeandlies",
     "nameEn": "Prison of Ice and Lies",
-    "nameDe": "Gefängnis aus Eis und Lügen",
+    "nameDe": "Ein Käfig aus Eis und Lügen",
     "expansionId": "oath-of-the-outcast",
     "travel": [
       "Water",
@@ -175,7 +181,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "hostofeverdark",
     "nameEn": "Host of Everdark",
-    "nameDe": "Heerschar von Everdark",
+    "nameDe": "Das Heer von Everdark",
     "expansionId": "shards-of-everdark",
     "travel": [],
     "imageUrlFront": "https://raw.githubusercontent.com/any2cards/d2e/master/images/advanced-quests/d2e/shards-of-everdark/act2/se-host-of-everdark-front.png",
@@ -184,7 +190,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "bloodspireofdevis",
     "nameEn": "Bloodspire of Devis",
-    "nameDe": "Blutspitze von Devis",
+    "nameDe": "Devis' Blutturm",
     "expansionId": "stewards-of-the-secret",
     "travel": [
       "Road",
@@ -212,7 +218,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "sourceofsickness",
     "nameEn": "Source of Sickness",
-    "nameDe": "Quelle der Seuche",
+    "nameDe": "Quell der Krankheit",
     "expansionId": "the-trollfens",
     "travel": [
       "Water",
@@ -226,7 +232,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "spreadingaffliction",
     "nameEn": "Spreading Affliction",
-    "nameDe": "Sich ausbreitende Plage",
+    "nameDe": "Ausbreitung der Pest",
     "expansionId": "the-trollfens",
     "travel": [
       "Road",
@@ -240,7 +246,7 @@ export const ADVANCED_QUESTS: AdvancedQuest[] = [
   {
     "id": "visionsofdawn",
     "nameEn": "Visions of Dawn",
-    "nameDe": "Visionen der Morgendämmerung",
+    "nameDe": "Prophezeiung eines neuen Anfangs",
     "expansionId": "visions-of-dawn",
     "travel": [
       "Road",

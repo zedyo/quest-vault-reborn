@@ -1,111 +1,199 @@
+// ── Session-Tracker: Kampagnen-Auswahl (Screen 1) + Shell (Abschnittsleiste) ──
+//
+// Diese Datei ist nur noch Router/Shell: Einstieg über die Kampagnen-Auswahl,
+// darunter die Abschnittsleiste mit den vier Abschnitten (Überblick/Helden/
+// Overlord/Verlauf) und der dezent abgesetzten „Einrichtung". Die Mutationen
+// liegen in `useSessionMutations` und werden per Outlet-Kontext weitergereicht.
+
 import { useMemo, useState } from 'react'
+import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useSessionStore } from '../store/useSessionStore'
 import { useGameStore } from '../store/useGameStore'
-import type { CampaignSession, PlayedScenario, TrackedHero, TrackedOverlord } from '../types/session'
-import { deriveLiveState } from '../store/sessionDerive'
 import { CAMPAIGNS } from '../data/campaigns'
+import { EXPANSIONS } from '../data/expansions'
+import { scenariosForCampaign } from '../data/campaignScenarios'
+import type { CampaignSession } from '../types/session'
+import { deriveLiveState } from '../store/sessionDerive'
 import { exportSessionAsJSON, parseImportedSession, MAX_IMPORT_BYTES } from '../utils/sessionImport'
-import { newSession, newTrackedHero, nowISO, HERO_BY_ID } from '../components/session/sessionHelpers'
-import SetupTab from '../components/session/SetupTab'
-import HeroesTab from '../components/session/HeroesTab'
-import OverlordTab from '../components/session/OverlordTab'
-import ScenariosTab from '../components/session/ScenariosTab'
+import { newSession, heroMono, heroShortName } from '../components/session/sessionHelpers'
+import { useSessionMutations } from '../components/session/useSessionMutations'
+import { playedCampaignIds } from '../components/session/scenarioSuggest'
+import type { DeleteRequest, SessionCtx } from '../components/session/context'
+import { clearScenarioDraft, loadScenarioDraft } from '../components/session/flow/useScenarioDraft'
 import ConfirmDialog from '../components/ConfirmDialog'
+import { Icon, type IconName } from '../components/QvIcons'
+import { Badge, Btn, Eyebrow, Head, Meta, Micro, Panel, Progress } from '../components/session/ui/controls'
 
 const CAMPAIGN_BY_ID = Object.fromEntries(CAMPAIGNS.map((c) => [c.id, c]))
+const EXP_BY_ID = Object.fromEntries(EXPANSIONS.map((e) => [e.id, e]))
 
-type Tab = 'setup' | 'helden' | 'overlord' | 'szenarien'
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'setup', label: '⚙️ Setup' },
-  { id: 'helden', label: '🧙 Helden' },
-  { id: 'overlord', label: '👑 Overlord' },
-  { id: 'szenarien', label: '📖 Szenarien' },
-]
+/** „Die Schattenrune · Großkampagne · Grundspiel" */
+export function campaignSubtitle(session: CampaignSession): string {
+  const c = CAMPAIGN_BY_ID[session.campaignId]
+  if (!c) return session.campaignId
+  return [c.nameDe, c.kind === 'mini' ? 'Mini-Kampagne' : 'Großkampagne', EXP_BY_ID[c.expansionId]?.nameDe ?? c.expansionId]
+    .filter(Boolean)
+    .join(' · ')
+}
+
+function formatDate(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return '—'
+  return d.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
+// ── Löschdialog (Texte unverändert aus v1.5) ─────────────────────────────────
+
+const DELETE_COPY: Record<DeleteRequest['type'], { title: string; noun: string; effect: string; confirm: string }> = {
+  session: {
+    title: 'Kampagne löschen?',
+    noun: 'Die Kampagne',
+    effect: 'wird mit allen Helden, dem Overlord-Aufbau und dem Verlauf dauerhaft gelöscht.',
+    confirm: 'Kampagne löschen',
+  },
+  hero: { title: 'Held entfernen?', noun: 'Der Held', effect: 'wird aus der Kampagne entfernt.', confirm: 'Held entfernen' },
+  scenario: {
+    title: 'Szenario löschen?',
+    noun: 'Das Szenario',
+    effect: 'wird aus dem Verlauf entfernt; seine Belohnungen werden vom Live-Stand abgezogen.',
+    confirm: 'Szenario löschen',
+  },
+  draft: {
+    title: 'Eintrag verwerfen?',
+    noun: 'Der begonnene Eintrag',
+    effect: 'wird verworfen; am Spielstand ändert sich nichts.',
+    confirm: 'Eintrag verwerfen',
+  },
+}
+
+export function useDeleteDialog(onConfirm: (req: DeleteRequest) => void) {
+  const [pending, setPending] = useState<DeleteRequest | null>(null)
+  const dialog = pending && (
+    <ConfirmDialog
+      title={DELETE_COPY[pending.type].title}
+      message={
+        <>
+          {DELETE_COPY[pending.type].noun} <strong className="text-fg">„{pending.name}"</strong>{' '}
+          {DELETE_COPY[pending.type].effect} Das kann nicht rückgängig gemacht werden.
+        </>
+      }
+      confirmLabel={DELETE_COPY[pending.type].confirm}
+      onConfirm={() => {
+        onConfirm(pending)
+        setPending(null)
+      }}
+      onCancel={() => setPending(null)}
+    />
+  )
+  return { dialog, requestDelete: setPending }
+}
+
+// ── Screen 1 · Kampagnen-Auswahl ─────────────────────────────────────────────
+
+function HeroChips({ session }: { session: CampaignSession }) {
+  if (session.heroes.length === 0) return null
+  return (
+    <div className="flex items-center gap-2.5 flex-wrap">
+      {session.heroes.map((h) => (
+        <span
+          key={h.localId}
+          className="inline-flex items-center gap-2 rounded-pill bg-surface-2 border border-line pl-[5px] pr-3 py-[5px]"
+        >
+          <span className="w-[26px] h-[26px] rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[9px] text-accent-bright">
+            {heroMono(h)}
+          </span>
+          <span className="text-[13px] text-muted">{heroShortName(h)}</span>
+        </span>
+      ))}
+    </div>
+  )
+}
+
+function RunningCampaignCard({
+  session,
+  onOpen,
+  onExport,
+}: {
+  session: CampaignSession
+  onOpen: () => void
+  onExport: () => void
+}) {
+  const live = deriveLiveState(session)
+  const pool = scenariosForCampaign(session.campaignId).length
+  // Zähler und Nenner müssen dasselbe messen: nur GESPIELTE TITEL des
+  // Kampagnenbogens (Gerüchte-/Zusatzabenteuer und Freitext zählen nicht,
+  // sonst überschritte der Balken den Bogen).
+  const played = playedCampaignIds(session).size
+  const pct = pool > 0 ? Math.min(100, Math.round((played / pool) * 100)) : 0
+
+  return (
+    <div className="rounded-card border border-accent-line bg-surface shadow-card overflow-hidden">
+      <div className="flex">
+        <div className="w-1.5 shrink-0 bg-accent" style={{ boxShadow: 'var(--qv-glow-accent)' }} />
+        <div className="flex-1 min-w-0 p-5 sm:px-6 flex flex-col gap-4">
+          <div className="flex items-start justify-between gap-5 flex-wrap">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2.5">
+                <h4 className="font-head text-[22px] font-bold text-fg truncate">{session.name}</h4>
+                <Badge variant="accent" mono glow>
+                  Akt {live.currentAct === 2 ? 'II' : 'I'}
+                </Badge>
+              </div>
+              <p className="mt-1.5 text-[15px] text-muted">{campaignSubtitle(session)}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <Micro>Zuletzt gespielt</Micro>
+              <p className="mt-1 font-head text-[15px] font-semibold text-fg">{formatDate(session.updatedAt)}</p>
+            </div>
+          </div>
+
+          <HeroChips session={session} />
+
+          <div className="flex items-center gap-7 flex-wrap">
+            <div className="flex-1 min-w-[12rem]">
+              <div className="flex items-baseline justify-between mb-1.5">
+                <Micro>Kampagnenfortschritt</Micro>
+                {/* Der Nenner ist die Zahl der kuratierten TITEL des Kampagnenbogens
+                    — nicht die Länge eines Durchlaufs (die steht nirgends belegt). */}
+                <Meta>
+                  {played} von {pool} Titeln des Kampagnenbogens
+                </Meta>
+              </div>
+              <Progress value={pct} />
+            </div>
+            <div className="flex gap-2.5 shrink-0">
+              <Btn variant="ghost" size="sm" onClick={onExport}>
+                Exportieren
+              </Btn>
+              <Btn onClick={onOpen}>Kampagne öffnen</Btn>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function SessionsPage() {
   const sessions = useSessionStore((s) => s.sessions)
-  const activeSessionId = useSessionStore((s) => s.activeSessionId)
   const addSession = useSessionStore((s) => s.addSession)
-  const updateSession = useSessionStore((s) => s.updateSession)
-  const deleteSession = useSessionStore((s) => s.deleteSession)
   const setActiveSession = useSessionStore((s) => s.setActiveSession)
-  const ownedExpansionIds = useGameStore((s) => s.ownedExpansionIds)
+  const navigate = useNavigate()
 
-  const [tab, setTab] = useState<Tab>('setup')
-  const [pendingDelete, setPendingDelete] = useState<
-    | { type: 'session'; id: string; name: string }
-    | { type: 'hero'; id: string; name: string }
-    | { type: 'scenario'; id: string; name: string }
-    | null
-  >(null)
+  // Löschen/Archivieren liegt bewusst in der Einrichtung („Kampagne beenden"),
+  // nicht in der Auswahlliste.
+  const running = sessions.filter((s) => !s.archived)
+  const archived = sessions.filter((s) => s.archived)
 
-  const session = sessions.find((s) => s.id === activeSessionId) ?? null
-  const live = useMemo(() => (session ? deriveLiveState(session) : null), [session])
-
-  // ── Mutationen (immutabel, Auto-Save wie QuestEditorPage) ──────────────────
-  function persist(next: CampaignSession) {
-    updateSession({ ...next, updatedAt: nowISO() })
-  }
-  function patchSession(patch: Partial<CampaignSession>) {
-    if (session) persist({ ...session, ...patch })
-  }
-  function addHero(heroId: string) {
-    if (!session || session.heroes.length >= 4) return
-    persist({ ...session, heroes: [...session.heroes, newTrackedHero(heroId)] })
-  }
-  function removeHero(localId: string) {
-    if (!session) return
-    persist({ ...session, heroes: session.heroes.filter((h) => h.localId !== localId) })
-  }
-  function patchHero(localId: string, patch: Partial<TrackedHero>) {
-    if (!session) return
-    persist({
-      ...session,
-      heroes: session.heroes.map((h) => (h.localId === localId ? { ...h, ...patch } : h)),
-    })
-  }
-  function patchOverlord(patch: Partial<TrackedOverlord>) {
-    if (!session) return
-    persist({ ...session, overlord: { ...session.overlord, ...patch } })
-  }
-  function saveScenario(sc: PlayedScenario) {
-    if (!session) return
-    const exists = session.scenarios.some((s) => s.id === sc.id)
-    persist({
-      ...session,
-      scenarios: exists ? session.scenarios.map((s) => (s.id === sc.id ? sc : s)) : [...session.scenarios, sc],
-    })
-  }
-  function removeScenario(id: string) {
-    if (!session) return
-    persist({ ...session, scenarios: session.scenarios.filter((s) => s.id !== id) })
-  }
-  /** Weist einen Gegenstand aus der gemeinsamen Ausrüstung einem Helden (oder null) zu. */
-  function reassignItemOwner(refId: string, toHeroLocalId: string | null) {
-    if (!session) return
-    persist({
-      ...session,
-      scenarios: session.scenarios.map((sc) => ({
-        ...sc,
-        rewards: {
-          ...sc.rewards,
-          grantedItems: sc.rewards.grantedItems.map((g) =>
-            g.item.refId === refId ? { ...g, toHeroLocalId } : g,
-          ),
-        },
-        shopping: {
-          ...sc.shopping,
-          bought: sc.shopping.bought.map((b) =>
-            b.item.refId === refId ? { ...b, toHeroLocalId } : b,
-          ),
-        },
-      })),
-    })
+  function open(id: string) {
+    setActiveSession(id)
+    navigate(`/session/${id}`)
   }
 
   function handleCreate() {
-    addSession(newSession(CAMPAIGNS[0].id))
-    setTab('setup')
+    const s = newSession(CAMPAIGNS[0].id)
+    addSession(s)
+    navigate(`/session/${s.id}/einrichtung`)
   }
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
@@ -121,11 +209,11 @@ export default function SessionsPage() {
       try {
         const s = parseImportedSession(JSON.parse(ev.target?.result as string))
         if (!s) {
-          alert('Ungültige Session-Datei.')
+          alert('Ungültige Kampagnen-Datei.')
           return
         }
         addSession(s)
-        setTab('setup')
+        navigate(`/session/${s.id}`)
       } catch {
         alert('Datei konnte nicht gelesen werden.')
       }
@@ -134,232 +222,269 @@ export default function SessionsPage() {
     e.target.value = ''
   }
 
-  function confirmDelete() {
-    if (!pendingDelete) return
-    if (pendingDelete.type === 'session') deleteSession(pendingDelete.id)
-    else if (pendingDelete.type === 'hero') removeHero(pendingDelete.id)
-    else removeScenario(pendingDelete.id)
-    setPendingDelete(null)
-  }
-
-  const DELETE_COPY: Record<string, { title: string; noun: string; effect: string; confirm: string }> = {
-    session: {
-      title: 'Session löschen?',
-      noun: 'Die Session',
-      effect: 'wird mit allen Helden, dem Overlord-Setup und dem Verlauf dauerhaft gelöscht.',
-      confirm: 'Session löschen',
-    },
-    hero: { title: 'Held entfernen?', noun: 'Der Held', effect: 'wird aus der Session entfernt.', confirm: 'Held entfernen' },
-    scenario: {
-      title: 'Szenario löschen?',
-      noun: 'Das Szenario',
-      effect: 'wird aus dem Verlauf entfernt; seine Belohnungen werden vom Live-Stand abgezogen.',
-      confirm: 'Szenario löschen',
-    },
-  }
-  const confirmDialog = pendingDelete && (
-    <ConfirmDialog
-      title={DELETE_COPY[pendingDelete.type].title}
-      message={
-        <>
-          {DELETE_COPY[pendingDelete.type].noun}{' '}
-          <strong className="text-gray-100">„{pendingDelete.name}"</strong> {DELETE_COPY[pendingDelete.type].effect} Das kann
-          nicht rückgängig gemacht werden.
-        </>
-      }
-      confirmLabel={DELETE_COPY[pendingDelete.type].confirm}
-      onConfirm={confirmDelete}
-      onCancel={() => setPendingDelete(null)}
-    />
-  )
-
-  // ─── Übersichtsliste ────────────────────────────────────────────────
-  if (!session) {
-    return (
-      <div className="space-y-6">
-        {confirmDialog}
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="font-display text-2xl text-gold-400 font-bold mb-1">Session-Tracker</h2>
-            <p className="text-gray-400 text-sm">
-              Laufende Kampagne festhalten: Helden, Klassen, Ausrüstung und Overlord-Setup. Alles bleibt
-              lokal im Browser; per JSON exportierbar und wieder importierbar.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <label className="btn-secondary text-sm cursor-pointer whitespace-nowrap">
-              📁 Importieren
-              <input type="file" accept=".json" className="hidden" onChange={handleImport} />
-            </label>
-            <button onClick={handleCreate} className="btn-primary text-sm whitespace-nowrap">
-              + Neue Session
-            </button>
-          </div>
+  return (
+    <div className="mx-auto w-full max-w-[1202px] px-6 py-7 sm:px-8 flex flex-col gap-6">
+      <div className="flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <Eyebrow>Werkzeuge</Eyebrow>
+          <Head size="xl" className="mt-1.5">
+            Session-Tracker
+          </Head>
+          <p className="mt-1 text-[15px] text-muted">
+            Kampagnen-Spielstand — lokal im Browser, als JSON sicherbar.
+          </p>
         </div>
+        <div className="flex gap-2.5">
+          <label className="inline-flex items-center justify-center gap-2 h-9 px-3.5 rounded-control bg-surface text-muted border border-line font-head font-semibold text-[13.5px] cursor-pointer whitespace-nowrap hover:text-fg transition-colors">
+            <Icon name="upload" size={14} />
+            Importieren
+            <input type="file" accept=".json" className="hidden" onChange={handleImport} />
+          </label>
+          <Btn size="sm" icon="plus" onClick={handleCreate}>
+            Neue Kampagne
+          </Btn>
+        </div>
+      </div>
 
-        {sessions.length === 0 ? (
-          <div className="card flex flex-col items-center justify-center py-20 gap-3 border-dashed border-dungeon-600">
-            <span className="text-5xl opacity-40">🎲</span>
-            <h3 className="font-display text-xl text-gray-500">Noch keine Session</h3>
-            <p className="text-gray-600 text-sm text-center max-w-md">
-              Lege eine Session an, um einen laufenden Kampagnen-Spielstand zu tracken.
-            </p>
-            <button onClick={handleCreate} className="btn-secondary text-sm mt-2">
-              Erste Session anlegen
-            </button>
-          </div>
-        ) : (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {sessions.map((s) => {
-              const campaign = CAMPAIGN_BY_ID[s.campaignId]
-              return (
-                <div
-                  key={s.id}
-                  className="card hover:border-gold-500 transition-colors cursor-pointer flex flex-col gap-2"
-                  onClick={() => {
-                    setActiveSession(s.id)
-                    setTab('setup')
-                  }}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-display text-lg text-gold-300 font-bold">{s.name}</h3>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setPendingDelete({ type: 'session', id: s.id, name: s.name })
-                      }}
-                      className="text-xs text-gray-600 hover:text-red-400 shrink-0"
-                      title="Session löschen"
-                    >
-                      🗑
-                    </button>
-                  </div>
-                  <p className="text-gray-500 text-sm">{campaign?.nameDe ?? s.campaignId}</p>
-                  <div className="flex items-center gap-3 text-gray-600 text-xs mt-auto">
-                    <span>{s.playerCount} Spieler</span>
-                    <span>·</span>
-                    <span>
-                      {s.heroes.length} Held{s.heroes.length === 1 ? '' : 'en'}
+      {sessions.length === 0 ? (
+        <Panel className="flex flex-col items-center justify-center gap-3 py-16 px-6 text-center !border-dashed">
+          <Head size="s">Noch keine Kampagne</Head>
+          <p className="text-[14px] text-muted max-w-md">
+            Lege eine an, um einen Spielstand zu tracken — Helden, Overlord-Aufbau und den ganzen Verlauf.
+          </p>
+          <Btn className="mt-1" icon="plus" onClick={handleCreate}>
+            Neue Kampagne
+          </Btn>
+        </Panel>
+      ) : (
+        <>
+          {running.length > 0 && (
+            <div>
+              <Eyebrow className="!text-accent-bright mb-2.5">Laufend</Eyebrow>
+              <div className="flex flex-col gap-3">
+                {running.map((s) => (
+                  <RunningCampaignCard
+                    key={s.id}
+                    session={s}
+                    onOpen={() => open(s.id)}
+                    onExport={() => exportSessionAsJSON(s)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {archived.length > 0 && (
+            <div>
+              <Eyebrow className="mb-2.5">
+                Archiv · {archived.length} beendete {archived.length === 1 ? 'Kampagne' : 'Kampagnen'}
+              </Eyebrow>
+              <div className="rounded-card border border-line overflow-hidden">
+                {archived.map((s) => (
+                  <div
+                    key={s.id}
+                    className="flex items-center gap-4 px-4 py-3.5 border-b border-line last:border-b-0 bg-surface"
+                  >
+                    <span className="w-8 h-8 shrink-0 rounded-chip bg-surface-2 border border-line inline-flex items-center justify-center text-muted">
+                      <Icon name="campaign" size={15} />
                     </span>
-                    {s.scenarios.length > 0 && (
-                      <>
-                        <span>·</span>
-                        <span>{s.scenarios.length} Szenario(s)</span>
-                      </>
-                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-head text-[15px] font-semibold text-fg truncate">{s.name}</p>
+                      <p className="mt-0.5 text-[13px] text-faint truncate">
+                        {campaignSubtitle(s)} · {s.scenarios.length} Szenarien
+                      </p>
+                    </div>
+                    <Meta className="hidden sm:block">{s.heroes.length} Helden</Meta>
+                    <Btn variant="ghost" size="sm" onClick={() => open(s.id)}>
+                      Ansehen
+                    </Btn>
                   </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+// ── Shell mit Abschnittsleiste ───────────────────────────────────────────────
+
+const SECTIONS: { to: string; label: string; end?: boolean }[] = [
+  { to: '', label: 'Überblick', end: true },
+  { to: 'helden', label: 'Helden' },
+  { to: 'overlord', label: 'Overlord' },
+  { to: 'verlauf', label: 'Verlauf' },
+]
+
+/** Mobile Fußleiste (Screen 14): dieselben vier Abschnitte, mit Glyphen. */
+const MOBILE_SECTIONS: { to: string; label: string; icon: IconName; end?: boolean }[] = [
+  { to: '', label: 'Überblick', icon: 'dashboard', end: true },
+  { to: 'helden', label: 'Helden', icon: 'hero' },
+  { to: 'overlord', label: 'Overlord', icon: 'overlord' },
+  { to: 'verlauf', label: 'Verlauf', icon: 'campaign' },
+]
+
+export function SessionShell() {
+  const { sessionId } = useParams()
+  const navigate = useNavigate()
+  const ownedExpansionIds = useGameStore((s) => s.ownedExpansionIds)
+  const deleteSession = useSessionStore((s) => s.deleteSession)
+  const mutations = useSessionMutations(sessionId)
+  const { session, live } = mutations
+
+  // Einmal je Kampagne lesen — nicht bei jedem Render (JSON.parse + Sanitizer).
+  // Der Flow liegt auf einer Geschwister-Route: die Shell montiert bei der
+  // Rückkehr neu und liest damit ohnehin frisch.
+  const draft = useMemo(() => (sessionId ? loadScenarioDraft(sessionId) : null), [sessionId])
+
+  const { dialog, requestDelete } = useDeleteDialog((req) => {
+    if (req.type === 'session') {
+      deleteSession(req.id)
+      clearScenarioDraft(req.id) // sonst bleibt der Entwurf als Waise im localStorage
+      navigate('/session')
+    } else if (req.type === 'hero') mutations.removeHero(req.id)
+    else if (req.type === 'scenario') mutations.removeScenario(req.id)
+  })
+
+  if (!session || !live) {
+    return (
+      <div className="mx-auto w-full max-w-[1202px] px-6 py-10 text-center">
+        <Head size="s">Diese Kampagne gibt es nicht (mehr).</Head>
+        <Link to="/session" className="mt-3 inline-block text-[14px] text-accent-bright underline">
+          Zurück zur Kampagnen-Auswahl
+        </Link>
       </div>
     )
   }
 
-  // ─── Detailansicht ──────────────────────────────────────────────────
-  const campaign = CAMPAIGN_BY_ID[session.campaignId]
+  const hasDraft = draft?.sessionId === session.id
+  const ctx: SessionCtx = { ...mutations, session, live, ownedExpansionIds, requestDelete }
 
   return (
-    <div className="space-y-5">
-      {confirmDialog}
+    <div className="flex flex-col min-h-full">
+      {dialog}
 
-      <div className="flex flex-wrap items-center gap-3">
-        <button onClick={() => setActiveSession(null)} className="btn-secondary text-sm">
-          ← Übersicht
-        </button>
-        <div className="min-w-0">
-          <h2 className="font-display text-xl text-gold-300 font-bold truncate">{session.name}</h2>
-          <p className="text-gray-500 text-xs">
-            {campaign?.nameDe ?? session.campaignId} · Automatisch gespeichert.
-          </p>
-        </div>
-        <div className="ml-auto flex items-center gap-2">
-          <button
-            onClick={() => exportSessionAsJSON(session)}
-            className="text-xs px-3 py-1.5 rounded bg-dungeon-700 text-gray-300 border border-dungeon-600 hover:bg-dungeon-600 transition-colors"
-            title="Als JSON-Datei herunterladen"
+      {/* Kopfzeile der Kampagne (74 px) */}
+      <header className="h-[74px] shrink-0 flex items-center justify-between gap-4 px-4 sm:px-6 border-b border-line bg-bg">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <Link
+            to="/session"
+            className="inline-flex items-center justify-center w-11 h-11 sm:w-8 sm:h-8 shrink-0 rounded-control border border-line text-muted hover:text-fg transition-colors"
+            aria-label="Zurück zur Kampagnen-Auswahl"
           >
-            ⬇ JSON
-          </button>
-          <button
-            onClick={() => setPendingDelete({ type: 'session', id: session.id, name: session.name })}
-            className="text-xs px-3 py-1.5 rounded bg-red-950 text-red-400 border border-red-900 hover:bg-red-900 transition-colors"
-          >
-            🗑 Löschen
-          </button>
-        </div>
-      </div>
-
-      {/* Live-Stand-Streifen */}
-      {live && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {[
-            { label: 'Akt', value: live.currentAct },
-            { label: 'Partei-Gold', value: live.partyGold },
-            { label: 'Helden', value: session.heroes.length },
-            { label: 'Overlord-XP', value: live.overlord.xpAvailable },
-            { label: 'Bedrohung', value: session.overlord.threatTokens },
-            { label: 'Schicksal', value: session.partyFateTokens },
-          ].map((stat) => (
-            <div key={stat.label} className="card text-center py-3">
-              <p className="text-2xl font-bold text-gold-400">{stat.value}</p>
-              <p className="text-gray-500 text-xs mt-0.5">{stat.label}</p>
+            <Icon name="chevron-left" size={15} />
+          </Link>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2.5">
+              <h2 className="font-head text-[19px] font-bold text-fg truncate">{session.name}</h2>
+              <Badge variant="accent" mono>
+                Akt {live.currentAct === 2 ? 'II' : 'I'}
+              </Badge>
+              {session.archived && <Badge mono>archiviert</Badge>}
             </div>
+            <p className="mt-0.5 font-mono text-[10px] tracking-[0.14em] uppercase text-faint truncate">
+              {campaignSubtitle(session)} · {session.scenarios.length} Szenarien · automatisch gespeichert
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            type="button"
+            onClick={() => exportSessionAsJSON(session)}
+            title="Als JSON sichern"
+            aria-label="Als JSON sichern"
+            className="inline-flex items-center justify-center w-11 h-11 sm:w-9 sm:h-9 rounded-control border border-line bg-surface text-muted hover:text-fg transition-colors"
+          >
+            <Icon name="download" size={16} />
+          </button>
+          <Link
+            to={`/session/${session.id}/einrichtung`}
+            title="Einrichtung"
+            aria-label="Einrichtung"
+            className="inline-flex items-center justify-center w-11 h-11 sm:w-9 sm:h-9 rounded-control border border-line bg-surface text-muted hover:text-fg transition-colors"
+          >
+            <Icon name="more" size={16} />
+          </Link>
+        </div>
+      </header>
+
+      {/* Abschnittsleiste (46 px) — mobil ersetzt durch die Fußleiste unten */}
+      <div className="h-[46px] shrink-0 hidden sm:flex items-center justify-between gap-4 px-4 sm:px-6 border-b border-line bg-bg overflow-x-auto">
+        <nav className="flex items-stretch h-full">
+          {SECTIONS.map((s) => (
+            <NavLink
+              key={s.to}
+              to={s.to ? `/session/${session.id}/${s.to}` : `/session/${session.id}`}
+              end={s.end}
+              className={({ isActive }) =>
+                `relative inline-flex items-center px-4 font-head text-[14.5px] font-semibold whitespace-nowrap transition-colors ${
+                  isActive ? 'text-fg' : 'text-muted hover:text-fg'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  {s.label}
+                  {isActive && <span className="absolute left-3 right-3 bottom-0 h-0.5 rounded-t bg-accent" />}
+                </>
+              )}
+            </NavLink>
           ))}
+        </nav>
+        <NavLink
+          to={`/session/${session.id}/einrichtung`}
+          className={({ isActive }) =>
+            `inline-flex items-center gap-2 text-[13px] whitespace-nowrap transition-colors ${
+              isActive ? 'text-fg' : 'text-faint hover:text-muted'
+            }`
+          }
+        >
+          <Icon name="design" size={15} />
+          Einrichtung
+        </NavLink>
+      </div>
+
+      {hasDraft && (
+        <div className="px-4 sm:px-6 pt-3">
+          <Link
+            to={`/session/${session.id}/abschluss`}
+            className="flex items-center gap-3 rounded-control border border-accent-line bg-accent-soft px-4 py-2.5 text-[13.5px] text-fg hover:brightness-110 transition-all"
+          >
+            <Icon name="info" size={16} />
+            <span>
+              Ein begonnener Eintrag wartet — <strong className="font-semibold">Schritt {draft!.step} von 5</strong>.
+            </span>
+            <span className="ml-auto font-mono text-[10px] tracking-[0.12em] uppercase text-accent-bright">
+              Fortsetzen
+            </span>
+          </Link>
         </div>
       )}
 
-      {/* Tab-Leiste */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
-              tab === t.id
-                ? 'bg-accent text-onaccent border-gold-500'
-                : 'bg-dungeon-700 text-gray-300 border-dungeon-600 hover:border-gold-500'
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div className="flex-1 min-h-0">
+        <Outlet context={ctx} />
       </div>
 
-      {tab === 'setup' && <SetupTab session={session} onPatch={patchSession} />}
-      {tab === 'helden' && live && (
-        <HeroesTab
-          session={session}
-          live={live}
-          ownedExpansionIds={ownedExpansionIds}
-          onAddHero={addHero}
-          onRemoveHero={(localId) => {
-            const h = session.heroes.find((x) => x.localId === localId)
-            setPendingDelete({ type: 'hero', id: localId, name: HERO_BY_ID[h?.heroId ?? '']?.name ?? 'Held' })
-          }}
-          onPatchHero={patchHero}
-          onPatchSession={patchSession}
-          onReassignItem={reassignItemOwner}
-        />
-      )}
-      {tab === 'overlord' && live && (
-        <OverlordTab
-          overlord={session.overlord}
-          live={live.overlord}
-          ownedExpansionIds={ownedExpansionIds}
-          onPatch={patchOverlord}
-        />
-      )}
-      {tab === 'szenarien' && live && (
-        <ScenariosTab
-          session={session}
-          live={live}
-          ownedExpansionIds={ownedExpansionIds}
-          onSaveScenario={saveScenario}
-          onRequestDelete={(id, name) => setPendingDelete({ type: 'scenario', id, name })}
-        />
-      )}
+      {/* Mobil: die vier Abschnitte als 64-px-Fußleiste (Screen 14) */}
+      <nav className="sm:hidden sticky bottom-0 z-20 h-16 shrink-0 grid grid-cols-4 border-t border-line bg-surface-2">
+        {MOBILE_SECTIONS.map((s) => (
+          <NavLink
+            key={s.to}
+            to={s.to ? `/session/${session.id}/${s.to}` : `/session/${session.id}`}
+            end={s.end}
+            className={({ isActive }) =>
+              `flex flex-col items-center justify-center gap-1 font-mono text-[9px] tracking-[0.1em] uppercase transition-colors ${
+                isActive ? 'text-accent-bright' : 'text-faint'
+              }`
+            }
+          >
+            <Icon name={s.icon} size={18} />
+            {s.label}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   )
 }
