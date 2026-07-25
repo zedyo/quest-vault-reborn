@@ -150,6 +150,17 @@ Dieses Dokument ist die **primäre Gedächtnisstütze** für jede Session.
       Begegnung gespeichert (`mapData.overlays`, bereits im Schema → keine Migration). Visueller
       Token-Picker (Popover, nach Kategorie). Die abstrakten 1.1.32-Platzhalter ohne echtes Token
       (Lava/Grube/Schlamm/Trümmer/Truhe) wurden durch die realen Token ersetzt (s. Designsektion).
+- [ ] **Klassifizierung Bilehall / Rostende Ketten klären** (Befund aus dem Daten-Review v1.8.0,
+      NICHT geraten korrigiert): `src/data/campaigns.ts` führt `mists-of-bilehall` und
+      `the-chains-that-rust` als `kind:'campaign'` + `branching:true` („Großkampagne"), die
+      CRRG-Wissensbasis (`src/data/ruleClarifications.ts`, Stichwort *Kampagnen*) nennt beide
+      **Mini-Kampagnen** (kombinierbar zu einer vollen Kampagne: Bilehall = Akt-I-Abenteuer +
+      Finale als Intermezzo, Ketten = Akt II + Finale). `campaignScenarios.ts` passt zur
+      Mini-Lesart (Bilehall 6× Akt 1, Ketten 9× Akt 2, kein Zwischenspiel). **Wirkung:** der
+      Session-Tracker schaltet für beide das Gerüchtedeck frei (Mini-Kampagnen nutzen keine
+      Gerüchtekarten) und labelt „Großkampagne". Doku ist mit dem Code synchron → kein Desync,
+      aber ein Widerspruch zur eigenen Wissensbasis. Vor einer Änderung eine belastbare Quelle
+      (Questbuch/Produktseite) heranziehen — Klassifizierung nicht raten.
 - [ ] Daten-Validierungspass: alle Werte gegen Karten-Scans prüfen
       (Verfahren etabliert — siehe „Kartenbild-Validierung" oben; Gruppengrößen
       stehen auf den `-back`-Karten)

@@ -105,8 +105,10 @@ export interface TrackedOverlord {
   /** Besessene/gekaufte Plotkarten (→ PlotCard.id). */
   ownedPlotCardIds: string[]
   /**
-   * @deprecated Abgelöst durch `CampaignSession.rumors` (v1.8.0): Gerüchte sind
-   * kein Overlord-Besitz, sondern beiden Seiten bekannt. Die Migration v2 → v3
+   * @deprecated Abgelöst durch `CampaignSession.rumors` (v1.8.0): der Tracker
+   * führt Gerüchte in einer gemeinsamen Ansicht, weil sie auf beide Seiten
+   * wirken (sie bringen wählbare Abenteuer ins Spiel) — gezogen und gespielt
+   * werden sie laut Regel vom Overlord. Die Migration v2 → v3
    * überträgt den Inhalt nach `rumors`; danach wird das Feld nicht mehr
    * geschrieben (bleibt nur für den verlustfreien Import alter Dateien).
    */

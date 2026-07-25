@@ -112,9 +112,8 @@ export default function Step4Market({ session, base, draft, setScenario, ownedEx
             </div>
             <p className="mb-3 text-[14px] leading-[1.55] text-muted max-w-[96ch]">
               Der Akt-I-Stapel wird nach der Einführung <strong className="font-semibold text-fg">und</strong> nach dem
-              Zwischenspiel benutzt, der Akt-II-Stapel erst ab dem ersten Akt-II-Abenteuer. In diesem einen
-              Einkaufsschritt bekommen die Helden deshalb eine Wahl — die App fragt sie, statt den Akt stillschweigend
-              zu setzen.
+              Zwischenspiel benutzt; Akt-II-Marktkarten sind erst kaufbar, wenn ein Akt-II-Abenteuer beendet ist. In
+              diesem einen Einkaufsschritt fragt die App deshalb nach, statt den Akt stillschweigend zu setzen.
             </p>
             <div className="grid gap-3 lg:grid-cols-2">
               {([1, 2] as const).map((a) => {
@@ -139,8 +138,8 @@ export default function Step4Market({ session, base, draft, setScenario, ownedEx
                     </p>
                     <p className="mt-1.5 text-[13.5px] leading-[1.5] text-muted">
                       {a === 1
-                        ? 'Der komplette Akt-I-Stapel liegt offen — kein Zufall, freie Wahl, so oft ihr wollt. Nutze dafür „Manuell suchen".'
-                        : 'Zufällig einige Karten vom stärkeren Stapel — mehr Wirkung, weniger Auswahl. Akt-II-Marktkarten können nicht gekauft werden, solange noch kein Akt-II-Abenteuer beendet ist; direkt nach dem Zwischenspiel gilt das nur für Mini-Kampagnen, die hier bereits Akt-II-Karten vorsehen.'}
+                        ? 'Der Akt-I-Stapel gilt weiter — such die Karten gezielt heraus statt sie aufzudecken. Nutze dafür „Manuell suchen".'
+                        : 'Zufällig einige Karten vom stärkeren Stapel — mehr Wirkung, weniger Auswahl. Regel: Akt-II-Marktkarten können nicht gekauft werden, solange noch kein Akt-II-Abenteuer beendet ist.'}
                     </p>
                   </button>
                 )
