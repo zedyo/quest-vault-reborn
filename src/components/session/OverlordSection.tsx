@@ -4,7 +4,7 @@
 // spielbare Gerüchte und Relikte stehen als lesbare Karten daneben — keine
 // Chip-Wand in einem Aufklapper mehr.
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useSessionCtx } from './context'
 import { LIEUTENANTS } from '../../data/lieutenants'
 import { PLOT_DECKS } from '../../data/plotDecks'

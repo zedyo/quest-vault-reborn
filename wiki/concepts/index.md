@@ -26,6 +26,7 @@ Typische `type`-Werte: `Concept`, `Pattern`, `Procedure`, `Decision`,
 # Entscheidungen, Postmortems & Strategie
 
 * [Vorfall + Regeln — fabrizierte Spieldaten (2026-06-12)](fabricated-data-incident.md) - Halluzinierte Helden/Erweiterungen entfernt; daraus abgeleitete verbindliche Anti-Halluzinations-Regeln.
+* [Dependency-Sicherheitspass v1.8.1](dependency-security-pass.md) - Warum „null Dependabot-Meldungen" zwingend React 19, react-router 8 und Node 22 erforderte; inkl. brace-expansion-Override-Falle.
 * [Offene Entscheidungen](open-decisions.md) - Laufende offene Projekt-Entscheidungen (IP-Rechte, Backend, Monetarisierung, B-Seiten-Connectoren).
 * [Interne Projektstrategie](internal-strategy.md) - ⚠️ intern: Monetarisierung/Ko-Fi, Rechtslage, Daten-Validierungsstrategie.
 

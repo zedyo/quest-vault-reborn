@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, useCallback, useId } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router'
 import { searchEntries, type SearchEntry } from '../data/rulesSearchIndex'
 import { renderGameTextInline } from './GameSymbols'
 

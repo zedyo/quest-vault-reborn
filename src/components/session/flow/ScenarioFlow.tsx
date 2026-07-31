@@ -11,7 +11,7 @@
 // gespielt) fortgeschrieben — in EINEM Schreibvorgang.
 
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router'
 import { useGameStore } from '../../../store/useGameStore'
 import { deriveLiveState } from '../../../store/sessionDerive'
 import type { CampaignSession, PlayedScenario } from '../../../types/session'

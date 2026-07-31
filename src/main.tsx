@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router'
 // Design-System-Schriften, self-hosted (offline/PWA – kein CDN):
 //  Heldentum → Cinzel (Display/Head) + EB Garamond (Text)
 //  Overlord  → Pirata One (Display) + Cormorant Garamond (Head/Text)

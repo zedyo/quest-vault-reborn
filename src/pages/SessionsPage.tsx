@@ -6,7 +6,7 @@
 // liegen in `useSessionMutations` und werden per Outlet-Kontext weitergereicht.
 
 import { useMemo, useState } from 'react'
-import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router'
 import { useSessionStore } from '../store/useSessionStore'
 import { useGameStore } from '../store/useGameStore'
 import { CAMPAIGNS } from '../data/campaigns'

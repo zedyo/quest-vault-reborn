@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router'
 import { RULE_CLARIFICATIONS, CRRG_SOURCE, CRRG_URL } from '../data/ruleClarifications'
 import { LINKED_ERRATA, type LinkedErrata } from '../data/errataLinks'
 import { ErrataEntryBody } from '../components/ErrataBox'

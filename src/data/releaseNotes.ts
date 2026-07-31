@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.8.1',
+    date: '2026-07-31',
+    title: 'Wartungs-Update: technischer Unterbau aktualisiert',
+    highlights: [
+      'Alle verwendeten Bausteine (Oberfläche, Navigation, Build) wurden auf den aktuellen Stand gebracht.',
+      'An Inhalten, Spieldaten und Bedienung ändert sich nichts — gespeicherte Quests, Sammlungen und Kampagnen bleiben unverändert erhalten.',
+    ],
+  },
+  {
     version: '1.8.0',
     date: '2026-07-25',
     title: 'Session-Tracker komplett neu: Kampagnen-Cockpit statt Formular',

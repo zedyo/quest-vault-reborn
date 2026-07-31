@@ -6,7 +6,7 @@
 // beide Spalten, weil es auf beide Seiten wirkt — das Gerüchtedeck.
 
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { useSessionCtx } from './context'
 import { useSessionStore } from '../../store/useSessionStore'
 import { CAMPAIGNS } from '../../data/campaigns'

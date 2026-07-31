@@ -4,7 +4,7 @@
 // werden darf vom Kampagnenbogen ODER von jeder Abenteuerkarte, die im Spiel ist
 // — Gerüchteabenteuer und Zusatzabenteuer stehen gleichberechtigt daneben.
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { useSessionCtx } from './context'
 import { scenariosForCampaign } from '../../data/campaignScenarios'
 import { chooserSentence, ROLE_LABEL, suggestNext, terrainList } from './scenarioSuggest'

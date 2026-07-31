@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useGameStore } from '../store/useGameStore'
 import { useSessionStore } from '../store/useSessionStore'
 import { deriveLiveState } from '../store/sessionDerive'
