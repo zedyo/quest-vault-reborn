@@ -310,6 +310,9 @@ function HeroPicker({
                   alt={hero.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
                 />
               </div>
               {/* Archetype color bar + name */}

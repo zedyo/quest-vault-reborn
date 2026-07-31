@@ -104,6 +104,9 @@ function AddHeroModal({
                     alt={hero.name}
                     loading="lazy"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
                   />
                 </div>
                 <span className="block px-1.5 py-1 text-center font-head text-[12px] font-semibold text-fg truncate">
