@@ -50,6 +50,7 @@ import {
 } from './ui/controls'
 import { Icon } from '../QvIcons'
 import HeroAvatar from './ui/HeroAvatar'
+import { heroPortraitUrl } from '../../data/assetUrls'
 
 const EXP_BY_ID = Object.fromEntries(EXPANSIONS.map((e) => [e.id, e]))
 const cardKey = (deckId: string, cardId: string) => `${deckId}:${cardId}`
@@ -95,19 +96,18 @@ function AddHeroModal({
                 title={hero.name}
                 className="rounded-chip overflow-hidden border border-line hover:border-accent transition-colors text-left"
               >
-                <div className="aspect-[3/4] bg-surface-2 overflow-hidden">
-                  {hero.imageUrl && (
-                    <img
-                      src={hero.imageUrl}
-                      alt={hero.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: 'left center' }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                      }}
-                    />
-                  )}
+                {/* Kopf-Porträt statt des blinden Kartenausschnitts — quadratisch,
+                    weil das Porträt in 3:4 seitlich beschnitten würde. */}
+                <div className="aspect-square bg-surface-2 overflow-hidden">
+                  <img
+                    src={heroPortraitUrl(hero.id)}
+                    alt={hero.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
+                  />
                 </div>
                 <span className="block px-1.5 py-1 text-center font-head text-[12px] font-semibold text-fg truncate">
                   {hero.name.split(' ')[0]}

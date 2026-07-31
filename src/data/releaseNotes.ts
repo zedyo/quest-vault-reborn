@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.8.4',
+    date: '2026-07-31',
+    title: 'Heldengesichter auch in der Kampagnen-Auswahl',
+    highlights: [
+      'Die Übersicht der laufenden und archivierten Kampagnen zeigt die Helden jetzt mit ihrem Gesicht statt mit Initialen.',
+      'Auch beim Hinzufügen eines Helden in der Einrichtung steht das Porträt statt eines unkenntlichen Kartenausschnitts.',
+    ],
+  },
+  {
     version: '1.8.3',
     date: '2026-07-31',
     title: 'Helden zeigen jetzt ihr Gesicht',

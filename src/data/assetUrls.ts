@@ -121,7 +121,15 @@ export function heroPortraitUrl(id: string): string {
   // `id` kann aus einem importierten Spielstand stammen (`TrackedHero.heroId`)
   // und ist dort bewusst nicht auf `[A-Za-z0-9_-]` eingeschränkt → kodieren,
   // damit „../"-Segmente nicht aus dem Bilderordner herausführen.
-  return `${ASSET_BASE}cards/de/heroes/portraits/${encodeURIComponent(id)}.webp`
+  //
+  // Unpaarige Surrogate müssen VOR dem Kodieren weg: `encodeURIComponent` wirft
+  // dabei `URIError`. Das passiert im Render-Body — der Fehler käme also nicht
+  // im Importpfad an, sondern würde die ganze Seite über die ErrorBoundary
+  // ersetzen. Sie entstehen nicht nur durch bösartige Dateien: der Sanitizer
+  // kürzt `heroId` auf 100 Zeichen und kann ein Surrogatpaar zerschneiden.
+  // Ohne sie schlägt höchstens das Bild fehl, und das Kürzel bleibt stehen.
+  const safe = id.replace(/[\uD800-\uDFFF]/gu, '')
+  return `${ASSET_BASE}cards/de/heroes/portraits/${encodeURIComponent(safe)}.webp`
 }
 
 /**
