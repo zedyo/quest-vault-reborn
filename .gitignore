@@ -45,3 +45,7 @@ tmp/
 # die klein-optimierten Bilder unter public/cards/ – nur DIE kommen in git.
 scans/
 *.psd
+
+# Python-Bytecode der Bild-Werkzeuge unter scripts/
+__pycache__/
+*.pyc
