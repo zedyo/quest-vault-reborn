@@ -44,8 +44,16 @@ CARDS = ROOT / "public" / "cards" / "de" / "heroes"
 OUT = CARDS / "portraits"
 BOXES = Path(__file__).resolve().parent / "hero_face_boxes.json"
 
-#: Mindestanteil des Kopfes an der Bildkante (User-Vorgabe: min. 70 %).
-HEAD_FRACTION = 0.70
+#: Mindestanteil des Kopfes an der Bildkante (User-Entscheidung nach den
+#: 10 Beispielen: 80 % statt 70 % — deutlicher erkennbar im kleinen Kreis).
+HEAD_FRACTION = 0.80
+
+#: Reines Motivfeld der Kartenvorlage, relativ zur Kartengröße.
+#: Oben hängt die goldene Filigran-Leiste des Rahmens bis y≈78 px (bei ~606 px
+#: Kartenhöhe) ins Bild; links läuft die Rahmenkante, rechts beginnen die
+#: Wert-Medaillons. Der Ausschnitt wird in dieses Feld geschoben (nie verkleinert),
+#: damit keine Rahmenteile in den Mini-Kreis ragen (User-Befund an Syndrael/Astarra).
+ART_SAFE = {"left": 0.016, "top": 0.150, "right": 0.355, "bottom": 0.995}
 #: Kantenlänge der ausgelieferten Porträts. 256 px reicht für 40-px-Kreise
 #: bei 3× Gerätepixelverhältnis und bleibt als WebP unter ~20 KB.
 OUT_SIZE = 256
@@ -63,14 +71,25 @@ def load_boxes() -> dict[str, dict]:
     return json.loads(BOXES.read_text(encoding="utf-8"))
 
 
+def _fit(center: float, side: float, lo: float, hi: float, hard_hi: float) -> float:
+    """
+    Ausschnittanfang auf einer Achse: um `center` zentriert, in [lo, hi] geschoben.
+    Passt die Kante nicht ins Motivfeld, gilt nur die harte Bildgrenze — der
+    Ausschnitt wird also verschoben, aber nie verkleinert (der Kopfanteil bleibt).
+    """
+    start = center - side / 2
+    if hi - lo >= side:
+        return min(max(start, lo), hi - side)
+    return min(max(start, 0), hard_hi - side)
+
+
 def square_crop_box(box: dict, img_w: int, img_h: int, fraction: float = HEAD_FRACTION):
     """Quadratischer Ausschnitt um die Kopf-Box, Kopf = `fraction` der Kante."""
     x0, y0, x1, y1 = box["x0"], box["y0"], box["x1"], box["y1"]
     head = max(x1 - x0, y1 - y0)
     side = min(head / fraction, img_w, img_h)
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    left = min(max(cx - side / 2, 0), img_w - side)
-    top = min(max(cy - side / 2, 0), img_h - side)
+    left = _fit((x0 + x1) / 2, side, ART_SAFE["left"] * img_w, ART_SAFE["right"] * img_w, img_w)
+    top = _fit((y0 + y1) / 2, side, ART_SAFE["top"] * img_h, ART_SAFE["bottom"] * img_h, img_h)
     return (round(left), round(top), round(left + side), round(top + side))
 
 

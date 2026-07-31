@@ -9,6 +9,8 @@ import { GRID_COLS, GRID_ROWS } from '../components/MapBuilder/constants'
 import { parseImportedQuest, MAX_IMPORT_BYTES } from '../utils/questImport'
 import { renderGameTextInline, HeartSymbol, SurgeSymbol, FatigueSymbol, ActionSymbol } from '../components/GameSymbols'
 import ConfirmDialog from '../components/ConfirmDialog'
+import HeroPortrait from '../components/HeroPortrait'
+import { heroPortraitUrl } from '../data/assetUrls'
 
 const uid = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -301,21 +303,14 @@ function HeroPicker({
                   : 'border-dungeon-600 opacity-60 hover:opacity-90 hover:border-dungeon-500'
               }`}
             >
-              {/* Portrait: crop character from left of landscape card */}
-              <div className="aspect-[3/4] overflow-hidden bg-dungeon-900">
-                {hero.imageUrl ? (
-                  <img
-                    src={hero.imageUrl}
-                    alt={hero.name}
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: 'left center' }}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg">
-                    ⚔
-                  </div>
-                )}
+              {/* Kopf-Porträt aus dem deutschen Kartenscan (Kopf = 80 % der Kante) */}
+              <div className="aspect-square overflow-hidden bg-dungeon-900">
+                <img
+                  src={heroPortraitUrl(hero.id)}
+                  alt={hero.name}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
               {/* Archetype color bar + name */}
               <div className={`px-1 py-0.5 text-center ${colorClass}`}>
@@ -549,22 +544,13 @@ export default function QuestEditorPage() {
                         const h = HEROES.find((x) => x.id === hid)
                         if (!h) return null
                         return (
-                          <div
+                          <HeroPortrait
                             key={hid}
+                            heroId={h.id}
+                            size={28}
                             title={h.name}
-                            className={`w-7 h-7 rounded-full overflow-hidden border-2 ${ARCHETYPE_COLORS[h.archetype].split(' ')[2] ?? 'border-dungeon-600'}`}
-                          >
-                            {h.imageUrl ? (
-                              <img
-                                src={h.imageUrl}
-                                alt={h.name}
-                                className="w-full h-full object-cover"
-                                style={{ objectPosition: 'left center' }}
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-dungeon-700" />
-                            )}
-                          </div>
+                            borderClass={`border-2 ${ARCHETYPE_COLORS[h.archetype].split(' ')[2] ?? 'border-dungeon-600'}`}
+                          />
                         )
                       })}
                     </div>

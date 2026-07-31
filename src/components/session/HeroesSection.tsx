@@ -11,6 +11,7 @@ import ArchetypeIcon from '../ArchetypeIcon'
 import CardTile from './ui/CardTile'
 import HeroChipRow from './ui/HeroChipRow'
 import { Eyebrow, Head, LinkBtn, Micro, ThemeScope } from './ui/controls'
+import HeroAvatar from './ui/HeroAvatar'
 
 const STRIPES =
   'repeating-linear-gradient(135deg, var(--qv-accent-soft) 0 7px, transparent 7px 14px), radial-gradient(circle at 50% 30%, var(--qv-accent-soft), transparent 72%), var(--qv-surface-2)'
@@ -60,9 +61,7 @@ export default function HeroesSection() {
                     }}
                   />
                 )}
-                <span className="relative w-[34px] h-[34px] rounded-chip bg-surface border border-line inline-flex items-center justify-center font-mono text-[11px] text-accent">
-                  {heroMono(h)}
-                </span>
+                <HeroAvatar hero={h} size={34} className="relative shadow-btn" withTitle={false} />
                 {data && <span className="relative"><ArchetypeIcon archetype={data.archetype} size={26} /></span>}
               </div>
 

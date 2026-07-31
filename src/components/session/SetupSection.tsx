@@ -25,7 +25,6 @@ import type { TrackedRumor } from '../../types/session'
 import {
   CLASS_BY_ID,
   HERO_BY_ID,
-  heroMono,
   itemCardUrl,
   resolveItemName,
   withClass,
@@ -50,6 +49,7 @@ import {
   ThemeScope,
 } from './ui/controls'
 import { Icon } from '../QvIcons'
+import HeroAvatar from './ui/HeroAvatar'
 
 const EXP_BY_ID = Object.fromEntries(EXPANSIONS.map((e) => [e.id, e]))
 const cardKey = (deckId: string, cardId: string) => `${deckId}:${cardId}`
@@ -345,9 +345,7 @@ export default function SetupSection() {
                 return (
                   <div key={h.localId} className="rounded-control border border-line bg-surface">
                     <div className="flex items-center gap-3 px-3 py-2.5 flex-wrap">
-                      <span className="w-7 h-7 shrink-0 rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[9px] text-accent">
-                        {heroMono(h)}
-                      </span>
+                      <HeroAvatar hero={h} size={28} withTitle={false} />
                       <span className="min-w-0 flex-1 flex items-baseline gap-2">
                         <span className="min-w-0 font-head text-[14px] font-semibold text-fg truncate">
                           {data?.name ?? h.heroId}
@@ -513,9 +511,7 @@ export default function SetupSection() {
                       className="grid grid-cols-[1fr_96px_96px] items-center px-3 py-2 border-b border-line last:border-b-0 bg-surface"
                     >
                       <span className="inline-flex items-center gap-2.5 min-w-0">
-                        <span className="w-[26px] h-[26px] shrink-0 rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[8.5px] text-accent">
-                          {heroMono(h)}
-                        </span>
+                        <HeroAvatar hero={h} size={26} withTitle={false} />
                         <span className="font-head text-[14px] font-semibold text-fg truncate">
                           {HERO_BY_ID[h.heroId]?.name ?? h.heroId}
                         </span>

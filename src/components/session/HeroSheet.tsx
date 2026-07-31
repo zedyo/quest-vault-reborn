@@ -12,7 +12,6 @@ import { classSkillDeUrl, classFamiliarDeUrl } from '../../data/assetUrls'
 import {
   CLASS_BY_ID,
   HERO_BY_ID,
-  heroMono,
   itemCardUrl,
   itemRulesText,
   itemSlotLabel,
@@ -27,6 +26,7 @@ import { DiceRow } from '../DiceDisplay'
 import { HealthIcon, SpeedIcon } from '../StatIcons'
 import { Eyebrow, Head, LinkBtn, Meta, ThemeScope } from './ui/controls'
 import { Icon } from '../QvIcons'
+import HeroAvatar from './ui/HeroAvatar'
 
 export default function HeroSheet() {
   const { heroId } = useParams()
@@ -73,13 +73,13 @@ export default function HeroSheet() {
               key={h.localId}
               to={`/session/${session.id}/helden/${h.localId}`}
               title={HERO_BY_ID[h.heroId]?.name ?? h.heroId}
-              className={`w-[30px] h-[30px] rounded-chip border inline-flex items-center justify-center font-mono text-[9px] transition-colors ${
+              className={`w-[30px] h-[30px] rounded-chip border inline-flex items-center justify-center transition-colors ${
                 h.localId === hero.localId
-                  ? 'bg-accent border-accent text-onaccent'
-                  : 'bg-surface border-line text-muted hover:text-fg'
+                  ? 'bg-accent border-accent'
+                  : 'bg-surface border-line hover:border-accent-line'
               }`}
             >
-              {heroMono(h)}
+              <HeroAvatar hero={h} size={25} dimmed={h.localId !== hero.localId} withTitle={false} />
             </Link>
           ))}
         </div>

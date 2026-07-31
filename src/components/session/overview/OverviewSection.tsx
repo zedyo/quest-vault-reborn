@@ -10,12 +10,13 @@ import { Link } from 'react-router'
 import { useSessionCtx } from '../context'
 import { LIEUTENANTS } from '../../../data/lieutenants'
 import { PLOT_DECKS } from '../../../data/plotDecks'
-import { heroMono, heroShortName, resolveItemName } from '../sessionHelpers'
+import { heroShortName, resolveItemName } from '../sessionHelpers'
 import { suggestNext } from '../scenarioSuggest'
 import NextScenarioCard from '../ui/NextScenarioCard'
 import { Badge, Eyebrow, LinkBtn, Meta, Micro, ProgressSegments, Stepper, ThemeScope } from '../ui/controls'
 import { Icon } from '../../QvIcons'
 import { HealthIcon, SpeedIcon, DefenseStatIcon } from '../../StatIcons'
+import HeroAvatar from '../ui/HeroAvatar'
 
 const OUTCOME_LABEL: Record<'heroes' | 'overlord' | 'none', string> = {
   heroes: 'Helden gewonnen',
@@ -158,9 +159,7 @@ export default function OverviewSection() {
                       to={`/session/${session.id}/helden/${h.localId}`}
                       className="flex items-center gap-2.5 px-3 py-2.5 rounded-control border border-line bg-surface-2 hover:border-accent-line transition-colors"
                     >
-                      <span className="w-8 h-8 shrink-0 rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[10px] text-accent">
-                        {heroMono(h)}
-                      </span>
+                      <HeroAvatar hero={h} size={32} withTitle={false} />
                       <span className="min-w-0 flex-1">
                         <span className="block font-head text-[13px] font-semibold text-fg truncate">
                           {heroShortName(h)}
