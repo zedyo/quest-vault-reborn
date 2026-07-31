@@ -6,7 +6,7 @@
 
 import { Link } from 'react-router'
 import { useSessionCtx } from './context'
-import { CLASS_BY_ID, HERO_BY_ID, heroMono, itemCardUrl, itemRulesText, itemSlotLabel, resolveItemName } from './sessionHelpers'
+import { CLASS_BY_ID, HERO_BY_ID, itemCardUrl, itemRulesText, itemSlotLabel, resolveItemName } from './sessionHelpers'
 import ArchetypeIcon from '../ArchetypeIcon'
 import CardTile from './ui/CardTile'
 import HeroChipRow from './ui/HeroChipRow'
