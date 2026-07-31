@@ -141,13 +141,28 @@ jobs:
           ref: ${{ github.event.repository.default_branch || 'main' }}
           persist-credentials: false
 
+      # Solange die Vorschau-Mechanik selbst noch nicht auf dem Default-Branch
+      # liegt, gibt es dort auch keine Veröffentlichungslogik. Dann bricht der
+      # Lauf nicht ab, sondern sagt, was fehlt (siehe „Bootstrap-Falle" im Wiki).
+      - name: Veröffentlichungslogik vorhanden?
+        id: logik
+        run: |
+          if [ -f .github/actions/pages-content/action.yml ]; then
+            echo "vorhanden=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "vorhanden=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Die Vorschau-Mechanik liegt noch nicht auf dem Default-Branch – Vorschauen entstehen ab dem Merge dieses Vorhabens."
+          fi
+
       - name: Build holen
+        if: steps.logik.outputs.vorhanden == 'true'
         uses: actions/download-artifact@v4
         with:
           name: vorschau-build
           path: dist
 
       - name: Vorschau veröffentlichen
+        if: steps.logik.outputs.vorhanden == 'true'
         uses: ./.github/actions/pages-content
         with:
           mode: preview
@@ -159,6 +174,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Zusammenfassung schreiben
+        if: steps.logik.outputs.vorhanden == 'true'
         env:
           URL: ${{ needs.bauen.outputs.url }}
           BRANCH: ${{ github.ref_name }}
@@ -172,6 +188,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Vorschau-Link am Pull Request hinterlegen
+        if: steps.logik.outputs.vorhanden == 'true'
         uses: actions/github-script@v7
         env:
           PREVIEW_URL: ${{ needs.bauen.outputs.url }}
