@@ -1,0 +1,915 @@
+{
+  "generated": "2026-07-19",
+  "format": "webp",
+  "sizes": [
+    256,
+    128,
+    64,
+    32
+  ],
+  "file_pattern": "{dir}/{name}-{size}.webp",
+  "themes": [
+    "overlord",
+    "heldentum"
+  ],
+  "groups": {
+    "archetypes": {
+      "items": [
+        {
+          "name": "heiler",
+          "theme": "klassenfarbe",
+          "variant": null,
+          "dir": "archetypes/ohne-hintergrund"
+        },
+        {
+          "name": "heiler",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "archetypes/heldentum"
+        },
+        {
+          "name": "krieger",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "archetypes/heldentum"
+        },
+        {
+          "name": "kundschafter",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "archetypes/heldentum"
+        },
+        {
+          "name": "magier",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "archetypes/heldentum"
+        },
+        {
+          "name": "krieger",
+          "theme": "klassenfarbe",
+          "variant": null,
+          "dir": "archetypes/ohne-hintergrund"
+        },
+        {
+          "name": "kundschafter",
+          "theme": "klassenfarbe",
+          "variant": null,
+          "dir": "archetypes/ohne-hintergrund"
+        },
+        {
+          "name": "magier",
+          "theme": "klassenfarbe",
+          "variant": null,
+          "dir": "archetypes/ohne-hintergrund"
+        },
+        {
+          "name": "heiler",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "archetypes/overlord"
+        },
+        {
+          "name": "krieger",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "archetypes/overlord"
+        },
+        {
+          "name": "kundschafter",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "archetypes/overlord"
+        },
+        {
+          "name": "magier",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "archetypes/overlord"
+        }
+      ]
+    },
+    "symbols": {
+      "items": [
+        {
+          "name": "aktion",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "aktion",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "bewegung",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "bewegung",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "dunkel",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "dunkel",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "erschoepfung",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "erschoepfung",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "fernkampf",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "fernkampf",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "gebaeude",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "gebaeude",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "gebirge",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "gebirge",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "gespuer",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "gespuer",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "heiss",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "heiss",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "hoehle",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "hoehle",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "kalt",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "kalt",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "leben",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "leben",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "nahkampf",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "nahkampf",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "schub",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "schub",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "staerke",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "staerke",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "verflucht",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "verflucht",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "verteidigung",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "verteidigung",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "wasser",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "wasser",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "wildnis",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "wildnis",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "willenskraft",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "willenskraft",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "wissen",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "wissen",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "zivilisiert",
+          "theme": "overlord",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/overlord/ohne-hintergrund"
+        },
+        {
+          "name": "zivilisiert",
+          "theme": "overlord",
+          "variant": "mit-scheibe",
+          "dir": "symbols/overlord/mit-scheibe"
+        },
+        {
+          "name": "aktion",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "aktion",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "bewegung",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "bewegung",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "dunkel",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "dunkel",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "erschoepfung",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "erschoepfung",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "fernkampf",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "fernkampf",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "gebaeude",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "gebaeude",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "gebirge",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "gebirge",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "gespuer",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "gespuer",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "heiss",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "heiss",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "hoehle",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "hoehle",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "kalt",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "kalt",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "leben",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "leben",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "nahkampf",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "nahkampf",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "schub",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "schub",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "staerke",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "staerke",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "verflucht",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "verflucht",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "verteidigung",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "verteidigung",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "wasser",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "wasser",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "wildnis",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "wildnis",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "willenskraft",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "willenskraft",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "wissen",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "wissen",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        },
+        {
+          "name": "zivilisiert",
+          "theme": "heldentum",
+          "variant": "ohne-hintergrund",
+          "dir": "symbols/heldentum/ohne-hintergrund"
+        },
+        {
+          "name": "zivilisiert",
+          "theme": "heldentum",
+          "variant": "mit-scheibe",
+          "dir": "symbols/heldentum/mit-scheibe"
+        }
+      ]
+    },
+    "menu": {
+      "items": [
+        {
+          "name": "bearbeiten",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "chevron",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "dashboard",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "drucken",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "export",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "filter",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "held",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "import",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "info",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "karte",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "loeschen",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "mehr",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "plus",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "quest",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "schliessen",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "sortieren",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "speichern",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "suche",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "warnung",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        },
+        {
+          "name": "bearbeiten",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "chevron",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "dashboard",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "drucken",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "export",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "filter",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "held",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "import",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "info",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "karte",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "loeschen",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "mehr",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "plus",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "quest",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "schliessen",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "sortieren",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "speichern",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "suche",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "warnung",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "monster",
+          "theme": "overlord",
+          "variant": null,
+          "dir": "menu/overlord"
+        },
+        {
+          "name": "monster",
+          "theme": "heldentum",
+          "variant": null,
+          "dir": "menu/heldentum"
+        }
+      ]
+    },
+    "dice": {
+      "items": [
+        {
+          "name": "blau",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "braun",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "gelb",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "grau",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "gruen",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "rot",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        },
+        {
+          "name": "schwarz",
+          "theme": null,
+          "variant": null,
+          "dir": "dice"
+        }
+      ]
+    }
+  }
+}
