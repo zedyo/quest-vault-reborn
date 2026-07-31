@@ -172,6 +172,11 @@ Beide Prüfer gaben FREIGABE; die folgenden Punkte wurden davor noch nachgezogen
   origin-weit geteilt.
 * **`</script>`-Ausbruch.** `postbuild.mjs` escaped `<` als `\u003c`.
 * **Übersichtsseite:** `href` nur aus `https://github.com/`-Allowlist.
+* **Vorschauen legen den Inhalts-Branch nie an.** Entstünde `pages-content`
+  durch eine Vorschau (weil noch nie ein Haupt-Deploy lief), hätte der
+  veröffentlichte Seitenbaum keine Wurzel — die Live-Seite wäre eine 404.
+  Nur `mode: root` darf den Branch anlegen; eine Vorschau meldet stattdessen,
+  dass sie auf den nächsten Deploy der Hauptseite wartet.
 * **Aufräumen mit Branch-Abgleich.** Zwei Branchnamen können denselben Slug
   ergeben (`feature/foo` ↔ `feature-foo`). Entfernt wird nur, wenn die
   `preview.json` der Vorschau zum gelöschten Branch gehört.

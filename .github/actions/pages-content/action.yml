@@ -123,6 +123,15 @@ runs:
           node "$SCRIPTS/preview-index.mjs" "$WORK" "$BASE"
         }
 
+        # Den Inhalts-Branch darf NUR die Hauptseite anlegen. Entstünde er durch
+        # eine Vorschau, hätte der veröffentlichte Seitenbaum keine Wurzel — die
+        # Live-Seite wäre bis zum nächsten main-Deploy eine 404.
+        if [ "$MODE" != "root" ] && ! git ls-remote --exit-code --heads "$REPO_URL" "$BRANCH" >/dev/null 2>&1; then
+          echo "::warning::Inhalts-Branch '$BRANCH' existiert noch nicht. Vorschauen legen ihn bewusst nicht an – erst nach dem nächsten Deploy der Hauptseite."
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
         published=0
         for attempt in 1 2 3 4 5; do
           rm -rf "$WORK"
