@@ -83,13 +83,28 @@ def _fit(center: float, side: float, lo: float, hi: float, hard_hi: float) -> fl
     return min(max(start, 0), hard_hi - side)
 
 
+#: Luft zwischen Kopf und Ausschnittkante, wenn das Motivfeld nachgeben muss.
+_HEAD_MARGIN = 2
+
+
 def square_crop_box(box: dict, img_w: int, img_h: int, fraction: float = HEAD_FRACTION):
-    """Quadratischer Ausschnitt um die Kopf-Box, Kopf = `fraction` der Kante."""
+    """
+    Quadratischer Ausschnitt um die Kopf-Box, Kopf = `fraction` der Kante.
+
+    Der Ausschnitt bleibt im Motivfeld (`ART_SAFE`), damit keine Rahmenteile in
+    den Mini-Kreis ragen. Wo die Figur selbst bis an den Rahmen gemalt ist (bei
+    5 der 60 Helden, z. B. Ker der Graue), gibt das Motivfeld nach: ein
+    VOLLSTÄNDIGER Kopf hat Vorrang vor dem Rahmenabstand.
+    """
     x0, y0, x1, y1 = box["x0"], box["y0"], box["x1"], box["y1"]
     head = max(x1 - x0, y1 - y0)
     side = min(head / fraction, img_w, img_h)
-    left = _fit((x0 + x1) / 2, side, ART_SAFE["left"] * img_w, ART_SAFE["right"] * img_w, img_w)
-    top = _fit((y0 + y1) / 2, side, ART_SAFE["top"] * img_h, ART_SAFE["bottom"] * img_h, img_h)
+    left = _fit((x0 + x1) / 2, side,
+                min(ART_SAFE["left"] * img_w, x0 - _HEAD_MARGIN),
+                max(ART_SAFE["right"] * img_w, x1 + _HEAD_MARGIN), img_w)
+    top = _fit((y0 + y1) / 2, side,
+               min(ART_SAFE["top"] * img_h, y0 - _HEAD_MARGIN),
+               max(ART_SAFE["bottom"] * img_h, y1 + _HEAD_MARGIN), img_h)
     return (round(left), round(top), round(left + side), round(top + side))
 
 

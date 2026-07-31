@@ -240,6 +240,15 @@ describe('Helden-Klassen-Datenintegrität', () => {
     expect(errors, errors.join('\n')).toEqual([])
   })
 
+  it('jeder Held hat ein Kopf-Porträt für die Mini-Kreise (public/cards/de/heroes/portraits)', () => {
+    const files = import.meta.glob('/public/cards/de/heroes/portraits/*.webp')
+    const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
+    const missing = HEROES.filter((h) => !present.has(h.id)).map((h) => h.id)
+    const orphans = [...present].filter((id) => !HEROES.some((h) => h.id === id))
+    expect(missing, `Helden ohne Porträt: ${missing.join(', ')}`).toEqual([])
+    expect(orphans, `Porträts ohne Held: ${orphans.join(', ')}`).toEqual([])
+  })
+
   it('jede Startausrüstung + jeder Begleiter hat ein deutsches Kartenbild (public/cards/de/classes)', () => {
     const files = import.meta.glob('/public/cards/de/classes/*.webp')
     const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))

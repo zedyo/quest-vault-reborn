@@ -38,9 +38,13 @@ export default function HeroPortrait({
   dimmed?: boolean
 }) {
   const radius = shape === 'circle' ? 'rounded-full' : shape === 'chip' ? 'rounded-chip' : ''
+  // Ohne sichtbares Kürzel trägt sonst nichts den Namen in den Accessibility-Baum
+  // (`title` auf einem <span> sagen die meisten Screenreader nicht an).
+  const a11y = !label && title ? ({ role: 'img', 'aria-label': title } as const) : {}
   return (
     <span
       title={title}
+      {...a11y}
       className={`relative shrink-0 overflow-hidden inline-flex items-center justify-center
         bg-accent-soft border ${borderClass} ${radius} ${className}`}
       style={{ width: size, height: size, ...style }}
@@ -59,13 +63,14 @@ export default function HeroPortrait({
         aria-hidden="true"
         loading="lazy"
         draggable={false}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity ${
-          dimmed ? 'opacity-55' : ''
-        }`}
+        className="absolute inset-0 w-full h-full object-cover"
         onError={(e) => {
           e.currentTarget.style.display = 'none'
         }}
       />
+      {/* Abdunkeln über eine Auflage statt über die Bild-Opazität — sonst
+          schimmert das Kürzel unter dem Porträt durch (Doppelbild). */}
+      {dimmed && <span className="absolute inset-0 bg-bg/45" aria-hidden="true" />}
     </span>
   )
 }

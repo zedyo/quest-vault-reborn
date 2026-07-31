@@ -106,7 +106,10 @@ export function heroCardDeUrl(id: string, back = false): string {
  * Erzeugt von `scripts/hero_portraits.py`.
  */
 export function heroPortraitUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/heroes/portraits/${id}.webp`
+  // `id` kann aus einem importierten Spielstand stammen (`TrackedHero.heroId`)
+  // und ist dort bewusst nicht auf `[A-Za-z0-9_-]` eingeschränkt → kodieren,
+  // damit „../"-Segmente nicht aus dem Bilderordner herausführen.
+  return `${import.meta.env.BASE_URL}cards/de/heroes/portraits/${encodeURIComponent(id)}.webp`
 }
 
 /**

@@ -49,6 +49,7 @@ export default function HomePage() {
   const live = activeSession ? deriveLiveState(activeSession) : null
   const party = activeSession
     ? activeSession.heroes.map((th) => ({
+        localId: th.localId,
         heroId: th.heroId,
         name: HEROES.find((h) => h.id === th.heroId)?.name ?? th.playerName,
       }))
@@ -92,7 +93,7 @@ export default function HomePage() {
               <div className="flex items-center">
                 {party.slice(0, 5).map((p, i) => (
                   <HeroPortrait
-                    key={i}
+                    key={p.localId}
                     heroId={p.heroId}
                     size={34}
                     title={p.name}
