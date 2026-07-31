@@ -1,6 +1,6 @@
 # Helden-Kopfporträts (Mini-Kreise)
 
-**Stand:** v1.8.3 · **Erzeugt von:** `scripts/hero_portraits.py` ·
+**Stand:** v1.8.4 · **Erzeugt von:** `scripts/hero_portraits.py` ·
 **Kopf-Boxen:** `scripts/hero_face_boxes.json` ·
 **Ausgabe:** `public/cards/de/heroes/portraits/<hero-id>.webp` (60 Dateien, 256 × 256, ≤ 18 KB, gesamt ~712 KB)
 
@@ -91,9 +91,16 @@ stammen kann.
 | `src/components/HeroPortrait.tsx` | Basisbaustein: Bild im Kreis/Chip, Kürzel als Rückfallebene darunter, `dimmed` für nicht ausgewählte Umschalter |
 | `src/components/session/ui/HeroAvatar.tsx` | Hülle für den Tracker: zieht Kürzel + Namen aus dem `TrackedHero` |
 
-Eingehängt in: `HomePage` (Partei, 34 px) · `OverviewSection` · `HeroesSection` ·
-`HeroSheet` (Navigation) · `SetupSection` (2 ×) · `Step2Rewards` · `Step3Experience` ·
-`HeroChipRow` (Zuweisung) · `QuestEditorPage` (Heldenauswahl + Quest-Kacheln).
+Eingehängt in: `HomePage` (Partei, 34 px) · `SessionsPage` (Kampagnen-Auswahl,
+laufend + Archiv) · `OverviewSection` · `HeroesSection` · `HeroSheet` (Navigation) ·
+`SetupSection` (Heldenliste, Start-XP-Tabelle und „Held hinzufügen") ·
+`Step2Rewards` · `Step3Experience` · `HeroChipRow` (Zuweisung) ·
+`QuestEditorPage` (Heldenauswahl + Quest-Kacheln).
+
+Die beiden **Auswahlraster** (`QuestEditorPage`, `SetupSection`/„Held hinzufügen")
+zeigen das Porträt in `aspect-square`, nicht in `aspect-[3/4]` — sonst würde das
+quadratische Bild seitlich beschnitten. Sie luden vorher den EN-Kartenausschnitt
+von any2cards; damit entfällt dort auch die Netzabhängigkeit.
 
 Das Kürzel liegt **unter** dem Bild und wird nur sichtbar, wenn das Bild fehlt
 (z. B. unbekannte Helden-Id aus einem importierten Spielstand) — ein Fehlschlag

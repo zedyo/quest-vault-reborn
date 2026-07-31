@@ -15,7 +15,7 @@ import { scenariosForCampaign } from '../data/campaignScenarios'
 import type { CampaignSession } from '../types/session'
 import { deriveLiveState } from '../store/sessionDerive'
 import { exportSessionAsJSON, parseImportedSession, MAX_IMPORT_BYTES } from '../utils/sessionImport'
-import { newSession, heroMono, heroShortName } from '../components/session/sessionHelpers'
+import { newSession, heroShortName } from '../components/session/sessionHelpers'
 import { useSessionMutations } from '../components/session/useSessionMutations'
 import { playedCampaignIds } from '../components/session/scenarioSuggest'
 import type { DeleteRequest, SessionCtx } from '../components/session/context'
@@ -23,6 +23,7 @@ import { clearScenarioDraft, loadScenarioDraft } from '../components/session/flo
 import ConfirmDialog from '../components/ConfirmDialog'
 import { Icon, type IconName } from '../components/QvIcons'
 import { Badge, Btn, Eyebrow, Head, Meta, Micro, Panel, Progress } from '../components/session/ui/controls'
+import HeroAvatar from '../components/session/ui/HeroAvatar'
 
 const CAMPAIGN_BY_ID = Object.fromEntries(CAMPAIGNS.map((c) => [c.id, c]))
 const EXP_BY_ID = Object.fromEntries(EXPANSIONS.map((e) => [e.id, e]))
@@ -99,9 +100,7 @@ function HeroChips({ session }: { session: CampaignSession }) {
           key={h.localId}
           className="inline-flex items-center gap-2 rounded-pill bg-surface-2 border border-line pl-[5px] pr-3 py-[5px]"
         >
-          <span className="w-[26px] h-[26px] rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[9px] text-accent-bright">
-            {heroMono(h)}
-          </span>
+          <HeroAvatar hero={h} size={26} withTitle={false} />
           <span className="text-[13px] text-muted">{heroShortName(h)}</span>
         </span>
       ))}
