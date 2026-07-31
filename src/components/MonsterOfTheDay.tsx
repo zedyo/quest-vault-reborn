@@ -1,5 +1,5 @@
 import { useMemo, useState, Fragment, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { monsterCardDeUrl } from '../data/assetUrls'

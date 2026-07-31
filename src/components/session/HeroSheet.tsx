@@ -5,7 +5,7 @@
 // NICHT gelernte Fähigkeiten stehen hier NICHT — sie erscheinen ausschließlich
 // in Flow-Schritt 3 („Erfahrung").
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router'
 import { useSessionCtx } from './context'
 import { ARCHETYPE_LABELS } from '../../data/heroes'
 import { classSkillDeUrl, classFamiliarDeUrl } from '../../data/assetUrls'

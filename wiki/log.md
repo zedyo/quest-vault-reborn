@@ -9,6 +9,11 @@ Chronologisches Protokoll der Wiki-Entwicklung — unveränderliche Historie,
 Korrekturen. Die jüngsten Tage stehen oben und bleiben unix-parsebar,
 z. B. `grep "^## " wiki/log.md | head`.
 
+## 2026-07-31
+
+* **Ingest**: Neue Konzeptseite [Dependency-Sicherheitspass v1.8.1](concepts/dependency-security-pass.md). Alle 12 offenen Dependabot-Advisories behoben (`npm audit` → 0). Kernerkenntnis: die beiden react-router-Advisories (`GHSA-wrjc-x8rr-h8h6` = `6.0.0–7.17.0`, `GHSA-qwww-vcr4-c8h2` = `>=7.12.0 <8.3.0`) überlappen so, dass **keine** v6/v7-Version advisory-frei ist → zwingend `react-router@8.3.0`, das `react >= 19.2.7` + `node >= 22.22.0` verlangt und kein `react-router-dom`-Paket mehr veröffentlicht. Zweite Falle: `brace-expansion` ist erst ab **5.0.8** sauber, dessen CJS-Export aber kein aufrufbarer Default mehr — ein pauschales Override bricht `minimatch@3/5`; stattdessen zielgenau `overrides: { filelist: { minimatch: "^10.2.6" } }` (API-Kompatibilität vorab in Node verifiziert).
+* **Update**: `docs/architecture/plan.md` — Dependency-Sicherheitspass + vitest-4.x-Punkt abgehakt.
+
 ## 2026-07-25
 
 * **Correction**: `src/data/campaigns.ts` · `ADVANCED_QUESTS[].nameDe` · **12 von 16** Community-Übersetzungen → deutscher Kartentitel (u. a. „An der Schmiede" → **Die Waffenschmiede**, „Wo das Herz wohnt" → **Herzensangelegenheit**) · Beleg: dieselben Karten liegen unter identischer ID in `src/data/rumors.ts` mit dem vom Scan transkribierten Titel; Regel [Kartentext = priorisierte Wahrheit](concepts/card-text-priority.md). Doku `docs/game-data/campaigns.md` + Datenintegritäts-Test („Zusatzabenteuer – deutsche Titel = Kartentitel") nachgezogen. **Nicht** korrigiert wurde die Abweichung „Devis Blutturm" (Gerüchtekarte) ↔ „Devis' Blutturm" (Zusatzabenteuerkarte) — beide Transkriptionen sind kartengenau; die Auflösung vergleicht stattdessen normalisiert (`resolveAdvancedQuestId`).

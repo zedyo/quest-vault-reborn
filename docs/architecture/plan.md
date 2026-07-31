@@ -282,6 +282,11 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
       zustand-Default `localStorage`. Aus package.json + lockfile entfernt)
 - [x] react-router-dom auf ≥6.30.4 (v1.1.x – Open-Redirect-Advisory; von 6.30.3 → 6.30.4,
       Floor in package.json auf `^6.30.4` angehoben)
+- [x] **Dependency-Sicherheitspass v1.8.1** — alle 12 offenen Dependabot-Advisories behoben,
+      `npm audit` = 0. React 18→19, react-router-dom 6 → **react-router 8** (das Paket
+      `react-router-dom` wird ab v8 nicht mehr veröffentlicht; alle Importe umgestellt),
+      vite 5→8, vitest 2→4, @vitejs/plugin-react 4→6, vite-plugin-pwa 0.20→1.3, postcss/
+      tailwind/typescript auf aktuelle Patches, CI-Node 20→22. Details: `wiki/concepts/dependency-security-pass.md`
 - [ ] navItems umgruppieren wenn v1.3+ kommt: Spielen / Erstellen / Kompendium / Sammlung
 
 ### Offen — Niedrig
@@ -293,7 +298,7 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 - [x] Lightbox: Escape-Close + Fokus-Management (v1.1.13 – via geteiltem `ModalOverlay`:
       Escape schließt, Fokus wandert ins Panel; voller Fokus-Trap später)
 - [ ] Asset-Hotlinking-Risiko (any2cards) in decisions.md dokumentieren; Vendoring evaluieren
-- [ ] vitest 4.x Update (Critical-Advisory betrifft nur Dev-Umgebung)
+- [x] vitest 4.x Update (v1.8.1 – Critical-Advisory betraf nur die Dev-Umgebung, jetzt behoben)
 
 ---
 

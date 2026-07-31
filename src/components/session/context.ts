@@ -2,7 +2,7 @@
 // Mutationen. Die Abschnitte (Überblick/Helden/Overlord/Verlauf/Einrichtung)
 // hängen als Routen darunter und holen ihn per `useSessionCtx()`.
 
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext } from 'react-router'
 import type { CampaignSession } from '../../types/session'
 import type { LiveState } from '../../store/sessionDerive'
 import type { SessionMutations } from './useSessionMutations'

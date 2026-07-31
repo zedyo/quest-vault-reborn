@@ -6,7 +6,7 @@
 // Nicht spielbare Karten werden ANGEZEIGT, nicht versteckt;
 // nur der Knopf verschwindet und der Grund steht als Mono-Kleintext darunter.
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { useSessionCtx } from './context'
 import { RUMORS } from '../../data/rumors'
 import { ADVANCED_QUESTS, CAMPAIGNS } from '../../data/campaigns'

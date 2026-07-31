@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, type JSX } from 'react'
 import { useGameStore } from '../store/useGameStore'
 import type { Quest, Encounter, MapData, PlacedTile, PlacedMonster, PlacedOverlay } from '../types/game'
 import type { PlacedMapTile } from '../components/MapBuilder/types'

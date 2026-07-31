@@ -4,7 +4,7 @@
 // andere liest sich darunter. Darunter die gemeinsame Ausrüstung — zugewiesen
 // wird per Klick auf ein Heldenkürzel, nicht mehr über ein Dropdown.
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useSessionCtx } from './context'
 import { CLASS_BY_ID, HERO_BY_ID, heroMono, itemCardUrl, itemRulesText, itemSlotLabel, resolveItemName } from './sessionHelpers'
 import ArchetypeIcon from '../ArchetypeIcon'

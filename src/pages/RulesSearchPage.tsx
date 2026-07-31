@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router'
 import { SEARCH_INDEX, SEARCH_CATEGORIES, searchEntries, type SearchCategory } from '../data/rulesSearchIndex'
 import { SearchInput } from '../components/Filters'
 import { renderGameText } from '../components/GameSymbols'

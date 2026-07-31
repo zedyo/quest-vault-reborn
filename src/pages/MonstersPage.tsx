@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 import { MONSTERS } from '../data/monsters'
 import { EXPANSIONS } from '../data/expansions'
 import { monsterCardDeUrl } from '../data/assetUrls'

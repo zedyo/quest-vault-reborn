@@ -6,7 +6,7 @@
 // Live-Stand weiterhin allein aus dem Protokoll gefaltet wird.
 
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useSessionCtx } from './context'
 import { OVERLORD_DECKS } from '../../data/overlordClasses'
 import { overlordCardDeUrl } from '../../data/assetUrls'

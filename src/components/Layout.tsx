@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Outlet, NavLink, Link, useLocation } from 'react-router-dom'
+import { Outlet, NavLink, Link, useLocation } from 'react-router'
 import { useGameStore } from '../store/useGameStore'
 import { EXPANSIONS } from '../data/expansions'
 import ThemeSwitcher from './ThemeSwitcher'

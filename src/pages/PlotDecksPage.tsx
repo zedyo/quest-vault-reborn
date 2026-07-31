@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router'
 import { PLOT_DECKS } from '../data/plotDecks'
 import { EXPANSIONS } from '../data/expansions'
 import { lieutenantForDeck } from '../data/lieutenantPlotLinks'
