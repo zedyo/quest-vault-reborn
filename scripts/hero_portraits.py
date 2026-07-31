@@ -181,36 +181,85 @@ def preview(hid: str, box: dict, fraction: float = HEAD_FRACTION,
     return path
 
 
+#: Kreisgrößen, in denen die Porträts im UI tatsächlich erscheinen.
+UI_CIRCLE_SIZES = (64, 40, 34, 26, 22)
+
+
+def _circle(crop: Image.Image, size: int) -> tuple[Image.Image, Image.Image]:
+    mini = crop.resize((size, size), Image.LANCZOS)
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).ellipse((0, 0, size - 1, size - 1), fill=255)
+    return mini, mask
+
+
+def _crop_for(hid: str, boxes: dict, fraction: float) -> Image.Image:
+    img = Image.open(CARDS / f"{hid}.webp").convert("RGB")
+    return img.crop(square_crop_box(boxes[hid], img.width, img.height, fraction))
+
+
 def sheet(ids: list[str], out_path: Path, fraction: float = HEAD_FRACTION,
-          cols: int = 5, cell: int = 300) -> None:
-    """Nummerierte Beispiel-Übersicht: Kreis + Quadrat + Miniatur je Held."""
+          cols: int = 5, cell: int = 300, names: dict[str, str] | None = None) -> None:
+    """Nummerierte Beispiel-Übersicht: großer Ausschnitt + echte UI-Kreisgrößen."""
     boxes = load_boxes()
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
-        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 17)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 21)
+        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
     except OSError:
         font = small = ImageFont.load_default()
 
+    strip = 64
     rows = (len(ids) + cols - 1) // cols
-    ch = cell + 96
-    out = Image.new("RGB", (cols * cell, rows * ch), (24, 22, 20))
+    ch = cell + 46 + strip + 26
+    out = Image.new("RGB", (cols * cell, rows * ch), (22, 21, 20))
     d = ImageDraw.Draw(out)
     for k, hid in enumerate(ids):
-        img = Image.open(CARDS / f"{hid}.webp").convert("RGB")
-        crop = img.crop(square_crop_box(boxes[hid], img.width, img.height, fraction))
-        sq = crop.resize((cell - 20, cell - 20), Image.LANCZOS)
+        crop = _crop_for(hid, boxes, fraction)
         ox, oy = (k % cols) * cell, (k // cols) * ch
-        out.paste(sq, (ox + 10, oy + 40))
-        # Kreis-Vorschauen in den echten UI-Größen (92 / 56 / 34 px)
-        x = ox + 12
-        for size in (92, 56, 34):
-            mini = crop.resize((size, size), Image.LANCZOS)
-            mask = Image.new("L", (size, size), 0)
-            ImageDraw.Draw(mask).ellipse((0, 0, size - 1, size - 1), fill=255)
-            out.paste(mini, (x, oy + cell + 34 + (92 - size) // 2), mask)
-            x += size + 10
-        _label(d, (ox + 12, oy + 8), f"{k + 1:02d}  {hid}", font)
-        _label(d, (ox + 12, oy + cell + 12), f"Kopf ≈ {round(fraction * 100)} % der Kante", small)
+        out.paste(crop.resize((cell - 20, cell - 20), Image.LANCZOS), (ox + 10, oy + 38))
+        x, base = ox + 12, oy + cell + 34
+        for size in UI_CIRCLE_SIZES:
+            mini, mask = _circle(crop, size)
+            out.paste(mini, (x, base + (strip - size) // 2), mask)
+            x += size + 8
+        name = (names.get(hid, hid) if names else hid)[:22]
+        _label(d, (ox + 12, oy + 8), f"{k + 1:02d}  {name}", font)
+        _label(d, (ox + 12, base + strip + 2),
+               f"{'  '.join(str(s) for s in UI_CIRCLE_SIZES)} px · Kopf {round(fraction * 100)} %", small)
+        d.line([(ox, oy + ch - 1), (ox + cell, oy + ch - 1)], fill=(60, 56, 52))
+    out.save(out_path)
+
+
+def compare(ids: list[str], out_path: Path, fractions=(0.60, 0.70, 0.80),
+            names: dict[str, str] | None = None) -> None:
+    """Gegenüberstellung mehrerer Kopf-Anteile — zur Wahl des richtigen Werts."""
+    boxes = load_boxes()
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 19)
+        small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 15)
+    except OSError:
+        font = small = ImageFont.load_default()
+
+    big, row_h, lead = 150, 232, 300
+    out = Image.new("RGB", (lead + len(fractions) * (big + 120), len(ids) * row_h + 46),
+                    (22, 21, 20))
+    d = ImageDraw.Draw(out)
+    for j, f in enumerate(fractions):
+        _label(d, (lead + j * (big + 120) + 4, 10), f"Kopf {round(f * 100)} % der Kante", font)
+    for i, hid in enumerate(ids):
+        oy = 46 + i * row_h
+        _label(d, (10, oy + 8), f"{i + 1:02d}  {names.get(hid, hid) if names else hid}", font)
+        for j, f in enumerate(fractions):
+            crop = _crop_for(hid, boxes, f)
+            ox = lead + j * (big + 120)
+            mini, mask = _circle(crop, big)
+            out.paste(mini, (ox, oy), mask)
+            x = ox + big + 12
+            for size in (40, 26):
+                m2, k2 = _circle(crop, size)
+                out.paste(m2, (x, oy + big - size), k2)
+                x += size + 8
+            _label(d, (ox + big + 12, oy + 6), f"{round(f * 100)} %", small)
+        d.line([(0, oy + row_h - 12), (out.width, oy + row_h - 12)], fill=(58, 54, 50))
     out.save(out_path)
 
 
