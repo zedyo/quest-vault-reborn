@@ -11,6 +11,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 import type { TrackedHero } from '../../../types/session'
 import { heroMono, heroFullName } from '../sessionHelpers'
+import HeroPortrait from '../../HeroPortrait'
 
 export default function HeroChipRow({
   heroes,
@@ -35,6 +36,8 @@ export default function HeroChipRow({
   if (heroes.length === 0) return null
   const col = orientation === 'col'
   const vars = { '--chip': `${size}px`, '--chip-h': `${col ? Math.round(size * 0.83) : size}px` } as CSSProperties
+  // Porträt etwas kleiner als die Fläche — der Knopfrahmen bleibt als Auswahlring sichtbar.
+  const inner = Math.max(18, Math.round((col ? size * 0.83 : size) - 5))
 
   return (
     <div
@@ -54,17 +57,19 @@ export default function HeroChipRow({
             type="button"
             onClick={() => onChange(active ? null : h.localId)}
             title={heroFullName(h)}
+            aria-label={heroFullName(h)}
             aria-pressed={active}
-            className={`inline-flex items-center justify-center rounded-chip border font-mono uppercase transition-colors
-              text-[10px] sm:text-[9.5px]
+            className={`inline-flex items-center justify-center rounded-chip border transition-colors
               ${col ? 'w-[var(--chip)] h-[var(--chip-h)]' : 'flex-1 min-w-11 h-11 sm:flex-none sm:w-[var(--chip)] sm:h-[var(--chip-h)]'}
-              ${
-                active
-                  ? 'bg-accent border-accent text-onaccent'
-                  : 'bg-surface-2 border-line text-muted hover:border-accent-line hover:text-fg'
-              }`}
+              ${active ? 'bg-accent border-accent' : 'bg-surface-2 border-line hover:border-accent-line'}`}
           >
-            {heroMono(h)}
+            {/* Ausgewählt = volles Porträt im Akzentrahmen, sonst abgedunkelt. */}
+            <HeroPortrait
+              heroId={h.heroId}
+              size={inner}
+              label={heroMono(h)}
+              dimmed={!active}
+            />
           </button>
         )
       })}

@@ -7,9 +7,10 @@
 
 import type { FlowStepProps } from './types'
 import { classSkillDeUrl } from '../../../data/assetUrls'
-import { CLASS_BY_ID, heroMono, heroShortName, skillCost } from '../sessionHelpers'
+import { CLASS_BY_ID, heroShortName, skillCost } from '../sessionHelpers'
 import CardTile from '../ui/CardTile'
 import { Head, Meta, ThemeScope } from '../ui/controls'
+import HeroAvatar from '../ui/HeroAvatar'
 
 export default function Step3Experience({ session, base, draft, setScenario }: FlowStepProps) {
   const learned = draft.shopping.skillsLearned
@@ -61,9 +62,7 @@ export default function Step3Experience({ session, base, draft, setScenario }: F
             return (
               <div key={hero.localId} className="rounded-card border border-line bg-surface overflow-hidden">
                 <div className="flex items-center gap-3 px-3.5 py-3 border-b border-line bg-surface-2">
-                  <span className="w-[30px] h-[30px] shrink-0 rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[9.5px] text-accent">
-                    {heroMono(hero)}
-                  </span>
+                  <HeroAvatar hero={hero} size={30} />
                   <div className="min-w-0 flex-1">
                     <p className="font-head text-[15px] font-bold text-fg truncate">{heroShortName(hero)}</p>
                     <p className="text-[12.5px] text-muted truncate">

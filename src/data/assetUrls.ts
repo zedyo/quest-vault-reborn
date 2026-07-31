@@ -111,6 +111,20 @@ export function heroCardDeUrl(id: string, back = false): string {
 }
 
 /**
+ * Kopf-Porträt eines Helden für die kleinen Kreise/Kacheln in Dashboard,
+ * Session-Tracker und Quest-Editor (`public/cards/de/heroes/portraits/<id>.webp`,
+ * 256 × 256). Aus dem deutschen Original-Kartenscan geschnitten; der Kopf füllt
+ * 80 % der Kante, damit das Gesicht auch im 22-px-Kreis erkennbar bleibt.
+ * Erzeugt von `scripts/hero_portraits.py`.
+ */
+export function heroPortraitUrl(id: string): string {
+  // `id` kann aus einem importierten Spielstand stammen (`TrackedHero.heroId`)
+  // und ist dort bewusst nicht auf `[A-Za-z0-9_-]` eingeschränkt → kodieren,
+  // damit „../"-Segmente nicht aus dem Bilderordner herausführen.
+  return `${ASSET_BASE}cards/de/heroes/portraits/${encodeURIComponent(id)}.webp`
+}
+
+/**
  * Lokales deutsches Monster-Kartenbild (aus den Original-Karten-Scans,
  * `public/cards/de/monsters/<id>-act1|act2[-back].webp`). `act` = 1 oder 2;
  * `back=true` liefert die Rückseite (Fähigkeitstexte + Gruppengrößen).

@@ -11,7 +11,6 @@ import { RELICS } from '../../../data/items'
 import { overlordCardDeUrl, relicCardDeUrl } from '../../../data/assetUrls'
 import {
   CLASS_BY_ID,
-  heroMono,
   heroShortName,
   itemCardUrl,
   itemRulesText,
@@ -24,6 +23,7 @@ import CardThumb from '../ui/CardThumb'
 import HeroChipRow from '../ui/HeroChipRow'
 import { renderGameText } from '../../GameSymbols'
 import { Btn, Head, Meta, Micro, NumberField, Stepper, ThemeScope } from '../ui/controls'
+import HeroAvatar from '../ui/HeroAvatar'
 
 const cardKey = (deckId: string, cardId: string) => `${deckId}:${cardId}`
 
@@ -85,9 +85,7 @@ export default function Step2Rewards({ session, base, draft, setScenario, ownedE
                   key={h.localId}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-control border border-line bg-surface-2"
                 >
-                  <span className="w-[30px] h-[30px] shrink-0 rounded-chip bg-accent-soft border border-accent-line inline-flex items-center justify-center font-mono text-[9.5px] text-accent">
-                    {heroMono(h)}
-                  </span>
+                  <HeroAvatar hero={h} size={30} />
                   <div className="min-w-0 flex-1">
                     <p className="font-head text-[14px] font-semibold text-fg truncate">{heroShortName(h)}</p>
                     <p className="text-[12px] text-muted truncate">

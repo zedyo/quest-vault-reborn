@@ -6,6 +6,7 @@ import { deriveLiveState } from '../store/sessionDerive'
 import { HEROES } from '../data/heroes'
 import ReleaseNotesModal from '../components/ReleaseNotesModal'
 import MonsterOfTheDay from '../components/MonsterOfTheDay'
+import HeroPortrait from '../components/HeroPortrait'
 import { Icon, type IconName } from '../components/QvIcons'
 
 const LIBRARY: { to: string; label: string; icon: IconName }[] = [
@@ -47,7 +48,11 @@ export default function HomePage() {
   const activeSession = sessions.find((s) => s.id === activeSessionId) ?? sessions[0] ?? null
   const live = activeSession ? deriveLiveState(activeSession) : null
   const party = activeSession
-    ? activeSession.heroes.map((th) => HEROES.find((h) => h.id === th.heroId)?.name ?? th.playerName)
+    ? activeSession.heroes.map((th) => ({
+        localId: th.localId,
+        heroId: th.heroId,
+        name: HEROES.find((h) => h.id === th.heroId)?.name ?? th.playerName,
+      }))
     : []
 
   const recentQuests = [...quests].reverse().slice(0, 4)
@@ -86,15 +91,15 @@ export default function HomePage() {
 
             <div className="mt-4 flex items-center gap-4 flex-wrap">
               <div className="flex items-center">
-                {party.slice(0, 5).map((name, i) => (
-                  <span
-                    key={i}
-                    title={name}
-                    className="w-[34px] h-[34px] rounded-full bg-accent-soft border border-accent-line flex items-center justify-center font-head font-semibold text-xs text-accent-bright"
+                {party.slice(0, 5).map((p, i) => (
+                  <HeroPortrait
+                    key={p.localId}
+                    heroId={p.heroId}
+                    size={34}
+                    title={p.name}
+                    label={initials(p.name)}
                     style={{ marginLeft: i === 0 ? 0 : -8 }}
-                  >
-                    {initials(name)}
-                  </span>
+                  />
                 ))}
                 <span className="ml-2.5 text-xs text-muted">{party.length} {party.length === 1 ? 'Held' : 'Helden'}</span>
               </div>
