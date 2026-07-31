@@ -1,0 +1,74 @@
+name: Pages veröffentlichen
+
+# EINZIGER Deployment-Weg der Seite.
+#
+# Der Inhalts-Branch `pages-content` hält den kompletten Seitenbaum:
+#   /                    → Hauptseite (aus `main`, Workflow „Deploy to GitHub Pages")
+#   /preview/<slug>/     → Branch-Vorschauen (Workflow „Branch-Vorschau")
+#
+# Dieser Workflow lädt diesen Baum als Pages-Artefakt hoch und deployt ihn. Er
+# läuft über `workflow_run` und damit IMMER im Kontext des Default-Branches —
+# nur von dort erlaubt das `github-pages`-Environment ein Deployment.
+#
+# Warum ein zweiter Schritt und kein direkter Deploy im jeweiligen Workflow:
+# Bis v1.8.1 gab es zwei konkurrierende Deployment-Wege (Branch-Push + Artefakt),
+# die sich gegenseitig mit HTTP 400 abgeschossen haben. Jetzt schreiben alle
+# Workflows nur noch Inhalt; deployt wird an genau einer Stelle.
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy to GitHub Pages
+      - Branch-Vorschau
+      - Branch-Vorschau aufräumen
+    types: [completed]
+  workflow_dispatch:
+
+# Nur ein Deployment gleichzeitig. Wird ein wartender Lauf von einem neueren
+# verdrängt, geht nichts verloren: jeder Lauf veröffentlicht den VOLLSTÄNDIGEN
+# aktuellen Stand des Inhalts-Branches.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  veroeffentlichen:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      # Solange noch kein Deploy gelaufen ist, gibt es den Inhalts-Branch nicht.
+      # Dann bricht der Lauf nicht ab, sondern meldet es und tut nichts.
+      - name: Inhalts-Branch auschecken
+        id: inhalt
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: pages-content
+          path: site
+          persist-credentials: false
+
+      - name: Fehlenden Inhalts-Branch melden
+        if: steps.inhalt.outcome != 'success'
+        run: echo "::warning::Inhalts-Branch 'pages-content' ist (noch) nicht vorhanden – nichts zu veröffentlichen."
+
+      - name: GitHub Pages konfigurieren
+        if: steps.inhalt.outcome == 'success'
+        uses: actions/configure-pages@v4
+
+      - name: Seiten-Artefakt hochladen
+        if: steps.inhalt.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Auf GitHub Pages deployen
+        id: deployment
+        if: steps.inhalt.outcome == 'success'
+        uses: actions/deploy-pages@v4

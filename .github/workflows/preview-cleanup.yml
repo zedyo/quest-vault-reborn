@@ -1,0 +1,54 @@
+name: Branch-Vorschau aufräumen
+
+# Entfernt die Vorschau eines Branches, sobald dieser gelöscht wird (also im
+# Regelfall direkt nach dem Merge nach `main`). Das eigentliche Deployment
+# erledigt anschließend der Workflow „Pages veröffentlichen".
+
+on:
+  delete:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branchname, dessen Vorschau entfernt werden soll'
+        required: true
+        type: string
+
+jobs:
+  aufraeumen:
+    # `delete` feuert auch für Tags – nur Branches sind gemeint.
+    if: github.event_name == 'workflow_dispatch' || github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Vorschau-Kennung bestimmen
+        id: info
+        env:
+          BRANCH: ${{ inputs.branch || github.event.ref }}
+        run: |
+          set -euo pipefail
+          case "$BRANCH" in
+            main|pages-content|gh-pages)
+              echo "::notice::'$BRANCH' hat keine Vorschau – nichts zu tun."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+              ;;
+          esac
+          echo "slug=$(node scripts/preview-slug.mjs "$BRANCH")" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Vorschau entfernen
+        if: steps.info.outputs.skip == 'false'
+        uses: ./.github/actions/pages-content
+        with:
+          mode: remove
+          slug: ${{ steps.info.outputs.slug }}
+          # Sicherheitsnetz: nur entfernen, wenn die Vorschau laut ihrer
+          # preview.json wirklich zu diesem Branch gehört.
+          expect-branch: ${{ inputs.branch || github.event.ref }}
+          base: /quest-vault-reborn/
+          message: "vorschau(${{ steps.info.outputs.slug }}): entfernt"
+          token: ${{ secrets.GITHUB_TOKEN }}

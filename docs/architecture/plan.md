@@ -304,7 +304,18 @@ Vollständige Befunde: Architektur-, Sicherheits- und Daten-Audit dieser Session
 
 ## Nächste konkrete Schritte (jetzt)
 
-> Maßgeblich ist die CLAUDE.md-Statustabelle + „Was noch fehlt". Aktueller Stand: **v1.8.0**.
+> Maßgeblich ist die CLAUDE.md-Statustabelle + „Was noch fehlt". Aktueller Stand: **v1.8.2**.
+
+**Erledigt mit v1.8.2 — Branch-Vorschauen auf GitHub Pages:** Jeder Push auf einen
+Entwicklungsbranch erscheint unter `…/quest-vault-reborn/preview/<slug>/` (Übersicht
+unter `…/preview/`) und ist damit prüfbar, bevor er nach `main` gemergt wird. Der
+Inhalts-Branch `pages-content` hält den gesamten Seitenbaum; deployt wird an genau einer
+Stelle (Workflow „Pages veröffentlichen" auf `main`). Vorschauen speichern ihre
+Spielstände getrennt von der Live-Version. Details:
+`wiki/concepts/pages-preview-deployments.md`.
+
+**Erledigt mit v1.8.1 — Dependency-Sicherheitspass:** alle Dependabot-Meldungen behoben
+(`npm audit` = 0), React 19 + react-router 8 + Vite 8 + Node 22.
 
 **Erledigt mit v1.8.0 — Session-Tracker Redesign** (Design-Handoff, 16 Screens):
 neue Informationsarchitektur (Überblick/Helden/Overlord/Verlauf + dezente Einrichtung),

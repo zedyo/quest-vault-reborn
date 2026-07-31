@@ -5,16 +5,18 @@ on:
     branches:
       - main
 
-# Nur EIN Pages-Deployment gleichzeitig. `cancel-in-progress: false` ist für
-# Deployment-Workflows die dokumentierte Empfehlung: ein bereits laufendes
-# Deployment darf fertig werden, statt mittendrin abgebrochen zu werden.
+# Serialisiert nur die Schreibzugriffe dieses Workflows auf den Inhalts-Branch.
+# Das Deployment selbst läuft im Workflow „Pages veröffentlichen" (eigene
+# Concurrency-Gruppe `pages`).
 concurrency:
-  group: pages
+  group: pages-content-main
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Nur lesend: `npm ci`/`npm run build` sollen kein schreibfähiges Token sehen
+    # (ein `postinstall` einer Abhängigkeit liefe sonst mit Schreibrecht aufs Repo).
     permissions:
       contents: read
     steps:
@@ -36,32 +38,46 @@ jobs:
       - name: Produktions-Build erstellen
         run: npm run build
 
+      - name: Build weiterreichen
+        uses: actions/upload-artifact@v4
+        with:
+          name: seite-build
+          path: dist
+          retention-days: 1
+
+  veroeffentlichen:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # schreibt die Hauptseite in den Inhalts-Branch
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Build holen
+        uses: actions/download-artifact@v4
+        with:
+          name: seite-build
+          path: dist
+
+      # Die Hauptseite landet in der WURZEL des Inhalts-Branches; `preview/`
+      # (die Branch-Vorschauen) bleibt dabei unangetastet. Deployt wird der
+      # gesamte Baum anschließend vom Workflow „Pages veröffentlichen" — er
+      # läuft auf dem Default-Branch, was das `github-pages`-Environment für
+      # Deployments voraussetzt.
+      #
       # HINWEIS: Hier stand bis v1.8.1 zusätzlich ein `peaceiris/actions-gh-pages`-Schritt,
       # der `dist/` in den `gh-pages`-Branch gepusht hat. Dieser Push löste GitHubs
-      # eingebauten `pages-build-deployment`-Workflow aus, der PARALLEL zum Job `deploy`
-      # unten ein zweites Pages-Deployment anlegen wollte. Beide Wege rannten gegeneinander;
-      # der Verlierer brach mit HTTP 400 ab ("due to in progress deployment. Please cancel
-      # ... first or wait for it to complete"). Der Branch-Weg ist entfernt — es bleibt der
-      # Artefakt-Weg (configure-pages -> upload-pages-artifact -> deploy-pages).
-
-      - name: GitHub Pages konfigurieren
-        uses: actions/configure-pages@v4
-
-      - name: Build-Artefakt hochladen
-        uses: actions/upload-pages-artifact@v3
+      # eingebauten `pages-build-deployment`-Workflow aus, der PARALLEL zum damaligen
+      # Deploy-Job ein zweites Pages-Deployment anlegen wollte; der Verlierer brach mit
+      # HTTP 400 ab. Seit v1.8.2 gibt es genau EINEN Deployment-Weg (siehe oben).
+      - name: Hauptseite in den Inhalts-Branch schreiben
+        uses: ./.github/actions/pages-content
         with:
-          path: ./dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Auf GitHub Pages deployen
-        id: deployment
-        uses: actions/deploy-pages@v4
+          mode: root
+          source: dist
+          base: /quest-vault-reborn/
+          message: "seite: ${{ github.sha }}"
+          token: ${{ secrets.GITHUB_TOKEN }}

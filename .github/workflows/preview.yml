@@ -1,0 +1,232 @@
+name: Branch-Vorschau
+
+# Veröffentlicht JEDEN Entwicklungsbranch unter
+#   https://zedyo.github.io/quest-vault-reborn/preview/<slug>/
+# damit Änderungen geprüft werden können, BEVOR sie nach `main` gemergt werden.
+#
+# Dieser Workflow deployt NICHT selbst: das `github-pages`-Environment erlaubt
+# Deployments nur vom Default-Branch. Er schreibt den Build in den Inhalts-Branch
+# `pages-content`; der Workflow „Pages veröffentlichen" (läuft auf `main`) macht
+# daraus das eigentliche Deployment. So ist KEINE Repository-Einstellung nötig.
+#
+# Zwei getrennte Jobs — bewusst:
+#   • `bauen`           installiert Abhängigkeiten und baut, mit NUR-LESE-Token.
+#                       So sieht ein `postinstall`-Skript einer Abhängigkeit nie
+#                       ein schreibfähiges Token.
+#   • `veroeffentlichen` schreibt den Build in den Inhalts-Branch und checkt dafür
+#                       den DEFAULT-BRANCH aus: die Veröffentlichungslogik ist
+#                       damit immer die geprüfte aus `main`, nie die des Branches,
+#                       der hier gerade vorgeschaut wird.
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - pages-content
+      - gh-pages
+      # Dependabot-Pushes bekommen ein schreibgeschütztes Token → kein Vorschau-Push möglich.
+      - 'dependabot/**'
+  workflow_dispatch:
+    inputs:
+      assets:
+        description: 'Bildarchive (cards/, game-icons/) der Vorschau'
+        required: false
+        default: auto
+        type: choice
+        options: [auto, main, branch]
+
+# Pro Branch nur ein Lauf; ein neuer Push macht den vorherigen überflüssig.
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      slug: ${{ steps.info.outputs.slug }}
+      url: ${{ steps.info.outputs.url }}
+      assets: ${{ steps.info.outputs.assets }}
+      meta: ${{ steps.info.outputs.meta }}
+    env:
+      SITE_BASE: /quest-vault-reborn/
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Vorschau-Kennung bestimmen
+        id: info
+        env:
+          BRANCH: ${{ github.ref_name }}
+          ASSETS_INPUT: ${{ inputs.assets || 'auto' }}
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+        run: |
+          set -euo pipefail
+          SLUG=$(node scripts/preview-slug.mjs "$BRANCH")
+          BUILT_AT=$(date -u +'%Y-%m-%d %H:%M')
+          URL="https://${GITHUB_REPOSITORY_OWNER}.github.io${SITE_BASE}preview/${SLUG}/"
+
+          # Bildarchive: Vorschauen nutzen normalerweise die ~131 MB Kartenbilder
+          # der Hauptseite mit (sonst läge das Archiv in JEDER Vorschau erneut und
+          # die Seite risse das 1-GB-Limit von GitHub Pages). Ändert der Branch
+          # selbst Bilddateien, bekommt die Vorschau ihre eigene Kopie.
+          ASSETS="$ASSETS_INPUT"
+          if [ "$ASSETS" = "auto" ]; then
+            ASSETS=main
+            git fetch --quiet --depth=1 origin +refs/heads/main:refs/remotes/origin/main || true
+            if git rev-parse --verify --quiet refs/remotes/origin/main >/dev/null; then
+              if [ -n "$(git diff --name-only origin/main HEAD -- public/cards public/game-icons)" ]; then
+                ASSETS=branch
+              fi
+            fi
+          fi
+
+          {
+            echo "slug=$SLUG"
+            echo "url=$URL"
+            echo "assets=$ASSETS"
+            echo "meta=$(jq -cn --arg slug "$SLUG" --arg branch "$BRANCH" \
+                              --arg sha "${GITHUB_SHA:0:7}" --arg builtAt "$BUILT_AT" \
+                              --arg commitUrl "$COMMIT_URL" \
+                              '{slug:$slug,branch:$branch,sha:$sha,builtAt:$builtAt,commitUrl:$commitUrl}')"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Vorschau: $BRANCH → preview/$SLUG (Bildarchive: $ASSETS)"
+
+      - name: Vorschau bauen
+        env:
+          PAGES_BASE: /quest-vault-reborn/preview/${{ steps.info.outputs.slug }}/
+          # 'main' → Bilder von der Hauptseite laden; 'branch' → leer, dann greift PAGES_BASE
+          PAGES_ASSET_BASE: ${{ steps.info.outputs.assets == 'main' && '/quest-vault-reborn/' || '' }}
+          PAGES_PREVIEW_BRANCH: ${{ github.ref_name }}
+          PAGES_PREVIEW_SLUG: ${{ steps.info.outputs.slug }}
+          PAGES_PREVIEW_SHA: ${{ github.sha }}
+        run: npm run build
+
+      - name: Bildarchive der Hauptseite mitbenutzen
+        if: steps.info.outputs.assets == 'main'
+        run: rm -rf dist/cards dist/game-icons
+
+      - name: Build weiterreichen
+        uses: actions/upload-artifact@v4
+        with:
+          name: vorschau-build
+          path: dist
+          retention-days: 1
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # schreibt in den Inhalts-Branch
+      pull-requests: write   # Vorschau-Link als PR-Kommentar
+    steps:
+      # BEWUSST der Default-Branch, nicht der vorzuschauende Branch: die
+      # Veröffentlichungslogik (Composite-Action + scripts/) soll immer die
+      # geprüfte Fassung aus `main` sein.
+      - name: Veröffentlichungslogik aus dem Default-Branch holen
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch || 'main' }}
+          persist-credentials: false
+
+      # Solange die Vorschau-Mechanik selbst noch nicht auf dem Default-Branch
+      # liegt, gibt es dort auch keine Veröffentlichungslogik. Dann bricht der
+      # Lauf nicht ab, sondern sagt, was fehlt (siehe „Bootstrap-Falle" im Wiki).
+      - name: Veröffentlichungslogik vorhanden?
+        id: logik
+        run: |
+          if [ -f .github/actions/pages-content/action.yml ]; then
+            echo "vorhanden=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "vorhanden=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Die Vorschau-Mechanik liegt noch nicht auf dem Default-Branch – Vorschauen entstehen ab dem Merge dieses Vorhabens."
+          fi
+
+      - name: Build holen
+        if: steps.logik.outputs.vorhanden == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: vorschau-build
+          path: dist
+
+      - name: Vorschau veröffentlichen
+        if: steps.logik.outputs.vorhanden == 'true'
+        uses: ./.github/actions/pages-content
+        with:
+          mode: preview
+          source: dist
+          slug: ${{ needs.bauen.outputs.slug }}
+          base: /quest-vault-reborn/
+          meta: ${{ needs.bauen.outputs.meta }}
+          message: "vorschau(${{ needs.bauen.outputs.slug }}): ${{ github.sha }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Zusammenfassung schreiben
+        if: steps.logik.outputs.vorhanden == 'true'
+        env:
+          URL: ${{ needs.bauen.outputs.url }}
+          BRANCH: ${{ github.ref_name }}
+          ASSETS: ${{ needs.bauen.outputs.assets }}
+        run: |
+          {
+            printf '### Branch-Vorschau veröffentlicht\n\n'
+            printf '**%s** → [%s](%s)\n\n' "$BRANCH" "$URL" "$URL"
+            printf 'Bildarchive: `%s` · Commit: `%s`\n\n' "$ASSETS" "$GITHUB_SHA"
+            printf 'Das eigentliche Deployment erledigt der Workflow "Pages veröffentlichen" (ein bis zwei Minuten).\n'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Vorschau-Link am Pull Request hinterlegen
+        if: steps.logik.outputs.vorhanden == 'true'
+        uses: actions/github-script@v7
+        env:
+          PREVIEW_URL: ${{ needs.bauen.outputs.url }}
+        with:
+          script: |
+            const marker = '<!-- qvr-preview -->'
+            const branch = context.ref.replace('refs/heads/', '')
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${branch}`,
+            })
+            if (prs.length === 0) return
+
+            const body = [
+              marker,
+              '### Branch-Vorschau',
+              '',
+              `**[Vorschau öffnen](${process.env.PREVIEW_URL})** · Commit \`${context.sha.slice(0, 7)}\``,
+              '',
+              'Die Vorschau ist ein eigenständiger Stand: Quests und Kampagnen-Spielstände',
+              'werden dort getrennt von der Live-Version gespeichert.',
+              'Nach dem Push dauert es ein bis zwei Minuten, bis das Deployment durch ist.',
+            ].join('\n')
+
+            for (const pr of prs) {
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: pr.number, per_page: 100,
+              })
+              const existing = comments.find((c) => c.body && c.body.includes(marker))
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body,
+                })
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo, issue_number: pr.number, body,
+                })
+              }
+            }

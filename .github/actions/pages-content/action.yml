@@ -1,0 +1,170 @@
+name: Pages-Inhalt aktualisieren
+description: >
+  Schreibt einen Build in den Inhalts-Branch der GitHub-Pages-Seite
+  (Hauptseite in der Wurzel, Branch-Vorschauen unter preview/<slug>/) und
+  erzeugt die Vorschau-Übersichtsseite neu.
+
+inputs:
+  mode:
+    description: "root (Hauptseite) | preview (Vorschau schreiben) | remove (Vorschau löschen)"
+    required: true
+  source:
+    description: "Verzeichnis mit den gebauten Dateien (bei mode=root/preview)"
+    required: false
+    default: dist
+  slug:
+    description: "Ordnername der Vorschau (bei mode=preview/remove)"
+    required: false
+    default: ''
+  meta:
+    description: "JSON mit den Vorschau-Metadaten (bei mode=preview)"
+    required: false
+    default: '{}'
+  expect-branch:
+    description: >
+      Nur bei mode=remove: Die Vorschau wird nur entfernt, wenn sie laut ihrer
+      preview.json zu diesem Branch gehört. Schützt den Fall, dass zwei
+      Branchnamen denselben Slug ergeben (z. B. feature/foo und feature-foo).
+    required: false
+    default: ''
+  base:
+    description: "Basis-Pfad der Seite"
+    required: false
+    default: /quest-vault-reborn/
+  branch:
+    description: "Inhalts-Branch"
+    required: false
+    default: pages-content
+  message:
+    description: "Commit-Nachricht"
+    required: true
+  token:
+    description: "Token mit Schreibrecht auf den Inhalts-Branch"
+    required: true
+
+outputs:
+  changed:
+    description: "true, wenn sich der Inhalt geändert hat"
+    value: ${{ steps.publish.outputs.changed }}
+
+runs:
+  using: composite
+  steps:
+    - name: Inhalts-Branch aktualisieren
+      id: publish
+      shell: bash
+      env:
+        MODE: ${{ inputs.mode }}
+        SOURCE: ${{ inputs.source }}
+        SLUG: ${{ inputs.slug }}
+        META: ${{ inputs.meta }}
+        EXPECT_BRANCH: ${{ inputs.expect-branch }}
+        BASE: ${{ inputs.base }}
+        BRANCH: ${{ inputs.branch }}
+        MESSAGE: ${{ inputs.message }}
+        GH_TOKEN: ${{ inputs.token }}
+        SCRIPTS: ${{ github.workspace }}/scripts
+      run: |
+        set -euo pipefail
+
+        case "$MODE" in
+          root|preview|remove) ;;
+          *) echo "::error::Unbekannter mode: $MODE"; exit 1 ;;
+        esac
+        if [ "$MODE" != "root" ] && [ -z "$SLUG" ]; then
+          echo "::error::mode=$MODE benötigt einen slug"; exit 1
+        fi
+        # Slugs kommen aus scripts/preview-slug.mjs; hier trotzdem hart prüfen,
+        # damit ein manipulierter Branchname niemals aus preview/ ausbrechen kann.
+        if [ -n "$SLUG" ] && ! printf '%s' "$SLUG" | grep -qE '^[a-z0-9][a-z0-9-]{0,63}$'; then
+          echo "::error::Ungültiger slug: $SLUG"; exit 1
+        fi
+
+        WORK="${RUNNER_TEMP}/pages-content"
+        REPO_URL="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+        # Bewusst ohne rsync (nicht auf jedem Runner-Image garantiert): erst das
+        # Zielverzeichnis leeren, dann den Build hineinkopieren.
+        apply() {
+          case "$MODE" in
+            root)
+              mkdir -p "$WORK"
+              # Alles in der Wurzel ersetzen — aber preview/ (die Vorschauen)
+              # und .git (der Branch selbst) müssen erhalten bleiben.
+              find "$WORK" -mindepth 1 -maxdepth 1 ! -name preview ! -name .git -exec rm -rf {} +
+              cp -a "$SOURCE"/. "$WORK"/
+              # Falls die Seite je wieder direkt aus dem Branch ausgeliefert wird:
+              # keine Jekyll-Verarbeitung (Unterstrich-Ordner bleiben erhalten).
+              touch "$WORK/.nojekyll"
+              ;;
+            preview)
+              rm -rf "${WORK:?}/preview/$SLUG"
+              mkdir -p "$WORK/preview/$SLUG"
+              cp -a "$SOURCE"/. "$WORK/preview/$SLUG"/
+              printf '%s' "$META" > "$WORK/preview/$SLUG/preview.json"
+              ;;
+            remove)
+              # Gehört die Vorschau überhaupt zum gelöschten Branch? Zwei
+              # Branchnamen können denselben Slug ergeben (feature/foo ↔ feature-foo)
+              # — dann darf das Löschen des einen die Vorschau des anderen nicht mitnehmen.
+              META_FILE="$WORK/preview/$SLUG/preview.json"
+              if [ -n "$EXPECT_BRANCH" ] && [ -f "$META_FILE" ]; then
+                OWNER=$(node -e 'try{process.stdout.write(String(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).branch||""))}catch(e){}' "$META_FILE")
+                if [ -n "$OWNER" ] && [ "$OWNER" != "$EXPECT_BRANCH" ]; then
+                  echo "::notice::preview/$SLUG gehört zu '$OWNER', nicht zu '$EXPECT_BRANCH' – wird NICHT entfernt."
+                else
+                  rm -rf "${WORK:?}/preview/$SLUG"
+                fi
+              else
+                rm -rf "${WORK:?}/preview/$SLUG"
+              fi
+              ;;
+          esac
+          node "$SCRIPTS/preview-index.mjs" "$WORK" "$BASE"
+        }
+
+        published=0
+        for attempt in 1 2 3 4 5; do
+          rm -rf "$WORK"
+          if git ls-remote --exit-code --heads "$REPO_URL" "$BRANCH" >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch "$BRANCH" "$REPO_URL" "$WORK"
+          else
+            echo "Inhalts-Branch '$BRANCH' existiert noch nicht – wird angelegt."
+            mkdir -p "$WORK"
+            git -C "$WORK" init --quiet -b "$BRANCH"
+            git -C "$WORK" remote add origin "$REPO_URL"
+          fi
+
+          apply
+
+          git -C "$WORK" config user.name "github-actions[bot]"
+          git -C "$WORK" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$WORK" add -A
+          if git -C "$WORK" diff --cached --quiet; then
+            echo "Keine inhaltliche Änderung – kein Commit nötig."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            published=1
+            break
+          fi
+          git -C "$WORK" commit --quiet -m "$MESSAGE"
+
+          if git -C "$WORK" push --quiet origin "HEAD:$BRANCH"; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            published=1
+            break
+          fi
+
+          echo "::warning::Push auf '$BRANCH' abgelehnt (paralleler Lauf) – Versuch $attempt/5 wird wiederholt."
+          sleep $((attempt * 5))
+        done
+
+        if [ "$published" -ne 1 ]; then
+          echo "::error::Inhalts-Branch konnte nach 5 Versuchen nicht aktualisiert werden."
+          exit 1
+        fi
+
+        SIZE_MB=$(du -sm --exclude=.git "$WORK" | cut -f1)
+        echo "Seiteninhalt: ${SIZE_MB} MB"
+        if [ "$SIZE_MB" -gt 900 ]; then
+          echo "::warning::Der Seiteninhalt nähert sich dem GitHub-Pages-Limit von 1 GB (${SIZE_MB} MB). Alte Vorschauen aufräumen."
+        fi
