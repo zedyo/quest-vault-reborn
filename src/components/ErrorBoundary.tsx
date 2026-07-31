@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from 'react'
+import { storageKey } from '../utils/previewBuild'
 
 interface Props {
   children: ReactNode
@@ -22,7 +23,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   handleExportBackup = () => {
     try {
-      const data = localStorage.getItem('quest-vault-reborn') ?? '{}'
+      const data = localStorage.getItem(storageKey('quest-vault-reborn')) ?? '{}'
       const blob = new Blob([data], { type: 'application/json' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')

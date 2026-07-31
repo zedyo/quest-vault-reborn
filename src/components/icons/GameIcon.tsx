@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { ASSET_BASE } from '../../data/assetUrls'
 
 /**
  * Gerasterte Descent-2e-Embleme (WebP, transparent) aus dem Icon-Set unter
@@ -94,9 +95,10 @@ function useIconTheme(override?: GameIconTheme): GameIconTheme {
 
 const SIZES = [32, 64, 128, 256] as const
 
-// BASE_URL statt "/" — die App wird unter GitHub Pages mit
-// base '/quest-vault-reborn/' ausgeliefert (vgl. assetUrls.ts).
-const BASE = `${import.meta.env.BASE_URL}game-icons`
+// ASSET_BASE statt "/" — die App wird unter GitHub Pages mit
+// base '/quest-vault-reborn/' ausgeliefert; in einer Branch-Vorschau zeigt
+// ASSET_BASE auf die Bilder der Hauptseite (vgl. assetUrls.ts).
+const BASE = `${ASSET_BASE}game-icons`
 
 function pickSize(px: number): number {
   const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1

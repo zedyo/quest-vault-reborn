@@ -51,7 +51,7 @@ Kontrakt der Unbesiegten · Hüter des Geheimnisses · Scherben von Everdark
 
 ## Lokal starten
 
-**Voraussetzungen:** Node.js ≥ 18
+**Voraussetzungen:** Node.js ≥ 22 (Vite 8 / react-router 8)
 
 ```bash
 git clone https://github.com/zedyo/quest-vault-reborn.git
@@ -68,6 +68,34 @@ Browser öffnet sich unter `http://localhost:5173`.
 npm run build
 # Build liegt in dist/ — kann direkt als statische Seite gehostet werden
 ```
+
+---
+
+## Entwicklungsstände vorab ansehen (Branch-Vorschauen)
+
+Jeder Push auf einen Entwicklungsbranch wird automatisch als eigene, vollständig
+bedienbare Vorschau veröffentlicht — so lässt sich eine Änderung im Browser prüfen,
+**bevor** sie nach `main` gemergt wird und live geht:
+
+| | Adresse |
+|---|---|
+| Live-Version | https://zedyo.github.io/quest-vault-reborn/ |
+| Übersicht aller Vorschauen | https://zedyo.github.io/quest-vault-reborn/preview/ |
+| Einzelne Vorschau | `…/quest-vault-reborn/preview/<branchname>/` |
+
+* Eine Vorschau ist unten links deutlich als solche gekennzeichnet (Branch + Commit).
+* **Spielstände sind getrennt:** Quests, Sammlung und Kampagnen einer Vorschau
+  liegen in einem eigenen Speicherbereich. Ein Entwicklungsstand kann die Daten der
+  Live-Version also nicht verändern. Zum Testen mit echten Daten: in der Live-Version
+  exportieren, in der Vorschau importieren.
+* Existiert ein Pull Request für den Branch, wird der Vorschau-Link dort als
+  Kommentar hinterlegt.
+* Nach dem Löschen des Branches (üblicherweise direkt nach dem Merge) wird die
+  Vorschau automatisch wieder entfernt.
+
+Vom Push bis zur fertigen Vorschau vergehen etwa zwei bis drei Minuten
+(Workflows „Branch-Vorschau" → „Pages veröffentlichen").
+Technischer Hintergrund: [`wiki/concepts/pages-preview-deployments.md`](wiki/concepts/pages-preview-deployments.md).
 
 ---
 

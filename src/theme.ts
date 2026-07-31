@@ -2,6 +2,11 @@
 // definiert (per `data-theme` auf <html> umschaltbar). Die Auswahl wird separat in
 // localStorage gespeichert – bewusst NICHT im zustand-Persist-Store, damit das
 // Spieldaten-Schema (und dessen Migrationspflicht) unangetastet bleibt.
+//
+// `storageKey` trennt den Schlüsselraum einer Branch-Vorschau von dem der
+// Hauptseite (beide liegen auf derselben Domain) — siehe utils/previewBuild.ts.
+
+import { storageKey } from './utils/previewBuild'
 
 export interface Theme {
   id: string
@@ -17,7 +22,7 @@ export const THEMES: Theme[] = [
 ]
 
 export const DEFAULT_THEME = 'heldentum'
-const STORAGE_KEY = 'qvr-theme'
+const STORAGE_KEY = storageKey('qvr-theme')
 
 /** Gespeichertes Theme lesen (oder Standard), robust gegen fehlenden/ungültigen Wert. */
 export function getStoredTheme(): string {

@@ -15,6 +15,18 @@ export const ANY2CARDS_IMAGES =
   'https://raw.githubusercontent.com/any2cards/d2e/master/images'
 
 /**
+ * Basis-URL der LOKALEN Bildarchive (`public/cards/**`, `public/game-icons/**`).
+ *
+ * Im Regelfall identisch mit `import.meta.env.BASE_URL` (also
+ * `/quest-vault-reborn/`). In einer Branch-VORSCHAU zeigt sie bewusst weiterhin
+ * auf die Hauptseite: die ~131 MB Kartenbilder werden dort nicht mitkopiert
+ * (Pages-Artefakt-Limit), sondern von der Produktionsseite geladen. Ändert ein
+ * Branch selbst Bilddateien, setzt der Vorschau-Workflow sie auf die Vorschau
+ * um (siehe `.github/workflows/preview.yml`).
+ */
+export const ASSET_BASE: string = __ASSET_BASE__ || import.meta.env.BASE_URL
+
+/**
  * expansionId → Ordnername im any2cards-Pfad. Für die meisten Erweiterungen ist
  * der Ordnername identisch mit der id; Sonderfall ist das Grundspiel
  * (`base` → `base-game`). Unbekannte ids fallen über `?? id` auf die identische
@@ -91,11 +103,11 @@ export function tileImageUrl(tile: { id: string; expansionId: string }): string 
 /**
  * Lokales deutsches Karten­bild eines Helden (aus den Original-Karten-Scans,
  * `public/cards/de/heroes/<id>.webp`). `back=true` liefert die Rückseite
- * (Flavor-Seite mit Heldenfähigkeit statt Heldentat). Der `BASE_URL`-Präfix
+ * (Flavor-Seite mit Heldenfähigkeit statt Heldentat). Der `ASSET_BASE`-Präfix
  * sorgt für den korrekten Pfad unter GitHub Pages (`/quest-vault-reborn/`).
  */
 export function heroCardDeUrl(id: string, back = false): string {
-  return `${import.meta.env.BASE_URL}cards/de/heroes/${id}${back ? '-back' : ''}.webp`
+  return `${ASSET_BASE}cards/de/heroes/${id}${back ? '-back' : ''}.webp`
 }
 
 /**
@@ -109,7 +121,7 @@ export function heroPortraitUrl(id: string): string {
   // `id` kann aus einem importierten Spielstand stammen (`TrackedHero.heroId`)
   // und ist dort bewusst nicht auf `[A-Za-z0-9_-]` eingeschränkt → kodieren,
   // damit „../"-Segmente nicht aus dem Bilderordner herausführen.
-  return `${import.meta.env.BASE_URL}cards/de/heroes/portraits/${encodeURIComponent(id)}.webp`
+  return `${ASSET_BASE}cards/de/heroes/portraits/${encodeURIComponent(id)}.webp`
 }
 
 /**
@@ -118,7 +130,7 @@ export function heroPortraitUrl(id: string): string {
  * `back=true` liefert die Rückseite (Fähigkeitstexte + Gruppengrößen).
  */
 export function monsterCardDeUrl(id: string, act: 1 | 2 = 1, back = false): string {
-  return `${import.meta.env.BASE_URL}cards/de/monsters/${id}-act${act}${back ? '-back' : ''}.webp`
+  return `${ASSET_BASE}cards/de/monsters/${id}-act${act}${back ? '-back' : ''}.webp`
 }
 
 /**
@@ -126,7 +138,7 @@ export function monsterCardDeUrl(id: string, act: 1 | 2 = 1, back = false): stri
  * `public/cards/de/geruechte/<id>.webp`).
  */
 export function rumorCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/geruechte/${id}.webp`
+  return `${ASSET_BASE}cards/de/geruechte/${id}.webp`
 }
 
 /**
@@ -134,7 +146,7 @@ export function rumorCardDeUrl(id: string): string {
  * `public/cards/de/geruechte/<id>-back.webp`). Nur für doppelseitige Karten.
  */
 export function rumorCardBackDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/geruechte/${id}-back.webp`
+  return `${ASSET_BASE}cards/de/geruechte/${id}-back.webp`
 }
 
 /**
@@ -142,7 +154,7 @@ export function rumorCardBackDeUrl(id: string): string {
  * `public/cards/de/items/<id>.webp`).
  */
 export function itemCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/items/${id}.webp`
+  return `${ASSET_BASE}cards/de/items/${id}.webp`
 }
 
 /**
@@ -151,7 +163,7 @@ export function itemCardDeUrl(id: string): string {
  * (`public/cards/de/relics/<id>.webp`).
  */
 export function relicCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/relics/${id}.webp`
+  return `${ASSET_BASE}cards/de/relics/${id}.webp`
 }
 
 /**
@@ -159,7 +171,7 @@ export function relicCardDeUrl(id: string): string {
  * `public/cards/de/overlord/<id>.webp`).
  */
 export function overlordCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/overlord/${id}.webp`
+  return `${ASSET_BASE}cards/de/overlord/${id}.webp`
 }
 
 /**
@@ -167,7 +179,7 @@ export function overlordCardDeUrl(id: string): string {
  * (`public/cards/de/lieutenants/<id>-act<1|2>.webp`).
  */
 export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
-  return `${import.meta.env.BASE_URL}cards/de/lieutenants/${id}-act${act}.webp`
+  return `${ASSET_BASE}cards/de/lieutenants/${id}-act${act}.webp`
 }
 
 /**
@@ -175,7 +187,7 @@ export function lieutenantCardDeUrl(id: string, act: 1 | 2): string {
  * (`public/cards/de/agents/<agentId>-act<1|2>.webp`).
  */
 export function agentCardDeUrl(id: string, act: 1 | 2): string {
-  return `${import.meta.env.BASE_URL}cards/de/agents/${id}-act${act}.webp`
+  return `${ASSET_BASE}cards/de/agents/${id}-act${act}.webp`
 }
 
 /**
@@ -184,7 +196,7 @@ export function agentCardDeUrl(id: string, act: 1 | 2): string {
  * „Handlungskarten"-Scan vorhanden; sonst greift der EN-any2cards-Fallback.
  */
 export function plotCardDeUrl(cardId: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/plotdecks/${cardId}.webp`
+  return `${ASSET_BASE}cards/de/plotdecks/${cardId}.webp`
 }
 
 /**
@@ -192,14 +204,14 @@ export function plotCardDeUrl(cardId: string): string {
  * (`public/cards/de/reisekarten/<id>.webp`).
  */
 export function travelCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/reisekarten/${id}.webp`
+  return `${ASSET_BASE}cards/de/reisekarten/${id}.webp`
 }
 
 /**
  * Lokales deutsches Zustandskarten-Bild (`public/cards/de/zustand/<id>.webp`).
  */
 export function conditionCardDeUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/zustand/${id}.webp`
+  return `${ASSET_BASE}cards/de/zustand/${id}.webp`
 }
 
 /**
@@ -207,7 +219,7 @@ export function conditionCardDeUrl(id: string): string {
  * (`public/cards/de/overlays/<id>.png`, Original-Token aus any2cards).
  */
 export function overlayTokenUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/overlays/${id}.png`
+  return `${ASSET_BASE}cards/de/overlays/${id}.png`
 }
 
 /**
@@ -215,7 +227,7 @@ export function overlayTokenUrl(id: string): string {
  * (`public/cards/de/classes/<item-id>.webp`, aus den Klassenkarten-Scans).
  */
 export function classItemDeUrl(itemId: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/classes/${itemId}.webp`
+  return `${ASSET_BASE}cards/de/classes/${itemId}.webp`
 }
 
 /**
@@ -223,7 +235,7 @@ export function classItemDeUrl(itemId: string): string {
  * (`public/cards/de/classes/familiar-<class-id>.webp`).
  */
 export function classFamiliarDeUrl(classId: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/classes/familiar-${classId}.webp`
+  return `${ASSET_BASE}cards/de/classes/familiar-${classId}.webp`
 }
 
 /**
@@ -233,5 +245,5 @@ export function classFamiliarDeUrl(classId: string): string {
  * fällt `CardThumb` auf das englische any2cards-Bild (`skill.imageUrl`) zurück.
  */
 export function classSkillDeUrl(classId: string, skillId: string): string {
-  return `${import.meta.env.BASE_URL}cards/de/classes/skills/${classId}-${skillId}.webp`
+  return `${ASSET_BASE}cards/de/classes/skills/${classId}-${skillId}.webp`
 }

@@ -1,10 +1,11 @@
 import type { PlacedOverlay } from '../types/game'
 import type { PlacedMapTile, Rotation } from '../components/MapBuilder/types'
+import { storageKey } from './previewBuild'
 
 // Standalone-Kartenbauer (/karte) persistiert seinen Entwurf in einem EIGENEN
 // localStorage-Key — bewusst getrennt vom zustand-Persist-Schema (quests), damit
 // hierfür kein Schema-Bump nötig ist (gleiches Muster wie src/theme.ts).
-const KEY = 'qvr-builder-draft'
+const KEY = storageKey('qvr-builder-draft')
 
 export interface BuilderDraft {
   tiles: PlacedMapTile[]

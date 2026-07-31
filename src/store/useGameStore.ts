@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { Quest } from '../types/game'
+import { storageKey } from '../utils/previewBuild'
 
 interface GameStore {
   ownedExpansionIds: string[]
@@ -63,7 +64,7 @@ export const useGameStore = create<GameStore>()(
         })),
     }),
     {
-      name: 'quest-vault-reborn',
+      name: storageKey('quest-vault-reborn'),
       version: PERSIST_VERSION,
       migrate: (persisted, _version) => {
         // v0 → v1: keine Strukturänderung, nur Validierung nachgerüstet.

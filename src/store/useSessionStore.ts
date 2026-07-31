@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { CampaignSession } from '../types/session'
 import { sanitizeSessionList } from '../utils/sessionImport'
+import { storageKey } from '../utils/previewBuild'
 
 // Eigener Store für den Kampagnen-Session-Tracker – bewusst GETRENNT vom
 // Spieldaten-Store (`useGameStore`, Key `quest-vault-reborn`). So bleibt dessen
@@ -56,7 +57,7 @@ export const useSessionStore = create<SessionStore>()(
       setActiveSession: (id) => set({ activeSessionId: id }),
     }),
     {
-      name: 'qvr-sessions',
+      name: storageKey('qvr-sessions'),
       version: PERSIST_VERSION,
       migrate: (persisted, _version) => {
         // Migrationskette – alle Schritte laufen über `sanitizeSession`, das die

@@ -1,6 +1,6 @@
 # Helden-Kopfporträts (Mini-Kreise)
 
-**Stand:** v1.8.2 · **Erzeugt von:** `scripts/hero_portraits.py` ·
+**Stand:** v1.8.3 · **Erzeugt von:** `scripts/hero_portraits.py` ·
 **Kopf-Boxen:** `scripts/hero_face_boxes.json` ·
 **Ausgabe:** `public/cards/de/heroes/portraits/<hero-id>.webp` (60 Dateien, 256 × 256, ≤ 18 KB, gesamt ~712 KB)
 
@@ -16,7 +16,7 @@ kleine Kreise bzw. Kacheln (22–64 px). Dort standen bis v1.8.1:
 * **Quest-Editor:** ein blinder Ausschnitt der Landschafts-Karte
   (`object-position: left center`), bei 28–64 px nicht erkennbar.
 
-Seit v1.8.2 steht dort das **Gesicht des Helden**.
+Seit v1.8.3 steht dort das **Gesicht des Helden**.
 
 ## Verfahren
 
@@ -81,8 +81,10 @@ Logan Lashley, Lyssa, Ashrian.
 
 ## Verwendung im Code
 
-`heroPortraitUrl(id)` in `src/data/assetUrls.ts` liefert den Pfad
-(mit `import.meta.env.BASE_URL` — GitHub-Pages-Base, **nicht** hart `/cards/...`).
+`heroPortraitUrl(id)` in `src/data/assetUrls.ts` liefert den Pfad (über `ASSET_BASE`,
+damit Branch-Vorschauen die Bilder von der Hauptseite laden — **nicht** hart `/cards/...`).
+Die Id wird `encodeURIComponent`-kodiert, weil sie aus einem importierten Spielstand
+stammen kann.
 
 | Komponente | Rolle |
 |---|---|
@@ -95,7 +97,7 @@ Eingehängt in: `HomePage` (Partei, 34 px) · `OverviewSection` · `HeroesSectio
 
 Das Kürzel liegt **unter** dem Bild und wird nur sichtbar, wenn das Bild fehlt
 (z. B. unbekannte Helden-Id aus einem importierten Spielstand) — ein Fehlschlag
-sieht dann exakt wie vor v1.8.2 aus.
+sieht dann exakt wie vor v1.8.3 aus.
 
 ## Nachpflege
 
