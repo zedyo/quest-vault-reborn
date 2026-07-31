@@ -5,15 +5,18 @@ on:
     branches:
       - main
 
+# Nur EIN Pages-Deployment gleichzeitig. `cancel-in-progress: false` ist für
+# Deployment-Workflows die dokumentierte Empfehlung: ein bereits laufendes
+# Deployment darf fertig werden, statt mittendrin abgebrochen zu werden.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
@@ -33,12 +36,13 @@ jobs:
       - name: Produktions-Build erstellen
         run: npm run build
 
-      - name: gh-pages-Branch synchronisieren
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          force_orphan: true
+      # HINWEIS: Hier stand bis v1.8.1 zusätzlich ein `peaceiris/actions-gh-pages`-Schritt,
+      # der `dist/` in den `gh-pages`-Branch gepusht hat. Dieser Push löste GitHubs
+      # eingebauten `pages-build-deployment`-Workflow aus, der PARALLEL zum Job `deploy`
+      # unten ein zweites Pages-Deployment anlegen wollte. Beide Wege rannten gegeneinander;
+      # der Verlierer brach mit HTTP 400 ab ("due to in progress deployment. Please cancel
+      # ... first or wait for it to complete"). Der Branch-Weg ist entfernt — es bleibt der
+      # Artefakt-Weg (configure-pages -> upload-pages-artifact -> deploy-pages).
 
       - name: GitHub Pages konfigurieren
         uses: actions/configure-pages@v4

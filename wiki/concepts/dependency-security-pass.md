@@ -130,6 +130,46 @@ Null JS-/Render-Fehler.
 > ist ein Erweiterungs-Monster und wird vom Sammlungs-Filter (Standard: nur Grundspiel)
 > ausgeblendet. Für Suchtests ein Grundspiel-Monster nehmen.
 
+# Nachtrag: fehlgeschlagener Pages-Build nach dem Merge (gleicher Tag)
+
+Nach dem Merge meldete der Workflow **`Deploy to GitHub Pages` = success**, GitHubs
+**eingebauter `pages-build-deployment` = failure** (Run #151). Ursache war **nicht** das
+Dependency-Upgrade, sondern ein seit Langem bestehender **Konflikt zweier
+Deployment-Wege** in `deploy.yml`:
+
+1. `peaceiris/actions-gh-pages@v4` pusht `dist/` in den `gh-pages`-Branch → dieser Push
+   löst GitHubs eingebauten `pages-build-deployment`-Workflow aus, der ein Pages-Deployment
+   anlegt.
+2. `configure-pages` → `upload-pages-artifact` → `deploy-pages` legt **ebenfalls** ein
+   Pages-Deployment an.
+
+Beide laufen gleichzeitig; GitHub serialisiert Pages-Deployments, der Verlierer bricht ab:
+
+```
+HttpError: Deployment request failed for 476a628e (gh-pages) due to in progress
+deployment. Please cancel 82743ce1 (main) first or wait for it to complete.
+```
+
+Es ist ein **Wettlauf**, deshalb schlug es nur sporadisch fehl (vorher zuletzt Run #123 am
+2026-07-05, dazwischen 27 grüne Läufe). Der Job `deploy` unseres eigenen Workflows war in
+beiden Fällen erfolgreich — die Seite war nie kaputt, es blieb ein rotes X zurück.
+
+**Fix (v1.8.2):** der `peaceiris`-Schritt ist entfernt; es bleibt der Artefakt-Weg.
+Ohne Push auf `gh-pages` wird der eingebaute Workflow gar nicht mehr ausgelöst → kein
+Wettlauf mehr. Zusätzlich `contents: write` → **`contents: read`** (der Branch-Push war
+der einzige Grund für Schreibrechte) und `cancel-in-progress` → **`false`** (dokumentierte
+Empfehlung für Deployment-Workflows: ein laufendes Deployment fertig werden lassen,
+statt es mittendrin abzubrechen).
+
+> **Beleg für die Richtung:** `actions/deploy-pages@v4` lief erfolgreich durch — das geht
+> nur, wenn die Pages-Quelle auf **„GitHub Actions"** steht (bei „Deploy from a branch"
+> bricht die Action ab). Der `gh-pages`-Branch bleibt vorerst als Rückfallebene liegen; er
+> wird nur nicht mehr beschrieben.
+
+> **Merkregel:** Nach jedem Merge **beide** Workflows prüfen — `Deploy to GitHub Pages`
+> *und* `pages-build-deployment`. Ein grüner Deploy-Workflow allein ist kein Beweis, dass
+> GitHub Pages sauber gebaut hat.
+
 # Citations
 
 - `package.json`, `package-lock.json` (Stand v1.8.1)
