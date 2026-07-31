@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/quest-vault-reborn/sw.js', { scope: '/quest-vault-reborn/' })})}

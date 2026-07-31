@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Quest Vault Reborn – Branch-Vorschauen</title>
+<style>
+  :root { color-scheme: dark light; --bg:#14100c; --fg:#efe6d6; --muted:#a2937c; --line:#3a3128; --card:#1d1811; --accent:#e0552b; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#e9dcc0; --fg:#2a2118; --muted:#6c5c46; --line:#c8b48a; --card:#f6ecd6; --accent:#9a6b12; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:2.5rem 1.25rem; background:var(--bg); color:var(--fg);
+         font:16px/1.6 ui-serif, Georgia, serif; }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 .35rem; letter-spacing:.02em; }
+  p.lead { color: var(--muted); margin:0 0 2rem; font-size:.95rem; }
+  ul { list-style:none; margin:0; padding:0; display:grid; gap:.75rem; }
+  .card { border:1px solid var(--line); background:var(--card); border-radius:12px; padding:1rem 1.15rem; }
+  .card.empty { color:var(--muted); font-size:.92rem; }
+  a { color:var(--accent); }
+  a.title { display:block; font-size:1.05rem; font-weight:600; word-break:break-all; text-decoration:none; }
+  a.title:hover { text-decoration:underline; }
+  dl { display:flex; flex-wrap:wrap; gap:.25rem 1.5rem; margin:.6rem 0 0; font-size:.82rem; }
+  dl > div { display:flex; gap:.4rem; }
+  dt { color:var(--muted); }
+  dd { margin:0; font-family: ui-monospace, monospace; }
+  footer { margin-top:2.5rem; color:var(--muted); font-size:.8rem; border-top:1px solid var(--line); padding-top:1rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Branch-Vorschauen</h1>
+  <p class="lead">Entwicklungsstände, die noch nicht in <code>main</code> gemergt sind.
+     Jede Vorschau speichert ihre Quests und Spielstände getrennt von der Live-Version.</p>
+  <ul>
+      <li class="card empty">Zurzeit ist keine Vorschau veröffentlicht.
+        Sie entsteht automatisch beim nächsten Push auf einen Entwicklungsbranch.</li>
+  </ul>
+  <footer>
+    <a href="/quest-vault-reborn/">← Zur Live-Version</a>
+  </footer>
+</main>
+</body>
+</html>
