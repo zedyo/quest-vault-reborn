@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.8.2',
+    date: '2026-07-31',
+    title: 'Neue Stände lassen sich vor der Veröffentlichung ausprobieren',
+    highlights: [
+      'Ein Entwicklungsstand kann jetzt unter einer eigenen Adresse ausprobiert werden, bevor er auf der Hauptseite landet.',
+      'Solche Vorschau-Seiten sind deutlich als solche gekennzeichnet und speichern ihre Quests und Kampagnen getrennt — an den Daten der Hauptseite ändert sich dabei nichts.',
+    ],
+  },
+  {
     version: '1.8.1',
     date: '2026-07-31',
     title: 'Wartungs-Update: technischer Unterbau aktualisiert',

@@ -4,6 +4,9 @@ on:
   push:
     branches-ignore:
       - main
+      # Inhalts-Branches der Pages-Seite enthalten keinen Quellcode.
+      - pages-content
+      - gh-pages
   pull_request:
 
 jobs:

@@ -11,8 +11,9 @@
 import { useCallback, useState } from 'react'
 import type { PlayedScenario } from '../../../types/session'
 import { sanitizePlayedScenario } from '../../../utils/sessionImport'
+import { storageKey } from '../../../utils/previewBuild'
 
-const KEY_PREFIX = 'qvr-scenario-draft'
+const KEY_PREFIX = storageKey('qvr-scenario-draft')
 
 /**
  * Ein Entwurf JE KAMPAGNE — sonst überschreibt der Flow in Kampagne B den
