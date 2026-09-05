@@ -20,6 +20,15 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
+    version: '1.8.5',
+    date: '2026-09-05',
+    title: 'Letzte fehlende Bewahrer-Karte ergänzt',
+    highlights: [
+      'Die Fertigkeit „Interdisziplinär" der Klasse Bewahrer zeigt jetzt ihre deutsche Originalkarte. Als einzige Bewahrer-Karte hatte sie bisher gar kein Kartenbild.',
+      'Damit sind alle vier Bewahrer-Fertigkeiten bebildert, auch im Session-Tracker und auf dem Heldenbogen.',
+    ],
+  },
+  {
     version: '1.8.4',
     date: '2026-07-31',
     title: 'Heldengesichter auch in der Kampagnen-Auswahl',

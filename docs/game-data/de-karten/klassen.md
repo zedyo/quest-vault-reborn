@@ -7,13 +7,15 @@
 
 **Bestand:** 36 Klassen = 24 Standard-Klassen + 12 Hybrid-Klassen (Unsterbliche Legenden + Rostende Ketten).
 
-**Fertigkeits-Kartenbilder (v1.6.9):** 267 deutsche Original-Fertigkeitskarten liegen unter
-`public/cards/de/classes/skills/<classId>-<skillId>.webp` (aus `Klassenkarten 1..4.jpg` +
+**Fertigkeits-Kartenbilder (v1.6.9, ergänzt v1.8.5):** 268 deutsche Original-Fertigkeitskarten
+liegen unter `public/cards/de/classes/skills/<classId>-<skillId>.webp` (aus `Klassenkarten 1..4.jpg` +
 Einzel-PNGs); `classSkillDeUrl()` + ClassesPage zeigen sie mit EN-Fallback. Bild→Fertigkeit
 wurde über den Regeltext zugeordnet (Kartentitel ≠ Daten-Name bei einigen Klassen).
 **Ohne DE-Bild (Scan-Lücken, EN-Fallback):** Elementarmagier **Sturmeswut** + **Zorn der Natur**
-(der Scan enthält stattdessen je ein Duplikat von „Himmel und Erde"/„Umarmung der Natur"),
-Bewahrer **Interdisziplinär** (Karte 1 fehlt im Scan). **11 Namens-Korrekturen** an den
+(der Scan enthält stattdessen je ein Duplikat von „Himmel und Erde"/„Umarmung der Natur").
+Bewahrer **Interdisziplinär** war die dritte Lücke (keine `Klasse Bewahrer 1.png` im
+`scans-transfer`-Manifest) und liegt **seit v1.8.5** vor, vom User separat nachgeliefert.
+Herkunft + Aufbereitung siehe `../scan-sources.md`. **11 Namens-Korrekturen** an den
 Kartentitel: siehe Berserker/Schattenwandler/Schatzjäger unten (z. B. Ansturm→Sturmangriff).
 
 Hybrid-Klassen tragen eine Startkarte, die sie mit einem Standard-Klassendeck eines anderen Archetyps kombiniert.
