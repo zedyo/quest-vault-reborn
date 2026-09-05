@@ -140,8 +140,32 @@ Kreuzritter,Plünderer,Rächer,Verwüster,Wahrsaager} N.png` (Elementarmagier/Se
 8 Unsterbliche-Legenden-Hybriden; die 4 Rostende-Ketten-Hybriden Wächter/Stahlmagier/Mönch/
 Kampfmagier liegen auf den Sheets). Ziel: `public/cards/de/classes/skills/<classId>-<skillId>.webp`.
 **Scan-Lücken (kein DE-Bild, EN-Fallback):** Elementarmagier `Sturmeswut`/`Zorn der Natur`
-(Einzel-PNGs enthalten stattdessen je ein Duplikat von `Himmel und Erde`/`Umarmung der Natur`),
-Bewahrer `Interdisziplinär` (keine `Klasse Bewahrer 1.png` im Manifest).
+(Einzel-PNGs enthalten stattdessen je ein Duplikat von `Himmel und Erde`/`Umarmung der Natur`).
+
+### Nachtrag v1.8.5 – Bewahrer `Interdisziplinär` (Fremdquelle, nicht aus diesem Release)
+
+Die dritte Lücke ist geschlossen: Für Bewahrer `Interdisziplinär` gibt es weiterhin **keine**
+`Klasse Bewahrer 1.png` im Manifest. Das Bild wurde vom **User separat beschafft** und über
+den Entwicklungsbranch ins Repo gegeben (Rohdatei danach wieder entfernt).
+
+- **Herkunft:** Der Dateiname der Rohdatei verwies auf `steamusercontent-a.akamaihd.net/ugc/…`,
+  also auf Steam-Workshop-Inhalte (Descent 2e existiert dort als Tabletop-Simulator-Mod).
+  Das ist eine **andere Quelle als der `scans-transfer`-Release** und hier bewusst vermerkt.
+- **Plausibilität geprüft:** Der Scanner-Hintergrund unter dem Alphakanal trägt exakt den
+  Farbton der Release-Sheets (RGB ~198/210/212 gegen ~197/207/206 bei
+  `lorekeeper-lkancientremedy`), das Seitenverhältnis liegt bei 0,6558 gegen 0,6567 im
+  Bestand. Das Bild stammt also mit hoher Wahrscheinlichkeit aus derselben Scan-Familie und
+  ist kein Fremdrender.
+- **Inhaltlich verifiziert:** Kartentitel `INTERDISZIPLINÄR`, Klassenzeile `BEWAHRER`, kein
+  EP-Wert und kein Erschöpfungssymbol (passt zu `xpCost: 0`/`fatigueCost: 0`); der Regeltext
+  deckt sich wortgenau mit `rulesDe` in `heroClasses.ts` und mit `de-karten/klassen.md`.
+  **Keine** Daten- oder Textkorrektur nötig.
+- **Aufbereitung:** Quelle 501×764 RGBA (mit nachträglich aufgelegter Transparenzmaske für
+  Rand + abgerundete Ecken). Der Alphakanal wurde **verworfen** statt auf Weiß komponiert:
+  darunter liegt der originale Scan-Hintergrund, dadurch sehen die Ecken exakt aus wie im
+  Bestand. Danach LANCZOS auf die einheitliche Bestandsbreite 440 px (ergibt 440×671, exakt die
+  Höhe von `lorekeeper-lkallknowing`), WebP `quality=90, method=6` → 102,8 KB (Bestand:
+  50–112 KB, Median 100,8 KB). Kein Zuschnitt: der Randanteil entsprach bereits dem Bestand.
 `Marker/` + `Symbole/` = Token/Symbole (größtenteils bereits über any2cards-Overlays bzw.
 als SVG in `GameSymbols` abgedeckt). `Regelbücher PDF/` = 13 Handbücher (separater Task,
 CRRG-Errata bereits via `Community Hausregeln V 1.15.pdf` eingebunden).

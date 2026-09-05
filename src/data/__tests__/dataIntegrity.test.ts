@@ -265,11 +265,12 @@ describe('Helden-Klassen-Datenintegrität', () => {
   it('Klassen-Fertigkeitsbilder (de/classes/skills): vollständig außer bekannten Scan-Lücken, keine Waisen', () => {
     const files = import.meta.glob('/public/cards/de/classes/skills/*.webp')
     const present = new Set(Object.keys(files).map((p) => p.split('/').pop()!.replace('.webp', '')))
-    // 3 Fertigkeiten haben KEIN deutsches Kartenbild (im Scan fehlend/dupliziert) → EN-Fallback:
-    //  - Elementarmagier „Sturmeswut"/„Zorn der Natur" (Scan enthält stattdessen Duplikate von
-    //    „Himmel und Erde"/„Umarmung der Natur"); Bewahrer „Interdisziplinär" (Karte 1 nicht im Scan).
+    // 2 Fertigkeiten haben KEIN deutsches Kartenbild (im Scan dupliziert) → EN-Fallback:
+    // Elementarmagier „Sturmeswut"/„Zorn der Natur" (Scan enthält stattdessen Duplikate von
+    // „Himmel und Erde"/„Umarmung der Natur"). Bewahrer „Interdisziplinär" war bis v1.8.4 die
+    // dritte Lücke und liegt seit v1.8.5 vor (vom User nachgeliefert).
     const KNOWN_MISSING = new Set([
-      'elementalist-elemenstormsfury', 'elementalist-elemennatfury', 'lorekeeper-lkinterdisciplinary',
+      'elementalist-elemenstormsfury', 'elementalist-elemennatfury',
     ])
     const valid = new Set<string>()
     const missing: string[] = []
